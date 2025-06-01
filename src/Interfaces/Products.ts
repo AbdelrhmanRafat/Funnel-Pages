@@ -3,10 +3,10 @@ export interface FunnelRes {
     status: number;
     errors: string | null;
     message: string;
-    data: WelcomeData;
+    data: Data;
 }
 
-export interface WelcomeData {
+export interface Data {
     product: Product;
     theme: string;
     accept_online_payment: boolean;
