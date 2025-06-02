@@ -1,4 +1,6 @@
 ---
+import "../../../styles/global.css";
+
 import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct.astro";
 import ClassicThemeHeader from "./ClassicTheme/ClassicThemeHeader.astro";
 import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountDown.astro";
@@ -6,7 +8,6 @@ import ClassicThemeFormFields from "./ClassicTheme/ClassicThemeFormFields.astro"
 import ClassicThemeTodayOrders from "./ClassicTheme/ClassicThemeTodayOrders.astro";
 import ClassicThemeProductFunnel from "./ClassicTheme/ClassicThemeProductFunnel.astro";
 import ClassicThemeFooter from "./ClassicTheme/ClassicThemeFooter.astro";
-
 
 import { FunnelClassicComponents } from '../../../Interfaces/Themes';
 import type { Data, BlockData } from "../../../Interfaces/Products";
@@ -35,18 +36,17 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
 }
 ---
 
+<section>
 {isComponentFound(FunnelClassicComponents.ClassicHeader).isComponentFound && (
   <ClassicThemeHeader data={isComponentFound(FunnelClassicComponents.ClassicHeader).componentData} />
 )}
 
-<ClassicThemeProduct Product={funnelPage.product}></ClassicThemeProduct>
+{isComponentFound(FunnelClassicComponents.ClassicCountdown).isComponentFound && (
+  <ClassicThemeCountDown data={isComponentFound(FunnelClassicComponents.ClassicCountdown).componentData} />
+)}
 
 {isComponentFound(FunnelClassicComponents.ClassicFormFields).isComponentFound && (
   <ClassicThemeFormFields data={isComponentFound(FunnelClassicComponents.ClassicFormFields).componentData} />
-)}
-
-{isComponentFound(FunnelClassicComponents.ClassicCountdown).isComponentFound && (
-  <ClassicThemeCountDown data={isComponentFound(FunnelClassicComponents.ClassicCountdown).componentData} />
 )}
 
 {isComponentFound(FunnelClassicComponents.ClassicTodayOrders).isComponentFound && (
@@ -60,3 +60,7 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
 {isComponentFound(FunnelClassicComponents.ClassicFooter).isComponentFound && (
   <ClassicThemeFooter data={isComponentFound(FunnelClassicComponents.ClassicFooter).componentData} />
 )}
+
+<ClassicThemeProduct Product={funnelPage.product}></ClassicThemeProduct>
+
+</section>

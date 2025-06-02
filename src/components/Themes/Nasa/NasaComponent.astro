@@ -17,8 +17,9 @@ interface ComponentCheckResult {
 }
 
 const funnelPage = (Astro.props as { funnelPage: Data }).funnelPage;
+console.log(funnelPage);
 
-const classicComponentNames: [FunnelNasaComponents, BlockData][] = funnelPage.blocks
+const NasaComponentNames: [FunnelNasaComponents, BlockData][] = funnelPage.blocks
   .map(block => {
     const component = getNasaThemeComponent(block.name);
     return component ? [component, block.data] : undefined;
@@ -26,26 +27,27 @@ const classicComponentNames: [FunnelNasaComponents, BlockData][] = funnelPage.bl
   .filter((tuple): tuple is [FunnelNasaComponents, BlockData] => tuple !== undefined);
 
 function isComponentFound(componentName: FunnelNasaComponents): ComponentCheckResult {
-  const found = classicComponentNames.find(([comp]) => comp === componentName);
+  const found = NasaComponentNames.find(([comp]) => comp === componentName);
   return {
     isComponentFound: !!found,
     componentData: found?.[1]
   };
 }
+
 ---
 
 {isComponentFound(FunnelNasaComponents.NasaHeader).isComponentFound && (
   <NasaThemeHeader data={isComponentFound(FunnelNasaComponents.NasaHeader).componentData} />
 )}
 
+{isComponentFound(FunnelNasaComponents.NasaCountdown).isComponentFound && (
+  <NasaThemeCountDown data={isComponentFound(FunnelNasaComponents.NasaCountdown).componentData} />
+)}
+
 <NasaThemeProduct Product={funnelPage.product} />
 
 {isComponentFound(FunnelNasaComponents.NasaFormFields).isComponentFound && (
   <NasaThemeFormFields data={isComponentFound(FunnelNasaComponents.NasaFormFields).componentData} />
-)}
-
-{isComponentFound(FunnelNasaComponents.NasaCountdown).isComponentFound && (
-  <NasaThemeCountDown data={isComponentFound(FunnelNasaComponents.NasaCountdown).componentData} />
 )}
 
 {isComponentFound(FunnelNasaComponents.NasaTodayOrders).isComponentFound && (
