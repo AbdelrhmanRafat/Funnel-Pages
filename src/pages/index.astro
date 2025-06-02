@@ -3,31 +3,29 @@ import type { FunnelRes } from '../Interfaces/Products';
 import Layout from '../layouts/Layout.astro';
 import { getFunnelPage } from '../Services/FunnelPageService';
 import { getThemeFromString } from '../Services/ThemesSelectService';
-import  { theme } from '../Interfaces/Themes'
+import  { Theme } from '../Interfaces/Themes'
 import ClassicComponent from '../components/Themes/Classic/ClassicComponent.astro';
 import DarkComponent from '../components/Themes/Dark/DarkComponent.astro';
 import LightComponent from '../components/Themes/Light/LightComponent.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 const funnelPage : FunnelRes = await getFunnelPage();
 const strTheme : string = funnelPage.data.theme;
-const enumTheme : theme | undefined = getThemeFromString(strTheme);
+const enumTheme : Theme | undefined = getThemeFromString(strTheme);
 ---
 
 <Layout>
   {
     (() => {
       switch (enumTheme) {
-        case theme.Classic:
-          return <ClassicComponent funnelPage={funnelPage} />;
-        case theme.Dark:
-          return <DarkComponent funnelPage={funnelPage}  />;
-        case theme.Light:
-          return <LightComponent funnelPage={funnelPage}  />;
+        case Theme.Classic:
+          return <ClassicComponent funnelPage={funnelPage.data} />;
+        case Theme.Dark:
+          return <DarkComponent funnelPage={funnelPage.data}  />;
+        case Theme.Light:
+          return <LightComponent funnelPage={funnelPage.data}  />;
         default:
           return <p>Theme not found</p>;
       }
     })()
-  }
+  } 
 </Layout>

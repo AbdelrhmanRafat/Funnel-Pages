@@ -1,0 +1,12 @@
+---
+import type { BlockData } from "../../../../Interfaces/Products";
+
+interface Props {
+  data?: BlockData;
+}
+
+const { data } = Astro.props;
+console.log("Count Down : ",data);
+---
+
+<div>Classic Theme CountDown</div>

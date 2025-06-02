@@ -1,7 +1,64 @@
 ---
-const { funnelPage } = Astro.props;
+import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct.astro";
+import ClassicThemeHeader from "./ClassicTheme/ClassicThemeHeader.astro";
+import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountDown.astro";
+import ClassicThemeFormFields from "./ClassicTheme/ClassicThemeFormFields.astro";
+import ClassicThemeTodayOrders from "./ClassicTheme/ClassicThemeTodayOrders.astro";
+import ClassicThemeProductFunnel from "./ClassicTheme/ClassicThemeProductFunnel.astro";
 
-console.log(funnelPage.data);
+import { FunnelClassicComponents } from '../../../Interfaces/Themes';
+import type { Data, BlockData } from "../../../Interfaces/Products";
+import { getClassicThemeComponent } from "../../../Services/ThemesSelectService";
+import ClassicThemeFooter from "./ClassicTheme/ClassicThemeFooter.astro";
+
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: BlockData | undefined;
+}
+
+const funnelPage = (Astro.props as { funnelPage: Data }).funnelPage;
+
+const classicComponentNames: [FunnelClassicComponents, BlockData][] = funnelPage.blocks
+  .map(block => {
+    const component = getClassicThemeComponent(block.name);
+    return component ? [component, block.data] : undefined;
+  })
+  .filter((tuple): tuple is [FunnelClassicComponents, BlockData] => tuple !== undefined);
+
+function isComponentFound(componentName: FunnelClassicComponents): ComponentCheckResult {
+  const found = classicComponentNames.find(([comp]) => comp === componentName);
+  return {
+    isComponentFound: !!found,
+    componentData: found?.[1]
+  };
+}
 ---
 
-<div>Classic</div>
+{isComponentFound(FunnelClassicComponents.ClassicHeader).isComponentFound && (
+  <ClassicThemeHeader data={isComponentFound(FunnelClassicComponents.ClassicHeader).componentData} />
+)}
+
+<ClassicThemeProduct Product={funnelPage.product}></ClassicThemeProduct>
+
+
+<ClassicThemeProduct Product={funnelPage.product}></ClassicThemeProduct>
+
+{isComponentFound(FunnelClassicComponents.ClassicFormFields).isComponentFound && (
+  <ClassicThemeFormFields data={isComponentFound(FunnelClassicComponents.ClassicFormFields).componentData} />
+)}
+
+{isComponentFound(FunnelClassicComponents.ClassicCountdown).isComponentFound && (
+  <ClassicThemeCountDown data={isComponentFound(FunnelClassicComponents.ClassicCountdown).componentData} />
+)}
+
+{isComponentFound(FunnelClassicComponents.ClassicTodayOrders).isComponentFound && (
+  <ClassicThemeTodayOrders data={isComponentFound(FunnelClassicComponents.ClassicTodayOrders).componentData} />
+)}
+
+{isComponentFound(FunnelClassicComponents.ClassicProductFunnel).isComponentFound && (
+  <ClassicThemeProductFunnel data={isComponentFound(FunnelClassicComponents.ClassicProductFunnel).componentData} />
+)}
+
+{isComponentFound(FunnelClassicComponents.ClassicFooter).isComponentFound && (
+  <ClassicThemeFooter data={isComponentFound(FunnelClassicComponents.ClassicFooter).componentData} />
+)}

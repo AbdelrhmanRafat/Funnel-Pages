@@ -1,0 +1,12 @@
+---
+import type { BlockData } from "../../../../Interfaces/Products";
+
+interface Props {
+  data?: BlockData;
+}
+
+const { data } = Astro.props;
+console.log("Today Orders : ",data);
+---
+
+<div>Classic Theme Today Orders</div>
