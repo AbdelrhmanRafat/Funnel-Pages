@@ -1,4 +1,4 @@
-import  { FunnelClassicComponents, Theme }  from "../Interfaces/Themes";
+import  { FunnelClassicComponents, FunnelNasaComponents, Theme }  from "../Interfaces/Themes";
 
 export function getThemeFromString(themeName: string): Theme | undefined {
   switch (themeName.toLowerCase()) {
@@ -8,7 +8,8 @@ export function getThemeFromString(themeName: string): Theme | undefined {
       return Theme.Dark;
     case "light":
       return Theme.Light;
-    // add more cases if needed
+    case "nasa":
+      return Theme.Nasa;
     default:
       return undefined;
   }
@@ -30,6 +31,27 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.ClassicProductFunnel;
     case "classic_footer":
       return FunnelClassicComponents.ClassicFooter;
+    default:
+      return undefined;
+  }
+}
+
+export function getNasaThemeComponent(name: string): FunnelNasaComponents | undefined {
+  switch (name.toLowerCase()) {
+    case "nasa_header":
+      return FunnelNasaComponents.NasaHeader;
+    case "nasa_form_fields":
+      return FunnelNasaComponents.NasaFormFields;
+    case "nasa_countdown":
+      return FunnelNasaComponents.NasaCountdown;
+    case "nasa_today_orders":
+      return FunnelNasaComponents.NasaTodayOrders;
+    case "nasa_rates":
+      return FunnelNasaComponents.NasaRates;
+    case "nasa_product_funnel":
+      return FunnelNasaComponents.NasaProductFunnel;
+    case "nasa_footer":
+      return FunnelNasaComponents.NasaFooter;
     default:
       return undefined;
   }

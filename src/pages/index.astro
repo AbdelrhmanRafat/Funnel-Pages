@@ -1,16 +1,17 @@
 ---
-import type { FunnelRes } from '../Interfaces/Products';
-import Layout from '../layouts/Layout.astro';
-import { getFunnelPage } from '../Services/FunnelPageService';
-import { getThemeFromString } from '../Services/ThemesSelectService';
-import  { Theme } from '../Interfaces/Themes'
-import ClassicComponent from '../components/Themes/Classic/ClassicComponent.astro';
-import DarkComponent from '../components/Themes/Dark/DarkComponent.astro';
-import LightComponent from '../components/Themes/Light/LightComponent.astro';
+import type { FunnelRes } from "../Interfaces/Products";
+import Layout from "../layouts/Layout.astro";
+import { getFunnelPage } from "../Services/FunnelPageService";
+import { getThemeFromString } from "../Services/ThemesSelectService";
+import { Theme } from "../Interfaces/Themes";
+import ClassicComponent from "../components/Themes/Classic/ClassicComponent.astro";
+import DarkComponent from "../components/Themes/Dark/DarkComponent.astro";
+import LightComponent from "../components/Themes/Light/LightComponent.astro";
+import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
 
-const funnelPage : FunnelRes = await getFunnelPage();
-const strTheme : string = funnelPage.data.theme;
-const enumTheme : Theme | undefined = getThemeFromString(strTheme);
+const funnelPage: FunnelRes = await getFunnelPage();
+const strTheme: string = funnelPage.data.theme;
+const enumTheme: Theme | undefined = getThemeFromString(strTheme);
 ---
 
 <Layout>
@@ -20,12 +21,14 @@ const enumTheme : Theme | undefined = getThemeFromString(strTheme);
         case Theme.Classic:
           return <ClassicComponent funnelPage={funnelPage.data} />;
         case Theme.Dark:
-          return <DarkComponent funnelPage={funnelPage.data}  />;
+          return <DarkComponent funnelPage={funnelPage.data} />;
         case Theme.Light:
-          return <LightComponent funnelPage={funnelPage.data}  />;
+          return <LightComponent funnelPage={funnelPage.data} />;
+        case Theme.Nasa:
+          return <NasaComponent funnelPage={funnelPage.data} />;
         default:
           return <p>Theme not found</p>;
       }
     })()
-  } 
+  }
 </Layout>
