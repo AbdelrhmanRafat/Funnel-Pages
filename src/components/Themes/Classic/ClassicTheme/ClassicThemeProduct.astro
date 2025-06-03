@@ -1,5 +1,125 @@
 ---
 const { Product } = Astro.props;
-
 ---
-<div>Product Component</div>
+
+<!-- Product Section -->
+<div
+    class="bg-white rounded-lg shadow-2xl overflow-hidden border-2 border-gold"
+>
+    <div class="relative">
+        <img
+            src="https://via.placeholder.com/600x400/8B4513/F5F5DC?text=منتج+رقمي"
+            alt="صورة المنتج"
+            class="w-full h-64 object-cover"
+        />
+        <span
+            class="absolute top-4 right-4 bg-green-700 text-white px-4 py-2 rounded text-sm font-bold border border-gold"
+            >متوفر</span
+        >
+    </div>
+
+    <div class="p-8">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-3xl font-bold text-gray-800 font-serif">
+                منتج رقمي متميز
+            </h2>
+            <span class="bg-gold text-white px-4 py-2 rounded text-sm font-bold"
+                >التقنية</span
+            >
+        </div>
+
+        <p class="text-gray-600 mb-6 leading-relaxed">
+            وصف مفصل للمنتج الرقمي المتميز الذي يقدم حلولاً مبتكرة لاحتياجاتك
+            اليومية. يتميز هذا المنتج بجودة عالية وسهولة في الاستخدام مع دعم فني
+            متكامل.
+        </p>
+
+        <!-- Color Options -->
+        <div class="mb-6">
+            <label
+                class="block text-lg font-medium text-gray-700 mb-3 font-serif"
+                >اللون:</label
+            >
+            <div class="flex space-x-4 space-x-reverse">
+                <button
+                    class="w-10 h-10 bg-burgundy rounded-full border-3 border-gold focus:border-gray-800 color-option shadow-lg"
+                    data-color="بورجوندي"></button>
+                <button
+                    class="w-10 h-10 bg-navy rounded-full border-3 border-gold focus:border-gray-800 color-option shadow-lg"
+                    data-color="كحلي"></button>
+                <button
+                    class="w-10 h-10 bg-green-800 rounded-full border-3 border-gold focus:border-gray-800 color-option shadow-lg"
+                    data-color="أخضر داكن"></button>
+                <button
+                    class="w-10 h-10 bg-gold rounded-full border-3 border-gray-800 focus:border-burgundy color-option shadow-lg"
+                    data-color="ذهبي"></button>
+            </div>
+        </div>
+
+        <!-- Size Options -->
+        <div class="mb-8">
+            <label
+                class="block text-lg font-medium text-gray-700 mb-3 font-serif"
+                >المقاس:</label
+            >
+            <div class="flex space-x-4 space-x-reverse">
+                <button
+                    class="px-6 py-3 border-2 border-gold rounded hover:bg-gold hover:text-white focus:border-burgundy size-option font-serif transition-all"
+                    data-size="صغير">صغير</button
+                >
+                <button
+                    class="px-6 py-3 border-2 border-gold rounded hover:bg-gold hover:text-white focus:border-burgundy size-option font-serif transition-all"
+                    data-size="متوسط">متوسط</button
+                >
+                <button
+                    class="px-6 py-3 border-2 border-gold rounded hover:bg-gold hover:text-white focus:border-burgundy size-option font-serif transition-all"
+                    data-size="كبير">كبير</button
+                >
+            </div>
+        </div>
+
+        <!-- Quantity -->
+        <div class="mb-8">
+            <label
+                class="block text-lg font-medium text-gray-700 mb-3 font-serif"
+                >الكمية:</label
+            >
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <button
+                    onclick="decreaseQuantity()"
+                    class="bg-burgundy hover:bg-red-900 text-white px-4 py-2 rounded border-2 border-gold font-bold"
+                    >-</button
+                >
+                <span
+                    id="quantity"
+                    class="px-6 py-3 border-2 border-gold rounded min-w-[70px] text-center text-xl font-bold bg-cream"
+                    >1</span
+                >
+                <button
+                    onclick="increaseQuantity()"
+                    class="bg-burgundy hover:bg-red-900 text-white px-4 py-2 rounded border-2 border-gold font-bold"
+                    >+</button
+                >
+            </div>
+        </div>
+
+        <!-- Rating -->
+        <div class="flex items-center mb-4">
+            <div class="flex text-yellow-400 ml-2">
+                <span>⭐⭐⭐⭐⭐</span>
+            </div>
+            <span class="text-gray-600">4.8 (245 تقييم)</span>
+        </div>
+
+        <!-- Price -->
+        <div class="text-center border-t-2 border-gold pt-6">
+            <span class="text-4xl font-bold text-burgundy font-serif"
+                >299 ريال</span
+            >
+            <span class="text-xl text-gray-600 line-through mr-3 font-serif"
+                >599 ريال</span
+            >
+        </div>
+    </div>
+</div>
+

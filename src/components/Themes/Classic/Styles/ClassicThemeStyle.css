@@ -1,0 +1,169 @@
+/* Classic Color Palette */
+:root {
+  --burgundy: #800020;
+  --gold: #DAA520;
+  --navy: #000080;
+  --cream: #F5F5DC;
+  --classic-green: #006400;
+}
+
+.bg-burgundy { background-color: var(--burgundy); }
+.bg-gold { background-color: var(--gold); }
+.bg-navy { background-color: var(--navy); }
+.bg-cream { background-color: var(--cream); }
+.text-burgundy { color: var(--burgundy); }
+.text-gold { color: var(--gold); }
+.text-navy { color: var(--navy); }
+.border-burgundy { border-color: var(--burgundy); }
+.border-gold { border-color: var(--gold); }
+.border-navy { border-color: var(--navy); }
+.border-3 { border-width: 3px; }
+.focus\:border-burgundy:focus { border-color: var(--burgundy); }
+.focus\:ring-burgundy:focus { 
+  --tw-ring-color: var(--burgundy);
+  --tw-ring-opacity: 0.3;
+}
+
+/* RTL specific styles */
+body {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Tajawal', 'Times New Roman', serif;
+}
+
+/* Classic typography */
+.font-serif {
+  font-family: 'Times New Roman', serif;
+}
+
+/* Custom animations with classic feel */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Elegant transitions for interactive elements */
+.color-option, .size-option {
+  transition: all 0.4s ease;
+}
+
+.color-option:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
+}
+
+.size-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(128, 0, 32, 0.3);
+}
+
+/* Custom scrollbar with classic colors */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--burgundy);
+}
+
+/* Enhanced focus states */
+input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(218, 165, 32, 0.2);
+}
+
+/* Classic button effects */
+button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Elegant counter animation */
+@keyframes classicPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(218, 165, 32, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
+  }
+}
+
+.classic-pulse {
+  animation: classicPulse 3s infinite;
+}
+
+/* Classic card shadows */
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(128, 0, 32, 0.25);
+}
+
+/* Responsive adjustments for Arabic text with classic feel */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Loading states with classic colors */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+  filter: sepia(0.2);
+}
+
+/* Success states with classic styling */
+.success-message {
+  background: linear-gradient(90deg, var(--classic-green), #228B22);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-top: 1.5rem;
+  text-align: center;
+  border: 2px solid var(--gold);
+  font-family: 'Times New Roman', serif;
+}
+
+/* Classic borders and decorative elements */
+.classic-border {
+  border: 3px solid var(--gold);
+  border-radius: 8px;
+}
+
+.decorative-line {
+  height: 2px;
+  background: linear-gradient(90deg, var(--burgundy), var(--gold), var(--burgundy));
+  margin: 2rem 0;
+}

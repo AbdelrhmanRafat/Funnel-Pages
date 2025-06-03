@@ -6,61 +6,33 @@ interface Props {
 }
 
 const data = (Astro.props as { data: BlockData }).data;
-
 ---
 
-<section class="bg-orange-100 py-6">
-  <div class="max-w-4xl mx-auto px-4">
-    
-    <!-- Simple Countdown Display -->
-    <div class="bg-orange-200 border-2 border-orange-300 rounded-lg py-4 px-6 text-center">
-      <p class="text-lg md:text-xl text-blue-900 font-bold">
-        استفد من خصم 40% - باقي: 
-        <span id="hours" class="mx-1">{data.hours || 0}</span> ثانية :
-        <span id="minutes" class="mx-1">{data.minutes || 0}</span> دقيقة :
-        <span id="seconds" class="mx-1">{data.seconds || 0}</span> ساعة :
-        <span class="mx-1">00</span> يوم
-      </p>
+<!-- Countdown Timer -->
+<section class="bg-burgundy text-white py-6 border-t border-gold">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-2xl font-bold mb-4 font-serif text-gold">
+      ينتهي العرض خلال:
+    </h2>
+    <div class="flex justify-center space-x-6 space-x-reverse" id="countdown">
+      <div
+        class="bg-cream text-burgundy rounded-lg px-6 py-4 min-w-[80px] border-2 border-gold shadow-lg"
+      >
+        <div class="text-3xl font-bold" id="hours">00</div>
+        <div class="text-sm font-serif">ساعة</div>
+      </div>
+      <div
+        class="bg-cream text-burgundy rounded-lg px-6 py-4 min-w-[80px] border-2 border-gold shadow-lg"
+      >
+        <div class="text-3xl font-bold" id="minutes">00</div>
+        <div class="text-sm font-serif">دقيقة</div>
+      </div>
+      <div
+        class="bg-cream text-burgundy rounded-lg px-6 py-4 min-w-[80px] border-2 border-gold shadow-lg"
+      >
+        <div class="text-3xl font-bold" id="seconds">00</div>
+        <div class="text-sm font-serif">ثانية</div>
+      </div>
     </div>
-
   </div>
 </section>
-
-<script>
-  // Get initial countdown values
-  const initialHours = parseInt(document.getElementById('hours').textContent) || 0;
-  const initialMinutes = parseInt(document.getElementById('minutes').textContent) || 0;
-  const initialSeconds = parseInt(document.getElementById('seconds').textContent) || 0;
-  
-  // Calculate total seconds
-  let totalSeconds = (initialHours * 3600) + (initialMinutes * 60) + initialSeconds;
-  
-  // Get DOM elements
-  const hoursElement = document.getElementById('hours');
-  const minutesElement = document.getElementById('minutes');
-  const secondsElement = document.getElementById('seconds');
-  
-  // Countdown function
-  function countdown() {
-    if (totalSeconds <= 0) {
-      hoursElement.textContent = "0";
-      minutesElement.textContent = "0";
-      secondsElement.textContent = "0";
-      return;
-    }
-    
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    
-    hoursElement.textContent = hours.toString().padStart(2, '0');
-    minutesElement.textContent = minutes.toString().padStart(2, '0');
-    secondsElement.textContent = seconds.toString().padStart(2, '0');
-    
-    totalSeconds--;
-  }
-  
-  // Start countdown
-  countdown();
-  setInterval(countdown, 1000);
-</script>
