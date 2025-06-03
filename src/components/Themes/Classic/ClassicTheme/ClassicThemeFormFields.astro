@@ -83,3 +83,36 @@ const data = (Astro.props as { data: BlockData }).data;
     اطلب الآن
   </button>
 </div>
+
+<script>
+  import { selectedColor, selectedSize } from "../../../../Services/orderService";
+
+  // Subscribe to color changes
+  selectedColor.subscribe(color => {
+    const colorElement = document.getElementById('selectedColor');
+    if (colorElement) {
+      colorElement.textContent = color || 'لم يتم الاختيار';
+    }
+    console.log('Selected color:', color);
+  });
+
+  // Subscribe to size changes
+  selectedSize.subscribe(size => {
+    const sizeElement = document.getElementById('selectedSize');
+    if (sizeElement) {
+      sizeElement.textContent = size || 'لم يتم الاختيار';
+    }
+    console.log('Selected size:', size);
+  });
+
+  // Handle quantity changes
+  const quantityElement = document.getElementById('selectedQuantity');
+  const quantityDisplay = document.getElementById('quantity');
+  
+  if (quantityDisplay && quantityElement) {
+    quantityDisplay.addEventListener('change', () => {
+      quantityElement.textContent = quantityDisplay.textContent || '1';
+      console.log('Selected quantity:', quantityDisplay.textContent);
+    });
+  }
+</script>

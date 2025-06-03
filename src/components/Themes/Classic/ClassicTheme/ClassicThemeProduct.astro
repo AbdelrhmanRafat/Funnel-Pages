@@ -133,3 +133,41 @@ const sizes = product.options?.[0]?.options?.[1]?.value ?? [];
         </div>
     </div>
 </div>
+
+<script>
+  import { setColor, setSize } from "../../../../Services/orderService";
+
+  // Handle color selection
+  document.querySelectorAll('[data-color]').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const color = (e.currentTarget as HTMLElement).dataset.color;
+      if (color) {
+        setColor(color);
+        // Remove active state from all buttons
+        document.querySelectorAll('[data-color]').forEach(btn => {
+          btn.classList.remove('ring-2', 'ring-offset-2', 'ring-gold');
+        });
+        // Add active state to clicked button
+        e.currentTarget.classList.add('ring-2', 'ring-offset-2', 'ring-gold');
+      }
+    });
+  });
+
+  // Handle size selection
+  document.querySelectorAll('[data-size]').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const size = (e.currentTarget as HTMLElement).dataset.size;
+      if (size) {
+        setSize(size);
+        // Remove active state from all buttons
+        document.querySelectorAll('[data-size]').forEach(btn => {
+          btn.classList.remove('bg-gold', 'text-white');
+          btn.classList.add('bg-white', 'text-gray-800');
+        });
+        // Add active state to clicked button
+        e.currentTarget.classList.remove('bg-white', 'text-gray-800');
+        e.currentTarget.classList.add('bg-gold', 'text-white');
+      }
+    });
+  });
+</script>
