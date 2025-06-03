@@ -23,7 +23,7 @@ const { data } = Astro.props;
   <div class="space-y-3 mb-10">
     <!-- You can replace these values dynamically if needed -->
     {[5,4,3,2,1].map(star => (
-      <div class="flex items-center" key={star}>
+      <div class="flex items-center">
         <span class="text-sm w-10 font-bold">{star}⭐</span>
         <div class="flex-1 mx-3 bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
           <div class="bg-yellow-400 h-full rounded-full transition-all duration-500" style={`width: ${[78, 15, 5, 2, 0][5 - star]}%`}></div>
