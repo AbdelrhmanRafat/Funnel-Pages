@@ -5,18 +5,33 @@ interface Props {
   data?: BlockData;
 }
 
-const { data } = Astro.props;
+const data = (Astro.props as { data: BlockData }).data;
+
 ---
 
-  <footer class="bg-gray-900 text-white py-12 mt-16 border-t-4 border-gold">
-    <div class="container mx-auto px-4 text-center">
-      <div class="mb-6">
-        <h4 class="text-2xl font-bold mb-3 text-gold font-serif">متجر المنتجات الرقمية</h4>
-        <p class="text-gray-300 font-serif text-lg">نقدم أفضل المنتجات الرقمية بأسعار تنافسية</p>
-      </div>
+<footer class="bg-gray-900 text-white py-14 border-t-4 border-gold">
+  <div class="px-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-start">
 
-      <div class="border-t-2 border-gold pt-6">
-        <p class="text-gray-300 font-serif">copy; 2024 جميع الحقوق محفوظة</p>
+    <!-- Info Column -->
+    <div class="space-y-4">
+      <h4 class="text-3xl font-bold text-gold font-serif">متجر المنتجات الرقمية</h4>
+      <p class="text-gray-300 text-lg font-serif leading-relaxed">
+        نقدم أفضل المنتجات الرقمية<br>
+        بجودة عالية وبأسعار تنافسية.
+      </p>
+    </div>
+
+    <!-- Spacer / Middle Column -->
+    <div class="hidden md:block"></div>
+
+    <!-- Contact / Rights Column -->
+    <div class="space-y-4 text-gray-300 font-serif">
+      <div class="space-y-1">
+        <p class="text-lg">جميع الحقوق محفوظة</p>
+        <p class="text-gold font-semibold">{data.company_name} © {data.year}</p>
       </div>
     </div>
-  </footer>
+
+  </div>
+
+</footer>

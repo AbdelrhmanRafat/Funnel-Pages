@@ -4,96 +4,54 @@ import type { BlockData } from "../../../../Interfaces/Products";
 interface Props {
   data?: BlockData;
 }
-
 const { data } = Astro.props;
 ---
+<!-- Rating Section -->
+<div class="bg-cream border-2 border-gold rounded-2xl p-8 mb-10 shadow-lg">
+  <h3 class="text-2xl font-bold text-burgundy mb-8 font-serif text-center">تقييمات العملاء</h3>
 
-          <!-- Rating -->
-          <div class="bg-cream border-2 border-gold rounded-lg p-6 mb-6">
-            <h3 class="text-xl font-bold text-burgundy mb-4 font-serif text-center">تقييمات العملاء</h3>
-            
-            <!-- Overall Rating -->
-            <div class="text-center mb-6">
-              <div class="text-5xl font-bold text-burgundy mb-2">4.8</div>
-              <div class="flex justify-center text-yellow-400 text-2xl mb-2">
-                <span>⭐⭐⭐⭐⭐</span>
-              </div>
-              <div class="text-gray-600 font-serif">بناءً على 245 تقييم</div>
-            </div>
+  <!-- Overall Rating -->
+  <div class="text-center mb-10">
+    <div class="text-6xl font-extrabold text-burgundy mb-2">{data?.rate}</div>
+    <div class="flex justify-center text-yellow-400 text-3xl mb-2 space-x-1 rtl:space-x-reverse">
+      <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+    </div>
+    <div class="text-gray-600 font-serif text-base">بناءً على <span class="font-bold">{data?.count}</span> تقييم</div>
+  </div>
 
-            <!-- Rating Breakdown -->
-            <div class="space-y-2 mb-6">
-              <div class="flex items-center">
-                <span class="text-sm w-8">5⭐</span>
-                <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
-                  <div class="bg-yellow-400 h-2 rounded-full" style="width: 78%"></div>
-                </div>
-                <span class="text-sm text-gray-600 w-12">78%</span>
-              </div>
-              <div class="flex items-center">
-                <span class="text-sm w-8">4⭐</span>
-                <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
-                  <div class="bg-yellow-400 h-2 rounded-full" style="width: 15%"></div>
-                </div>
-                <span class="text-sm text-gray-600 w-12">15%</span>
-              </div>
-              <div class="flex items-center">
-                <span class="text-sm w-8">3⭐</span>
-                <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
-                  <div class="bg-yellow-400 h-2 rounded-full" style="width: 5%"></div>
-                </div>
-                <span class="text-sm text-gray-600 w-12">5%</span>
-              </div>
-              <div class="flex items-center">
-                <span class="text-sm w-8">2⭐</span>
-                <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
-                  <div class="bg-yellow-400 h-2 rounded-full" style="width: 2%"></div>
-                </div>
-                <span class="text-sm text-gray-600 w-12">2%</span>
-              </div>
-              <div class="flex items-center">
-                <span class="text-sm w-8">1⭐</span>
-                <div class="flex-1 mx-3 bg-gray-200 rounded-full h-2">
-                  <div class="bg-yellow-400 h-2 rounded-full" style="width: 0%"></div>
-                </div>
-                <span class="text-sm text-gray-600 w-12">0%</span>
-              </div>
-            </div>
+  <!-- Rating Breakdown -->
+  <div class="space-y-3 mb-10">
+    <!-- You can replace these values dynamically if needed -->
+    {[5,4,3,2,1].map(star => (
+      <div class="flex items-center" key={star}>
+        <span class="text-sm w-10 font-bold">{star}⭐</span>
+        <div class="flex-1 mx-3 bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
+          <div class="bg-yellow-400 h-full rounded-full transition-all duration-500" style={`width: ${[78, 15, 5, 2, 0][5 - star]}%`}></div>
+        </div>
+        <span class="text-sm text-gray-600 w-14">{[78, 15, 5, 2, 0][5 - star]}%</span>
+      </div>
+    ))}
+  </div>
 
-            <!-- Sample Reviews -->
-            <div class="space-y-4">
-              <div class="bg-white p-4 rounded-lg border border-gold">
-                <div class="flex items-center mb-2">
-                  <div class="text-yellow-400 ml-2">⭐⭐⭐⭐⭐</div>
-                  <span class="font-bold text-burgundy">أحمد محمد</span>
-                </div>
-                <p class="text-gray-700 text-sm">"منتج ممتاز جداً، جودة عالية وخدمة عملاء رائعة. أنصح به بشدة!"</p>
-                <span class="text-xs text-gray-500">منذ 3 أيام</span>
-              </div>
-              
-              <div class="bg-white p-4 rounded-lg border border-gold">
-                <div class="flex items-center mb-2">
-                  <div class="text-yellow-400 ml-2">⭐⭐⭐⭐⭐</div>
-                  <span class="font-bold text-burgundy">فاطمة العلي</span>
-                </div>
-                <p class="text-gray-700 text-sm">"تجربة رائعة، المنتج كما هو موصوف تماماً. التسليم كان سريع."</p>
-                <span class="text-xs text-gray-500">منذ أسبوع</span>
-              </div>
-              
-              <div class="bg-white p-4 rounded-lg border border-gold">
-                <div class="flex items-center mb-2">
-                  <div class="text-yellow-400 ml-2">⭐⭐⭐⭐⭐</div>
-                  <span class="font-bold text-burgundy">خالد السعيد</span>
-                </div>
-                <p class="text-gray-700 text-sm">"قيمة ممتازة مقابل السعر. سأشتري مرة أخرى بالتأكيد."</p>
-                <span class="text-xs text-gray-500">منذ أسبوعين</span>
-              </div>
-            </div>
+  <!-- Sample Reviews -->
+  <div class="space-y-6">
+    {[
+      { name: "أحمد محمد", text: "منتج ممتاز جداً، جودة عالية وخدمة عملاء رائعة. أنصح به بشدة!", time: "منذ 3 أيام" },
+      { name: "فاطمة العلي", text: "تجربة رائعة، المنتج كما هو موصوف تماماً. التسليم كان سريع.", time: "منذ أسبوع" },
+      { name: "خالد السعيد", text: "قيمة ممتازة مقابل السعر. سأشتري مرة أخرى بالتأكيد.", time: "منذ أسبوعين" },
+    ].map((review, index) => (
+      <div class="bg-white p-5 rounded-xl border border-gold shadow-sm">
+        <div class="flex items-center mb-2">
+          <div class="text-yellow-400 ml-2 text-lg">⭐⭐⭐⭐⭐</div>
+          <span class="font-bold text-burgundy text-base">{review.name}</span>
+        </div>
+        <p class="text-gray-700 text-sm leading-relaxed font-serif">{review.text}</p>
+        <span class="text-xs text-gray-500 block mt-2">{review.time}</span>
+      </div>
+    ))}
+  </div>
 
-            <!-- View More Reviews Button -->
-            <div class="text-center mt-6">
-              <button class="text-burgundy font-bold border-2 border-burgundy px-6 py-2 rounded-lg hover:bg-burgundy hover:text-white transition-all font-serif">
-                عرض جميع التقييمات
-              </button>
-            </div>
-          </div>
+  <!-- View All Reviews Button -->
+  <div class="text-center mt-8">
+  </div>
+</div>

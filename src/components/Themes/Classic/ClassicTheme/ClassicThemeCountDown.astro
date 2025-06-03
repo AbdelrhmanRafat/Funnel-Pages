@@ -1,38 +1,79 @@
 ---
 import type { BlockData } from "../../../../Interfaces/Products";
 
-interface Props {
-  data?: BlockData;
-}
 
 const data = (Astro.props as { data: BlockData }).data;
+
+let totalSeconds = 0;
+
+if(data.hours != null && data.minutes != null && data.seconds != null)
+{
+  totalSeconds =
+  (parseInt(data.hours) || 0) * 3600 +
+  (parseInt(data.minutes) || 0) * 60 +
+  (parseInt(data.seconds) || 0);
+}
 ---
 
-<!-- Countdown Timer -->
-<section class="bg-burgundy text-white py-6 border-t border-gold">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-2xl font-bold mb-4 font-serif text-gold">
+<!-- Elegant Countdown Timer -->
+<section class="bg-burgundy text-white py-10 border-t border-gold">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold mb-6 font-serif text-gold tracking-wider">
       ينتهي العرض خلال:
     </h2>
-    <div class="flex justify-center space-x-6 space-x-reverse" id="countdown">
+    <div
+      class="flex justify-center gap-4 sm:gap-8 items-center"
+      id="countdown"
+      data-time={totalSeconds}
+    >
       <div
-        class="bg-cream text-burgundy rounded-lg px-6 py-4 min-w-[80px] border-2 border-gold shadow-lg"
+        class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300"
       >
-        <div class="text-3xl font-bold" id="hours">00</div>
+        <div class="text-4xl font-extrabold" id="hours">--</div>
         <div class="text-sm font-serif">ساعة</div>
       </div>
       <div
-        class="bg-cream text-burgundy rounded-lg px-6 py-4 min-w-[80px] border-2 border-gold shadow-lg"
+        class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300"
       >
-        <div class="text-3xl font-bold" id="minutes">00</div>
+        <div class="text-4xl font-extrabold" id="minutes">--</div>
         <div class="text-sm font-serif">دقيقة</div>
       </div>
       <div
-        class="bg-cream text-burgundy rounded-lg px-6 py-4 min-w-[80px] border-2 border-gold shadow-lg"
+        class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300"
       >
-        <div class="text-3xl font-bold" id="seconds">00</div>
+        <div class="text-4xl font-extrabold" id="seconds">--</div>
         <div class="text-sm font-serif">ثانية</div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const countdownContainer = document.getElementById('countdown');
+  const total = parseInt(countdownContainer.dataset.time) || 0;
+
+  let timeLeft = total;
+
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+
+  function updateCountdown() {
+    const hours = Math.floor(timeLeft / 3600);
+    const minutes = Math.floor((timeLeft % 3600) / 60);
+    const seconds = timeLeft % 60;
+
+    hoursEl.textContent = String(hours).padStart(2, '0');
+    minutesEl.textContent = String(minutes).padStart(2, '0');
+    secondsEl.textContent = String(seconds).padStart(2, '0');
+
+    if (timeLeft > 0) {
+      timeLeft--;
+    } else {
+      clearInterval(timer);
+    }
+  }
+
+  const timer = setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>

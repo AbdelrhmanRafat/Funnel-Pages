@@ -1,12 +1,6 @@
 ---
-import '@fontsource/tajawal/300.css'
-import '@fontsource/tajawal/400.css'
-import '@fontsource/tajawal/500.css'
-import '@fontsource/tajawal/700.css'
-import '@fontsource/tajawal/800.css'
-import '@fontsource/tajawal/900.css'
+import { date } from "astro:schema";
 import type { BlockData } from "../../../../Interfaces/Products";
-import "../Styles/ClassicThemeStyle.css";
 
 interface Props {
   data?: BlockData;
@@ -14,16 +8,26 @@ interface Props {
 
 const data = (Astro.props as { data: BlockData }).data;
 ---
-  <!-- Header -->
-  <header class="bg-gray-900 text-white py-8 border-b-4 border-gold">
-    <div class="container mx-auto px-4 text-center">
-      <div class="flex justify-center items-center mb-4">
-        <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center ml-4 border-2 border-white">
-          <span class="text-gray-900 font-bold text-2xl">م</span>
-        </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-gold">متجر المنتجات الرقمية</h1>
-      </div>
-      <p class="text-xl text-gray-300 font-serif">عرض خاص لفترة محدودة - خصم يصل إلى 50%</p>
-    </div>
-  </header>
 
+<!-- Header -->
+<header class="bg-gray-900 text-white py-8 border-b-4 border-gold">
+  <div class="container mx-auto px-4 text-center">
+    <div class="flex justify-center items-center mb-4">
+      <div
+        class="w-16 h-16 bg-gold rounded-full flex items-center justify-center ml-4 border-2 border-white"
+      >
+        <!-- <img
+          src={data?.logo}
+          alt={data.title}
+          class="w-full h-full object-cover"
+        /> -->
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-gold">
+        {data?.title}
+      </h1>
+    </div>
+    <p class="text-xl text-gray-300 font-serif">
+      {data?.subtitle}
+    </p>
+  </div>
+</header>
