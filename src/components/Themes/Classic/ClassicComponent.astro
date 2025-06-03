@@ -10,9 +10,7 @@ import "../../../styles/global.css";
 import "./Styles/ClassicThemeStyle.css";
 
 import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct.astro";
-import ClassicThemeHeader from "./ClassicTheme/ClassicThemeHeader.astro";
 import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountDown.astro";
-import ClassicThemeFormFields from "./ClassicTheme/ClassicThemeFormFields.astro";
 import ClassicThemeTodayOrders from "./ClassicTheme/ClassicThemeTodayOrders.astro";
 import ClassicThemeProductFunnel from "./ClassicTheme/ClassicThemeProductFunnel.astro";
 import ClassicThemeFooter from "./ClassicTheme/ClassicThemeFooter.astro";
@@ -20,6 +18,8 @@ import { FunnelClassicComponents } from '../../../Interfaces/Themes';
 import type { Data, BlockData } from "../../../Interfaces/Products";
 import { getClassicThemeComponent } from "../../../Services/ThemesSelectService";
 import ClassicThemeRates from "./ClassicTheme/ClassicThemeRates.astro";
+import ClassicThemeHeader from "./ClassicTheme/Classic_Header/ClassicThemeHeader.astro";
+import ClassicThemeFormFields from "./ClassicTheme/Classic_FormFields/ClassicThemeFormFields.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -49,21 +49,22 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
   <ClassicThemeHeader data={isComponentFound(FunnelClassicComponents.ClassicHeader).componentData} />
 )}
 
-{isComponentFound(FunnelClassicComponents.ClassicCountdown).isComponentFound && (
-  <ClassicThemeCountDown data={isComponentFound(FunnelClassicComponents.ClassicCountdown).componentData} />
-)}
-
-<main class="container mx-auto px-4 py-12 bg-cream">
+<main class="container mx-auto px-4 py-12">
 
 <div class="grid lg:grid-cols-2 gap-8">
 <ClassicThemeProduct Product={funnelPage}></ClassicThemeProduct>
+
+</div>
 {isComponentFound(FunnelClassicComponents.ClassicFormFields).isComponentFound && (
   <ClassicThemeFormFields data={isComponentFound(FunnelClassicComponents.ClassicFormFields).componentData} />
 )}
-</div>
-
+{isComponentFound(FunnelClassicComponents.ClassicCountdown).isComponentFound && (
+  <ClassicThemeCountDown data={isComponentFound(FunnelClassicComponents.ClassicCountdown).componentData} />
+)}
+  </main>
+<!-- 
 {isComponentFound(FunnelClassicComponents.ClassicTodayOrders).isComponentFound && (
-  <ClassicThemeTodayOrders data={isComponentFound(FunnelClassicComponents.ClassicTodayOrders).componentData} />
+  <ClassicThemeTodayOrders data={isComponentFound(FunnelClassicComponents.ClassicTodayOrders).componentData}  />
 )}
 
 {isComponentFound(FunnelClassicComponents.ClassicRates).isComponentFound && (
@@ -74,8 +75,9 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
 {isComponentFound(FunnelClassicComponents.ClassicProductFunnel).isComponentFound && (
   <ClassicThemeProductFunnel data={isComponentFound(FunnelClassicComponents.ClassicProductFunnel).componentData} />
 )}
-  </main>
 
 {isComponentFound(FunnelClassicComponents.ClassicFooter).isComponentFound && (
   <ClassicThemeFooter data={isComponentFound(FunnelClassicComponents.ClassicFooter).componentData} />
 )}
+
+ -->

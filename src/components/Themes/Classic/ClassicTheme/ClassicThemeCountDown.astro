@@ -1,7 +1,6 @@
 ---
 import type { BlockData } from "../../../../Interfaces/Products";
 
-
 const data = (Astro.props as { data: BlockData }).data;
 
 let totalSeconds = 0;
@@ -16,13 +15,13 @@ if(data.hours != null && data.minutes != null && data.seconds != null)
 ---
 
 <!-- Elegant Countdown Timer -->
-<section class="bg-burgundy text-white py-10 border-t border-gold">
-  <div class="container mx-auto px-6 text-center">
-    <h2 class="text-3xl font-bold mb-6 font-serif text-gold tracking-wider">
+<section class=" text-black py-6">
+  <div class="px-6 text-center">
+    <h2 class="text-3xl font-bold">
       ينتهي العرض خلال:
     </h2>
     <div
-      class="flex justify-center gap-4 sm:gap-8 items-center"
+      class="my-7 flex justify-center gap-4 sm:gap-8 items-center"
       id="countdown"
       data-time={totalSeconds}
     >

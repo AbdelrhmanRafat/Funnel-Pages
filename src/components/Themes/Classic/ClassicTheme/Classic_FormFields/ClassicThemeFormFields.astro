@@ -1,0 +1,143 @@
+---
+import type { BlockData } from "../../../../../Interfaces/Products";
+import "./ClassicThemeFormFields.css"
+
+interface Props {
+  data?: BlockData;
+}
+const data = (Astro.props as { data: BlockData }).data;
+---
+
+<div class="container">
+  <div class="header">
+      <h1>أكمل طلبك</h1>
+  </div>
+
+  <div class="form-container">
+       <!-- Personal Information Form -->
+       <div class="personal-info">
+        <h2>المعلومات الشخصية</h2>
+        
+        <form>
+            <div class="form-group">
+                <label for="fullName">fullName</label>
+                <input type="text" id="fullName" placeholder="اكتب اسمك الكامل هنا">
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">phoneNumber</label>
+                <input type="tel" id="phoneNumber" placeholder="مثال: 05XXXXXXXX">
+            </div>
+
+            <div class="form-group">
+                <label for="email">email</label>
+                <input type="email" id="email" placeholder="enterEmail">
+            </div>
+
+            <div class="shipping-section">
+                <h3>معلومات الشحن</h3>
+                
+                <div class="form-group">
+                    <label>selectedPackage</label>
+                    <div class="package-selector">
+                        <div class="package-title">شراء منتج واحد</div>
+                        <div class="package-details">قطعة واحدة *يوصل في 3-5 أيام</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">country</label>
+                    <select id="country">
+                        <option value="">selectCountry</option>
+                        <option value="saudi">المملكة العربية السعودية</option>
+                        <option value="uae">الإمارات العربية المتحدة</option>
+                        <option value="egypt">مصر</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">city</label>
+                    <input type="text" id="city" placeholder="enterCity">
+                </div>
+
+                <div class="address-info">
+                    شارع الرياض، المملكة العربية السعودية<br>
+                    اكتب عنوان التوصيل بالتفصيل
+                </div>
+            </div>
+
+            <div class="payment-section">
+                <h3>طريقة الدفع</h3>
+                <div class="payment-options">
+                    <label class="payment-option selected">
+                        <input type="radio" name="payment" value="cod" checked>
+                        <span>الدفع عند الاستلام</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="electronic">
+                        <span>الدفع الإلكتروني</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">تأكيد الطلب</button>
+        </form>
+    </div>
+      <!-- Order Summary -->
+      <div class="order-summary">
+          <h2>ملخص الطلب</h2>
+          
+          <div class="order-item">
+              <label>المنتج:</label>
+              <div class="value">تيشيرت مطبوع بلاك</div>
+          </div>
+
+          <div class="order-item">
+              <label>الكمية:</label>
+              <div class="value">قطعة 1</div>
+          </div>
+
+          <div class="order-item">
+              <label>سعر القطعة:</label>
+              <div class="price">ج.م ٢٩٠</div>
+          </div>
+
+          <div class="order-item">
+              <label>subtotal</label>
+              <div class="price">ج.م ٢٩٠</div>
+          </div>
+
+          <div class="order-item">
+              <label>الشحن:</label>
+              <div class="price">ج.م ٥٠</div>
+          </div>
+
+          <div class="order-item total">
+              <label>إجمالي:</label>
+              <div class="price">ج.م ٣٤٠</div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- <script>
+  // Handle payment option selection
+  document.querySelectorAll('.payment-option').forEach(option => {
+      option.addEventListener('click', function() {
+          document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+          this.classList.add('selected');
+          this.querySelector('input[type="radio"]').checked = true;
+      });
+  });
+
+  // Handle form submission
+  document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('تم إرسال الطلب بنجاح!');
+  });
+
+  // Make package selector interactive
+  document.querySelector('.package-selector').addEventListener('click', function() {
+      alert('سيتم فتح خيارات الشحن المختلفة');
+  });
+</script> -->
