@@ -45,7 +45,6 @@ interface HeaderProps {
 const ClassicHeader: React.FC<HeaderProps> = ({ headerData }) => {
 
 
-  console.log('Header block data:', headerData);
 
   return (
     <header className="bg-white shadow-sm">
