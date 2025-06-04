@@ -49,12 +49,10 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
   <ClassicThemeHeader data={isComponentFound(FunnelClassicComponents.ClassicHeader).componentData} />
 )}
 
-<main class="container mx-auto px-4 py-12">
+<main class="w-full mx-auto px-4 py-12">
 
-<div class="grid lg:grid-cols-2 gap-8">
-<ClassicThemeProduct Product={funnelPage}></ClassicThemeProduct>
+<ClassicThemeProduct Product={funnelPage.product}></ClassicThemeProduct>
 
-</div>
 {isComponentFound(FunnelClassicComponents.ClassicFormFields).isComponentFound && (
   <ClassicThemeFormFields data={isComponentFound(FunnelClassicComponents.ClassicFormFields).componentData} />
 )}

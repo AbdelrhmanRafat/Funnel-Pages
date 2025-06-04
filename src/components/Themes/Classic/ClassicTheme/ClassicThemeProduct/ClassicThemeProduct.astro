@@ -1,9 +1,195 @@
 ---
-import ClassicProductDetails from "./React Components/classic_product_details";
-import type { Product as ApiProduct, Value, ProductOption, Attachment } from "../../../../../Interfaces/Products";
-import type { FunnelData, Product, FormField } from "../../../../../lib/validate";
+const product = (Astro.props).Product;
 
-const product = (Astro.props as { product: ApiProduct });
-
-console.log("Funnel Page data",product);
+console.log(product);
 ---
+
+<section
+  class="bg-white flex flex-col lg:flex-row gap-6 p-4 lg:p-8 w-full mx-auto"
+>
+  <div class="shadow-lg rounded-lg lg:w-2/3 flex flex-col gap-6 lg:flex-row lg:gap-12">
+    <!-- ✅ right side show all image in gallery -->
+    <div
+      id="thumbnailContainer"
+      class="order-2 lg:order-1 lg:w-1/5 max-h-[500px] overflow-y-auto pr-2 space-y-2"
+    >
+      <img
+        data-index="0"
+        src={product.image}
+        class="cursor-pointer border rounded hover:scale-110 transition transform duration-300"
+        alt=""
+      />
+      <img
+        data-index="1"
+        src="https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE="
+        class="cursor-pointer border rounded hover:scale-110 transition transform duration-300"
+        alt=""
+      />
+      <img
+        data-index="2"
+        src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+        class="cursor-pointer border rounded hover:scale-110 transition transform duration-300"
+        alt=""
+      />
+      <img
+        data-index="2"
+        src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+        class="cursor-pointer border rounded hover:scale-110 transition transform duration-300"
+        alt=""
+      />
+      <img
+        data-index="2"
+        src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+        class="cursor-pointer border rounded hover:scale-110 transition transform duration-300"
+        alt=""
+      />
+      <img
+        data-index="2"
+        src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+        class="cursor-pointer border rounded hover:scale-110 transition transform duration-300"
+        alt=""
+      />
+      <img
+        data-index="2"
+        src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+        class="cursor-pointer border rounded hover:scale-110 transition transform duration-300"
+        alt=""
+      />
+      <img
+        data-index="2"
+        src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+        class="cursor-pointer border rounded hover:scale-110 transition transform duration-300"
+        alt=""
+      />
+      <img
+        data-index="2"
+        src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+        class="cursor-pointer border rounded hover:scale-110 transition transform duration-300"
+        alt=""
+      />
+    </div>
+    <!-- ✅ left side show image -->
+    <div
+      class="order-1 lg:order-2 relative w-full lg:w-3/5 flex justify-center items-center"
+    >
+      <button
+        id="prevBtn"
+        class="absolute left-0 z-10 bg-white shadow rounded-full p-2 text-xl hover:bg-gray-200"
+        >‹</button
+      >
+      <img
+        id="mainImage"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGh5WFH8TOIfRKxUrIgJZoDCs1yvQ4hIcppw&s"
+        class="rounded h-[400px] shadow w-full max-w-[500px] transition-transform duration-300 hover:scale-110"
+        alt="تيشيرت مطبوع"
+      />
+      <button
+        id="nextBtn"
+        class="absolute right-0 z-10 bg-white shadow rounded-full p-2 text-xl hover:bg-gray-200"
+        >›</button
+      >
+    </div>
+  </div>
+
+  <!-- 🛒 القسم الأيسر: معلومات المنتج واختيار الكمية -->
+  <div
+    class="w-full rounded-lg lg:w-1/2 max-h-screen overflow-y-auto border rounded p-4 shadow"
+  >
+    <!-- عنوان المنتج -->
+    <h1 class="bg-blue-50 rounded-lg p-3 text-3xl font-bold mb-2">{product.name_ar}</h1>
+    <div class="text-sm text-gray-600 flex flex-wrap gap-4 mb-4">
+      <span>الفئة: {product.slug_ar}</span>
+      <span>رمز المنتج: {product.sku_code}</span>
+      <span class="text-green-600">متوفر</span>
+    </div>
+
+    <!-- السعر -->
+    <div class="text-2xl text-blue-600 font-bold mb-6">{product.price} ج.م</div>
+   <!-- وصف المنتج -->
+    <div class="mb-12">
+     <p class="text-2xl font-bold">وصف المنتج</p>
+     <p set:html={product.description_ar}></p>
+    </div>
+    <!-- خيارات الكمية -->
+    <h2 class="text-2xl font-bold mb-3">🔓اختر الكمية </h2>
+
+    <label
+      class="block border p-3 mb-3 rounded hover:border-blue-500 cursor-pointer"
+    >
+      <input type="radio" name="qty" class="ml-2" checked />
+      <span
+        >1 قطعة - <span class="text-blue-700 font-bold">٣٢٩٫٠٠ ج.م</span></span
+      >
+      <p class="text-sm text-gray-500">توصيل خلال ٣ - ٥ أيام</p>
+    </label>
+
+    <label
+      class="block border p-3 mb-3 rounded hover:border-blue-500 cursor-pointer"
+    >
+      <input type="radio" name="qty" class="ml-2" />
+      <span
+        >2 قطعة - <span class="text-green-600 font-bold">٢٧٥٫٠٠ ج.م</span>
+        <span class="text-xs text-green-600">(خصم 22%)</span></span
+      >
+      <p class="text-sm text-gray-500">توصيل خلال ٣ - ٥ أيام</p>
+    </label>
+
+    <label
+      class="block border p-3 mb-3 rounded hover:border-blue-500 cursor-pointer"
+    >
+      <input type="radio" name="qty" class="ml-2" />
+      <span
+        >3 قطع - <span class="text-green-600 font-bold">٢١٤٫٩٠ ج.م</span>
+        <span class="text-xs text-green-600">(خصم 35%)</span></span
+      >
+      <p class="text-sm text-gray-500">توصيل خلال ٣ - ٥ أيام</p>
+    </label>
+
+    <!-- ملخص السعر -->
+    <div class="border-t pt-4 mt-4">
+      <p class="text-sm">السعر: ٣٢٩٫٠٠ ج.م</p>
+      <p class="text-sm">سعر الشحن: ٤٠ ج.م</p>
+      <p class="font-bold mt-2">الإجمالي: ٣٦٩٫٠٠ ج.م</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const images = [
+    "https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=",
+    "https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=",
+    "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
+  ];
+
+  let currentIndex = 0;
+  const mainImage = document.getElementById("mainImage");
+
+  function changeImage(index: number) {
+    currentIndex = index;
+    mainImage.src = images[index];
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    changeImage(currentIndex);
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    changeImage(currentIndex);
+  }
+
+  // ✅ ربط الأحداث بعد تحميل الـ DOM
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("prevBtn").addEventListener("click", prevImage);
+    document.getElementById("nextBtn").addEventListener("click", nextImage);
+
+    const thumbnails = document.querySelectorAll("#thumbnailContainer img");
+    thumbnails.forEach((img) => {
+      img.addEventListener("click", () => {
+        const index = parseInt(img.dataset.index);
+        changeImage(index);
+      });
+    });
+  });
+</script>
