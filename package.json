@@ -12,7 +12,6 @@
     "@astrojs/node": "^9.2.2",
     "@astrojs/react": "^4.3.0",
     "@fontsource/tajawal": "^5.2.6",
-    "@tailwindcss/vite": "^4.1.8",
     "astro": "^5.8.1",
     "nanostores": "^1.0.1",
     "react": "^19.1.0",
@@ -22,6 +21,8 @@
     "@astrojs/tailwind": "^6.0.2",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
-    "tailwindcss": "^4.1.8"
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^3.4.17"
   }
 }

@@ -12,6 +12,7 @@ import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
 const funnelPage: FunnelRes = await getFunnelPage();
 const strTheme: string = funnelPage.data.theme;
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
+import "../styles/global.css"
 ---
 
 <Layout>

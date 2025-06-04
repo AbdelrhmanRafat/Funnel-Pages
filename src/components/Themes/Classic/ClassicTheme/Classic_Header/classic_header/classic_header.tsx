@@ -48,7 +48,7 @@ const ClassicHeader: React.FC<HeaderProps> = ({ headerData }) => {
   console.log('Header block data:', headerData);
 
   return (
-    <header className="bg-white shadow-sm rtl">
+    <header className="bg-white shadow-sm">
       <div className="container mx-auto px-2">
         <div className="flex flex-col items-center py-1">
           <div className="w-full flex justify-end">
