@@ -8,12 +8,8 @@ interface Props {
 const data = (Astro.props as { data: BlockData }).data;
 ---
 
-<div>
-  <div class="header">
-      <h1>أكمل طلبك</h1>
-  </div>
-
-  <div class="form-container">
+<section class="rounded-3xl">
+  <div class="form-container rounded-3xl">
        <!-- Personal Information Form -->
        <div class="personal-info">
         <h2>المعلومات الشخصية</h2>
@@ -118,7 +114,7 @@ const data = (Astro.props as { data: BlockData }).data;
           </div>
       </div>
   </div>
-</div>
+</section>
 
 <!-- <script>
   // Handle payment option selection

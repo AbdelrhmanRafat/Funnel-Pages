@@ -7,9 +7,7 @@ import "@fontsource/tajawal/800.css";
 import "@fontsource/tajawal/900.css";
 
 import "../../../styles/global.css";
-import "./Styles/ClassicThemeStyle.css";
 
-import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountDown.astro";
 import ClassicThemeTodayOrders from "./ClassicTheme/ClassicThemeTodayOrders.astro";
 import ClassicThemeProductFunnel from "./ClassicTheme/ClassicThemeProductFunnel.astro";
 import ClassicThemeFooter from "./ClassicTheme/ClassicThemeFooter.astro";
@@ -20,6 +18,7 @@ import ClassicThemeRates from "./ClassicTheme/ClassicThemeRates.astro";
 import ClassicThemeHeader from "./ClassicTheme/Classic_Header/ClassicThemeHeader.astro";
 import ClassicThemeFormFields from "./ClassicTheme/Classic_FormFields/ClassicThemeFormFields.astro";
 import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct/ClassicThemeProduct.astro";
+import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountdown/ClassicThemeCountDown.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -49,7 +48,7 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
   <ClassicThemeHeader data={isComponentFound(FunnelClassicComponents.ClassicHeader).componentData} />
 )}
 
-<main class="w-full mx-auto px-4 py-12">
+<main class="w-11/12 mx-auto flex-col justify-center items-center gap-4 py-2">
 
 <ClassicThemeProduct Product={funnelPage.product}></ClassicThemeProduct>
 
