@@ -1,7 +1,7 @@
 ---
 import { date } from "astro:schema";
 import type { BlockData } from "../../../../../Interfaces/Products";
-import './ClassicThemeHeader.css'
+import ClassicHeader from "./classic_header/classic_header";
 interface Props {
   data?: BlockData;
 }
@@ -9,27 +9,5 @@ interface Props {
 const data = (Astro.props as { data: BlockData }).data;
 ---
 
-<!-- Header -->
-<header class="bg-white shadow-sm rtl">
-  <div class="container mx-auto px-2">
-    <div class="flex flex-col items-center py-1">
-      <div class="w-full flex justify-end">
-        <button
-          class="p-1 text-xs rounded-full hover:bg-gray-100 focus:outline-none"
-          aria-label="Switch Language"
-        >
-          <span class="text-xs font-medium"> EN </span>
-        </button>
-      </div>
+<ClassicHeader headerData={data} client:load />
 
-      <div class="flex flex-col items-center text-center mt-0">
-        <h1 class="font-bold text-4xl text-gray-900 leading-tight">
-          {data.title}
-        </h1>
-        <p class="text-xs text-gray-600 max-w-xs" title="Product Description">
-          {data.subtitle}
-        </p>
-      </div>
-    </div>
-  </div>
-</header>

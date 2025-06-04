@@ -1,0 +1,143 @@
+---
+import ClassicProductDetails from "./React Components/classic_product_details";
+import type { Product as ApiProduct, Value, ProductOption, Attachment } from "../../../../../Interfaces/Products";
+import type { FunnelData, Product, FormField } from "../../../../../lib/validate";
+
+const product = (Astro.props as { product: ApiProduct }).product;
+
+if (!product) {
+  console.error("No product data provided");
+}
+
+// Transform options to match expected format
+const options = product?.options?.map((opt: ProductOption) => ({
+  name: opt.options[0]?.name || '',
+  value: opt.options[0]?.value.map((v: Value) => ({
+    id: Number(v.value) || Math.floor(Math.random() * 1000),
+    name: v.name || v.display || v.value || '',
+    display: v.display || v.name || v.value || '',
+    value: v.value || v.name || v.display || ''
+  })) || []
+})) || [];
+
+// Transform attachments to match expected format
+const attachments = product?.attachment?.map((att: Attachment) => ({
+  image_path: att.path || ''
+})) || [];
+
+const funnelData: FunnelData = {
+  product: {
+    id: product?.id || 0,
+    name: product?.name || '',
+    name_ar: product?.name_ar || '',
+    name_en: product?.name_en || '',
+    description: product?.description || '',
+    description_ar: product?.description_ar || '',
+    description_en: product?.description_en || '',
+    image: product?.image || '',
+    category: product?.category || null,
+    price: product?.price || 0,
+    price_after_discount: product?.price_after_discount || 0,
+    category_id: product?.category_id || 0,
+    ware_house_id: product?.ware_house_id || 0,
+    slug: product?.slug || '',
+    slug_ar: product?.slug_ar || '',
+    slug_en: product?.slug_en || '',
+    is_active: product?.is_active || 0,
+    qty: product?.qty || 0,
+    sku_code: product?.sku_code || '',
+    weight: product?.weight || null,
+    weight_type: product?.weight_type || null,
+    options: options,
+    skus: product?.skus || null,
+    meta: product?.meta || null,
+    attachment: attachments,
+    is_have_variant: product?.is_have_variant || 'false',
+    features: [],
+    images: attachments.map(att => att.image_path),
+    variants: options.flatMap(opt => opt.value.map(v => ({
+      id: v.id,
+      name: v.name
+    })))
+  } satisfies Product,
+  theme: "classic",
+  accept_online_payment: true,
+  blocks: [],
+  purchase_options: [
+    {
+      id: 1,
+      name: "Single Item",
+      description: "Purchase a single item",
+      quantity: 1,
+      price_per_item: product?.price || 0,
+      original_price_per_item: product?.price || 0,
+      discount: 0,
+      discount_percent: 0,
+      shipping_price: 0,
+      final_total: product?.price || 0,
+      is_popular: false
+    }
+  ],
+  form_fields: [] as FormField[]
+};
+---
+
+<div id="product-details-container">
+  <ClassicProductDetails 
+    client:load
+    funnelData={funnelData}
+    loading={false}
+    error={null}
+    isArabic={false}
+    selectedVariant={null}
+    selectedOption={null}
+    selectedImage={null}
+    formErrors={{}}
+    formData={{}}
+    setSelectedVariant={() => {}}
+    setSelectedOption={() => {}}
+    setSelectedImage={() => {}}
+    toggleLanguage={() => {}}
+    toggleTheme={() => {}}
+    submitOrder={async () => {}}
+    validateForm={() => true}
+    t={(key) => key}
+    formatCurrency={(amount) => `$${amount?.toFixed(2) || '0.00'}`}
+    formatNumberOnly={(amount) => amount?.toString() || '0'}
+    getCurrencySymbol={() => '$'}
+  />
+</div>
+
+<style>
+  #product-details-container {
+    min-height: 100vh;
+    position: relative;
+  }
+</style>
+
+<script>
+  // Add client-side error handling
+  document.addEventListener('error', (event) => {
+    console.error('Error in product details:', event);
+  });
+
+  // Add mutation observer to track component mounting/unmounting
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'childList') {
+        console.log('DOM changed:', mutation);
+      }
+    });
+  });
+
+  // Start observing after a short delay to ensure the container exists
+  setTimeout(() => {
+    const container = document.getElementById('product-details-container');
+    if (container) {
+      observer.observe(container, {
+        childList: true,
+        subtree: true
+      });
+    }
+  }, 100);
+</script>
