@@ -40,11 +40,13 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
 
 ---
 
-{isComponentFound(FunnelClassicComponents.ClassicHeader).isComponentFound && (
-  <ClassicThemeHeader data={isComponentFound(FunnelClassicComponents.ClassicHeader).componentData} />
-)}
+
 
 <main class="container flex-col justify-center items-center gap-4">
+
+  {isComponentFound(FunnelClassicComponents.ClassicHeader).isComponentFound && (
+    <ClassicThemeHeader data={isComponentFound(FunnelClassicComponents.ClassicHeader).componentData} />
+  )}
 
 <ClassicThemeProduct Product={funnelPage.product}></ClassicThemeProduct>
 
