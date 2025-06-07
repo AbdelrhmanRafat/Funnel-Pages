@@ -6,14 +6,6 @@
  */
 
 // Define types for price structure
-interface ProductPrice {
-  product: number;
-  total: number;
-}
-
-interface PriceMap {
-  [key: string]: ProductPrice;
-}
 
 export function initClassicThemeProductFunnel(): void {
   // Quantity selection functionality
