@@ -1,3 +1,4 @@
+// Available themes registry
 export enum Theme {
   Classic = "classic",
   Nasa = "nasa",

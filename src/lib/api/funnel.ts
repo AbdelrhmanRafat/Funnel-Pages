@@ -1,5 +1,7 @@
-import { baseUrl, headers } from "../Enviroment/Local.enviroment";
-import type { FunnelRes } from "../Interfaces/Products";
+//API calls for funnel data
+
+import { baseUrl, headers } from "../../Enviroment/Local.enviroment";
+import type { FunnelRes } from "./types";
 
 export async function getFunnelPage(): Promise<FunnelRes> {
   const res = await fetch(`${baseUrl}`, {

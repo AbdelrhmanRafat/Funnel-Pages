@@ -1,4 +1,5 @@
 ---
+import "../styles/global.css"
 import Layout from "../layouts/Layout.astro";
 import type { FunnelRes } from "../Interfaces/Products";
 import { getFunnelPage } from "../Services/FunnelPageService";
@@ -12,10 +13,10 @@ import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
 const funnelPage: FunnelRes = await getFunnelPage();
 const strTheme: string = funnelPage.data.theme;
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
-import "../styles/global.css"
+const meta = funnelPage.data.product.meta; 
 ---
 
-<Layout>
+<Layout metadata = {meta}>
   {
     (() => {
       switch (enumTheme) {

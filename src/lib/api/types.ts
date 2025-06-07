@@ -1,3 +1,5 @@
+//Funnel Page TypeScript interfaces
+
 export interface FunnelRes {
     code: number;
     status: number;

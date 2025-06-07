@@ -1,11 +1,4 @@
 ---
-import "@fontsource/tajawal/300.css";
-import "@fontsource/tajawal/400.css";
-import "@fontsource/tajawal/500.css";
-import "@fontsource/tajawal/700.css";
-import "@fontsource/tajawal/800.css";
-import "@fontsource/tajawal/900.css";
-
 import "../../../styles/global.css";
 
 import { FunnelClassicComponents } from '../../../Interfaces/Themes';
@@ -21,7 +14,7 @@ interface ComponentCheckResult {
   componentData: BlockData | undefined;
 }
 
-const funnelPage = (Astro.props as { funnelPage: Data }).funnelPage;
+const funnelPage: Data = Astro.props.Data;
 
 const classicComponentNames: [FunnelClassicComponents, BlockData][] = funnelPage.blocks
   .map(block => {
@@ -38,10 +31,8 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
   };
 }
 
+console.log(funnelPage);
 ---
-
-
-
 <main class="container flex-col justify-center items-center gap-4">
 
   {isComponentFound(FunnelClassicComponents.ClassicHeader).isComponentFound && (

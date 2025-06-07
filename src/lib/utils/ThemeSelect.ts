@@ -1,4 +1,4 @@
-import  { FunnelClassicComponents, FunnelNasaComponents, Theme }  from "../Interfaces/Themes";
+import { FunnelClassicComponents, FunnelNasaComponents, Theme } from "../constants/themes";
 
 export function getThemeFromString(themeName: string): Theme | undefined {
   switch (themeName.toLowerCase()) {
@@ -56,4 +56,3 @@ export function getNasaThemeComponent(name: string): FunnelNasaComponents | unde
       return undefined;
   }
 }
-

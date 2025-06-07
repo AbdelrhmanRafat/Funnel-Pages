@@ -1,34 +1,59 @@
+---
+import type { Meta } from "../Interfaces/Products";
+
+const metadata: Meta = Astro.props.metadata;
+---
+
 <!doctype html>
 <html lang="ar" dir="rtl">
 	<head>
+		<!-- Required meta tags -->
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="icon" type="image/svg+xml+png" href={metadata.image} />
 		<meta name="generator" content={Astro.generator} />
 		<!-- SEO Meta Tags -->
-		<title>Funnel Page</title>
-		<meta name="description" content="Funnel Page" />
-		<meta name="keywords" content="Funnel Page" />
+		<title>{metadata.title}</title>
+		<meta name="description" content={metadata.description} />
+		<meta name="keywords" content={metadata.title} />
 		<meta name="author" content="Funnel Page" />
 		<meta name="robots" content="index, follow" />
+
+		<!-- Additional SEO Tags -->
+		<link rel="canonical" href="https://www.yourdomain.com/page-url" />
+		<link rel="icon" href={metadata.image} type="image/x-icon" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-touch-icon.png"
+		/>
+
+		<!-- Open Graph / Facebook Meta Tags -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://www.yourdomain.com/page-url" />
+		<meta property="og:title" content={metadata.title} />
+		<meta property="og:description" content={metadata.description} />
+		<meta property="og:image" content={metadata.image} />
+		<meta property="og:image:alt" content={metadata.title} />
+		<meta property="og:site_name" content="Your Site Name" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter Meta Tags -->
+		<meta name="twitter:card" content={metadata.image} />
+		<meta name="twitter:site" content="@YourTwitterHandle" />
+		<meta name="twitter:creator" content="@ContentCreator" />
+		<meta name="twitter:title" content={metadata.title} />
+		<meta name="twitter:description" content={metadata.description} />
+		<meta
+			name="twitter:image"
+			content={metadata.image}
+		/>
+		<meta name="twitter:image:alt" content={metadata.title} />
+
 	</head>
-	<style>
-		
-	  </style>
 	<body>
+		<slot />
 
-			<slot />
-
-		  <!-- Your Content Here -->
-	  
-	  </body>
+	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
