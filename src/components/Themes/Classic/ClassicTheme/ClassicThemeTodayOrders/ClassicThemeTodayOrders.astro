@@ -1,39 +1,54 @@
 ---
+// This component displays the number of orders placed "today" for the Classic theme.
+// It features an animated counter that counts up to the provided order number.
+// Props:
+// - data: An object of type BlockData, expected to contain `count` (the number of orders today).
+
 import type { BlockData } from '../../../../../lib/api/types';
 
-
+// Defines the expected props for the component.
 interface Props {
-  data?: BlockData;
+  data?: BlockData; // Optional data prop for today's order count.
 }
 
-const { data } = Astro.props;
+const { data } = Astro.props; // Retrieves the data prop.
 ---
 
-<!-- طلبات اليوم -->
+<!-- "Today's Orders" display section -->
 <div class="my-10 bg-gold border-2 border-burgundy rounded-2xl p-6 shadow-md">
   <div class="flex items-center justify-center space-x-3 rtl:space-x-reverse">
-    <span class="text-burgundy font-bold font-serif text-xl">طلبات اليوم:</span>
+    <span class="text-burgundy font-bold font-serif text-xl">طلبات اليوم:</span> {/* Today's Orders: */}
+    {/* The order count is initially set to 0 and animated via JavaScript. */}
+    {/* The `today-orders` attribute stores the target count from the props. */}
     <span id="todayOrders" today-orders={data?.count} class="text-burgundy font-bold text-3xl  px-4 py-2 rounded-lg shadow-inner">
     0
     </span>
-    <span class="text-burgundy font-bold font-serif text-xl">طلب</span>
+    <span class="text-burgundy font-bold font-serif text-xl">طلب</span> {/* Order(s) */}
   </div>
 </div>
+
 <script>
+  // This script runs after the DOM is fully loaded.
   document.addEventListener("DOMContentLoaded", () => {
-    const counterElement = document.getElementById("todayOrders");
+    const counterElement = document.getElementById("todayOrders"); // Get the span element that displays the count.
+    // Get the target order count from the 'today-orders' attribute, default to 0 if not found.
     const targetCount = parseInt(counterElement.getAttribute("today-orders")) || 0;
 
-    let current = 0;
-    const duration = 1000; // المدة الكلية للعد (بالمللي ثانية)
-    const stepTime = Math.max(Math.floor(duration / targetCount), 20); // زمن كل خطوة
+    let current = 0; // Initialize the current count for the animation.
+    const duration = 1000; // Total duration for the counter animation in milliseconds.
+    // Calculate the time for each step of the counter.
+    // Ensures a minimum step time (e.g., 20ms) to prevent overly fast animation for small counts.
+    const stepTime = Math.max(Math.floor(duration / targetCount), 20);
 
+    // Start an interval timer to increment the counter.
     const counter = setInterval(() => {
-      current++;
-      counterElement.textContent = current;
+      current++; // Increment the current count.
+      counterElement.textContent = current.toString(); // Update the display with the new count.
+
+      // If the current count reaches the target, stop the interval.
       if (current >= targetCount) {
         clearInterval(counter);
       }
-    }, stepTime);
+    }, stepTime); // Run the interval at the calculated step time.
   });
 </script>

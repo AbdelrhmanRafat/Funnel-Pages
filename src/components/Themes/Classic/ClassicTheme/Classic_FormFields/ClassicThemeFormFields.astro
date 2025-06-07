@@ -1,119 +1,153 @@
 ---
+// This component renders the customer information form and order summary for the Classic theme.
+// It includes fields for personal details, shipping address, payment method, and a summary of the order.
+// Props:
+// - data: An object of type BlockData. While passed as a prop, it's not explicitly used in the current static HTML structure.
+//         It might be intended for future dynamic population of form fields or order summary details.
+
 import type { BlockData } from "../../../../../lib/api/types";
-import "./ClassicThemeFormFields.css"
+import "./ClassicThemeFormFields.css"; // Styles specific to this form component.
 
-
+// Retrieves the data prop. Note: 'data' is not actively used in the static parts of this component.
 const data = (Astro.props as { data: BlockData }).data;
 ---
 
 <section class="rounded-3xl">
   <div class="form-container rounded-3xl">
-       <!-- Personal Information Form -->
+       {/* Personal Information and Shipping Form Section */}
        <div class="personal-info">
-        <h2>المعلومات الشخصية</h2>
+        <h2>المعلومات الشخصية</h2> {/* Personal Information */}
         
         <form>
+            {/* Full Name Input */}
             <div class="form-group">
-                <label for="fullName">fullName</label>
-                <input type="text" id="fullName" placeholder="اكتب اسمك الكامل هنا">
+                <label for="fullName">fullName</label> {/* Full Name */}
+                <input type="text" id="fullName" placeholder="اكتب اسمك الكامل هنا"> {/* Enter your full name here */}
             </div>
 
+            {/* Phone Number Input */}
             <div class="form-group">
-                <label for="phoneNumber">phoneNumber</label>
-                <input type="tel" id="phoneNumber" placeholder="مثال: 05XXXXXXXX">
+                <label for="phoneNumber">phoneNumber</label> {/* Phone Number */}
+                <input type="tel" id="phoneNumber" placeholder="مثال: 05XXXXXXXX"> {/* Example: 05XXXXXXXX */}
             </div>
 
+            {/* Email Input */}
             <div class="form-group">
-                <label for="email">email</label>
-                <input type="email" id="email" placeholder="enterEmail">
+                <label for="email">email</label> {/* Email */}
+                <input type="email" id="email" placeholder="enterEmail"> {/* Enter Email */}
             </div>
 
+            {/* Shipping Information Section */}
             <div class="shipping-section">
-                <h3>معلومات الشحن</h3>
+                <h3>معلومات الشحن</h3> {/* Shipping Information */}
                 
+                {/* Selected Package Display - Appears static, ideally dynamic */}
                 <div class="form-group">
-                    <label>selectedPackage</label>
+                    <label>selectedPackage</label> {/* Selected Package */}
                     <div class="package-selector">
-                        <div class="package-title">شراء منتج واحد</div>
-                        <div class="package-details">قطعة واحدة *يوصل في 3-5 أيام</div>
+                        <div class="package-title">شراء منتج واحد</div> {/* Buy one product */}
+                        <div class="package-details">قطعة واحدة *يوصل في 3-5 أيام</div> {/* One piece *Delivered in 3-5 days */}
                     </div>
                 </div>
 
+                {/* Country Selection */}
                 <div class="form-group">
-                    <label for="country">country</label>
+                    <label for="country">country</label> {/* Country */}
                     <select id="country">
-                        <option value="">selectCountry</option>
-                        <option value="saudi">المملكة العربية السعودية</option>
-                        <option value="uae">الإمارات العربية المتحدة</option>
-                        <option value="egypt">مصر</option>
+                        <option value="">selectCountry</option> {/* Select Country */}
+                        <option value="saudi">المملكة العربية السعودية</option> {/* Saudi Arabia */}
+                        <option value="uae">الإمارات العربية المتحدة</option> {/* UAE */}
+                        <option value="egypt">مصر</option> {/* Egypt */}
                     </select>
                 </div>
 
+                {/* City Input */}
                 <div class="form-group">
-                    <label for="city">city</label>
-                    <input type="text" id="city" placeholder="enterCity">
+                    <label for="city">city</label> {/* City */}
+                    <input type="text" id="city" placeholder="enterCity"> {/* Enter City */}
                 </div>
 
+                {/* Address Details - Appears static */}
                 <div class="address-info">
-                    شارع الرياض، المملكة العربية السعودية<br>
-                    اكتب عنوان التوصيل بالتفصيل
+                    شارع الرياض، المملكة العربية السعودية<br> {/* Riyadh Street, Saudi Arabia */}
+                    اكتب عنوان التوصيل بالتفصيل {/* Write the delivery address in detail */}
                 </div>
             </div>
 
+            {/* Payment Method Section */}
             <div class="payment-section">
-                <h3>طريقة الدفع</h3>
+                <h3>طريقة الدفع</h3> {/* Payment Method */}
                 <div class="payment-options">
+                    {/* Cash on Delivery Option */}
                     <label class="payment-option selected">
                         <input type="radio" name="payment" value="cod" checked>
-                        <span>الدفع عند الاستلام</span>
+                        <span>الدفع عند الاستلام</span> {/* Cash on Delivery */}
                     </label>
+                    {/* Electronic Payment Option */}
                     <label class="payment-option">
                         <input type="radio" name="payment" value="electronic">
-                        <span>الدفع الإلكتروني</span>
+                        <span>الدفع الإلكتروني</span> {/* Electronic Payment */}
                     </label>
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn">تأكيد الطلب</button>
+            {/* Submit Button */}
+            <button type="submit" class="submit-btn">تأكيد الطلب</button> {/* Confirm Order */}
         </form>
     </div>
-      <!-- Order Summary -->
+
+      {/* Order Summary Section - Note: This section is currently static. */}
+      {/* Ideally, these values should be dynamically populated based on the cart/selected product. */}
       <div class="order-summary">
-          <h2>ملخص الطلب</h2>
+          <h2>ملخص الطلب</h2> {/* Order Summary */}
           
+          {/* Product Name */}
           <div class="order-item">
-              <label>المنتج:</label>
-              <div class="value">تيشيرت مطبوع بلاك</div>
+              <label>المنتج:</label> {/* Product: */}
+              <div class="value">تيشيرت مطبوع بلاك</div> {/* Black Printed T-shirt */}
           </div>
 
+          {/* Quantity */}
           <div class="order-item">
-              <label>الكمية:</label>
-              <div class="value">قطعة 1</div>
+              <label>الكمية:</label> {/* Quantity: */}
+              <div class="value">قطعة 1</div> {/* 1 Piece */}
           </div>
 
+          {/* Price Per Item */}
           <div class="order-item">
-              <label>سعر القطعة:</label>
-              <div class="price">ج.م ٢٩٠</div>
+              <label>سعر القطعة:</label> {/* Price per piece: */}
+              <div class="price">ج.م ٢٩٠</div> {/* EGP 290 */}
           </div>
 
+          {/* Subtotal */}
           <div class="order-item">
-              <label>subtotal</label>
-              <div class="price">ج.م ٢٩٠</div>
+              <label>subtotal</label> {/* Subtotal */}
+              <div class="price">ج.م ٢٩٠</div> {/* EGP 290 */}
           </div>
 
+          {/* Shipping Cost */}
           <div class="order-item">
-              <label>الشحن:</label>
-              <div class="price">ج.م ٥٠</div>
+              <label>الشحن:</label> {/* Shipping: */}
+              <div class="price">ج.م ٥٠</div> {/* EGP 50 */}
           </div>
 
+          {/* Total Price */}
           <div class="order-item total">
-              <label>إجمالي:</label>
-              <div class="price">ج.م ٣٤٠</div>
+              <label>إجمالي:</label> {/* Total: */}
+              <div class="price">ج.م ٣٤٠</div> {/* EGP 340 */}
           </div>
       </div>
   </div>
 </section>
 
+{/* Commented-out JavaScript for form interactions.
+    This script would handle:
+    - Visual selection of payment options.
+    - Form submission (currently prevents default and shows an alert).
+    - Making the package selector interactive (shows an alert).
+    To activate these, uncomment the script and ensure the associated ClassicThemeFormFields.ts
+    file is either not used for this specific logic or is coordinated with this script.
+*/}
 <!-- <script>
   // Handle payment option selection
   document.querySelectorAll('.payment-option').forEach(option => {

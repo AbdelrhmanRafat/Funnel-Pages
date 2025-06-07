@@ -1,5 +1,6 @@
-//Funnel Page TypeScript interfaces
+// This file defines the TypeScript interfaces for the API response.
 
+// Represents the overall funnel response from the API.
 export interface FunnelRes {
     code: number;
     status: number;
@@ -8,6 +9,7 @@ export interface FunnelRes {
     data: Data;
 }
 
+// Represents the main data object within the API response.
 export interface Data {
     product: Product;
     theme: string;
@@ -15,11 +17,13 @@ export interface Data {
     blocks: Block[];
 }
 
+// Represents a single block within the funnel page.
 export interface Block {
     name: string;
     data: BlockData;
 }
 
+// Represents the data associated with a block.
 export interface BlockData {
 [x: string]: any;
 map(arg0: (data: BlockData, index: number) => any): unknown;
@@ -40,6 +44,7 @@ map(arg0: (data: BlockData, index: number) => any): unknown;
     year?: string;
 }
 
+// Represents a purchase option for a product.
 export interface PurchaseOption {
     title: string;
     items: number;
@@ -53,6 +58,7 @@ export interface PurchaseOption {
     final_total: number;
 }
 
+// Represents a product in the API response.
 export interface Product {
     id: number;
     category_id: number;
@@ -82,6 +88,7 @@ export interface Product {
     is_have_variant: string;
 }
 
+// Represents an attachment for a product.
 export interface Attachment {
     id: number;
     path: string;
@@ -92,6 +99,7 @@ export interface Attachment {
     updated_at: Date;
 }
 
+// Represents a product category.
 export interface Category {
     id: number;
     parent_id: number;
@@ -100,6 +108,7 @@ export interface Category {
     is_active: number;
 }
 
+// Represents meta information for a product.
 export interface Meta {
     id: number;
     title: string;
@@ -111,15 +120,18 @@ export interface Meta {
     updated_at: Date;
 }
 
+// Represents product options.
 export interface ProductOption {
     options: OptionOption[];
 }
 
+// Represents an option for a product.
 export interface OptionOption {
     name: string;
     value: Value[];
 }
 
+// Represents the value of a product option.
 export interface Value {
     name?: string;
     hex?: string;

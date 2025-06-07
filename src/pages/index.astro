@@ -1,4 +1,5 @@
 ---
+// This file is the main page that fetches data, determines the theme, and renders the appropriate theme component.
 import "../styles/global.css"
 import Layout from "../layouts/Layout.astro";
 import ClassicComponent from "../components/Themes/Classic/ClassicComponent.astro";
@@ -10,8 +11,11 @@ import { getFunnelPage } from "../lib/api/funnel";
 import { Theme } from "../lib/constants/themes";
 import type { FunnelRes } from "../lib/api/types";
 
+// Fetches the funnel page data from the API.
 const funnelPage: FunnelRes = await getFunnelPage();
+// Gets the theme name string from the API response.
 const strTheme: string = funnelPage.data.theme;
+// Converts the theme string to a Theme enum value.
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
 const meta = funnelPage.data.product.meta; 
 ---
@@ -19,6 +23,7 @@ const meta = funnelPage.data.product.meta;
 <Layout metadata = {meta}>
   {
     (() => {
+      // Selects and renders the appropriate theme component based on the Theme enum value.
       switch (enumTheme) {
         case Theme.Classic:
           return <ClassicComponent funnelPage={funnelPage.data} />;

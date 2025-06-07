@@ -1,4 +1,6 @@
-// Available themes registry
+// This file defines the available themes and their corresponding component names.
+
+// Defines the available themes.
 export enum Theme {
   Classic = "classic",
   Nasa = "nasa",
@@ -6,6 +8,7 @@ export enum Theme {
   Light = "light",
 }
 
+// Defines the component names for the Classic theme.
 export enum FunnelClassicComponents {
   ClassicHeader = "classic_header",
   ClassicFormFields = "classic_form_fields",
@@ -16,6 +19,7 @@ export enum FunnelClassicComponents {
   ClassicFooter = "classic_footer"
 }
 
+// Defines the component names for the Nasa theme.
 export enum FunnelNasaComponents {
   NasaHeader = "nasa_header",
   NasaFormFields = "nasa_form_fields",

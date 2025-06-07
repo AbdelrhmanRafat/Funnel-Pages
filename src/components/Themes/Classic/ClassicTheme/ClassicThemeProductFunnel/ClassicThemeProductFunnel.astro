@@ -1,71 +1,85 @@
 ---
-import type { BlockData, OptionOption } from "../../../../../lib/api/types";
-import DynamicPannelContainer from "../UI/Dynamic Panel Container/DynamicPannelContainer.astro";
-import QuantityOptions from "../UI/Quantity Options/QuantityOptions.astro";
+// This component handles the product purchase options and price summary section for the Classic theme.
+// It allows users to select product variants (like color/size) and quantity,
+// displays a summary of the price, and provides action buttons like "Add to Cart".
+// Props:
+// - data: An object of type BlockData, containing purchase options and related data from the API.
+// - colorSizeOptions: An array of type OptionOption[], providing available color and size variants for the product.
 
+import type { BlockData, OptionOption } from "../../../../../lib/api/types";
+import DynamicPannelContainer from "../UI/Dynamic Panel Container/DynamicPannelContainer.astro"; // Component for selecting dynamic options like color/size.
+import QuantityOptions from "../UI/Quantity Options/QuantityOptions.astro"; // Component for selecting product quantity.
+
+// Retrieves data and colorSizeOptions from Astro's props.
 const data: BlockData = Astro.props.data;
 const colorSizeOptions : OptionOption[] = Astro.props.colorSizeOptions;
 ---
 
-<!-- Quantity Selection -->
+<!-- Quantity and Variant Selection Section -->
 <div class="mb-8">
+  {/* Renders quantity selection options based on the provided data. */}
   <QuantityOptions data = {data} />
+  {/* Renders dynamic panels for selecting product variants like color and size. client:load ensures interactivity. */}
   <DynamicPannelContainer client:load data={data} colorSizeOptions={colorSizeOptions} />
 </div>
 
-<!-- Price Summary -->
-        <!-- Main Receipt Items -->
+{/* Price Summary Section - Note: This section appears to be mostly static/hardcoded in the example. */}
+{/* Ideally, these values should be dynamically calculated and updated based on user selections. */}
+
+        {/* Main items in the price breakdown. */}
         <div class="p-6 space-y-3">
-          <!-- Product -->
+          {/* Product Quantity (Example: 3 pieces) */}
           <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="text-gray-700 font-medium">المنتج::</span>
-              <span class="text-gray-900 font-semibold">٣ ٣ قطعة</span>
+              <span class="text-gray-700 font-medium">المنتج::</span> {/* Product: */}
+              <span class="text-gray-900 font-semibold">٣ ٣ قطعة</span> {/* 3 pieces */}
           </div>
           
-          <!-- Unit Price -->
+          {/* Unit Price (Example: 1499 EGP) */}
           <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="text-gray-700 font-medium">سعر القطعة::</span>
-              <span class="text-gray-900 font-semibold">١٤٩٩ ج.م</span>
+              <span class="text-gray-700 font-medium">سعر القطعة::</span> {/* Price per piece: */}
+              <span class="text-gray-900 font-semibold">١٤٩٩ ج.م</span> {/* 1499 EGP */}
           </div>
           
-          <!-- Subtotal -->
+          {/* Subtotal (Example: 4497 EGP) */}
           <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="text-gray-700 font-medium">المجموع:</span>
-              <span class="text-gray-900 font-semibold">٤٤٩٧ ج.م</span>
+              <span class="text-gray-700 font-medium">المجموع:</span> {/* Subtotal: */}
+              <span class="text-gray-900 font-semibold">٤٤٩٧ ج.م</span> {/* 4497 EGP */}
           </div>
           
-          <!-- Shipping -->
+          {/* Shipping Cost (Example: 90 EGP) */}
           <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="text-gray-700 font-medium">الشحن::</span>
-              <span class="text-gray-900 font-semibold">٩٠ ج.م</span>
+              <span class="text-gray-700 font-medium">الشحن::</span> {/* Shipping: */}
+              <span class="text-gray-900 font-semibold">٩٠ ج.م</span> {/* 90 EGP */}
           </div>
           
-          <!-- Discount -->
+          {/* Discount Applied (Example: -3273 EGP) */}
           <div class="flex justify-between items-center py-2 border-b border-gray-200">
-              <span class="text-gray-700 font-medium">الخصم::</span>
-              <span class="text-green-600 font-semibold">- ٣٢٧٣ ج.م</span>
+              <span class="text-gray-700 font-medium">الخصم::</span> {/* Discount: */}
+              <span class="text-green-600 font-semibold">- ٣٢٧٣ ج.م</span> {/* -3273 EGP */}
           </div>
       </div>
       
-      <!-- Total Section -->
+      {/* Total Price Section (Example: 40587 EGP - this seems like a typo or unrelated number based on above) */}
       <div class="bg-blue-50 px-6 py-4 border-t-2 border-blue-200 mb-3">
           <div class="flex justify-between items-center">
-              <span class="text-blue-800 font-bold text-lg">الإجمالي::</span>
-              <span class="text-blue-900 font-bold text-xl">٤٠٥٨٧ ج.م</span>
+              <span class="text-blue-800 font-bold text-lg">الإجمالي::</span> {/* Total: */}
+              <span class="text-blue-900 font-bold text-xl">٤٠٥٨٧ ج.م</span> {/* 40587 EGP */}
           </div>
       </div>
 
-<!-- Action Buttons -->
+{/* Action Buttons Section */}
 <div class="space-y-4">
+  {/* "Add to Cart" button */}
   <button
     class="btn-primary w-full py-4 rounded-2xl text-white font-bold text-lg shadow-lg"
   >
-    🛒 أضف إلى السلة
+    🛒 أضف إلى السلة {/* Add to Cart */}
   </button>
 
+  {/* "Add to Favorites" button */}
   <button
     class="w-full py-4 rounded-2xl border-2 border-gray-300 text-gray-700 font-bold text-lg hover:bg-gray-50 transition-colors"
   >
-    ❤️ أضف إلى المفضلة
+    ❤️ أضف إلى المفضلة {/* Add to Favorites */}
   </button>
 </div>

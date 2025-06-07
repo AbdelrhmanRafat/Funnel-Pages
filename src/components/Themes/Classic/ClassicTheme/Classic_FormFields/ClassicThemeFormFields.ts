@@ -5,66 +5,90 @@
  * It includes form validation, submission, and other interactive features.
  */
 
+// NOTE: The <script> tag in ClassicThemeFormFields.astro which handles similar client-side
+// interactions (like payment option selection and form submission alerts) is currently commented out.
+// This TypeScript file provides more robust form validation. If this .ts file is used as the primary
+// source for form logic, ensure there's no conflicting or redundant JavaScript in the .astro file.
+
+// Initializes form field functionalities, primarily setting up validation.
 export function initFormFields() {
+  // Select the form within the .personal-info container.
   const form = document.querySelector('.personal-info form');
+  // If the form doesn't exist, exit to prevent errors.
   if (!form) return;
   
-  // Form validation
-  function validateForm(event) {
+  // Handles the form submission event for validation.
+  function validateForm(event: SubmitEvent) {
+    // Prevent the default form submission behavior which would cause a page reload.
     event.preventDefault();
     
+    // Get references to form input elements.
     const fullName = document.getElementById('fullName') as HTMLInputElement;
     const phoneNumber = document.getElementById('phoneNumber') as HTMLInputElement;
-    const email = document.getElementById('email') as HTMLInputElement;
+    const email = document.getElementById('email') as HTMLInputElement; // Email is optional based on logic below
     
-    let isValid = true;
+    let isValid = true; // Flag to track overall form validity.
     
-    // Basic validation
+    // Validate Full Name: required.
     if (!fullName || !fullName.value.trim()) {
-      markInvalid(fullName, 'الاسم الكامل مطلوب');
+      markInvalid(fullName, 'الاسم الكامل مطلوب'); // Full name is required
       isValid = false;
     } else {
       markValid(fullName);
     }
     
+    // Validate Phone Number: required.
     if (!phoneNumber || !phoneNumber.value.trim()) {
-      markInvalid(phoneNumber, 'رقم الهاتف مطلوب');
+      markInvalid(phoneNumber, 'رقم الهاتف مطلوب'); // Phone number is required
       isValid = false;
     } else {
       markValid(phoneNumber);
     }
     
-    if (email && email.value.trim() && !isValidEmail(email.value)) {
-      markInvalid(email, 'البريد الإلكتروني غير صالح');
-      isValid = false;
-    } else if (email && email.value.trim()) {
+    // Validate Email: if provided, must be a valid format.
+    if (email && email.value.trim()) { // Check if email field has a value
+      if (!isValidEmail(email.value)) {
+        markInvalid(email, 'البريد الإلكتروني غير صالح'); // Invalid email
+        isValid = false;
+      } else {
+        markValid(email);
+      }
+    } else if (email) {
+      // If email element exists but is empty, treat as valid (or add specific 'required' logic if needed)
       markValid(email);
     }
     
+    // If all validations pass, proceed with form submission (currently simulated).
     if (isValid) {
-      // Submit form or show success message
-      console.log('Form submitted successfully');
+      // TODO: Replace console.log with actual form submission logic (e.g., API call).
+      console.log('Form data is valid and would be submitted here.');
+      alert('تم إرسال الطلب بنجاح!'); // Successfully sent request! (Matches commented out Astro script)
     }
   }
   
-  function markInvalid(element, message) {
+  // Adds an 'invalid' class to a form element and could display an error message.
+  function markInvalid(element: HTMLElement, message: string) {
     element.classList.add('invalid');
-    // Add error message if needed
+    // TODO: Implement displaying the 'message' to the user next to the element.
+    console.error(`Validation Error for ${element.id}: ${message}`);
   }
   
-  function markValid(element) {
+  // Removes the 'invalid' class from a form element.
+  function markValid(element: HTMLElement) {
     element.classList.remove('invalid');
-    // Remove error message if needed
+    // TODO: Implement removing any displayed error message for this element.
   }
   
-  function isValidEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Validates an email string against a basic regular expression.
+  function isValidEmail(email: string): boolean {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple regex for email validation.
     return re.test(email);
   }
   
-  // Add event listeners
+  // Attach the validateForm function to the form's 'submit' event.
   form.addEventListener('submit', validateForm);
 }
 
-// Initialize the form when the DOM is loaded
+// Ensures that initFormFields is called only after the HTML document is fully loaded and parsed.
+// This is important because the script needs to access DOM elements.
 document.addEventListener('DOMContentLoaded', initFormFields);

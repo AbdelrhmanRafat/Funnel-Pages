@@ -1,5 +1,7 @@
+// This file contains functions to convert theme strings to `Theme` enum values and to get theme-specific component names.
 import { FunnelClassicComponents, FunnelNasaComponents, Theme } from "../constants/themes";
 
+// Converts a theme string to a Theme enum value.
 export function getThemeFromString(themeName: string): Theme | undefined {
   switch (themeName.toLowerCase()) {
     case "classic":
@@ -15,6 +17,7 @@ export function getThemeFromString(themeName: string): Theme | undefined {
   }
 }
 
+// Gets the component name for the Classic theme.
 export function getClassicThemeComponent(name: string): FunnelClassicComponents | undefined {
   switch (name.toLowerCase()) {
     case "classic_header":
@@ -36,6 +39,7 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
   }
 }
 
+// Gets the component name for the Nasa theme.
 export function getNasaThemeComponent(name: string): FunnelNasaComponents | undefined {
   switch (name.toLowerCase()) {
     case "nasa_header":

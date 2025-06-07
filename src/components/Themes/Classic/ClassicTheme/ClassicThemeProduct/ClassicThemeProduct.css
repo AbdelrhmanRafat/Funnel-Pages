@@ -1,17 +1,30 @@
+/*
+This CSS file provides specific styling for the ClassicThemeProduct.astro component and its sub-elements.
+It complements Tailwind CSS classes and global styles, offering more granular control over the appearance of:
+- Product image gallery enhancements (hover effects, active states)
+- Product information section layout and typography
+- Purchase option cards and selection states
+- Custom visual effects like glassmorphism and shadows
+- Animations for image transitions and content loading
+*/
+
 * {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Cairo', sans-serif; /* Sets a default font for this component tree. */
 }
 
+/* Creates a frosted glass effect for elements. */
 .glass-effect {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.25); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Applies a blur to the content behind the element */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle border to enhance the glass look */
 }
 
+/* Applies a prominent shadow effect, typically used for the main product container. */
 .product-shadow {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Soft, deep shadow */
 }
 
+/* Defines hover effects for images, typically in the gallery. */
 .image-hover {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -35,20 +48,23 @@
 
 .quantity-card {
     transition: all 0.3s ease;
-    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    background: linear-gradient(145deg, #ffffff, #f8fafc); /* Default background gradient */
 }
 
+/* Hover state for quantity selection cards. */
 .quantity-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
 }
 
+/* Styling for selected quantity cards, indicating active choice. */
 .quantity-card.selected {
-    background: linear-gradient(145deg, #eff6ff, #dbeafe);
-    border-color: #3b82f6;
-    transform: translateY(-2px);
+    background: linear-gradient(145deg, #eff6ff, #dbeafe); /* Different background for selected state */
+    border-color: #3b82f6; /* Blue border to highlight selection */
+    transform: translateY(-2px); /* Maintains the lifted effect */
 }
 
+/* Primary button styling, typically for "Add to Cart" or similar actions. */
 .btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     transition: all 0.3s ease;

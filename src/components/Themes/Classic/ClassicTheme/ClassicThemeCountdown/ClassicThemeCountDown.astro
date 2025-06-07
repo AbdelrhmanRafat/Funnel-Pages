@@ -1,10 +1,16 @@
 ---
+// This component displays a countdown timer for the Classic theme.
+// It takes hours, minutes, and seconds from the API data and renders a visual timer.
+// Props:
+// - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
+
 import type { BlockData } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
 
 let totalSeconds = 0;
 
+// Calculate the total seconds from the provided hours, minutes, and seconds.
 if(data.hours != null && data.minutes != null && data.seconds != null)
 {
   totalSeconds =
@@ -18,36 +24,41 @@ if(data.hours != null && data.minutes != null && data.seconds != null)
 <section class="text-black py-6">
   <div class="px-6 text-center">
     <h2 class="text-3xl font-bold">
-      ينتهي العرض خلال:
+      ينتهي العرض خلال: {/* Offer ends in: */}
     </h2>
+    {/* Container for the countdown timer, with total seconds passed as a data attribute. */}
     <div
       class="my-7 flex justify-center gap-4 sm:gap-8 items-center"
       id="countdown"
       data-time={totalSeconds}
     >
+      {/* Hours display block */}
       <div
         class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300"
       >
         <div class="text-4xl font-extrabold" id="hours">--</div>
-        <div class="text-sm font-serif">ساعة</div>
+        <div class="text-sm font-serif">ساعة</div> {/* Hours */}
       </div>
+      {/* Minutes display block */}
       <div
         class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300"
       >
         <div class="text-4xl font-extrabold" id="minutes">--</div>
-        <div class="text-sm font-serif">دقيقة</div>
+        <div class="text-sm font-serif">دقيقة</div> {/* Minutes */}
       </div>
+      {/* Seconds display block */}
       <div
         class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300"
       >
         <div class="text-4xl font-extrabold" id="seconds">--</div>
-        <div class="text-sm font-serif">ثانية</div>
+        <div class="text-sm font-serif">ثانية</div> {/* Seconds */}
       </div>
     </div>
   </div>
 </section>
 
 <script>
+  // Imports and initializes the countdown timer logic from the corresponding TypeScript file.
   import { initCountdown } from "./ClassicThemeCountDown";
   document.addEventListener('DOMContentLoaded', initCountdown);
 </script>

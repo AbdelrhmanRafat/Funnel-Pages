@@ -1,11 +1,17 @@
 ---
+// This component renders the footer section for the Classic theme.
+// It displays information about the store and copyright details.
+// Props:
+// - data: An object of type BlockData, containing company name and year for the copyright notice.
+
 import type { BlockData } from '../../../../../lib/api/types';
 
-
+// Defines the expected props for the component.
 interface Props {
-  data?: BlockData;
+  data?: BlockData; // Optional data prop for footer content.
 }
 
+// Retrieves the data prop passed to the component.
 const data = (Astro.props as { data: BlockData }).data;
 
 ---
@@ -13,22 +19,23 @@ const data = (Astro.props as { data: BlockData }).data;
 <footer class="bg-gray-900 text-white py-14 border-t-4 border-gold">
   <div class="px-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-start">
 
-    <!-- Info Column -->
+    {/* Column for general store information or tagline. */}
     <div class="space-y-4">
-      <h4 class="text-3xl font-bold text-gold font-serif">متجر المنتجات الرقمية</h4>
+      <h4 class="text-3xl font-bold text-gold font-serif">متجر المنتجات الرقمية</h4> {/* Digital Products Store */}
       <p class="text-gray-300 text-lg font-serif leading-relaxed">
-        نقدم أفضل المنتجات الرقمية<br>
-        بجودة عالية وبأسعار تنافسية.
+        نقدم أفضل المنتجات الرقمية<br /> {/* We offer the best digital products */}
+        بجودة عالية وبأسعار تنافسية. {/* with high quality and competitive prices. */}
       </p>
     </div>
 
-    <!-- Spacer / Middle Column -->
+    {/* Spacer column for layout purposes on medium screens and up. */}
     <div class="hidden md:block"></div>
 
-    <!-- Contact / Rights Column -->
+    {/* Column for copyright information. */}
     <div class="space-y-4 text-gray-300 font-serif">
       <div class="space-y-1">
-        <p class="text-lg">جميع الحقوق محفوظة</p>
+        <p class="text-lg">جميع الحقوق محفوظة</p> {/* All rights reserved */}
+        {/* Dynamically displays the company name and year from the props. */}
         <p class="text-gold font-semibold">{data.company_name} © {data.year}</p>
       </div>
     </div>

@@ -1,11 +1,19 @@
 ---
-import type { BlockData, OptionOption, Product } from "../../../../../lib/api/types";
-import GalleryComponent from "../UI/Gallery/GalleryComponent.astro";
-import ClassicThemeProductFunnel from "../ClassicThemeProductFunnel/ClassicThemeProductFunnel.astro";
-import "./ClassicThemeProduct.css";
+// This component displays the main product details page for the Classic theme.
+// It includes a gallery, product information (name, price, description), and purchase options.
+// Props:
+// - product: An object of type Product, containing all details about the product.
+// - purchaseOptions: An object of type BlockData, containing data for the purchase options/funnel.
 
+import type { BlockData, OptionOption, Product } from "../../../../../lib/api/types";
+import GalleryComponent from "../UI/Gallery/GalleryComponent.astro"; // Component for displaying product images.
+import ClassicThemeProductFunnel from "../ClassicThemeProductFunnel/ClassicThemeProductFunnel.astro"; // Component for handling purchase options.
+import "./ClassicThemeProduct.css"; // Styles specific to this component.
+
+// Retrieves product and purchaseOptions from Astro's props.
 const product: Product = Astro.props.product;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+// Extracts color and size options from the product data. Assumes options are structured in a specific way.
 const colorSizeOptions : OptionOption[] = product.options[0].options;
 
 ---
@@ -13,51 +21,50 @@ const colorSizeOptions : OptionOption[] = product.options[0].options;
 <section class="py-2 lg:pt-52">
     <div class="bg-white py-3 rounded-3xl product-shadow">
         <div class="flex flex-col lg:flex-row gap-2">
-            <!-- Gallery Section - Enhanced -->
+            {/* Gallery Section: Displays product images using the GalleryComponent. */}
              <GalleryComponent product={product} />
-            <!-- Product Info Section - Enhanced -->
+            {/* Product Info Section: Displays detailed information about the product. */}
             <div
                 class="lg:w-1/2 lg:p-3 bg-gradient-to-br from-white to-gray-50"
             >
-                <!-- Product Header -->
+                {/* Product Header: Contains availability, SKU, name, rating, and price. */}
                 <div class="mb-8">
                     <div class="flex items-center gap-2 mb-3">
                         <span
                             class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium"
-                            >{product.is_active ? "متوفر" : "غير متوفر"}</span
-                        >
+                            >{product.is_active ? "متوفر" : "غير متوفر"} {/* Available / Not Available */}</span>
                         <span class="text-gray-500 text-sm"
-                            >رمز المنتج: {product.sku_code}</span
-                        >
+                            >رمز المنتج: {product.sku_code} {/* Product Code: */}</span>
                     </div>
 
                     <h1
                         class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight"
                     >
-                        {product.name_ar}
+                        {product.name_ar} {/* Product Name (Arabic) */}
                     </h1>
 
+                    {/* Static rating display. Could be made dynamic if rating data is available. */}
                     <div class="flex items-center gap-2 mb-4">
                         <div class="flex text-yellow-400">★★★★★</div>
-                        <span class="text-gray-600 text-sm">(127 تقييم)</span>
+                        <span class="text-gray-600 text-sm">(127 تقييم) {/* (127 Ratings) */}</span>
                     </div>
 
                     <div class="text-4xl font-bold mb-6">
-                        {product.price} ج.م
+                        {product.price} ج.م {/* Price in EGP */}
                     </div>
                 </div>
 
-                <!-- Product Description -->
+                {/* Product Description: Displays the product description, allowing HTML content. */}
                 <div class="mb-8">
                     <h3 class="text-xl font-bold text-gray-900 mb-3">
-                        وصف المنتج
+                        وصف المنتج {/* Product Description */}
                     </h3>
                     <p class="text-gray-600 leading-relaxed" set:html={product.description_ar}>
-                   
+                        {/* Product description content (Arabic) is injected here. */}
                     </p>
                 </div>
 
-                <!-- Purchase options -->
+                {/* Purchase Options: Renders the product funnel component with purchase and variant options. */}
                 <ClassicThemeProductFunnel data={purchaseOptions} colorSizeOptions={colorSizeOptions} />
             </div>
         </div>
@@ -65,5 +72,7 @@ const colorSizeOptions : OptionOption[] = product.options[0].options;
 </section>
 
 <script>
+    // Imports JavaScript functionalities specific to the ClassicThemeProduct component.
+    // This might include event handlers for UI elements or other interactive features.
     import "./ClassicThemeProduct";
 </script>
