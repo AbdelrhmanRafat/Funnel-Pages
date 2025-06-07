@@ -1,0 +1,98 @@
+---
+---
+<div id="panels-container" class="mt-8 space-y-6">
+    <!-- Panel 1 - Always visible when qty1 is selected -->
+    <div
+      class="option-panel bg-white p-8 rounded-3xl shadow-xl space-y-8 border border-blue-100"
+    >
+      <!-- Header -->
+      <div class="flex justify-between items-center">
+        <p class="text-blue-700 font-bold text-xl">
+          اختر الخيارات للمنتج الأول
+        </p>
+        <div class="flex items-center gap-3">
+          <div
+            class="flex items-center gap-2 bg-blue-100 px-4 py-1.5 rounded-full shadow-sm"
+          >
+            <span class="text-sm text-gray-700 font-medium">أحمر</span>
+            <div
+              class="w-3.5 h-3.5 rounded-full bg-red-500 border border-white shadow-inner"
+            >
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-2 bg-blue-100 px-4 py-1.5 rounded-full shadow-sm"
+          >
+            <span class="text-sm text-gray-700 font-medium">XXL</span>
+          </div>
+        </div>
+      </div>
+      <!-- Size Selection -->
+      <div class="space-y-3">
+        <p class="text-lg font-semibold text-gray-700">المقاس:</p>
+        <div class="flex gap-4">
+          <div
+            class="size-option px-5 py-2.5 border border-gray-300 rounded-xl cursor-pointer hover:bg-blue-50 hover:text-blue-700 transition-all shadow-sm text-sm font-medium text-gray-600"
+          >
+            XL
+          </div>
+          <div
+            class="size-option px-5 py-2.5 border border-gray-300 rounded-xl cursor-pointer hover:bg-blue-50 hover:text-blue-700 transition-all shadow-sm text-sm font-medium text-gray-600"
+          >
+            L
+          </div>
+          <div
+            class="size-option px-5 py-2.5 border border-gray-300 rounded-xl cursor-pointer hover:bg-blue-50 hover:text-blue-700 transition-all shadow-sm text-sm font-medium text-gray-600"
+          >
+            M
+          </div>
+        </div>
+      </div>
+      <!-- Color Selection -->
+      <div class="space-y-3">
+        <p class="text-lg font-semibold text-gray-700">اللون:</p>
+        <div class="flex gap-6 flex-wrap">
+          <div
+            class="color-option flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+          >
+            <div
+              class="w-9 h-9 rounded-full bg-red-500 border-2 border-white shadow-md"
+            >
+            </div>
+            <span class="text-sm text-gray-600">أحمر</span>
+          </div>
+          <div
+            class="color-option flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+          >
+            <div
+              class="w-9 h-9 rounded-full bg-blue-500 border-2 border-white shadow-md"
+            >
+            </div>
+            <span class="text-sm text-gray-600">أزرق</span>
+          </div>
+          <div
+            class="color-option flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+          >
+            <div
+              class="w-9 h-9 rounded-full bg-green-500 border-2 border-white shadow-md"
+            >
+            </div>
+            <span class="text-sm text-gray-600">أخضر</span>
+          </div>
+          <div
+            class="color-option flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+          >
+            <div
+              class="w-9 h-9 rounded-full bg-yellow-500 border-2 border-white shadow-md"
+            >
+            </div>
+            <span class="text-sm text-gray-600">أصفر</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  import "./DynamicPannelContainer";
+</script>

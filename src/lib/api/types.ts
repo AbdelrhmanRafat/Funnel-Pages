@@ -21,6 +21,8 @@ export interface Block {
 }
 
 export interface BlockData {
+[x: string]: any;
+map(arg0: (data: BlockData, index: number) => any): unknown;
     title?: string;
     subtitle?: string;
     logo?: string;

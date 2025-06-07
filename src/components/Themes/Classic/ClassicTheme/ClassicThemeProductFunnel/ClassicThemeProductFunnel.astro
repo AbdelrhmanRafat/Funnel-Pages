@@ -1,11 +1,51 @@
 ---
-import type { BlockData } from '../../../../../lib/api/types';
+import type { BlockData } from "../../../../../lib/api/types";
+import DynamicPannelContainer from "../UI/Dynamic Panel Container/DynamicPannelContainer.astro";
+import QuantityOptions from "../UI/Quantity Options/QuantityOptions.astro";
 
+const data: BlockData = Astro.props.data;
 
-interface Props {
-  data?: BlockData;
-}
-
-const { data } = Astro.props;
 ---
 
+<!-- Quantity Selection -->
+<div class="mb-8">
+  <QuantityOptions data = {data} />
+
+  <!-- Dynamic Panels Container -->
+  <DynamicPannelContainer />
+</div>
+
+<!-- Price Summary -->
+<div class="bg-gray-50 rounded-2xl p-6 mb-6">
+  <div class="space-y-3">
+    <div class="flex justify-between text-gray-600">
+      <span>سعر المنتج:</span>
+      <span id="productPrice">329.00 ج.م</span>
+    </div>
+    <div class="flex justify-between text-gray-600">
+      <span>رسوم الشحن:</span>
+      <span>40.00 ج.م</span>
+    </div>
+    <div
+      class="border-t pt-3 flex justify-between text-xl font-bold text-gray-900"
+    >
+      <span>الإجمالي:</span>
+      <span id="totalPrice">369.00 ج.م</span>
+    </div>
+  </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="space-y-4">
+  <button
+    class="btn-primary w-full py-4 rounded-2xl text-white font-bold text-lg shadow-lg"
+  >
+    🛒 أضف إلى السلة
+  </button>
+
+  <button
+    class="w-full py-4 rounded-2xl border-2 border-gray-300 text-gray-700 font-bold text-lg hover:bg-gray-50 transition-colors"
+  >
+    ❤️ أضف إلى المفضلة
+  </button>
+</div>

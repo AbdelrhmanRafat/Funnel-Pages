@@ -1,0 +1,111 @@
+---
+import type { Product } from "../../../lib/api/types";
+
+const product: Product = Astro.props.product;
+---
+
+<!-- Gallery Section - Enhanced -->
+<div class="lg:w-1/2 lg:sticky lg:top-0 lg:self-start lg:mt-12">
+    <div class="w-11/12 flex flex-col gap-6">
+        <!-- Main Image Display -->
+        <div class="relative">
+            <div
+                class="relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl overflow-hidden"
+            >
+                <img
+                    id="mainImage"
+                    src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop"
+                    class="main-image w-full h-96 lg:h-[500px] object-cover"
+                    alt="صورة المنتج الرئيسية"
+                />
+
+                <!-- Navigation Buttons -->
+                <button
+                    id="prevBtn"
+                    class="floating-nav left-4 w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-gray-700 hover:text-blue-600"
+                >
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+
+                <button
+                    id="nextBtn"
+                    class="floating-nav right-4 w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-gray-700 hover:text-blue-600"
+                >
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+
+                <!-- Image Counter -->
+                <div
+                    class="absolute bottom-4 left-1/2 transform -translate-x-1/2 glass-effect px-4 py-2 rounded-full text-sm font-medium text-gray-700"
+                >
+                    <span id="currentImageIndex">1</span> / <span
+                        id="totalImages">5</span
+                    >
+                </div>
+            </div>
+        </div>
+        <!-- Thumbnail Gallery -->
+        <div
+            class="max-h-96 overflow-x-auto whitespace-nowrap scrollbar-auto pb-2"
+        >
+            <div class="inline-flex gap-3">
+                <img
+                    src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"
+                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover thumbnail-active"
+                    data-index="0"
+                    alt="صورة المنتج 1"
+                />
+                <img
+                    src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=400&fit=crop"
+                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover"
+                    data-index="1"
+                    alt="صورة المنتج 2"
+                />
+                <img
+                    src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=400&fit=crop"
+                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover"
+                    data-index="2"
+                    alt="صورة المنتج 3"
+                />
+                <img
+                    src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop"
+                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover"
+                    data-index="3"
+                    alt="صورة المنتج 4"
+                />
+                <img
+                    src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop"
+                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover"
+                    data-index="4"
+                    alt="صورة المنتج 5"
+                />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    import { initGallery } from "./GalleryComponent";
+    // The gallery will initialize automatically via the DOMContentLoaded event
+</script>
