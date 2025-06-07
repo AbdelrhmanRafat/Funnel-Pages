@@ -1,12 +1,42 @@
 ---
 import type { BlockData } from "../../../../../lib/api/types";
-import ClassicHeader from "./classic_header/classic_header";
-interface Props {
-  data?: BlockData;
-}
 
-const data = (Astro.props as { data: BlockData }).data;
+// Import default logo from public assets
+const defaultLogoSrc : string =  "assets/default-logo.svg";
+
+// Get data from props with proper typing
+const  data : BlockData  = Astro.props.data;
+
+// Use data properties or fallbacks
+const logo = data?.logo || defaultLogoSrc;
+const title = data?.title || "Your Brand Name";
+const subtitle = data?.subtitle || "";
 ---
 
-<ClassicHeader headerData={data} client:load />
+<header class="bg-white shadow-sm fixed top-0 z-50 right-0 left-0 w-full">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col items-center py-3">
+      <div class="flex flex-col items-center text-center">
+        <img
+          id="headerLogo"
+          src={logo}
+          alt={title}
+          class="h-16 w-auto mb-2 object-contain"
+        />
+        <h1 class="text-lg font-bold text-gray-900 leading-tight">
+          {title}
+        </h1>
+        {subtitle && (
+          <p class="text-sm text-gray-600 max-w-xs mt-1" title={subtitle}>
+            {subtitle}
+          </p>
+        )}
+      </div>
+    </div>
+  </div>
+</header>
 
+<script>
+  import { initHeader } from "./ClassicThemeHeader";
+  initHeader();
+</script>

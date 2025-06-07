@@ -9,7 +9,8 @@ export function initCountdown() {
   const countdownContainer = document.getElementById('countdown');
   if (!countdownContainer) return;
   
-  const total = parseInt(countdownContainer.dataset.time) || 0;
+  // Fix type error by adding type assertion for dataset.time
+  const total = parseInt(countdownContainer.dataset.time ?? '0') || 0;
 
   let timeLeft = total;
 
@@ -24,9 +25,10 @@ export function initCountdown() {
     const minutes = Math.floor((timeLeft % 3600) / 60);
     const seconds = timeLeft % 60;
 
-    hoursEl.textContent = String(hours).padStart(2, '0');
-    minutesEl.textContent = String(minutes).padStart(2, '0');
-    secondsEl.textContent = String(seconds).padStart(2, '0');
+    // Fix null checks by using non-null assertion or conditional checks
+    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
 
     if (timeLeft > 0) {
       timeLeft--;
@@ -38,6 +40,3 @@ export function initCountdown() {
   const timer = setInterval(updateCountdown, 1000);
   updateCountdown();
 }
-
-// Initialize the countdown when the DOM is loaded
-document.addEventListener('DOMContentLoaded', initCountdown);
