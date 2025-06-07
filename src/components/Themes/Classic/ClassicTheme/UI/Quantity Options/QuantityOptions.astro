@@ -1,5 +1,6 @@
 ---
-import type { BlockData } from "../../../../../../lib/api/types";
+import type { BlockData, OptionOption } from "../../../../../../lib/api/types";
+import DynamicPanelContainer from "../Dynamic Panel Container/DynamicPannelContainer.astro";
 
 const data: BlockData[] = Astro.props.data;
 const name = "qty";
@@ -23,6 +24,7 @@ const name = "qty";
           name={name}
           class="hidden"
           checked={index === 0}
+          data-items={item.items}
         />
 
         {/* Popular Badge for Best Deal */}

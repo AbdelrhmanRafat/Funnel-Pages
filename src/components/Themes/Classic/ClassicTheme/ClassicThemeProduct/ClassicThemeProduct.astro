@@ -1,11 +1,13 @@
 ---
-import type { BlockData, Product } from "../../../../../lib/api/types";
+import type { BlockData, OptionOption, Product } from "../../../../../lib/api/types";
 import GalleryComponent from "../UI/Gallery/GalleryComponent.astro";
 import ClassicThemeProductFunnel from "../ClassicThemeProductFunnel/ClassicThemeProductFunnel.astro";
 import "./ClassicThemeProduct.css";
 
 const product: Product = Astro.props.product;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const colorSizeOptions : OptionOption[] = product.options[0].options;
+
 ---
 
 <section class="py-2 lg:pt-52">
@@ -56,7 +58,7 @@ const purchaseOptions: BlockData = Astro.props.purchaseOptions;
                 </div>
 
                 <!-- Purchase options -->
-                <ClassicThemeProductFunnel data={purchaseOptions} />
+                <ClassicThemeProductFunnel data={purchaseOptions} colorSizeOptions={colorSizeOptions} />
             </div>
         </div>
     </div>
