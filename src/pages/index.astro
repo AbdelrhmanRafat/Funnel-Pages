@@ -1,14 +1,14 @@
 ---
 import "../styles/global.css"
 import Layout from "../layouts/Layout.astro";
-import type { FunnelRes } from "../Interfaces/Products";
-import { getFunnelPage } from "../Services/FunnelPageService";
-import { getThemeFromString } from "../Services/ThemesSelectService";
-import { Theme } from "../Interfaces/Themes";
 import ClassicComponent from "../components/Themes/Classic/ClassicComponent.astro";
 import DarkComponent from "../components/Themes/Dark/DarkComponent.astro";
 import LightComponent from "../components/Themes/Light/LightComponent.astro";
 import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
+import { getThemeFromString } from "../lib/utils/ThemeSelect";
+import { getFunnelPage } from "../lib/api/funnel";
+import { Theme } from "../lib/constants/themes";
+import type { FunnelRes } from "../lib/api/types";
 
 const funnelPage: FunnelRes = await getFunnelPage();
 const strTheme: string = funnelPage.data.theme;

@@ -1,20 +1,20 @@
 ---
 import "../../../styles/global.css";
 
-import { FunnelClassicComponents } from '../../../Interfaces/Themes';
-import type { Data, BlockData } from "../../../Interfaces/Products";
-import { getClassicThemeComponent } from "../../../Services/ThemesSelectService";
 import ClassicThemeHeader from "./ClassicTheme/Classic_Header/ClassicThemeHeader.astro";
 import ClassicThemeFormFields from "./ClassicTheme/Classic_FormFields/ClassicThemeFormFields.astro";
 import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct/ClassicThemeProduct.astro";
 import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountdown/ClassicThemeCountDown.astro";
+import { getClassicThemeComponent } from "../../../lib/utils/ThemeSelect";
+import type { BlockData, Data } from "../../../lib/api/types";
+import { FunnelClassicComponents } from "../../../lib/constants/themes";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
   componentData: BlockData | undefined;
 }
 
-const funnelPage: Data = Astro.props.Data;
+const funnelPage: Data = Astro.props.funnelPage;
 
 const classicComponentNames: [FunnelClassicComponents, BlockData][] = funnelPage.blocks
   .map(block => {
@@ -31,7 +31,6 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
   };
 }
 
-console.log(funnelPage);
 ---
 <main class="container flex-col justify-center items-center gap-4">
 
@@ -47,7 +46,8 @@ console.log(funnelPage);
 {isComponentFound(FunnelClassicComponents.ClassicCountdown).isComponentFound && (
   <ClassicThemeCountDown data={isComponentFound(FunnelClassicComponents.ClassicCountdown).componentData} />
 )}
-  </main>
+</main>
+
 <!-- 
 {isComponentFound(FunnelClassicComponents.ClassicTodayOrders).isComponentFound && (
   <ClassicThemeTodayOrders data={isComponentFound(FunnelClassicComponents.ClassicTodayOrders).componentData}  />
