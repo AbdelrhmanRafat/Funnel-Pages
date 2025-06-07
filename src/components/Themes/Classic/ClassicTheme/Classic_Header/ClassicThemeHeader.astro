@@ -7,6 +7,7 @@
 //         and `subtitle` (string, optional).
 
 import type { BlockData } from "../../../../../lib/api/types";
+import LanguageSwitcher from "../UI/Language Switcher/languageSwitcher.astro";
 
 // Defines the path to a default logo image, used as a fallback.
 const defaultLogoSrc : string =  "assets/default-logo.svg";
@@ -29,6 +30,7 @@ const subtitle = data?.subtitle || "";
 */}
 <header class="bg-white shadow-sm fixed top-0 z-50 right-0 left-0 w-full">
   <div class="container mx-auto px-4">
+   <LanguageSwitcher />
     <div class="flex flex-col items-center py-3"> {/* Centers content vertically and horizontally */}
       <div class="flex flex-col items-center text-center">
         {/* Logo image: uses the determined logo source and title as alt text. */}
@@ -36,7 +38,7 @@ const subtitle = data?.subtitle || "";
           id="headerLogo"
           src={logo}
           alt={title}
-          class="h-16 w-auto mb-2 object-contain" {/* Styles for logo size and spacing */}
+          class="h-16 w-auto mb-2 object-contain" 
         />
         {/* Main title display. */}
         <h1 class="text-lg font-bold text-gray-900 leading-tight">
