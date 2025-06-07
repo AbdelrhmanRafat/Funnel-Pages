@@ -30,6 +30,10 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
     componentData: found?.[1]
   };
 }
+
+// Get purchase options from ClassicProductFunnel if available
+const productFunnelData = isComponentFound(FunnelClassicComponents.ClassicProductFunnel);
+const purchaseOptions = productFunnelData.isComponentFound ? productFunnelData.componentData?.purchase_options : undefined;
 ---
 <main class="container flex-col justify-center items-center gap-4">
 
@@ -37,7 +41,10 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
     <ClassicThemeHeader data={isComponentFound(FunnelClassicComponents.ClassicHeader).componentData} />
   )}
 
-<ClassicThemeProduct Product={funnelPage.product}></ClassicThemeProduct>
+<ClassicThemeProduct 
+  product={funnelPage.product} 
+  purchaseOptions={purchaseOptions}
+/>
 
 {isComponentFound(FunnelClassicComponents.ClassicFormFields).isComponentFound && (
   <ClassicThemeFormFields data={isComponentFound(FunnelClassicComponents.ClassicFormFields).componentData} />

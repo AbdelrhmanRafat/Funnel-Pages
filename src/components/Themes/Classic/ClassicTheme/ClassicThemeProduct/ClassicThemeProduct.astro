@@ -1,6 +1,10 @@
 ---
+import type { BlockData, Product } from "../../../../../lib/api/types";
 import "./ClassicThemeProduct.css";
-const product = Astro.props.Product;
+
+const product: Product = Astro.props.product;
+const purchaseOptions : BlockData = Astro.props.purchaseOptions
+
 ---
 
 <section class="py-2 lg:pt-52">
