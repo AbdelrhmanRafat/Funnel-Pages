@@ -10,7 +10,7 @@ const colorSizeOptions : OptionOption[] = Astro.props.colorSizeOptions;
 <!-- Quantity Selection -->
 <div class="mb-8">
   <QuantityOptions data = {data} />
-  <DynamicPannelContainer data={data} colorSizeOptions={colorSizeOptions} />
+  <DynamicPannelContainer client:load data={data} colorSizeOptions={colorSizeOptions} />
 </div>
 
 <!-- Price Summary -->
