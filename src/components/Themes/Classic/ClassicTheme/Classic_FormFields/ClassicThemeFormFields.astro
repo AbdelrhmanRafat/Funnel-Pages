@@ -5,112 +5,102 @@
 // - data: An object of type BlockData. While passed as a prop, it's not explicitly used in the current static HTML structure.
 //  It might be intended for future dynamic population of form fields or order summary details.
 
-import { date } from "astro:schema";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import type { BlockData } from "../../../../../lib/api/types";
 
+const lang = "en";
 // Retrieves the data prop. Note: 'data'.
 const data: BlockData = Astro.props.data;
 ---
 
-<section class=" bg-gray-50 p-6">
+<section class="bg-white rounded-xl">
   <div>
     <div class="grid lg:grid-cols-5 gap-8">
-      {/* Form Section - Right Side */}
       <div class="lg:col-span-3">
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
-          {/* Header */}
           <div class="px-6 py-4 border-b border-gray-100">
-            <h1 class="text-2xl font-bold text-gray-800 text-center">أكمل طلبك</h1>
+            <h1 class="text-2xl font-bold text-gray-800 text-center" data-translate="form.completeOrder">
+              {getTranslation('form.completeOrder', lang)}
+            </h1>
           </div>
 
           <form class="p-6">
-            {/* Personal Information Section */}
             <div class="mb-8">
-              <h2 class="text-lg font-semibold text-gray-800 mb-6">المعلومات الشخصية</h2>
-              
+              <h2 class="text-lg font-semibold text-gray-800 mb-6" data-translate="form.personalInfo">
+                {getTranslation('form.personalInfo', lang)}
+              </h2>
               <div class="space-y-4">
-                {/* Full Name */}
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2">fullName</label>
-                  <input 
-                    type="text" 
-                    placeholder={data.full_name}
-                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
-                  />
+                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.fullName">
+                    {getTranslation('form.fullName', lang)}
+                  </label>
+                  <input type="text" placeholder={data.full_name} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
                 </div>
 
-                {/* Phone Number */}
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2">phoneNumber</label>
-                  <input 
-                    type="tel" 
-                    placeholder={data.phone}
-                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
-                  />
+                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.phoneNumber">
+                    {getTranslation('form.phoneNumber', lang)}
+                  </label>
+                  <input type="tel" placeholder={data.phone} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
                 </div>
 
-                {/* Email */}
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2">email</label>
-                  <input 
-                    type="email" 
-                    placeholder="enterEmail"
-                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
-                  />
+                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.email">
+                    {getTranslation('form.email', lang)}
+                  </label>
+                  <input type="email" placeholder={getTranslation('form.enterEmail', lang)} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
                 </div>
               </div>
             </div>
 
-            {/* Shipping Information Section */}
             <div class="mb-8">
-              <h2 class="text-lg font-semibold text-gray-800 mb-6">معلومات الشحن</h2>
-              
+              <h2 class="text-lg font-semibold text-gray-800 mb-6" data-translate="form.shippingInfo">
+                {getTranslation('form.shippingInfo', lang)}
+              </h2>
               <div class="space-y-4">
-                {/* Selected Package */}
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2">selectedPackage</label>
+                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.selectedPackage">
+                    {getTranslation('form.selectedPackage', lang)}
+                  </label>
                   <div class="relative">
                     <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50 appearance-none">
-                      <option>اشتري ثلاثة بوفر</option>
+                      <option>{getTranslation('form.threeItemsOffer', lang)}</option>
                     </select>
                     <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                       <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                       </svg>
                     </div>
                   </div>
-                  <p class="text-sm text-gray-500 mt-2">3 قطعة • توصيل في 3-5 أيام</p>
+                  <p class="text-sm text-gray-500 mt-2">{getTranslation('form.deliveryTime', lang)}</p>
                 </div>
 
-                {/* Country */}
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2">country</label>
+                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.country">
+                    {getTranslation('form.country', lang)}
+                  </label>
                   <div class="relative">
                     <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50 appearance-none">
-                      <option>selectCountry</option>
-                      <option value="saudi">المملكة العربية السعودية</option>
-                      <option value="uae">الإمارات العربية المتحدة</option>
-                      <option value="egypt">مصر</option>
+                      <option>{getTranslation('form.selectCountry', lang)}</option>
+                      <option value="saudi">{getTranslation('countries.saudi', lang)}</option>
+                      <option value="uae">{getTranslation('countries.uae', lang)}</option>
+                      <option value="egypt">{getTranslation('countries.egypt', lang)}</option>
                     </select>
                     <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                       <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                       </svg>
                     </div>
                   </div>
                 </div>
 
-                {/* City */}
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2">city</label>
-                  <input 
-                    type="text" 
-                    placeholder="enterCity"
-                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
-                  />
+                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.city">
+                    {getTranslation('form.city', lang)}
+                  </label>
+                  <input type="text" placeholder={getTranslation('form.enterCity', lang)} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
                 </div>
 
-                {/* Address */}
                 <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
                   <p class="text-sm text-gray-700 leading-relaxed">
                     {data.address}
@@ -118,48 +108,10 @@ const data: BlockData = Astro.props.data;
                 </div>
               </div>
             </div>
-
-            {/* Payment Method Section */}
-            <div class="mb-8">
-              <h2 class="text-lg font-semibold text-gray-800 mb-6">طريقة الدفع</h2>
-              
-              <div class="space-y-3">
-                {/* Cash on Delivery */}
-                <label class="flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <span class="text-gray-800">الدفع عند الاستلام</span>
-                  <input 
-                    type="radio" 
-                    name="payment" 
-                    value="cod" 
-                    checked
-                    class="w-5 h-5 text-blue-600 border-2 border-gray-300 focus:ring-blue-500"
-                  />
-                </label>
-
-                {/* Electronic Payment */}
-                <label class="flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <span class="text-gray-800">الدفع الإلكتروني</span>
-                  <input 
-                    type="radio" 
-                    name="payment" 
-                    value="electronic"
-                    class="w-5 h-5 text-blue-600 border-2 border-gray-300 focus:ring-blue-500"
-                  />
-                </label>
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <button 
-              type="submit" 
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200"
-            >
-              تأكيد الطلب
-            </button>
           </form>
         </div>
       </div>
-    {/* Order Summary Section - Left Side */}
+          {/* Order Summary Section - Left Side */}
       <div class="lg:col-span-2">
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">ملخص الطلب</h2>

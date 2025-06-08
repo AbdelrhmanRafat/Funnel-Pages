@@ -6,6 +6,27 @@ export const translations = {
       minutes: "Minutes",
       seconds: "Seconds",
     },
+    form: {
+      completeOrder: "Complete Order",
+      personalInfo: "Personal Information",
+      fullName: "Full Name",
+      phoneNumber: "Phone Number",
+      email: "Email Address",
+      enterEmail: "Enter your email",
+      shippingInfo: "Shipping Information",
+      selectedPackage: "Selected Package",
+      threeItemsOffer: "Three Items Offer",
+      deliveryTime: "Delivered within 3 to 5 business days",
+      country: "Country",
+      selectCountry: "Select a country",
+      city: "City",
+      enterCity: "Enter your city"
+    },
+    countries: {
+      saudi: "Saudi Arabia",
+      uae: "United Arab Emirates",
+      egypt: "Egypt"
+    }
   },
   ar: {
     countdown: {
@@ -14,6 +35,27 @@ export const translations = {
       minutes: "دقيقة",
       seconds: "ثانية",
     },
+    form: {
+      completeOrder: "إتمام الطلب",
+      personalInfo: "المعلومات الشخصية",
+      fullName: "الاسم الكامل",
+      phoneNumber: "رقم الهاتف",
+      email: "البريد الإلكتروني",
+      enterEmail: "أدخل بريدك الإلكتروني",
+      shippingInfo: "معلومات الشحن",
+      selectedPackage: "الباقة المختارة",
+      threeItemsOffer: "عرض الثلاث قطع",
+      deliveryTime: "يصل إليك خلال 3 إلى 5 أيام عمل",
+      country: "الدولة",
+      selectCountry: "اختر الدولة",
+      city: "المدينة",
+      enterCity: "أدخل اسم المدينة"
+    },
+    countries: {
+      saudi: "السعودية",
+      uae: "الإمارات",
+      egypt: "مصر"
+    }
   },
 } as const;
 
