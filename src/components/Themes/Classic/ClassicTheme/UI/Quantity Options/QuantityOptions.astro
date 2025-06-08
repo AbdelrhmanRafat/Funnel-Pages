@@ -1,9 +1,9 @@
 ---
 import type { BlockData, OptionOption } from "../../../../../../lib/api/types";
-import DynamicPanelContainer from "../Dynamic Panel Container/DynamicPannelContainer.astro";
 
 const data: BlockData[] = Astro.props.data;
 const name = "qty";
+
 ---
 
 <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -15,7 +15,7 @@ const name = "qty";
   {
     data.map((item, index) => (
       <label
-        class=" quantity-card group block relative overflow-hidden rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02] has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 has-[:checked]:shadow-md border-gray-200 bg-white hover:border-blue-300"
+        class="p-4 group block relative overflow-hidden rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02] has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 has-[:checked]:shadow-md border-gray-200 bg-white hover:border-blue-300"
         for={`${name}${index + 1}`}
       >
         <input
@@ -24,7 +24,8 @@ const name = "qty";
           name={name}
           class="hidden"
           checked={index === 0}
-          data-items={item.items}
+          selected-item = {JSON.stringify(item)}
+          data-items={item.items} 
         />
 
         {/* Popular Badge for Best Deal */}

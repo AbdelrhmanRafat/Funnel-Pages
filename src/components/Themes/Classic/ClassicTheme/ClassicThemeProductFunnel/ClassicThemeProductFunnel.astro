@@ -17,7 +17,7 @@ const colorSizeOptions : OptionOption[] = Astro.props.colorSizeOptions;
 
 <!-- Quantity and Variant Selection Section -->
 <div class="mb-8">
-  {/* Renders quantity selection options based on the provided data. */}
+<!--   Renders quantity selection options based on Purchase Options object.  -->
   <QuantityOptions data = {data} />
   {/* Renders dynamic panels for selecting product variants like color and size. client:load ensures interactivity. */}
   <DynamicPannelContainer data={data} colorSizeOptions={colorSizeOptions} />
