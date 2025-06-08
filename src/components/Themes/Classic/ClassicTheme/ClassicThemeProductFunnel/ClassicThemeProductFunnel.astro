@@ -16,6 +16,9 @@ const colorSizeOptions = Astro.props.colorSizeOptions;
 
 // Get initial offer (first item in data array)
 const initialOffer = data[0];
+
+// Import translation utility
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 ---
 
 <!-- Quantity and Variant Selection Section -->
@@ -36,33 +39,33 @@ const initialOffer = data[0];
         <div class="p-6 space-y-3">
             {/* Product Quantity */}
             <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                <span class="text-gray-700 font-medium">المنتج:</span>
+                <span class="text-gray-700 font-medium" data-translate="productFunnel.product">{getTranslation('productFunnel.product')}</span>
                 <span class="text-gray-900 font-semibold" data-price-quantity>
-                    {initialOffer.items} {initialOffer.items === 1 ? 'قطعة' : 'قطع'}
+                    {initialOffer.items} {getTranslation(initialOffer.items === 1 ? 'productFunnel.piece' : 'productFunnel.pieces')}
                 </span>
             </div>
             
             {/* Unit Price */}
             <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                <span class="text-gray-700 font-medium">سعر القطعة:</span>
+                <span class="text-gray-700 font-medium" data-translate="productFunnel.unitPrice">{getTranslation('productFunnel.unitPrice')}</span>
                 <span class="text-gray-900 font-semibold" data-price-unit>
-                    {initialOffer.price_per_item.toLocaleString()} ج.م
+                    {initialOffer.price_per_item.toLocaleString()} {getTranslation('productFunnel.currency')}
                 </span>
             </div>
             
             {/* Subtotal */}
             <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                <span class="text-gray-700 font-medium">المجموع:</span>
+                <span class="text-gray-700 font-medium" data-translate="productFunnel.subtotal">{getTranslation('productFunnel.subtotal')}</span>
                 <span class="text-gray-900 font-semibold" data-price-subtotal>
-                    {initialOffer.total_price.toLocaleString()} ج.م
+                    {initialOffer.total_price.toLocaleString()} {getTranslation('productFunnel.currency')}
                 </span>
             </div>
             
             {/* Shipping Cost */}
             <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                <span class="text-gray-700 font-medium">الشحن:</span>
+                <span class="text-gray-700 font-medium" data-translate="productFunnel.shippingCost">{getTranslation('productFunnel.shippingCost')}</span>
                 <span class="text-gray-900 font-semibold" data-price-shipping>
-                    {initialOffer.shipping_price.toLocaleString()} ج.م
+                    {initialOffer.shipping_price.toLocaleString()} {getTranslation('productFunnel.currency')}
                 </span>
             </div>
             
@@ -75,9 +78,9 @@ const initialOffer = data[0];
                     { "hidden": initialOffer.discount === 0 }
                 ]}
             >
-                <span class="text-gray-700 font-medium">الخصم:</span>
+                <span class="text-gray-700 font-medium" data-translate="productFunnel.discount">{getTranslation('productFunnel.discount')}</span>
                 <span class="text-green-600 font-semibold" data-price-discount>
-                    - {initialOffer.discount.toLocaleString()} ج.م
+                    - {initialOffer.discount.toLocaleString()} {getTranslation('productFunnel.currency')}
                 </span>
             </div>
         </div>
@@ -85,9 +88,9 @@ const initialOffer = data[0];
         {/* Total Price Section */}
         <div class="bg-blue-50 px-6 py-4 border-t-2 border-blue-200 mb-3">
             <div class="flex justify-between items-center">
-                <span class="text-blue-800 font-bold text-lg">الإجمالي:</span>
+                <span class="text-blue-800 font-bold text-lg" data-translate="productFunnel.total">{getTranslation('productFunnel.total')}</span>
                 <span class="text-blue-900 font-bold text-xl" data-price-total>
-                    {initialOffer.final_total.toLocaleString()} ج.م
+                    {initialOffer.final_total.toLocaleString()} {getTranslation('productFunnel.currency')}
                 </span>
             </div>
         </div>
@@ -99,15 +102,17 @@ const initialOffer = data[0];
   {/* "Add to Cart" button */}
   <button
     class="btn-primary w-full py-4 rounded-2xl text-white font-bold text-lg shadow-lg"
+    data-translate="productFunnel.addToCart"
   >
-    🛒 أضف إلى السلة {/* Add to Cart */}
+    {getTranslation('productFunnel.addToCart')}
   </button>
 
   {/* "Add to Favorites" button */}
   <button
     class="w-full py-4 rounded-2xl border-2 border-gray-300 text-gray-700 font-bold text-lg hover:bg-gray-50 transition-colors"
+    data-translate="productFunnel.addToFavorites"
   >
-    ❤️ أضف إلى المفضلة {/* Add to Favorites */}
+    {getTranslation('productFunnel.addToFavorites')}
   </button>
 </div>
 

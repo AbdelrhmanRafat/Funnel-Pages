@@ -22,11 +22,48 @@ export const translations = {
       city: "City",
       enterCity: "Enter your city"
     },
-      product: {
+    product: {
       available: "Available",
       notAvailable: "Not Available",
       productCode: "Product Code",
       description: "Product Description",
+    },
+    productFunnel: {
+      product: "Product:",
+      unitPrice: "Unit Price:",
+      subtotal: "Subtotal:",
+      shippingCost: "Shipping Cost:",
+      discount: "Discount:",
+      total: "Total:",
+      addToCart: "🛒 Add to Cart",
+      addToFavorites: "❤️ Add to Favorites",
+      piece: "piece",
+      pieces: "pieces",
+      currency: "EGP"
+    },
+    quantityOptions: {
+      chooseQuantity: "Choose the right quantity",
+      popular: "Most Popular",
+      bestValue: "Best Value",
+      itemUnit: {
+        singular: "piece",
+        plural: "pieces"
+      },
+      pricePerItem: "{price} per piece",
+      saveDiscount: "Save {discountAmount} ({discountPercent})",
+      totalProducts: "Total Products:",
+      shippingLabel: "Shipping:"
+    },
+    dynamicPanel: {
+      selectOptionsForProduct: "Select options for product {index}",
+      ordinals: {
+        first: "First",
+        second: "Second",
+        third: "Third"
+      },
+      color: "Color:",
+      size: "Size:",
+      notSelected: "Not selected"
     },
     countries: {
       saudi: "Saudi Arabia",
@@ -57,11 +94,48 @@ export const translations = {
       city: "المدينة",
       enterCity: "أدخل اسم المدينة"
     },
-      product: {
+    product: {
       available: "متوفر",
       notAvailable: "غير متوفر",
       productCode: "رمز المنتج",
       description: "وصف المنتج",
+    },
+    productFunnel: {
+      product: "المنتج:",
+      unitPrice: "سعر القطعة:",
+      subtotal: "المجموع:",
+      shippingCost: "تكلفة الشحن:",
+      discount: "الخصم:",
+      total: "الإجمالي:",
+      addToCart: "🛒 أضف إلى السلة",
+      addToFavorites: "❤️ أضف إلى المفضلة",
+      piece: "قطعة",
+      pieces: "قطع",
+      currency: "ج.م"
+    },
+    quantityOptions: {
+      chooseQuantity: "اختر الكمية المناسبة",
+      popular: "الأكثر شعبية",
+      bestValue: "أفضل قيمة",
+      itemUnit: {
+        singular: "قطعة",
+        plural: "قطع"
+      },
+      pricePerItem: "{price} لكل قطعة",
+      saveDiscount: "وفّر {discountAmount} ({discountPercent})",
+      totalProducts: "إجمالي المنتجات:",
+      shippingLabel: "الشحن:"
+    },
+    dynamicPanel: {
+      selectOptionsForProduct: "اختر الخيارات للمنتج {index}",
+      ordinals: {
+        first: "الأول",
+        second: "الثاني",
+        third: "الثالث"
+      },
+      color: "اللون:",
+      size: "المقاس:",
+      notSelected: "لم يتم التحديد"
     },
     countries: {
       saudi: "السعودية",
