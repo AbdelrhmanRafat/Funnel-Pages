@@ -22,6 +22,12 @@ export const translations = {
       city: "City",
       enterCity: "Enter your city"
     },
+      product: {
+      available: "Available",
+      notAvailable: "Not Available",
+      productCode: "Product Code",
+      description: "Product Description",
+    },
     countries: {
       saudi: "Saudi Arabia",
       uae: "United Arab Emirates",
@@ -50,6 +56,12 @@ export const translations = {
       selectCountry: "اختر الدولة",
       city: "المدينة",
       enterCity: "أدخل اسم المدينة"
+    },
+      product: {
+      available: "متوفر",
+      notAvailable: "غير متوفر",
+      productCode: "رمز المنتج",
+      description: "وصف المنتج",
     },
     countries: {
       saudi: "السعودية",

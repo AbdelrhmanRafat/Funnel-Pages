@@ -25,9 +25,12 @@ export function initGallery(): void {
     totalImages.textContent = images.length.toString();
     
     function updateMainImage(index: number): void {
-      mainImage.src = images[index];
-      mainImage.classList.add('fade-in');
-      setTimeout(() => mainImage.classList.remove('fade-in'), 500);
+      // We know mainImage is not null due to the guard clause above
+      if (mainImage) {
+        mainImage.src = images[index];
+        mainImage.classList.add('fade-in');
+        setTimeout(() => mainImage.classList.remove('fade-in'), 500);
+      }
       
       // Update thumbnails
       thumbnails.forEach((thumb: HTMLElement, i: number) => {

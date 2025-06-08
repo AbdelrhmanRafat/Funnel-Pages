@@ -1,12 +1,13 @@
 ---
-import type { Product } from "../../../lib/api/types";
+import type { Product } from "../../../../../../lib/api/types";
+
 
 const product: Product = Astro.props.product;
 ---
 
 <!-- Gallery Section - Enhanced -->
-<div class="lg:w-1/2 lg:sticky lg:top-0 lg:self-start lg:mt-12">
-    <div class="w-11/12 flex flex-col gap-6">
+<div class="lg:w-1/2 lg:sticky lg:top-0 lg:self-start">
+    <div class="flex flex-col gap-6">
         <!-- Main Image Display -->
         <div class="relative">
             <div
@@ -106,6 +107,6 @@ const product: Product = Astro.props.product;
     </div>
 </div>
 <script>
-    import { initGallery } from "./GalleryComponent";
+    import "./GalleryComponent";
     // The gallery will initialize automatically via the DOMContentLoaded event
 </script>
