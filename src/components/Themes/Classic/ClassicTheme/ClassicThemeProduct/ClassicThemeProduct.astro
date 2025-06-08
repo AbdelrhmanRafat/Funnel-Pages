@@ -14,6 +14,7 @@ import GalleryComponent from "../UI/Gallery/GalleryComponent.astro"; // Componen
 import ClassicThemeProductFunnel from "../ClassicThemeProductFunnel/ClassicThemeProductFunnel.astro"; // Component for handling purchase options.
 import "./ClassicThemeProduct.css"; // Styles specific to this component.
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 
 // Retrieves product and purchaseOptions from Astro's props.
 const product: Product = Astro.props.product;
@@ -21,10 +22,10 @@ const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 // Extracts color and size options from the product data. Assumes options are structured in a specific way.
 const colorSizeOptions: OptionOption[] = product.options[0].options;
 
-// Set language for translations
-const lang = "en";
-
-console.log("idnkndlnkdlnld",product);
+// Get initial language from URL or localStorage during SSR
+const url = new URL(Astro.request.url);
+const currentLang: Language = (url.searchParams.get('lang') || 'en') as Language;
+const isArabic = currentLang === 'ar';
 ---
 
 <section class="pt-52">
@@ -41,22 +42,26 @@ console.log("idnkndlnkdlnld",product);
                     <div class="flex items-center gap-2 mb-3">
                         <span
                             class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium"
-                            >{product.is_active 
-                              ? getTranslation('product.available', lang) 
-                              : getTranslation('product.notAvailable', lang)}
-                            {/* Available / Not Available */}</span
+                            data-translate={product.is_active ? "product.available" : "product.notAvailable"}
+                           >{product.is_active 
+                              ? getTranslation('product.available', currentLang) 
+                              : getTranslation('product.notAvailable', currentLang)}
+                         </span
                         >
-                        <span class="text-gray-500 text-sm"
-                            >{getTranslation('product.productCode', lang)}: {product.sku_code}
-                            {/* Product Code: */}</span
+                        <div class="text-gray-500 text-sm">
+                        <span
+                            data-translate="product.productCode"
+                            >{getTranslation('product.productCode', currentLang)}
+                            </span
                         >
+                        <span>: {product.sku_code}</span>
+                        </div>
                     </div>
 
                     <h1
                         class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight"
                     >
-                        {product.name_ar}
-                        {/* Product Name (Arabic) */}
+                        {isArabic ? product.name_ar : product.name_en}
                     </h1>
 
                     {
@@ -68,12 +73,12 @@ console.log("idnkndlnkdlnld",product);
                 </div>
                 <!-- Product Description -->
                 <div class="mb-8">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">
-                        {getTranslation('product.description')}
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-translate="product.description">
+                        {getTranslation('product.description', currentLang)}
                     </h3>
                     <p
                         class="text-gray-600 leading-relaxed"
-                        set:html={product.description_ar}
+                        set:html={isArabic ? product.description_ar : product.description_en}
                     >
                     </p>
                 </div>
