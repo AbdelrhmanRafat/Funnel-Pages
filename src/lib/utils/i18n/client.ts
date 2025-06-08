@@ -1,7 +1,14 @@
 import { translations } from "./translations";
 
+function getCookie(name: string): string {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || 'en';
+  return 'en';
+}
+
 export function initTranslations() {
-  const savedLang = localStorage.getItem('lang') || 'en';
+  const savedLang = getCookie('lang');
   
   // Update all text elements with translations
   document.querySelectorAll('[data-translate]').forEach(element => {

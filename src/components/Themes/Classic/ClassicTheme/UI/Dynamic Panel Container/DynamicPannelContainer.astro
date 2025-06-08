@@ -19,9 +19,11 @@ const sizes: OptionOption | undefined = colorSizeOptions.find(opt => opt.name ==
       >
         <!-- Updated Header with Selection Indicators -->
         <div class="flex justify-between items-center">
-          <p class="text-blue-700 font-bold text-xl" data-translate="dynamicPanel.selectOptionsForProduct" data-translate-dynamic>
-            {getTranslation('dynamicPanel.selectOptionsForProduct').replace('{index}', index === 0 ? getTranslation('dynamicPanel.ordinals.first') : index === 1 ? getTranslation('dynamicPanel.ordinals.second') : getTranslation('dynamicPanel.ordinals.third'))}
+          <div class="text-blue-700 font-bold text-xl">
+          <p class="inline" data-translate="dynamicPanel.selectOptionsForProduct">
           </p>
+          <span>{index + 1}</span>
+          </div>
           <div class="flex gap-2">
             <div class="bg-blue-100 px-3 py-1 rounded-full text-blue-700 text-sm flex items-center gap-1">
               <span data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</span>

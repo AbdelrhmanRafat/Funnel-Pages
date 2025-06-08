@@ -55,7 +55,7 @@ export const translations = {
       shippingLabel: "Shipping:"
     },
     dynamicPanel: {
-      selectOptionsForProduct: "Select options for product {index}",
+      selectOptionsForProduct: "Select options for product",
       ordinals: {
         first: "First",
         second: "Second",
@@ -127,7 +127,7 @@ export const translations = {
       shippingLabel: "الشحن:"
     },
     dynamicPanel: {
-      selectOptionsForProduct: "اختر الخيارات للمنتج {index}",
+      selectOptionsForProduct: "اختر الخيارات للمنتج",
       ordinals: {
         first: "الأول",
         second: "الثاني",

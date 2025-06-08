@@ -8,7 +8,6 @@
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import type { BlockData } from "../../../../../lib/api/types";
 
-const lang = "en";
 // Retrieves the data prop. Note: 'data'.
 const data: BlockData = Astro.props.data;
 ---
@@ -20,51 +19,51 @@ const data: BlockData = Astro.props.data;
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
           <div class="px-6 py-4 border-b border-gray-100">
             <h1 class="text-2xl font-bold text-gray-800 text-center" data-translate="form.completeOrder">
-              {getTranslation('form.completeOrder', lang)}
+              {getTranslation('form.completeOrder')}
             </h1>
           </div>
 
           <form class="p-6">
             <div class="mb-8">
               <h2 class="text-lg font-semibold text-gray-800 mb-6" data-translate="form.personalInfo">
-                {getTranslation('form.personalInfo', lang)}
+                {getTranslation('form.personalInfo')}
               </h2>
               <div class="space-y-4">
                 <div>
                   <label class="block text-gray-600 text-sm mb-2" data-translate="form.fullName">
-                    {getTranslation('form.fullName', lang)}
+                    {getTranslation('form.fullName')}
                   </label>
                   <input type="text" placeholder={data.full_name} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
                 </div>
 
                 <div>
                   <label class="block text-gray-600 text-sm mb-2" data-translate="form.phoneNumber">
-                    {getTranslation('form.phoneNumber', lang)}
+                    {getTranslation('form.phoneNumber')}
                   </label>
                   <input type="tel" placeholder={data.phone} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
                 </div>
 
                 <div>
                   <label class="block text-gray-600 text-sm mb-2" data-translate="form.email">
-                    {getTranslation('form.email', lang)}
+                    {getTranslation('form.email')}
                   </label>
-                  <input type="email" placeholder={getTranslation('form.enterEmail', lang)} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
+                  <input type="email" placeholder={getTranslation('form.enterEmail')} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
                 </div>
               </div>
             </div>
 
             <div class="mb-8">
               <h2 class="text-lg font-semibold text-gray-800 mb-6" data-translate="form.shippingInfo">
-                {getTranslation('form.shippingInfo', lang)}
+                {getTranslation('form.shippingInfo')}
               </h2>
               <div class="space-y-4">
                 <div>
                   <label class="block text-gray-600 text-sm mb-2" data-translate="form.selectedPackage">
-                    {getTranslation('form.selectedPackage', lang)}
+                    {getTranslation('form.selectedPackage')}
                   </label>
                   <div class="relative">
                     <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50 appearance-none">
-                      <option>{getTranslation('form.threeItemsOffer', lang)}</option>
+                      <option>{getTranslation('form.threeItemsOffer')}</option>
                     </select>
                     <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                       <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,19 +71,19 @@ const data: BlockData = Astro.props.data;
                       </svg>
                     </div>
                   </div>
-                  <p class="text-sm text-gray-500 mt-2">{getTranslation('form.deliveryTime', lang)}</p>
+                  <p class="text-sm text-gray-500 mt-2">{getTranslation('form.deliveryTime')}</p>
                 </div>
 
                 <div>
                   <label class="block text-gray-600 text-sm mb-2" data-translate="form.country">
-                    {getTranslation('form.country', lang)}
+                    {getTranslation('form.country')}
                   </label>
                   <div class="relative">
                     <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50 appearance-none">
-                      <option>{getTranslation('form.selectCountry', lang)}</option>
-                      <option value="saudi">{getTranslation('countries.saudi', lang)}</option>
-                      <option value="uae">{getTranslation('countries.uae', lang)}</option>
-                      <option value="egypt">{getTranslation('countries.egypt', lang)}</option>
+                      <option>{getTranslation('form.selectCountry')}</option>
+                      <option value="saudi">{getTranslation('countries.saudi')}</option>
+                      <option value="uae">{getTranslation('countries.uae')}</option>
+                      <option value="egypt">{getTranslation('countries.egypt')}</option>
                     </select>
                     <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                       <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,9 +95,9 @@ const data: BlockData = Astro.props.data;
 
                 <div>
                   <label class="block text-gray-600 text-sm mb-2" data-translate="form.city">
-                    {getTranslation('form.city', lang)}
+                    {getTranslation('form.city')}
                   </label>
-                  <input type="text" placeholder={getTranslation('form.enterCity', lang)} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
+                  <input type="text" placeholder={getTranslation('form.enterCity')} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
                 </div>
 
                 <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">

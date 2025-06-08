@@ -22,9 +22,8 @@ const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 // Extracts color and size options from the product data. Assumes options are structured in a specific way.
 const colorSizeOptions: OptionOption[] = product.options[0].options;
 
-// Get initial language from URL or localStorage during SSR
-const url = new URL(Astro.request.url);
-const currentLang: Language = (url.searchParams.get('lang') || 'en') as Language;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get('lang')?.value || 'en') as Language;
 const isArabic = currentLang === 'ar';
 ---
 

@@ -1,8 +1,9 @@
 ---
+import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 
-// Get language from localStorage during SSR
-const currentLang: string = "en"; // Default value for SSR
-const isArabic = false; // Default value for SSR
+// Get language from cookie during SSR
+const currentLang = Astro.cookies.get('lang')?.value || 'en';
+const isArabic = currentLang === 'ar';
 ---
 
 <div class="flex justify-end">
@@ -11,7 +12,7 @@ const isArabic = false; // Default value for SSR
     class="p-1 text-xs rounded-full hover:bg-gray-100 focus:outline-none"
     aria-label="Switch language"
   >
-    <span class="text-xs font-medium" id="langText">EN</span>
+    <span class="text-xs font-medium" id="langText">{isArabic ? "عربي" : "EN"}</span>
   </button>
 </div>
 
@@ -23,9 +24,16 @@ const isArabic = false; // Default value for SSR
     const langText = document.getElementById("langText");
 
     if (langToggleBtn && langText) {
-      // Get initial language from localStorage
-      const currentLang = localStorage.getItem("lang") || "en";
-      const isArabic = currentLang === "ar";
+      // Get initial language from cookie
+      const getCookie = (name: string) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop()?.split(';').shift();
+        return 'en';
+      };
+
+      const currentLang = getCookie('lang') || 'en';
+      const isArabic = currentLang === 'ar';
 
       // Set initial button state
       langText.textContent = isArabic ? "عربي" : "EN";
@@ -39,8 +47,8 @@ const isArabic = false; // Default value for SSR
 
         const newLang = currentLang === "en" ? "ar" : "en";
 
-        // Save to localStorage
-        localStorage.setItem("lang", newLang);
+        // Save to cookie
+        document.cookie = `lang=${newLang}; path=/; max-age=31536000`; // 1 year expiry
 
         // Update URL query param
         const url = new URL(window.location.href);
