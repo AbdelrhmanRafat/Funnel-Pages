@@ -1,66 +1,61 @@
 ---
-import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 
-const currentLang : string = Astro.url.searchParams.get('lang') || 'en';
-const isArabic = currentLang === 'ar';
+// Get language from localStorage during SSR
+const currentLang: string = "en"; // Default value for SSR
+const isArabic = false; // Default value for SSR
 ---
 
-<div class="flex items-center">
-  <button 
-    id="langToggleBtn" 
-    class="group flex items-center gap-3 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium text-sm rounded-full transition-all duration-200 ease-in-out"
-    data-current-lang={currentLang}
-    aria-label={getTranslation('header.toggleLanguage')}
+<div class="flex justify-end">
+  <button
+    id="langToggleBtn"
+    class="p-1 text-xs rounded-full hover:bg-gray-100 focus:outline-none"
+    aria-label="Switch language"
   >
-    <!-- Toggle Switch -->
-    <div class="relative">
-      <div class={`w-12 h-6 bg-gray-400 bg-opacity-40 rounded-full transition-all duration-300`}>
-        <div class={`w-4 h-4 bg-white rounded-full shadow-sm absolute top-1 transition-all duration-300 ease-out ${isArabic ? 'left-7' : 'left-1'}`}></div>
-      </div>
-      <!-- Language Labels -->
-      <div class="absolute inset-0 flex items-center justify-between px-1.5 pointer-events-none">
-        <span class={`text-xs font-semibold transition-all duration-300 ${!isArabic ? 'text-gray-900' : 'text-gray-500'}`}>EN</span>
-        <span class={`text-xs font-semibold transition-all duration-300 ${isArabic ? 'text-gray-900' : 'text-gray-500'}`}>ع</span>
-      </div>
-    </div>
+    <span class="text-xs font-medium" id="langText">EN</span>
   </button>
 </div>
 
 <script>
   import { initTranslations } from "../../../../../../lib/utils/i18n/client";
 
-  const langToggleBtn = document.getElementById('langToggleBtn');
+  document.addEventListener("DOMContentLoaded", () => {
+    const langToggleBtn = document.getElementById("langToggleBtn");
+    const langText = document.getElementById("langText");
 
-  if (langToggleBtn) {
-    const currentLang = langToggleBtn.dataset.currentLang || 'en';
+    if (langToggleBtn && langText) {
+      // Get initial language from localStorage
+      const currentLang = localStorage.getItem("lang") || "en";
+      const isArabic = currentLang === "ar";
 
-    langToggleBtn.addEventListener('click', (e) => {
-      e.preventDefault();
+      // Set initial button state
+      langText.textContent = isArabic ? "عربي" : "EN";
+      langToggleBtn.setAttribute(
+        "aria-label",
+        isArabic ? "Switch to English" : "التبديل إلى العربية",
+      );
 
-      const newLang = currentLang === 'en' ? 'ar' : 'en';
-      localStorage.setItem('lang', newLang);
+      langToggleBtn.addEventListener("click", (e) => {
+        e.preventDefault();
 
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', newLang);
+        const newLang = currentLang === "en" ? "ar" : "en";
 
-      langToggleBtn.classList.add('opacity-60', 'scale-95');
+        // Save to localStorage
+        localStorage.setItem("lang", newLang);
 
-      setTimeout(() => {
-        window.location.href = url.toString();
-      }, 150);
-    });
-  }
+        // Update URL query param
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", newLang);
 
-  initTranslations();
+        // Visual feedback
+        langToggleBtn.classList.add("opacity-60", "scale-95");
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const preferredLang = localStorage.getItem('lang');
-    const urlLang = new URLSearchParams(window.location.search).get('lang');
-
-    if (preferredLang && !urlLang && preferredLang !== 'en') {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', preferredLang);
-      window.location.href = url.toString();
+        // Redirect with new lang
+        setTimeout(() => {
+          window.location.href = url.toString();
+        }, 150);
+      });
     }
   });
+
+  initTranslations();
 </script>
