@@ -19,15 +19,13 @@ if(data.hours != null && data.minutes != null && data.seconds != null)
   (parseInt(data.minutes?.toString() || '0' ) || 0) * 60 +
   (parseInt(data.seconds.toString() || '0' ) || 0);
 }
-
-const lang = "en";
 ---
 
 <!-- Elegant Countdown Timer -->
 <section class="text-black py-6">
   <div class="px-6 text-center">
     <h2 class="text-3xl font-bold" data-translate="countdown.offerEndsIn">
-      {getTranslation('countdown.offerEndsIn', lang)}
+      {getTranslation('countdown.offerEndsIn')}
     </h2>
     
     <div
@@ -41,7 +39,7 @@ const lang = "en";
       >
         <div class="text-4xl font-extrabold" id="hours">--</div>
         <div class="text-sm font-serif" data-translate="countdown.hours">
-          {getTranslation('countdown.hours', lang)}
+          {getTranslation('countdown.hours')}
         </div>
       </div>
 
@@ -51,7 +49,7 @@ const lang = "en";
       >
         <div class="text-4xl font-extrabold" id="minutes">--</div>
         <div class="text-sm font-serif" data-translate="countdown.minutes">
-          {getTranslation('countdown.minutes', lang)}
+          {getTranslation('countdown.minutes')}
         </div>
       </div>
 
@@ -61,7 +59,7 @@ const lang = "en";
       >
         <div class="text-4xl font-extrabold" id="seconds">--</div>
         <div class="text-sm font-serif" data-translate="countdown.seconds">
-          {getTranslation('countdown.seconds', lang)}
+          {getTranslation('countdown.seconds')}
         </div>
       </div>
     </div>
