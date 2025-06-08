@@ -11,8 +11,11 @@ import DynamicPannelContainer from "../UI/Dynamic Panel Container/DynamicPannelC
 import QuantityOptions from "../UI/Quantity Options/QuantityOptions.astro"; // Component for selecting product quantity.
 
 // Retrieves data and colorSizeOptions from Astro's props.
-const data: BlockData = Astro.props.data;
-const colorSizeOptions : OptionOption[] = Astro.props.colorSizeOptions;
+const data: BlockData[] = Astro.props.data;
+const colorSizeOptions = Astro.props.colorSizeOptions;
+
+// Get initial offer (first item in data array)
+const initialOffer = data[0];
 ---
 
 <!-- Quantity and Variant Selection Section -->
@@ -26,46 +29,70 @@ const colorSizeOptions : OptionOption[] = Astro.props.colorSizeOptions;
 {/* Price Summary Section - Note: This section appears to be mostly static/hardcoded in the example. */}
 {/* Ideally, these values should be dynamically calculated and updated based on user selections. */}
 
+<div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+    {/* Price Breakdown Section */}
+    <div class="border-b border-gray-200">
         {/* Main items in the price breakdown. */}
         <div class="p-6 space-y-3">
-          {/* Product Quantity (Example: 3 pieces) */}
-          <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="text-gray-700 font-medium">المنتج::</span> {/* Product: */}
-              <span class="text-gray-900 font-semibold">٣ ٣ قطعة</span> {/* 3 pieces */}
-          </div>
-          
-          {/* Unit Price (Example: 1499 EGP) */}
-          <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="text-gray-700 font-medium">سعر القطعة::</span> {/* Price per piece: */}
-              <span class="text-gray-900 font-semibold">١٤٩٩ ج.م</span> {/* 1499 EGP */}
-          </div>
-          
-          {/* Subtotal (Example: 4497 EGP) */}
-          <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="text-gray-700 font-medium">المجموع:</span> {/* Subtotal: */}
-              <span class="text-gray-900 font-semibold">٤٤٩٧ ج.م</span> {/* 4497 EGP */}
-          </div>
-          
-          {/* Shipping Cost (Example: 90 EGP) */}
-          <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="text-gray-700 font-medium">الشحن::</span> {/* Shipping: */}
-              <span class="text-gray-900 font-semibold">٩٠ ج.م</span> {/* 90 EGP */}
-          </div>
-          
-          {/* Discount Applied (Example: -3273 EGP) */}
-          <div class="flex justify-between items-center py-2 border-b border-gray-200">
-              <span class="text-gray-700 font-medium">الخصم::</span> {/* Discount: */}
-              <span class="text-green-600 font-semibold">- ٣٢٧٣ ج.م</span> {/* -3273 EGP */}
-          </div>
-      </div>
-      
-      {/* Total Price Section (Example: 40587 EGP - this seems like a typo or unrelated number based on above) */}
-      <div class="bg-blue-50 px-6 py-4 border-t-2 border-blue-200 mb-3">
-          <div class="flex justify-between items-center">
-              <span class="text-blue-800 font-bold text-lg">الإجمالي::</span> {/* Total: */}
-              <span class="text-blue-900 font-bold text-xl">٤٠٥٨٧ ج.م</span> {/* 40587 EGP */}
-          </div>
-      </div>
+            {/* Product Quantity */}
+            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                <span class="text-gray-700 font-medium">المنتج:</span>
+                <span class="text-gray-900 font-semibold" data-price-quantity>
+                    {initialOffer.items} {initialOffer.items === 1 ? 'قطعة' : 'قطع'}
+                </span>
+            </div>
+            
+            {/* Unit Price */}
+            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                <span class="text-gray-700 font-medium">سعر القطعة:</span>
+                <span class="text-gray-900 font-semibold" data-price-unit>
+                    {initialOffer.price_per_item.toLocaleString()} ج.م
+                </span>
+            </div>
+            
+            {/* Subtotal */}
+            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                <span class="text-gray-700 font-medium">المجموع:</span>
+                <span class="text-gray-900 font-semibold" data-price-subtotal>
+                    {initialOffer.total_price.toLocaleString()} ج.م
+                </span>
+            </div>
+            
+            {/* Shipping Cost */}
+            <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                <span class="text-gray-700 font-medium">الشحن:</span>
+                <span class="text-gray-900 font-semibold" data-price-shipping>
+                    {initialOffer.shipping_price.toLocaleString()} ج.م
+                </span>
+            </div>
+            
+            {/* Discount Applied */}
+            <div 
+                class="flex justify-between items-center py-2 border-b border-gray-200"
+                data-discount-container
+                class:list={[
+                    "flex justify-between items-center py-2 border-b border-gray-200",
+                    { "hidden": initialOffer.discount === 0 }
+                ]}
+            >
+                <span class="text-gray-700 font-medium">الخصم:</span>
+                <span class="text-green-600 font-semibold" data-price-discount>
+                    - {initialOffer.discount.toLocaleString()} ج.م
+                </span>
+            </div>
+        </div>
+        
+        {/* Total Price Section */}
+        <div class="bg-blue-50 px-6 py-4 border-t-2 border-blue-200 mb-3">
+            <div class="flex justify-between items-center">
+                <span class="text-blue-800 font-bold text-lg">الإجمالي:</span>
+                <span class="text-blue-900 font-bold text-xl" data-price-total>
+                    {initialOffer.final_total.toLocaleString()} ج.م
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
 
 {/* Action Buttons Section */}
 <div class="space-y-4">
@@ -83,3 +110,8 @@ const colorSizeOptions : OptionOption[] = Astro.props.colorSizeOptions;
     ❤️ أضف إلى المفضلة {/* Add to Favorites */}
   </button>
 </div>
+
+<script>
+  import { initProductFunnel } from "./ClassicThemeProductFunnel";
+  initProductFunnel();
+</script>
