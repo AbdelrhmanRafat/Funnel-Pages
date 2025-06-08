@@ -41,7 +41,7 @@ function isComponentFound(componentName: FunnelClassicComponents): ComponentChec
 const productFunnelData = isComponentFound(FunnelClassicComponents.ClassicProductFunnel);
 const purchaseOptions = productFunnelData.isComponentFound ? productFunnelData.componentData?.purchase_options : undefined;
 ---
-<main class="container flex-col justify-center items-center gap-40">
+<main class="container mx-auto">
 
   {/* Renders the ClassicThemeHeader component if its data is found in the API response. */}
   {isComponentFound(FunnelClassicComponents.ClassicHeader).isComponentFound && (

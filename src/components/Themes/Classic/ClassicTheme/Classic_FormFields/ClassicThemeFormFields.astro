@@ -3,169 +3,212 @@
 // It includes fields for personal details, shipping address, payment method, and a summary of the order.
 // Props:
 // - data: An object of type BlockData. While passed as a prop, it's not explicitly used in the current static HTML structure.
-//         It might be intended for future dynamic population of form fields or order summary details.
+//  It might be intended for future dynamic population of form fields or order summary details.
 
+import { date } from "astro:schema";
 import type { BlockData } from "../../../../../lib/api/types";
-import "./ClassicThemeFormFields.css"; // Styles specific to this form component.
 
-// Retrieves the data prop. Note: 'data' is not actively used in the static parts of this component.
-const data = (Astro.props as { data: BlockData }).data;
+// Retrieves the data prop. Note: 'data'.
+const data: BlockData = Astro.props.data;
 ---
 
-<section class="rounded-3xl">
-  <div class="form-container rounded-3xl">
-       {/* Personal Information and Shipping Form Section */}
-       <div class="personal-info">
-        <h2>المعلومات الشخصية</h2> {/* Personal Information */}
-        
-        <form>
-            {/* Full Name Input */}
-            <div class="form-group">
-                <label for="fullName">fullName</label> {/* Full Name */}
-                <input type="text" id="fullName" placeholder="اكتب اسمك الكامل هنا"> {/* Enter your full name here */}
-            </div>
+<section class=" bg-gray-50 p-6">
+  <div>
+    <div class="grid lg:grid-cols-5 gap-8">
+      {/* Form Section - Right Side */}
+      <div class="lg:col-span-3">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
+          {/* Header */}
+          <div class="px-6 py-4 border-b border-gray-100">
+            <h1 class="text-2xl font-bold text-gray-800 text-center">أكمل طلبك</h1>
+          </div>
 
-            {/* Phone Number Input */}
-            <div class="form-group">
-                <label for="phoneNumber">phoneNumber</label> {/* Phone Number */}
-                <input type="tel" id="phoneNumber" placeholder="مثال: 05XXXXXXXX"> {/* Example: 05XXXXXXXX */}
-            </div>
+          <form class="p-6">
+            {/* Personal Information Section */}
+            <div class="mb-8">
+              <h2 class="text-lg font-semibold text-gray-800 mb-6">المعلومات الشخصية</h2>
+              
+              <div class="space-y-4">
+                {/* Full Name */}
+                <div>
+                  <label class="block text-gray-600 text-sm mb-2">fullName</label>
+                  <input 
+                    type="text" 
+                    placeholder={data.full_name}
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+                  />
+                </div>
 
-            {/* Email Input */}
-            <div class="form-group">
-                <label for="email">email</label> {/* Email */}
-                <input type="email" id="email" placeholder="enterEmail"> {/* Enter Email */}
+                {/* Phone Number */}
+                <div>
+                  <label class="block text-gray-600 text-sm mb-2">phoneNumber</label>
+                  <input 
+                    type="tel" 
+                    placeholder={data.phone}
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label class="block text-gray-600 text-sm mb-2">email</label>
+                  <input 
+                    type="email" 
+                    placeholder="enterEmail"
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Shipping Information Section */}
-            <div class="shipping-section">
-                <h3>معلومات الشحن</h3> {/* Shipping Information */}
-                
-                {/* Selected Package Display - Appears static, ideally dynamic */}
-                <div class="form-group">
-                    <label>selectedPackage</label> {/* Selected Package */}
-                    <div class="package-selector">
-                        <div class="package-title">شراء منتج واحد</div> {/* Buy one product */}
-                        <div class="package-details">قطعة واحدة *يوصل في 3-5 أيام</div> {/* One piece *Delivered in 3-5 days */}
-                    </div>
-                </div>
-
-                {/* Country Selection */}
-                <div class="form-group">
-                    <label for="country">country</label> {/* Country */}
-                    <select id="country">
-                        <option value="">selectCountry</option> {/* Select Country */}
-                        <option value="saudi">المملكة العربية السعودية</option> {/* Saudi Arabia */}
-                        <option value="uae">الإمارات العربية المتحدة</option> {/* UAE */}
-                        <option value="egypt">مصر</option> {/* Egypt */}
+            <div class="mb-8">
+              <h2 class="text-lg font-semibold text-gray-800 mb-6">معلومات الشحن</h2>
+              
+              <div class="space-y-4">
+                {/* Selected Package */}
+                <div>
+                  <label class="block text-gray-600 text-sm mb-2">selectedPackage</label>
+                  <div class="relative">
+                    <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50 appearance-none">
+                      <option>اشتري ثلاثة بوفر</option>
                     </select>
+                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <p class="text-sm text-gray-500 mt-2">3 قطعة • توصيل في 3-5 أيام</p>
                 </div>
 
-                {/* City Input */}
-                <div class="form-group">
-                    <label for="city">city</label> {/* City */}
-                    <input type="text" id="city" placeholder="enterCity"> {/* Enter City */}
+                {/* Country */}
+                <div>
+                  <label class="block text-gray-600 text-sm mb-2">country</label>
+                  <div class="relative">
+                    <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50 appearance-none">
+                      <option>selectCountry</option>
+                      <option value="saudi">المملكة العربية السعودية</option>
+                      <option value="uae">الإمارات العربية المتحدة</option>
+                      <option value="egypt">مصر</option>
+                    </select>
+                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Address Details - Appears static */}
-                <div class="address-info">
-                    شارع الرياض، المملكة العربية السعودية<br> {/* Riyadh Street, Saudi Arabia */}
-                    اكتب عنوان التوصيل بالتفصيل {/* Write the delivery address in detail */}
+                {/* City */}
+                <div>
+                  <label class="block text-gray-600 text-sm mb-2">city</label>
+                  <input 
+                    type="text" 
+                    placeholder="enterCity"
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+                  />
                 </div>
+
+                {/* Address */}
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                  <p class="text-sm text-gray-700 leading-relaxed">
+                    {data.address}
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* Payment Method Section */}
-            <div class="payment-section">
-                <h3>طريقة الدفع</h3> {/* Payment Method */}
-                <div class="payment-options">
-                    {/* Cash on Delivery Option */}
-                    <label class="payment-option selected">
-                        <input type="radio" name="payment" value="cod" checked>
-                        <span>الدفع عند الاستلام</span> {/* Cash on Delivery */}
-                    </label>
-                    {/* Electronic Payment Option */}
-                    <label class="payment-option">
-                        <input type="radio" name="payment" value="electronic">
-                        <span>الدفع الإلكتروني</span> {/* Electronic Payment */}
-                    </label>
-                </div>
+            <div class="mb-8">
+              <h2 class="text-lg font-semibold text-gray-800 mb-6">طريقة الدفع</h2>
+              
+              <div class="space-y-3">
+                {/* Cash on Delivery */}
+                <label class="flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                  <span class="text-gray-800">الدفع عند الاستلام</span>
+                  <input 
+                    type="radio" 
+                    name="payment" 
+                    value="cod" 
+                    checked
+                    class="w-5 h-5 text-blue-600 border-2 border-gray-300 focus:ring-blue-500"
+                  />
+                </label>
+
+                {/* Electronic Payment */}
+                <label class="flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                  <span class="text-gray-800">الدفع الإلكتروني</span>
+                  <input 
+                    type="radio" 
+                    name="payment" 
+                    value="electronic"
+                    class="w-5 h-5 text-blue-600 border-2 border-gray-300 focus:ring-blue-500"
+                  />
+                </label>
+              </div>
             </div>
 
             {/* Submit Button */}
-            <button type="submit" class="submit-btn">تأكيد الطلب</button> {/* Confirm Order */}
-        </form>
-    </div>
-
-      {/* Order Summary Section - Note: This section is currently static. */}
-      {/* Ideally, these values should be dynamically populated based on the cart/selected product. */}
-      <div class="order-summary">
-          <h2>ملخص الطلب</h2> {/* Order Summary */}
-          
-          {/* Product Name */}
-          <div class="order-item">
-              <label>المنتج:</label> {/* Product: */}
-              <div class="value">تيشيرت مطبوع بلاك</div> {/* Black Printed T-shirt */}
-          </div>
-
-          {/* Quantity */}
-          <div class="order-item">
-              <label>الكمية:</label> {/* Quantity: */}
-              <div class="value">قطعة 1</div> {/* 1 Piece */}
-          </div>
-
-          {/* Price Per Item */}
-          <div class="order-item">
-              <label>سعر القطعة:</label> {/* Price per piece: */}
-              <div class="price">ج.م ٢٩٠</div> {/* EGP 290 */}
-          </div>
-
-          {/* Subtotal */}
-          <div class="order-item">
-              <label>subtotal</label> {/* Subtotal */}
-              <div class="price">ج.م ٢٩٠</div> {/* EGP 290 */}
-          </div>
-
-          {/* Shipping Cost */}
-          <div class="order-item">
-              <label>الشحن:</label> {/* Shipping: */}
-              <div class="price">ج.م ٥٠</div> {/* EGP 50 */}
-          </div>
-
-          {/* Total Price */}
-          <div class="order-item total">
-              <label>إجمالي:</label> {/* Total: */}
-              <div class="price">ج.م ٣٤٠</div> {/* EGP 340 */}
-          </div>
+            <button 
+              type="submit" 
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200"
+            >
+              تأكيد الطلب
+            </button>
+          </form>
+        </div>
       </div>
+    {/* Order Summary Section - Left Side */}
+      <div class="lg:col-span-2">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">ملخص الطلب</h2>
+          
+          <div class="space-y-4 text-sm">
+            {/* Product Name */}
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">المنتج:</span>
+              <span class="font-medium text-gray-800">تيشيرت مطبوع بلاك</span>
+            </div>
+
+            {/* Quantity */}
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">الكمية:</span>
+              <span class="font-medium text-gray-800">3 قطعة</span>
+            </div>
+
+            {/* Price Per Item */}
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">سعر القطعة:</span>
+              <span class="font-medium text-gray-800">ج.م 199</span>
+            </div>
+
+            {/* Subtotal */}
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">subtotal</span>
+              <span class="font-medium text-gray-800">ج.م 597</span>
+            </div>
+
+            {/* Discount */}
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">الخصم:</span>
+              <span class="font-medium text-green-600">- ج.م 327</span>
+            </div>
+
+            {/* Shipping */}
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">الشحن:</span>
+              <span class="font-medium text-gray-800">ج.م 90</span>
+            </div>
+
+            {/* Total */}
+            <div class="flex justify-between items-center pt-4 border-t border-gray-200">
+              <span class="text-lg font-semibold text-gray-800">الإجمالي:</span>
+              <span class="text-lg font-bold text-blue-600">ج.م 360</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-
-{/* Commented-out JavaScript for form interactions.
-    This script would handle:
-    - Visual selection of payment options.
-    - Form submission (currently prevents default and shows an alert).
-    - Making the package selector interactive (shows an alert).
-    To activate these, uncomment the script and ensure the associated ClassicThemeFormFields.ts
-    file is either not used for this specific logic or is coordinated with this script.
-*/}
-<!-- <script>
-  // Handle payment option selection
-  document.querySelectorAll('.payment-option').forEach(option => {
-      option.addEventListener('click', function() {
-          document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
-          this.classList.add('selected');
-          this.querySelector('input[type="radio"]').checked = true;
-      });
-  });
-
-  // Handle form submission
-  document.querySelector('form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('تم إرسال الطلب بنجاح!');
-  });
-
-  // Make package selector interactive
-  document.querySelector('.package-selector').addEventListener('click', function() {
-      alert('سيتم فتح خيارات الشحن المختلفة');
-  });
-</script> -->

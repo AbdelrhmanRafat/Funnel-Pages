@@ -1,7 +1,7 @@
 export const translations = {
   en: {
     countdown: {
-      offerEndsIn: ": Offer ends in",
+      offerEndsIn: "Offer ends in :",
       hours: "Hours",
       minutes: "Minutes",
       seconds: "Seconds",
