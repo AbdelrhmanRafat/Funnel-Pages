@@ -28,19 +28,7 @@ const name = "qty";
           data-items={item.items} 
         />
 
-        {/* Popular Badge for Best Deal */}
-        {item.discount_percent !== "0%" && item.items === 2 && (
-          <div class="absolute top-0 right-0 bg-gradient-to-r from-orange-400 to-orange-500 text-white text-xs font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-bl-lg rounded-tr-xl sm:rounded-tr-2xl z-10" data-translate="quantityOptions.popular">
-            {getTranslation('quantityOptions.popular')}
-          </div>
-        )}
 
-        {/* Best Value Badge for Highest Discount */}
-        {item.discount_percent === "35%" && (
-          <div class="absolute top-0 right-0 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-bl-lg rounded-tr-xl sm:rounded-tr-2xl z-10" data-translate="quantityOptions.bestValue">
-            {getTranslation('quantityOptions.bestValue')}
-          </div>
-        )}
 
         <div class="p-3 sm:p-6">
           <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 space-y-2 sm:space-y-0">
@@ -90,7 +78,7 @@ const name = "qty";
           </div>
 
           {/* Price Breakdown */}
-          <div class="border-t border-gray-100 pt-3 mt-3">
+          {/* <div class="border-t border-gray-100 pt-3 mt-3">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-xs sm:text-sm">
               <div class="flex justify-between sm:block">
                 <span class="text-gray-600" data-translate="quantityOptions.totalProducts">{getTranslation('quantityOptions.totalProducts')}</span>
@@ -105,7 +93,7 @@ const name = "qty";
                 </span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </label>
     ))

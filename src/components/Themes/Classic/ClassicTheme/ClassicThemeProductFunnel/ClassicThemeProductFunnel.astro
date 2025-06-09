@@ -101,24 +101,6 @@ import { getTranslation } from "../../../../../lib/utils/i18n/translations";
     </div>
 </div>
 
-{/* Action Buttons Section */}
-<div class="space-y-4">
-  {/* "Add to Cart" button */}
-  <button
-    class="btn-primary w-full py-4 rounded-2xl text-white font-bold text-lg shadow-lg"
-    data-translate="productFunnel.addToCart"
-  >
-    {getTranslation('productFunnel.addToCart')}
-  </button>
-
-  {/* "Add to Favorites" button */}
-  <button
-    class="w-full py-4 rounded-2xl border-2 border-gray-300 text-gray-700 font-bold text-lg hover:bg-gray-50 transition-colors"
-    data-translate="productFunnel.addToFavorites"
-  >
-    {getTranslation('productFunnel.addToFavorites')}
-  </button>
-</div>
 
 <script>
   import { initProductFunnel } from "./ClassicThemeProductFunnel";

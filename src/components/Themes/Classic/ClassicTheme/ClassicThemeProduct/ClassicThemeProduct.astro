@@ -15,19 +15,25 @@ import ClassicThemeProductFunnel from "../ClassicThemeProductFunnel/ClassicTheme
 import "./ClassicThemeProduct.css"; // Styles specific to this component.
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
+import ClassicThemeRates from "../ClassicThemeRates/ClassicThemeRates.astro";
+import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
 
 // Retrieves product and purchaseOptions from Astro's props.
 const product: Product = Astro.props.product;
-const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions
+const formFieldsData: BlockData = Astro.props.formFieldsData
+const ratingData: BlockData = Astro.props.ratingData
+
 // Extracts color and size options from the product data. Assumes options are structured in a specific way.
 const colorSizeOptions: OptionOption[] = product.options[0].options;
 
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get('lang')?.value || 'en') as Language;
 const isArabic = currentLang === 'ar';
+
 ---
 
-<section class="pt-40 lg:pt-44">
+<section>
     <div class="bg-white py-3 rounded-3xl product-shadow">
         <div class="flex flex-col lg:flex-row gap-2 px-4 lg:px-3">
             <!-- Gallery Section -->
@@ -36,6 +42,7 @@ const isArabic = currentLang === 'ar';
             <div
                 class="lg:w-1/2 lg:p-3 bg-gradient-to-br from-white to-gray-50"
             >
+                <ClassicThemeRates ratingData={ratingData}></ClassicThemeRates>
                 <!-- Product Header: Contains availability, SKU, name, price -->
                 <div class="mb-8">
                     <div class="flex items-center gap-2 mb-3">
@@ -83,6 +90,7 @@ const isArabic = currentLang === 'ar';
                     data={purchaseOptions}
                     colorSizeOptions={colorSizeOptions}
                 />
+                <ClassicThemeFormFields data={formFieldsData}></ClassicThemeFormFields>
             </div>
         </div>
     </div>

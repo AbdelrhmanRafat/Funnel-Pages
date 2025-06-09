@@ -1,72 +1,15 @@
 ---
-// This component displays customer ratings and reviews for the Classic theme.
-// It shows an overall rating, a breakdown by star count, and a few sample reviews.
-// Props:
-// - data: An object of type BlockData, expected to contain `rate` (overall average rating)
-//         and `count` (total number of ratings).
-
 import type { BlockData } from '../../../../../lib/api/types';
 
-// Defines the expected props for the component.
-interface Props {
-  data?: BlockData; // Optional data prop for rating information.
-}
-const { data } = Astro.props; // Retrieves the data prop.
+const ratingData: BlockData = Astro.props.ratingData;
 ---
-<!-- Rating Section Container -->
-<div class="bg-cream border-2 border-gold rounded-2xl p-8 mb-10 shadow-lg">
-  <h3 class="text-2xl font-bold text-burgundy mb-8 font-serif text-center">تقييمات العملاء</h3> {/* Customer Ratings */}
 
-  {/* Overall Rating Display */}
-  {/* This section dynamically displays the average rating and total count from the `data` prop. */}
-  <div class="text-center mb-10">
-    <div class="text-6xl font-extrabold text-burgundy mb-2">{data?.rate}</div> {/* Average rating value */}
-    <div class="flex justify-center text-yellow-400 text-3xl mb-2 space-x-1 rtl:space-x-reverse">
-      {/* Static display of 5 stars, could be made dynamic to reflect the actual rating if needed. */}
-      <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
-    </div>
-    <div class="text-gray-600 font-serif text-base">بناءً على <span class="font-bold">{data?.count}</span> تقييم</div> {/* Based on X ratings */}
+<div class="mb-8 flex items-center justify-start gap-3 text-gray-800">
+  <div class="flex items-center text-yellow-500 font-semibold text-lg">
+    <span>{ratingData.rate}</span>
+    <svg class="w-5 h-5 ml-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.18 3.637a1 1 0 00.95.69h3.812c.969 0 1.371 1.24.588 1.81l-3.084 2.24a1 1 0 00-.364 1.118l1.18 3.637c.3.921-.755 1.688-1.54 1.118l-3.084-2.24a1 1 0 00-1.176 0l-3.084 2.24c-.784.57-1.838-.197-1.539-1.118l1.18-3.637a1 1 0 00-.364-1.118L2.43 9.064c-.783-.57-.38-1.81.588-1.81h3.812a1 1 0 00.95-.69l1.18-3.637z" />
+    </svg>
   </div>
-
-  {/* Rating Breakdown by Stars */}
-  {/* This section shows a progress bar for each star rating (5 stars down to 1 star). */}
-  {/* The percentages for the progress bars are currently hardcoded. Ideally, these would be dynamic. */}
-  <div class="space-y-3 mb-10">
-    {/* Iterates from 5 down to 1 to create each star rating row. */}
-    {[5,4,3,2,1].map(star => (
-      <div class="flex items-center">
-        <span class="text-sm w-10 font-bold">{star}⭐</span> {/* Star rating number */}
-        <div class="flex-1 mx-3 bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
-          {/* The width of the yellow bar represents the percentage for that star rating. */}
-          {/* Hardcoded percentages: 78% for 5-star, 15% for 4-star, etc. */}
-          <div class="bg-yellow-400 h-full rounded-full transition-all duration-500" style={`width: ${[78, 15, 5, 2, 0][5 - star]}%`}></div>
-        </div>
-        <span class="text-sm text-gray-600 w-14">{[78, 15, 5, 2, 0][5 - star]}%</span> {/* Percentage display */}
-      </div>
-    ))}
-  </div>
-
-  {/* Sample Customer Reviews Section */}
-  {/* This section displays a few static sample reviews. Ideally, these would be fetched dynamically. */}
-  <div class="space-y-6">
-    {[
-      { name: "أحمد محمد", text: "منتج ممتاز جداً، جودة عالية وخدمة عملاء رائعة. أنصح به بشدة!", time: "منذ 3 أيام" }, // Ahmed Mohamed - Excellent product...
-      { name: "فاطمة العلي", text: "تجربة رائعة، المنتج كما هو موصوف تماماً. التسليم كان سريع.", time: "منذ أسبوع" },    // Fatima Al-Ali - Great experience...
-      { name: "خالد السعيد", text: "قيمة ممتازة مقابل السعر. سأشتري مرة أخرى بالتأكيد.", time: "منذ أسبوعين" }, // Khalid Al-Saeed - Excellent value...
-    ].map((review, index) => (
-      <div class="bg-white p-5 rounded-xl border border-gold shadow-sm">
-        <div class="flex items-center mb-2">
-          <div class="text-yellow-400 ml-2 text-lg">⭐⭐⭐⭐⭐</div> {/* Static 5-star rating for sample review */}
-          <span class="font-bold text-burgundy text-base">{review.name}</span>
-        </div>
-        <p class="text-gray-700 text-sm leading-relaxed font-serif">{review.text}</p>
-        <span class="text-xs text-gray-500 block mt-2">{review.time}</span>
-      </div>
-    ))}
-  </div>
-
-  {/* Placeholder for a "View All Reviews" button or link. */}
-  {/* Currently empty, but could be used to navigate to a page with all reviews. */}
-  <div class="text-center mt-8">
-  </div>
+  <div class="text-sm text-gray-600">{ratingData.count} ratings</div>
 </div>
