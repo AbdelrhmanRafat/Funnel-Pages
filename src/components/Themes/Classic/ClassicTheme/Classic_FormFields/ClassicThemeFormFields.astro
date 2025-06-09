@@ -89,7 +89,13 @@ const isArabic = currentLang === "ar";
               </div>
             </div>
             <div>
-              <button type="submit" class="w-full bg-blue-400 p-2 rounded-2xl text-white">Submit</button>
+              <button 
+                type="submit" 
+                class="w-full bg-blue-400 p-2 rounded-2xl text-white"
+                data-translate="form.submit"
+              >
+                {getTranslation("form.submit")}
+              </button>
             </div>
           </form>
         </div>

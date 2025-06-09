@@ -20,7 +20,11 @@ export const translations = {
       country: "Country",
       selectCountry: "Select a country",
       city: "City",
-      enterCity: "Enter your city"
+      enterCity: "Enter your city",
+      submit: "Submit Order"
+    },
+    ratings: {
+      count: "ratings"
     },
     product: {
       available: "Available",
@@ -93,7 +97,11 @@ export const translations = {
       country: "الدولة",
       selectCountry: "اختر الدولة",
       city: "المدينة",
-      enterCity: "أدخل اسم المدينة"
+      enterCity: "أدخل اسم المدينة",
+      submit: "تأكيد الطلب"
+    },
+    ratings: {
+      count: "مستخدم"
     },
     product: {
       available: "متوفر",

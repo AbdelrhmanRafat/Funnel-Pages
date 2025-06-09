@@ -46,7 +46,7 @@ const purchaseOptions = productFunnelData.isComponentFound ? productFunnelData.c
 const formFieldsData = isFormFieldsDataFound.isComponentFound ? isFormFieldsDataFound.componentData : undefined;
 const ratingData = isRatingFound.isComponentFound ? isRatingFound.componentData : undefined;
 ---
-<main class="lg:container w-11/12 mx-auto flex flex-col gap-7">
+<main class="lg:container w-11/12 mx-auto flex flex-col gap-7 pb-5">
 
   {/* Renders the ClassicThemeHeader component if its data is found in the API response. */}
   {isComponentFound(FunnelClassicComponents.ClassicHeader).isComponentFound && (

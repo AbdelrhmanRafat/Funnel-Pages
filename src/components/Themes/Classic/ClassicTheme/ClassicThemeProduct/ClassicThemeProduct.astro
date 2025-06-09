@@ -85,12 +85,14 @@ const isArabic = currentLang === 'ar';
                     >
                     </p>
                 </div>
+                <div class="flex flex-col gap-5">
                 <!-- Purchase Options: Renders the product funnel component with purchase and variant options. -->
                 <ClassicThemeProductFunnel
                     data={purchaseOptions}
                     colorSizeOptions={colorSizeOptions}
                 />
                 <ClassicThemeFormFields data={formFieldsData}></ClassicThemeFormFields>
+            </div>
             </div>
         </div>
     </div>
