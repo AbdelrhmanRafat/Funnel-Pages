@@ -6,13 +6,11 @@
 import "../../../styles/global.css";
 
 import ClassicThemeHeader from "./ClassicTheme/Classic_Header/ClassicThemeHeader.astro";
-import ClassicThemeFormFields from "./ClassicTheme/Classic_FormFields/ClassicThemeFormFields.astro";
 import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct/ClassicThemeProduct.astro";
 import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountdown/ClassicThemeCountDown.astro";
 import { getClassicThemeComponent } from "../../../lib/utils/ThemeSelect";
 import type { BlockData, Data } from "../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../lib/constants/themes";
-import { undefined } from "astro:schema";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -22,46 +20,83 @@ interface ComponentCheckResult {
 const funnelPage: Data = Astro.props.funnelPage;
 
 // Maps the block names from the API response to their corresponding Classic theme components and data.
-const classicComponentNames: [FunnelClassicComponents, BlockData][] = funnelPage.blocks
-  .map(block => {
-    const component = getClassicThemeComponent(block.name);
-    return component ? [component, block.data] : undefined;
-  })
-  .filter((tuple): tuple is [FunnelClassicComponents, BlockData] => tuple !== undefined);
+const classicComponentNames: [FunnelClassicComponents, BlockData][] =
+  funnelPage.blocks
+    .map((block) => {
+      const component = getClassicThemeComponent(block.name);
+      return component ? [component, block.data] : undefined;
+    })
+    .filter(
+      (tuple): tuple is [FunnelClassicComponents, BlockData] =>
+        tuple !== undefined,
+    );
 
 // Checks if a specific component is present in the API response and returns its data if found.
-function isComponentFound(componentName: FunnelClassicComponents): ComponentCheckResult {
+function isComponentFound(
+  componentName: FunnelClassicComponents,
+): ComponentCheckResult {
   const found = classicComponentNames.find(([comp]) => comp === componentName);
   return {
     isComponentFound: !!found,
-    componentData: found?.[1]
+    componentData: found?.[1],
   };
 }
 
 // Extracts purchase options from the ClassicProductFunnel component's data, if available.
-const productFunnelData = isComponentFound(FunnelClassicComponents.ClassicProductFunnel);
-const isFormFieldsDataFound = isComponentFound(FunnelClassicComponents.ClassicFormFields);
+const productFunnelData = isComponentFound(
+  FunnelClassicComponents.ClassicProductFunnel,
+);
+const isFormFieldsDataFound = isComponentFound(
+  FunnelClassicComponents.ClassicFormFields,
+);
 const isRatingFound = isComponentFound(FunnelClassicComponents.ClassicRates);
-const purchaseOptions = productFunnelData.isComponentFound ? productFunnelData.componentData?.purchase_options : undefined;
-const formFieldsData = isFormFieldsDataFound.isComponentFound ? isFormFieldsDataFound.componentData : undefined;
-const ratingData = isRatingFound.isComponentFound ? isRatingFound.componentData : undefined;
+const purchaseOptions = productFunnelData.isComponentFound
+  ? productFunnelData.componentData?.purchase_options
+  : undefined;
+const formFieldsData = isFormFieldsDataFound.isComponentFound
+  ? isFormFieldsDataFound.componentData
+  : undefined;
+const ratingData = isRatingFound.isComponentFound
+  ? isRatingFound.componentData
+  : undefined;
 ---
+
 <main class="lg:container w-11/12 mx-auto flex flex-col gap-7 pb-5">
+  {
+    /* Renders the ClassicThemeHeader component if its data is found in the API response. */
+  }
+  {
+    isComponentFound(FunnelClassicComponents.ClassicHeader)
+      .isComponentFound && (
+      <ClassicThemeHeader
+        data={
+          isComponentFound(FunnelClassicComponents.ClassicHeader).componentData
+        }
+      />
+    )
+  }
+  {
+    /* Renders the ClassicThemeCountDown component if its data is found in the API response. */
+  }
+  {
+    isComponentFound(FunnelClassicComponents.ClassicCountdown)
+      .isComponentFound && (
+      <ClassicThemeCountDown
+        data={
+          isComponentFound(FunnelClassicComponents.ClassicCountdown)
+            .componentData
+        }
+      />
+    )
+  }
 
-  {/* Renders the ClassicThemeHeader component if its data is found in the API response. */}
-  {isComponentFound(FunnelClassicComponents.ClassicHeader).isComponentFound && (
-    <ClassicThemeHeader data={isComponentFound(FunnelClassicComponents.ClassicHeader).componentData} />
-  )}
-{/* Renders the ClassicThemeCountDown component if its data is found in the API response. */}
-{isComponentFound(FunnelClassicComponents.ClassicCountdown).isComponentFound && (
-  <ClassicThemeCountDown  data={isComponentFound(FunnelClassicComponents.ClassicCountdown).componentData} />
-)}
-
-{/* Renders the ClassicThemeProduct component, passing product information and purchase options. */}
-<ClassicThemeProduct 
-  formFieldsData={formFieldsData}
-  ratingData={ratingData}
-  product={funnelPage.product} 
-  purchaseOptions={purchaseOptions}
-/>
+  {
+    /* Renders the ClassicThemeProduct component, passing product information and purchase options. */
+  }
+  <ClassicThemeProduct
+    formFieldsData={formFieldsData}
+    ratingData={ratingData}
+    product={funnelPage.product}
+    purchaseOptions={purchaseOptions}
+  />
 </main>

@@ -17,20 +17,21 @@ import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 import ClassicThemeRates from "../ClassicThemeRates/ClassicThemeRates.astro";
 import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
+import { undefined } from "astro:schema";
 
 // Retrieves product and purchaseOptions from Astro's props.
 const product: Product = Astro.props.product;
-const purchaseOptions: BlockData = Astro.props.purchaseOptions
-const formFieldsData: BlockData = Astro.props.formFieldsData
-const ratingData: BlockData = Astro.props.ratingData
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const formFieldsData: BlockData = Astro.props.formFieldsData;
+const ratingData: BlockData = Astro.props.ratingData;
 
 // Extracts color and size options from the product data. Assumes options are structured in a specific way.
 const colorSizeOptions: OptionOption[] = product.options[0].options;
 
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get('lang')?.value || 'en') as Language;
-const isArabic = currentLang === 'ar';
-
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+    "en") as Language;
+const isArabic = currentLang === "ar";
 ---
 
 <section>
@@ -42,25 +43,37 @@ const isArabic = currentLang === 'ar';
             <div
                 class="lg:w-1/2 lg:p-3 bg-gradient-to-br from-white to-gray-50"
             >
-                <ClassicThemeRates ratingData={ratingData}></ClassicThemeRates>
+                {ratingData && <ClassicThemeRates ratingData={ratingData} />}
                 <!-- Product Header: Contains availability, SKU, name, price -->
                 <div class="mb-8">
                     <div class="flex items-center gap-2 mb-3">
                         <span
                             class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium"
-                            data-translate={product.is_active ? "product.available" : "product.notAvailable"}
-                           >{product.is_active 
-                              ? getTranslation('product.available', currentLang) 
-                              : getTranslation('product.notAvailable', currentLang)}
-                         </span
-                        >
+                            data-translate={product.is_active
+                                ? "product.available"
+                                : "product.notAvailable"}
+                            >{
+                                product.is_active
+                                    ? getTranslation(
+                                          "product.available",
+                                          currentLang,
+                                      )
+                                    : getTranslation(
+                                          "product.notAvailable",
+                                          currentLang,
+                                      )
+                            }
+                        </span>
                         <div class="text-gray-500 text-sm">
-                        <span
-                            data-translate="product.productCode"
-                            >{getTranslation('product.productCode', currentLang)}
-                            </span
-                        >
-                        <span>: {product.sku_code}</span>
+                            <span data-translate="product.productCode"
+                                >{
+                                    getTranslation(
+                                        "product.productCode",
+                                        currentLang,
+                                    )
+                                }
+                            </span>
+                            <span>: {product.sku_code}</span>
                         </div>
                     </div>
 
@@ -69,30 +82,42 @@ const isArabic = currentLang === 'ar';
                     >
                         {isArabic ? product.name_ar : product.name_en}
                     </h1>
-                    
+
                     <div class="text-4xl font-bold mb-6">
                         {product.price} ج.م {/* Price in EGP */}
                     </div>
                 </div>
                 <!-- Product Description -->
                 <div class="mb-8">
-                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-translate="product.description">
-                        {getTranslation('product.description', currentLang)}
+                    <h3
+                        class="text-xl font-bold text-gray-900 mb-3"
+                        data-translate="product.description"
+                    >
+                        {getTranslation("product.description", currentLang)}
                     </h3>
                     <p
                         class="text-gray-600 leading-relaxed"
-                        set:html={isArabic ? product.description_ar : product.description_en}
-                    >
-                    </p>
+                        set:html={isArabic
+                            ? product.description_ar
+                            : product.description_en}
+                    />
                 </div>
                 <div class="flex flex-col gap-5">
-                <!-- Purchase Options: Renders the product funnel component with purchase and variant options. -->
-                <ClassicThemeProductFunnel
-                    data={purchaseOptions}
-                    colorSizeOptions={colorSizeOptions}
-                />
-                <ClassicThemeFormFields data={formFieldsData}></ClassicThemeFormFields>
-            </div>
+                    <!-- Purchase Options: Renders the product funnel component with purchase and variant options. if found -->
+                    {
+                        purchaseOptions && (
+                            <ClassicThemeProductFunnel
+                                data={purchaseOptions}
+                                colorSizeOptions={colorSizeOptions}
+                            />
+                        )
+                    }
+                    {
+                        formFieldsData && (
+                            <ClassicThemeFormFields data={formFieldsData} />
+                        )
+                    }
+                </div>
             </div>
         </div>
     </div>
