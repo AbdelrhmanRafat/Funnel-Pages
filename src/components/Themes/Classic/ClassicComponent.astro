@@ -56,11 +56,11 @@ const purchaseOptions = productFunnelData.isComponentFound ? productFunnelData.c
 
 {/* Renders the ClassicThemeFormFields component if its data is found in the API response. */}
 {isComponentFound(FunnelClassicComponents.ClassicFormFields).isComponentFound && (
-  <ClassicThemeFormFields data={isComponentFound(FunnelClassicComponents.ClassicFormFields).componentData} />
+  <ClassicThemeFormFields product={funnelPage.product} data={isComponentFound(FunnelClassicComponents.ClassicFormFields).componentData} />
 )}
 {/* Renders the ClassicThemeCountDown component if its data is found in the API response. */}
 {isComponentFound(FunnelClassicComponents.ClassicCountdown).isComponentFound && (
-  <ClassicThemeCountDown data={isComponentFound(FunnelClassicComponents.ClassicCountdown).componentData} />
+  <ClassicThemeCountDown  data={isComponentFound(FunnelClassicComponents.ClassicCountdown).componentData} />
 )}
 </main>
 

@@ -17,7 +17,7 @@ this file would be the place to implement it. Examples could include:
 - Analytics tracking for funnel interactions.
 */
 
-import { init } from "astro/virtual-modules/prefetch.js";
+import type { BlockData } from "../../../../../lib/api/types";
 
 // Example of a function that could be exported and used:
 /*
@@ -35,69 +35,58 @@ export function handleAddToCart() {
 // either here or in the .astro component, calling these functions.
 */
 
-interface SelectedOffer {
-  title: string;
-  items: number;
-  price_per_item: number;
-  original_price_per_item: number;
-  original_total: number;
-  total_price: number;
-  discount: number;
-  discount_percent: string;
-  shipping_price: number;
-  final_total: number;
-}
 
 export function initProductFunnel() {
   document.addEventListener('item-change', (e: Event) => {
     const customEvent = e as CustomEvent;
     // Parse the stringified JSON into an object
-    const selectedOffer: SelectedOffer = JSON.parse(customEvent.detail.selectedItem);
+    const selectedOffer: BlockData = JSON.parse(customEvent.detail.selectedItem);
     
     // Update price breakdown elements
     updatePriceBreakdown(selectedOffer);
   });
 }
 
-function updatePriceBreakdown(offer: SelectedOffer) {
+function updatePriceBreakdown(offer: BlockData) {
   // Update product quantity
-  const quantityElement = document.querySelector('[data-price-quantity]');
-  if (quantityElement) {
-    quantityElement.textContent = `${offer.items} ${offer.items === 1 ? 'قطعة' : 'قطع'}`;
-  }
+  const quantityElements = document.querySelectorAll('[data-price-quantity]');
+  quantityElements.forEach((el) => {
+    el.textContent = `${offer.items}`;
+  });
 
   // Update unit price
-  const unitPriceElement = document.querySelector('[data-price-unit]');
-  if (unitPriceElement) {
-    unitPriceElement.textContent = `${offer.price_per_item.toLocaleString()} ج.م`;
-  }
+  const unitPriceElements = document.querySelectorAll('[data-price-unit]');
+  unitPriceElements.forEach((el) => {
+    el.textContent = `${offer.price_per_item.toLocaleString()} ج.م`;
+  });
 
   // Update subtotal
-  const subtotalElement = document.querySelector('[data-price-subtotal]');
-  if (subtotalElement) {
-    subtotalElement.textContent = `${offer.total_price.toLocaleString()} ج.م`;
-  }
+  const subtotalElements = document.querySelectorAll('[data-price-subtotal]');
+  subtotalElements.forEach((el) => {
+    el.textContent = `${offer.total_price.toLocaleString()} ج.م`;
+  });
 
   // Update shipping
-  const shippingElement = document.querySelector('[data-price-shipping]');
-  if (shippingElement) {
-    shippingElement.textContent = `${offer.shipping_price.toLocaleString()} ج.م`;
-  }
+  const shippingElements = document.querySelectorAll('[data-price-shipping]');
+  shippingElements.forEach((el) => {
+    el.textContent = `${offer.shipping_price.toLocaleString()} ج.م`;
+  });
 
   // Update discount
-  const discountElement = document.querySelector('[data-price-discount]');
-  if (discountElement) {
+  const discountElements = document.querySelectorAll('[data-price-discount]');
+  discountElements.forEach((el) => {
+    const container = el.closest('[data-discount-container]');
     if (offer.discount > 0) {
-      discountElement.textContent = `- ${offer.discount.toLocaleString()} ج.م`;
-      discountElement.closest('[data-discount-container]')?.classList.remove('hidden');
+      el.textContent = `- ${offer.discount.toLocaleString()} ج.م`;
+      container?.classList.remove('hidden');
     } else {
-      discountElement.closest('[data-discount-container]')?.classList.add('hidden');
+      container?.classList.add('hidden');
     }
-  }
+  });
 
   // Update final total
-  const totalElement = document.querySelector('[data-price-total]');
-  if (totalElement) {
-    totalElement.textContent = `${offer.final_total.toLocaleString()} ج.م`;
-  }
+  const totalElements = document.querySelectorAll('[data-price-total]');
+  totalElements.forEach((el) => {
+    el.textContent = `${offer.final_total.toLocaleString()} ج.م`;
+  });
 }

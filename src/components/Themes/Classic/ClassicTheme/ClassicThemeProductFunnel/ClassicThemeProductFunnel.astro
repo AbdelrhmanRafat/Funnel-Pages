@@ -39,10 +39,14 @@ import { getTranslation } from "../../../../../lib/utils/i18n/translations";
         <div class="p-6 space-y-3">
             {/* Product Quantity */}
             <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                <span class="text-gray-700 font-medium" data-translate="productFunnel.product">{getTranslation('productFunnel.product')}</span>
-                <span class="text-gray-900 font-semibold" data-price-quantity>
-                    {initialOffer.items} {getTranslation(initialOffer.items === 1 ? 'productFunnel.piece' : 'productFunnel.pieces')}
+                <span class="text-gray-700 font-medium" data-translate="productFunnel.quantity">{getTranslation('productFunnel.quantity')}</span>
+                <div>               
+                 <span class="text-gray-900 font-semibold" data-price-quantity>
                 </span>
+                <span data-translate="productFunnel.piece">
+                 {getTranslation('productFunnel.piece')}
+                </span>
+                </div>
             </div>
             
             {/* Unit Price */}

@@ -76,7 +76,6 @@ function initScrollBehavior() {
   // Add scroll event listener
   window.addEventListener('scroll', handleScroll, { passive: true });
   
-  console.log('Header scroll behavior initialized');
 }
 
 // Initialize header functionality when DOM is loaded

@@ -5,11 +5,19 @@
 // - data: An object of type BlockData. While passed as a prop, it's not explicitly used in the current static HTML structure.
 //  It might be intended for future dynamic population of form fields or order summary details.
 
-import { getTranslation } from "../../../../../lib/utils/i18n/translations";
-import type { BlockData } from "../../../../../lib/api/types";
+import {
+  getTranslation,
+  type Language,
+} from "../../../../../lib/utils/i18n/translations";
+import type { BlockData, Product } from "../../../../../lib/api/types";
 
 // Retrieves the data prop. Note: 'data'.
 const data: BlockData = Astro.props.data;
+const product: Product = Astro.props.product;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
 ---
 
 <section class="bg-white rounded-xl">
@@ -18,86 +26,128 @@ const data: BlockData = Astro.props.data;
       <div class="lg:col-span-3">
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
           <div class="px-6 py-4 border-b border-gray-100">
-            <h1 class="text-2xl font-bold text-gray-800 text-center" data-translate="form.completeOrder">
-              {getTranslation('form.completeOrder')}
+            <h1
+              class="text-2xl font-bold text-gray-800 text-center"
+              data-translate="form.completeOrder"
+            >
+              {getTranslation("form.completeOrder")}
             </h1>
           </div>
 
           <form class="p-6">
             <div class="mb-8">
-              <h2 class="text-lg font-semibold text-gray-800 mb-6" data-translate="form.personalInfo">
-                {getTranslation('form.personalInfo')}
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-6"
+                data-translate="form.personalInfo"
+              >
+                {getTranslation("form.personalInfo")}
               </h2>
               <div class="space-y-4">
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.fullName">
-                    {getTranslation('form.fullName')}
+                  <label
+                    class="block text-gray-600 text-sm mb-2"
+                    data-translate="form.fullName"
+                  >
+                    {getTranslation("form.fullName")}
                   </label>
-                  <input type="text" placeholder={data.full_name} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
+                  <input
+                    type="text"
+                    placeholder={data.full_name}
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+                  />
                 </div>
 
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.phoneNumber">
-                    {getTranslation('form.phoneNumber')}
+                  <label
+                    class="block text-gray-600 text-sm mb-2"
+                    data-translate="form.phoneNumber"
+                  >
+                    {getTranslation("form.phoneNumber")}
                   </label>
-                  <input type="tel" placeholder={data.phone} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
+                  <input
+                    type="tel"
+                    placeholder={data.phone}
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+                  />
                 </div>
 
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.email">
-                    {getTranslation('form.email')}
+                  <label
+                    class="block text-gray-600 text-sm mb-2"
+                    data-translate="form.email"
+                  >
+                    {getTranslation("form.email")}
                   </label>
-                  <input type="email" placeholder={getTranslation('form.enterEmail')} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
+                  <input
+                    type="email"
+                    placeholder={getTranslation("form.enterEmail")}
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+                  />
                 </div>
               </div>
             </div>
 
             <div class="mb-8">
-              <h2 class="text-lg font-semibold text-gray-800 mb-6" data-translate="form.shippingInfo">
-                {getTranslation('form.shippingInfo')}
+              <h2
+                class="text-lg font-semibold text-gray-800 mb-6"
+                data-translate="form.shippingInfo"
+              >
+                {getTranslation("form.shippingInfo")}
               </h2>
               <div class="space-y-4">
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.selectedPackage">
-                    {getTranslation('form.selectedPackage')}
+                  <label
+                    class="block text-gray-600 text-sm mb-2"
+                    data-translate="form.country"
+                  >
+                    {getTranslation("form.country")}
                   </label>
                   <div class="relative">
-                    <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50 appearance-none">
-                      <option>{getTranslation('form.threeItemsOffer')}</option>
+                    <select
+                      class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50 appearance-none"
+                    >
+                      <option>{getTranslation("form.selectCountry")}</option>
+                      <option value="saudi"
+                        >{getTranslation("countries.saudi")}</option
+                      >
+                      <option value="uae"
+                        >{getTranslation("countries.uae")}</option
+                      >
+                      <option value="egypt"
+                        >{getTranslation("countries.egypt")}</option
+                      >
                     </select>
-                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    <div
+                      class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
+                    >
+                      <svg
+                        class="w-4 h-4 text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 9l-7 7-7-7"></path>
                       </svg>
                     </div>
                   </div>
-                  <p class="text-sm text-gray-500 mt-2">{getTranslation('form.deliveryTime')}</p>
                 </div>
 
                 <div>
-                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.country">
-                    {getTranslation('form.country')}
+                  <label
+                    class="block text-gray-600 text-sm mb-2"
+                    data-translate="form.city"
+                  >
+                    {getTranslation("form.city")}
                   </label>
-                  <div class="relative">
-                    <select class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50 appearance-none">
-                      <option>{getTranslation('form.selectCountry')}</option>
-                      <option value="saudi">{getTranslation('countries.saudi')}</option>
-                      <option value="uae">{getTranslation('countries.uae')}</option>
-                      <option value="egypt">{getTranslation('countries.egypt')}</option>
-                    </select>
-                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <label class="block text-gray-600 text-sm mb-2" data-translate="form.city">
-                    {getTranslation('form.city')}
-                  </label>
-                  <input type="text" placeholder={getTranslation('form.enterCity')} class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50" />
+                  <input
+                    type="text"
+                    placeholder={getTranslation("form.enterCity")}
+                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+                  />
                 </div>
 
                 <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
@@ -110,52 +160,59 @@ const data: BlockData = Astro.props.data;
           </form>
         </div>
       </div>
-          {/* Order Summary Section - Left Side */}
-      <div class="lg:col-span-2">
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">ملخص الطلب</h2>
-          
+      {/* Order Summary Section - Left Side */}
+      <div class="lg:col-span-2 lg:pt-9">
+        <div
+          class="bg-gray-100 rounded-2xl p-6 shadow-sm border border-gray-100"
+        >
+          <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">
+            ملخص الطلب
+          </h2>
+
           <div class="space-y-4 text-sm">
             {/* Product Name */}
             <div class="flex justify-between items-center">
-              <span class="text-gray-600">المنتج:</span>
-              <span class="font-medium text-gray-800">تيشيرت مطبوع بلاك</span>
+              <span class="text-gray-600" data-translate="productFunnel.product">{getTranslation('productFunnel.product')}</span>
+              <span class="font-medium text-gray-800">
+                {isArabic ? product.name_ar : product.name_en}
+              </span>
             </div>
-
             {/* Quantity */}
             <div class="flex justify-between items-center">
-              <span class="text-gray-600">الكمية:</span>
-              <span class="font-medium text-gray-800">3 قطعة</span>
+              <span class="text-gray-600" data-translate="productFunnel.quantity">{getTranslation('productFunnel.quantity')}</span>
+              <span class="font-medium text-gray-800" data-price-quantity></span>
             </div>
 
             {/* Price Per Item */}
             <div class="flex justify-between items-center">
-              <span class="text-gray-600">سعر القطعة:</span>
-              <span class="font-medium text-gray-800">ج.م 199</span>
+              <span class="text-gray-600"data-translate="productFunnel.unitPrice">{getTranslation('productFunnel.unitPrice')}</span>
+              <span class="font-medium text-gray-800" data-price-unit></span>
             </div>
 
             {/* Subtotal */}
             <div class="flex justify-between items-center">
-              <span class="text-gray-600">subtotal</span>
-              <span class="font-medium text-gray-800">ج.م 597</span>
+              <span class="text-gray-600"data-translate="productFunnel.subtotal">{getTranslation('productFunnel.subtotal')}</span>
+              <span class="font-medium text-gray-800" data-price-subtotal></span>
             </div>
 
             {/* Discount */}
             <div class="flex justify-between items-center">
-              <span class="text-gray-600">الخصم:</span>
-              <span class="font-medium text-green-600">- ج.م 327</span>
+              <span class="text-gray-600"data-translate="productFunnel.discount">{getTranslation('productFunnel.discount')}</span>
+              <span class="font-medium text-green-600" data-price-discount></span>
             </div>
 
             {/* Shipping */}
             <div class="flex justify-between items-center">
-              <span class="text-gray-600">الشحن:</span>
-              <span class="font-medium text-gray-800">ج.م 90</span>
+              <span class="text-gray-600"data-translate="productFunnel.shippingCost">{getTranslation('productFunnel.shippingCost')}</span>
+              <span class="font-medium text-gray-800" data-price-shipping></span>
             </div>
 
             {/* Total */}
-            <div class="flex justify-between items-center pt-4 border-t border-gray-200">
-              <span class="text-lg font-semibold text-gray-800">الإجمالي:</span>
-              <span class="text-lg font-bold text-blue-600">ج.م 360</span>
+            <div
+              class="flex justify-between items-center pt-4 border-t border-gray-200"
+            >
+              <span class="text-lg font-semibold text-gray-800"data-translate="productFunnel.total">{getTranslation('productFunnel.total')}</span>
+              <span class="text-lg font-bold text-blue-600" data-price-total></span>
             </div>
           </div>
         </div>
@@ -163,3 +220,7 @@ const data: BlockData = Astro.props.data;
     </div>
   </div>
 </section>
+
+<script>
+  import "./ClassicThemeFormFields"
+</script>
