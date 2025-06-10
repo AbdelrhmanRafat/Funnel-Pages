@@ -79,12 +79,21 @@ export interface QuantityState {
 }
 
 export class QuantityOptionsSubject extends GenericSubject<QuantityState> {
-    constructor() {
+    private static instance: QuantityOptionsSubject;
+
+    private constructor() {
         super({
             quantity: 1,
             selectedItem: null
         });
         this.initializeQuantityOptions();
+    }
+
+    public static getInstance(): QuantityOptionsSubject {
+        if (!QuantityOptionsSubject.instance) {
+            QuantityOptionsSubject.instance = new QuantityOptionsSubject();
+        }
+        return QuantityOptionsSubject.instance;
     }
 
     private initializeQuantityOptions(): void {

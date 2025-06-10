@@ -1,24 +1,35 @@
-import type { Observer, Subject } from '../../../../../../lib/patterns/Observer';
-import { QuantityOptionsSubject, type QuantityState } from '../../../../../../lib/patterns/Observer';
+import { QuantityOptionsSubject, type Observer, type Subject, type QuantityState } from "../../../../../../lib/patterns/Observer";
 
-class DynamicPanelObserver implements Observer<QuantityState> {
-    public update(subject: Subject<QuantityState>): void {
-        const state = subject.getState();
-        const newQuantity = state.quantity;
-        
-        // Get all panels
-        const panels = document.querySelectorAll('.option-panel');
-        
-        // Show/hide panels based on the new quantity
-        panels.forEach((panel, index) => {
-            if (index < newQuantity) {
-                panel.classList.remove('hidden');
-            } else {
-                panel.classList.add('hidden');
-            }
-        });
+class ClassicDynamicPannelContainer extends HTMLElement implements Observer<QuantityState> {
+  private subject: QuantityOptionsSubject;
+  private panelIndex: number;
+
+  constructor() {
+    super();
+    this.subject = QuantityOptionsSubject.getInstance();
+    const panelIndexElement = this.querySelector('[data-panel-index]');
+    this.panelIndex = panelIndexElement ? parseInt(panelIndexElement.getAttribute('data-panel-index') || '1') : 1;
+    this.subject.attach(this);
+  }
+
+  public update(subject: Subject<QuantityState>): void {
+    const state = subject.getState();
+    const container = this.querySelector('#panels-container');
+    if (container) {
+      if (state.quantity >= this.panelIndex) {
+        container.classList.remove('hidden');
+      } else {
+        container.classList.add('hidden');
+      }
     }
+  }
+
+  disconnectedCallback() {
+    this.subject.detach(this);
+  }
 }
+
+customElements.define('classic-dynamic-panel-container', ClassicDynamicPannelContainer);
 
 // Handle size selection
 function handleSizeSelection(panel: Element, sizeOption: Element) {
@@ -74,9 +85,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-
-    // Initialize the observer
-    const dynamicPanelObserver = new DynamicPanelObserver();
-    const quantitySubject = new QuantityOptionsSubject();
-    quantitySubject.attach(dynamicPanelObserver);
 });
