@@ -8,7 +8,7 @@
 export function initHeader() {
   // Get the header logo element
   const headerLogo = document.getElementById('headerLogo') as HTMLImageElement;
-  const header = document.querySelector('header') as HTMLElement;
+  const header = document.querySelector('.classic-header') as HTMLElement;
   
   if (headerLogo) {
     // Store the original src for potential reuse
@@ -28,54 +28,49 @@ export function initHeader() {
     if (headerLogo.complete && headerLogo.naturalWidth === 0) {
       headerLogo.src = defaultLogo + '?fallback=' + Date.now();
     }
-    
-    console.log('Header component initialized with image error handling');
   }
   
-  // Initialize scroll behavior
-  initScrollBehavior();
-}
-
-/**
- * Initializes the scroll behavior for the header
- * - Hides the header when scrolling down
- * - Shows the header when scrolling up or at the top of the page
- */
-function initScrollBehavior() {
-  const header = document.querySelector('header') as HTMLElement;
-  if (!header) return;
-  
-  // Add transition class for smooth animations
-  header.classList.add('transition-transform', 'duration-300');
-  
-  let lastScrollY = window.scrollY;
-  
-  // Function to handle scroll events
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
+  if (header) {
+    // Add transition class for smooth animations
+    header.classList.add('transition-all', 'duration-300', 'ease-in-out');
     
-    // At the top of the page - always show header
-    if (currentScrollY <= 0) {
-      header.classList.remove('transform', '-translate-y-full');
-      lastScrollY = currentScrollY;
-      return;
-    }
+    let lastScrollY = window.scrollY;
+    let ticking = false;
     
-    // Scrolling down - hide header
-    if (currentScrollY > lastScrollY) {
-      header.classList.add('transform', '-translate-y-full');
-    } 
-    // Scrolling up - show header
-    else if (currentScrollY < lastScrollY) {
-      header.classList.remove('transform', '-translate-y-full');
-    }
+    // Function to handle scroll events
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // At the top of the page - always show header
+          if (currentScrollY <= 0) {
+            header.style.transform = 'translateY(0)';
+            lastScrollY = currentScrollY;
+            ticking = false;
+            return;
+          }
+          
+          // Scrolling down - hide header
+          if (currentScrollY > lastScrollY) {
+            header.style.transform = 'translateY(-100%)';
+          } 
+          // Scrolling up - show header
+          else if (currentScrollY < lastScrollY) {
+            header.style.transform = 'translateY(0)';
+          }
+          
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
+    };
     
-    lastScrollY = currentScrollY;
-  };
-  
-  // Add scroll event listener
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
 }
 
 // Initialize header functionality when DOM is loaded
