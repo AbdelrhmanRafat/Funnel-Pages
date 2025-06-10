@@ -7,7 +7,6 @@ import "../../../styles/global.css";
 import ClassicThemeHeader from "./ClassicTheme/Classic_Header/ClassicThemeHeader.astro";
 import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct/ClassicThemeProduct.astro";
 import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountdown/ClassicThemeCountDown.astro";
-import ClassicOrderConfirmationNotice from "./ClassicTheme/Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
 import ClassicFaq from "./ClassicTheme/Classic_Faq/ClassicFaq.astro";
 import ClassicProductPreviewComponent from "./ClassicTheme/Classic_ProductPreview/ClassicProductPreviewComponent.astro";
 import { getClassicThemeComponent } from "../../../lib/utils/ThemeSelect";
@@ -47,13 +46,12 @@ function isComponentFound(
 // Define render order - just change this array to reorder components!
 const RENDER_ORDER = [
   FunnelClassicComponents.ClassicHeader,
-  FunnelClassicComponents.ClassicProductFunnel,  // Always render (required)
+  FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
   FunnelClassicComponents.ClassicOrderConfirmationNotice,
   FunnelClassicComponents.ClassicProductPreviewComponent,
   FunnelClassicComponents.ClassicFaq,
   FunnelClassicComponents.ClassicCountdown,
 ];
-
 
 // Extracts purchase options and other data
 const productFunnelData = isComponentFound(
@@ -63,6 +61,9 @@ const isFormFieldsDataFound = isComponentFound(
   FunnelClassicComponents.ClassicFormFields,
 );
 const isRatingFound = isComponentFound(FunnelClassicComponents.ClassicRates);
+const isOrderConfirmationNoticeFound = isComponentFound(
+  FunnelClassicComponents.ClassicOrderConfirmationNotice,
+);
 
 const purchaseOptions = productFunnelData.isComponentFound
   ? productFunnelData.componentData?.purchase_options
@@ -74,49 +75,66 @@ const ratingData = isRatingFound.isComponentFound
   ? isRatingFound.componentData
   : undefined;
 
+const orderConfirmationNoticeData =
+  isOrderConfirmationNoticeFound.isComponentFound
+    ? isOrderConfirmationNoticeFound.componentData
+    : undefined;
 ---
 
 <main class="lg:container w-11/12 mx-auto flex flex-col gap-7 pb-5">
-  {RENDER_ORDER.map(componentName => {
-    if (componentName === FunnelClassicComponents.ClassicHeader) {
-      const headerData = isComponentFound(FunnelClassicComponents.ClassicHeader);
-      return headerData.isComponentFound ? (
+  {
+    RENDER_ORDER.map((componentName) => {
+      if (componentName === FunnelClassicComponents.ClassicHeader) {
+        const headerData = isComponentFound(
+          FunnelClassicComponents.ClassicHeader,
+        );
+        return headerData.isComponentFound ? (
           <ClassicThemeHeader data={headerData.componentData} />
-      ) : null;
-    }
-    
-    if (componentName === FunnelClassicComponents.ClassicProductFunnel) {
-      return (
-        <ClassicThemeProduct
-          formFieldsData={formFieldsData}
-          ratingData={ratingData}
-          product={funnelPage.product}
-          purchaseOptions={purchaseOptions}
-        />
-      );
-    }
-    
-    if (componentName === FunnelClassicComponents.ClassicCountdown) {
-      const countdownData = isComponentFound(FunnelClassicComponents.ClassicCountdown);
-      return countdownData.isComponentFound ? (
-        <ClassicThemeCountDown data={countdownData.componentData} />
-      ) : null;
-    }
+        ) : null;
+      }
 
-    if (componentName === FunnelClassicComponents.ClassicFaq) {
-      const faqData = isComponentFound(FunnelClassicComponents.ClassicFaq);
-      return faqData.isComponentFound ? (
-        <ClassicFaq data={faqData.componentData} />
-      ) : null;
-    }
+      if (componentName === FunnelClassicComponents.ClassicProductFunnel) {
+        return (
+          <ClassicThemeProduct
+            formFieldsData={formFieldsData}
+            ratingData={ratingData}
+            orderConfirmationNoticeData={orderConfirmationNoticeData}
+            product={funnelPage.product}
+            purchaseOptions={purchaseOptions}
+          />
+        );
+      }
 
-    if (componentName === FunnelClassicComponents.ClassicProductPreviewComponent) {
-      const productPreviewData = isComponentFound(FunnelClassicComponents.ClassicProductPreviewComponent);
-      return productPreviewData.isComponentFound ? (
-        <ClassicProductPreviewComponent data={productPreviewData.componentData} />
-      ) : null;
-    }
-    
-    return null;
-  })}
+      if (componentName === FunnelClassicComponents.ClassicCountdown) {
+        const countdownData = isComponentFound(
+          FunnelClassicComponents.ClassicCountdown,
+        );
+        return countdownData.isComponentFound ? (
+          <ClassicThemeCountDown data={countdownData.componentData} />
+        ) : null;
+      }
+
+      if (componentName === FunnelClassicComponents.ClassicFaq) {
+        const faqData = isComponentFound(FunnelClassicComponents.ClassicFaq);
+        return faqData.isComponentFound ? (
+          <ClassicFaq data={faqData.componentData} />
+        ) : null;
+      }
+
+      if (
+        componentName === FunnelClassicComponents.ClassicProductPreviewComponent
+      ) {
+        const productPreviewData = isComponentFound(
+          FunnelClassicComponents.ClassicProductPreviewComponent,
+        );
+        return productPreviewData.isComponentFound ? (
+          <ClassicProductPreviewComponent
+            data={productPreviewData.componentData}
+          />
+        ) : null;
+      }
+
+      return null;
+    })
+  }
 </main>

@@ -1,25 +1,13 @@
 ---
-// This component renders a fixed header for the Classic theme.
-// It displays a logo, title, and subtitle.
-// The header remains at the top of the viewport during scrolling.
-// Props:
-// - data: An object of type BlockData, expected to contain `logo` (URL), `title` (string),
-//  and `subtitle`.
-
 import type { BlockData } from "../../../../../lib/api/types";
 import ClassicLanguageSwitcher from "../UI/ClassicLanguageSwitcher/ClassicLanguageSwitcher.astro";
 
-// Defines the path to a default logo image, used as a fallback.
 const defaultLogoSrc : string =  "assets/default-logo.svg";
 
-// Retrieves the 'data' prop passed to the component.
 const data : BlockData = Astro.props.data;
 
-// Sets the logo URL: uses the logo from props if available, otherwise falls back to the default logo.
 const logo = data?.logo || defaultLogoSrc;
-// Sets the title: uses the title from props if available.
 const title = data?.title;
-// Sets the subtitle: uses the subtitle from props if available, otherwise falls back to an empty string.
 const subtitle = data?.subtitle || "";
 ---
 

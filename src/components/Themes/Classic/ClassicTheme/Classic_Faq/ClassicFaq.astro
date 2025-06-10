@@ -16,15 +16,15 @@ const data: BlockData = Astro.props.data;
 
   <!-- FAQ Items -->
   <div class="space-y-4">
-      {data.items.map((item, index) => (
+      {data.faqs.map((faq, index) => (
         <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
             <button class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors" data-faq-index={index}>
+                <span class="text-gray-800 font-medium">{faq.question}</span>
                 <span class="plus-icon text-gray-400 text-xl font-light transition-transform duration-300">+</span>
-                <span class="text-gray-800 font-medium">{item.question}</span>
             </button>
             <div class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-300 ease-out" data-answer-index={index}>
                 <div class="text-gray-600 leading-relaxed py-2">
-                    {item.answer}
+                    {faq.answer}
                 </div>
             </div>
         </div>
@@ -32,97 +32,16 @@ const data: BlockData = Astro.props.data;
   </div>
 
   <!-- More Questions Link -->
-  <div class="mt-8 text-center">
+  <div class="mt-8 text-center text-xl">
       <button class="inline-flex items-center text-blue-500 hover:text-blue-600 font-medium transition-colors">
-          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-          </svg>
           {data.moreQuestionsLabel}
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
       </button>
   </div>
 </section>
 
 <script>
-  // Wait for DOM to be fully loaded
-  document.addEventListener('DOMContentLoaded', function() {
-    // Get all FAQ question buttons
-    const faqQuestions = document.querySelectorAll('[data-faq-index]');
-    
-    // Add click event listener to each FAQ question
-    faqQuestions.forEach(function(question) {
-      question.addEventListener('click', function() {
-        const index = this.getAttribute('data-faq-index');
-        const answer = document.querySelector(`[data-answer-index="${index}"]`);
-        const icon = this.querySelector('.plus-icon');
-        
-        // Close all other FAQs
-        const allAnswers = document.querySelectorAll('[data-answer-index]');
-        const allIcons = document.querySelectorAll('.plus-icon');
-        
-        allAnswers.forEach(function(item) {
-          if (item !== answer) {
-            item.style.maxHeight = '0';
-            item.classList.remove('open');
-          }
-        });
-        
-        allIcons.forEach(function(item) {
-          if (item !== icon) {
-            item.style.transform = 'rotate(0deg)';
-            item.classList.remove('rotate');
-          }
-        });
-        
-        // Toggle current FAQ
-        if (answer.classList.contains('open')) {
-          answer.style.maxHeight = '0';
-          answer.classList.remove('open');
-          icon.style.transform = 'rotate(0deg)';
-          icon.classList.remove('rotate');
-        } else {
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-          answer.classList.add('open');
-          icon.style.transform = 'rotate(45deg)';
-          icon.classList.add('rotate');
-        }
-      });
-    });
-
-    // Optional: Close FAQ when clicking outside
-    document.addEventListener('click', function(event) {
-      const faqSection = document.getElementById('classicFaqSection');
-      if (faqSection && !faqSection.contains(event.target)) {
-        const allAnswers = document.querySelectorAll('[data-answer-index]');
-        const allIcons = document.querySelectorAll('.plus-icon');
-        
-        allAnswers.forEach(function(answer) {
-          answer.style.maxHeight = '0';
-          answer.classList.remove('open');
-        });
-        
-        allIcons.forEach(function(icon) {
-          icon.style.transform = 'rotate(0deg)';
-          icon.classList.remove('rotate');
-        });
-      }
-    });
-  });
+   import "./ClassicFaq"
 </script>
-
-<style>
-  .faq-answer {
-    transition: max-height 0.3s ease-out;
-  }
-  
-  .faq-answer.open {
-    transition: max-height 0.3s ease-in;
-  }
-  
-  .plus-icon {
-    transition: transform 0.3s ease;
-  }
-  
-  .plus-icon.rotate {
-    transform: rotate(45deg);
-  }
-</style>

@@ -16,7 +16,6 @@ import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 import ClassicThemeRates from "../ClassicThemeRates/ClassicThemeRates.astro";
 import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
-import { undefined } from "astro:schema";
 import ClassicGalleryComponent from "../UI/ClassicGallery/ClassicGalleryComponent.astro";
 import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
 
@@ -25,6 +24,7 @@ const product: Product = Astro.props.product;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const formFieldsData: BlockData = Astro.props.formFieldsData;
 const ratingData: BlockData = Astro.props.ratingData;
+const orderConfirmationNoticeData : BlockData = Astro.props.orderConfirmationNoticeData;
 
 // Extracts color and size options from the product data. Assumes options are structured in a specific way.
 const colorSizeOptions: OptionOption[] = product.options[0].options;
@@ -35,7 +35,7 @@ const currentLang: Language = (Astro.cookies.get("lang")?.value ||
 const isArabic = currentLang === "ar";
 ---
 
-<section class="classic-product-details">
+<section id="classic-product-details" class="classic-product-details">
     <div class="bg-white py-3 rounded-3xl product-shadow">
         <div class="flex flex-col lg:flex-row gap-2 px-4 lg:px-3">
             <!-- Gallery Section -->
@@ -118,7 +118,11 @@ const isArabic = currentLang === "ar";
                             <ClassicThemeFormFields data={formFieldsData} />
                         )
                     }
-                    <ClassicOrderConfirmationNotice />
+                    {
+                        orderConfirmationNoticeData && (
+                        <ClassicOrderConfirmationNotice data={orderConfirmationNoticeData} />
+                        )
+                    }
                 </div>
             </div>
         </div>

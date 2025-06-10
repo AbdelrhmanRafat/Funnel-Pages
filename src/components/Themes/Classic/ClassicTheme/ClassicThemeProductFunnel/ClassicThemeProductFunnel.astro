@@ -1,40 +1,21 @@
 ---
-// This component handles the product purchase options and price summary section for the Classic theme.
-// It allows users to select product variants (like color/size) and quantity,
-// displays a summary of the price, and provides action buttons like "Add to Cart".
-// Props:
-// - data: An object of type BlockData, containing purchase options and related data from the API.
-// - colorSizeOptions: An array of type OptionOption[], providing available color and size variants for the product.
-
 import type { BlockData, OptionOption } from "../../../../../lib/api/types";
 
-// Retrieves data and colorSizeOptions from Astro's props.
 const data: BlockData[] = Astro.props.data;
 const colorSizeOptions = Astro.props.colorSizeOptions;
 
-// Get initial offer (first item in data array)
 const initialOffer = data[0];
 
-// Import translation utility
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantityOptions.astro";
 ---
 
-<!-- Quantity and Variant Selection Section -->
-<!--   Renders quantity selection options based on Purchase Options object.  -->
-  <ClassicQuantityOptions data = {data} colorSizeOptions={colorSizeOptions} />
-  {/* Renders dynamic panels for selecting product variants like color and size. client:load ensures interactivity. */}
+<ClassicQuantityOptions data = {data} colorSizeOptions={colorSizeOptions} />
 </div>
 
-{/* Price Summary Section - Note: This section appears to be mostly static/hardcoded in the example. */}
-{/* Ideally, these values should be dynamically calculated and updated based on user selections. */}
-
 <div class="classic-purchase-options bg-white rounded-3xl shadow-xl overflow-hidden">
-    {/* Price Breakdown Section */}
     <div class="border-b border-gray-200">
-        {/* Main items in the price breakdown. */}
         <div class="p-6 space-y-3">
-            {/* Product Quantity */}
             <div class="flex justify-between items-center py-2 border-b border-gray-100">
                 <span class="text-gray-700 font-medium" data-translate="productFunnel.quantity">{getTranslation('productFunnel.quantity')}</span>
                 <div>               
@@ -46,7 +27,6 @@ import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantity
                 </div>
             </div>
             
-            {/* Unit Price */}
             <div class="flex justify-between items-center py-2 border-b border-gray-100">
                 <span class="text-gray-700 font-medium" data-translate="productFunnel.unitPrice">{getTranslation('productFunnel.unitPrice')}</span>
                 <span class="text-gray-900 font-semibold" data-price-unit>
@@ -54,7 +34,6 @@ import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantity
                 </span>
             </div>
             
-            {/* Subtotal */}
             <div class="flex justify-between items-center py-2 border-b border-gray-100">
                 <span class="text-gray-700 font-medium" data-translate="productFunnel.subtotal">{getTranslation('productFunnel.subtotal')}</span>
                 <span class="text-gray-900 font-semibold" data-price-subtotal>
@@ -62,7 +41,6 @@ import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantity
                 </span>
             </div>
             
-            {/* Shipping Cost */}
             <div class="flex justify-between items-center py-2 border-b border-gray-100">
                 <span class="text-gray-700 font-medium" data-translate="productFunnel.shippingCost">{getTranslation('productFunnel.shippingCost')}</span>
                 <span class="text-gray-900 font-semibold" data-price-shipping>
@@ -70,7 +48,6 @@ import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantity
                 </span>
             </div>
             
-            {/* Discount Applied */}
             <div 
                 class="flex justify-between items-center py-2 border-b border-gray-200"
                 data-discount-container
@@ -86,7 +63,6 @@ import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantity
             </div>
         </div>
         
-        {/* Total Price Section */}
         <div class="bg-blue-50 px-6 py-4 border-t-2 border-blue-200 mb-3">
             <div class="flex justify-between items-center">
                 <span class="text-blue-800 font-bold text-lg" data-translate="productFunnel.total">{getTranslation('productFunnel.total')}</span>
@@ -97,7 +73,6 @@ import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantity
         </div>
     </div>
 </div>
-
 
 <script>
   import { initProductFunnel } from "./ClassicThemeProductFunnel";

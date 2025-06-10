@@ -1,19 +1,11 @@
 ---
-// This component renders the customer information form and order summary for the Classic theme.
-// It includes fields for personal details, shipping address, payment method, and a summary of the order.
-// Props:
-// - data: An object of type BlockData. While passed as a prop, it's not explicitly used in the current static HTML structure.
-//  It might be intended for future dynamic population of form fields or order summary details.
-
 import {
   getTranslation,
   type Language,
 } from "../../../../../lib/utils/i18n/translations";
 import type { BlockData, Product } from "../../../../../lib/api/types";
 
-// Retrieves the data prop. Note: 'data'.
 const data: BlockData = Astro.props.data;
-// Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value ||
   "en") as Language;
 const isArabic = currentLang === "ar";

@@ -40,6 +40,8 @@ map(arg0: (data: BlockData, index: number) => any): unknown;
     rate?: number;
     product?: string;
     purchase_options?: PurchaseOption[];
+    confirmationNotices : string[];
+    faqs : Faqs[];
     company_name?: string;
     year?: string;
 }
@@ -56,6 +58,10 @@ export interface PurchaseOption {
     discount_percent: string;
     shipping_price: number;
     final_total: number;
+}
+export interface Faqs {
+    question : string;
+    answer : string;
 }
 
 // Represents a product in the API response.

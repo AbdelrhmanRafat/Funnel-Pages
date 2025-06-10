@@ -20,7 +20,6 @@ class ClassicFormValidator {
   constructor() {
     this.form = document.querySelector('form');
     this.fields = new Map();
-    // Get initial language from cookie or default to 'en'
     this.currentLang = (document.cookie.split('; ').find(row => row.startsWith('lang='))?.split('=')[1] || 'en') as Language;
     this.initializeFields();
     this.setupEventListeners();
@@ -62,7 +61,6 @@ class ClassicFormValidator {
       }
     }
 
-    // Update field state
     const field = this.fields.get(fieldId);
     if (field) {
       field.isValid = isValid;
@@ -100,7 +98,6 @@ class ClassicFormValidator {
   private setupEventListeners(): void {
     if (!this.form) return;
 
-    // Add input event listeners for real-time validation
     this.fields.forEach((field, fieldId) => {
       const input = document.getElementById(fieldId) as HTMLInputElement;
       if (input) {
@@ -112,13 +109,11 @@ class ClassicFormValidator {
       }
     });
 
-    // Add form submission handler
     this.form.addEventListener('submit', (e: Event) => {
       e.preventDefault();
       
       let isFormValid = true;
 
-      // Validate all fields
       this.fields.forEach((field, fieldId) => {
         const input = document.getElementById(fieldId) as HTMLInputElement;
         if (input) {
@@ -132,14 +127,13 @@ class ClassicFormValidator {
         }
       });
 
-      // Submit form if all fields are valid
       if (isFormValid && this.form) {
         this.form.submit();
       }
     });
   }
 }
-// Initialize the form validator when the DOM is loaded
+
 document.addEventListener('DOMContentLoaded', () => {
   new ClassicFormValidator();
 });
