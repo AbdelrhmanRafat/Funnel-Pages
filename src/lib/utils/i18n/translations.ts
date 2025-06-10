@@ -21,7 +21,17 @@ export const translations = {
       selectCountry: "Select a country",
       city: "City",
       enterCity: "Enter your city",
-      submit: "Submit Order"
+      submit: "Submit Order",
+      validation: {
+        valid: "Valid",
+        invalidFullName: "Please enter a valid full name",
+        invalidPhone: "Please enter a valid phone number",
+        invalidEmail: "Please enter a valid email address",
+        invalidCity: "Please enter a valid city name",
+        invalidCountry: "Please select a country",
+        invalidInput: "Invalid input",
+        required: "This field is required"
+      }
     },
     ratings: {
       count: "ratings"
@@ -98,7 +108,17 @@ export const translations = {
       selectCountry: "اختر الدولة",
       city: "المدينة",
       enterCity: "أدخل اسم المدينة",
-      submit: "تأكيد الطلب"
+      submit: "تأكيد الطلب",
+      validation: {
+        valid: "صالح",
+        invalidFullName: "الرجاء إدخال اسم كامل صحيح",
+        invalidPhone: "الرجاء إدخال رقم هاتف صحيح",
+        invalidEmail: "الرجاء إدخال بريد إلكتروني صحيح",
+        invalidCity: "الرجاء إدخال اسم مدينة صحيح",
+        invalidCountry: "الرجاء اختيار دولة",
+        invalidInput: "إدخال غير صالح",
+        required: "هذا الحقل مطلوب"
+      }
     },
     ratings: {
       count: "مستخدم"

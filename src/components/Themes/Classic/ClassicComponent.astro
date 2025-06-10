@@ -4,7 +4,6 @@
 // Props:
 // - funnelPage: An object of type Data, containing all the information for the funnel page.
 import "../../../styles/global.css";
-
 import ClassicThemeHeader from "./ClassicTheme/Classic_Header/ClassicThemeHeader.astro";
 import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct/ClassicThemeProduct.astro";
 import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountdown/ClassicThemeCountDown.astro";
@@ -42,7 +41,14 @@ function isComponentFound(
   };
 }
 
-// Extracts purchase options from the ClassicProductFunnel component's data, if available.
+// Define render order - just change this array to reorder components!
+const RENDER_ORDER = [
+  FunnelClassicComponents.ClassicHeader,
+  FunnelClassicComponents.ClassicProductFunnel,  // Always render (required)
+  FunnelClassicComponents.ClassicCountdown,
+];
+
+// Extracts purchase options and other data
 const productFunnelData = isComponentFound(
   FunnelClassicComponents.ClassicProductFunnel,
 );
@@ -50,6 +56,7 @@ const isFormFieldsDataFound = isComponentFound(
   FunnelClassicComponents.ClassicFormFields,
 );
 const isRatingFound = isComponentFound(FunnelClassicComponents.ClassicRates);
+
 const purchaseOptions = productFunnelData.isComponentFound
   ? productFunnelData.componentData?.purchase_options
   : undefined;
@@ -59,44 +66,39 @@ const formFieldsData = isFormFieldsDataFound.isComponentFound
 const ratingData = isRatingFound.isComponentFound
   ? isRatingFound.componentData
   : undefined;
+
 ---
 
 <main class="lg:container w-11/12 mx-auto flex flex-col gap-7 pb-5">
-  {
-    /* Renders the ClassicThemeHeader component if its data is found in the API response. */
-  }
-  {
-    isComponentFound(FunnelClassicComponents.ClassicHeader)
-      .isComponentFound && (
-      <ClassicThemeHeader
-        data={
-          isComponentFound(FunnelClassicComponents.ClassicHeader).componentData
-        }
-      />
-    )
-  }
-  {
-    /* Renders the ClassicThemeCountDown component if its data is found in the API response. */
-  }
-  {
-    isComponentFound(FunnelClassicComponents.ClassicCountdown)
-      .isComponentFound && (
-      <ClassicThemeCountDown
-        data={
-          isComponentFound(FunnelClassicComponents.ClassicCountdown)
-            .componentData
-        }
-      />
-    )
-  }
-
-  {
-    /* Renders the ClassicThemeProduct component, passing product information and purchase options. */
-  }
-  <ClassicThemeProduct
-    formFieldsData={formFieldsData}
-    ratingData={ratingData}
-    product={funnelPage.product}
-    purchaseOptions={purchaseOptions}
-  />
+  {RENDER_ORDER.map(componentName => {
+    if (componentName === FunnelClassicComponents.ClassicHeader) {
+      const headerData = isComponentFound(FunnelClassicComponents.ClassicHeader);
+      return headerData.isComponentFound ? (
+        <div>
+          <ClassicThemeHeader data={headerData.componentData} />
+          <div class="pt-40"></div>
+        </div>
+      ) : null;
+    }
+    
+    if (componentName === FunnelClassicComponents.ClassicProductFunnel) {
+      return (
+        <ClassicThemeProduct
+          formFieldsData={formFieldsData}
+          ratingData={ratingData}
+          product={funnelPage.product}
+          purchaseOptions={purchaseOptions}
+        />
+      );
+    }
+    
+    if (componentName === FunnelClassicComponents.ClassicCountdown) {
+      const countdownData = isComponentFound(FunnelClassicComponents.ClassicCountdown);
+      return countdownData.isComponentFound ? (
+        <ClassicThemeCountDown data={countdownData.componentData} />
+      ) : null;
+    }
+    
+    return null;
+  })}
 </main>

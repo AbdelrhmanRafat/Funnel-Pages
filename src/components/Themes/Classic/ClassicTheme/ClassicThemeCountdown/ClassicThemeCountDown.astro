@@ -3,12 +3,10 @@
 // It takes hours, minutes, and seconds from the API data and renders a visual timer.
 // Props:
 // - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
-
 import type { BlockData } from "../../../../../lib/api/types";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 
 const data: BlockData = Astro.props.data;
-
 let totalSeconds = 0;
 
 // Calculate the total seconds from the provided hours, minutes, and seconds.
@@ -21,9 +19,10 @@ if(data.hours != null && data.minutes != null && data.seconds != null)
 }
 ---
 
-<!-- Elegant Countdown Timer -->
-<section class="text-black pt-44">
-  <div class="px-6 text-center">
+<!-- Elegant Countdown Timer with proper spacing for fixed header -->
+<section class="classic-countDown text-black relative z-10 mt-4 mb-4">
+  <!-- Add padding-top to account for fixed header when positioned at top -->
+  <div class="px-6 text-center pt-20 pb-4 countdown-container">
     <h2 class="text-3xl font-bold" data-translate="countdown.offerEndsIn">
       {getTranslation('countdown.offerEndsIn')}
     </h2>
@@ -35,27 +34,25 @@ if(data.hours != null && data.minutes != null && data.seconds != null)
     >
       {/* Hours display block */}
       <div
-        class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300"
+        class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300 hover:shadow-2xl hover:scale-105"
       >
         <div class="text-4xl font-extrabold" id="hours">--</div>
         <div class="text-sm font-serif" data-translate="countdown.hours">
           {getTranslation('countdown.hours')}
         </div>
       </div>
-
       {/* Minutes display block */}
       <div
-        class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300"
+        class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300 hover:shadow-2xl hover:scale-105"
       >
         <div class="text-4xl font-extrabold" id="minutes">--</div>
         <div class="text-sm font-serif" data-translate="countdown.minutes">
           {getTranslation('countdown.minutes')}
         </div>
       </div>
-
       {/* Seconds display block */}
       <div
-        class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300"
+        class="bg-cream text-burgundy rounded-2xl px-6 py-5 min-w-[80px] border-2 border-gold shadow-xl transition duration-300 hover:shadow-2xl hover:scale-105"
       >
         <div class="text-4xl font-extrabold" id="seconds">--</div>
         <div class="text-sm font-serif" data-translate="countdown.seconds">
@@ -66,8 +63,65 @@ if(data.hours != null && data.minutes != null && data.seconds != null)
   </div>
 </section>
 
+<style>
+  /* Responsive positioning for countdown component */
+  .countdown-container {
+    /* Default padding for when it's not immediately after header */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  /* When countdown is the first visible element (right after header) */
+  section:first-child .countdown-container,
+  .countdown-container.after-header {
+    padding-top: 5rem; /* 80px equivalent - adjust based on your header height */
+  }
+  
+  /* Ensure proper spacing and visibility */
+  section {
+    position: relative;
+    z-index: 10;
+    clear: both;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .countdown-container {
+      padding-top: 0.5rem;
+    }
+    
+    section:first-child .countdown-container,
+    .countdown-container.after-header {
+      padding-top: 4rem; /* Smaller padding on mobile */
+    }
+  }
+  
+  /* Large screens - more padding if needed */
+  @media (min-width: 1024px) {
+    section:first-child .countdown-container,
+    .countdown-container.after-header {
+      padding-top: 6rem; /* More space on larger screens */
+    }
+  }
+</style>
+
 <script>
   // Imports and initializes the countdown timer logic from the corresponding TypeScript file.
   import { initCountdown } from "./ClassicThemeCountDown";
-  document.addEventListener('DOMContentLoaded', initCountdown);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    initCountdown();
+    
+    // Add dynamic class based on position relative to header
+    const countdownSection = document.querySelector('section');
+    const countdownContainer = document.querySelector('.countdown-container');
+    
+    if (countdownSection && countdownContainer) {
+      // Check if this is the first visible section after header
+      const prevSibling = countdownSection.previousElementSibling;
+      if (!prevSibling || prevSibling.tagName === 'HEADER') {
+        countdownContainer.classList.add('after-header');
+      }
+    }
+  });
 </script>
