@@ -35,22 +35,3 @@ export function isValidEmail(email: string): boolean {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email.trim());
 }
-
-// Validates a city name.
-// Allows letters (including international characters), spaces, hyphens, and apostrophes.
-// Must not be empty.
-export function isValidCity(city: string): boolean {
-  if (!city || city.trim().length === 0) {
-    return false;
-  }
-  const cityRegex = /^[\p{L}\s'-]+$/u;
-  return cityRegex.test(city.trim());
-}
-
-// Validates country selection.
-// Checks if the selected value is not empty or a default/placeholder value.
-// Assumes the default/placeholder value for the select is an empty string "" or a specific known placeholder.
-export function isValidCountry(country: string): boolean {
-  // Adjust "!" if the placeholder value for country is different
-  return country !== null && country.trim() !== "" && country.toLowerCase() !== "select country" && country.toLowerCase() !== "اختر الدولة"; 
-}
