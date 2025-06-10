@@ -11,6 +11,9 @@ const data: BlockData = Astro.props.data;
     {
       data.confirmationNotices.map((item, index) => (
         <div class="flex items-center gap-1">
+         <div class="flex justify-center items-center rounded-full w-6 h-6 bg-blue-600 text-white">
+          <span>✓</span>
+          </div>
           <span>{item}</span>
         </div>
       ))

@@ -25,8 +25,8 @@ export interface Block {
 
 // Represents the data associated with a block.
 export interface BlockData {
-[x: string]: any;
-map(arg0: (data: BlockData, index: number) => any): unknown;
+    [x: string]: any;
+    map(arg0: (data: BlockData, index: number) => any): unknown;
     title?: string;
     subtitle?: string;
     logo?: string;
@@ -40,10 +40,28 @@ map(arg0: (data: BlockData, index: number) => any): unknown;
     rate?: number;
     product?: string;
     purchase_options?: PurchaseOption[];
-    confirmationNotices : string[];
-    faqs : Faqs[];
+    productPreview: ProductPreview;
+    confirmationNotices: string[];
+    faqs: Faqs[];
     company_name?: string;
     year?: string;
+}
+
+export interface ProductPreview {
+    headerBadgetext: string
+    warningText: string;
+    videoInfo: VideoInfo;
+    featuresSectionTitle: string;
+    features: Features[];
+};
+export interface VideoInfo {
+    title: string;
+    link: string;
+}
+export interface Features {
+    icon: string;
+    title: string;
+    subtitle: string;
 }
 
 // Represents a purchase option for a product.
@@ -60,8 +78,8 @@ export interface PurchaseOption {
     final_total: number;
 }
 export interface Faqs {
-    question : string;
-    answer : string;
+    question: string;
+    answer: string;
 }
 
 // Represents a product in the API response.
