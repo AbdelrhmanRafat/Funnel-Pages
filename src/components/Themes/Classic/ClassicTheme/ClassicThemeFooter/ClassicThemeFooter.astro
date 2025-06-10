@@ -7,12 +7,9 @@
 import type { BlockData } from '../../../../../lib/api/types';
 
 // Defines the expected props for the component.
-interface Props {
-  data?: BlockData; // Optional data prop for footer content.
-}
 
 // Retrieves the data prop passed to the component.
-const data = (Astro.props as { data: BlockData }).data;
+const data: BlockData = Astro.props.data;
 
 ---
 

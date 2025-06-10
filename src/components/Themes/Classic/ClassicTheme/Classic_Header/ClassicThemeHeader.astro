@@ -23,7 +23,8 @@ const title = data?.title;
 const subtitle = data?.subtitle || "";
 ---
 
-<header class="classic-header bg-white shadow-sm fixed top-0 z-50 right-0 left-0">
+<header>
+  <div class="classic-header bg-white shadow-sm fixed top-0 z-50 right-0 left-0">
   <div class="lg:container w-11/12 mx-auto py-2">
    <ClassicLanguageSwitcher />
     <div class="flex flex-col items-center">
@@ -45,6 +46,8 @@ const subtitle = data?.subtitle || "";
       </div>
     </div>
   </div>
+</div>
+<div class="pt-40"></div>
 </header>
 
 <script>

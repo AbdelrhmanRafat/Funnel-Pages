@@ -48,6 +48,7 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicCountdown,
 ];
 
+
 // Extracts purchase options and other data
 const productFunnelData = isComponentFound(
   FunnelClassicComponents.ClassicProductFunnel,
@@ -74,10 +75,7 @@ const ratingData = isRatingFound.isComponentFound
     if (componentName === FunnelClassicComponents.ClassicHeader) {
       const headerData = isComponentFound(FunnelClassicComponents.ClassicHeader);
       return headerData.isComponentFound ? (
-        <div>
           <ClassicThemeHeader data={headerData.componentData} />
-          <div class="pt-40"></div>
-        </div>
       ) : null;
     }
     

@@ -20,9 +20,9 @@ if(data.hours != null && data.minutes != null && data.seconds != null)
 ---
 
 <!-- Elegant Countdown Timer with proper spacing for fixed header -->
-<section class="classic-countDown text-black relative z-10 mt-4 mb-4">
+<section class="classic-countDown text-black relative">
   <!-- Add padding-top to account for fixed header when positioned at top -->
-  <div class="px-6 text-center pt-20 pb-4 countdown-container">
+  <div class="px-6 text-center countdown-container">
     <h2 class="text-3xl font-bold" data-translate="countdown.offerEndsIn">
       {getTranslation('countdown.offerEndsIn')}
     </h2>
@@ -63,61 +63,19 @@ if(data.hours != null && data.minutes != null && data.seconds != null)
   </div>
 </section>
 
-<style>
-  /* Responsive positioning for countdown component */
-  .countdown-container {
-    /* Default padding for when it's not immediately after header */
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-  
-  /* When countdown is the first visible element (right after header) */
-  section:first-child .countdown-container,
-  .countdown-container.after-header {
-    padding-top: 5rem; /* 80px equivalent - adjust based on your header height */
-  }
-  
-  /* Ensure proper spacing and visibility */
-  section {
-    position: relative;
-    z-index: 10;
-    clear: both;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .countdown-container {
-      padding-top: 0.5rem;
-    }
-    
-    section:first-child .countdown-container,
-    .countdown-container.after-header {
-      padding-top: 4rem; /* Smaller padding on mobile */
-    }
-  }
-  
-  /* Large screens - more padding if needed */
-  @media (min-width: 1024px) {
-    section:first-child .countdown-container,
-    .countdown-container.after-header {
-      padding-top: 6rem; /* More space on larger screens */
-    }
-  }
-</style>
-
 <script>
-  // Imports and initializes the countdown timer logic from the corresponding TypeScript file.
   import { initCountdown } from "./ClassicThemeCountDown";
   
+  // Initialize countdown timer when DOM is loaded
   document.addEventListener('DOMContentLoaded', () => {
+    // Start the countdown timer
     initCountdown();
     
-    // Add dynamic class based on position relative to header
-    const countdownSection = document.querySelector('section');
+    // Handle positioning relative to header
+    const countdownSection = document.querySelector('.classic-countDown');
     const countdownContainer = document.querySelector('.countdown-container');
     
     if (countdownSection && countdownContainer) {
-      // Check if this is the first visible section after header
       const prevSibling = countdownSection.previousElementSibling;
       if (!prevSibling || prevSibling.tagName === 'HEADER') {
         countdownContainer.classList.add('after-header');
