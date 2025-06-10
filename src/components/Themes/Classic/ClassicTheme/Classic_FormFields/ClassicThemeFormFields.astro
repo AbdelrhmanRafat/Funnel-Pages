@@ -20,87 +20,96 @@ const isArabic = currentLang === "ar";
 ---
 
 <section class="classic-form bg-white rounded-xl">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
-          <div class="px-6 py-4 border-b border-gray-100">
-            <h1
-              class="text-2xl font-bold text-gray-800 text-center"
-              data-translate="form.completeOrder"
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
+    <div class="px-6 py-4 border-b border-gray-100">
+      <h5
+        class="text-2xl font-bold text-gray-800 text-center"
+        data-translate="form.completeOrder"
+      >
+        {getTranslation("form.completeOrder")}
+      </h5>
+    </div>
+
+    <form class="p-6">
+      <div class="mb-8">
+        <h2
+          class="text-lg font-semibold text-gray-800 mb-6"
+          data-translate="form.personalInfo"
+        >
+          {getTranslation("form.personalInfo")}
+        </h2>
+        <div class="space-y-4">
+          <div>
+            <label
+              class="block text-gray-600 text-sm mb-2"
+              data-translate="form.fullName"
             >
-              {getTranslation("form.completeOrder")}
-            </h1>
+              {getTranslation("form.fullName")}
+            </label>
+            <input
+              type="text"
+              id="form-fullName"
+              placeholder={data.full_name}
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+            />
+            <span
+              id="form-fullName-error"
+              class="text-xs text-red-500 mt-1"
+              style="display: none;"></span>
           </div>
 
-          <form class="p-6">
-            <div class="mb-8">
-              <h2
-                class="text-lg font-semibold text-gray-800 mb-6"
-                data-translate="form.personalInfo"
-              >
-                {getTranslation("form.personalInfo")}
-              </h2>
-              <div class="space-y-4">
-                <div>
-                  <label
-                    class="block text-gray-600 text-sm mb-2"
-                    data-translate="form.fullName"
-                  >
-                    {getTranslation("form.fullName")}
-                  </label>
-                  <input
-                    type="text"
-                    id="form-fullName"
-                    placeholder={data.full_name}
-                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
-                  />
-                  <span id="form-fullName-error" class="text-xs text-red-500 mt-1" style="display: none;"></span>
-                </div>
+          <div>
+            <label
+              class="block text-gray-600 text-sm mb-2"
+              data-translate="form.phoneNumber"
+            >
+              {getTranslation("form.phoneNumber")}
+            </label>
+            <input
+              type="tel"
+              id="form-phone"
+              placeholder={data.phone}
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+            />
+            <span
+              id="form-phone-error"
+              class="text-xs text-red-500 mt-1"
+              style="display: none;"></span>
+          </div>
 
-                <div>
-                  <label
-                    class="block text-gray-600 text-sm mb-2"
-                    data-translate="form.phoneNumber"
-                  >
-                    {getTranslation("form.phoneNumber")}
-                  </label>
-                  <input
-                    type="tel"
-                    id="form-phone"
-                    placeholder={data.phone}
-                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
-                  />
-                  <span id="form-phone-error" class="text-xs text-red-500 mt-1" style="display: none;"></span>
-                </div>
-
-                <div>
-                  <label
-                    class="block text-gray-600 text-sm mb-2"
-                    data-translate="form.email"
-                  >
-                    {getTranslation("form.email")}
-                  </label>
-                  <input
-                    type="email"
-                    id="form-email"
-                    placeholder={getTranslation("form.enterEmail")}
-                    class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
-                  />
-                  <span id="form-email-error" class="text-xs text-red-500 mt-1" style="display: none;"></span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button 
-                type="submit" 
-                class="w-full bg-blue-400 p-2 rounded-2xl text-white"
-                data-translate="form.submit"
-              >
-                {getTranslation("form.submit")}
-              </button>
-            </div>
-          </form>
+          <div>
+            <label
+              class="block text-gray-600 text-sm mb-2"
+              data-translate="form.email"
+            >
+              {getTranslation("form.email")}
+            </label>
+            <input
+              type="email"
+              id="form-email"
+              placeholder={getTranslation("form.enterEmail")}
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+            />
+            <span
+              id="form-email-error"
+              class="text-xs text-red-500 mt-1"
+              style="display: none;"></span>
+          </div>
         </div>
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="w-full bg-blue-400 p-2 rounded-2xl text-white"
+          data-translate="form.submit"
+        >
+          {getTranslation("form.submit")}
+        </button>
+      </div>
+    </form>
+  </div>
 </section>
 
 <script>
-  import "./ClassicThemeFormFields"
+  import "./ClassicThemeFormFields";
 </script>

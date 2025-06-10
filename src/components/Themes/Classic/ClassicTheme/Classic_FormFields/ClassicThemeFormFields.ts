@@ -85,7 +85,6 @@ class ClassicFormValidator {
 
   private getErrorMessage(fieldId: string, isValid: boolean): string {
     if (isValid) return getTranslation('form.validation.valid', this.currentLang);
-    
     switch (fieldId) {
       case 'form-fullName':
         return getTranslation('form.validation.invalidFullName', this.currentLang);
@@ -140,7 +139,6 @@ class ClassicFormValidator {
     });
   }
 }
-
 // Initialize the form validator when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new ClassicFormValidator();
