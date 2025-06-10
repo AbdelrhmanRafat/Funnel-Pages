@@ -4,7 +4,6 @@ import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 
 const data: BlockData[] = Astro.props.data;
 const name = "qty";
-
 ---
 
 <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2" data-translate="quantityOptions.chooseQuantity">
@@ -15,7 +14,7 @@ const name = "qty";
   {
     data.map((item, index) => (
       <label
-        class="p-3 sm:p-4 group block relative overflow-hidden rounded-xl sm:rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02] has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 has-[:checked]:shadow-md border-gray-200 bg-white hover:border-blue-300"
+        class="group block relative overflow-hidden rounded-xl sm:rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02] has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 has-[:checked]:shadow-md border-gray-200 bg-white hover:border-blue-300"
         for={`${name}${index + 1}`}
       >
         <input
@@ -35,11 +34,17 @@ const name = "qty";
             <div class="flex-1">
               <h3 class="font-bold text-base sm:text-lg text-gray-900 mb-1">{item.title}</h3>
               <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-600">
-                <span class="bg-gray-100 px-2 py-1 rounded-full inline-block w-fit">
-                  {item.items} {getTranslation(item.items === 1 ? 'quantityOptions.itemUnit.singular' : 'quantityOptions.itemUnit.plural')}
+                <div class="bg-gray-100 px-2 py-1 rounded-full inline-block w-fit">
+                <span>{item.items === 1 ? "" : item.items}</span>
+                <span data-translate={"quantityOptions.itemUnit.singular"}>
                 </span>
+              </div>
                 <span class="hidden sm:inline">•</span>
-                <span class="text-xs sm:text-sm">{getTranslation('quantityOptions.pricePerItem').replace('{price}', item.price_per_item.toLocaleString() + " " + getTranslation('productFunnel.currency'))}</span>
+                <div class="text-xs sm:text-sm flex justify-start gap-1">
+                <span>{item.price_per_item}</span>
+                <span data-translate="productFunnel.currency"></span>
+                <span data-translate='quantityOptions.pricePerItem'></span>
+              </div>
               </div>
             </div>
 
@@ -76,24 +81,6 @@ const name = "qty";
               )}
             </div>
           </div>
-
-          {/* Price Breakdown */}
-          {/* <div class="border-t border-gray-100 pt-3 mt-3">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-xs sm:text-sm">
-              <div class="flex justify-between sm:block">
-                <span class="text-gray-600" data-translate="quantityOptions.totalProducts">{getTranslation('quantityOptions.totalProducts')}</span>
-                <span class="font-semibold text-gray-900 sm:mr-2">
-                  {item.total_price.toLocaleString()} {getTranslation('productFunnel.currency')}
-                </span>
-              </div>
-              <div class="flex justify-between sm:block">
-                <span class="text-gray-600" data-translate="quantityOptions.shippingLabel">{getTranslation('quantityOptions.shippingLabel')}</span>
-                <span class="font-semibold text-gray-900 sm:mr-2">
-                  {item.shipping_price.toLocaleString()} {getTranslation('productFunnel.currency')}
-                </span>
-              </div>
-            </div>
-          </div> */}
         </div>
       </label>
     ))

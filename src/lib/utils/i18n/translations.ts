@@ -64,7 +64,7 @@ export const translations = {
         singular: "piece",
         plural: "pieces"
       },
-      pricePerItem: "{price} per piece",
+      pricePerItem: "per piece",
       saveDiscount: "Save {discountAmount} ({discountPercent})",
       totalProducts: "Total Products:",
       shippingLabel: "Shipping:"
@@ -151,7 +151,7 @@ export const translations = {
         singular: "قطعة",
         plural: "قطع"
       },
-      pricePerItem: "{price} لكل قطعة",
+      pricePerItem: "لكل قطعة",
       saveDiscount: "وفّر {discountAmount} ({discountPercent})",
       totalProducts: "إجمالي المنتجات:",
       shippingLabel: "الشحن:"

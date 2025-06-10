@@ -13,7 +13,7 @@ const sizes: OptionOption | undefined = colorSizeOptions.find(opt => opt.name ==
   {
     data.map((item, index) => (
       <div
-  class={`option-panel bg-white p-4 sm:p-8 rounded-2xl sm:rounded-3xl shadow-xl space-y-4 sm:space-y-8 border border-blue-100 ${
+  class={`option-panel bg-white p-4 rounded-2xl sm:rounded-3xl shadow-xl space-y-4 sm:space-y-8 border border-blue-100 ${
     index === 0 ? '' : 'hidden'
   }`}
 >
@@ -36,8 +36,9 @@ const sizes: OptionOption | undefined = colorSizeOptions.find(opt => opt.name ==
     </div>
   </div>
 
+  <div class="py-2 md:py-0 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row">
   <!-- Size Selection -->
-  <div class="space-y-2 sm:space-y-3">
+  <div class="select-size-section space-y-2">
     <p class="text-base sm:text-lg font-semibold text-gray-700" data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</p>
     <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
       {
@@ -54,7 +55,7 @@ const sizes: OptionOption | undefined = colorSizeOptions.find(opt => opt.name ==
   </div>
 
   <!-- Color Selection -->
-  <div class="space-y-2 sm:space-y-3">
+  <div class="select-color-section space-y-2">
     <p class="text-base sm:text-lg font-semibold text-gray-700" data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</p>
     <div class="grid grid-cols-4 sm:flex gap-4 sm:gap-6 justify-items-center">
       {
@@ -73,6 +74,7 @@ const sizes: OptionOption | undefined = colorSizeOptions.find(opt => opt.name ==
       }
     </div>
   </div>
+</div>
 </div>
     ))
   }
