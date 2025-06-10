@@ -1,0 +1,317 @@
+{
+    "code": 200,
+    "status": 1,
+    "errors": null,
+    "message": "messages.success",
+    "data": {
+        "product": {
+            "id": 35,
+            "category_id": 17,
+            "ware_house_id": 2,
+            "image": "https://backend.dev.baseet.co/uploads/Product/IOnIf02UNJA8Xhat77QDbPqy2gjdFrDhBZDHnoga.png",
+            "name": "Printed Tishirt Black",
+            "name_ar": "تيشيرت مطبوع بلاك",
+            "name_en": "Printed Tishirt Green",
+            "slug": "printed",
+            "slug_ar": "مطبوع",
+            "slug_en": "printed",
+            "description": "<p>Printed Round Neck T-Shirt – Comfort &amp; Style in a Trendy Design. Made from 100% soft cotton. Ideal for casual wear, daily outings, or relaxed weekends. Easy to wash and retains color after multiple uses.</p>",
+            "description_ar": "<p>تيشيرت راوند مطبوع – راحة وأناقة بتصميم عصري. مصنوع من قطن ناعم 100%. مثالي للارتداء اليومي والمناسبات غير الرسمية. سهل الغسيل ويحافظ على اللون بعد الغسيل.</p>",
+            "description_en": "<p>Printed Round Neck T-Shirt – Comfort &amp; Style in a Trendy Design. Made from 100% soft cotton. Ideal for casual wear, daily outings, or relaxed weekends. Easy to wash and retains color after multiple uses.</p>",
+            "is_active": 1,
+            "qty": 0,
+            "sku_code": "#49949CC3",
+            "price": 2290,
+            "price_after_discount": 2290,
+            "weight": null,
+            "weight_type": null,
+            "options": [
+                {
+                    "options": [
+                        {
+                            "name": "color",
+                            "value": [
+                                {
+                                    "name": "Black",
+                                    "hex": "#000000"
+                                },
+                                {
+                                    "name": "White",
+                                    "hex": "#FFFFFF"
+                                },
+                                {
+                                    "name": "Gray",
+                                    "hex": "#808080"
+                                },
+                                {
+                                    "name": "red",
+                                    "hex": "#FF0000"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "size",
+                            "value": [
+                                {
+                                    "display": "Xl",
+                                    "value": "Xl"
+                                },
+                                {
+                                    "display": "xxl",
+                                    "value": "xxl"
+                                },
+                                {
+                                    "display": "xxxl",
+                                    "value": "xxxl"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "category": {
+                "id": 17,
+                "parent_id": 0,
+                "name_ar": "مطبوع",
+                "name_en": "Printed",
+                "is_active": 1
+            },
+            "skus": null,
+            "meta": {
+                "id": 33,
+                "title": "printed",
+                "description": "Printed Round Neck T-Shirt – Trendy casual wear for everyday comfort. Perfect for men and women. Durable fabric with modern design.",
+                "image": "https://backend.dev.baseet.co/uploads/Meta/IboXN291m9dPC0wDDfdKy2GHktUYJNDZeHT2q5NT.png",
+                "metaable_type": "App\\Models\\Product\\Product",
+                "metaable_id": 35,
+                "created_at": "2025-03-12T12:48:25.000000Z",
+                "updated_at": "2025-03-12T12:48:25.000000Z"
+            },
+            "attachment": [
+                {
+                    "id": 53,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/zbwCSfSr0FzwFrSgz83fmtg7ErTIstZYpftmWEje.png",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 35,
+                    "order": 0,
+                    "created_at": "2025-03-12T12:48:21.000000Z",
+                    "updated_at": "2025-03-12T12:48:21.000000Z"
+                },
+                {
+                    "id": 54,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/S03092t0fmQUb3gIal7El6mqszQzfbnveY2zxFvp.webp",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 54,
+                    "order": 0,
+                    "created_at": "2025-03-12T12:48:21.000000Z",
+                    "updated_at": "2025-03-12T12:48:21.000000Z"
+                },
+                {
+                    "id": 56,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/1OXuRtJTsSUyFtQqBqEnyY3bTBAYcPo4HMXdvVqF.png",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 35,
+                    "order": 0,
+                    "created_at": "2025-03-12T13:02:26.000000Z",
+                    "updated_at": "2025-03-12T13:02:26.000000Z"
+                },
+                {
+                    "id": 57,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/S03092t0fmQUb3gIal7El6mqszQzfbnveY2zxFvp.webp",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 35,
+                    "order": 0,
+                    "created_at": "2025-03-12T13:19:06.000000Z",
+                    "updated_at": "2025-03-12T13:19:06.000000Z"
+                },
+                {
+                    "id": 53,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/zbwCSfSr0FzwFrSgz83fmtg7ErTIstZYpftmWEje.png",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 35,
+                    "order": 0,
+                    "created_at": "2025-03-12T12:48:21.000000Z",
+                    "updated_at": "2025-03-12T12:48:21.000000Z"
+                }
+            ],
+            "is_have_variant": "false"
+        },
+        "theme": "classic",
+        "accept_online_payment": true,
+        "blocks": [
+            {
+                "name": "classic_header",
+                "data": {
+                    "title": "اوليفر للملابس",
+                    "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
+                    "logo": "/images/logo.png"
+                }
+            },
+            {
+                "name": "classic_form_fields",
+                "data": {
+                    "full_name": "اكتب اسمك الكامل هنا",
+                    "phone": "مثال: 05XXXXXXXX",
+                    "address": "اكتب عنوان التوصيل بالتفصيل"
+                }
+            },
+            {
+                "name": "classic_countdown",
+                "data": {
+                    "hours": 11,
+                    "minutes": 58,
+                    "seconds": 5
+                }
+            },
+            {
+                "name": "classic_today_orders",
+                "data": {
+                    "count": 27
+                }
+            },
+            {
+                "name": "classic_rates",
+                "data": {
+                    "rate": 4.5,
+                    "count": 140
+                }
+            },
+            {
+                "name": "classic_product_funnel",
+                "data": {
+                    "product": "@bind:product",
+                    "purchase_options": [
+                        {
+                            "title": "شراء منتج واحد",
+                            "items": 1,
+                            "price_per_item": 2290,
+                            "original_price_per_item": 2290,
+                            "original_total": 2290,
+                            "total_price": 2290,
+                            "discount": 0,
+                            "discount_percent": "0%",
+                            "shipping_price": 50,
+                            "final_total": 2340
+                        },
+                        {
+                            "title": "اشترِ قطعتين ووفر",
+                            "items": 2,
+                            "price_per_item": 1785,
+                            "original_price_per_item": 2290,
+                            "original_total": 4580,
+                            "total_price": 3570,
+                            "discount": 1010,
+                            "discount_percent": "22%",
+                            "shipping_price": 70,
+                            "final_total": 3640
+                        },
+                        {
+                            "title": "اشترِ ثلاثة ووفر",
+                            "items": 3,
+                            "price_per_item": 1499,
+                            "original_price_per_item": 2290,
+                            "original_total": 6870,
+                            "total_price": 4497,
+                            "discount": 2373,
+                            "discount_percent": "35%",
+                            "shipping_price": 90,
+                            "final_total": 4587
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "classic_footer",
+                "data": {
+                    "company_name": "Digital Creativity Company",
+                    "year": "2025"
+                }
+            },
+            {
+                "name": "classic_order_confirmation_notice",
+                "data": {
+                    "company_name": "Digital Creativity Company",
+                    "year": "2025"
+                }
+            },
+            {
+                "name": "classic_faq",
+                "data": {
+                  "title": "الأسئلة الشائعة",
+                  "items": [
+                    {
+                      "question": "ما هي مدة التوصيل؟",
+                      "answer": "مدة التوصيل تتراوح من 2-5 أيام عمل داخل المدن الرئيسية، و 5-7 أيام عمل للمناطق النائية. نحن نعمل مع أفضل شركات الشحن لضمان وصول طلبك في أسرع وقت ممكن."
+                    },
+                    {
+                      "question": "هل يمكنني الدفع عند الاستلام؟",
+                      "answer": "نعم، نوفر خدمة الدفع عند الاستلام لجميع المناطق المتاحة. كما يمكنك الدفع عبر البطاقات الائتمانية أو المحافظ الإلكترونية للحصول على خصومات إضافية."
+                    },
+                    {
+                      "question": "ما هي مدة الضمان؟",
+                      "answer": "نوفر ضمان لمدة سنة كاملة على جميع المنتجات، بالإضافة إلى إمكانية الإرجاع خلال 14 يوم من تاريخ الاستلام بدون أي شروط. خدمة العملاء متاحة على مدار الساعة لمساعدتك."
+                    }
+                  ],
+                  "moreQuestionsLabel": "المزيد من الأسئلة"
+                }
+              },              
+              {
+                "name": "classic_product_preview_component",
+                "data": {
+                  "headerBadge": {
+                    "text": "🔴 عرض توضيحي للمنتج",
+                    "bgColor": "bg-red-600",
+                    "textColor": "text-white"
+                  },
+                  "warning": {
+                    "icon": "⚠️",
+                    "text": "ليس رقم مشاهدة",
+                    "color": "text-yellow-400"
+                  },
+                  "videoInfo": {
+                    "badges": ["HD 1080p", "⏰"],
+                    "leftButtons": ["Watch later", "Share"],
+                    "thumbnail": {
+                      "titleTop": "RICK",
+                      "titleBottom": "ASTLEY",
+                      "subtitleTop": "NEVER GONNA",
+                      "subtitleBottom": "GIVE YOU UP"
+                    },
+                    "playButton": {
+                      "icon": "▶️",
+                      "color": "bg-blue-600"
+                    },
+                    "qualityBadge": "4K",
+                    "description": {
+                      "title": "Rick Astley - Never Gonna Give You Up (Official Video) (4K Re...",
+                      "subtitle": "سماعات رأس لاسلكية ممتازة - التجربة الشاملة"
+                    }
+                  },
+                  "featuresSectionTitle": "ماذا ستشاهد في هذا الفيديو",
+                  "features": [
+                    {
+                      "icon": "✔️",
+                      "title": "مبنا السماعات وخصائصها",
+                      "subtitle": "عرض للمميزات التقنية والصوتية"
+                    },
+                    {
+                      "icon": "✔️",
+                      "title": "تجربة الصوت وجودة الموسيقى",
+                      "subtitle": "اختبار عملي لجودة الصوت في بيئات مختلفة"
+                    },
+                    {
+                      "icon": "✔️",
+                      "title": "تجربة الراحة وحدة البطارية",
+                      "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
+                    }
+                  ],
+                  "cta": {
+                    "icon": "🛒",
+                    "text": "شراء المنتج الآن",
+                    "url": "#"
+                  }
+                }
+              }              
+        ]
+    }
+}

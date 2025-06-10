@@ -7,6 +7,9 @@ import "../../../styles/global.css";
 import ClassicThemeHeader from "./ClassicTheme/Classic_Header/ClassicThemeHeader.astro";
 import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct/ClassicThemeProduct.astro";
 import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountdown/ClassicThemeCountDown.astro";
+import ClassicOrderConfirmationNotice from "./ClassicTheme/Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
+import ClassicFaq from "./ClassicTheme/Classic_Faq/ClassicFaq.astro";
+import ClassicProductPreviewComponent from "./ClassicTheme/Classic_ProductPreview/ClassicProductPreviewComponent.astro";
 import { getClassicThemeComponent } from "../../../lib/utils/ThemeSelect";
 import type { BlockData, Data } from "../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../lib/constants/themes";
@@ -45,6 +48,9 @@ function isComponentFound(
 const RENDER_ORDER = [
   FunnelClassicComponents.ClassicHeader,
   FunnelClassicComponents.ClassicProductFunnel,  // Always render (required)
+  FunnelClassicComponents.ClassicOrderConfirmationNotice,
+  FunnelClassicComponents.ClassicProductPreviewComponent,
+  FunnelClassicComponents.ClassicFaq,
   FunnelClassicComponents.ClassicCountdown,
 ];
 
@@ -94,6 +100,20 @@ const ratingData = isRatingFound.isComponentFound
       const countdownData = isComponentFound(FunnelClassicComponents.ClassicCountdown);
       return countdownData.isComponentFound ? (
         <ClassicThemeCountDown data={countdownData.componentData} />
+      ) : null;
+    }
+
+    if (componentName === FunnelClassicComponents.ClassicFaq) {
+      const faqData = isComponentFound(FunnelClassicComponents.ClassicFaq);
+      return faqData.isComponentFound ? (
+        <ClassicFaq data={faqData.componentData} />
+      ) : null;
+    }
+
+    if (componentName === FunnelClassicComponents.ClassicProductPreviewComponent) {
+      const productPreviewData = isComponentFound(FunnelClassicComponents.ClassicProductPreviewComponent);
+      return productPreviewData.isComponentFound ? (
+        <ClassicProductPreviewComponent data={productPreviewData.componentData} />
       ) : null;
     }
     

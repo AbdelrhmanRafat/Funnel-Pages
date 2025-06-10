@@ -1,0 +1,131 @@
+---
+// This component renders a preview of the product for the Classic theme.
+// Props:
+// - data: An object of type BlockData, containing product preview information.
+import type { BlockData } from "../../../../../lib/api/types";
+
+const data: BlockData = Astro.props.data;
+
+---
+<section id="classic-product-preview" class="bg-gradient-to-br rounded-2xl from-slate-800 to-slate-900 min-h-screen p-6">
+  <div>
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-8">
+          <div class="flex items-center gap-2">
+              <div class={`${data.headerBadge.bgColor} ${data.headerBadge.textColor} px-3 py-1 rounded-full text-sm font-bold`}>
+                  {data.headerBadge.text}
+              </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-lg">{data.warning.icon}</span>
+            <span class={`${data.warning.color}`}>{data.warning.text}</span>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex flex-col lg:flex-row gap-8 items-stretch">
+          <!-- Right Side - Video (3/5 width on desktop) -->
+          <div class="lg:w-3/5">
+              <div class="relative bg-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                  <!-- Video Header -->
+                  <div class="absolute top-4 right-4 z-10 flex items-center gap-2">
+                      <div class="bg-red-600 text-white px-2 py-1 rounded text-xs font-bold">
+                          {data.videoInfo.badges[0]}
+                      </div>
+                      <div class="bg-black/50 text-white px-2 py-1 rounded text-xs">
+                          {data.videoInfo.badges[1]}
+                      </div>
+                  </div>
+
+                  <div class="absolute top-4 left-4 z-10 flex items-center gap-2">
+                      {data.videoInfo.leftButtons.map((button) => (
+                          <button class="bg-black/50 text-white px-3 py-1 rounded text-sm hover:bg-black/70">
+                              {button}
+                          </button>
+                      ))}
+                  </div>
+
+                  <!-- Video Thumbnail -->
+                  <div class="relative aspect-video bg-gradient-to-br from-slate-700 to-slate-800">
+                      <!-- Rick Astley Image Placeholder -->
+                      <div class="absolute inset-0 flex items-center justify-center">
+                          <div class="text-center text-white">
+                              <div class="w-32 h-32 bg-slate-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                  <span class="text-4xl">🎤</span>
+                              </div>
+                              <div class="space-y-2">
+                                  <div class="text-4xl font-bold tracking-wider">{data.videoInfo.thumbnail.titleTop}</div>
+                                  <div class="text-4xl font-bold tracking-wider">{data.videoInfo.thumbnail.titleBottom}</div>
+                                  <div class="text-2xl font-light tracking-widest mt-4">{data.videoInfo.thumbnail.subtitleTop}</div>
+                                  <div class="text-2xl font-light tracking-widest">{data.videoInfo.thumbnail.subtitleBottom}</div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- Play Button -->
+                      <div class="absolute inset-0 flex items-center justify-center">
+                          <button class={`${data.videoInfo.playButton.color} hover:bg-blue-700 rounded-full p-6 transition-all duration-200 transform hover:scale-110 shadow-lg`}>
+                              <svg class="w-12 h-12 text-white ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                              </svg>
+                          </button>
+                      </div>
+
+                      <!-- Quality Badge -->
+                      <div class="absolute bottom-8 left-8">
+                          <div class="text-white text-6xl font-bold opacity-80">
+                              {data.videoInfo.qualityBadge}
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Video Info -->
+                  <div class="p-4 bg-slate-800">
+                      <div class="flex items-start gap-3">
+                          <div class="w-10 h-10 bg-slate-600 rounded-full flex-shrink-0"></div>
+                          <div class="flex-1 min-w-0">
+                              <h3 class="text-white font-semibold text-sm mb-1 truncate">
+                                  {data.videoInfo.description.title}
+                              </h3>
+                              <p class="text-gray-400 text-xs">
+                                  {data.videoInfo.description.subtitle}
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+                    <!-- Left Side - Features (2/5 width on desktop) -->
+                    <div class="lg:w-2/5 space-y-6">
+                      <h2 class="text-white text-2xl font-bold mb-6 text-center">
+                          {data.featuresSectionTitle}
+                      </h2>
+                      
+                      <!-- Feature List -->
+                      <div class="space-y-4">
+                          {data.features.map((feature) => (
+                              <div class="flex items-center gap-3 bg-slate-700/50 p-4 rounded-lg">
+                                  <div class="bg-blue-500 rounded-full p-2 flex-shrink-0">
+                                      <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                      </svg>
+                                  </div>
+                                  <div class="text-white text-right">
+                                      <div class="font-semibold">{feature.title}</div>
+                                      <div class="text-gray-300 text-sm">{feature.subtitle}</div>
+                                  </div>
+                              </div>
+                          ))}
+                      </div>
+        
+                      <!-- CTA Button -->
+                      <div class="mt-8">
+                          <a href={data.cta.url} class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+                              <span>{data.cta.icon}</span>
+                              <span>{data.cta.text}</span>
+                          </a>
+                      </div>
+                  </div>
+      </div>
+  </div>
+</section>

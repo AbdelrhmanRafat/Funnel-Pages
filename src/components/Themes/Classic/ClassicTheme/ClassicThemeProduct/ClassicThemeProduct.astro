@@ -18,6 +18,7 @@ import ClassicThemeRates from "../ClassicThemeRates/ClassicThemeRates.astro";
 import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
 import { undefined } from "astro:schema";
 import ClassicGalleryComponent from "../UI/ClassicGallery/ClassicGalleryComponent.astro";
+import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
 
 // Retrieves product and purchaseOptions from Astro's props.
 const product: Product = Astro.props.product;
@@ -117,6 +118,7 @@ const isArabic = currentLang === "ar";
                             <ClassicThemeFormFields data={formFieldsData} />
                         )
                     }
+                    <ClassicOrderConfirmationNotice />
                 </div>
             </div>
         </div>

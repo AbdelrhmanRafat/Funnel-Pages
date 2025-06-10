@@ -34,6 +34,12 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.ClassicProductFunnel;
     case "classic_footer":
       return FunnelClassicComponents.ClassicFooter;
+    case "classic_order_confirmation_notice":
+      return FunnelClassicComponents.ClassicOrderConfirmationNotice;
+    case "classic_faq":
+      return FunnelClassicComponents.ClassicFaq;
+    case "classic_product_preview_component":
+      return FunnelClassicComponents.ClassicProductPreviewComponent;
     default:
       return undefined;
   }

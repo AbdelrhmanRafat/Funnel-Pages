@@ -1,0 +1,31 @@
+---
+import type { BlockData } from "../../../../../lib/api/types";
+---
+<div class="bg-gray-100 text-gray-700 text-center py-4">
+  <p class="mb-2">سيتم الاتصال بك لتأكيد الطلب قبل الشحن</p>
+  <div class="flex justify-center items-center gap-8 text-sm text-gray-800">
+    <!-- شحن سريع -->
+    <div class="flex items-center gap-1">
+      <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M3 3h10v4h4l2 3v6h-2a3 3 0 11-6 0H7a3 3 0 11-6 0H0V3h3zM5 16a1 1 0 102 0 1 1 0 00-2 0zm10 1a1 1 0 100-2 1 1 0 000 2z"/>
+      </svg>
+      <span>شحن سريع</span>
+    </div>
+
+    <!-- ضمان لمدة عامين -->
+    <div class="flex items-center gap-1">
+      <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 2l6 3v5c0 4.418-2.94 8.837-6 10-3.06-1.163-6-5.582-6-10V5l6-3z" />
+      </svg>
+      <span>ضمان لمدة عامين</span>
+    </div>
+
+    <!-- استرجاع مجاني -->
+    <div class="flex items-center gap-1">
+      <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M9 2a7 7 0 100 14H8a1 1 0 110-2h1a5 5 0 110-10H9V2zm1 16a1 1 0 102 0 1 1 0 00-2 0z" />
+      </svg>
+      <span>استرجاع مجاني</span>
+    </div>
+  </div>
+</div>
