@@ -7,8 +7,6 @@
 // - colorSizeOptions: An array of type OptionOption[], providing available color and size variants for the product.
 
 import type { BlockData, OptionOption } from "../../../../../lib/api/types";
-import DynamicPannelContainer from "../UI/Dynamic Panel Container/DynamicPannelContainer.astro"; // Component for selecting dynamic options like color/size.
-import QuantityOptions from "../UI/Quantity Options/QuantityOptions.astro"; // Component for selecting product quantity.
 
 // Retrieves data and colorSizeOptions from Astro's props.
 const data: BlockData[] = Astro.props.data;
@@ -19,14 +17,16 @@ const initialOffer = data[0];
 
 // Import translation utility
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import ClassicDynamicPannelContainer from "../UI/ClassicDynamicPanelContainer/ClassicDynamicPannelContainer.astro";
+import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantityOptions.astro";
 ---
 
 <!-- Quantity and Variant Selection Section -->
 <div class="mb-8">
 <!--   Renders quantity selection options based on Purchase Options object.  -->
-  <QuantityOptions data = {data} />
+  <ClassicQuantityOptions data = {data} />
   {/* Renders dynamic panels for selecting product variants like color and size. client:load ensures interactivity. */}
-  <DynamicPannelContainer data={data} colorSizeOptions={colorSizeOptions} />
+  <ClassicDynamicPannelContainer data={data} colorSizeOptions={colorSizeOptions} />
 </div>
 
 {/* Price Summary Section - Note: This section appears to be mostly static/hardcoded in the example. */}

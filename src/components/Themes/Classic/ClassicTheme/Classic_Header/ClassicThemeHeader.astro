@@ -7,7 +7,7 @@
 //  and `subtitle`.
 
 import type { BlockData } from "../../../../../lib/api/types";
-import LanguageSwitcher from "../UI/Language Switcher/languageSwitcher.astro";
+import ClassicLanguageSwitcher from "../UI/ClassicLanguageSwitcher/ClassicLanguageSwitcher.astro";
 
 // Defines the path to a default logo image, used as a fallback.
 const defaultLogoSrc : string =  "assets/default-logo.svg";
@@ -25,7 +25,7 @@ const subtitle = data?.subtitle || "";
 
 <header class="classic-header bg-white shadow-sm fixed top-0 z-50 right-0 left-0">
   <div class="lg:container w-11/12 mx-auto py-2">
-   <LanguageSwitcher />
+   <ClassicLanguageSwitcher />
     <div class="flex flex-col items-center">
       <div class="flex flex-col items-center text-center">
         <img
