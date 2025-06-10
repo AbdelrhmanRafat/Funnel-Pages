@@ -18,6 +18,9 @@ this file would be the place to implement it. Examples could include:
 */
 
 import type { BlockData } from "../../../../../lib/api/types";
+import type { Observer, Subject } from '../../../../../lib/patterns/Observer';
+import { QuantityOptionsSubject, type QuantityState } from '../../../../../lib/patterns/Observer';
+import { getTranslation } from '../../../../../lib/utils/i18n/translations';
 
 // Example of a function that could be exported and used:
 /*
@@ -35,58 +38,61 @@ export function handleAddToCart() {
 // either here or in the .astro component, calling these functions.
 */
 
+class ProductFunnelObserver implements Observer<QuantityState> {
+    public update(subject: Subject<QuantityState>): void {
+        const state = subject.getState();
+        if (state.selectedItem) {
+            this.updatePriceBreakdown(state.selectedItem);
+        }
+    }
 
-export function initProductFunnel() {
-  document.addEventListener('item-change', (e: Event) => {
-    const customEvent = e as CustomEvent;
-    // Parse the stringified JSON into an object
-    const selectedOffer: BlockData = JSON.parse(customEvent.detail.selectedItem);
-    
-    // Update price breakdown elements
-    updatePriceBreakdown(selectedOffer);
-  });
+    private updatePriceBreakdown(offer: BlockData): void {
+        // Update product quantity
+        const quantityElements = document.querySelectorAll('[data-price-quantity]');
+        quantityElements.forEach((el) => {
+            el.textContent = `${offer.items}`;
+        });
+
+        // Update unit price
+        const unitPriceElements = document.querySelectorAll('[data-price-unit]');
+        unitPriceElements.forEach((el) => {
+            el.textContent = `${offer.price_per_item.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+        });
+
+        // Update subtotal
+        const subtotalElements = document.querySelectorAll('[data-price-subtotal]');
+        subtotalElements.forEach((el) => {
+            el.textContent = `${offer.total_price.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+        });
+
+        // Update shipping
+        const shippingElements = document.querySelectorAll('[data-price-shipping]');
+        shippingElements.forEach((el) => {
+            el.textContent = `${offer.shipping_price.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+        });
+
+        // Update discount
+        const discountElements = document.querySelectorAll('[data-price-discount]');
+        discountElements.forEach((el) => {
+            const container = el.closest('[data-discount-container]');
+            if (offer.discount > 0) {
+                el.textContent = `- ${offer.discount.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+                container?.classList.remove('hidden');
+            } else {
+                container?.classList.add('hidden');
+            }
+        });
+
+        // Update final total
+        const totalElements = document.querySelectorAll('[data-price-total]');
+        totalElements.forEach((el) => {
+            el.textContent = `${offer.final_total.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+        });
+    }
 }
 
-function updatePriceBreakdown(offer: BlockData) {
-  // Update product quantity
-  const quantityElements = document.querySelectorAll('[data-price-quantity]');
-  quantityElements.forEach((el) => {
-    el.textContent = `${offer.items}`;
-  });
-
-  // Update unit price
-  const unitPriceElements = document.querySelectorAll('[data-price-unit]');
-  unitPriceElements.forEach((el) => {
-    el.textContent = `${offer.price_per_item.toLocaleString()} ج.م`;
-  });
-
-  // Update subtotal
-  const subtotalElements = document.querySelectorAll('[data-price-subtotal]');
-  subtotalElements.forEach((el) => {
-    el.textContent = `${offer.total_price.toLocaleString()} ج.م`;
-  });
-
-  // Update shipping
-  const shippingElements = document.querySelectorAll('[data-price-shipping]');
-  shippingElements.forEach((el) => {
-    el.textContent = `${offer.shipping_price.toLocaleString()} ج.م`;
-  });
-
-  // Update discount
-  const discountElements = document.querySelectorAll('[data-price-discount]');
-  discountElements.forEach((el) => {
-    const container = el.closest('[data-discount-container]');
-    if (offer.discount > 0) {
-      el.textContent = `- ${offer.discount.toLocaleString()} ج.م`;
-      container?.classList.remove('hidden');
-    } else {
-      container?.classList.add('hidden');
-    }
-  });
-
-  // Update final total
-  const totalElements = document.querySelectorAll('[data-price-total]');
-  totalElements.forEach((el) => {
-    el.textContent = `${offer.final_total.toLocaleString()} ج.م`;
-  });
+export function initProductFunnel() {
+    const productFunnelObserver = new ProductFunnelObserver();
+    const quantitySubject = new QuantityOptionsSubject();
+    quantitySubject.attach(productFunnelObserver);
 }
