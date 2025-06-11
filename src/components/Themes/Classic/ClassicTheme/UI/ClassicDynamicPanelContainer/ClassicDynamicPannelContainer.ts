@@ -1,11 +1,16 @@
 import { QuantityOptionsSubject, type Observer, type Subject, type QuantityState } from "../../../../../../lib/patterns/Observer";
 import { ColorSizeOptionsSubject, type ColorSizeState } from "../../../../../../lib/patterns/ColorSizeOptionsState";
+import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 
-class ClassicDynamicPannelContainer extends HTMLElement implements Observer<QuantityState>, Observer<ColorSizeState> {
+export class ClassicDynamicPannelContainer extends HTMLElement implements Observer<QuantityState>, Observer<ColorSizeState> {
   private quantitySubject: QuantityOptionsSubject;
   private colorSizeSubject: ColorSizeOptionsSubject;
   private panelIndex: number;
   private isVisible: boolean = false;
+  private sizeOptions: NodeListOf<HTMLElement>;
+  private colorOptions: NodeListOf<HTMLElement>;
+  private sizeOptionClickHandlers: Map<HTMLElement, (event: MouseEvent) => void> = new Map();
+  private colorOptionClickHandlers: Map<HTMLElement, (event: MouseEvent) => void> = new Map();
 
   // Define selection styles as static properties for consistency
   public static readonly SIZE_SELECTED_CLASSES = ['bg-blue-50', 'text-blue-700', 'border-blue-500'];
@@ -18,8 +23,64 @@ class ClassicDynamicPannelContainer extends HTMLElement implements Observer<Quan
     this.colorSizeSubject = ColorSizeOptionsSubject.getInstance();
     const panelIndexElement = this.querySelector('[data-panel-index]');
     this.panelIndex = panelIndexElement ? parseInt(panelIndexElement.getAttribute('data-panel-index') || '1') : 1;
+
+    // Initialize NodeLists
+    this.sizeOptions = this.querySelectorAll('.size-option');
+    this.colorOptions = this.querySelectorAll('.color-option');
+  }
+
+  connectedCallback() {
     this.quantitySubject.attach(this);
     this.colorSizeSubject.attach(this);
+    this.addEventListeners();
+
+    // Ensure UI is synced with current state on connection
+    const currentOptionState = this.colorSizeSubject.getPanelOption(this.panelIndex);
+    if (currentOptionState) {
+      this.syncUIWithState(currentOptionState);
+    } else {
+      // If no state exists for this panel yet (e.g., initial load), clear styles.
+      // The resetSelections() will also update the state to null.
+      this.resetSelections();
+    }
+  }
+
+  disconnectedCallback() {
+    this.quantitySubject.detach(this);
+    this.colorSizeSubject.detach(this);
+    this.removeEventListeners();
+  }
+
+  private addEventListeners(): void {
+    this.sizeOptions.forEach(sizeOption => {
+      const handler = this.handleSizeSelection.bind(this, sizeOption);
+      this.sizeOptionClickHandlers.set(sizeOption, handler);
+      sizeOption.addEventListener('click', handler);
+    });
+
+    this.colorOptions.forEach(colorOption => {
+      const handler = this.handleColorSelection.bind(this, colorOption);
+      this.colorOptionClickHandlers.set(colorOption, handler);
+      colorOption.addEventListener('click', handler);
+    });
+  }
+
+  private removeEventListeners(): void {
+    this.sizeOptions.forEach(sizeOption => {
+      const handler = this.sizeOptionClickHandlers.get(sizeOption);
+      if (handler) {
+        sizeOption.removeEventListener('click', handler);
+        this.sizeOptionClickHandlers.delete(sizeOption);
+      }
+    });
+
+    this.colorOptions.forEach(colorOption => {
+      const handler = this.colorOptionClickHandlers.get(colorOption);
+      if (handler) {
+        colorOption.removeEventListener('click', handler);
+        this.colorOptionClickHandlers.delete(colorOption);
+      }
+    });
   }
 
   public update(subject: Subject<QuantityState | ColorSizeState>): void {
@@ -33,6 +94,7 @@ class ClassicDynamicPannelContainer extends HTMLElement implements Observer<Quan
           this.isVisible = shouldBeVisible;
           if (shouldBeVisible) {
             container.classList.remove('hidden');
+            // Always reset selections when becoming visible
             this.resetSelections();
           } else {
             container.classList.add('hidden');
@@ -41,7 +103,7 @@ class ClassicDynamicPannelContainer extends HTMLElement implements Observer<Quan
       }
     } else if (subject instanceof ColorSizeOptionsSubject) {
       const state = subject.getState();
-      const option = state.options.find(opt => opt.panelIndex === this.panelIndex);
+      const option = state.options.find((opt: { panelIndex: number; }) => opt.panelIndex === this.panelIndex);
       if (option) {
         this.syncUIWithState(option);
       }
@@ -50,16 +112,14 @@ class ClassicDynamicPannelContainer extends HTMLElement implements Observer<Quan
 
   private clearAllSelectionStyles(): void {
     // Clear color selection styles
-    const colorOptions = this.querySelectorAll('.color-option');
-    colorOptions.forEach(option => {
+    this.colorOptions.forEach(option => {
       ClassicDynamicPannelContainer.COLOR_SELECTED_CLASSES.forEach(className => {
         option.classList.remove(className);
       });
     });
 
     // Clear size selection styles
-    const sizeOptions = this.querySelectorAll('.size-option');
-    sizeOptions.forEach(option => {
+    this.sizeOptions.forEach(option => {
       ClassicDynamicPannelContainer.SIZE_SELECTED_CLASSES.forEach(className => {
         option.classList.remove(className);
       });
@@ -69,7 +129,7 @@ class ClassicDynamicPannelContainer extends HTMLElement implements Observer<Quan
     });
   }
 
-  private resetSelections(): void {
+  public resetSelections(): void {
     // Clear all selection styles
     this.clearAllSelectionStyles();
 
@@ -78,13 +138,13 @@ class ClassicDynamicPannelContainer extends HTMLElement implements Observer<Quan
     const selectedSizeElement = this.querySelector('.selected-size');
     
     if (selectedColorElement) {
-      selectedColorElement.textContent = 'Not Selected';
+      selectedColorElement.textContent = getTranslation('dynamicPanel.notSelected');
     }
     if (selectedSizeElement) {
-      selectedSizeElement.textContent = 'Not Selected';
+      selectedSizeElement.textContent = getTranslation('dynamicPanel.notSelected');
     }
 
-    // Update the state
+    // Update the state to null
     this.colorSizeSubject.updatePanelOption(this.panelIndex, {
       color: null,
       size: null
@@ -100,10 +160,10 @@ class ClassicDynamicPannelContainer extends HTMLElement implements Observer<Quan
     const selectedSizeElement = this.querySelector('.selected-size');
 
     if (selectedColorElement) {
-      selectedColorElement.textContent = option.color || 'Not Selected';
+      selectedColorElement.textContent = option.color || getTranslation('dynamicPanel.notSelected');
     }
     if (selectedSizeElement) {
-      selectedSizeElement.textContent = option.size || 'Not Selected';
+      selectedSizeElement.textContent = option.size || getTranslation('dynamicPanel.notSelected');
     }
 
     // Apply current selections
@@ -129,9 +189,44 @@ class ClassicDynamicPannelContainer extends HTMLElement implements Observer<Quan
     }
   }
 
-  disconnectedCallback() {
-    this.quantitySubject.detach(this);
-    this.colorSizeSubject.detach(this);
+  private handleSizeSelection(sizeOption: HTMLElement): void {
+    const size = sizeOption.textContent || null;
+    
+    // Immediately apply visual feedback
+    this.sizeOptions.forEach(option => {
+        ClassicDynamicPannelContainer.SIZE_SELECTED_CLASSES.forEach(className => {
+            option.classList.remove(className);
+        });
+        ClassicDynamicPannelContainer.SIZE_UNSELECTED_CLASSES.forEach(className => {
+            option.classList.add(className);
+        });
+    });
+    ClassicDynamicPannelContainer.SIZE_UNSELECTED_CLASSES.forEach(className => {
+        sizeOption.classList.remove(className);
+    });
+    ClassicDynamicPannelContainer.SIZE_SELECTED_CLASSES.forEach(className => {
+        sizeOption.classList.add(className);
+    });
+
+    // Update the state
+    this.colorSizeSubject.updatePanelOption(this.panelIndex, { size });
+  }
+
+  private handleColorSelection(colorOption: HTMLElement): void {
+    const color = colorOption.getAttribute('data-name') || null;
+    
+    // Immediately apply visual feedback
+    this.colorOptions.forEach(option => {
+        ClassicDynamicPannelContainer.COLOR_SELECTED_CLASSES.forEach(className => {
+            option.classList.remove(className);
+        });
+    });
+    ClassicDynamicPannelContainer.COLOR_SELECTED_CLASSES.forEach(className => {
+        colorOption.classList.add(className);
+    });
+
+    // Update the state
+    this.colorSizeSubject.updatePanelOption(this.panelIndex, { color });
   }
 }
 

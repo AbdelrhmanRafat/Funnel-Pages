@@ -1,12 +1,12 @@
 import type { BlockData } from "../../../../../../lib/api/types";
 import { QuantityOptionsSubject } from '../../../../../../lib/patterns/Observer';
 import { ColorSizeOptionsSubject } from '../../../../../../lib/patterns/ColorSizeOptionsState';
+import { ClassicDynamicPannelContainer } from '../ClassicDynamicPanelContainer/ClassicDynamicPannelContainer';
 
 // Initialize the quantity options subject
 const quantitySubject = QuantityOptionsSubject.getInstance();
 const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
 
-// Function to handle repeated elements visibility
 function updateRepeatedElementsVisibility(selectedRadio: HTMLInputElement) {
   // Hide all repeated elements
   document.querySelectorAll('.repeated-elements').forEach(element => {
@@ -18,7 +18,42 @@ function updateRepeatedElementsVisibility(selectedRadio: HTMLInputElement) {
   const repeatedElements = document.querySelector(`.repeated-elements[data-option-id="${optionId}"]`);
   if (repeatedElements) {
     repeatedElements.classList.remove('hidden');
+
+    // Find all classic dynamic panel containers and reset them
+    const dynamicPanels = repeatedElements.querySelectorAll<HTMLElement>('.classic-pannel-container');
+    dynamicPanels.forEach(panel => {
+      resetAllSelectionsInPanel(panel);
+    });
   }
+}
+
+
+function resetAllSelectionsInPanel(panelContainer: HTMLElement): void {
+  // Reset size selections
+  const sizeOptions = panelContainer.querySelectorAll<HTMLElement>('.size-option');
+  sizeOptions.forEach(option => {
+    ClassicDynamicPannelContainer.SIZE_SELECTED_CLASSES.forEach(className => {
+      option.classList.remove(className);
+    });
+    ClassicDynamicPannelContainer.SIZE_UNSELECTED_CLASSES.forEach(className => {
+      option.classList.add(className);
+    });
+  });
+
+  // Reset color selections
+  const colorOptions = panelContainer.querySelectorAll<HTMLElement>('.color-option');
+  colorOptions.forEach(option => {
+    ClassicDynamicPannelContainer.COLOR_SELECTED_CLASSES.forEach(className => {
+      option.classList.remove(className);
+    });
+  });
+
+  // Reset selected text if needed
+  const selectedSize = panelContainer.querySelector<HTMLElement>('.selected-size');
+  if (selectedSize) selectedSize.textContent = 'لم يتم التحديد';
+
+  const selectedColor = panelContainer.querySelector<HTMLElement>('.selected-color');
+  if (selectedColor) selectedColor.textContent = 'لم يتم التحديد';
 }
 
 // Initialize with the first selected item
@@ -89,6 +124,11 @@ class ClassicQuantityOptions extends HTMLElement {
     const selectedElement = this.querySelector(`.repeated-elements[data-option-id="${target.id}"]`);
     if (selectedElement) {
       selectedElement.classList.remove('hidden');
+      // Find the ClassicDynamicPannelContainer within the visible selectedElement and reset its selections
+      const dynamicPanel = selectedElement.querySelector('classic-dynamic-panel-container') as ClassicDynamicPannelContainer;
+      if (dynamicPanel && typeof dynamicPanel.resetSelections === 'function') {
+        dynamicPanel.resetSelections();
+      }
     }
 
     // Update the subjects state
