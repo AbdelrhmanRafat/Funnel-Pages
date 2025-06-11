@@ -12,6 +12,8 @@ import ClassicProductPreviewComponent from "./ClassicTheme/Classic_ProductPrevie
 import { getClassicThemeComponent } from "../../../lib/utils/ThemeSelect";
 import type { BlockData, Data } from "../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../lib/constants/themes";
+import ClassicDeliveryFeatures from "./ClassicTheme/Classic_Delivery_Features/ClassicDeliveryFeatures.astro";
+import ClassicProductUsage from "./ClassicTheme/Classic_ProductUsage/ClassicProductUsage.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -48,8 +50,10 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicHeader,
   FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
   FunnelClassicComponents.ClassicOrderConfirmationNotice,
-  FunnelClassicComponents.ClassicProductPreviewComponent,
+  FunnelClassicComponents.ClassicProductPreview,
+  FunnelClassicComponents.ClassicDeliveryFeatures,
   FunnelClassicComponents.ClassicFaq,
+  FunnelClassicComponents.ClassicProductUsage,
   FunnelClassicComponents.ClassicCountdown,
 ];
 
@@ -122,15 +126,33 @@ const orderConfirmationNoticeData =
       }
 
       if (
-        componentName === FunnelClassicComponents.ClassicProductPreviewComponent
+        componentName === FunnelClassicComponents.ClassicProductPreview
       ) {
         const productPreviewData = isComponentFound(
-          FunnelClassicComponents.ClassicProductPreviewComponent,
+          FunnelClassicComponents.ClassicProductPreview,
         );
         return productPreviewData.isComponentFound ? (
           <ClassicProductPreviewComponent
             data={productPreviewData.componentData}
           />
+        ) : null;
+      }
+
+      if (componentName === FunnelClassicComponents.ClassicDeliveryFeatures) {
+        const deliveryFeaturesData = isComponentFound(
+          FunnelClassicComponents.ClassicDeliveryFeatures,
+        );
+        return deliveryFeaturesData.isComponentFound ? (
+          <ClassicDeliveryFeatures data={deliveryFeaturesData.componentData} />
+        ) : null;
+      }
+
+      if (componentName === FunnelClassicComponents.ClassicProductUsage) {
+        const productUsageData = isComponentFound(
+          FunnelClassicComponents.ClassicProductUsage,
+        );
+        return productUsageData.isComponentFound ? (
+          <ClassicProductUsage data={productUsageData.componentData} />
         ) : null;
       }
 

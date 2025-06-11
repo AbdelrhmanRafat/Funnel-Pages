@@ -47,6 +47,12 @@ export interface BlockData {
     year?: string;
 }
 
+ export interface ColorSizeOptions{
+   items : number;
+   colors : string[];
+   sizes : string[];
+ }
+
 export interface ProductPreview {
     headerBadgetext: string
     warningText: string;

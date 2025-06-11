@@ -1,0 +1,101 @@
+---
+import type { BlockData } from "../../../../../lib/api/types";
+
+const data: BlockData = Astro.props.data;
+---
+
+<section id="classicDeliveryFeatures" class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- خيارات دفع متعددة -->
+        <div
+            class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center"
+        >
+            <div
+                class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+                <svg
+                    class="w-8 h-8 text-blue-600"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"
+                    ></path>
+                </svg>
+            </div>
+            <h3 class="text-gray-900 font-semibold text-lg mb-2">
+                خيارات دفع متعددة
+            </h3>
+            <p class="text-gray-600 text-sm">
+                الدفع عند الاستلام أو الدفع بالبطاقة
+            </p>
+        </div>
+
+        <!-- ضمان لمدة عامين -->
+        <div
+            class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center"
+        >
+            <div
+                class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+                <svg
+                    class="w-8 h-8 text-blue-600"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11H16V18H8V11H9.2V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.4,8.7 10.4,10V11H13.6V10C13.6,8.7 12.8,8.2 12,8.2Z"
+                    ></path>
+                </svg>
+            </div>
+            <h3 class="text-gray-900 font-semibold text-lg mb-2">
+                ضمان لمدة عامين
+            </h3>
+            <p class="text-gray-600 text-sm">ضمان شامل ضد عيوب التصنيع</p>
+        </div>
+
+        <!-- ضمان الاسترداد -->
+        <div
+            class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center"
+        >
+            <div
+                class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+                <svg
+                    class="w-8 h-8 text-blue-600"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M12,5V1L7,6L12,11V7A6,6 0 0,1 18,13A6,6 0 0,1 12,19A6,6 0 0,1 6,13H4A8,8 0 0,0 12,21A8,8 0 0,0 20,13A8,8 0 0,0 12,5Z"
+                    ></path>
+                </svg>
+            </div>
+            <h3 class="text-gray-900 font-semibold text-lg mb-2">
+                ضمان الاسترداد
+            </h3>
+            <p class="text-gray-600 text-sm">14 يوم ضمان استرداد</p>
+        </div>
+
+        <!-- شحن سريع -->
+        <div
+            class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center"
+        >
+            <div
+                class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+                <svg
+                    class="w-8 h-8 text-blue-600"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        d="M3,4A2,2 0 0,0 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8H17V4M10,6L14,10L10,14V11H4V9H10M17,9.5H19.5L21.47,12H17M6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5M18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5Z"
+                    ></path>
+                </svg>
+            </div>
+            <h3 class="text-gray-900 font-semibold text-lg mb-2">شحن سريع</h3>
+            <p class="text-gray-600 text-sm">توصيل خلال 3-2 أيام</p>
+        </div>
+    </div>
+</section>

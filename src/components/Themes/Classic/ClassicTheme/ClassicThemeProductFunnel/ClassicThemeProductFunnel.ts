@@ -1,4 +1,4 @@
-import type { BlockData } from "../../../../../lib/api/types";
+import type { PurchaseOption } from "../../../../../lib/api/types";
 import type { Observer, Subject } from '../../../../../lib/patterns/Observer';
 import { QuantityOptionsSubject, type QuantityState } from '../../../../../lib/patterns/Observer';
 import { getTranslation } from '../../../../../lib/utils/i18n/translations';
@@ -11,7 +11,7 @@ class ProductFunnelObserver implements Observer<QuantityState> {
         }
     }
 
-    private updatePriceBreakdown(offer: BlockData): void {
+    private updatePriceBreakdown(offer: PurchaseOption): void {
         const quantityElements = document.querySelectorAll('[data-price-quantity]');
         quantityElements.forEach((el) => {
             el.textContent = `${offer.items}`;

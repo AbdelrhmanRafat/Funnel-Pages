@@ -4,6 +4,7 @@ import {
   isValidEmail,
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
+import { QuantityOptionsSubject } from '../../../../../lib/patterns/Observer';
 
 interface FormField {
   id: string;
@@ -111,7 +112,6 @@ class ClassicFormValidator {
 
     this.form.addEventListener('submit', (e: Event) => {
       e.preventDefault();
-      
       let isFormValid = true;
 
       this.fields.forEach((field, fieldId) => {
@@ -120,13 +120,17 @@ class ClassicFormValidator {
           const isValid = this.validateField(fieldId, input.value);
           const message = this.getErrorMessage(fieldId, isValid);
           this.displayValidationMessage(fieldId, message, isValid);
-          
           if (!isValid) {
             isFormValid = false;
           }
         }
       });
-
+      
+      // Get the currently selected item from QuantityOptionsSubject
+      const quantitySubject = QuantityOptionsSubject.getInstance();
+      const state = quantitySubject.getState();
+      console.log(state.selectedItem);
+      
       if (isFormValid && this.form) {
         this.form.submit();
       }

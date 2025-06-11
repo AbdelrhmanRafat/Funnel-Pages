@@ -19,7 +19,9 @@ export enum FunnelClassicComponents {
   ClassicFooter = "classic_footer",
   ClassicOrderConfirmationNotice = "classic_order_confirmation_notice",
   ClassicFaq = "classic_faq",
-  ClassicProductPreviewComponent = "classic_product_preview_component",
+  ClassicProductPreview = "classic_product_preview",
+  ClassicProductUsage = "classic_product_usage",
+  ClassicDeliveryFeatures = "classic_delivery_features",
 }
 
 // Defines the component names for the Nasa theme.

@@ -260,7 +260,7 @@
                 }
             },
             {
-                "name": "classic_product_preview_component",
+                "name": "classic_product_preview",
                 "data": {
                     "productPreview": {
                         "headerBadgetext": "عرض توضيحي للمنتج",
@@ -285,9 +285,38 @@
                                 "icon": "✔️",
                                 "title": "تجربة الراحة وحدة البطارية",
                                 "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
+                            },
+                            {
+                                "icon": "✔️",
+                                "title": "تجربة الراحة وحدة البطارية",
+                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
+                            },
+                            {
+                                "icon": "✔️",
+                                "title": "تجربة الراحة وحدة البطارية",
+                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
+                            },
+                            {
+                                "icon": "✔️",
+                                "title": "تجربة الراحة وحدة البطارية",
+                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
                             }
                         ]
                     }
+                }
+            },
+            {
+                "name": "classic_product_usage",
+                "data": {
+                    "company_name": "Digital Creativity Company",
+                    "year": "2025"
+                }
+            },
+            {
+                "name": "classic_delivery_features",
+                "data": {
+                    "company_name": "Digital Creativity Company",
+                    "year": "2025"
                 }
             }
         ]
