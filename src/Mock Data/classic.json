@@ -357,6 +357,11 @@
                         },
                         {
                             "icon": "fa-solid fa-shield",
+                            "title": "ضمان الاسترداد",
+                            "subtitle": "14 يوم ضمان استرداد"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
                             "title": "شحن سريع",
                             "subtitle": "توصيل خلال 3-2 أيام"
                         }

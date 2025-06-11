@@ -7,16 +7,27 @@ const data: BlockData = Astro.props.data;
 const deliveryFeatures: DeliveryFeatures[] = data.deliveryfeatures;
 ---
 
-<section id="classicDeliveryFeatures">
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 bg-white shadow-2xl p-3 rounded-2xl">
-    {deliveryFeatures.map((feature) => (
-      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
-        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <i class={`${feature.icon} text-blue-500 text-2xl`}></i>
+<section id="classicDeliveryFeatures" class="bg-white shadow-2xl p-5 rounded-2xl">
+      <!-- Header -->
+    <div class="flex justify-start gap-2 items-center mb-6 text-3xl font-bold text-black">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <h5> معلومات عن المنتج </h5>
+    </div>
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+  >
+    {
+      deliveryFeatures.map((feature) => (
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class={`${feature.icon} text-blue-500 text-2xl`} />
+          </div>
+          <h3 class="text-gray-900 font-semibold text-lg mb-2">
+            {feature.title}
+          </h3>
+          <p class="text-gray-600 text-sm">{feature.subtitle}</p>
         </div>
-        <h3 class="text-gray-900 font-semibold text-lg mb-2">{feature.title}</h3>
-        <p class="text-gray-600 text-sm">{feature.subtitle}</p>
-      </div>
-    ))}
+      ))
+    }
   </div>
 </section>
