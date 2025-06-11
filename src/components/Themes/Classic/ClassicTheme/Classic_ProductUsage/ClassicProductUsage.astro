@@ -1,124 +1,63 @@
 ---
-import type { BlockData } from "../../../../../lib/api/types";
+// server-side code
+import type { BlockData, VideoInfo } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
----
-<section id="ClassicProductUsage" class="py-12 px-6">
-        <div class="max-w-7xl mx-auto">
-            <!-- Header -->
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold">شاهد كيفية الاستخدام</h2>
-                <button class="bg-blue-600 hover:bg-blue-700 rounded-full p-2 transition-colors">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-            </div>
+const productUsage : VideoInfo[] = data.productUsage;
 
-            <!-- Video Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Video 1 -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+// Helper function to convert watch URL to embed
+const getEmbedUrl = (url: string) => {
+  const videoIdMatch = url.match(/v=([^&]+)/);
+  return videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : '';
+};
+---
+
+<section id="ClassicProductUsage" class="p-5 bg-white rounded-2xl shadow-2xl">
+    <!-- Header -->
+    <div class="flex justify-start gap-2 items-center mb-6">
+        <button class="bg-cyan-500 hover:bg-cyan-600 rounded-full p-2 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+        <h5 class="text-2xl font-bold text-black">شاهد كيفية الاستخدام</h5>
+    </div>
+
+    <!-- Video Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {
+            productUsage.map((video) => (
+                <div class="rounded-2xl overflow-hidden bg-gray-500 shadow-md hover:scale-105 transition-transform">
                     <div class="relative">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23f3f4f6'/%3E%3Ctext x='200' y='120' text-anchor='middle' dy='0.35em' font-family='Arial, sans-serif' font-size='16' fill='%236b7280'%3EShampoo Product%3C/text%3E%3C/svg%3E" 
-                             alt="طريقة تجفيف وتكثيف الشعر بسرعة" class="w-full h-48 object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                            <button class="bg-blue-600 hover:bg-blue-700 rounded-full p-4 transition-colors">
-                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="absolute bottom-2 right-2 bg-black bg-opacity-75 px-2 py-1 rounded text-sm flex items-center">
-                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <iframe
+                            class="w-full lg:h-[620px] h-[300px]"
+                            src={getEmbedUrl(video.link)}
+                            title={video.title}
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        ></iframe>
+                        <div class="absolute bottom-3 right-3 bg-black bg-opacity-80 px-2 py-1 rounded text-xs text-white flex items-center">
+                            <svg class="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
                             </svg>
                             3,210 مشاهدة
                         </div>
                     </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">طريقة تجفيف وتكثيف الشعر بسرعة</h3>
-                        <p class="text-gray-400 text-sm mb-3">طريقة التجفيف الصحيحة بدون إلحاق الضرر بالشعر</p>
-                        <div class="flex items-center justify-between text-sm text-gray-500">
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                    <div class="p-3">
+                        <h3 class="font-medium text-white text-base mb-1">{video.title}</h3>
+                        <p class="text-gray-400 text-sm mb-2">{video.subtitle}</p>
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="flex items-center text-gray-500">
+                                <svg class="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M15 10a5 5 0 11-10 0 5 5 0 0110 0zm-1 0a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
                                 </svg>
                                 مشاركة
                             </span>
-                            <span class="text-blue-400">مدة الفيديو 4:12</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- Video 2 -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="relative">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23fce7f3'/%3E%3Ccircle cx='200' cy='120' r='60' fill='%23ec4899'/%3E%3Ctext x='200' y='200' text-anchor='middle' dy='0.35em' font-family='Arial, sans-serif' font-size='14' fill='%236b7280'%3EHair Care Tutorial%3C/text%3E%3C/svg%3E" 
-                             alt="وقتي شعرك مستقيما أم لا يوم" class="w-full h-48 object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                            <button class="bg-blue-600 hover:bg-blue-700 rounded-full p-4 transition-colors">
-                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="absolute bottom-2 right-2 bg-black bg-opacity-75 px-2 py-1 rounded text-sm flex items-center">
-                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                            </svg>
-                            1,890 مشاهدة
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">وقتي شعرك مستقيما أم لا يوم</h3>
-                        <p class="text-gray-400 text-sm mb-3">تعلمي كيفية الحصول على شعر ناعم مستقيم بطريقة صحيحة</p>
-                        <div class="flex items-center justify-between text-sm text-gray-500">
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                                </svg>
-                                مشاركة
-                            </span>
-                            <span class="text-blue-400">مدة الفيديو 3:48</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video 3 -->
-                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <div class="relative">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='240' viewBox='0 0 400 240'%3E%3Crect width='400' height='240' fill='%23fef3c7'/%3E%3Cpath d='M150 80 Q200 50 250 80 Q250 120 200 140 Q150 120 150 80' fill='%23f59e0b'/%3E%3Ctext x='200' y='200' text-anchor='middle' dy='0.35em' font-family='Arial, sans-serif' font-size='14' fill='%236b7280'%3EHair Styling%3C/text%3E%3C/svg%3E" 
-                             alt="استخدام فرشاة الشعر للحصول على شعر ناعم" class="w-full h-48 object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                            <button class="bg-blue-600 hover:bg-blue-700 rounded-full p-4 transition-colors">
-                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="absolute bottom-2 right-2 bg-black bg-opacity-75 px-2 py-1 rounded text-sm flex items-center">
-                            <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                            </svg>
-                            2,656 مشاهدة
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">استخدام فرشاة الشعر للحصول على شعر ناعم</h3>
-                        <p class="text-gray-400 text-sm mb-3">طريقة استخدام الفرشاة الدائرية للحصول على أفضل النتائج</p>
-                        <div class="flex items-center justify-between text-sm text-gray-500">
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
-                                </svg>
-                                مشاركة
-                            </span>
-                            <span class="text-blue-400">مدة الفيديو 5:24</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
+            ))
+        }
+    </div>
+</section>

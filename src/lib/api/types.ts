@@ -41,16 +41,27 @@ export interface BlockData {
     product?: string;
     purchase_options?: PurchaseOption[];
     productPreview: ProductPreview;
-    confirmationNotices: string[];
+    productUsage : VideoInfo[];
+    confirmationNotices: ConfirmationNotices[];
     faqs: Faqs[];
+    deliveryfeatures : DeliveryFeatures[];
     company_name?: string;
     year?: string;
 }
-
+export interface ConfirmationNotices {
+   title : string;
+   icon : string;
+}
  export interface ColorSizeOptions{
    items : number;
    colors : string[];
    sizes : string[];
+ }
+
+ export interface DeliveryFeatures {
+    icon? : string;
+    title?: string;
+    subtitle?: string;
  }
 
 export interface ProductPreview {
@@ -62,6 +73,7 @@ export interface ProductPreview {
 };
 export interface VideoInfo {
     title: string;
+    subtitle : string;
     link: string;
 }
 export interface Features {

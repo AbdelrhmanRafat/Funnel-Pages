@@ -232,9 +232,18 @@
                 "data": {
                     "title": "سيتم الاتصال بك لتأكيد الطلب قبل الشحن",
                     "confirmationNotices": [
-                        "شحن سريع",
-                        "ضمان لمدة عامين",
-                        "استرجاع مجاني"
+                        {
+                            "title": "شحن سريع",
+                            "icon": "fa-solid fa-truck-fast"
+                        },
+                        {
+                            "title": "ضمان لمدة عامين",
+                            "icon": "fa-solid fa-shield"
+                        },
+                        {
+                            "title": "استرجاع مجاني",
+                            "icon": "fa-solid fa-reply"
+                        }
                     ]
                 }
             },
@@ -308,15 +317,50 @@
             {
                 "name": "classic_product_usage",
                 "data": {
-                    "company_name": "Digital Creativity Company",
-                    "year": "2025"
+                    "productUsage": [
+                        {
+                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            "title": "طريقة استخدام المنتج الكلاسيكي",
+                            "subtitle": "شرح خطوة بخطوة لكيفية الاستفادة من المنتج"
+                        },
+                        {
+                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            "title": "نصائح مهمة للاستفادة القصوى",
+                            "subtitle": "أفضل الطرق لاستخدام المنتج بكفاءة"
+                        },
+                        {
+                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            "title": "أخطاء شائعة يجب تجنبها",
+                            "subtitle": "تعرف على الأمور التي يجب الانتباه لها عند الاستخدام"
+                        }
+                    ]
                 }
             },
             {
                 "name": "classic_delivery_features",
                 "data": {
-                    "company_name": "Digital Creativity Company",
-                    "year": "2025"
+                    "deliveryfeatures": [
+                        {
+                            "icon": "fa-solid fa-credit-card",
+                            "title": "خيارات دفع متعددة",
+                            "subtitle": "الدفع عند الاستلام أو الدفع بالبطاقة"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "ضمان لمدة عامين",
+                            "subtitle": "ضمان شامل ضد عيوب التصنيع"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "ضمان الاسترداد",
+                            "subtitle": "14 يوم ضمان استرداد"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "شحن سريع",
+                            "subtitle": "توصيل خلال 3-2 أيام"
+                        }
+                    ]
                 }
             }
         ]
