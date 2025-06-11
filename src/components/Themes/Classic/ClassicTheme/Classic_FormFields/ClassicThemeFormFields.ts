@@ -5,7 +5,7 @@ import {
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
 import { QuantityOptionsSubject } from '../../../../../lib/patterns/Observer';
-import { ColorSizeOptionsSubject } from '../../../../../lib/patterns/ColorSizeOptionsState';
+import { ColorSizeOptionsSubject } from '../../../../../lib/patterns/Observer';
 
 interface FormField {
   id: string;

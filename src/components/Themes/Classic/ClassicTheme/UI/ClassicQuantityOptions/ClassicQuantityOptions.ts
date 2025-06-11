@@ -1,10 +1,10 @@
-import type { BlockData } from "../../../../../../lib/api/types";
-import { QuantityOptionsSubject } from '../../../../../../lib/patterns/Observer';
-import { ColorSizeOptionsSubject } from '../../../../../../lib/patterns/ColorSizeOptionsState';
+import { QuantityOptionsSubject, ColorSizeOptionsSubject } from '../../../../../../lib/patterns/Observer';
+import { getTranslation } from '../../../../../../lib/utils/i18n/translations';
 import { ClassicDynamicPannelContainer } from '../ClassicDynamicPanelContainer/ClassicDynamicPannelContainer';
 
 // Initialize the quantity options subject
 const quantitySubject = QuantityOptionsSubject.getInstance();
+// Initialize the Color Size options subject
 const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
 
 function updateRepeatedElementsVisibility(selectedRadio: HTMLInputElement) {
@@ -50,10 +50,10 @@ function resetAllSelectionsInPanel(panelContainer: HTMLElement): void {
 
   // Reset selected text if needed
   const selectedSize = panelContainer.querySelector<HTMLElement>('.selected-size');
-  if (selectedSize) selectedSize.textContent = 'لم يتم التحديد';
+  if (selectedSize) selectedSize.textContent = getTranslation('dynamicPanel.notSelected');
 
   const selectedColor = panelContainer.querySelector<HTMLElement>('.selected-color');
-  if (selectedColor) selectedColor.textContent = 'لم يتم التحديد';
+  if (selectedColor) selectedColor.textContent = getTranslation('dynamicPanel.notSelected');
 }
 
 // Initialize with the first selected item
@@ -92,52 +92,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Export the subjects for use in other components
 export { quantitySubject, colorSizeSubject };
-
-class ClassicQuantityOptions extends HTMLElement {
-  private radioButtons: NodeListOf<HTMLInputElement>;
-  private repeatedElements: NodeListOf<HTMLElement>;
-
-  constructor() {
-    super();
-    this.radioButtons = this.querySelectorAll('input[type="radio"]');
-    this.repeatedElements = this.querySelectorAll('.repeated-elements');
-    this.initializeEventListeners();
-  }
-
-  private initializeEventListeners(): void {
-    this.radioButtons.forEach((radio) => {
-      radio.addEventListener('change', (e) => this.handleRadioChange(e));
-    });
-  }
-
-  private handleRadioChange(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const selectedItem = JSON.parse(target.getAttribute('selected-item') || '{}');
-    const items = parseInt(target.getAttribute('data-items') || '1');
-
-    // Hide all repeated elements first
-    this.repeatedElements.forEach((element) => {
-      element.classList.add('hidden');
-    });
-
-    // Show the selected option's repeated elements
-    const selectedElement = this.querySelector(`.repeated-elements[data-option-id="${target.id}"]`);
-    if (selectedElement) {
-      selectedElement.classList.remove('hidden');
-      // Find the ClassicDynamicPannelContainer within the visible selectedElement and reset its selections
-      const dynamicPanel = selectedElement.querySelector('classic-dynamic-panel-container') as ClassicDynamicPannelContainer;
-      if (dynamicPanel && typeof dynamicPanel.resetSelections === 'function') {
-        dynamicPanel.resetSelections();
-      }
-    }
-
-    // Update the subjects state
-    quantitySubject.setState({
-      quantity: items,
-      selectedItem
-    });
-    colorSizeSubject.initializePanels(items);
-  }
-}
-
-customElements.define('classic-quantity-options', ClassicQuantityOptions);

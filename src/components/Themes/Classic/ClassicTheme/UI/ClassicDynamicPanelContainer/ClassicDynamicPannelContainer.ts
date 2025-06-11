@@ -1,5 +1,5 @@
 import { QuantityOptionsSubject, type Observer, type Subject, type QuantityState } from "../../../../../../lib/patterns/Observer";
-import { ColorSizeOptionsSubject, type ColorSizeState } from "../../../../../../lib/patterns/ColorSizeOptionsState";
+import { ColorSizeOptionsSubject, type ColorSizeState } from "../../../../../../lib/patterns/Observer";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 
 export class ClassicDynamicPannelContainer extends HTMLElement implements Observer<QuantityState>, Observer<ColorSizeState> {
