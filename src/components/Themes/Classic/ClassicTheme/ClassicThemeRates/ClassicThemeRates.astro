@@ -5,7 +5,7 @@ import { getTranslation } from '../../../../../lib/utils/i18n/translations';
 const ratingData: BlockData = Astro.props.ratingData;
 ---
 
-<div class="classic-rates mb-8 text-2xl flex items-center justify-between text-gray-800">
+<div id="classic-rates" class="classic-rates mb-8 text-2xl flex items-center justify-between text-gray-800">
   <div class="flex items-center text-yellow-500 font-semibold">
     <span>{ratingData.rate}</span>
     <svg class="w-5 h-5 ml-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">

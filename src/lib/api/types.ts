@@ -28,6 +28,7 @@ export interface BlockData {
     [x: string]: any;
     map(arg0: (data: BlockData, index: number) => any): unknown;
     title?: string;
+    icon : string;
     subtitle?: string;
     logo?: string;
     full_name?: string;
@@ -65,8 +66,10 @@ export interface ConfirmationNotices {
  }
 
 export interface ProductPreview {
-    headerBadgetext: string
-    warningText: string;
+    headerBadgetext: string;
+    headerBadgeIcon: string;
+    viewsText: string;
+    viewsIcon: string;
     videoInfo: VideoInfo;
     featuresSectionTitle: string;
     features: Features[];

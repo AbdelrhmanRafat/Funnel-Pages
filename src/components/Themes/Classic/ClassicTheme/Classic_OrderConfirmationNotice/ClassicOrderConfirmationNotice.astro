@@ -4,9 +4,9 @@ import type { BlockData, ConfirmationNotices } from "../../../../../lib/api/type
 const data: BlockData = Astro.props.data;
 const confirmationNotices : ConfirmationNotices[] = data.confirmationNotices;
 ---
-
+<section id="classic-order-confirmation-notice" >
 <div
-  class="bg-gray-100 text-gray-700 rounded-2xl px-2 text-start md:text-center py-4"
+class="bg-gray-100 text-gray-700 rounded-2xl px-2 text-start md:text-center py-4"
 >
   <p class="mb-2">{data.title}</p>
   <div
@@ -24,3 +24,4 @@ const confirmationNotices : ConfirmationNotices[] = data.confirmationNotices;
     }
   </div>
 </div>
+</section>

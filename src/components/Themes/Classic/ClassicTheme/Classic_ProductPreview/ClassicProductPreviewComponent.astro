@@ -13,11 +13,7 @@ const productPreview : ProductPreview = data.productPreview;
     <div class="flex md:flex-row md:justify-between md:items-center md:gap-0 flex-col justify-center items-start gap-3 mb-6">
         <div class="flex items-center gap-2">
             <div class="bg-red-600 p-2 rounded-full text-white">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                        d="M15 8V6a2 2 0 00-2-2H3a2 2 0 00-2 2v8a2 2 0 002 2h10a2 2 0 002-2v-2l3 2V6l-3 2z"
-                    ></path>
-                </svg>
+              <i class={productPreview.headerBadgeIcon}></i>
             </div>
             <h5 class="text-3xl font-bold">
                 {productPreview.headerBadgetext}
@@ -27,14 +23,9 @@ const productPreview : ProductPreview = data.productPreview;
             class="flex bg-gray-400 py-1 text-white px-4 rounded-2xl items-center gap-2 text-lg"
         >
             <div>
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10z"
-                    ></path>
-                    <circle cx="12" cy="12" r="2.5" fill="white"></circle>
-                </svg>
+             <i class={productPreview.viewsIcon}></i>
             </div>
-            <span>{productPreview.warningText}</span>
+            <span>{productPreview.viewsText}</span>
         </div>
     </div>
 
