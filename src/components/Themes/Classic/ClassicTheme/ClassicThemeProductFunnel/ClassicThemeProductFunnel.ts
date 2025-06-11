@@ -12,41 +12,47 @@ class ProductFunnelObserver implements Observer<QuantityState> {
     }
 
     private updatePriceBreakdown(offer: PurchaseOption): void {
-        const quantityElements = document.querySelectorAll('[data-price-quantity]');
-        quantityElements.forEach((el) => {
-            el.textContent = `${offer.items}`;
-        });
+        // Update quantity
+        const quantityElement = document.querySelector('[data-price-quantity]');
+        if (quantityElement) {
+            quantityElement.textContent = `${offer.items}`;
+        }
 
-        const unitPriceElements = document.querySelectorAll('[data-price-unit]');
-        unitPriceElements.forEach((el) => {
-            el.textContent = `${offer.price_per_item.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
-        });
+        // Update unit price
+        const unitPriceElement = document.querySelector('[data-price-unit]');
+        if (unitPriceElement) {
+            unitPriceElement.textContent = `${offer.price_per_item.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+        }
 
-        const subtotalElements = document.querySelectorAll('[data-price-subtotal]');
-        subtotalElements.forEach((el) => {
-            el.textContent = `${offer.total_price.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
-        });
+        // Update subtotal
+        const subtotalElement = document.querySelector('[data-price-subtotal]');
+        if (subtotalElement) {
+            subtotalElement.textContent = `${offer.total_price.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+        }
 
-        const shippingElements = document.querySelectorAll('[data-price-shipping]');
-        shippingElements.forEach((el) => {
-            el.textContent = `${offer.shipping_price.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
-        });
+        // Update shipping
+        const shippingElement = document.querySelector('[data-price-shipping]');
+        if (shippingElement) {
+            shippingElement.textContent = `${offer.shipping_price.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+        }
 
-        const discountElements = document.querySelectorAll('[data-price-discount]');
-        discountElements.forEach((el) => {
-            const container = el.closest('[data-discount-container]');
+        // Update discount
+        const discountElement = document.querySelector('[data-price-discount]');
+        if (discountElement) {
+            const container = discountElement.closest('[data-discount-container]');
             if (offer.discount > 0) {
-                el.textContent = `- ${offer.discount.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+                discountElement.textContent = `- ${offer.discount.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
                 container?.classList.remove('hidden');
             } else {
                 container?.classList.add('hidden');
             }
-        });
+        }
 
-        const totalElements = document.querySelectorAll('[data-price-total]');
-        totalElements.forEach((el) => {
-            el.textContent = `${offer.final_total.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
-        });
+        // Update total
+        const totalElement = document.querySelector('[data-price-total]');
+        if (totalElement) {
+            totalElement.textContent = `${offer.final_total.toLocaleString()} ${getTranslation('productFunnel.currency')}`;
+        }
     }
 }
 
