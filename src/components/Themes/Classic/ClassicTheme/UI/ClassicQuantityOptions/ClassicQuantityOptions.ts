@@ -1,8 +1,10 @@
 import type { BlockData } from "../../../../../../lib/api/types";
 import { QuantityOptionsSubject } from '../../../../../../lib/patterns/Observer';
+import { ColorSizeOptionsSubject } from '../../../../../../lib/patterns/ColorSizeOptionsState';
 
 // Initialize the quantity options subject
-const quantitySubject = new QuantityOptionsSubject();
+const quantitySubject = QuantityOptionsSubject.getInstance();
+const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
 
 // Function to handle repeated elements visibility
 function updateRepeatedElementsVisibility(selectedRadio: HTMLInputElement) {
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 quantity: items,
                 selectedItem: JSON.parse(selectedItem)
             });
+            colorSizeSubject.initializePanels(items);
             updateRepeatedElementsVisibility(initialRadio as HTMLInputElement);
         }
     }
@@ -45,14 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     quantity: items,
                     selectedItem: JSON.parse(selectedItem)
                 });
+                colorSizeSubject.initializePanels(items);
                 updateRepeatedElementsVisibility(target);
             }
         });
     });
 });
 
-// Export the subject for use in other components
-export { quantitySubject };
+// Export the subjects for use in other components
+export { quantitySubject, colorSizeSubject };
 
 class ClassicQuantityOptions extends HTMLElement {
   private radioButtons: NodeListOf<HTMLInputElement>;
@@ -87,11 +91,12 @@ class ClassicQuantityOptions extends HTMLElement {
       selectedElement.classList.remove('hidden');
     }
 
-    // Update the subject state
+    // Update the subjects state
     quantitySubject.setState({
       quantity: items,
       selectedItem
     });
+    colorSizeSubject.initializePanels(items);
   }
 }
 

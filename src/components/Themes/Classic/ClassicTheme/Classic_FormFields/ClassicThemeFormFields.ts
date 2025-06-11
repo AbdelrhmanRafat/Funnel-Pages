@@ -5,6 +5,7 @@ import {
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
 import { QuantityOptionsSubject } from '../../../../../lib/patterns/Observer';
+import { ColorSizeOptionsSubject } from '../../../../../lib/patterns/ColorSizeOptionsState';
 
 interface FormField {
   id: string;
@@ -126,10 +127,14 @@ class ClassicFormValidator {
         }
       });
       
-      // Get the currently selected item from QuantityOptionsSubject
+      // Get the currently selected item and color/size options
       const quantitySubject = QuantityOptionsSubject.getInstance();
-      const state = quantitySubject.getState();
-      console.log(state.selectedItem);
+      const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
+      const quantityState = quantitySubject.getState();
+      const colorSizeState = colorSizeSubject.getState();
+      
+      console.log('Selected Item:', quantityState.selectedItem);
+      console.log('Color/Size Options:', colorSizeState.options);
       
       if (isFormValid && this.form) {
         this.form.submit();
