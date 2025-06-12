@@ -341,8 +341,8 @@
             {
                 "name": "classic_delivery_features",
                 "data": {
-                    "title" : "معلومات عن المنتج",
-                    "icon" : "fa-solid fa-cart-shopping",
+                    "title": "معلومات عن المنتج",
+                    "icon": "fa-solid fa-cart-shopping",
                     "deliveryfeatures": [
                         {
                             "icon": "fa-solid fa-credit-card",
@@ -368,6 +368,33 @@
                             "icon": "fa-solid fa-shield",
                             "title": "شحن سريع",
                             "subtitle": "توصيل خلال 3-2 أيام"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "classic_Gallery",
+                "data": {
+                    "galleryimages": [
+                        {
+                            "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop",
+                            "alt": "صورة المنتج الرئيسية"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 2"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 3"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 4"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 5"
                         }
                     ]
                 }

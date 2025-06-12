@@ -24,6 +24,7 @@ const product: Product = Astro.props.product;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const formFieldsData: BlockData = Astro.props.formFieldsData;
 const ratingData: BlockData = Astro.props.ratingData;
+const galleryData : BlockData = Astro.props.galleryData;
 const orderConfirmationNoticeData : BlockData = Astro.props.orderConfirmationNoticeData;
 
 // Extracts color and size options from the product data. Assumes options are structured in a specific way.
@@ -39,7 +40,11 @@ const isArabic = currentLang === "ar";
     <div class="bg-white shadow-2xl p-5 rounded-2xl">
         <div class="flex flex-col lg:flex-row gap-2">
             <!-- Gallery Section -->
-            <ClassicGalleryComponent product={product} />
+             {
+                        galleryData && (
+                            <ClassicGalleryComponent data={galleryData} />
+                        )
+            }
             <!-- Product Info Section: -->
             <div
                 class="lg:w-1/2 rounded-2xl shadow-2xl p-4 bg-gradient-to-br from-white to-gray-50"

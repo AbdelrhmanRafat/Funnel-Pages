@@ -1,8 +1,8 @@
 ---
-import type { Product } from "../../../../../../lib/api/types";
+import type { BlockData, GalleryImages } from "../../../../../../lib/api/types";
 
-
-const product: Product = Astro.props.product;
+const data : BlockData = Astro.props.data;
+const gallery : GalleryImages[] = data.galleryimages;
 ---
 
 <!-- Gallery Section - Enhanced -->
@@ -15,9 +15,9 @@ const product: Product = Astro.props.product;
             >
                 <img
                     id="mainImage"
-                    src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop"
+                    src={gallery[0]?.src}
                     class="main-image w-full h-96 lg:h-[500px] object-cover"
-                    alt="صورة المنتج الرئيسية"
+                    alt={gallery[0]?.alt}
                 />
 
                 <!-- Navigation Buttons -->
@@ -61,47 +61,24 @@ const product: Product = Astro.props.product;
                 <div
                     class="absolute bottom-4 left-1/2 transform -translate-x-1/2 glass-effect px-4 py-2 rounded-full text-sm font-medium text-gray-700"
                 >
-                    <span id="currentImageIndex">1</span> / <span
-                        id="totalImages">5</span
-                    >
+                    <span id="currentImageIndex">1</span> / <span id="totalImages">{gallery.length}</span>
                 </div>
             </div>
         </div>
+
         <!-- Thumbnail Gallery -->
-        <div
-            class="max-h-96 overflow-x-auto whitespace-nowrap scrollbar-auto pb-2"
-        >
+        <div class="max-h-96 overflow-x-auto whitespace-nowrap scrollbar-auto pb-2">
             <div class="inline-flex gap-3">
-                <img
-                    src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"
-                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover thumbnail-active"
-                    data-index="0"
-                    alt="صورة المنتج 1"
-                />
-                <img
-                    src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=400&fit=crop"
-                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover"
-                    data-index="1"
-                    alt="صورة المنتج 2"
-                />
-                <img
-                    src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=400&fit=crop"
-                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover"
-                    data-index="2"
-                    alt="صورة المنتج 3"
-                />
-                <img
-                    src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop"
-                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover"
-                    data-index="3"
-                    alt="صورة المنتج 4"
-                />
-                <img
-                    src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop"
-                    class="thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover"
-                    data-index="4"
-                    alt="صورة المنتج 5"
-                />
+                {
+                  gallery.map((image, index) => (
+                    <img
+                        src={image.src}
+                        class={`thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover ${index === 0 ? 'thumbnail-active' : ''}`}
+                        data-index={index}
+                        alt={image.alt}
+                    />
+                  ))
+                }
             </div>
         </div>
     </div>

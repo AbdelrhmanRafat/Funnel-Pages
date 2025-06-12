@@ -48,10 +48,15 @@ export interface BlockData {
     deliveryfeatures : DeliveryFeatures[];
     company_name?: string;
     year?: string;
+    galleryimages : GalleryImages[];
 }
 export interface ConfirmationNotices {
    title : string;
    icon : string;
+}
+export interface GalleryImages {
+    src : string;
+    alt : string;
 }
  export interface ColorSizeOptions{
    items : number;

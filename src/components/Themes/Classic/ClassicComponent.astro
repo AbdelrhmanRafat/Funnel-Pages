@@ -63,10 +63,10 @@ const productFunnelData = isComponentFound(
 const isFormFieldsDataFound = isComponentFound(
   FunnelClassicComponents.ClassicFormFields,
 );
+
+const isOrderConfirmationNoticeFound = isComponentFound(FunnelClassicComponents.ClassicOrderConfirmationNotice,);
 const isRatingFound = isComponentFound(FunnelClassicComponents.ClassicRates);
-const isOrderConfirmationNoticeFound = isComponentFound(
-  FunnelClassicComponents.ClassicOrderConfirmationNotice,
-);
+const isGalleryFound = isComponentFound(FunnelClassicComponents.ClassicGallery,);
 
 const purchaseOptions = productFunnelData.isComponentFound
   ? productFunnelData.componentData?.purchase_options
@@ -81,6 +81,11 @@ const ratingData = isRatingFound.isComponentFound
 const orderConfirmationNoticeData =
   isOrderConfirmationNoticeFound.isComponentFound
     ? isOrderConfirmationNoticeFound.componentData
+    : undefined;
+
+const galleryData =
+ isGalleryFound.isComponentFound
+    ? isGalleryFound.componentData
     : undefined;
 ---
 
@@ -99,6 +104,7 @@ const orderConfirmationNoticeData =
       if (componentName === FunnelClassicComponents.ClassicProductFunnel) {
         return (
           <ClassicThemeProduct
+            galleryData={galleryData}
             formFieldsData={formFieldsData}
             ratingData={ratingData}
             orderConfirmationNoticeData={orderConfirmationNoticeData}
