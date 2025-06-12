@@ -1,10 +1,9 @@
 ---
-import type { BlockData, OptionOption } from "../../../../../../lib/api/types";
+import type { OptionOption } from "../../../../../../lib/api/types";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
+import "./ClassicDynamicPannelContainer.css"
 
-const data: BlockData[] = Astro.props.data;
 const colorSizeOptions: OptionOption[] = Astro.props.colorSizeOptions;
-const length: number = Astro.props.length;
 const panelIndex: number = Astro.props["panel-index"] || 1;
 const colors: OptionOption | undefined = colorSizeOptions.find(opt => opt.name === 'color');
 const sizes: OptionOption | undefined = colorSizeOptions.find(opt => opt.name === 'size');
@@ -23,11 +22,11 @@ const sizes: OptionOption | undefined = colorSizeOptions.find(opt => opt.name ==
       <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
         <div class="bg-blue-100 px-3 py-1 rounded-full text-blue-700 text-xs sm:text-sm flex items-center gap-1 justify-center sm:justify-start">
           <span data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</span>
-          <span class="selected-color" data-translate="dynamicPanel.notSelected">{getTranslation('dynamicPanel.notSelected')}</span>
+          <span class="selected-color"></span>
         </div>
         <div class="bg-blue-100 px-3 py-1 rounded-full text-blue-700 text-xs sm:text-sm flex items-center gap-1 justify-center sm:justify-start">
           <span data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</span>
-          <span class="selected-size" data-translate="dynamicPanel.notSelected">{getTranslation('dynamicPanel.notSelected')}</span>
+          <span class="selected-size"></span>
         </div>
       </div>
     </div>

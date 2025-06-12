@@ -1,6 +1,4 @@
 import { QuantityOptionsSubject, ColorSizeOptionsSubject } from '../../../../../../lib/patterns/Observer';
-import { getTranslation } from '../../../../../../lib/utils/i18n/translations';
-import { ClassicDynamicPannelContainer } from '../ClassicDynamicPanelContainer/ClassicDynamicPannelContainer';
 
 // Initialize the quantity options subject
 const quantitySubject = QuantityOptionsSubject.getInstance();
@@ -29,31 +27,28 @@ function updateRepeatedElementsVisibility(selectedRadio: HTMLInputElement) {
 
 
 function resetAllSelectionsInPanel(panelContainer: HTMLElement): void {
+  const selectedSizeClassName = "selected-size-option";
+  const selectedColorClassName = "selected-color-option";
+
   // Reset size selections
   const sizeOptions = panelContainer.querySelectorAll<HTMLElement>('.size-option');
   sizeOptions.forEach(option => {
-    ClassicDynamicPannelContainer.SIZE_SELECTED_CLASSES.forEach(className => {
-      option.classList.remove(className);
-    });
-    ClassicDynamicPannelContainer.SIZE_UNSELECTED_CLASSES.forEach(className => {
-      option.classList.add(className);
-    });
+    option.classList.remove(selectedSizeClassName);
   });
 
   // Reset color selections
   const colorOptions = panelContainer.querySelectorAll<HTMLElement>('.color-option');
   colorOptions.forEach(option => {
-    ClassicDynamicPannelContainer.COLOR_SELECTED_CLASSES.forEach(className => {
-      option.classList.remove(className);
-    });
+    option.classList.remove(selectedColorClassName);
   });
 
-  // Reset selected text if needed
-  const selectedSize = panelContainer.querySelector<HTMLElement>('.selected-size');
-  if (selectedSize) selectedSize.textContent = getTranslation('dynamicPanel.notSelected');
+  // Clear selected size text
+  const selectedSizeText = panelContainer.querySelector<HTMLElement>('.selected-size');
+  if (selectedSizeText) selectedSizeText.textContent = "";
 
-  const selectedColor = panelContainer.querySelector<HTMLElement>('.selected-color');
-  if (selectedColor) selectedColor.textContent = getTranslation('dynamicPanel.notSelected');
+  // Clear selected color text (make sure it refers to a display element, not the option)
+  const selectedColorText = panelContainer.querySelector<HTMLElement>('.selected-color');
+  if (selectedColorText) selectedColorText.textContent = "";
 }
 
 // Initialize with the first selected item
