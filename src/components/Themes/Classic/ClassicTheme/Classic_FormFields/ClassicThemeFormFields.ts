@@ -29,7 +29,7 @@ class ClassicFormValidator {
 
   private initializeFields(): void {
     const fieldIds = ['form-fullName', 'form-phone', 'form-email'];
-    
+
     fieldIds.forEach(id => {
       const input = document.getElementById(id) as HTMLInputElement;
       if (input) {
@@ -126,20 +126,67 @@ class ClassicFormValidator {
           }
         }
       });
-      
+
       // Get the currently selected item and color/size options
       const quantitySubject = QuantityOptionsSubject.getInstance();
       const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
       const quantityState = quantitySubject.getState();
       const colorSizeState = colorSizeSubject.getState();
-      
+
       console.log('Selected Item:', quantityState.selectedItem);
       console.log('Color/Size Options:', colorSizeState.options);
-      
+
+      // Validate color and size options
+      const optionsErrorContainer = document.getElementById('options-error-container') || this.createOptionsErrorContainer();
+      optionsErrorContainer.innerHTML = '';
+
+      if (colorSizeState.options && colorSizeState.options.length > 0) {
+        for (const option of colorSizeState.options) {
+          // Check for missing color
+          if (!option.color) {
+            const errorMessage = `من فضلك اختر اللون للخيار رقم ${option.panelIndex}`;
+            this.addOptionsError(optionsErrorContainer, errorMessage);
+            isFormValid = false;
+          }
+
+          // Check for missing size
+          if (!option.size) {
+            const errorMessage = `من فضلك اختر المقاس للخيار رقم ${option.panelIndex}`;
+            this.addOptionsError(optionsErrorContainer, errorMessage);
+            isFormValid = false;
+          }
+        }
+      }
+
       if (isFormValid && this.form) {
         this.form.submit();
       }
     });
+  }
+
+  // Helper method to create error container if it doesn't exist
+  private createOptionsErrorContainer(): HTMLElement {
+    const container = document.createElement('div');
+    container.id = 'options-error-container';
+    container.className = 'my-4 p-3 bg-red-100 text-red-700 rounded';
+
+    // Insert before the submit button or at the end of the form
+    const submitButton = this.form?.querySelector('button[type="submit"]');
+    if (submitButton) {
+      submitButton.parentNode?.insertBefore(container, submitButton);
+    } else if (this.form) {
+      this.form.appendChild(container);
+    }
+
+    return container;
+  }
+
+  // Helper method to add error messages to the container
+  private addOptionsError(container: HTMLElement, message: string): void {
+    const errorElement = document.createElement('p');
+    errorElement.className = 'text-red-600 text-sm mb-1';
+    errorElement.textContent = message;
+    container.appendChild(errorElement);
   }
 }
 
