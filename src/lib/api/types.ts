@@ -134,6 +134,8 @@ export interface Product {
     category: Category;
     skus: null;
     reviews : Review[];
+    policies : string[];
+    social_icons : string[];
     meta: Meta;
     attachment: Attachment[];
     is_have_variant: string;

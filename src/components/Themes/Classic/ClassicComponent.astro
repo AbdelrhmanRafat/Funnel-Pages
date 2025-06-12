@@ -52,8 +52,8 @@ function isComponentFound(
 // Define render order - just change this array to reorder components!
 const RENDER_ORDER = [
   FunnelClassicComponents.ClassicHeader,
-  FunnelClassicComponents.ClassicProductFeatures,
   FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
+    FunnelClassicComponents.ClassicProductFeatures,
   FunnelClassicComponents.ClassicProductPreview,
   FunnelClassicComponents.ClassicProductUsage,
   FunnelClassicComponents.ClassicReviews,
@@ -97,7 +97,7 @@ const galleryData =
     : undefined;
 ---
 
-<main class="lg:container w-11/12 mx-auto flex flex-col gap-7 pb-5">
+<main class="lg:container w-11/12 mx-auto flex flex-col gap-7">
   {
     RENDER_ORDER.map((componentName) => {
       if (componentName === FunnelClassicComponents.ClassicHeader) {

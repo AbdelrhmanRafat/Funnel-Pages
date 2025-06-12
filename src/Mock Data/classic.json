@@ -186,7 +186,7 @@
             {
                 "name": "classic_text-bar",
                 "data": {
-                    "title" : "متاح الآن في السعودية 🇸🇦"
+                    "title": "متاح الآن في السعودية 🇸🇦"
                 }
             },
             {
@@ -258,7 +258,19 @@
                 "name": "classic_footer",
                 "data": {
                     "company_name": "Digital Creativity Company",
-                    "year": "2025"
+                    "year": "2025",
+                    "policies": [
+                        "سياسة الشحن",
+                        "سياسة الخصوصية",
+                        "شروط الاستخدام",
+                        "شروط الإستبدال الإسترجاع"
+                    ],
+                    "social_icons": [
+                        "fab fa-whatsapp",
+                        "fab fa-instagram",
+                        "fab fa-facebook-messenger",
+                        "fab fa-facebook-f"
+                    ]
                 }
             },
             {
