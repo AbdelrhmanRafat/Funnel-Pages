@@ -12,8 +12,12 @@ import ClassicProductPreviewComponent from "./ClassicTheme/Classic_ProductPrevie
 import { getClassicThemeComponent } from "../../../lib/utils/ThemeSelect";
 import type { BlockData, Data } from "../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../lib/constants/themes";
-import ClassicDeliveryFeatures from "./ClassicTheme/Classic_Delivery_Features/ClassicDeliveryFeatures.astro";
+import ClassicThemeFooter from "./ClassicTheme/ClassicThemeFooter/ClassicThemeFooter.astro";
+import ClassicThemeReviews from "./ClassicTheme/Classic_Theme_Reviews/ClassicThemeReviews.astro";
 import ClassicProductUsage from "./ClassicTheme/Classic_ProductUsage/ClassicProductUsage.astro";
+import ClassicDeliveryFeatures from "./ClassicTheme/Classic_Delivery_Features/ClassicDeliveryFeatures.astro";
+import ClassicProductFeatures from "./ClassicTheme/Classic_Product_Features/ClassicProductFeatures.astro";
+import ClassicThemeTextBar from "./ClassicTheme/Classic_Text_Bar/classicThemeTextBar.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -48,12 +52,16 @@ function isComponentFound(
 // Define render order - just change this array to reorder components!
 const RENDER_ORDER = [
   FunnelClassicComponents.ClassicHeader,
+  FunnelClassicComponents.ClassicProductFeatures,
   FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
   FunnelClassicComponents.ClassicProductPreview,
-  FunnelClassicComponents.ClassicDeliveryFeatures,
   FunnelClassicComponents.ClassicProductUsage,
+  FunnelClassicComponents.ClassicReviews,
+  FunnelClassicComponents.ClassicTextBar,
   FunnelClassicComponents.ClassicFaq,
+  FunnelClassicComponents.ClassicDeliveryFeatures,
   FunnelClassicComponents.ClassicCountdown,
+  FunnelClassicComponents.ClassicFooter
 ];
 
 // Extracts purchase options and other data
@@ -142,13 +150,36 @@ const galleryData =
           />
         ) : null;
       }
-
       if (componentName === FunnelClassicComponents.ClassicDeliveryFeatures) {
         const deliveryFeaturesData = isComponentFound(
           FunnelClassicComponents.ClassicDeliveryFeatures,
         );
         return deliveryFeaturesData.isComponentFound ? (
           <ClassicDeliveryFeatures data={deliveryFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelClassicComponents.ClassicProductFeatures) {
+        const ProductFeaturesData = isComponentFound(
+          FunnelClassicComponents.ClassicProductFeatures,
+        );
+        return ProductFeaturesData.isComponentFound ? (
+          <ClassicProductFeatures data={ProductFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelClassicComponents.ClassicReviews) {
+        const ReviewsData = isComponentFound(
+          FunnelClassicComponents.ClassicReviews,
+        );
+        return ReviewsData.isComponentFound ? (
+          <ClassicThemeReviews data={ReviewsData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelClassicComponents.ClassicTextBar) {
+        const TextBarData = isComponentFound(
+          FunnelClassicComponents.ClassicTextBar,
+        );
+        return TextBarData.isComponentFound ? (
+          <ClassicThemeTextBar data={TextBarData.componentData} />
         ) : null;
       }
 
@@ -160,8 +191,17 @@ const galleryData =
           <ClassicProductUsage data={productUsageData.componentData} />
         ) : null;
       }
+      if (componentName === FunnelClassicComponents.ClassicFooter) {
+        const footerData = isComponentFound(
+          FunnelClassicComponents.ClassicFooter,
+        );
+        return footerData.isComponentFound ? (
+          <ClassicThemeFooter data={footerData.componentData} />
+        ) : null;
+      }
 
       return null;
     })
   }
+
 </main>

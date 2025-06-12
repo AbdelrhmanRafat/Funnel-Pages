@@ -45,7 +45,7 @@ export interface BlockData {
     productUsage : VideoInfo[];
     confirmationNotices: ConfirmationNotices[];
     faqs: Faqs[];
-    deliveryfeatures : DeliveryFeatures[];
+    features : Features[];
     company_name?: string;
     year?: string;
     galleryimages : GalleryImages[];
@@ -133,9 +133,17 @@ export interface Product {
     options: ProductOption[];
     category: Category;
     skus: null;
+    reviews : Review[];
     meta: Meta;
     attachment: Attachment[];
     is_have_variant: string;
+}
+
+export interface Review {
+   description : string;
+   name : string;
+   city : string;
+   image : string;
 }
 
 // Represents an attachment for a product.

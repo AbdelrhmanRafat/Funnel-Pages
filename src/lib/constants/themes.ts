@@ -21,7 +21,10 @@ export enum FunnelClassicComponents {
   ClassicFaq = "classic_faq",
   ClassicProductPreview = "classic_product_preview",
   ClassicProductUsage = "classic_product_usage",
+  ClassicProductFeatures = "classic_product_features",
   ClassicDeliveryFeatures = "classic_delivery_features",
+  ClassicReviews = "classic_Reviews",
+  ClassicTextBar = "classic_TextBar",
   ClassicGallery = "classic_Gallery"
 }
 

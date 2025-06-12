@@ -24,7 +24,7 @@ const getEmbedUrl = (url: string) => {
     </div>
 
     <!-- Video Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class={`grid grid-cols-1 md:grid-cols-${productUsage.length} gap-4`}>
         {
             productUsage.map((video) => (
                 <div class="rounded-2xl overflow-hidden bg-gray-500 shadow-md hover:scale-105 transition-transform">

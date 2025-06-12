@@ -44,6 +44,12 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.ClassicProductUsage;
     case "classic_delivery_features":
       return FunnelClassicComponents.ClassicDeliveryFeatures;
+    case "classic_product_features":
+      return FunnelClassicComponents.ClassicProductFeatures;
+    case "classic_reviews":
+      return FunnelClassicComponents.ClassicReviews;
+    case "classic_text-bar":
+      return FunnelClassicComponents.ClassicTextBar;
     case "classic_gallery":
       return FunnelClassicComponents.ClassicGallery;
     default:

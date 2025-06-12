@@ -4,7 +4,7 @@
 // Props:
 // - data: An object of type BlockData, containing company name and year for the copyright notice.
 
-import type { BlockData } from '../../../../../lib/api/types';
+import type { BlockData } from "../../../../../lib/api/types";
 
 // Defines the expected props for the component.
 
@@ -13,30 +13,37 @@ const data: BlockData = Astro.props.data;
 
 ---
 
-<footer id="classic-footer" class="classic-footer bg-gray-900 text-white py-14 border-t-4 border-gold">
-  <div class="px-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-start">
+<footer class="text-center w-full p-8 bg-slate-500">
+  <!-- Title -->
+  <h2 class="text-xl font-bold text-indigo-900 mb-4">MAZAYA</h2>
 
-    {/* Column for general store information or tagline. */}
-    <div class="space-y-4">
-      <h4 class="text-3xl font-bold text-gold font-serif">متجر المنتجات الرقمية</h4> {/* Digital Products Store */}
-      <p class="text-gray-300 text-lg font-serif leading-relaxed">
-        نقدم أفضل المنتجات الرقمية<br /> {/* We offer the best digital products */}
-        بجودة عالية وبأسعار تنافسية. {/* with high quality and competitive prices. */}
-      </p>
-    </div>
-
-    {/* Spacer column for layout purposes on medium screens and up. */}
-    <div class="hidden md:block"></div>
-
-    {/* Column for copyright information. */}
-    <div class="space-y-4 text-gray-300 font-serif">
-      <div class="space-y-1">
-        <p class="text-lg">جميع الحقوق محفوظة</p> {/* All rights reserved */}
-        {/* Dynamically displays the company name and year from the props. */}
-        <p class="text-gold font-semibold">{data.company_name} © {data.year}</p>
-      </div>
-    </div>
-
+  <!-- Links -->
+  <div
+    class="flex justify-center flex-wrap gap-6 text-sm font-medium text-black mb-6"
+  >
+    <a href="#" class="underline">سياسة الشحن</a>
+    <a href="#" class="underline">سياسة الخصوصية</a>
+    <a href="#" class="underline">شروط الاستخدام</a>
+    <a href="#" class="underline">شروط الإستبدال الإسترجاع</a>
   </div>
 
+  <!-- Social Icons -->
+  <div class="flex justify-center gap-6 text-2xl text-black">
+    <!-- WhatsApp -->
+    <a href="#" aria-label="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <!-- Instagram -->
+    <a href="#" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <!-- Messenger -->
+    <a href="#" aria-label="Messenger">
+      <i class="fab fa-facebook-messenger"></i>
+    </a>
+    <!-- Facebook -->
+    <a href="#" aria-label="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+  </div>
 </footer>
