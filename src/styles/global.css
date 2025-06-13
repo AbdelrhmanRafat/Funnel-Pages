@@ -7,14 +7,15 @@ html {
     scroll-behavior: smooth;
   }
 
-
 /* === Classic Theme Reusable Classes === */
+
 
 .classic-section {
   background-color: var(--classic-section-bg);
   padding: var(--classic-section-padding);
   border-radius: var(--classic-section-radius);
   box-shadow: var(--classic-section-shadow);
+  
 }
 
 .classic-section-header {

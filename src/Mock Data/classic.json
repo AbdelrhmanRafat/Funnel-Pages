@@ -297,6 +297,7 @@
                 "name": "classic_faq",
                 "data": {
                     "title": "الأسئلة الشائعة",
+                    "icon" : "fa-solid fa-circle-question",
                     "faqs": [
                         {
                             "question": "ما هي مدة التوصيل؟",

@@ -8,7 +8,7 @@ const data: BlockData = Astro.props.data;
 <section id="classic-faq" class="classic-section">
     <!-- Header -->
     <div class="classic-section-header">
-        <i class="fa-solid fa-circle-question"></i>
+        <i class={data.icon}></i>
         <h5>{data.title}</h5>
     </div>
     <!-- FAQ Items -->

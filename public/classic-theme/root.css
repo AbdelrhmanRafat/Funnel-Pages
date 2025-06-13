@@ -1,6 +1,6 @@
 /* === Classic Theme Design Tokens === */
 :root {
-  --classic-section-bg: blue;
+  --classic-section-bg: white;
   --classic-section-radius: 1rem;       /* Tailwind: rounded-2xl */
   --classic-section-padding: 1.25rem;   /* Tailwind: p-5 */
   --classic-section-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Tailwind: shadow-2xl */
@@ -9,4 +9,5 @@
   --classic-header-size: 1.875rem;         /* Tailwind: text-3xl */
   --classic-header-gap: 0.75rem;
   --classic-header-margin-bottom: 1.5rem;
+
 }

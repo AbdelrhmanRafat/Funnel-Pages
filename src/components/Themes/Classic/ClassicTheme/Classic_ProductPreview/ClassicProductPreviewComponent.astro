@@ -11,21 +11,9 @@ const productPreview: ProductPreview = data.productPreview;
 
 <section id="classic-product-preview" class="classic-section">
     <!-- Header -->
-    <div
-        class="flex md:flex-row md:justify-between md:items-center md:gap-0 flex-col justify-center items-start gap-3 mb-6"
-    >
-        <div class="classic-section-header">
-            <i class={productPreview.headerBadgeIcon}></i>
-            <h5>{productPreview.headerBadgetext} </h5>
-        </div>
-        <div
-            class="flex bg-gray-400 py-1 text-white px-4 rounded-2xl items-center gap-2 text-lg"
-        >
-            <div>
-                <i class={productPreview.viewsIcon}></i>
-            </div>
-            <span>{productPreview.viewsText}</span>
-        </div>
+    <div class="classic-section-header">
+        <i class={productPreview.headerBadgeIcon}></i>
+        <h5>{productPreview.headerBadgetext}</h5>
     </div>
 
     <!-- Main Content -->
@@ -50,11 +38,21 @@ const productPreview: ProductPreview = data.productPreview;
         </div>
         <!-- Left Side - Features (2/5 width on desktop) -->
         <div class="lg:w-2/5 space-y-6 bg-slate-500 rounded-xl p-4">
-            <h2
-                class="text-white text-2xl font-bold mb-6 text-start border-b border-white pb-3"
-            >
-                {productPreview.featuresSectionTitle}
-            </h2>
+            <div class="flex justify-between items-center border-b border-white pb-3">
+                <h2
+                    class="text-white text-2xl font-bold"
+                >
+                    {productPreview.featuresSectionTitle}
+                </h2>
+                <div
+                    class="flex bg-gray-400 py-1 text-white px-4 rounded-2xl items-center gap-2 text-lg"
+                >
+                    <div>
+                        <i class={productPreview.viewsIcon}></i>
+                    </div>
+                    <span>{productPreview.viewsText}</span>
+                </div>
+            </div>
             <!-- Feature List -->
             <div class="space-y-8">
                 {
@@ -86,5 +84,4 @@ const productPreview: ProductPreview = data.productPreview;
             <ClassicBuyNowButton />
         </div>
     </div>
-
 </section>
