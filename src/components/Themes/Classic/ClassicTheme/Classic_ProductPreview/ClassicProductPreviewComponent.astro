@@ -6,25 +6,23 @@ import type { BlockData, ProductPreview } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 
 const data: BlockData = Astro.props.data;
-const productPreview : ProductPreview = data.productPreview;
+const productPreview: ProductPreview = data.productPreview;
 ---
 
-<section id="classic-product-preview" class="bg-white rounded-2xl shadow-2xl p-5">
+<section id="classic-product-preview" class="classic-section">
     <!-- Header -->
-    <div class="flex md:flex-row md:justify-between md:items-center md:gap-0 flex-col justify-center items-start gap-3 mb-6">
-        <div class="flex items-center gap-2">
-            <div class="bg-red-600 p-2 rounded-full text-white">
-              <i class={productPreview.headerBadgeIcon}></i>
-            </div>
-            <h5 class="text-3xl font-bold">
-                {productPreview.headerBadgetext}
-            </h5>
+    <div
+        class="flex md:flex-row md:justify-between md:items-center md:gap-0 flex-col justify-center items-start gap-3 mb-6"
+    >
+        <div class="classic-section-header">
+            <i class={productPreview.headerBadgeIcon}></i>
+            <h5>{productPreview.headerBadgetext} </h5>
         </div>
         <div
             class="flex bg-gray-400 py-1 text-white px-4 rounded-2xl items-center gap-2 text-lg"
         >
             <div>
-             <i class={productPreview.viewsIcon}></i>
+                <i class={productPreview.viewsIcon}></i>
             </div>
             <span>{productPreview.viewsText}</span>
         </div>
@@ -88,4 +86,5 @@ const productPreview : ProductPreview = data.productPreview;
             <ClassicBuyNowButton />
         </div>
     </div>
+
 </section>

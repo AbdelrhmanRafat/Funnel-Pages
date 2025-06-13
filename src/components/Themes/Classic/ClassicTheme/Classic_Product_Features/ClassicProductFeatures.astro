@@ -5,9 +5,9 @@ const data: BlockData = Astro.props.data;
 const productFeatures: Features[] = data.features;
 ---
 
-<section id="classic-product-features" class="bg-white shadow-2xl p-5 rounded-2xl">
+<section id="classic-product-features" class="classic-section">
       <!-- Header -->
-    <div class="flex justify-start gap-2 items-center mb-6 text-3xl font-bold text-black">
+    <div class="classic-section-header">
       <i class={data.icon}></i>
       <h5>{data.title}</h5>
     </div>

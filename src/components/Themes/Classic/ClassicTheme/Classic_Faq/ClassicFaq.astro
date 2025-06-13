@@ -5,15 +5,11 @@ const data: BlockData = Astro.props.data;
 ---
 
 <!-- FAQ Section Component for Astro -->
-<section id="classic-faq" class="bg-white shadow-2xl p-5 rounded-2xl">
+<section id="classic-faq" class="classic-section">
     <!-- Header -->
-    <div class="flex items-center justify-start gap-2 mb-6 text-3xl">
-        <div
-            class="w-11 h-11 bg-blue-500 rounded-full flex items-center justify-center"
-        >
-            <span class="text-white font-bold">؟</span>
-        </div>
-        <h5 class="font-bold text-gray-800">{data.title}</h5>
+    <div class="classic-section-header">
+        <i class="fa-solid fa-circle-question"></i>
+        <h5>{data.title}</h5>
     </div>
     <!-- FAQ Items -->
     <div class="space-y-4">

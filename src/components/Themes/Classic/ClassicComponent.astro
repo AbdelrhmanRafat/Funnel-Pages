@@ -3,7 +3,6 @@
 // It orchestrates the rendering of various sub-components based on the data received from the API.
 // Props:
 // - funnelPage: An object of type Data, containing all the information for the funnel page.
-import "../../../styles/global.css";
 import ClassicThemeHeader from "./ClassicTheme/Classic_Header/ClassicThemeHeader.astro";
 import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct/ClassicThemeProduct.astro";
 import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountdown/ClassicThemeCountDown.astro";
@@ -53,7 +52,7 @@ function isComponentFound(
 const RENDER_ORDER = [
   FunnelClassicComponents.ClassicHeader,
   FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
-    FunnelClassicComponents.ClassicProductFeatures,
+  FunnelClassicComponents.ClassicProductFeatures,
   FunnelClassicComponents.ClassicProductPreview,
   FunnelClassicComponents.ClassicProductUsage,
   FunnelClassicComponents.ClassicReviews,
@@ -61,7 +60,7 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicFaq,
   FunnelClassicComponents.ClassicDeliveryFeatures,
   FunnelClassicComponents.ClassicCountdown,
-  FunnelClassicComponents.ClassicFooter
+  FunnelClassicComponents.ClassicFooter,
 ];
 
 // Extracts purchase options and other data
@@ -72,9 +71,11 @@ const isFormFieldsDataFound = isComponentFound(
   FunnelClassicComponents.ClassicFormFields,
 );
 
-const isOrderConfirmationNoticeFound = isComponentFound(FunnelClassicComponents.ClassicOrderConfirmationNotice,);
+const isOrderConfirmationNoticeFound = isComponentFound(
+  FunnelClassicComponents.ClassicOrderConfirmationNotice,
+);
 const isRatingFound = isComponentFound(FunnelClassicComponents.ClassicRates);
-const isGalleryFound = isComponentFound(FunnelClassicComponents.ClassicGallery,);
+const isGalleryFound = isComponentFound(FunnelClassicComponents.ClassicGallery);
 
 const purchaseOptions = productFunnelData.isComponentFound
   ? productFunnelData.componentData?.purchase_options
@@ -91,10 +92,9 @@ const orderConfirmationNoticeData =
     ? isOrderConfirmationNoticeFound.componentData
     : undefined;
 
-const galleryData =
- isGalleryFound.isComponentFound
-    ? isGalleryFound.componentData
-    : undefined;
+const galleryData = isGalleryFound.isComponentFound
+  ? isGalleryFound.componentData
+  : undefined;
 ---
 
 <main class="lg:container w-11/12 mx-auto flex flex-col gap-7">
@@ -121,7 +121,6 @@ const galleryData =
           />
         );
       }
-
       if (componentName === FunnelClassicComponents.ClassicCountdown) {
         const countdownData = isComponentFound(
           FunnelClassicComponents.ClassicCountdown,
@@ -130,17 +129,13 @@ const galleryData =
           <ClassicThemeCountDown data={countdownData.componentData} />
         ) : null;
       }
-
       if (componentName === FunnelClassicComponents.ClassicFaq) {
         const faqData = isComponentFound(FunnelClassicComponents.ClassicFaq);
         return faqData.isComponentFound ? (
           <ClassicFaq data={faqData.componentData} />
         ) : null;
       }
-
-      if (
-        componentName === FunnelClassicComponents.ClassicProductPreview
-      ) {
+      if (componentName === FunnelClassicComponents.ClassicProductPreview) {
         const productPreviewData = isComponentFound(
           FunnelClassicComponents.ClassicProductPreview,
         );
@@ -182,7 +177,6 @@ const galleryData =
           <ClassicThemeTextBar data={TextBarData.componentData} />
         ) : null;
       }
-
       if (componentName === FunnelClassicComponents.ClassicProductUsage) {
         const productUsageData = isComponentFound(
           FunnelClassicComponents.ClassicProductUsage,
@@ -199,9 +193,7 @@ const galleryData =
           <ClassicThemeFooter data={footerData.componentData} />
         ) : null;
       }
-
       return null;
     })
   }
-
 </main>

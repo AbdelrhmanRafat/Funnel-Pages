@@ -29,7 +29,8 @@ const metadata: Meta = Astro.props.metadata;
 			sizes="180x180"
 			href="/apple-touch-icon.png"
 		/>
-
+       <!-- stylesheet -->
+		<link rel="stylesheet" href="/classic-theme/root.css" />
 		<!-- Open Graph / Facebook Meta Tags -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://www.yourdomain.com/page-url" />
@@ -57,3 +58,10 @@ const metadata: Meta = Astro.props.metadata;
 		<slot />
 	</body>
 </html>
+
+<script is:inline>
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://classic-theme.vercel.app/classic-theme.css?v=' + Date.now();
+  document.head.appendChild(link);
+</script>
