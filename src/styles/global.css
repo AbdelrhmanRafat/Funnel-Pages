@@ -6,25 +6,3 @@
 html {
     scroll-behavior: smooth;
   }
-
-/* === Classic Theme Reusable Classes === */
-
-
-.classic-section {
-  background-color: var(--classic-section-bg);
-  padding: var(--classic-section-padding);
-  border-radius: var(--classic-section-radius);
-  box-shadow: var(--classic-section-shadow);
-  
-}
-
-.classic-section-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--classic-header-gap);
-  margin-bottom: var(--classic-header-margin-bottom);
-  font-size: var(--classic-header-size);
-  font-weight: 700;
-  color: var(--classic-header-color);
-}

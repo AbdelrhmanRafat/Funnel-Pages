@@ -3,6 +3,8 @@ import type { Meta } from "../lib/api/types";
 
 
 const metadata: Meta = Astro.props.metadata;
+const strThemeName : string = Astro.props.strThemeName;
+
 ---
 
 <!doctype html>
@@ -30,7 +32,7 @@ const metadata: Meta = Astro.props.metadata;
 			href="/apple-touch-icon.png"
 		/>
        <!-- stylesheet -->
-		<link rel="stylesheet" href="/classic-theme/root.css" />
+	   <link rel="stylesheet" href={`Theme-Styling/${strThemeName}-root.css`} />
 		<!-- Open Graph / Facebook Meta Tags -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://www.yourdomain.com/page-url" />

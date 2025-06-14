@@ -1,0 +1,69 @@
+/* === Classic Theme Design Tokens === */
+:root {
+  /* === Color System === */
+  --classic-color-primary: #009688;
+  --classic-color-primary-light: #4db6ac;
+  --classic-color-primary-dark: #00695c;
+  --classic-color-on-primary: #ffffff;
+
+  --classic-color-secondary: #ff7043;
+  --classic-color-secondary-light: #ffab76;
+  --classic-color-secondary-dark: #c63f17;
+  --classic-color-on-secondary: #ffffff;
+
+  --classic-color-tertiary: #8e24aa;
+  --classic-color-tertiary-light: #ba68c8;
+  --classic-color-tertiary-dark: #4a148c;
+  --classic-color-on-tertiary: #ffffff;
+
+  --classic-color-error: #d32f2f;
+  --classic-color-error-light: #ef5350;
+  --classic-color-error-dark: #c62828;
+  --classic-color-on-error: #ffffff;
+
+  --classic-color-success: #2e7d32;
+  --classic-color-success-light: #4caf50;
+  --classic-color-success-dark: #1b5e20;
+  --classic-color-on-success: #ffffff;
+
+  --classic-color-warning: #ed6c02;
+  --classic-color-warning-light: #ff9800;
+  --classic-color-warning-dark: #e65100;
+  --classic-color-on-warning: #ffffff;
+
+  --classic-color-info: #0288d1;
+  --classic-color-info-light: #03a9f4;
+  --classic-color-info-dark: #01579b;
+  --classic-color-on-info: #ffffff;
+
+  /* === Surface Colors === */
+  --classic-color-surface: #fdfdfd;
+  --classic-color-surface-variant: #f5f5f5;
+  --classic-color-surface-container: #f0f0f0;
+  --classic-color-surface-container-high: #e8e8e8;
+  --classic-color-on-surface: #212121;
+  --classic-color-on-surface-variant: #424242;
+
+  /* === Background === */
+  --classic-color-background: #fafafa;
+  --classic-color-on-background: #1a1a1a;
+
+  /* === Outline Colors === */
+  --classic-color-outline: #b0bec5;
+  --classic-color-outline-variant: #cfd8dc;
+  --classic-color-outline-focus: var(--classic-color-primary);
+
+
+  /* === Background Pattern === */
+  --classic-background-image: url('/assets/backgrounds/ramadan-pattern.svg');
+  
+  /* Section Variables */
+  --classic-section-radius: 1rem;       /* Tailwind: rounded-2xl */
+  --classic-section-padding: 1.25rem;   /* Tailwind: p-5 */
+  --classic-section-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Tailwind: shadow-2xl */
+  /* Header Section Variables */
+  --classic-header-size: 1.875rem;         /* Tailwind: text-3xl */
+  --classic-header-gap: 0.75rem;
+  --classic-header-margin-bottom: 1.5rem;
+  --classic-header-weight : 500;
+}
