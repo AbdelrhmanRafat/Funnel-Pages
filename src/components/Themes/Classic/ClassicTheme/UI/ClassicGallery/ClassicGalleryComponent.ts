@@ -193,9 +193,6 @@ export class ClassicGalleryController {
 
         // Update counter
         this.updateCounter();
-
-        // Scroll thumbnail into view
-        this.scrollThumbnailIntoView();
     }
 
     private fadeImage(callback: () => void): void {
@@ -225,17 +222,6 @@ export class ClassicGalleryController {
         }
         if (this.totalImagesElement) {
             this.totalImagesElement.textContent = this.images.length.toString();
-        }
-    }
-
-    private scrollThumbnailIntoView(): void {
-        const activeThumbnail = this.thumbnails?.[this.currentIndex];
-        if (activeThumbnail) {
-            activeThumbnail.scrollIntoView({
-                behavior: 'smooth',
-                block: 'nearest',
-                inline: 'center'
-            });
         }
     }
 

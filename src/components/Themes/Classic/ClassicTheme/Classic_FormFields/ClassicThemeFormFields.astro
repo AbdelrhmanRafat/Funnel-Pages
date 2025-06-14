@@ -4,7 +4,8 @@ import {
   getTranslation,
   type Language,
 } from "../../../../../lib/utils/i18n/translations";
-import type { BlockData, Product } from "../../../../../lib/api/types";
+import type { BlockData } from "../../../../../lib/api/types";
+import ClassicSubmitOrderButton from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButton.astro";
 
 const data: BlockData = Astro.props.data;
 const currentLang: Language = (Astro.cookies.get("lang")?.value ||
@@ -65,11 +66,7 @@ const isArabic = currentLang === "ar";
           </div>
         </div>
       </div>
-      <div>
-        <button type="submit" class="classic-form-submit" data-translate="form.submit">
-          {getTranslation("form.submit")}
-        </button>
-      </div>
+      <ClassicSubmitOrderButton />
     </form>
   </div>
 </section>

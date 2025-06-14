@@ -54,11 +54,3 @@
     color: var(--classic-color-error);
     margin-top: 0.25rem;
 }
-
-.classic-form-submit {
-    width: 100%;
-    background-color: var(--classic-color-primary-light);
-    color: var(--classic-color-on-primary);
-    padding: 0.5rem;
-    border-radius: var(--classic-section-radius);
-}
