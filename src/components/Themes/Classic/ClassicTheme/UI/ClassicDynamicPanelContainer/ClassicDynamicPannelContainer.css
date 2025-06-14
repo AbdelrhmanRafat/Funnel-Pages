@@ -1,8 +1,4 @@
 /* === Dynamic Panel Container === */
-.classic-pannel-container {
-    /* Container styles if needed */
-}
-
 .classic-option-panel {
     background-color: var(--classic-color-surface);
     padding: 1rem;
@@ -44,14 +40,14 @@
     }
 }
 
-.classic-section-title {
+.classic-selection-title {
     font-size: 1rem;
     font-weight: 600;
     color: var(--classic-color-on-surface-variant);
 }
 
 @media (min-width: 640px) {
-    .classic-section-title {
+    .classic-selection-title {
         font-size: 1.125rem;
     }
 }
