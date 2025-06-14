@@ -1,4 +1,5 @@
 ---
+import "./ClassicFaq.css";
 import type { BlockData } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
@@ -11,27 +12,28 @@ const data: BlockData = Astro.props.data;
         <i class={data.icon}></i>
         <h5>{data.title}</h5>
     </div>
+    
     <!-- FAQ Items -->
-    <div class="space-y-4">
+    <div class="classic-faq-container">
         {
             data.faqs.map((faq, index) => (
-                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                <div class="classic-faq-item">
                     <button
-                        class="faq-question w-full px-6 py-4 text-right flex items-center justify-between hover:bg-gray-50 transition-colors"
+                        class="classic-faq-question"
                         data-faq-index={index}
                     >
-                        <span class="text-gray-800 font-medium">
+                        <span class="classic-faq-question-text">
                             {faq.question}
                         </span>
-                        <span class="plus-icon text-gray-400 text-xl font-light transition-transform duration-300">
+                        <span class="classic-faq-icon">
                             +
                         </span>
                     </button>
                     <div
-                        class="faq-answer px-6 max-h-0 overflow-hidden transition-all duration-300 ease-out"
+                        class="classic-faq-answer"
                         data-answer-index={index}
                     >
-                        <div class="text-gray-600 leading-relaxed py-2">
+                        <div class="classic-faq-answer-content">
                             {faq.answer}
                         </div>
                     </div>
@@ -39,7 +41,6 @@ const data: BlockData = Astro.props.data;
             ))
         }
     </div>
-
 </section>
 
 <script>

@@ -1,58 +1,58 @@
-/* === Classic Theme Design Tokens === */
+/* === Warm Cream Theme Design Tokens === */
 :root {
+  
   /* === Color System === */
-  --classic-color-primary: #009688;
-  --classic-color-primary-light: #4db6ac;
-  --classic-color-primary-dark: #00695c;
+  --classic-color-primary: #8b5a3c;
+  --classic-color-primary-light: #a67c5a;
+  --classic-color-primary-dark: #5d3e2a;
   --classic-color-on-primary: #ffffff;
 
-  --classic-color-secondary: #ff7043;
-  --classic-color-secondary-light: #ffab76;
-  --classic-color-secondary-dark: #c63f17;
-  --classic-color-on-secondary: #ffffff;
+  --classic-color-secondary: #d4a574;
+  --classic-color-secondary-light: #e6c49a;
+  --classic-color-secondary-dark: #b8834f;
+  --classic-color-on-secondary: #2c1810;
 
-  --classic-color-tertiary: #8e24aa;
-  --classic-color-tertiary-light: #ba68c8;
-  --classic-color-tertiary-dark: #4a148c;
+  --classic-color-tertiary: #6b5b73;
+  --classic-color-tertiary-light: #8a7a92;
+  --classic-color-tertiary-dark: #4a3d52;
   --classic-color-on-tertiary: #ffffff;
 
-  --classic-color-error: #d32f2f;
-  --classic-color-error-light: #ef5350;
-  --classic-color-error-dark: #c62828;
+  --classic-color-error: #c4434a;
+  --classic-color-error-light: #d16b70;
+  --classic-color-error-dark: #9a2e34;
   --classic-color-on-error: #ffffff;
 
-  --classic-color-success: #2e7d32;
-  --classic-color-success-light: #4caf50;
-  --classic-color-success-dark: #1b5e20;
+  --classic-color-success: #5a7c47;
+  --classic-color-success-light: #7a9c67;
+  --classic-color-success-dark: #3d5630;
   --classic-color-on-success: #ffffff;
 
-  --classic-color-warning: #ed6c02;
-  --classic-color-warning-light: #ff9800;
-  --classic-color-warning-dark: #e65100;
+  --classic-color-warning: #cc8b3a;
+  --classic-color-warning-light: #dba862;
+  --classic-color-warning-dark: #a66b26;
   --classic-color-on-warning: #ffffff;
 
-  --classic-color-info: #0288d1;
-  --classic-color-info-light: #03a9f4;
-  --classic-color-info-dark: #01579b;
+  --classic-color-info: #5d7a8b;
+  --classic-color-info-light: #7d9aab;
+  --classic-color-info-dark: #3e5259;
   --classic-color-on-info: #ffffff;
 
   /* === Surface Colors === */
-  --classic-color-surface: #fdfdfd;
-  --classic-color-surface-variant: #f5f5f5;
-  --classic-color-surface-container: #f0f0f0;
-  --classic-color-surface-container-high: #e8e8e8;
-  --classic-color-on-surface: #212121;
-  --classic-color-on-surface-variant: #424242;
+  --classic-color-surface: #f7f3ed;
+  --classic-color-surface-variant: #f0ebe3;
+  --classic-color-surface-container: #ede6db;
+  --classic-color-surface-container-high: #e6ddd0;
+  --classic-color-on-surface: #2c2620;
+  --classic-color-on-surface-variant: #4a453e;
 
   /* === Background === */
-  --classic-color-background: #fafafa;
-  --classic-color-on-background: #1a1a1a;
+  --classic-color-background: #f9f6f0;
+  --classic-color-on-background: #252017;
 
   /* === Outline Colors === */
-  --classic-color-outline: #b0bec5;
-  --classic-color-outline-variant: #cfd8dc;
+  --classic-color-outline: #c7bfb0;
+  --classic-color-outline-variant: #d4ccc0;
   --classic-color-outline-focus: var(--classic-color-primary);
-
 
   /* === Background Pattern === */
   --classic-background-image: url('/assets/backgrounds/ramadan-pattern.svg');
@@ -60,10 +60,11 @@
   /* Section Variables */
   --classic-section-radius: 1rem;       /* Tailwind: rounded-2xl */
   --classic-section-padding: 1.25rem;   /* Tailwind: p-5 */
-  --classic-section-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Tailwind: shadow-2xl */
+  --classic-section-shadow: 0 25px 50px -12px rgba(44, 38, 32, 0.15); /* Adjusted shadow for cream theme */
+  
   /* Header Section Variables */
   --classic-header-size: 1.875rem;         /* Tailwind: text-3xl */
   --classic-header-gap: 0.75rem;
   --classic-header-margin-bottom: 1.5rem;
-  --classic-header-weight : 500;
+  --classic-header-weight: 500;
 }

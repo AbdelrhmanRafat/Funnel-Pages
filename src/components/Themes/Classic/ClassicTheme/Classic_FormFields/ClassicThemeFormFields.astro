@@ -1,4 +1,5 @@
 ---
+import "./ClassicThemeFormFields.css";
 import {
   getTranslation,
   type Language,
@@ -10,91 +11,62 @@ const currentLang: Language = (Astro.cookies.get("lang")?.value ||
   "en") as Language;
 const isArabic = currentLang === "ar";
 ---
-
-<section id="classic-form" class="classic-form bg-white rounded-xl">
-  <div class="bg-white rounded-2xl  border border-gray-100">
-    <div class="px-6 py-4 border-b border-gray-100">
-      <h5
-        class="text-2xl font-bold text-gray-800 text-center"
-        data-translate="form.completeOrder"
-      >
+<section id="classic-form" class="classic-form">
+  <div class="classic-form-container">
+    <div class="classic-form-header">
+      <h5 class="classic-form-title text-center" data-translate="form.completeOrder">
         {getTranslation("form.completeOrder")}
       </h5>
     </div>
-
+    
     <form class="p-6">
       <div class="mb-8">
-        <h2
-          class="text-lg font-semibold text-gray-800 mb-6"
-          data-translate="form.personalInfo"
-        >
+        <h2 class="classic-form-section-title mb-6" data-translate="form.personalInfo">
           {getTranslation("form.personalInfo")}
         </h2>
         <div class="space-y-4">
           <div>
-            <label
-              class="block text-gray-600 text-sm mb-2"
-              data-translate="form.fullName"
-            >
+            <label class="classic-form-label block mb-2" data-translate="form.fullName">
               {getTranslation("form.fullName")}
             </label>
             <input
               type="text"
               id="form-fullName"
               placeholder={data.full_name}
-              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+              class="classic-form-input text-right"
             />
-            <span
-              id="form-fullName-error"
-              class="text-xs text-red-500 mt-1"
-              style="display: none;"></span>
+            <span id="form-fullName-error" class="classic-form-error" style="display: none;"></span>
           </div>
-
+          
           <div>
-            <label
-              class="block text-gray-600 text-sm mb-2"
-              data-translate="form.phoneNumber"
-            >
+            <label class="classic-form-label block mb-2" data-translate="form.phoneNumber">
               {getTranslation("form.phoneNumber")}
             </label>
             <input
               type="tel"
               id="form-phone"
               placeholder={data.phone}
-              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+              class="classic-form-input text-right"
             />
-            <span
-              id="form-phone-error"
-              class="text-xs text-red-500 mt-1"
-              style="display: none;"></span>
+            <span id="form-phone-error" class="classic-form-error" style="display: none;"></span>
           </div>
-
+          
           <div>
-            <label
-              class="block text-gray-600 text-sm mb-2"
-              data-translate="form.email"
-            >
+            <label class="classic-form-label block mb-2" data-translate="form.email">
               {getTranslation("form.email")}
             </label>
             <input
               type="email"
               id="form-email"
               placeholder={getTranslation("form.enterEmail")}
-              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-right bg-gray-50"
+              class="classic-form-input text-right"
             />
-            <span
-              id="form-email-error"
-              class="text-xs text-red-500 mt-1"
-              style="display: none;"></span>
+            <span id="form-email-error" class="classic-form-error" style="display: none;"></span>
           </div>
         </div>
       </div>
       <div>
-        <button
-          type="submit"
-          class="w-full bg-blue-400 p-2 rounded-2xl text-white"
-          data-translate="form.submit"
-        >
+        <button type="submit" class="classic-form-submit" data-translate="form.submit">
           {getTranslation("form.submit")}
         </button>
       </div>

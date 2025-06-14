@@ -1,0 +1,139 @@
+/* === Quantity Selection === */
+.classic-quantity-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--classic-color-on-surface);
+    margin-bottom: 1rem;
+}
+
+.classic-quantity-option-group {
+    border: 1px solid var(--classic-color-primary);
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+}
+
+.classic-quantity-option-label {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: var(--classic-section-radius);
+    background-color: var(--classic-color-surface);
+    display: block;
+}
+
+.classic-quantity-option-label:hover {
+    box-shadow: var(--classic-section-shadow);
+}
+
+.classic-quantity-option-label:has(:checked) {
+    border-color: var(--classic-color-primary);
+    background-color: var(--classic-color-primary-light);
+    background-color: rgba(79, 182, 172, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.classic-quantity-option-content {
+    padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .classic-quantity-option-content {
+        padding: 0.75rem;
+    }
+}
+
+.classic-quantity-option-header {
+    margin-bottom: 0.75rem;
+}
+
+.classic-quantity-option-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--classic-color-on-surface);
+    margin-bottom: 0.25rem;
+}
+
+@media (min-width: 640px) {
+    .classic-quantity-option-title {
+        font-size: 1.125rem;
+    }
+}
+
+.classic-quantity-option-details {
+    font-size: 0.75rem;
+    color: var(--classic-color-on-surface-variant);
+}
+
+@media (min-width: 640px) {
+    .classic-quantity-option-details {
+        font-size: 0.875rem;
+    }
+}
+
+.classic-quantity-unit-badge {
+    background-color: var(--classic-color-surface-variant);
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    display: inline-block;
+    width: fit-content;
+}
+
+.classic-quantity-price-info {
+    font-size: 0.75rem;
+}
+
+@media (min-width: 640px) {
+    .classic-quantity-price-info {
+        font-size: 0.875rem;
+    }
+}
+
+.classic-quantity-final-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+@media (min-width: 640px) {
+    .classic-quantity-final-price {
+        font-size: 1.5rem;
+    }
+}
+
+.classic-quantity-price-discount {
+    color: var(--classic-color-success);
+}
+
+.classic-quantity-price-regular {
+    color: var(--classic-color-primary);
+}
+
+.classic-quantity-original-price {
+    font-size: 0.75rem;
+    color: var(--classic-color-on-surface-variant);
+    text-decoration: line-through;
+}
+
+@media (min-width: 640px) {
+    .classic-quantity-original-price {
+        font-size: 0.875rem;
+    }
+}
+
+.classic-quantity-discount-badge {
+    background-color: var(--classic-color-success-light);
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--classic-color-success-dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    margin-top: 0.25rem;
+}
+
+.classic-quantity-discount-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-left: 0.25rem;
+}

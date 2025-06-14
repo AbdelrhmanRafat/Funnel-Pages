@@ -1,0 +1,64 @@
+/* === Classic Form === */
+.classic-form {
+    background-color: var(--classic-color-surface);
+    border-radius: var(--classic-section-radius);
+}
+
+.classic-form-container {
+    background-color: var(--classic-color-surface);
+    border-radius: var(--classic-section-radius);
+    border: 1px solid var(--classic-color-outline-variant);
+}
+
+.classic-form-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--classic-color-outline-variant);
+}
+
+.classic-form-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--classic-color-on-surface);
+}
+
+.classic-form-section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--classic-color-on-surface);
+}
+
+.classic-form-label {
+    color: var(--classic-color-on-surface-variant);
+    font-size: 0.875rem;
+}
+
+.classic-form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--classic-color-outline);
+    border-radius: 0.5rem;
+    background-color: var(--classic-color-surface-variant);
+    color: var(--classic-color-on-surface);
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.classic-form-input:focus {
+    ring: 2px;
+    ring-color: var(--classic-color-primary);
+    border-color: transparent;
+}
+
+.classic-form-error {
+    font-size: 0.75rem;
+    color: var(--classic-color-error);
+    margin-top: 0.25rem;
+}
+
+.classic-form-submit {
+    width: 100%;
+    background-color: var(--classic-color-primary-light);
+    color: var(--classic-color-on-primary);
+    padding: 0.5rem;
+    border-radius: var(--classic-section-radius);
+}

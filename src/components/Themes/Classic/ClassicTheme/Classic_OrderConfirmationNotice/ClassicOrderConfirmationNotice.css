@@ -1,0 +1,24 @@
+/* === Order Confirmation Notice === */
+.classic-order-confirmation-notice {
+    background-color: var(--classic-color-surface-variant);
+    color: var(--classic-color-on-surface-variant);
+    border-radius: var(--classic-section-radius);
+    padding: 1rem 0.5rem;
+}
+
+.classic-order-confirmation-title {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-order-confirmation-list {
+    font-size: 0.875rem;
+    color: var(--classic-color-on-surface);
+}
+
+.classic-order-confirmation-icon {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--classic-color-info);
+    color: var(--classic-color-on-info);
+}

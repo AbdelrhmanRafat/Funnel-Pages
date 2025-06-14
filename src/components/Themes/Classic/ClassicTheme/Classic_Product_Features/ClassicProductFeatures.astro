@@ -1,29 +1,36 @@
 ---
+import "./ClassicProductFeatures.css"
 import type { BlockData, Features } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
 const productFeatures: Features[] = data.features;
+
 ---
 
 <section id="classic-product-features" class="classic-section">
-      <!-- Header -->
-    <div class="classic-section-header">
-      <i class={data.icon}></i>
-      <h5>{data.title}</h5>
-    </div>
-  <div
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-  >
+  <!-- Header -->
+  <div class="classic-section-header">
+    <i class={data.icon}></i>
+    <h5>{data.title}</h5>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="classic-features-grid">
     {
-      productFeatures.map((feature) => (
-        <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class={`${feature.icon} text-blue-500 text-2xl`} />
+      productFeatures.map((feature, index) => (
+        <div class="classic-feature-card">
+          <!-- Feature Icon -->
+          <div class="classic-feature-icon-container">
+            <i class={`${feature.icon} classic-feature-icon`} />
           </div>
-          <h3 class="text-gray-900 font-semibold text-lg mb-2">
+          
+          <!-- Feature Content -->
+          <h3 class="classic-feature-title">
             {feature.title}
           </h3>
-          <p class="text-gray-600 text-sm">{feature.subtitle}</p>
+          <p class="classic-feature-subtitle">
+            {feature.subtitle}
+          </p>
         </div>
       ))
     }

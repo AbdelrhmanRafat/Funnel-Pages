@@ -1,29 +1,27 @@
 ---
+import "./ClassicGalleryComponent.css";
 import type { BlockData, GalleryImages } from "../../../../../../lib/api/types";
 
 const data : BlockData = Astro.props.data;
 const gallery : GalleryImages[] = data.galleryimages;
 ---
-
 <!-- Gallery Section - Enhanced -->
 <div id="classic-gallery" class="lg:w-1/2 lg:sticky lg:top-0 lg:self-start">
     <div class="flex flex-col gap-6">
         <!-- Main Image Display -->
         <div class="relative">
-            <div
-                class="relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl overflow-hidden"
-            >
+            <div class="classic-gallery-main">
                 <img
                     id="mainImage"
                     src={gallery[0]?.src}
-                    class="main-image w-full h-96 lg:h-[500px] object-cover"
+                    class="classic-main-image"
                     alt={gallery[0]?.alt}
                 />
-
+                
                 <!-- Navigation Buttons -->
                 <button
                     id="prevBtn"
-                    class="floating-nav left-4 w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-gray-700 hover:text-blue-600"
+                    class="classic-gallery-nav classic-gallery-nav-left"
                 >
                     <svg
                         class="w-6 h-6"
@@ -38,10 +36,10 @@ const gallery : GalleryImages[] = data.galleryimages;
                             d="M15 19l-7-7 7-7"></path>
                     </svg>
                 </button>
-
+                
                 <button
                     id="nextBtn"
-                    class="floating-nav right-4 w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-gray-700 hover:text-blue-600"
+                    class="classic-gallery-nav classic-gallery-nav-right"
                 >
                     <svg
                         class="w-6 h-6"
@@ -56,24 +54,22 @@ const gallery : GalleryImages[] = data.galleryimages;
                             d="M9 5l7 7-7 7"></path>
                     </svg>
                 </button>
-
+                
                 <!-- Image Counter -->
-                <div
-                    class="absolute bottom-4 left-1/2 transform -translate-x-1/2 glass-effect px-4 py-2 rounded-full text-sm font-medium text-gray-700"
-                >
+                <div class="classic-gallery-counter">
                     <span id="currentImageIndex">1</span> / <span id="totalImages">{gallery.length}</span>
                 </div>
             </div>
         </div>
-
+        
         <!-- Thumbnail Gallery -->
-        <div class="max-h-96 overflow-x-auto whitespace-nowrap scrollbar-auto pb-2">
+        <div class="classic-thumbnail-container">
             <div class="inline-flex gap-3">
                 {
                   gallery.map((image, index) => (
                     <img
                         src={image.src}
-                        class={`thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-2xl cursor-pointer border-2 border-transparent image-hover ${index === 0 ? 'thumbnail-active' : ''}`}
+                        class={`classic-thumbnail ${index === 0 ? 'classic-thumbnail-active' : ''}`}
                         data-index={index}
                         alt={image.alt}
                     />

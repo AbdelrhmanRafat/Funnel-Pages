@@ -1,5 +1,6 @@
 ---
 // server-side code
+import "./ClassicProductUsage.css";
 import type { BlockData, VideoInfo } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
@@ -13,30 +14,30 @@ const getEmbedUrl = (url: string) => {
         : "";
 };
 ---
-
 <section id="Classic-product-usage" class="classic-section">
     <!-- Header -->
     <div class="classic-section-header">
         <i class="fa-solid fa-circle-chevron-right"></i>
         <h5>شاهد كيفية الاستخدام</h5>
     </div>
+    
     <!-- Video Grid -->
-    <div class={`grid grid-cols-1 md:grid-cols-${productUsage.length} gap-4`}>
+    <div class="classic-usage-grid" style={`grid-template-columns: repeat(${productUsage.length > 3 ? 3 : productUsage.length}, 1fr);`}>
         {
             productUsage.map((video) => (
-                <div class="rounded-2xl overflow-hidden bg-gray-500 shadow-md hover:scale-105 transition-transform">
-                    <div class="relative">
+                <div class="classic-usage-card">
+                    <div class="classic-usage-video">
                         <iframe
-                            class="w-full lg:h-[620px] h-[300px]"
+                            class="classic-usage-iframe"
                             src={getEmbedUrl(video.link)}
                             title={video.title}
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen
                         />
-                        <div class="absolute bottom-3 right-3 bg-black bg-opacity-80 px-2 py-1 rounded text-xs text-white flex items-center">
+                        <div class="classic-usage-views">
                             <svg
-                                class="w-3 h-3 ml-1"
+                                class="classic-usage-icon"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                             >
@@ -49,17 +50,17 @@ const getEmbedUrl = (url: string) => {
                             3,210 مشاهدة
                         </div>
                     </div>
-                    <div class="p-3">
-                        <h3 class="font-medium text-white text-base mb-1">
+                    <div class="classic-usage-content">
+                        <h3 class="classic-usage-title">
                             {video.title}
                         </h3>
-                        <p class="text-gray-400 text-sm mb-2">
+                        <p class="classic-usage-subtitle">
                             {video.subtitle}
                         </p>
-                        <div class="flex items-center justify-between text-xs">
-                            <span class="flex items-center text-gray-500">
+                        <div class="classic-usage-footer">
+                            <span class="classic-usage-share">
                                 <svg
-                                    class="w-3 h-3 ml-1"
+                                    class="classic-usage-icon"
                                     fill="currentColor"
                                     viewBox="0 0 20 20"
                                 >

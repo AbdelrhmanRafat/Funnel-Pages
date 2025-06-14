@@ -1,0 +1,122 @@
+/* === Classic Theme Enhanced Classes === */
+
+/* === Product Preview Specific Classes === */
+.classic-product-video-container {
+    border: 4px solid var(--classic-color-primary);
+    border-radius: var(--classic-section-radius);
+    box-shadow: var(--classic-section-shadow);
+    overflow: hidden;
+    position: relative;
+}
+
+.classic-product-video-title {
+    position: absolute;
+    bottom: 2.25rem; /* 9 in tailwind */
+    right: 0.5rem;   /* 2 in tailwind */
+    color: var(--classic-color-on-primary);
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: 700;    /* font-bold */
+}
+
+.classic-product-features-container {
+    background-color: var(--classic-color-surface-container-high);
+    border-radius: var(--classic-section-radius);
+    padding: var(--classic-section-padding);
+}
+
+.classic-product-features-header {
+    border-bottom: 1px solid var(--classic-color-outline);
+    padding-bottom: 0.75rem; /* pb-3 */
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-features-title {
+    font-size: 1.5rem;   /* text-2xl */
+    font-weight: 700;    /* font-bold */
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-views-badge {
+    background-color: var(--classic-color-surface-variant);
+    color: var(--classic-color-on-surface-variant);
+    padding: 0.25rem 1rem; /* py-1 px-4 */
+    border-radius: 1rem;   /* rounded-2xl */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;  /* gap-2 */
+    font-size: 1.125rem; /* text-lg */
+}
+
+.classic-product-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* gap-3 */
+}
+
+.classic-product-feature-icon {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+    border-radius: 50%;
+    padding: 0.5rem; /* p-2 */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.classic-product-feature-icon svg {
+    width: 1.25rem;  /* w-5 */
+    height: 1.25rem; /* h-5 */
+    color: var(--classic-color-on-primary);
+    fill: currentColor;
+}
+
+.classic-product-feature-content {
+    color: var(--classic-color-on-surface);
+    text-align: right;
+}
+
+.classic-product-feature-title {
+    font-weight: 600; /* font-semibold */
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-feature-subtitle {
+    color: var(--classic-color-on-surface-variant);
+    font-size: 0.875rem; /* text-sm */
+}
+
+/* === Alternative Color Variations === */
+.classic-product-features-container--secondary {
+    background-color: var(--classic-color-secondary);
+}
+
+.classic-product-features-container--secondary .classic-product-features-title,
+.classic-product-features-container--secondary .classic-product-feature-title {
+    color: var(--classic-color-on-secondary);
+}
+
+.classic-product-features-container--secondary .classic-product-feature-subtitle {
+    color: rgba(255, 255, 255, 0.7); /* Lighter version of on-secondary */
+}
+
+.classic-product-features-container--secondary .classic-product-features-header {
+    border-bottom-color: var(--classic-color-on-secondary);
+}
+
+/* === Responsive Utilities === */
+.classic-product-video-height {
+    height: 300px; /* Base height */
+}
+
+@media (min-width: 768px) {
+    .classic-product-video-height {
+        height: 400px; /* md:h-[400px] */
+    }
+}
+
+@media (min-width: 1024px) {
+    .classic-product-video-height {
+        height: 100%; /* lg:h-full */
+    }
+}

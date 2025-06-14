@@ -1,9 +1,9 @@
 ---
+import "./classicThemeTextBar.css";
 import type { BlockData } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
 ---
-
 <section id="classic-text-bar" class="classic-section">
- <h5 class="text-3xl text-center text-black">{data.title}</h5>
+    <h5 class="classic-text-bar-title">{data.title}</h5>
 </section>

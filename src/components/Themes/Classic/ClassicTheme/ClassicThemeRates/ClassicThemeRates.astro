@@ -1,21 +1,21 @@
 ---
+import "./ClassicThemeRates.css";
 import type { BlockData } from '../../../../../lib/api/types';
 import { getTranslation } from '../../../../../lib/utils/i18n/translations';
 
 const ratingData: BlockData = Astro.props.ratingData;
 ---
-
-<div id="classic-rates" class="classic-rates mb-8 text-2xl flex items-center justify-between text-gray-800">
-  <div class="flex items-center text-yellow-500 font-semibold">
+<div id="classic-rates" class="classic-rates">
+  <div class="classic-rating-display">
     <span>{ratingData.rate}</span>
-    <svg class="w-5 h-5 ml-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+    <svg class="classic-rating-star" fill="currentColor" viewBox="0 0 20 20">
       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.18 3.637a1 1 0 00.95.69h3.812c.969 0 1.371 1.24.588 1.81l-3.084 2.24a1 1 0 00-.364 1.118l1.18 3.637c.3.921-.755 1.688-1.54 1.118l-3.084-2.24a1 1 0 00-1.176 0l-3.084 2.24c-.784.57-1.838-.197-1.539-1.118l1.18-3.637a1 1 0 00-.364-1.118L2.43 9.064c-.783-.57-.38-1.81.588-1.81h3.812a1 1 0 00.95-.69l1.18-3.637z" />
     </svg>
   </div>
-  <div>
-  <span>{ratingData.count}</span>
-  <p class="text-gray-600 inline-block" data-translate="ratings.count">
-    {getTranslation("ratings.count")}
-  </p>
-</div>
+  <div class="classic-rating-count">
+    <span>{ratingData.count}</span>
+    <p class="classic-rating-label" data-translate="ratings.count">
+      {getTranslation("ratings.count")}
+    </p>
+  </div>
 </div>

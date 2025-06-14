@@ -4,7 +4,7 @@
 // Props:
 // - product: An object of type Product, containing all details about the product.
 // - purchaseOptions: An object of type BlockData, containing data for the purchase options/funnel.
-
+import "./ClassicThemeProduct.css";
 import type {
     BlockData,
     OptionOption,
@@ -37,97 +37,79 @@ const isArabic = currentLang === "ar";
 ---
 
 <section id="classic-product-details" class="classic-section">
-        <div class="flex flex-col lg:flex-row gap-2">
-            <!-- Gallery Section -->
-             {
-                        galleryData && (
-                            <ClassicGalleryComponent data={galleryData} />
-                        )
-            }
-            <!-- Product Info Section: -->
-            <div
-                class="lg:w-1/2 rounded-2xl p-4 bg-gradient-to-br from-white to-gray-50"
-            >
-                {ratingData && <ClassicThemeRates ratingData={ratingData} />}
-                <!-- Product Header: Contains availability, SKU, name, price -->
-                <div class="mb-8">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span
-                            class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium"
-                            data-translate={product.is_active
-                                ? "product.available"
-                                : "product.notAvailable"}
-                            >{
-                                product.is_active
-                                    ? getTranslation(
-                                          "product.available",
-                                          currentLang,
-                                      )
-                                    : getTranslation(
-                                          "product.notAvailable",
-                                          currentLang,
-                                      )
-                            }
+    <div class="flex flex-col lg:flex-row gap-2">
+        <!-- Gallery Section -->
+        {
+            galleryData && (
+                <ClassicGalleryComponent data={galleryData} />
+            )
+        }
+        <!-- Product Info Section -->
+        <div class="lg:w-1/2 classic-product-info">
+            {ratingData && <ClassicThemeRates ratingData={ratingData} />}
+            
+            <!-- Product Header: Contains availability, SKU, name, price -->
+            <div class="classic-product-header">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class={product.is_active ? "classic-badge-success" : "classic-badge-error"}
+                        data-translate={product.is_active
+                            ? "product.available"
+                            : "product.notAvailable"}
+                    >
+                        {
+                            product.is_active
+                                ? getTranslation("product.available", currentLang)
+                                : getTranslation("product.notAvailable", currentLang)
+                        }
+                    </span>
+                    <div class="classic-product-sku">
+                        <span data-translate="product.productCode">
+                            {getTranslation("product.productCode", currentLang)}
                         </span>
-                        <div class="text-gray-500 text-sm">
-                            <span data-translate="product.productCode"
-                                >{
-                                    getTranslation(
-                                        "product.productCode",
-                                        currentLang,
-                                    )
-                                }
-                            </span>
-                            <span>: {product.sku_code}</span>
-                        </div>
-                    </div>
-
-                    <h1
-                        class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight"
-                    >
-                        {isArabic ? product.name_ar : product.name_en}
-                    </h1>
-
-                    <div class="text-4xl font-bold mb-6">
-                        {product.price} ج.م {/* Price in EGP */}
+                        <span>: {product.sku_code}</span>
                     </div>
                 </div>
-                <!-- Product Description -->
-                <div class="mb-8">
-                    <h3
-                        class="text-xl font-bold text-gray-900 mb-3"
-                        data-translate="product.description"
-                    >
-                        {getTranslation("product.description", currentLang)}
-                    </h3>
-                    <p
-                        class="text-gray-600 leading-relaxed"
-                        set:html={isArabic
-                            ? product.description_ar
-                            : product.description_en}
-                    />
+
+                <h2 class="classic-product-title">
+                    {isArabic ? product.name_ar : product.name_en}
+                </h2>
+
+                <div class="classic-product-price">
+                    {product.price} ج.م
                 </div>
-                <div class="flex flex-col gap-5">
-                    <!-- Purchase Options: Renders the product funnel component with purchase and variant options. if found -->
-                    {
-                        purchaseOptions && (
-                            <ClassicThemeProductFunnel
-                                data={purchaseOptions}
-                                colorSizeOptions={colorSizeOptions}
-                            />
-                        )
-                    }
-                    {
-                        formFieldsData && (
-                            <ClassicThemeFormFields data={formFieldsData} />
-                        )
-                    }
-                    {
-                        orderConfirmationNoticeData && (
+            </div>
+
+            <!-- Product Description -->
+            <div class="classic-product-description">
+                <h3 class="classic-section-header" data-translate="product.description">
+                    {getTranslation("product.description", currentLang)}
+                </h3>
+                <p
+                    class="classic-text-body"
+                    set:html={isArabic ? product.description_ar : product.description_en}
+                />
+            </div>
+
+            <div class="flex flex-col gap-5">
+                <!-- Purchase Options -->
+                {
+                    purchaseOptions && (
+                        <ClassicThemeProductFunnel
+                            data={purchaseOptions}
+                            colorSizeOptions={colorSizeOptions}
+                        />
+                    )
+                }
+                {
+                    formFieldsData && (
+                        <ClassicThemeFormFields data={formFieldsData} />
+                    )
+                }
+                {
+                    orderConfirmationNoticeData && (
                         <ClassicOrderConfirmationNotice data={orderConfirmationNoticeData} />
-                        )
-                    }
-                </div>
+                    )
+                }
             </div>
         </div>
     </div>

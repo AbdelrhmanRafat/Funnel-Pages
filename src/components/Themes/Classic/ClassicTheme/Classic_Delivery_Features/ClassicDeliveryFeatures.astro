@@ -1,4 +1,5 @@
 ---
+import "./ClassicDeliveryFeatures.css"
 import type { BlockData, DeliveryFeatures, Features } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
@@ -10,17 +11,24 @@ const deliveryFeatures: Features[] = data.features;
     <i class={data.icon}></i>
     <h5>{data.title}</h5>
   </div>
+
+  <!-- Delivery Features Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     {
       deliveryFeatures.map((feature) => (
-        <div class="p-6 text-center flex flex-col justify-center items-center gap-2">
-          <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-            <i class={`${feature.icon} text-blue-600 text-4xl`} />
+        <div class="classic-delivery-item">
+          <!-- Feature Icon -->
+          <div class="classic-delivery-icon-container">
+            <i class={`${feature.icon} classic-delivery-icon`} />
           </div>
-          <h3 class="text-gray-900 font-semibold text-lg leading-tight">
+          
+          <!-- Feature Content -->
+          <h3 class="classic-delivery-title">
             {feature.title}
           </h3>
-          <p class="text-gray-600 text-sm leading-relaxed">{feature.subtitle}</p>
+          <p class="classic-delivery-subtitle">
+            {feature.subtitle}
+          </p>
         </div>
       ))
     }

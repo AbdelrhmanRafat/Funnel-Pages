@@ -1,0 +1,53 @@
+/* === Classic Header Component === */
+.classic-header {
+    background-color: var(--classic-color-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    z-index: 50;
+    right: 0;
+    left: 0;
+}
+
+@media (min-width: 1024px) {
+    .classic-header-container {
+        max-width: 1200px;
+    }
+}
+
+.classic-header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.classic-header-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.classic-header-logo {
+    width: 100px;
+    margin-bottom: 0.5rem;
+    object-fit: contain;
+}
+
+.classic-header-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--classic-color-on-surface);
+    line-height: 1.1;
+}
+
+.classic-header-subtitle {
+    font-size: 0.875rem;
+    color: var(--classic-color-on-surface-variant);
+    max-width: 20rem;
+    margin-top: 0.25rem;
+}
+
+.classic-header-spacer {
+    padding-top: 10rem;
+}

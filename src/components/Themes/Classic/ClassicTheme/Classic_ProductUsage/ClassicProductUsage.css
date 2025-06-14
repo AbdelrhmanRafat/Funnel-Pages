@@ -1,0 +1,88 @@
+/* === Classic Product Usage Component === */
+.classic-usage-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .classic-usage-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+.classic-usage-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: var(--classic-color-surface-container);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.classic-usage-card:hover {
+    transform: scale(1.05);
+}
+
+.classic-usage-video {
+    position: relative;
+}
+
+.classic-usage-iframe {
+    width: 100%;
+    height: 300px;
+}
+
+@media (min-width: 1024px) {
+    .classic-usage-iframe {
+        height: 620px;
+    }
+}
+
+.classic-usage-views {
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.classic-usage-content {
+    padding: 0.75rem;
+}
+
+.classic-usage-title {
+    font-weight: 500;
+    color: var(--classic-color-on-surface);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.classic-usage-subtitle {
+    color: var(--classic-color-on-surface-variant);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.classic-usage-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+}
+
+.classic-usage-share {
+    display: flex;
+    align-items: center;
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-usage-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-left: 0.25rem;
+}
