@@ -12,7 +12,7 @@ const isArabic = currentLang === 'ar';
     class="p-1 text-xs rounded-full hover:bg-gray-100 focus:outline-none"
     aria-label="Switch language"
   >
-    <span class="text-xs font-medium" id="langText">{isArabic ? "عربي" : "EN"}</span>
+    <span class="text-xs font-medium" id="langText">{isArabic ? "En" : "عربي"}</span>
   </button>
 </div>
 
@@ -36,7 +36,7 @@ const isArabic = currentLang === 'ar';
       const isArabic = currentLang === 'ar';
 
       // Set initial button state
-      langText.textContent = isArabic ? "عربي" : "EN";
+      langText.textContent = isArabic ? "EN" : "عربي";
       langToggleBtn.setAttribute(
         "aria-label",
         isArabic ? "Switch to English" : "التبديل إلى العربية",
@@ -64,6 +64,5 @@ const isArabic = currentLang === 'ar';
       });
     }
   });
-
   initTranslations();
 </script>

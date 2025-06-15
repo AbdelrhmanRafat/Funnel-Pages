@@ -13,7 +13,6 @@ const getEmbedUrl = (url: string) => {
         ? `https://www.youtube.com/embed/${videoIdMatch[1]}`
         : "";
 };
-const CardNum : Number = productUsage.length;
 ---
 <section id="Classic-product-usage" class="classic-section">
     <!-- Header -->
@@ -23,7 +22,7 @@ const CardNum : Number = productUsage.length;
     </div>
     
     <!-- Video Grid -->
-    <div class={`grid grid-cols-1 gap-x-2 gap-y-4 md:grid-cols-${CardNum}`}>
+    <div class={`grid grid-cols-1 gap-x-2 gap-y-4 md:grid-cols-3`}>
         {
             productUsage.map((video) => (
                 <div class="classic-usage-card">

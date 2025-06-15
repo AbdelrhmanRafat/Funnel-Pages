@@ -1,9 +1,9 @@
 ---
 import "./ClassicOrderConfirmationNotice.css";
-import type { BlockData, ConfirmationNotices } from "../../../../../lib/api/types";
+import type { BlockData, Features } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
-const confirmationNotices : ConfirmationNotices[] = data.confirmationNotices;
+const confirmationNotices : Features[] = data.confirmationNotices;
 ---
 <section id="classic-order-confirmation-notice">
     <div class="classic-order-confirmation-notice text-start md:text-center py-4">

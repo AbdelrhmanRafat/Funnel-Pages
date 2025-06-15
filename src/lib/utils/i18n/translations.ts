@@ -20,7 +20,42 @@ export const translations = {
       country: "Country",
       selectCountry: "Select a country",
       city: "City",
-      enterCity: "Enter your city",
+      selectCity: "Select your city",
+      cities: {
+        cairo: "Cairo",
+        alexandria: "Alexandria",
+        giza: "Giza",
+        sharmElSheikh: "Sharm El Sheikh",
+        hurghada: "Hurghada",
+        luxor: "Luxor",
+        aswan: "Aswan",
+        portSaid: "Port Said",
+        suez: "Suez",
+        mansoura: "Mansoura"
+      },
+      notes: "Order Notes",
+      enterNotes: "Add any special instructions or notes for your order",
+      deliveryOptions: "Delivery Options",
+      deliveryMethod: "Select your preferred delivery method",
+      paymentOptions: "Payment Options",
+      paymentMethod: "Select your preferred payment method",
+      paymentOptionsList: {
+        creditCard: {
+          label: "Credit Card",
+          description: "Visa, Mastercard, American Express",
+          price: "No additional fees"
+        },
+        paypal: {
+          label: "PayPal",
+          description: "Fast and secure payment",
+          price: "No additional fees"
+        },
+        cashOnDelivery: {
+          label: "Cash on Delivery",
+          description: "Pay when you receive your order",
+          price: "+$2.99"
+        }
+      },
       submit: "Submit Order",
       validation: {
         valid: "Valid",
@@ -29,8 +64,11 @@ export const translations = {
         invalidEmail: "Please enter a valid email address",
         invalidCity: "Please enter a valid city name",
         invalidCountry: "Please select a country",
+        invalidNotes: "Notes cannot exceed 500 characters",
+        invalidDelivery: "Please select a delivery option",
         invalidInput: "Invalid input",
-        required: "This field is required"
+        required: "This field is required",
+        invalidPayment: "Please select a payment option"
       }
     },
     ratings: {
@@ -84,7 +122,21 @@ export const translations = {
       saudi: "Saudi Arabia",
       uae: "United Arab Emirates",
       egypt: "Egypt"
-    }
+    },
+    todayOrders: {
+      title: "Today's Orders",
+      totalOrders: "Total Orders",
+      ordersCount: "orders",
+      averageOrder: "Average Order Value",
+      currency: "EGP",
+      lastOrder: "Last Order",
+      timeAgo: "minutes ago",
+      status: {
+        processing: "Processing",
+        completed: "Completed",
+        cancelled: "Cancelled"
+      }
+    },
   },
   ar: {
     countdown: {
@@ -107,7 +159,42 @@ export const translations = {
       country: "الدولة",
       selectCountry: "اختر الدولة",
       city: "المدينة",
-      enterCity: "أدخل اسم المدينة",
+      selectCity: "اختر مدينتك",
+      cities: {
+        cairo: "القاهرة",
+        alexandria: "الإسكندرية",
+        giza: "الجيزة",
+        sharmElSheikh: "شرم الشيخ",
+        hurghada: "الغردقة",
+        luxor: "الأقصر",
+        aswan: "أسوان",
+        portSaid: "بورسعيد",
+        suez: "السويس",
+        mansoura: "المنصورة"
+      },
+      notes: "ملاحظات الطلب",
+      enterNotes: "أضف أي تعليمات خاصة أو ملاحظات لطلبك",
+      deliveryOptions: "خيارات التوصيل",
+      deliveryMethod: "اختر طريقة التوصيل المفضلة لديك",
+      paymentOptions: "خيارات الدفع",
+      paymentMethod: "اختر طريقة الدفع المفضلة لديك",
+      paymentOptionsList: {
+        creditCard: {
+          label: "بطاقة ائتمان",
+          description: "فيزا، ماستركارد، أمريكان إكسبريس",
+          price: "بدون رسوم إضافية"
+        },
+        paypal: {
+          label: "باي بال",
+          description: "دفع سريع وآمن",
+          price: "بدون رسوم إضافية"
+        },
+        cashOnDelivery: {
+          label: "الدفع عند الاستلام",
+          description: "ادفع عند استلام طلبك",
+          price: "+2.99$"
+        }
+      },
       submit: "تأكيد الطلب",
       validation: {
         valid: "صالح",
@@ -116,8 +203,11 @@ export const translations = {
         invalidEmail: "الرجاء إدخال بريد إلكتروني صحيح",
         invalidCity: "الرجاء إدخال اسم مدينة صحيح",
         invalidCountry: "الرجاء اختيار دولة",
+        invalidNotes: "يجب ألا تتجاوز الملاحظات 500 حرف",
+        invalidDelivery: "الرجاء اختيار خيار التوصيل",
         invalidInput: "إدخال غير صالح",
-        required: "هذا الحقل مطلوب"
+        required: "هذا الحقل مطلوب",
+        invalidPayment: "الرجاء اختيار طريقة الدفع"
       }
     },
     ratings: {
@@ -171,7 +261,21 @@ export const translations = {
       saudi: "السعودية",
       uae: "الإمارات",
       egypt: "مصر"
-    }
+    },
+    todayOrders: {
+      title: "طلبات اليوم",
+      totalOrders: "إجمالي الطلبات",
+      ordersCount: "طلب",
+      averageOrder: "متوسط قيمة الطلب",
+      currency: "ج.م",
+      lastOrder: "آخر طلب",
+      timeAgo: "دقيقة مضت",
+      status: {
+        processing: "قيد المعالجة",
+        completed: "مكتمل",
+        cancelled: "ملغي"
+      }
+    },
   },
 } as const;
 

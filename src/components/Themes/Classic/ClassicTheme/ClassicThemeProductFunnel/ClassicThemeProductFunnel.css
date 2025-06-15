@@ -41,13 +41,13 @@
 }
 
 .classic-purchase-total-label {
-    color: var(--classic-color-info-dark);
+    color: var(--classic-color-on-info);
     font-weight: 700;
     font-size: 1.125rem;
 }
 
 .classic-purchase-total-value {
-    color: var(--classic-color-info-dark);
+    color: var(--classic-color-on-info);
     font-weight: 700;
     font-size: 1.25rem;
 }

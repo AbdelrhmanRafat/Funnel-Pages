@@ -18,6 +18,9 @@ import ClassicProductUsage from "./ClassicTheme/Classic_ProductUsage/ClassicProd
 import ClassicDeliveryFeatures from "./ClassicTheme/Classic_Delivery_Features/ClassicDeliveryFeatures.astro";
 import ClassicProductFeatures from "./ClassicTheme/Classic_Product_Features/ClassicProductFeatures.astro";
 import ClassicThemeTextBar from "./ClassicTheme/Classic_Text_Bar/classicThemeTextBar.astro";
+import ClassicFeaturedProducts from "./ClassicTheme/Classic_Featured_Products/classicFeaturedProducts.astro";
+import ClassicThemeTodayOrders from "./ClassicTheme/ClassicThemeTodayOrders/ClassicThemeTodayOrders.astro";
+import ClassicBeforeAfter from "./ClassicTheme/ClassicBefore&AfterImage/classicBefore&After.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -56,8 +59,11 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicProductFeatures,
   FunnelClassicComponents.ClassicProductPreview,
   FunnelClassicComponents.ClassicProductUsage,
+  FunnelClassicComponents.ClassicTodayOrders,
+  FunnelClassicComponents.Classic_Before_After,
   FunnelClassicComponents.ClassicReviews,
   FunnelClassicComponents.ClassicTextBar,
+  FunnelClassicComponents.ClassicImageText,
   FunnelClassicComponents.ClassicFaq,
   FunnelClassicComponents.ClassicDeliveryFeatures,
   FunnelClassicComponents.ClassicCountdown,
@@ -109,7 +115,7 @@ const galleryData = isGalleryFound.isComponentFound
           <ClassicThemeHeader data={headerData.componentData} />
         ) : null;
       }
-
+      
       if (componentName === FunnelClassicComponents.ClassicProductFunnel) {
         return (
           <ClassicThemeProduct
@@ -146,6 +152,16 @@ const galleryData = isGalleryFound.isComponentFound
           />
         ) : null;
       }
+      if (componentName === FunnelClassicComponents.ClassicTodayOrders) {
+        const todayOrdersData = isComponentFound(
+          FunnelClassicComponents.ClassicTodayOrders,
+        );
+        return todayOrdersData.isComponentFound ? (
+          <ClassicThemeTodayOrders
+            data={todayOrdersData.componentData}
+          />
+        ) : null;
+      }
       if (componentName === FunnelClassicComponents.ClassicDeliveryFeatures) {
         const deliveryFeaturesData = isComponentFound(
           FunnelClassicComponents.ClassicDeliveryFeatures,
@@ -178,12 +194,28 @@ const galleryData = isGalleryFound.isComponentFound
           <ClassicThemeTextBar data={TextBarData.componentData} />
         ) : null;
       }
+      if (componentName === FunnelClassicComponents.ClassicImageText) {
+        const ImageTextData = isComponentFound(
+          FunnelClassicComponents.ClassicImageText,
+        );
+        return ImageTextData.isComponentFound ? (
+          <ClassicFeaturedProducts data={ImageTextData.componentData} />
+        ) : null;
+      }
       if (componentName === FunnelClassicComponents.ClassicProductUsage) {
         const productUsageData = isComponentFound(
           FunnelClassicComponents.ClassicProductUsage,
         );
         return productUsageData.isComponentFound ? (
           <ClassicProductUsage data={productUsageData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelClassicComponents.Classic_Before_After) {
+        const BeforeAfterData = isComponentFound(
+          FunnelClassicComponents.Classic_Before_After,
+        );
+        return BeforeAfterData.isComponentFound ? (
+          <ClassicBeforeAfter data={BeforeAfterData.componentData} />
         ) : null;
       }
       if (componentName === FunnelClassicComponents.ClassicFooter) {

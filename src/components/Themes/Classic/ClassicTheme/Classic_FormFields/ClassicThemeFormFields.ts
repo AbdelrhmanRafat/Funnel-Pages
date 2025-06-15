@@ -2,6 +2,9 @@ import {
   isValidFullName,
   isValidPhoneNumber,
   isValidEmail,
+  isValidCity,
+  isValidNotes,
+  isValidDeliveryOption,
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
 import { QuantityOptionsSubject } from '../../../../../lib/patterns/Observer';
@@ -30,7 +33,14 @@ interface ColorSizeOption {
  * Configuration for form fields
  */
 const FORM_FIELD_CONFIG = {
-  FIELD_IDS: ['form-fullName', 'form-phone', 'form-email'] as const,
+  FIELD_IDS: [
+    'form-fullName',
+    'form-phone',
+    'form-email',
+    'form-city',
+    'form-delivery',
+    'form-notes'
+  ] as const,
   ERROR_CLASSES: {
     INVALID: 'border-red-500',
     VALID: 'border-green-500',
@@ -114,6 +124,9 @@ class ClassicFormValidator {
       'form-fullName': isValidFullName,
       'form-phone': isValidPhoneNumber,
       'form-email': isValidEmail,
+      'form-city': isValidCity,
+      'form-delivery': isValidDeliveryOption,
+      'form-notes': isValidNotes,
     };
 
     const validator = validationMap[fieldId];
@@ -135,6 +148,9 @@ class ClassicFormValidator {
       'form-fullName': 'form.validation.invalidFullName',
       'form-phone': 'form.validation.invalidPhone',
       'form-email': 'form.validation.invalidEmail',
+      'form-city': 'form.validation.invalidCity',
+      'form-delivery': 'form.validation.invalidDelivery',
+      'form-notes': 'form.validation.invalidNotes',
     };
 
     const messageKey = errorMessageMap[fieldId] || 'form.validation.invalidInput';

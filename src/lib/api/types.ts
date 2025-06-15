@@ -39,25 +39,24 @@ export interface BlockData {
     seconds?: number;
     count?: number;
     rate?: number;
+    image? : Image;
     product?: string;
     purchase_options?: PurchaseOption[];
     productPreview: ProductPreview;
     productUsage : VideoInfo[];
-    confirmationNotices: ConfirmationNotices[];
+    confirmationNotices: Features[];
     faqs: Faqs[];
     features : Features[];
     company_name?: string;
     year?: string;
-    galleryimages : GalleryImages[];
+    galleryimages : Image[];
 }
-export interface ConfirmationNotices {
-   title : string;
-   icon : string;
-}
-export interface GalleryImages {
+
+export interface Image {
     src : string;
     alt : string;
 }
+
  export interface ColorSizeOptions{
    items : number;
    colors : string[];
@@ -85,9 +84,9 @@ export interface VideoInfo {
     link: string;
 }
 export interface Features {
-    icon: string;
     title: string;
-    subtitle: string;
+    icon?: string;
+    subtitle?: string;
 }
 
 // Represents a purchase option for a product.
@@ -123,6 +122,12 @@ export interface Product {
     description: string;
     description_ar: string;
     description_en: string;
+    beforeImage : Image;
+    afterImage : Image;
+    beforetitle : string;
+    aftertitle : string;
+    beforedescription : string;
+    afterdescription : string;
     is_active: number;
     qty: number;
     sku_code: string;

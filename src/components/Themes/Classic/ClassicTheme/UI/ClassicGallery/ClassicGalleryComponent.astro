@@ -1,9 +1,9 @@
 ---
 import "./ClassicGalleryComponent.css";
-import type { BlockData, GalleryImages } from "../../../../../../lib/api/types";
+import type { BlockData, Image } from "../../../../../../lib/api/types";
 
 const data : BlockData = Astro.props.data;
-const gallery : GalleryImages[] = data.galleryimages;
+const gallery : Image[] = data.galleryimages;   
 ---
 <!-- Gallery Section - Enhanced -->
 <div id="classic-gallery" class="lg:w-1/2 lg:sticky lg:top-0 lg:self-start">

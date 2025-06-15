@@ -148,17 +148,29 @@
                 }
             },
             {
+                "name": "classic_Image_Text",
+                "data": {
+                    "image": {
+                        "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop",
+                        "alt": "صورة المنتج الرئيسية"
+                    },
+                    "title": "معلومات عن المنتج",
+                    "icon": "fa-solid fa-images",
+                    "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
+                    "description": "اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث"
+                }
+            },
+            {
                 "name": "classic_reviews",
                 "data": {
                     "title": "لا تكتفي بكلامنا استمع لتجارب المشترين",
                     "subtitle": "في الأسفل بعض من تجارب زبائننا الذين اعجبهم منتجنا و اردوا اخباركم بذلك.",
-                    "cta": "اشتري الآن - الدفع عند الإستلام",
                     "reviews": [
                         {
                             "description": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
                             "name": "إليزابيت روز",
                             "city": "القاهرة",
-                            "image": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face"
+                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
                         },
                         {
                             "description": "منتج رائع! لاحظت فرق كبير من أول استخدام. أنصح به بشدة لكل من يعاني من مشاكل في الشعر.",
@@ -200,9 +212,31 @@
             {
                 "name": "classic_today_orders",
                 "data": {
+                    "title": "طلبات اليوم :",
                     "count": 27
                 }
             },
+            {
+                "name": "classic_before_&_after",
+                "title": "قبل وبعد",
+                "description": "اشهد التحول المذهل من خلال حلولنا المبتكرة. شاهد الفرق الهائل الذي يصنع كل الفرق.",
+                "data": {
+                  "title": "تحول رائع مع خدماتنا",
+                  "description": "نقارن بين الحالة الأصلية والنتيجة بعد استخدام حلولنا لتحسين الأداء والجودة.",
+                  "beforeImage": {
+                    "src": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=600&fit=crop",
+                    "alt": "الصورة قبل - الحالة الأصلية"
+                  },
+                  "afterImage": {
+                    "src": "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?w=800&h=600&fit=crop",
+                    "alt": "الصورة بعد - النتيجة المحولة"
+                  },
+                  "beforetitle": "الحالة الأصلية",
+                  "aftertitle": "النتيجة المحولة",
+                  "beforedescription": "نقطة البداية قبل أن تبدأ عملية التحويل الخاصة بنا.",
+                  "afterdescription": "النتيجة المذهلة بعد تطبيق حلنا المبتكر."
+                }
+              },
             {
                 "name": "classic_rates",
                 "data": {
@@ -279,7 +313,7 @@
                     "title": "سيتم الاتصال بك لتأكيد الطلب قبل الشحن",
                     "confirmationNotices": [
                         {
-                            "title": "شحن سريع",
+                            "title": "و،سرو،سور،",
                             "icon": "fa-solid fa-truck-fast"
                         },
                         {
@@ -297,7 +331,7 @@
                 "name": "classic_faq",
                 "data": {
                     "title": "الأسئلة الشائعة",
-                    "icon" : "fa-solid fa-circle-question",
+                    "icon": "fa-solid fa-circle-question",
                     "faqs": [
                         {
                             "question": "ما هي مدة التوصيل؟",

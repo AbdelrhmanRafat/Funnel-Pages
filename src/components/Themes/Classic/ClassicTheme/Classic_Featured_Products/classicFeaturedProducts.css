@@ -1,0 +1,266 @@
+/* === Classic Product Image Section === */
+
+/* Product Cards */
+.classic-product-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: var(--classic-color-surface-container);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    direction: rtl;
+  }
+  
+  .classic-product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .classic-product-featured {
+    margin-top: 1rem;
+  }
+  
+  /* Image Wrappers */
+  .classic-product-image-wrapper {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+  
+  .classic-product-image-wrapper-large {
+    position: relative;
+    aspect-ratio: 2/1;
+    overflow: hidden;
+  }
+  
+  /* Images */
+  .classic-product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    filter: brightness(0.8);
+    transition: all 0.3s ease;
+  }
+  
+  .classic-product-image-large {
+    width: 100%;
+    height: 100%;
+    object-fit: cover ;
+    filter: brightness(0.7);
+    transition: all 0.3s ease;
+  }
+  
+  .classic-product-card:hover .classic-product-image,
+  .classic-product-card:hover .classic-product-image-large {
+    transform: scale(1.01);
+    filter: brightness(0.9);
+  }
+  
+  /* Overlays */
+  .classic-product-overlay {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .classic-product-overlay-large {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+    padding: 2rem;
+  }
+  
+  /* Badges */
+  .classic-product-badge {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .classic-badge-exclusive {
+    background-color: var(--classic-color-secondary);
+    color: var(--classic-color-on-secondary);
+  }
+  
+  .classic-badge-bestseller {
+    background-color: var(--classic-color-success);
+    color: var(--classic-color-on-success);
+  }
+  
+  .classic-badge-new {
+    background-color: var(--classic-color-tertiary);
+    color: var(--classic-color-on-tertiary);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Content */
+  .classic-product-content {
+    padding: 0.75rem;
+    text-align: right;
+  }
+  
+  .classic-product-title {
+    font-weight: 500;
+    color: var(--classic-color-on-surface);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .classic-product-subtitle {
+    color: var(--classic-color-on-surface-variant);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  
+  .classic-product-price {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--classic-color-primary);
+    margin-bottom: 0.75rem;
+  }
+  
+  .classic-product-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  
+  
+  .classic-featured-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--classic-color-on-primary);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  
+  .classic-featured-subtitle {
+    font-size: 1.125rem;
+    color: var(--classic-color-surface);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+  
+  .classic-featured-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Buttons */
+  .classic-btn-primary {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .classic-btn-primary:hover {
+    background-color: var(--classic-color-primary-dark);
+    transform: translateY(-1px);
+  }
+  
+  .classic-btn-secondary {
+    background-color: var(--classic-color-surface-variant);
+    color: var(--classic-color-on-surface);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--classic-color-outline);
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .classic-btn-secondary:hover {
+    background-color: var(--classic-color-surface-container-high);
+    border-color: var(--classic-color-outline-focus);
+  }
+  
+  .classic-btn-primary-large {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    border: none;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .classic-btn-primary-large:hover {
+    background-color: var(--classic-color-primary-dark);
+    transform: translateY(-2px);
+  }
+  
+  .classic-btn-outline-large {
+    background-color: transparent;
+    color: var(--classic-color-surface);
+    padding: 1rem 2rem;
+    border: 2px solid var(--classic-color-surface);
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .classic-btn-outline-large:hover {
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .classic-featured-title {
+      font-size: 1.875rem;
+    }
+    
+    .classic-featured-subtitle {
+      font-size: 1rem;
+    }
+    
+    .classic-featured-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .classic-btn-primary-large,
+    .classic-btn-outline-large {
+      width: 100%;
+      max-width: 280px;
+    }
+    
+    .classic-product-actions {
+      flex-direction: column;
+    }
+    
+    .classic-btn-primary,
+    .classic-btn-secondary {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .classic-product-image-wrapper-large {
+      aspect-ratio: 2.5/1;
+    }
+  }

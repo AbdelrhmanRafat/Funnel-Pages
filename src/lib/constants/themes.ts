@@ -25,7 +25,9 @@ export enum FunnelClassicComponents {
   ClassicDeliveryFeatures = "classic_delivery_features",
   ClassicReviews = "classic_Reviews",
   ClassicTextBar = "classic_TextBar",
-  ClassicGallery = "classic_Gallery"
+  ClassicGallery = "classic_Gallery",
+  Classic_Before_After = "classic_before_&_after",
+  ClassicImageText = "classic_Image_Text"
 }
 
 // Defines the component names for the Nasa theme.
