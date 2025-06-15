@@ -13,6 +13,7 @@ const getEmbedUrl = (url: string) => {
         ? `https://www.youtube.com/embed/${videoIdMatch[1]}`
         : "";
 };
+const CardNum : Number = productUsage.length;
 ---
 <section id="Classic-product-usage" class="classic-section">
     <!-- Header -->
@@ -22,7 +23,7 @@ const getEmbedUrl = (url: string) => {
     </div>
     
     <!-- Video Grid -->
-    <div class="classic-usage-grid" style={`grid-template-columns: repeat(${productUsage.length > 3 ? 3 : productUsage.length}, 1fr);`}>
+    <div class={`grid grid-cols-1 gap-x-2 gap-y-4 md:grid-cols-${CardNum}`}>
         {
             productUsage.map((video) => (
                 <div class="classic-usage-card">
@@ -35,20 +36,6 @@ const getEmbedUrl = (url: string) => {
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen
                         />
-                        <div class="classic-usage-views">
-                            <svg
-                                class="classic-usage-icon"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                            3,210 مشاهدة
-                        </div>
                     </div>
                     <div class="classic-usage-content">
                         <h3 class="classic-usage-title">
@@ -57,22 +44,6 @@ const getEmbedUrl = (url: string) => {
                         <p class="classic-usage-subtitle">
                             {video.subtitle}
                         </p>
-                        <div class="classic-usage-footer">
-                            <span class="classic-usage-share">
-                                <svg
-                                    class="classic-usage-icon"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M15 10a5 5 0 11-10 0 5 5 0 0110 0zm-1 0a4 4 0 11-8 0 4 4 0 018 0z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
-                                مشاركة
-                            </span>
-                        </div>
                     </div>
                 </div>
             ))

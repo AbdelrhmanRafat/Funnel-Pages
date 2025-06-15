@@ -38,18 +38,6 @@
     }
 }
 
-.classic-usage-views {
-    position: absolute;
-    bottom: 0.75rem;
-    right: 0.75rem;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    color: white;
-    display: flex;
-    align-items: center;
-}
 
 .classic-usage-content {
     padding: 0.75rem;
@@ -66,23 +54,4 @@
     color: var(--classic-color-on-surface-variant);
     font-size: 0.875rem;
     margin-bottom: 0.5rem;
-}
-
-.classic-usage-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.75rem;
-}
-
-.classic-usage-share {
-    display: flex;
-    align-items: center;
-    color: var(--classic-color-on-surface-variant);
-}
-
-.classic-usage-icon {
-    width: 0.75rem;
-    height: 0.75rem;
-    margin-left: 0.25rem;
 }
