@@ -5,6 +5,7 @@ import {
   isValidCity,
   isValidNotes,
   isValidDeliveryOption,
+  isValidAddress,
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
 import { QuantityOptionsSubject } from '../../../../../lib/patterns/Observer';
@@ -37,6 +38,7 @@ const FORM_FIELD_CONFIG = {
     'form-fullName',
     'form-phone',
     'form-email',
+    'form-address',
     'form-city',
     'form-delivery',
     'form-notes'
@@ -45,7 +47,7 @@ const FORM_FIELD_CONFIG = {
     INVALID: 'classic-border-error',
     VALID: 'classic-border-success',
     ERROR_CONTAINER: 'classic-error-container',
-    ERROR_MESSAGE: 'classic-error-message '
+    ERROR_MESSAGE: 'classic-error-message'
   }
 } as const;
 
@@ -124,6 +126,7 @@ class ClassicFormValidator {
       'form-fullName': isValidFullName,
       'form-phone': isValidPhoneNumber,
       'form-email': isValidEmail,
+      'form-address': isValidAddress,
       'form-city': isValidCity,
       'form-delivery': isValidDeliveryOption,
       'form-notes': isValidNotes,
@@ -148,6 +151,7 @@ class ClassicFormValidator {
       'form-fullName': 'form.validation.invalidFullName',
       'form-phone': 'form.validation.invalidPhone',
       'form-email': 'form.validation.invalidEmail',
+      'form-address': 'form.validation.invalidAddress',
       'form-city': 'form.validation.invalidCity',
       'form-delivery': 'form.validation.invalidDelivery',
       'form-notes': 'form.validation.invalidNotes',
@@ -187,31 +191,36 @@ class ClassicFormValidator {
   private validateColorSizeOptions(): boolean {
     const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
     const colorSizeState = colorSizeSubject.getState();
-    const optionsErrorContainer = this.getOrCreateOptionsErrorContainer();
-
-    // Clear previous errors
-    optionsErrorContainer.innerHTML = '';
-
+  
     if (!colorSizeState.options || colorSizeState.options.length === 0) {
       return true; // No options to validate
     }
-
+  
     let isOptionsValid = true;
-
+    const errorMessages: string[] = [];
+  
     for (const option of colorSizeState.options) {
       if (!option.color) {
-        const errorMessage = `من فضلك اختر اللون للخيار رقم ${option.panelIndex}`;
-        this.addOptionsError(optionsErrorContainer, errorMessage);
+        errorMessages.push(`من فضلك اختر اللون للخيار رقم ${option.panelIndex}`);
         isOptionsValid = false;
       }
-
       if (!option.size) {
-        const errorMessage = `من فضلك اختر المقاس للخيار رقم ${option.panelIndex}`;
-        this.addOptionsError(optionsErrorContainer, errorMessage);
+        errorMessages.push(`من فضلك اختر المقاس للخيار رقم ${option.panelIndex}`);
         isOptionsValid = false;
       }
     }
-
+  
+    // فقط أنشئ الكونتينر لو فيه أخطاء فعلاً
+    if (!isOptionsValid) {
+      const optionsErrorContainer = this.getOrCreateOptionsErrorContainer();
+      optionsErrorContainer.innerHTML = '';
+      errorMessages.forEach(msg => this.addOptionsError(optionsErrorContainer, msg));
+    } else {
+      // لو مفيش أخطاء، احذف الكونتينر لو موجود
+      const existing = document.getElementById('options-error-container');
+      if (existing) existing.remove();
+    }
+  
     return isOptionsValid;
   }
 
@@ -402,9 +411,9 @@ class ClassicFormValidator {
     const isFormValid = isFieldsValid && isOptionsValid;
 
     // Submit form if all validations pass
-    if (isFormValid && this.form) {
-      this.form.submit();
-    }
+    // if (isFormValid && this.form) {
+    //   this.form.submit();
+    // }
   }
 
   /**
@@ -416,11 +425,25 @@ class ClassicFormValidator {
     const quantityState = quantitySubject.getState();
     const colorSizeState = colorSizeSubject.getState();
 
-    console.log('Selected Item:', quantityState.selectedItem);
-    console.log('Color/Size Options:', colorSizeState.options);
+    // Get all form field values
+    const formData = {
+      personalInfo: {
+        fullName: (document.getElementById('form-fullName') as HTMLInputElement)?.value || '',
+        phone: (document.getElementById('form-phone') as HTMLInputElement)?.value || '',
+        email: (document.getElementById('form-email') as HTMLInputElement)?.value || '',
+        address: (document.getElementById('form-address') as HTMLTextAreaElement)?.value || '',
+        city: (document.getElementById('form-city') as HTMLSelectElement)?.value || '',
+      },
+      payment: {
+        method: (document.querySelector('input[name="payment-option"]:checked') as HTMLInputElement)?.value || '',
+      },
+      notes: (document.getElementById('form-notes') as HTMLTextAreaElement)?.value || '',
+      selectedItem: quantityState.selectedItem,
+      colorSizeOptions: colorSizeState.options,
+    };
+    console.log('Form Data:', formData);
   }
 }
-
 // ===== INITIALIZATION =====
 
 /**

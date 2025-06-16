@@ -60,3 +60,14 @@ export function isValidDeliveryOption(option: string): boolean {
 export function isValidCity(city: string): boolean {
   return city.trim() !== '';
 }
+
+// Validates an address.
+// Allows letters, numbers, spaces, and common address characters.
+// Must not be empty and must be at least 5 characters long.
+export function isValidAddress(address: string): boolean {
+  if (!address || address.trim().length === 0) {
+    return false;
+  }
+  const addressRegex = /^[\p{L}\p{N}\s.,#-]+$/u;
+  return addressRegex.test(address.trim()) && address.trim().length >= 5;
+}

@@ -13,6 +13,8 @@ export const translations = {
       phoneNumber: "Phone Number",
       email: "Email Address",
       enterEmail: "Enter your email",
+      address: "Address",
+      enterAddress: "Enter your full address",
       shippingInfo: "Shipping Information",
       selectedPackage: "Selected Package",
       threeItemsOffer: "Three Items Offer",
@@ -21,22 +23,8 @@ export const translations = {
       selectCountry: "Select a country",
       city: "City",
       selectCity: "Select your city",
-      cities: {
-        cairo: "Cairo",
-        alexandria: "Alexandria",
-        giza: "Giza",
-        sharmElSheikh: "Sharm El Sheikh",
-        hurghada: "Hurghada",
-        luxor: "Luxor",
-        aswan: "Aswan",
-        portSaid: "Port Said",
-        suez: "Suez",
-        mansoura: "Mansoura"
-      },
       notes: "Order Notes",
       enterNotes: "Add any special instructions or notes for your order",
-      deliveryOptions: "Delivery Options",
-      deliveryMethod: "Select your preferred delivery method",
       paymentOptions: "Payment Options",
       paymentMethod: "Select your preferred payment method",
       paymentOptionsList: {
@@ -44,16 +32,6 @@ export const translations = {
           label: "Credit Card",
           description: "Visa, Mastercard, American Express",
           price: "No additional fees"
-        },
-        paypal: {
-          label: "PayPal",
-          description: "Fast and secure payment",
-          price: "No additional fees"
-        },
-        cashOnDelivery: {
-          label: "Cash on Delivery",
-          description: "Pay when you receive your order",
-          price: "+$2.99"
         }
       },
       submit: "Submit Order",
@@ -62,13 +40,13 @@ export const translations = {
         invalidFullName: "Please enter a valid full name",
         invalidPhone: "Please enter a valid phone number",
         invalidEmail: "Please enter a valid email address",
-        invalidCity: "Please enter a valid city name",
+        invalidAddress: "Please enter a valid address",
+        invalidCity: "Please select a city",
         invalidCountry: "Please select a country",
         invalidNotes: "Notes cannot exceed 500 characters",
-        invalidDelivery: "Please select a delivery option",
+        invalidPayment: "Please select a payment option",
         invalidInput: "Invalid input",
-        required: "This field is required",
-        invalidPayment: "Please select a payment option"
+        required: "This field is required"
       }
     },
     ratings: {
@@ -152,6 +130,8 @@ export const translations = {
       phoneNumber: "رقم الهاتف",
       email: "البريد الإلكتروني",
       enterEmail: "أدخل بريدك الإلكتروني",
+      address: "العنوان",
+      enterAddress: "أدخل عنوانك الكامل",
       shippingInfo: "معلومات الشحن",
       selectedPackage: "الباقة المختارة",
       threeItemsOffer: "عرض الثلاث قطع",
@@ -174,8 +154,6 @@ export const translations = {
       },
       notes: "ملاحظات الطلب",
       enterNotes: "أضف أي تعليمات خاصة أو ملاحظات لطلبك",
-      deliveryOptions: "خيارات التوصيل",
-      deliveryMethod: "اختر طريقة التوصيل المفضلة لديك",
       paymentOptions: "خيارات الدفع",
       paymentMethod: "اختر طريقة الدفع المفضلة لديك",
       paymentOptionsList: {
@@ -201,13 +179,13 @@ export const translations = {
         invalidFullName: "الرجاء إدخال اسم كامل صحيح",
         invalidPhone: "الرجاء إدخال رقم هاتف صحيح",
         invalidEmail: "الرجاء إدخال بريد إلكتروني صحيح",
-        invalidCity: "الرجاء إدخال اسم مدينة صحيح",
+        invalidAddress: "الرجاء إدخال عنوان صحيح",
+        invalidCity: "الرجاء اختيار مدينة",
         invalidCountry: "الرجاء اختيار دولة",
         invalidNotes: "يجب ألا تتجاوز الملاحظات 500 حرف",
-        invalidDelivery: "الرجاء اختيار خيار التوصيل",
+        invalidPayment: "الرجاء اختيار طريقة الدفع",
         invalidInput: "إدخال غير صالح",
-        required: "هذا الحقل مطلوب",
-        invalidPayment: "الرجاء اختيار طريقة الدفع"
+        required: "هذا الحقل مطلوب"
       }
     },
     ratings: {
