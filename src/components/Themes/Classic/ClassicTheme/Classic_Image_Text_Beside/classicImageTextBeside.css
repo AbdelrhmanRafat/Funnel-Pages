@@ -1,18 +1,23 @@
-/* === Classic Product Image Section === */
-
-/* Product Cards */
+/* Classic Image-Text Section */
 .classic-image-text-beside {
-    background-color: var(--classic-color-surface-container-high);
-    border-radius: var(--classic-section-radius);
-  }
-
-.classic-image-text-beside-title {
-    font-size: 1.5rem;   /* text-2xl */
-    font-weight: 700;    /* font-bold */
-    color: var(--classic-color-on-surface);
+  background-color: var(--classic-color-surface);
+  border-radius: var(--classic-section-radius);
 }
 
-.classic-image-text-beside-description{
-    color: var(--classic-color-on-surface-variant);
-    font-size: 0.875rem; /* text-sm */
+.classic-image-text-beside-content {
+  background-color: var(--classic-color-surface-container-high);
+  border-radius: var(--classic-section-radius);
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.classic-image-text-beside-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700;
+  color: var(--classic-color-on-surface);
+}
+
+.classic-image-text-beside-description {
+  color: var(--classic-color-on-surface-variant);
+  font-size: 1rem;
 }

@@ -9,10 +9,14 @@ const data: BlockData = Astro.props.data;
 ---
 
 <section id="classic-today-orders" class="classic-section">
-  <div class="classic-todayOrders-container">
-    <h5 class="classic-todayOrders-title" data-translate="todayOrders.title">
-    </h5>
-    <h5>{data.count}</h5>
+    <div class="classic-middle-title">
+    <h5  data-translate="todayOrders.title"></h5>
+    </div>
+    <div>
+
+  <div class="flex items-center justify-center">
+    <div class="classic-theme-today-order-count">
+      <h5>{data.count}</h5>
     </div>
   </div>
 </section>

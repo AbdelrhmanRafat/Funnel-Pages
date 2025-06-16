@@ -3,14 +3,11 @@
     background-color: var(--classic-color-surface);
     border-radius: var(--classic-section-radius);
     overflow: hidden;
+    padding: var(--classic-section-padding);
 }
 
 .classic-purchase-options-body {
     border-bottom: 1px solid var(--classic-color-outline);
-}
-
-.classic-purchase-options-content {
-    padding: 1.5rem;
 }
 
 .classic-purchase-row {

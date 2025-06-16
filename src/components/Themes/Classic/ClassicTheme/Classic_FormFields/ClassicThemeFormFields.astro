@@ -12,22 +12,29 @@ const currentLang: Language = (Astro.cookies.get("lang")?.value ||
   "en") as Language;
 const isArabic = currentLang === "ar";
 ---
+
 <section id="classic-form" class="classic-form">
-  <div class="classic-form-container">
-    <div class="classic-form-header">
+  <div class="mx-auto flex flex-col justify-center items-center gap-2">
+    <div class="text-center">
       <h5 class="classic-form-title" data-translate="form.completeOrder">
         {getTranslation("form.completeOrder")}
       </h5>
     </div>
-    
-    <form class="md:p-6">
+
+    <form class="w-full">
       <div class="mb-8">
-        <h2 class="classic-form-section-title mb-6" data-translate="form.personalInfo">
+        <h2
+          class="classic-form-section-title mb-6"
+          data-translate="form.personalInfo"
+        >
           {getTranslation("form.personalInfo")}
         </h2>
         <div class="space-y-4">
           <div>
-            <label class="classic-form-label block mb-2" data-translate="form.fullName">
+            <label
+              class="classic-form-label block mb-2"
+              data-translate="form.fullName"
+            >
               {getTranslation("form.fullName")}
             </label>
             <input
@@ -36,11 +43,17 @@ const isArabic = currentLang === "ar";
               placeholder={data.full_name}
               class="classic-form-input text-right"
             />
-            <span id="form-fullName-error" class="classic-form-error" style="display: none;"></span>
+            <span
+              id="form-fullName-error"
+              class="classic-form-error"
+              style="display: none;"></span>
           </div>
-          
+
           <div>
-            <label class="classic-form-label block mb-2" data-translate="form.phoneNumber">
+            <label
+              class="classic-form-label block mb-2"
+              data-translate="form.phoneNumber"
+            >
               {getTranslation("form.phoneNumber")}
             </label>
             <input
@@ -49,11 +62,17 @@ const isArabic = currentLang === "ar";
               placeholder={data.phone}
               class="classic-form-input text-right"
             />
-            <span id="form-phone-error" class="classic-form-error" style="display: none;"></span>
+            <span
+              id="form-phone-error"
+              class="classic-form-error"
+              style="display: none;"></span>
           </div>
-          
+
           <div>
-            <label class="classic-form-label block mb-2" data-translate="form.email">
+            <label
+              class="classic-form-label block mb-2"
+              data-translate="form.email"
+            >
               {getTranslation("form.email")}
             </label>
             <input
@@ -62,148 +81,96 @@ const isArabic = currentLang === "ar";
               placeholder={getTranslation("form.enterEmail")}
               class="classic-form-input text-right"
             />
-            <span id="form-email-error" class="classic-form-error" style="display: none;"></span>
+            <span
+              id="form-email-error"
+              class="classic-form-error"
+              style="display: none;"></span>
           </div>
 
           <div>
-            <label class="classic-form-label block mb-2" data-translate="form.city">
-              {getTranslation("form.city")}
-            </label>
-            <select
-              id="form-city"
-              class="classic-form-input text-right"
-            >
-              <option value="" data-translate="form.selectCity">
-                {getTranslation("form.selectCity")}
-              </option>
-              <option value="cairo" data-translate="form.cities.cairo">
-                {getTranslation("form.cities.cairo")}
-              </option>
-              <option value="alexandria" data-translate="form.cities.alexandria">
-                {getTranslation("form.cities.alexandria")}
-              </option>
-              <option value="giza" data-translate="form.cities.giza">
-                {getTranslation("form.cities.giza")}
-              </option>
-              <option value="sharmElSheikh" data-translate="form.cities.sharmElSheikh">
-                {getTranslation("form.cities.sharmElSheikh")}
-              </option>
-              <option value="hurghada" data-translate="form.cities.hurghada">
-                {getTranslation("form.cities.hurghada")}
-              </option>
-              <option value="luxor" data-translate="form.cities.luxor">
-                {getTranslation("form.cities.luxor")}
-              </option>
-              <option value="aswan" data-translate="form.cities.aswan">
-                {getTranslation("form.cities.aswan")}
-              </option>
-              <option value="portSaid" data-translate="form.cities.portSaid">
-                {getTranslation("form.cities.portSaid")}
-              </option>
-              <option value="suez" data-translate="form.cities.suez">
-                {getTranslation("form.cities.suez")}
-              </option>
-              <option value="mansoura" data-translate="form.cities.mansoura">
-                {getTranslation("form.cities.mansoura")}
-              </option>
+            <label class="classic-form-label block mb-2" data-translate="form.city"></label>
+            <select id="form-city" class="classic-form-input text-right">
+              <option value="" data-translate="form.selectCity"></option>
+
+              {
+                data.cities.map((city: string) => (
+                  <option value={city.toLowerCase().replace(/\s+/g, "")}>
+                    {city}
+                  </option>
+                ))
+              }
             </select>
-            <span id="form-city-error" class="classic-form-error" style="display: none;"></span>
+
+            <span
+              id="form-city-error"
+              class="classic-form-error"
+              style="display: none;"></span>
           </div>
 
           <div>
-            <label class="classic-form-label block mb-2" data-translate="form.paymentOptions">
-              {getTranslation("form.paymentOptions")}
-            </label>
-            <div class="space-y-3" role="radiogroup" aria-label={getTranslation("form.paymentMethod")}>
-              <div class="classic-form-delivery-option">
-                <input
-                  type="radio"
-                  id="payment-creditCard"
-                  name="payment-option"
-                  value="creditCard"
-                  class="classic-form-radio"
-                  checked
-                />
-                <label for="payment-creditCard" class="classic-form-delivery-option-content">
-                  <div class="flex justify-between items-center">
-                    <div>
-                      <span class="classic-form-delivery-option-label" data-translate="form.paymentOptionsList.creditCard.label">
-                        {getTranslation("form.paymentOptionsList.creditCard.label")}
-                      </span>
-                      <span class="classic-form-delivery-option-description" data-translate="form.paymentOptionsList.creditCard.description">
-                        {getTranslation("form.paymentOptionsList.creditCard.description")}
-                      </span>
-                    </div>
-                    <span class="classic-form-delivery-option-price classic-form-delivery-option-price-free" data-translate="form.paymentOptionsList.creditCard.price">
-                      {getTranslation("form.paymentOptionsList.creditCard.price")}
-                    </span>
-                  </div>
-                </label>
-              </div>
+            <label class="classic-form-label block mb-2" data-translate="form.paymentOptions"></label>
 
-              <div class="classic-form-delivery-option">
-                <input
-                  type="radio"
-                  id="payment-paypal"
-                  name="payment-option"
-                  value="paypal"
-                  class="classic-form-radio"
-                />
-                <label for="payment-paypal" class="classic-form-delivery-option-content">
-                  <div class="flex justify-between items-center">
-                    <div>
-                      <span class="classic-form-delivery-option-label" data-translate="form.paymentOptionsList.paypal.label">
-                        {getTranslation("form.paymentOptionsList.paypal.label")}
-                      </span>
-                      <span class="classic-form-delivery-option-description" data-translate="form.paymentOptionsList.paypal.description">
-                        {getTranslation("form.paymentOptionsList.paypal.description")}
-                      </span>
-                    </div>
-                    <span class="classic-form-delivery-option-price classic-form-delivery-option-price-free" data-translate="form.paymentOptionsList.paypal.price">
-                      {getTranslation("form.paymentOptionsList.paypal.price")}
-                    </span>
-                  </div>
-                </label>
-              </div>
+            <div
+              class="space-y-3"
+              role="radiogroup"
+              aria-label="Payment Method"
+            >
+              {
+                data.PaymentOptions.map((option : string, index : number) => {
+                  const value = option.toLowerCase().replace(/\s+/g, "");
+                  const id = `payment-${value}`;
+                  const isChecked = index === 0;
 
-              <div class="classic-form-delivery-option">
-                <input
-                  type="radio"
-                  id="payment-cashOnDelivery"
-                  name="payment-option"
-                  value="cashOnDelivery"
-                  class="classic-form-radio"
-                />
-                <label for="payment-cashOnDelivery" class="classic-form-delivery-option-content">
-                  <div class="flex justify-between items-center">
-                    <div>
-                      <span class="classic-form-delivery-option-label" data-translate="form.paymentOptionsList.cashOnDelivery.label">
-                        {getTranslation("form.paymentOptionsList.cashOnDelivery.label")}
-                      </span>
-                      <span class="classic-form-delivery-option-description" data-translate="form.paymentOptionsList.cashOnDelivery.description">
-                        {getTranslation("form.paymentOptionsList.cashOnDelivery.description")}
-                      </span>
+                  return (
+                    <div class="classic-form-delivery-option">
+                      <input
+                        type="radio"
+                        id={id}
+                        name="payment-option"
+                        value={value}
+                        class="classic-form-radio"
+                        checked={isChecked}
+                      />
+                      <label
+                        for={id}
+                        class="classic-form-delivery-option-content"
+                      >
+                        <div class="flex justify-between items-center">
+                          <div>
+                            <span class="classic-form-delivery-option-label">
+                              {option}
+                            </span>
+                          </div>
+                        </div>
+                      </label>
                     </div>
-                    <span class="classic-form-delivery-option-price classic-form-delivery-option-price-paid" data-translate="form.paymentOptionsList.cashOnDelivery.price">
-                      {getTranslation("form.paymentOptionsList.cashOnDelivery.price")}
-                    </span>
-                  </div>
-                </label>
-              </div>
+                  );
+                })
+              }
             </div>
-            <span id="form-payment-error" class="classic-form-error" style="display: none;"></span>
+
+            <span
+              id="form-payment-error"
+              class="classic-form-error"
+              style="display: none;"></span>
           </div>
 
           <div>
-            <label class="classic-form-label block mb-2" data-translate="form.notes">
+            <label
+              class="classic-form-label block mb-2"
+              data-translate="form.notes"
+            >
               {getTranslation("form.notes")}
             </label>
             <textarea
               id="form-notes"
-              placeholder={getTranslation("form.enterNotes")}
+              data-translate="form.enterNotes"
               class="classic-form-input text-right min-h-[100px] resize-y"
             ></textarea>
-            <span id="form-notes-error" class="classic-form-error" style="display: none;"></span>
+            <span
+              id="form-notes-error"
+              class="classic-form-error"
+              style="display: none;"></span>
           </div>
         </div>
       </div>

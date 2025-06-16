@@ -21,3 +21,10 @@ body {
     font-weight: var(--classic-header-weight);
     color: var(--classic-color-on-surface);
 }
+.classic-middle-title {
+    text-align: center;
+    font-size: var(--classic-header-center-size);
+    font-weight: var( --classic-header-center-wight);
+    color: var(--classic-color-on-surface);
+    margin-bottom: var(--classic-header-center-margin-bottom);
+}

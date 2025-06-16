@@ -42,6 +42,8 @@ export interface BlockData {
     image? : Image;
     product?: string;
     purchase_options?: PurchaseOption[];
+    cities : string[];
+    PaymentOptions : string[];
     productPreview: ProductPreview;
     productUsage : VideoInfo[];
     confirmationNotices: Features[];

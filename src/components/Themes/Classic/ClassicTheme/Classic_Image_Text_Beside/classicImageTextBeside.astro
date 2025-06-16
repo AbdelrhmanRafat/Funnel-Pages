@@ -2,38 +2,42 @@
 // ProductImageSection.astro
 import "./classicImageTextBeside.css"
 import type { BlockData } from "../../../../../lib/api/types";
+import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 
 const data: BlockData = Astro.props.data;
 ---
-<section id="classic-text-image-beside" class="classic-section">
+<section id="classic-text-image-beside" class="classic-section px-4 sm:px-6 lg:px-12 py-12">
   <!-- Header -->
   <div class="classic-section-header">
     <i class="fa-solid fa-images"></i>
     <h5>{data.title}</h5>
   </div>
 
-  <!-- Product Grid - Side by Side Layout -->
-  <div class="classic-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-    
+  <!-- Product Grid -->
+  <div class="classic-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-center rounded-2xl overflow-hidden">
+
     <!-- Image Section -->
-    <div class="relative h-auto md:h-[600px]">
+    <div class="h-64 sm:h-96 overflow-hidden">
       <img 
         src={data.image?.src}
         alt={data.image?.alt}
-        class="w-full h-full object-fill"
+        class="w-full h-full object-cover rounded-2xl"
       />
     </div>
 
     <!-- Text Section -->
-    <div class="space-y-4 text-right p-4 sm:p-8">
-      <h2 class="classic-image-text-beside-title">
+    <div class="classic-image-text-beside-content flex flex-col justify-start items-start w-full gap-2 p-6 sm:p-10 space-y-6 text-right backdrop-blur-sm bg-white/80 shadow-lg">
+      <h2 class="classic-image-text-beside-title text-3xl font-bold">
         {data.subtitle}
       </h2>
-      <p class="classic-image-text-beside-description">
+      <p class="classic-image-text-beside-description text-base leading-relaxed">
         {data.description}
       </p>
+      <div class="flex-1"></div>
+      <ClassicBuyNowButton />
     </div>
-
   </div>
+  
 </section>
+
 

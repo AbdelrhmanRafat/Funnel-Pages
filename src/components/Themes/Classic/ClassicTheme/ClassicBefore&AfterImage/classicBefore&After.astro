@@ -7,14 +7,14 @@ const data: BlockData = Astro.props.data;
 ---
 <section id="classic-before-after" class="classic-section">
     <!-- Section Header -->
-    <div class="text-center mb-16">
-        <h1 class="text-5xl font-bold classic-section-title mb-4">
+    <div class="classic-middle-title flex flex-col justify-center items-center gap-3">
+        <h1 class="text-center">
             {data.title}
         </h1>
-        <p class="text-xl classic-section-description max-w-2xl mx-auto">
+        <p class="text-xl max-w-2xl mx-auto font-medium">
           {data.description}
         </p>
-        <div class="w-24 h-1 classic-section-divider mx-auto mt-6 rounded-full"></div>
+        <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
     </div>
 
     <div class="flex flex-col justify-center items-center gap-10">

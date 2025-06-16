@@ -7,7 +7,7 @@
 
 .classic-faq-item {
     background-color: var(--classic-color-surface);
-    border-radius: 0.5rem;
+    border-radius: var(--classic-section-radius);
     border: 1px solid var(--classic-color-outline-variant);
     overflow: hidden;
 }
@@ -15,7 +15,6 @@
 .classic-faq-question {
     width: 100%;
     padding: 1.5rem;
-    text-align: right;
     display: flex;
     align-items: center;
     justify-content: space-between;

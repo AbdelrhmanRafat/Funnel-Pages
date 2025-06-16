@@ -7,13 +7,6 @@
     text-align: center;
 }
 
-.classic-countdown-title {
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: var(--classic-color-on-surface);
-    margin-bottom: 1.75rem;
-}
-
 .classic-countdown-display {
     display: flex;
     justify-content: center;

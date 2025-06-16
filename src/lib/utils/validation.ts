@@ -58,20 +58,5 @@ export function isValidDeliveryOption(option: string): boolean {
 // Validates city selection.
 // Must be one of the predefined city options.
 export function isValidCity(city: string): boolean {
-  if (!city || city.trim().length === 0) {
-    return false;
-  }
-  const validCities = [
-    'cairo',
-    'alexandria',
-    'giza',
-    'sharmElSheikh',
-    'hurghada',
-    'luxor',
-    'aswan',
-    'portSaid',
-    'suez',
-    'mansoura'
-  ];
-  return validCities.includes(city.trim());
+  return city.trim() !== '';
 }

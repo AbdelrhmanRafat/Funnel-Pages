@@ -1,13 +1,4 @@
 /* === Delivery Features Section Classes === */
-.classic-delivery-item {
-    padding: 1.5rem; /* p-6 */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem; /* gap-2 */
-}
 
 .classic-delivery-icon-container {
     width: 4rem; /* w-16 */

@@ -42,10 +42,10 @@ const FORM_FIELD_CONFIG = {
     'form-notes'
   ] as const,
   ERROR_CLASSES: {
-    INVALID: 'border-red-500',
-    VALID: 'border-green-500',
-    ERROR_CONTAINER: 'my-4 p-3 bg-red-100 text-red-700 rounded',
-    ERROR_MESSAGE: 'text-red-600 text-sm mb-1'
+    INVALID: 'classic-border-error',
+    VALID: 'classic-border-success',
+    ERROR_CONTAINER: 'classic-error-container',
+    ERROR_MESSAGE: 'classic-error-message '
   }
 } as const;
 
@@ -90,7 +90,7 @@ class ClassicFormValidator {
       .split('; ')
       .find(row => row.startsWith('lang='))
       ?.split('=')[1];
-    
+
     return (langCookie || 'en') as Language;
   }
 
@@ -170,7 +170,7 @@ class ClassicFormValidator {
         const isValid = this.validateField(fieldId, input.value);
         const message = this.getErrorMessage(fieldId, isValid);
         this.displayValidationMessage(fieldId, message, isValid);
-        
+
         if (!isValid) {
           isFormValid = false;
         }
@@ -188,10 +188,10 @@ class ClassicFormValidator {
     const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
     const colorSizeState = colorSizeSubject.getState();
     const optionsErrorContainer = this.getOrCreateOptionsErrorContainer();
-    
+
     // Clear previous errors
     optionsErrorContainer.innerHTML = '';
-    
+
     if (!colorSizeState.options || colorSizeState.options.length === 0) {
       return true; // No options to validate
     }
@@ -237,11 +237,12 @@ class ClassicFormValidator {
    */
   private updateErrorElement(fieldId: string, message: string, isValid: boolean): void {
     const errorElement = document.getElementById(`${fieldId}-error`);
-    
+
     if (errorElement) {
       errorElement.textContent = message;
       errorElement.style.display = message ? 'block' : 'none';
-      errorElement.style.color = isValid ? 'green' : 'red';
+      errorElement.classList.remove('classic-text-success', 'classic-text-error');
+      errorElement.classList.add(isValid ? 'classic-text-success' : 'classic-text-error');
     }
   }
 
@@ -252,10 +253,10 @@ class ClassicFormValidator {
    */
   private updateInputStyling(fieldId: string, isValid: boolean): void {
     const inputElement = document.getElementById(fieldId);
-    
+
     if (inputElement) {
       const { INVALID, VALID } = FORM_FIELD_CONFIG.ERROR_CLASSES;
-      
+
       if (isValid) {
         inputElement.classList.remove(INVALID);
         inputElement.classList.add(VALID);
@@ -288,11 +289,11 @@ class ClassicFormValidator {
    */
   private getOrCreateOptionsErrorContainer(): HTMLElement {
     let container = document.getElementById('options-error-container');
-    
+
     if (!container) {
       container = this.createOptionsErrorContainer();
     }
-    
+
     return container;
   }
 
@@ -317,7 +318,7 @@ class ClassicFormValidator {
     if (!this.form) return;
 
     const submitButton = this.form.querySelector('button[type="submit"]');
-    
+
     if (submitButton && submitButton.parentNode) {
       submitButton.parentNode.insertBefore(container, submitButton);
     } else {
