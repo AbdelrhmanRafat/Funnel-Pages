@@ -3,7 +3,6 @@
 .classic-product-info {
     background: linear-gradient(135deg, var(--classic-color-surface) 0%, var(--classic-color-surface-variant) 100%);
     border-radius: var(--classic-section-radius);
-    padding: 1rem;
 }
 
 .classic-product-header {

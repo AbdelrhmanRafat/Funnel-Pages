@@ -1,0 +1,39 @@
+---
+// ProductImageSection.astro
+import "./classicImageTextBeside.css"
+import type { BlockData } from "../../../../../lib/api/types";
+
+const data: BlockData = Astro.props.data;
+---
+<section id="classic-text-image-beside" class="classic-section">
+  <!-- Header -->
+  <div class="classic-section-header">
+    <i class="fa-solid fa-images"></i>
+    <h5>{data.title}</h5>
+  </div>
+
+  <!-- Product Grid - Side by Side Layout -->
+  <div class="classic-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+    
+    <!-- Image Section -->
+    <div class="relative h-auto md:h-[600px]">
+      <img 
+        src={data.image?.src}
+        alt={data.image?.alt}
+        class="w-full h-full object-fill"
+      />
+    </div>
+
+    <!-- Text Section -->
+    <div class="space-y-4 text-right p-4 sm:p-8">
+      <h2 class="classic-image-text-beside-title">
+        {data.subtitle}
+      </h2>
+      <p class="classic-image-text-beside-description">
+        {data.description}
+      </p>
+    </div>
+
+  </div>
+</section>
+

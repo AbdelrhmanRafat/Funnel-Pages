@@ -50,8 +50,10 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.ClassicReviews;
     case "classic_text-bar":
       return FunnelClassicComponents.ClassicTextBar;
-    case "classic_image_text":
-      return FunnelClassicComponents.ClassicImageText;
+    case "classic_image_text_overlay":
+      return FunnelClassicComponents.ClassicImageTextOverLay;
+    case "classic_image_text_beside":
+      return FunnelClassicComponents.ClassicImageTextBeside;  
     case "classic_before_&_after":
       return FunnelClassicComponents.Classic_Before_After;
     case "classic_gallery":

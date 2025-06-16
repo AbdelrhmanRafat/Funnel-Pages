@@ -1,0 +1,38 @@
+---
+// ProductImageSection.astro
+import "./classicImageTextOverlay.css";
+import type { BlockData } from "../../../../../lib/api/types";
+
+const data: BlockData = Astro.props.data;
+---
+<section id="classic-text-image-overlay" class="classic-section">
+  <!-- Header -->
+  <div class="classic-section-header">
+    <i class="fa-solid fa-images"></i>
+    <h5>{data.title}</h5>
+  </div>
+
+    <!-- Featured Product - Full Width -->
+    <div class="classic-image-text-overlay-card">
+      <div class="relative overflow-hidden rounded-lg aspect-[2.5/1]">
+        <div class="relative w-full h-full">
+          <img 
+            src={data.image?.src}
+            alt={data.image?.alt}
+            class="absolute inset-0 w-full h-full object-cover brightness-75"
+          />
+          <!-- Overlay -->
+          <div class="backdrop-brightness-75 absolute inset-0 flex items-center md:items-start justify-center px-4 py-8 sm:px-8 sm:py-12 text-center">
+            <div class="classic-featured-content space-y-4">
+              <h2 class="classic-featured-title text-xl sm:text-2xl font-bold">
+                {data.subtitle}
+              </h2>
+              <p class="classic-featured-subtitle text-sm sm:text-base leading-relaxed">
+                {data.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

@@ -18,9 +18,10 @@ import ClassicProductUsage from "./ClassicTheme/Classic_ProductUsage/ClassicProd
 import ClassicDeliveryFeatures from "./ClassicTheme/Classic_Delivery_Features/ClassicDeliveryFeatures.astro";
 import ClassicProductFeatures from "./ClassicTheme/Classic_Product_Features/ClassicProductFeatures.astro";
 import ClassicThemeTextBar from "./ClassicTheme/Classic_Text_Bar/classicThemeTextBar.astro";
-import ClassicFeaturedProducts from "./ClassicTheme/Classic_Featured_Products/classicFeaturedProducts.astro";
 import ClassicThemeTodayOrders from "./ClassicTheme/ClassicThemeTodayOrders/ClassicThemeTodayOrders.astro";
 import ClassicBeforeAfter from "./ClassicTheme/ClassicBefore&AfterImage/classicBefore&After.astro";
+import ClassicImageTextOverlay from "./ClassicTheme/Classic_Image_Text_Overlay/classicImageTextOverlay.astro";
+import ClassicImageTextBeside from "./ClassicTheme/Classic_Image_Text_Beside/classicImageTextBeside.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -63,7 +64,8 @@ const RENDER_ORDER = [
   FunnelClassicComponents.Classic_Before_After,
   FunnelClassicComponents.ClassicReviews,
   FunnelClassicComponents.ClassicTextBar,
-  FunnelClassicComponents.ClassicImageText,
+  FunnelClassicComponents.ClassicImageTextOverLay,
+  FunnelClassicComponents.ClassicImageTextBeside,
   FunnelClassicComponents.ClassicFaq,
   FunnelClassicComponents.ClassicDeliveryFeatures,
   FunnelClassicComponents.ClassicCountdown,
@@ -194,12 +196,20 @@ const galleryData = isGalleryFound.isComponentFound
           <ClassicThemeTextBar data={TextBarData.componentData} />
         ) : null;
       }
-      if (componentName === FunnelClassicComponents.ClassicImageText) {
+      if (componentName === FunnelClassicComponents.ClassicImageTextOverLay) {
         const ImageTextData = isComponentFound(
-          FunnelClassicComponents.ClassicImageText,
+          FunnelClassicComponents.ClassicImageTextOverLay,
         );
         return ImageTextData.isComponentFound ? (
-          <ClassicFeaturedProducts data={ImageTextData.componentData} />
+          <ClassicImageTextOverlay data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelClassicComponents.ClassicImageTextBeside) {
+        const ImageTextData = isComponentFound(
+          FunnelClassicComponents.ClassicImageTextBeside,
+        );
+        return ImageTextData.isComponentFound ? (
+          <ClassicImageTextBeside data={ImageTextData.componentData} />
         ) : null;
       }
       if (componentName === FunnelClassicComponents.ClassicProductUsage) {

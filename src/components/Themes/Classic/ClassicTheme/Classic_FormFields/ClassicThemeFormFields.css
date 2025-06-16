@@ -2,9 +2,7 @@
 
 .classic-form {
     background-color: var(--classic-color-surface);
-    padding: var(--classic-section-padding);
     border-radius: var(--classic-section-radius);
-    box-shadow: var(--classic-section-shadow);
 }
 
 .classic-form-container {
