@@ -3,7 +3,7 @@ import "./ClassicGalleryComponent.css";
 import type { BlockData, Image } from "../../../../../../lib/api/types";
 
 const data : BlockData = Astro.props.data;
-const gallery : Image[] = data.galleryimages;   
+const gallery : Image[] = data.galleryimages ?? [];   
 ---
 <!-- Gallery Section - Enhanced -->
 <div id="classic-gallery" class="lg:w-1/2 lg:sticky lg:top-0 lg:self-start">
@@ -64,7 +64,7 @@ const gallery : Image[] = data.galleryimages;
         
         <!-- Thumbnail Gallery -->
         <div class="classic-thumbnail-container">
-            <div class="inline-flex gap-3">
+            <div class="inline-flex md:flex-row md:justify-start md:items-start md:flex-wrap gap-3">
                 {
                   gallery.map((image, index) => (
                     <img
