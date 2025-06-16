@@ -4,13 +4,18 @@ import {
   getTranslation,
   type Language,
 } from "../../../../../lib/utils/i18n/translations";
-import type { BlockData } from "../../../../../lib/api/types";
+import type { BlockData, PaymentOption } from "../../../../../lib/api/types";
 import ClassicSubmitOrderButton from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButton.astro";
 
 const data: BlockData = Astro.props.data;
+// Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value ||
   "en") as Language;
 const isArabic = currentLang === "ar";
+let cities: string[] = [];
+let paymentOptions: PaymentOption[] = [];
+if (data.cities !== null) cities = data.cities ?? [];
+if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
 ---
 
 <section id="classic-form" class="classic-form">
@@ -88,12 +93,14 @@ const isArabic = currentLang === "ar";
           </div>
 
           <div>
-            <label class="classic-form-label block mb-2" data-translate="form.city"></label>
+            <label
+              class="classic-form-label block mb-2"
+              data-translate="form.city"></label>
             <select id="form-city" class="classic-form-input text-right">
               <option value="" data-translate="form.selectCity"></option>
 
               {
-                data.cities.map((city: string) => (
+                cities.map((city: string) => (
                   <option value={city.toLowerCase().replace(/\s+/g, "")}>
                     {city}
                   </option>
@@ -107,20 +114,23 @@ const isArabic = currentLang === "ar";
               style="display: none;"></span>
           </div>
 
+          <!-- Payment Options -->
           <div>
-            <label class="classic-form-label block mb-2" data-translate="form.paymentOptions"></label>
-
+            <label
+              class="classic-form-label block mb-2"
+              data-translate="form.paymentOptions"
+            >
+            </label>
             <div
               class="space-y-3"
               role="radiogroup"
               aria-label="Payment Method"
             >
               {
-                data.PaymentOptions.map((option : string, index : number) => {
-                  const value = option.toLowerCase().replace(/\s+/g, "");
+                paymentOptions.map((option, index) => {
+                  const value = option.id;
                   const id = `payment-${value}`;
                   const isChecked = index === 0;
-
                   return (
                     <div class="classic-form-delivery-option">
                       <input
@@ -136,10 +146,33 @@ const isArabic = currentLang === "ar";
                         class="classic-form-delivery-option-content"
                       >
                         <div class="flex justify-between items-center">
-                          <div>
+                          <div class="flex-1  flex flex-col justify-start items-start gap-2">
                             <span class="classic-form-delivery-option-label">
-                              {option}
+                              {option.label[currentLang]}
                             </span>
+                            <span class="classic-form-delivery-option-description">
+                              {option.description[currentLang]}
+                            </span>
+
+                            {/* Show payment method images if available */}
+                            {option.images && option.images.length > 0 && (
+                              <div class="flex justify-start items-center flex-wrap gap-4 ">
+                                {option.images.map((imageSrc) => (
+                                  <div class="w-8 h-8 flex justify-center items-center">
+                                  <img
+                                    src={imageSrc}
+                                    alt={option.label[currentLang]}
+                                    class="w-full"
+                                  />
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Custom radio indicator */}
+                          <div class="classic-form-radio-indicator">
+                            <div class="classic-form-radio-dot" />
                           </div>
                         </div>
                       </label>
@@ -148,13 +181,13 @@ const isArabic = currentLang === "ar";
                 })
               }
             </div>
-
             <span
               id="form-payment-error"
               class="classic-form-error"
               style="display: none;"></span>
           </div>
 
+          <!-- Notes Options -->
           <div>
             <label
               class="classic-form-label block mb-2"

@@ -55,10 +55,10 @@
 
 .classic-form-delivery-option {
     display: flex;
-    align-items: center;
+    align-items: start;
     padding: 0.75rem; /* Tailwind: p-3 */
     border: 1px solid var(--classic-color-outline);
-    gap: 5px;
+    gap: 8px;
     border-radius: 0.5rem; /* Tailwind: rounded-lg */
     cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;

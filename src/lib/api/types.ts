@@ -25,33 +25,46 @@ export interface Block {
 
 // Represents the data associated with a block.
 export interface BlockData {
-    [x: string]: any;
-    map(arg0: (data: BlockData, index: number) => any): unknown;
-    title?: string;
-    icon : string;
-    subtitle?: string;
-    logo?: string;
-    full_name?: string;
-    phone?: string;
-    address?: string;
-    hours?: number;
-    minutes?: number;
-    seconds?: number;
-    count?: number;
-    rate?: number;
-    image? : Image;
-    product?: string;
-    purchase_options?: PurchaseOption[];
-    cities : string[];
-    PaymentOptions : string[];
-    productPreview: ProductPreview;
-    productUsage : VideoInfo[];
-    confirmationNotices: Features[];
-    faqs: Faqs[];
-    features : Features[];
-    company_name?: string;
-    year?: string;
-    galleryimages : Image[];
+  [x: string]: any;
+  map?: (arg0: (data: BlockData, index: number) => any) => unknown;
+  title?: string;
+  icon?: string;
+  subtitle?: string;
+  logo?: string;
+  full_name?: string;
+  phone?: string;
+  address?: string;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+  count?: number;
+  rate?: number;
+  image?: Image;
+  product?: string;
+  purchase_options?: PurchaseOption[];
+  cities?: string[];
+  PaymentOptions?: PaymentOption[];
+  productPreview?: ProductPreview;
+  productUsage?: VideoInfo[];
+  confirmationNotices?: Features[];
+  faqs?: Faqs[];
+  features?: Features[];
+  company_name?: string;
+  year?: string;
+  galleryimages?: Image[];
+}
+
+export interface PaymentOption {
+  id: string;
+  label: {
+    en: string;
+    ar: string;
+  };
+  description: {
+    en: string;
+    ar: string;
+  };
+  images?: string[]; // Optional: could be empty or undefined
 }
 
 export interface Image {
