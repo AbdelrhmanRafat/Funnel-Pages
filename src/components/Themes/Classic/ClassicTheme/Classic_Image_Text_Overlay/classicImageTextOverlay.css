@@ -3,23 +3,13 @@
 /* Product Cards */
 .classic-image-text-overlay-card {
     border-radius: var(--classic-section-radius);
-    overflow: hidden;
     background-color: var(--classic-color-surface-container);
-  }
-  
-  
-  .classic-image-text-overlay-title {
-    font-size: 2.5rem;
-    font-weight: 700;
+}
+
+.classic-image-text-overlay-title {
     color: var(--classic-color-on-primary);
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-  
-  .classic-image-text-overlay-subtitle {
-    font-size: 1.125rem;
+}
+
+.classic-image-text-overlay-subtitle {
     color: var(--classic-color-surface);
-    margin-bottom: 2rem;
-    opacity: 0.9;
-    line-height: 1.5;
-  }
+}

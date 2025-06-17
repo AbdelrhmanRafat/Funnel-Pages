@@ -1,28 +1,7 @@
 /* === Product Features Section Classes === */
-.classic-features-grid {
-    display: grid;
-    gap: 1.5rem; /* gap-6 */
-    grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-    .classic-features-grid {
-        grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
-    }
-}
-
-@media (min-width: 1024px) {
-    .classic-features-grid {
-        grid-template-columns: repeat(4, 1fr); /* lg:grid-cols-4 */
-    }
-}
-
 .classic-feature-card {
     background-color: var(--classic-color-surface);
     border: 1px solid var(--classic-color-outline-variant);
-    border-radius: 1rem; /* rounded-2xl */
-    padding: 1.5rem; /* p-6 */
-    text-align: center;
     transition: all 0.3s ease;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
@@ -34,15 +13,11 @@
 }
 
 .classic-feature-icon-container {
+    /* Keeping width/height in CSS for potential dynamic sizing */
     width: 4rem; /* w-16 */
     height: 4rem; /* h-16 */
     background-color: var(--classic-color-primary);
     color: var(--classic-color-on-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem auto; /* mx-auto mb-4 */
     transition: all 0.3s ease;
 }
 
@@ -53,7 +28,6 @@
 
 .classic-feature-icon {
     color: var(--classic-color-on-primary);
-    font-size: 1.5rem; /* text-2xl */
     transition: all 0.3s ease;
 }
 
@@ -64,9 +38,6 @@
 
 .classic-feature-title {
     color: var(--classic-color-on-surface);
-    font-weight: 600; /* font-semibold */
-    font-size: 1.125rem; /* text-lg */
-    margin-bottom: 0.5rem; /* mb-2 */
     transition: color 0.3s ease;
 }
 
@@ -76,6 +47,5 @@
 
 .classic-feature-subtitle {
     color: var(--classic-color-on-surface-variant);
-    font-size: 0.875rem; /* text-sm */
     line-height: 1.4;
 }

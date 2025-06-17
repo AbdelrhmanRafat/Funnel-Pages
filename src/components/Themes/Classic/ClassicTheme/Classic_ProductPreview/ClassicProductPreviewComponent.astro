@@ -7,7 +7,7 @@ import type { BlockData, ProductPreview } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 
 const data: BlockData = Astro.props.data;
-const productPreview: ProductPreview = data.productPreview;
+const productPreview: ProductPreview = data.productPreview ?? {} as ProductPreview;
 ---
 
 <section id="classic-product-preview" class="classic-section">
@@ -18,59 +18,64 @@ const productPreview: ProductPreview = data.productPreview;
     </div>
 
     <!-- Main Content -->
-    <div class="flex flex-col lg:flex-row gap-8 items-stretch">
-        <!-- Right Side - Video (3/5 width on desktop) -->
-        <div class="lg:w-3/5">
-            <div class="classic-product-video-container classic-product-video-height w-full">
+    <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch">
+        <!-- Video Section (3/5 width on desktop) -->
+        <div class="w-full lg:w-3/5 order-2 lg:order-1">
+            <div class="classic-product-video-container classic-product-video-height">
                 <iframe
-                    class="w-full h-full"
+                    class="w-full h-full rounded-[inherit]"
                     src={productPreview.videoInfo.link}
                     title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
+                    allowfullscreen>
+                </iframe>
                 <div class="classic-product-video-title">
                     <p>{productPreview.videoInfo.title}</p>
                 </div>
             </div>
         </div>
-        
-        <!-- Left Side - Features (2/5 width on desktop) -->
-        <div class="lg:w-2/5 space-y-6">
-            <div class="classic-product-features-container">
+                
+        <!-- Features Section (2/5 width on desktop) -->
+        <div class="w-full lg:w-2/5 order-1 lg:order-2">
+            <div class="classic-product-features-container h-full">
                 <!-- Features Header -->
-                <div class="classic-product-features-header flex flex-col justify-start items-start gap-2 md:flex-row md:justify-between md:items-center md:gap-0">
-                    <h2 class="classic-product-features-title">
-                        {productPreview.featuresSectionTitle}
-                    </h2>
-                    <div class="classic-product-views-badge">
-                        <div>
-                            <i class={productPreview.viewsIcon}></i>
+                <div class="classic-product-features-header">
+                    <div class="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center sm:gap-4">
+                        <h2 class="classic-product-features-title">
+                            {productPreview.featuresSectionTitle}
+                        </h2>
+                        <div class="classic-product-views-badge flex-shrink-0">
+                            <div class="flex-shrink-0">
+                                <i class={productPreview.viewsIcon}></i>
+                            </div>
+                            <span class="truncate">{productPreview.viewsText}</span>
                         </div>
-                        <span>{productPreview.viewsText}</span>
                     </div>
                 </div>
-                
+                                
                 <!-- Feature List -->
-                <div class="space-y-8 mt-6">
-                    {
-                        productPreview.features.map((feature) => (
-                            <div class="classic-product-feature-item">
-                                <div class="classic-product-feature-icon">
-                                <i class="fa-solid fa-circle-check"></i>
-                                </div>
-                                <div class="classic-product-feature-content">
-                                    <div class="classic-product-feature-title">{feature.title}</div>
-                                    <div class="classic-product-feature-subtitle">
-                                        {feature.subtitle}
+                <div class="flex-1 py-6">
+                    <div class="space-y-6 lg:space-y-8">
+                        {
+                            productPreview.features.map((feature) => (
+                                <div class="classic-product-feature-item">
+                                    <div class="classic-product-feature-icon">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                    </div>
+                                    <div class="classic-product-feature-content flex-1 min-w-0">
+                                        <div class="classic-product-feature-title">{feature.title}</div>
+                                        <div class="classic-product-feature-subtitle">
+                                            {feature.subtitle}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))
-                    }
+                            ))
+                        }
+                    </div>
                 </div>
-                
+                                
                 <!-- Buy Now Button -->
-                <div class="mt-6">
+                <div class="mt-auto pt-4 border-t border-current/10">
                     <ClassicBuyNowButton />
                 </div>
             </div>

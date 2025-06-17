@@ -7,17 +7,13 @@
 .classic-image-text-beside-content {
   background-color: var(--classic-color-surface-container-high);
   border-radius: var(--classic-section-radius);
-  height: 100%;
   transition: all 0.3s ease;
 }
 
 .classic-image-text-beside-title {
-  font-size: 1.875rem; /* text-3xl */
-  font-weight: 700;
   color: var(--classic-color-on-surface);
 }
 
 .classic-image-text-beside-description {
   color: var(--classic-color-on-surface-variant);
-  font-size: 1rem;
 }

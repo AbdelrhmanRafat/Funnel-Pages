@@ -1,26 +1,11 @@
 /* === Classic FAQ Component === */
-.classic-faq-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
 .classic-faq-item {
     background-color: var(--classic-color-surface);
     border-radius: var(--classic-section-radius);
     border: 1px solid var(--classic-color-outline-variant);
-    overflow: hidden;
 }
 
 .classic-faq-question {
-    width: 100%;
-    padding: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
@@ -30,25 +15,17 @@
 
 .classic-faq-question-text {
     color: var(--classic-color-on-surface);
-    font-weight: 500;
 }
 
 .classic-faq-icon {
     color: var(--classic-color-on-surface-variant);
-    font-size: 1.25rem;
-    font-weight: 300;
     transition: transform 0.3s ease;
 }
 
 .classic-faq-answer {
-    padding: 0 1.5rem;
-    max-height: 0;
-    overflow: hidden;
     transition: all 0.3s ease-out;
 }
 
 .classic-faq-answer-content {
     color: var(--classic-color-on-surface-variant);
-    line-height: 1.6;
-    padding: 0.5rem 0;
 }

@@ -4,7 +4,7 @@ import "./ClassicProductUsage.css";
 import type { BlockData, VideoInfo } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
-const productUsage: VideoInfo[] = data.productUsage;
+const productUsage: VideoInfo[] = data.productUsage ?? [];
 
 // Helper function to convert watch URL to embed
 const getEmbedUrl = (url: string) => {

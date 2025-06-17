@@ -3,8 +3,7 @@ import "./ClassicProductFeatures.css"
 import type { BlockData, Features } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
-const productFeatures: Features[] = data.features;
-
+const productFeatures: Features[] = data.features ?? [];
 ---
 
 <section id="classic-product-features" class="classic-section">
@@ -13,22 +12,22 @@ const productFeatures: Features[] = data.features;
     <i class={data.icon}></i>
     <h5>{data.title}</h5>
   </div>
-
+  
   <!-- Features Grid -->
-  <div class="classic-features-grid">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     {
       productFeatures.map((feature, index) => (
-        <div class="classic-feature-card">
+        <div class="classic-feature-card p-6 text-center rounded-2xl">
           <!-- Feature Icon -->
-          <div class="classic-feature-icon-container">
-            <i class={`${feature.icon} classic-feature-icon`} />
+          <div class="classic-feature-icon-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class={`${feature.icon} classic-feature-icon text-2xl`} />
           </div>
-          
+                    
           <!-- Feature Content -->
-          <h3 class="classic-feature-title">
+          <h3 class="classic-feature-title font-semibold text-lg mb-2">
             {feature.title}
           </h3>
-          <p class="classic-feature-subtitle">
+          <p class="classic-feature-subtitle text-sm">
             {feature.subtitle}
           </p>
         </div>
