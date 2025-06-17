@@ -123,3 +123,163 @@ export class ColorSizeOptionsSubject extends GenericSubject<ColorSizeState> {
     return this.getState().options;
   }
 }
+
+// Form Fields Observer
+export interface FormFieldData {
+  id: string;
+  value: string;
+  isValid: boolean;
+  errorMessage: string;
+}
+
+export interface FormFieldsState extends State {
+  formData: {
+    fullName: FormFieldData | null;
+    phone: FormFieldData | null;
+    email: FormFieldData | null;
+    address: FormFieldData | null;
+    city: FormFieldData | null;
+    paymentOption: FormFieldData | null;
+    notes: FormFieldData | null;
+  };
+}
+
+export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
+  private static instance: FormFieldsSubject;
+
+  private constructor() {
+    super({
+      formData: {
+        fullName: null,
+        phone: null,
+        email: null,
+        address: null,
+        city: null,
+        paymentOption: null,
+        notes: null
+      }
+    });
+  }
+
+  public static getInstance(): FormFieldsSubject {
+    if (!FormFieldsSubject.instance) {
+      FormFieldsSubject.instance = new FormFieldsSubject();
+    }
+    return FormFieldsSubject.instance;
+  }
+
+  public initializeFields(fieldIds: readonly string[]): void {
+    const formData = {
+      fullName: null,
+      phone: null,
+      email: null,
+      address: null,
+      city: null,
+      paymentOption: null,
+      notes: null
+    };
+
+    // Initialize fields based on their IDs
+    fieldIds.forEach(id => {
+      const fieldKey = this.getFieldKeyFromId(id);
+      if (fieldKey) {
+        formData[fieldKey] = {
+          id,
+          value: '',
+          isValid: false,
+          errorMessage: ''
+        };
+      }
+    });
+
+    // Initialize payment option field separately since it's not in fieldIds
+    formData.paymentOption = {
+      id: 'payment-option',
+      value: this.getSelectedPaymentOption(),
+      isValid: true, // Assuming it's valid by default since one option is pre-selected
+      errorMessage: ''
+    };
+
+    this.setState({ formData });
+  }
+
+  private getFieldKeyFromId(fieldId: string): keyof FormFieldsState['formData'] | null {
+    const mapping: Record<string, keyof FormFieldsState['formData']> = {
+      'form-fullName': 'fullName',
+      'form-phone': 'phone',
+      'form-email': 'email',
+      'form-address': 'address',
+      'form-city': 'city',
+      'form-notes': 'notes'
+    };
+    
+    return mapping[fieldId] || null;
+  }
+
+  private getSelectedPaymentOption(): string {
+    const paymentRadios = document.querySelectorAll('input[name="payment-option"]');
+    for (const radio of paymentRadios) {
+      if ((radio as HTMLInputElement).checked) {
+        return (radio as HTMLInputElement).value;
+      }
+    }
+    return '';
+  }
+
+  public updateField(fieldId: string, updates: Partial<FormFieldData>): void {
+    const currentState = this.getState();
+    const formData = { ...currentState.formData };
+    
+    // Handle payment option separately
+    if (fieldId === 'payment-option') {
+      if (formData.paymentOption) {
+        formData.paymentOption = { ...formData.paymentOption, ...updates };
+      } else {
+        formData.paymentOption = {
+          id: fieldId,
+          value: updates.value || '',
+          isValid: updates.isValid !== undefined ? updates.isValid : true,
+          errorMessage: updates.errorMessage || ''
+        };
+      }
+    } else {
+      // Handle regular form fields
+      const fieldKey = this.getFieldKeyFromId(fieldId);
+      if (fieldKey && formData[fieldKey]) {
+        formData[fieldKey] = { ...formData[fieldKey], ...updates };
+      }
+    }
+
+    this.setState({ formData });
+  }
+
+  public getField(fieldId: string): FormFieldData | null {
+    const formData = this.getState().formData;
+    
+    if (fieldId === 'payment-option') {
+      return formData.paymentOption;
+    }
+    
+    const fieldKey = this.getFieldKeyFromId(fieldId);
+    return fieldKey ? formData[fieldKey] : null;
+  }
+
+  public getAllFields(): Record<string, FormFieldData | null> {
+    return this.getState().formData;
+  }
+
+  public areAllFieldsValid(): boolean {
+    const formData = this.getState().formData;
+    
+    // Check if all required fields are valid
+    return (
+      formData.fullName?.isValid === true &&
+      formData.phone?.isValid === true &&
+      formData.email?.isValid === true &&
+      formData.address?.isValid === true &&
+      formData.city?.isValid === true &&
+      formData.paymentOption?.isValid === true
+      // Notes field is optional, so we don't check it here
+    );
+  }
+}

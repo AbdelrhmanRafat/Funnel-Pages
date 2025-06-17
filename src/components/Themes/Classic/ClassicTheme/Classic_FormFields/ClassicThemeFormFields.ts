@@ -8,8 +8,6 @@ import {
   isValidAddress,
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
-import { QuantityOptionsSubject } from '../../../../../lib/patterns/Observer';
-import { ColorSizeOptionsSubject } from '../../../../../lib/patterns/Observer';
 
 /**
  * Interface representing a form field with validation state
@@ -19,15 +17,6 @@ interface FormField {
   value: string;
   isValid: boolean;
   errorMessage: string;
-}
-
-/**
- * Interface for color/size option validation
- */
-interface ColorSizeOption {
-  panelIndex: number;
-  color?: string;
-  size?: string;
 }
 
 /**
@@ -52,10 +41,9 @@ const FORM_FIELD_CONFIG = {
 } as const;
 
 /**
- * ClassicFormValidator - Handles form validation with real-time feedback
- * Supports multilingual validation messages and color/size option validation
+ * ClassicFormFieldsHandler - Handles form field input events for real-time validation feedback
  */
-class ClassicFormValidator {
+class ClassicFormFieldsHandler {
   private form: HTMLFormElement | null;
   private fields: Map<string, FormField>;
   private currentLang: Language;
@@ -70,11 +58,11 @@ class ClassicFormValidator {
   // ===== INITIALIZATION METHODS =====
 
   /**
-   * Initialize the form validator
+   * Initialize the form fields handler
    */
   private initialize(): void {
     this.initializeFields();
-    this.setupEventListeners();
+    this.setupInputEventListeners();
   }
 
   /**
@@ -161,69 +149,6 @@ class ClassicFormValidator {
     return getTranslation(messageKey, this.currentLang);
   }
 
-  /**
-   * Validate all form fields
-   * @returns boolean indicating if all fields are valid
-   */
-  private validateAllFields(): boolean {
-    let isFormValid = true;
-
-    this.fields.forEach((field, fieldId) => {
-      const input = document.getElementById(fieldId) as HTMLInputElement;
-      if (input) {
-        const isValid = this.validateField(fieldId, input.value);
-        const message = this.getErrorMessage(fieldId, isValid);
-        this.displayValidationMessage(fieldId, message, isValid);
-
-        if (!isValid) {
-          isFormValid = false;
-        }
-      }
-    });
-
-    return isFormValid;
-  }
-
-  /**
-   * Validate color and size options
-   * @returns boolean indicating if all options are valid
-   */
-  private validateColorSizeOptions(): boolean {
-    const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
-    const colorSizeState = colorSizeSubject.getState();
-  
-    if (!colorSizeState.options || colorSizeState.options.length === 0) {
-      return true; // No options to validate
-    }
-  
-    let isOptionsValid = true;
-    const errorMessages: string[] = [];
-  
-    for (const option of colorSizeState.options) {
-      if (!option.color) {
-        errorMessages.push(`من فضلك اختر اللون للخيار رقم ${option.panelIndex}`);
-        isOptionsValid = false;
-      }
-      if (!option.size) {
-        errorMessages.push(`من فضلك اختر المقاس للخيار رقم ${option.panelIndex}`);
-        isOptionsValid = false;
-      }
-    }
-  
-    // فقط أنشئ الكونتينر لو فيه أخطاء فعلاً
-    if (!isOptionsValid) {
-      const optionsErrorContainer = this.getOrCreateOptionsErrorContainer();
-      optionsErrorContainer.innerHTML = '';
-      errorMessages.forEach(msg => this.addOptionsError(optionsErrorContainer, msg));
-    } else {
-      // لو مفيش أخطاء، احذف الكونتينر لو موجود
-      const existing = document.getElementById('options-error-container');
-      if (existing) existing.remove();
-    }
-  
-    return isOptionsValid;
-  }
-
   // ===== UI UPDATE METHODS =====
 
   /**
@@ -290,74 +215,7 @@ class ClassicFormValidator {
     }
   }
 
-  // ===== OPTIONS ERROR HANDLING =====
-
-  /**
-   * Get or create the options error container
-   * @returns HTMLElement for displaying option errors
-   */
-  private getOrCreateOptionsErrorContainer(): HTMLElement {
-    let container = document.getElementById('options-error-container');
-
-    if (!container) {
-      container = this.createOptionsErrorContainer();
-    }
-
-    return container;
-  }
-
-  /**
-   * Create error container for color/size options
-   * @returns HTMLElement for the error container
-   */
-  private createOptionsErrorContainer(): HTMLElement {
-    const container = document.createElement('div');
-    container.id = 'options-error-container';
-    container.className = FORM_FIELD_CONFIG.ERROR_CLASSES.ERROR_CONTAINER;
-
-    this.insertErrorContainer(container);
-    return container;
-  }
-
-  /**
-   * Insert error container in appropriate position in the form
-   * @param container - The container element to insert
-   */
-  private insertErrorContainer(container: HTMLElement): void {
-    if (!this.form) return;
-
-    const submitButton = this.form.querySelector('button[type="submit"]');
-
-    if (submitButton && submitButton.parentNode) {
-      submitButton.parentNode.insertBefore(container, submitButton);
-    } else {
-      this.form.appendChild(container);
-    }
-  }
-
-  /**
-   * Add error message to the options error container
-   * @param container - The container to add the error to
-   * @param message - The error message
-   */
-  private addOptionsError(container: HTMLElement, message: string): void {
-    const errorElement = document.createElement('p');
-    errorElement.className = FORM_FIELD_CONFIG.ERROR_CLASSES.ERROR_MESSAGE;
-    errorElement.textContent = message;
-    container.appendChild(errorElement);
-  }
-
   // ===== EVENT HANDLING =====
-
-  /**
-   * Set up all event listeners for the form
-   */
-  private setupEventListeners(): void {
-    if (!this.form) return;
-
-    this.setupInputEventListeners();
-    this.setupSubmitEventListener();
-  }
 
   /**
    * Set up event listeners for input fields
@@ -383,72 +241,13 @@ class ClassicFormValidator {
     const message = this.getErrorMessage(fieldId, isValid);
     this.displayValidationMessage(fieldId, message, isValid);
   }
-
-  /**
-   * Set up submit event listener
-   */
-  private setupSubmitEventListener(): void {
-    if (!this.form) return;
-
-    this.form.addEventListener('submit', (e: Event) => {
-      this.handleFormSubmit(e);
-    });
-  }
-
-  /**
-   * Handle form submission
-   * @param e - The submit event
-   */
-  private handleFormSubmit(e: Event): void {
-    e.preventDefault();
-
-    // Log current state for debugging
-    this.logCurrentState();
-
-    // Validate all fields and options
-    const isFieldsValid = this.validateAllFields();
-    const isOptionsValid = this.validateColorSizeOptions();
-    const isFormValid = isFieldsValid && isOptionsValid;
-
-    // Submit form if all validations pass
-    // if (isFormValid && this.form) {
-    //   this.form.submit();
-    // }
-  }
-
-  /**
-   * Log current state for debugging purposes
-   */
-  private logCurrentState(): void {
-    const quantitySubject = QuantityOptionsSubject.getInstance();
-    const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
-    const quantityState = quantitySubject.getState();
-    const colorSizeState = colorSizeSubject.getState();
-
-    // Get all form field values
-    const formData = {
-      personalInfo: {
-        fullName: (document.getElementById('form-fullName') as HTMLInputElement)?.value || '',
-        phone: (document.getElementById('form-phone') as HTMLInputElement)?.value || '',
-        email: (document.getElementById('form-email') as HTMLInputElement)?.value || '',
-        address: (document.getElementById('form-address') as HTMLTextAreaElement)?.value || '',
-        city: (document.getElementById('form-city') as HTMLSelectElement)?.value || '',
-      },
-      payment: {
-        method: (document.querySelector('input[name="payment-option"]:checked') as HTMLInputElement)?.value || '',
-      },
-      notes: (document.getElementById('form-notes') as HTMLTextAreaElement)?.value || '',
-      selectedItem: quantityState.selectedItem,
-      colorSizeOptions: colorSizeState.options,
-    };
-    console.log('Form Data:', formData);
-  }
 }
+
 // ===== INITIALIZATION =====
 
 /**
- * Initialize the form validator when DOM is loaded
+ * Initialize the form fields handler when DOM is loaded
  */
 document.addEventListener('DOMContentLoaded', () => {
-  new ClassicFormValidator();
+  new ClassicFormFieldsHandler();
 });

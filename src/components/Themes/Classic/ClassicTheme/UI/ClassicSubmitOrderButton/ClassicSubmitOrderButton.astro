@@ -1,18 +1,21 @@
 ---
 import "./ClassicSubmitOrderButton.css";
-import { type Language } from "../../../../../../lib/utils/i18n/translations";
-
-const currentLang: Language = (Astro.cookies.get("lang")?.value ||
-  "en") as Language;
-
-const isArabic = currentLang === "ar";
+import ClassicModalPurchaseInfo from "../../ClassicModalPurchaseInfo/ClassicModalPurchaseInfo.astro";
 ---
 
 <div>
   <button
-    type="submit"
+    type="button"
+    id="SubmitOrderButton"
     class="classic-form-submit"
     data-translate="form.submit"
   >
   </button>
 </div>
+
+<!-- Include the modal component -->
+<ClassicModalPurchaseInfo />
+
+<script>
+  import "./ClassicSubmitOrderButton";
+</script>
