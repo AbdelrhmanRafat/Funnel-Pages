@@ -1,19 +1,139 @@
-/* === Delivery Features Section Classes === */
+/* === Troy Delivery Features Section Classes === */
+
+.troy-feature-card {
+  position: relative;
+}
 
 .troy-delivery-icon-container {
-    /* Keeping width/height in CSS in case they need to be dynamic */
-    width: 4rem; /* w-16 */
-    height: 4rem; /* h-16 */
+  position: relative;
+  display: inline-block;
 }
 
-.troy-delivery-icon {
-    color: var(--troy-color-primary);
+/* Enhanced Icon Hover Effects */
+.troy-delivery-icon-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: -1;
 }
 
+.group:hover .troy-delivery-icon-container::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Premium Card Animations */
+.troy-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(245, 158, 11, 0.05) 25%,
+    rgba(251, 146, 60, 0.05) 50%,
+    transparent 75%
+  );
+  border-radius: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.troy-feature-card:hover::before {
+  opacity: 1;
+}
+
+/* Title Hover Effects */
 .troy-delivery-title {
-    color: var(--troy-color-on-surface);
+  position: relative;
+  transition: all 0.3s ease;
 }
 
+.troy-delivery-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--troy-color-primary), var(--troy-color-secondary));
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+
+.group:hover .troy-delivery-title::after {
+  width: 60%;
+}
+
+/* Subtitle Enhanced Styling */
 .troy-delivery-subtitle {
-    color: var(--troy-color-on-surface-variant);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  transition: all 0.3s ease;
+}
+
+.group:hover .troy-delivery-subtitle {
+  color: #b45309; /* troy-color-primary */
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+  .troy-feature-card {
+    margin-bottom: 1rem;
+  }
+  
+  .troy-delivery-icon-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .troy-middle-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* Extra large screens - enhance first and last cards */
+  .troy-feature-card:first-child,
+  .troy-feature-card:last-child {
+    transform: perspective(1000px) rotateY(0deg);
+    transition: transform 0.4s ease;
+  }
+  
+  .troy-feature-card:first-child:hover {
+    transform: perspective(1000px) rotateY(-2deg) scale(1.02);
+  }
+  
+  .troy-feature-card:last-child:hover {
+    transform: perspective(1000px) rotateY(2deg) scale(1.02);
+  }
+}
+
+/* Additional Animation for Trust Indicators */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.8), 0 0 30px rgba(34, 197, 94, 0.4);
+  }
+}
+
+.animate-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
 }

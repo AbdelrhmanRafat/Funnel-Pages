@@ -3,47 +3,117 @@ import "./TroyFaq.css";
 import type { BlockData, Faqs } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
-const faqs : Faqs[] = data.faqs ?? [];
+const faqs: Faqs[] = data.faqs ?? [];
 ---
 
-<!-- FAQ Section Component for Astro -->
+<!-- Troy FAQ Section with Generic Tailwind Layout -->
 <section id="troy-faq" class="troy-section">
-    <!-- Header -->
-    <div class="troy-section-header">
-        <i class={data.icon}></i>
-        <h5>{data.title}</h5>
+  
+  <!-- Header - Pure Tailwind Layout -->
+  <div class="text-center mb-16">
+    <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl mb-8 shadow-xl border-2 troy-header-icon-bg">
+      <i class={`${data.icon} text-5xl troy-header-icon`}></i>
     </div>
-    
-    <!-- FAQ Items -->
-    <div class="flex flex-col gap-4">
-        {
-            faqs.map((faq, index) => (
-                <div class="troy-faq-item overflow-hidden">
-                    <button
-                        class="troy-faq-question w-full p-6 flex items-center justify-between bg-transparent border-none cursor-pointer"
-                        data-faq-index={index}
-                    >
-                        <span class="troy-faq-question-text font-medium">
-                            {faq.question}
-                        </span>
-                        <span class="troy-faq-icon text-xl font-light">
-                            +
-                        </span>
-                    </button>
-                    <div
-                        class="troy-faq-answer px-6 max-h-0 overflow-hidden"
-                        data-answer-index={index}
-                    >
-                        <div class="troy-faq-answer-content leading-relaxed py-2">
-                            {faq.answer}
-                        </div>
-                    </div>
+    <h2 class="text-4xl lg:text-5xl font-bold mb-6 troy-main-title">
+      {data.title}
+    </h2>
+    <div class="flex items-center justify-center gap-2 mb-4">
+      <div class="w-8 h-0.5 rounded troy-accent-line"></div>
+      <div class="w-3 h-3 rounded-full troy-accent-dot"></div>
+      <div class="w-8 h-0.5 rounded troy-accent-line"></div>
+    </div>
+    <p class="text-lg font-medium max-w-2xl mx-auto troy-subtitle">
+      إجابات شاملة لأهم الأسئلة حول منتجات تروي الفاخرة
+    </p>
+  </div>
+
+  <!-- FAQ Grid - Pure Tailwind Layout -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+    {
+      faqs.map((faq, index) => (
+        <div class={`troy-faq-item group ${index % 2 === 0 ? 'lg:-mt-8' : 'lg:mt-8'}`}>
+          
+          <!-- Question Card - Tailwind Layout Only -->
+          <div class="relative rounded-2xl shadow-lg border-2 overflow-hidden hover:shadow-2xl transition-all duration-300 troy-faq-card">
+            
+            <!-- Decorative Header Strip - CSS Variable Color -->
+            <div class="h-1.5 troy-card-header-strip"></div>
+            
+            <!-- Question Button - Tailwind Layout -->
+            <button
+              class="w-full p-8 flex items-start justify-between bg-transparent border-none cursor-pointer group"
+              data-faq-index={index}
+            >
+              <!-- Question Number Badge - Tailwind Layout -->
+              <div class="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg mr-6 group-hover:scale-110 transition-transform duration-300 troy-number-badge">
+                {String(index + 1).padStart(2, '0')}
+              </div>
+              
+              <!-- Question Text - Tailwind Layout -->
+              <div class="flex-1 text-right">
+                <span class="text-xl font-bold leading-tight group-hover:text-opacity-80 transition-colors duration-300 troy-question-text">
+                  {faq.question}
+                </span>
+              </div>
+              
+              <!-- Toggle Icon - Tailwind Layout -->
+              <div class="flex-shrink-0 ml-6">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 troy-icon-container">
+                  <span class="text-2xl font-bold transform group-hover:rotate-45 transition-transform duration-300 troy-toggle-icon">
+                    +
+                  </span>
                 </div>
-            ))
-        }
+              </div>
+            </button>
+            
+            <!-- Answer Section - Tailwind Layout -->
+            <div
+              class="px-8 transition-all duration-500 ease-out troy-faq-answer"
+              data-answer-index={index}
+            >
+              <div class="pb-8 pt-0 troy-answer-content">
+                <!-- Decorative Separator - Tailwind Layout -->
+                <div class="w-full h-px mb-6 troy-separator"></div>
+                
+                <!-- Answer Text Container - Tailwind Layout -->
+                <div class="rounded-xl p-6 shadow-inner border troy-answer-box">
+                  <p class="text-lg leading-relaxed font-medium troy-answer-text">
+                    {faq.answer}
+                  </p>
+                </div>
+                
+                <!-- Bottom Accent - Tailwind Layout -->
+                <div class="flex justify-center mt-4">
+                  <div class="w-16 h-1 rounded-full troy-bottom-accent"></div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Corner Decorations - Tailwind Layout -->
+            <div class="absolute top-0 left-0 w-20 h-20 rounded-br-3xl troy-corner-decoration-tl"></div>
+            <div class="absolute bottom-0 right-0 w-16 h-16 rounded-tl-3xl troy-corner-decoration-br"></div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Call to Action Footer - Tailwind Layout -->
+  <div class="mt-20 text-center">
+    <div class="rounded-2xl p-8 shadow-2xl troy-cta-section">
+      <h3 class="text-2xl font-bold mb-4 troy-cta-title">
+        هل لديك سؤال آخر؟
+      </h3>
+      <p class="text-lg mb-6 troy-cta-subtitle">
+        فريق خدمة العملاء جاهز للإجابة على جميع استفساراتك
+      </p>
+      <button class="px-8 py-4 rounded-xl font-bold text-lg transition-colors duration-300 shadow-lg hover:shadow-xl troy-cta-button">
+        اتصل بنا الآن
+      </button>
     </div>
+  </div>
 </section>
 
 <script>
-    import "./TroyFaq";
+  import "./TroyFaq";
 </script>

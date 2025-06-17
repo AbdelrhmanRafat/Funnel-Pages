@@ -1,31 +1,160 @@
-/* === Troy FAQ Component === */
-.troy-faq-item {
-    background-color: var(--troy-color-surface);
-    border-radius: var(--troy-section-radius);
-    border: 1px solid var(--troy-color-outline-variant);
+/* === Troy FAQ Component - CSS Variables Only === */
+
+/* Header Styling - Your Color Variables Only */
+.troy-header-icon-bg {
+  background: linear-gradient(135deg, var(--troy-color-surface-variant), var(--troy-color-surface-container));
+  border-color: var(--troy-color-outline-variant);
 }
 
-.troy-faq-question {
-    transition: background-color 0.2s ease;
+.troy-header-icon {
+  color: var(--troy-color-primary);
 }
 
-.troy-faq-question:hover {
-    background-color: var(--troy-color-surface-variant);
+.troy-main-title {
+  color: var(--troy-color-on-surface);
 }
 
-.troy-faq-question-text {
-    color: var(--troy-color-on-surface);
+.troy-subtitle {
+  color: var(--troy-color-on-surface-variant);
 }
 
-.troy-faq-icon {
-    color: var(--troy-color-on-surface-variant);
-    transition: transform 0.3s ease;
+.troy-accent-line {
+  background-color: var(--troy-color-primary);
 }
 
+.troy-accent-dot {
+  background-color: var(--troy-color-primary);
+}
+
+/* FAQ Card Styling - Your Color Variables Only */
+.troy-faq-card {
+  background: linear-gradient(135deg, var(--troy-color-surface), var(--troy-color-surface-variant));
+  border-color: var(--troy-color-outline-variant);
+}
+
+.troy-card-header-strip {
+  background: linear-gradient(90deg, var(--troy-color-primary), var(--troy-color-secondary));
+}
+
+.troy-number-badge {
+  background: linear-gradient(135deg, var(--troy-color-primary), var(--troy-color-primary-light));
+  color: var(--troy-color-on-primary);
+}
+
+.troy-question-text {
+  color: var(--troy-color-on-surface);
+}
+
+.troy-icon-container {
+  background-color: var(--troy-color-surface-variant);
+}
+
+.troy-icon-container:hover {
+  background-color: var(--troy-color-surface-container);
+}
+
+.troy-toggle-icon {
+  color: var(--troy-color-on-surface);
+}
+
+/* Answer Section Styling - Your Color Variables Only */
 .troy-faq-answer {
-    transition: all 0.3s ease-out;
+  background: linear-gradient(to bottom, var(--troy-color-surface-variant), var(--troy-color-surface));
 }
 
-.troy-faq-answer-content {
-    color: var(--troy-color-on-surface-variant);
+.troy-separator {
+  background: linear-gradient(90deg, transparent, var(--troy-color-outline-variant), transparent);
+}
+
+.troy-answer-box {
+  background-color: var(--troy-color-surface);
+  border-color: var(--troy-color-outline-variant);
+}
+
+.troy-answer-text {
+  color: var(--troy-color-on-surface);
+}
+
+.troy-bottom-accent {
+  background: linear-gradient(90deg, var(--troy-color-primary), var(--troy-color-secondary));
+}
+
+/* Corner Decorations - Your Color Variables Only */
+.troy-corner-decoration-tl {
+  background: linear-gradient(135deg, var(--troy-color-primary), transparent);
+  opacity: 0.1;
+}
+
+.troy-corner-decoration-br {
+  background: linear-gradient(315deg, var(--troy-color-secondary), transparent);
+  opacity: 0.1;
+}
+
+/* Call to Action Styling - Your Color Variables Only */
+.troy-cta-section {
+  background: linear-gradient(135deg, var(--troy-color-primary), var(--troy-color-secondary));
+}
+
+.troy-cta-title {
+  color: var(--troy-color-on-primary);
+}
+
+.troy-cta-subtitle {
+  color: var(--troy-color-surface-variant);
+}
+
+.troy-cta-button {
+  background-color: var(--troy-color-surface);
+  color: var(--troy-color-primary);
+}
+
+.troy-cta-button:hover {
+  background-color: var(--troy-color-surface-variant);
+}
+
+/* Active States - Your Color Variables Only */
+.troy-faq-item.active .troy-toggle-icon {
+  color: var(--troy-color-primary);
+}
+
+.troy-faq-item.active .troy-icon-container {
+  background: linear-gradient(135deg, var(--troy-color-primary), var(--troy-color-primary-light));
+}
+
+.troy-faq-item.active .troy-toggle-icon {
+  color: var(--troy-color-on-primary);
+}
+
+/* Essential Animations Only */
+.troy-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.troy-faq-answer.active {
+  max-height: 500px !important;
+  overflow: visible;
+}
+
+.troy-answer-content {
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.5s ease 0.1s;
+}
+
+.troy-faq-answer.active .troy-answer-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Debug - Temporary to test visibility */
+.troy-answer-text {
+  color: var(--troy-color-on-surface) !important;
+}
+
+/* Ensure text is visible in all states */
+.troy-faq-answer p {
+  color: var(--troy-color-on-surface);
+  margin: 0;
 }
