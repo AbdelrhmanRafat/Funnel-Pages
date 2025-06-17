@@ -1,15 +1,82 @@
-/* === Troy Delivery Features Section Classes === */
+/* === Troy Delivery Features - CSS Variables Only === */
 
-.troy-feature-card {
-  position: relative;
+/* Header Styling */
+.troy-header-icon-bg {
+  background: linear-gradient(135deg, var(--troy-color-surface-variant), var(--troy-color-surface-container));
+  border: 2px solid var(--troy-color-outline-variant);
 }
 
+.troy-header-icon {
+  color: var(--troy-color-primary);
+}
+
+.troy-main-title {
+  color: var(--troy-color-on-surface);
+}
+
+.troy-accent-line {
+  background: linear-gradient(90deg, transparent, var(--troy-color-primary), transparent);
+}
+
+/* Feature Card Styling */
+.troy-feature-card-bg {
+  background: linear-gradient(135deg, var(--troy-color-surface), var(--troy-color-surface-variant));
+  border-color: var(--troy-color-outline-variant);
+}
+
+.troy-corner-decoration {
+  background: linear-gradient(225deg, var(--troy-color-primary), transparent);
+  opacity: 0.1;
+}
+
+.troy-icon-bg {
+  background: linear-gradient(135deg, var(--troy-color-primary), var(--troy-color-primary-light));
+}
+
+.troy-icon-color {
+  color: var(--troy-color-on-primary);
+}
+
+.troy-feature-title {
+  color: var(--troy-color-on-surface);
+}
+
+.troy-feature-subtitle {
+  color: var(--troy-color-on-surface-variant);
+}
+
+.troy-bottom-accent {
+  background: linear-gradient(90deg, var(--troy-color-primary), var(--troy-color-secondary));
+}
+
+/* Trust Indicators Styling */
+.troy-trust-border {
+  border-color: var(--troy-color-outline-variant);
+}
+
+.troy-trust-text {
+  color: var(--troy-color-on-surface);
+}
+
+.troy-status-active {
+  background-color: var(--troy-color-success);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.troy-status-warning {
+  background-color: var(--troy-color-warning);
+}
+
+.troy-status-info {
+  background-color: var(--troy-color-info);
+}
+
+/* Essential Animations and Effects */
 .troy-delivery-icon-container {
   position: relative;
   display: inline-block;
 }
 
-/* Enhanced Icon Hover Effects */
 .troy-delivery-icon-container::before {
   content: '';
   position: absolute;
@@ -18,7 +85,7 @@
   transform: translate(-50%, -50%);
   width: 100px;
   height: 100px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--troy-color-primary), transparent 70%);
   border-radius: 50%;
   opacity: 0;
   transition: all 0.4s ease;
@@ -26,11 +93,10 @@
 }
 
 .group:hover .troy-delivery-icon-container::before {
-  opacity: 1;
+  opacity: 0.1;
   transform: translate(-50%, -50%) scale(1.2);
 }
 
-/* Premium Card Animations */
 .troy-feature-card::before {
   content: '';
   position: absolute;
@@ -41,8 +107,8 @@
   background: linear-gradient(
     135deg,
     transparent 0%,
-    rgba(245, 158, 11, 0.05) 25%,
-    rgba(251, 146, 60, 0.05) 50%,
+    var(--troy-color-primary) 25%,
+    var(--troy-color-secondary) 50%,
     transparent 75%
   );
   border-radius: 1rem;
@@ -52,16 +118,15 @@
 }
 
 .troy-feature-card:hover::before {
-  opacity: 1;
+  opacity: 0.05;
 }
 
-/* Title Hover Effects */
-.troy-delivery-title {
+.troy-feature-title {
   position: relative;
   transition: all 0.3s ease;
 }
 
-.troy-delivery-title::after {
+.troy-feature-title::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -74,21 +139,12 @@
   transition: width 0.3s ease;
 }
 
-.group:hover .troy-delivery-title::after {
+.group:hover .troy-feature-title::after {
   width: 60%;
 }
 
-/* Subtitle Enhanced Styling */
-.troy-delivery-subtitle {
-  font-size: 1rem;
-  line-height: 1.6;
-  font-weight: 500;
-  letter-spacing: 0.025em;
-  transition: all 0.3s ease;
-}
-
-.group:hover .troy-delivery-subtitle {
-  color: #b45309; /* troy-color-primary */
+.group:hover .troy-feature-subtitle {
+  color: var(--troy-color-primary);
 }
 
 /* Responsive Enhancements */
@@ -100,15 +156,9 @@
   .troy-delivery-icon-container {
     margin-bottom: 1.5rem;
   }
-  
-  .troy-middle-title {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
 }
 
 @media (min-width: 1280px) {
-  /* Extra large screens - enhance first and last cards */
   .troy-feature-card:first-child,
   .troy-feature-card:last-child {
     transform: perspective(1000px) rotateY(0deg);
@@ -124,16 +174,12 @@
   }
 }
 
-/* Additional Animation for Trust Indicators */
+/* Status Indicator Animation */
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 5px var(--troy-color-success);
   }
   50% {
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.8), 0 0 30px rgba(34, 197, 94, 0.4);
+    box-shadow: 0 0 20px var(--troy-color-success), 0 0 30px var(--troy-color-success-light);
   }
-}
-
-.animate-pulse {
-  animation: pulse-glow 2s ease-in-out infinite;
 }

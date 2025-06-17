@@ -1,5 +1,4 @@
 ---
-// ProductImageSection.astro
 import "./TroyImageTextBeside.css"
 import type { BlockData } from "../../../../../lib/api/types";
 import TroyBuyNowButton from "../UI/TroyBuyNowButton/TroyBuyNowButton.astro";
@@ -7,36 +6,61 @@ import TroyBuyNowButton from "../UI/TroyBuyNowButton/TroyBuyNowButton.astro";
 const data: BlockData = Astro.props.data;
 ---
 
-<section id="troy-text-image-beside" class="troy-section px-4 sm:px-6 lg:px-12 py-12">
-  <!-- Header -->
-  <div class="troy-section-header">
-    <i class="fa-solid fa-images"></i>
-    <h5>{data.title}</h5>
-  </div>
+<section id="troy-text-image-beside" class="troy-section">
   
-  <!-- Product Grid -->
-  <div class="troy-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start rounded-2xl overflow-hidden">
-    
-    <!-- Image Section -->
-    <div class="h-64 sm:h-96 overflow-hidden">
-      <img 
-        src={data.image?.src}
-        alt={data.image?.alt}
-        class="w-full h-full object-cover rounded-2xl"
-      />
+  <!-- Header Section - Mobile Enhanced -->
+  <div class="text-center mb-8 md:mb-12">
+    <div class="inline-flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-2xl mb-4 md:mb-6 shadow-lg troy-header-icon-bg">
+      <i class={`${data.icon} text-2xl md:text-3xl troy-header-icon`}></i>
     </div>
+    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 troy-main-title">
+      {data.title}
+    </h2>
+    <div class="w-16 md:w-20 h-0.5 mx-auto troy-accent-line"></div>
+  </div>
+
+  <!-- Image-Text Grid - Responsive Layout -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
     
-    <!-- Text Section -->
-    <div class="troy-image-text-beside-content flex flex-col justify-start items-start w-full gap-2 p-6 sm:p-10 space-y-6 text-right backdrop-blur-sm bg-white/80 shadow-lg rounded-2xl h-full">
-      <h2 class="troy-image-text-beside-title text-3xl font-bold">
-        {data.subtitle}
-      </h2>
-      <p class="troy-image-text-beside-description text-base leading-relaxed">
-        {data.description}
-      </p>
-      <div class="flex-1"></div>
-      <TroyBuyNowButton />
+    <!-- Image Section - Mobile Enhanced -->
+    <div class="order-1 lg:order-1">
+      <div class="relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 group">
+        <img
+          src={data.image?.src}
+          alt={data.image?.alt}
+          class="w-full h-64 md:h-80 lg:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <!-- Image Overlay for Enhanced Effect -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      </div>
+    </div>
+
+    <!-- Text Content Section - Mobile Enhanced -->
+    <div class="order-2 lg:order-2">
+      <div class="p-6 md:p-8 lg:p-10 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 troy-content-card">
+        
+        <!-- Icon and Subtitle -->
+        <div class="flex items-center gap-3 mb-4 md:mb-6">
+          <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center troy-subtitle-icon-bg">
+            <i class={`${data.icon} text-sm md:text-base troy-subtitle-icon`}></i>
+          </div>
+          <h3 class="text-xl md:text-2xl lg:text-3xl font-bold troy-subtitle">
+            {data.subtitle}
+          </h3>
+        </div>
+
+        <!-- Description Text -->
+        <div class="mb-6 md:mb-8">
+          <p class="text-base md:text-lg leading-relaxed troy-description">
+            {data.description}
+          </p>
+        </div>
+
+        <!-- Call to Action Button -->
+        <div class="flex justify-center lg:justify-start">
+          <TroyBuyNowButton />
+        </div>
+      </div>
     </div>
   </div>
-  
 </section>

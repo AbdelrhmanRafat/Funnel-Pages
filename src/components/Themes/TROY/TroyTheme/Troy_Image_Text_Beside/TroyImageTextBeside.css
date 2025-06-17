@@ -1,19 +1,198 @@
-/* Troy Image-Text Section */
-.troy-image-text-beside {
-  background-color: var(--troy-color-surface);
-  border-radius: var(--troy-section-radius);
+/* === Troy Countdown Timer - CSS Variables Only === */
+
+/* Header Styling */
+.troy-countdown-header-bg {
+  background: linear-gradient(135deg, var(--troy-color-surface-variant), var(--troy-color-surface-container));
+  border: 2px solid var(--troy-color-outline-variant);
 }
 
-.troy-image-text-beside-content {
-  background-color: var(--troy-color-surface-container-high);
-  border-radius: var(--troy-section-radius);
+.troy-countdown-header-icon {
+  color: var(--troy-color-primary);
+}
+
+.troy-countdown-title {
+  color: var(--troy-color-on-surface);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.troy-countdown-accent {
+  background: linear-gradient(90deg, transparent, var(--troy-color-primary), transparent);
+}
+
+/* Countdown Blocks */
+.troy-countdown-block {
+  background: linear-gradient(135deg, var(--troy-color-surface), var(--troy-color-surface-variant));
+  border-color: var(--troy-color-outline-variant);
   transition: all 0.3s ease;
 }
 
-.troy-image-text-beside-title {
-  color: var(--troy-color-on-surface);
+.troy-countdown-block:hover {
+  background: linear-gradient(135deg, var(--troy-color-surface-variant), var(--troy-color-surface-container));
+  border-color: var(--troy-color-primary);
+  transform: translateY(-2px);
 }
 
-.troy-image-text-beside-description {
+/* Seconds Block - Special Highlight */
+.troy-seconds-block {
+  background: linear-gradient(135deg, var(--troy-color-primary), var(--troy-color-primary-light));
+  border-color: var(--troy-color-primary-dark);
+}
+
+.troy-seconds-block .troy-countdown-number {
+  color: var(--troy-color-on-primary);
+}
+
+.troy-seconds-block .troy-countdown-label {
+  color: var(--troy-color-on-primary);
+  opacity: 0.9;
+}
+
+.troy-seconds-block:hover {
+  background: linear-gradient(135deg, var(--troy-color-primary-dark), var(--troy-color-primary));
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Numbers and Labels */
+.troy-countdown-number {
+  color: var(--troy-color-on-surface);
+  font-family: 'Inter', monospace;
+  line-height: 1;
+}
+
+.troy-countdown-label {
   color: var(--troy-color-on-surface-variant);
+  font-weight: 600;
+}
+
+/* Separators */
+.troy-countdown-separator {
+  color: var(--troy-color-primary);
+  opacity: 0.7;
+  animation: pulse-separator 2s ease-in-out infinite;
+}
+
+/* Urgency Message */
+.troy-urgency-message {
+  background: linear-gradient(135deg, var(--troy-color-warning), var(--troy-color-warning-light));
+  border: 2px solid var(--troy-color-warning-dark);
+}
+
+.troy-urgency-icon {
+  color: var(--troy-color-on-warning);
+}
+
+.troy-urgency-text {
+  color: var(--troy-color-on-warning);
+}
+
+/* Animations */
+@keyframes pulse-separator {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes countdown-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 var(--troy-color-primary);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+/* Low Time Alert Animation */
+.troy-countdown-block.low-time {
+  animation: countdown-pulse 1s ease-in-out infinite;
+  border-color: var(--troy-color-error);
+  background: linear-gradient(135deg, var(--troy-color-error), var(--troy-color-error-light));
+}
+
+.troy-countdown-block.low-time .troy-countdown-number,
+.troy-countdown-block.low-time .troy-countdown-label {
+  color: var(--troy-color-on-error);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .troy-countdown-block {
+    padding: 1rem;
+    min-width: 4rem;
+  }
+  
+  .troy-countdown-number {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .troy-countdown-label {
+    font-size: 0.75rem;
+  }
+  
+  .troy-countdown-separator {
+    font-size: 1.5rem;
+  }
+  
+  .troy-countdown-title {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 480px) {
+  .troy-countdown-block {
+    padding: 0.75rem;
+    min-width: 3.5rem;
+  }
+  
+  .troy-countdown-number {
+    font-size: 1.25rem;
+  }
+  
+  .troy-countdown-label {
+    font-size: 0.65rem;
+  }
+  
+  .troy-countdown-separator {
+    font-size: 1.25rem;
+  }
+  
+  .troy-urgency-message {
+    padding: 0.5rem 1rem;
+  }
+  
+  .troy-urgency-text {
+    font-size: 0.75rem;
+  }
+}
+
+/* Initial Load Animation */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.troy-countdown-block {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.troy-countdown-block:nth-child(1) { animation-delay: 0.1s; }
+.troy-countdown-block:nth-child(3) { animation-delay: 0.2s; }
+.troy-countdown-block:nth-child(5) { animation-delay: 0.3s; }
+
+.troy-urgency-message {
+  animation: slideInUp 0.8s ease-out 0.5s both;
 }

@@ -6,112 +6,95 @@ const data: BlockData = Astro.props.data;
 const faqs: Faqs[] = data.faqs ?? [];
 ---
 
-<!-- Troy FAQ Section with Generic Tailwind Layout -->
+<!-- Troy FAQ Section with Enhanced Mobile Design -->
 <section id="troy-faq" class="troy-section">
   
-  <!-- Header - Pure Tailwind Layout -->
-  <div class="text-center mb-16">
-    <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl mb-8 shadow-xl border-2 troy-header-icon-bg">
-      <i class={`${data.icon} text-5xl troy-header-icon`}></i>
+  <!-- Header - Mobile Enhanced Layout -->
+  <div class="text-center mb-12 md:mb-16">
+    <div class="inline-flex items-center justify-center w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-3xl mb-6 md:mb-8 shadow-lg md:shadow-xl border-2 troy-header-icon-bg">
+      <i class={`${data.icon} text-3xl md:text-5xl troy-header-icon`}></i>
     </div>
-    <h2 class="text-4xl lg:text-5xl font-bold mb-6 troy-main-title">
+    <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 px-4 troy-main-title">
       {data.title}
     </h2>
-    <div class="flex items-center justify-center gap-2 mb-4">
-      <div class="w-8 h-0.5 rounded troy-accent-line"></div>
-      <div class="w-3 h-3 rounded-full troy-accent-dot"></div>
-      <div class="w-8 h-0.5 rounded troy-accent-line"></div>
+    <div class="flex items-center justify-center gap-1 md:gap-2 mb-3 md:mb-4">
+      <div class="w-6 md:w-8 h-0.5 rounded troy-accent-line"></div>
+      <div class="w-2 md:w-3 h-2 md:h-3 rounded-full troy-accent-dot"></div>
+      <div class="w-6 md:w-8 h-0.5 rounded troy-accent-line"></div>
     </div>
-    <p class="text-lg font-medium max-w-2xl mx-auto troy-subtitle">
-      إجابات شاملة لأهم الأسئلة حول منتجات تروي الفاخرة
-    </p>
   </div>
 
-  <!-- FAQ Grid - Pure Tailwind Layout -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+  <!-- FAQ Grid - Mobile Enhanced Layout -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
     {
       faqs.map((faq, index) => (
         <div class={`troy-faq-item group ${index % 2 === 0 ? 'lg:-mt-8' : 'lg:mt-8'}`}>
           
-          <!-- Question Card - Tailwind Layout Only -->
-          <div class="relative rounded-2xl shadow-lg border-2 overflow-hidden hover:shadow-2xl transition-all duration-300 troy-faq-card">
+          <!-- Question Card - Mobile Enhanced -->
+          <div class="relative rounded-xl md:rounded-2xl shadow-md md:shadow-lg border-2 overflow-hidden hover:shadow-xl md:hover:shadow-2xl transition-all duration-300 troy-faq-card">
             
-            <!-- Decorative Header Strip - CSS Variable Color -->
-            <div class="h-1.5 troy-card-header-strip"></div>
+            <!-- Decorative Header Strip -->
+            <div class="h-1 md:h-1.5 troy-card-header-strip"></div>
             
-            <!-- Question Button - Tailwind Layout -->
+            <!-- Question Button - Mobile Enhanced Layout -->
             <button
-              class="w-full p-8 flex items-start justify-between bg-transparent border-none cursor-pointer group"
+              class="w-full py-4 md:p-6 lg:p-8 flex items-center justify-center gap-2 bg-transparent border-none cursor-pointer group"
               data-faq-index={index}
             >
-              <!-- Question Number Badge - Tailwind Layout -->
-              <div class="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg mr-6 group-hover:scale-110 transition-transform duration-300 troy-number-badge">
+              <!-- Question Number Badge - Mobile Responsive -->
+              <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center text-white font-bold text-base md:text-lg shadow-md md:shadow-lg mr-3 md:mr-6 group-hover:scale-110 transition-transform duration-300 troy-number-badge">
                 {String(index + 1).padStart(2, '0')}
               </div>
               
-              <!-- Question Text - Tailwind Layout -->
+              <!-- Question Text - Mobile Enhanced -->
               <div class="flex-1 text-right">
-                <span class="text-xl font-bold leading-tight group-hover:text-opacity-80 transition-colors duration-300 troy-question-text">
+                <span class="text-lg md:text-xl font-bold leading-tight group-hover:text-opacity-80 transition-colors duration-300 troy-question-text">
                   {faq.question}
                 </span>
               </div>
               
-              <!-- Toggle Icon - Tailwind Layout -->
-              <div class="flex-shrink-0 ml-6">
-                <div class="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 troy-icon-container">
-                  <span class="text-2xl font-bold transform group-hover:rotate-45 transition-transform duration-300 troy-toggle-icon">
+              <!-- Toggle Icon - Mobile Enhanced -->
+              <div class="flex-shrink-0 ml-3 md:ml-6">
+                <div class="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center group-hover:scale-105 transition-all duration-300 troy-icon-container">
+                  <span class="text-xl md:text-2xl font-bold transform group-hover:rotate-45 transition-transform duration-300 troy-toggle-icon">
                     +
                   </span>
                 </div>
               </div>
             </button>
             
-            <!-- Answer Section - Tailwind Layout -->
+            <!-- Answer Section - Mobile Enhanced -->
             <div
-              class="px-8 transition-all duration-500 ease-out troy-faq-answer"
+              class="px-4 md:px-6 lg:px-8 transition-all duration-500 ease-out troy-faq-answer"
               data-answer-index={index}
             >
-              <div class="pb-8 pt-0 troy-answer-content">
-                <!-- Decorative Separator - Tailwind Layout -->
-                <div class="w-full h-px mb-6 troy-separator"></div>
+              <div class="pb-4 md:pb-6 lg:pb-8 pt-0 troy-answer-content">
+                <!-- Decorative Separator -->
+                <div class="w-full h-px mb-4 md:mb-6 troy-separator"></div>
                 
-                <!-- Answer Text Container - Tailwind Layout -->
-                <div class="rounded-xl p-6 shadow-inner border troy-answer-box">
-                  <p class="text-lg leading-relaxed font-medium troy-answer-text">
+                <!-- Answer Text Container - Mobile Enhanced -->
+                <div class="rounded-lg md:rounded-xl p-4 md:p-6 shadow-inner border troy-answer-box">
+                  <p class="text-base md:text-lg leading-relaxed font-medium troy-answer-text">
                     {faq.answer}
                   </p>
                 </div>
                 
-                <!-- Bottom Accent - Tailwind Layout -->
-                <div class="flex justify-center mt-4">
-                  <div class="w-16 h-1 rounded-full troy-bottom-accent"></div>
+                <!-- Bottom Accent -->
+                <div class="flex justify-center mt-3 md:mt-4">
+                  <div class="w-12 md:w-16 h-0.5 md:h-1 rounded-full troy-bottom-accent"></div>
                 </div>
               </div>
             </div>
             
-            <!-- Corner Decorations - Tailwind Layout -->
-            <div class="absolute top-0 left-0 w-20 h-20 rounded-br-3xl troy-corner-decoration-tl"></div>
-            <div class="absolute bottom-0 right-0 w-16 h-16 rounded-tl-3xl troy-corner-decoration-br"></div>
+            <!-- Corner Decorations - Mobile Adjusted -->
+            <div class="absolute top-0 left-0 w-12 md:w-16 lg:w-20 h-12 md:h-16 lg:h-20 rounded-br-2xl md:rounded-br-3xl troy-corner-decoration-tl"></div>
+            <div class="absolute bottom-0 right-0 w-10 md:w-12 lg:w-16 h-10 md:h-12 lg:h-16 rounded-tl-2xl md:rounded-tl-3xl troy-corner-decoration-br"></div>
           </div>
         </div>
       ))
     }
   </div>
 
-  <!-- Call to Action Footer - Tailwind Layout -->
-  <div class="mt-20 text-center">
-    <div class="rounded-2xl p-8 shadow-2xl troy-cta-section">
-      <h3 class="text-2xl font-bold mb-4 troy-cta-title">
-        هل لديك سؤال آخر؟
-      </h3>
-      <p class="text-lg mb-6 troy-cta-subtitle">
-        فريق خدمة العملاء جاهز للإجابة على جميع استفساراتك
-      </p>
-      <button class="px-8 py-4 rounded-xl font-bold text-lg transition-colors duration-300 shadow-lg hover:shadow-xl troy-cta-button">
-        اتصل بنا الآن
-      </button>
-    </div>
-  </div>
 </section>
 
 <script>
