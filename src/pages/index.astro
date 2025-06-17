@@ -27,12 +27,6 @@ const meta = funnelPage.data.product.meta;
       switch (enumTheme) {
         case Theme.Classic:
           return <ClassicComponent funnelPage={funnelPage.data} />;
-        case Theme.Dark:
-          return <DarkComponent funnelPage={funnelPage.data} />;
-        case Theme.Light:
-          return <LightComponent funnelPage={funnelPage.data} />;
-        case Theme.Nasa:
-          return <NasaComponent funnelPage={funnelPage.data} />;
         default:
           return <p>Theme not found</p>;
       }

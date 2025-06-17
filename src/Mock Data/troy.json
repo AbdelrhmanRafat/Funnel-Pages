@@ -1,0 +1,143 @@
+{
+    "code": 200,
+    "status": 1,
+    "errors": null,
+    "message": "messages.success",
+    "data": {
+        "product": {
+            "id": 35,
+            "category_id": 17,
+            "ware_house_id": 2,
+            "image": "https://backend.dev.baseet.co/uploads/Product/IOnIf02UNJA8Xhat77QDbPqy2gjdFrDhBZDHnoga.png",
+            "name": "Printed Tishirt Black",
+            "name_ar": "تيشيرت مطبوع بلاك",
+            "name_en": "Printed Tishirt Green",
+            "slug": "printed",
+            "slug_ar": "مطبوع",
+            "slug_en": "printed",
+            "description": "<p>Printed Round Neck T-Shirt – Comfort &amp; Style in a Trendy Design. Made from 100% soft cotton. Ideal for casual wear, daily outings, or relaxed weekends. Easy to wash and retains color after multiple uses.</p>",
+            "description_ar": "<p>تيشيرت راوند مطبوع – راحة وأناقة بتصميم عصري. مصنوع من قطن ناعم 100%. مثالي للارتداء اليومي والمناسبات غير الرسمية. سهل الغسيل ويحافظ على اللون بعد الغسيل.</p>",
+            "description_en": "<p>Printed Round Neck T-Shirt – Comfort &amp; Style in a Trendy Design. Made from 100% soft cotton. Ideal for casual wear, daily outings, or relaxed weekends. Easy to wash and retains color after multiple uses.</p>",
+            "is_active": 1,
+            "qty": 0,
+            "sku_code": "#49949CC3",
+            "price": 2290,
+            "price_after_discount": 2290,
+            "weight": null,
+            "weight_type": null,
+            "options": [
+                {
+                    "options": [
+                        {
+                            "name": "color",
+                            "value": [
+                                {
+                                    "name": "Black",
+                                    "hex": "#000000"
+                                },
+                                {
+                                    "name": "White",
+                                    "hex": "#FFFFFF"
+                                },
+                                {
+                                    "name": "Gray",
+                                    "hex": "#808080"
+                                },
+                                {
+                                    "name": "red",
+                                    "hex": "#FF0000"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "size",
+                            "value": [
+                                {
+                                    "display": "Xl",
+                                    "value": "Xl"
+                                },
+                                {
+                                    "display": "xxl",
+                                    "value": "xxl"
+                                },
+                                {
+                                    "display": "xxxl",
+                                    "value": "xxxl"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "category": {
+                "id": 17,
+                "parent_id": 0,
+                "name_ar": "مطبوع",
+                "name_en": "Printed",
+                "is_active": 1
+            },
+            "skus": null,
+            "meta": {
+                "id": 33,
+                "title": "printed",
+                "description": "Printed Round Neck T-Shirt – Trendy casual wear for everyday comfort. Perfect for men and women. Durable fabric with modern design.",
+                "image": "https://backend.dev.baseet.co/uploads/Meta/IboXN291m9dPC0wDDfdKy2GHktUYJNDZeHT2q5NT.png",
+                "metaable_type": "App\\Models\\Product\\Product",
+                "metaable_id": 35,
+                "created_at": "2025-03-12T12:48:25.000000Z",
+                "updated_at": "2025-03-12T12:48:25.000000Z"
+            },
+            "attachment": [
+                {
+                    "id": 53,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/zbwCSfSr0FzwFrSgz83fmtg7ErTIstZYpftmWEje.png",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 35,
+                    "order": 0,
+                    "created_at": "2025-03-12T12:48:21.000000Z",
+                    "updated_at": "2025-03-12T12:48:21.000000Z"
+                },
+                {
+                    "id": 54,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/S03092t0fmQUb3gIal7El6mqszQzfbnveY2zxFvp.webp",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 54,
+                    "order": 0,
+                    "created_at": "2025-03-12T12:48:21.000000Z",
+                    "updated_at": "2025-03-12T12:48:21.000000Z"
+                },
+                {
+                    "id": 56,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/1OXuRtJTsSUyFtQqBqEnyY3bTBAYcPo4HMXdvVqF.png",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 35,
+                    "order": 0,
+                    "created_at": "2025-03-12T13:02:26.000000Z",
+                    "updated_at": "2025-03-12T13:02:26.000000Z"
+                },
+                {
+                    "id": 57,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/S03092t0fmQUb3gIal7El6mqszQzfbnveY2zxFvp.webp",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 35,
+                    "order": 0,
+                    "created_at": "2025-03-12T13:19:06.000000Z",
+                    "updated_at": "2025-03-12T13:19:06.000000Z"
+                },
+                {
+                    "id": 53,
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/zbwCSfSr0FzwFrSgz83fmtg7ErTIstZYpftmWEje.png",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 35,
+                    "order": 0,
+                    "created_at": "2025-03-12T12:48:21.000000Z",
+                    "updated_at": "2025-03-12T12:48:21.000000Z"
+                }
+            ],
+            "is_have_variant": "false"
+        },
+        "theme": "troy",
+        "accept_online_payment": true,
+        "blocks": ["troy_product_preview", "troy_faq"] 
+    }
+}

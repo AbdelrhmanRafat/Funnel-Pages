@@ -1,5 +1,5 @@
 // This file contains functions to convert theme strings to `Theme` enum values and to get theme-specific component names.
-import { FunnelClassicComponents, FunnelNasaComponents, Theme } from "../constants/themes";
+import { FunnelClassicComponents, Theme } from "../constants/themes";
 
 // Converts a theme string to a Theme enum value.
 export function getThemeFromString(themeName: string): Theme | undefined {
@@ -58,30 +58,6 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.Classic_Before_After;
     case "classic_gallery":
       return FunnelClassicComponents.ClassicGallery;
-    default:
-      return undefined;
-  }
-}
-
-
-
-// Gets the component name for the Nasa theme.
-export function getNasaThemeComponent(name: string): FunnelNasaComponents | undefined {
-  switch (name.toLowerCase()) {
-    case "nasa_header":
-      return FunnelNasaComponents.NasaHeader;
-    case "nasa_form_fields":
-      return FunnelNasaComponents.NasaFormFields;
-    case "nasa_countdown":
-      return FunnelNasaComponents.NasaCountdown;
-    case "nasa_today_orders":
-      return FunnelNasaComponents.NasaTodayOrders;
-    case "nasa_rates":
-      return FunnelNasaComponents.NasaRates;
-    case "nasa_product_funnel":
-      return FunnelNasaComponents.NasaProductFunnel;
-    case "nasa_footer":
-      return FunnelNasaComponents.NasaFooter;
     default:
       return undefined;
   }

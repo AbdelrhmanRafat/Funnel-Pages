@@ -40,14 +40,3 @@ export enum ClassicProductInfoComponents {
   FormFields = "formFields",
   OrderConfirmation = "orderConfirmation",
 }
-
-// Defines the component names for the Nasa theme.
-export enum FunnelNasaComponents {
-  NasaHeader = "nasa_header",
-  NasaFormFields = "nasa_form_fields",
-  NasaCountdown = "nasa_countdown",
-  NasaTodayOrders = "nasa_today_orders",
-  NasaRates = "nasa_rates",
-  NasaProductFunnel = "nasa_product_funnel",
-  NasaFooter = "nasa_footer"
-}
