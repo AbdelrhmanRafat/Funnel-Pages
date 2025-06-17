@@ -60,6 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Add this interface at the top of the file with other imports
+interface FormFieldState {
+  value: string;
+  isValid: boolean;
+  errorMessage: string;
+  touched?: boolean; // Add touched flag
+}
+
 /**
  * Set up listeners for form field inputs
  */
@@ -68,12 +76,17 @@ function setupFormFieldListeners(): void {
   FORM_FIELD_CONFIG.FIELD_IDS.forEach(fieldId => {
     const input = document.getElementById(fieldId) as HTMLInputElement;
     if (input) {
-      // Set initial value in the observer
-      updateFieldState(fieldId, input.value);
+      // Set initial value in the observer without showing validation messages
+      updateFieldState(fieldId, input.value, false);
       
       // Add input event listener
       input.addEventListener('input', () => {
-        updateFieldState(fieldId, input.value);
+        updateFieldState(fieldId, input.value, true);
+      });
+      
+      // Also mark as touched on blur (when user leaves the field)
+      input.addEventListener('blur', () => {
+        updateFieldState(fieldId, input.value, true);
       });
     }
   });
@@ -96,7 +109,7 @@ function setupFormFieldListeners(): void {
 /**
  * Update field state in the observer
  */
-function updateFieldState(fieldId: string, value: string): void {
+function updateFieldState(fieldId: string, value: string, touched: boolean = false): void {
   const isValid = validateField(fieldId, value);
   const errorMessage = getErrorMessage(fieldId, isValid);
   
@@ -104,11 +117,14 @@ function updateFieldState(fieldId: string, value: string): void {
   formFieldsSubject.updateField(fieldId, {
     value,
     isValid,
-    errorMessage
+    errorMessage,
+    touched
   });
   
-  // Update UI
-  displayValidationMessage(fieldId, errorMessage, isValid);
+  // Only update UI if the field has been touched
+  if (touched) {
+    displayValidationMessage(fieldId, errorMessage, isValid);
+  }
 }
 
 /**
@@ -193,7 +209,9 @@ function validateAllFields(): boolean {
     if (input) {
       const isValid = validateField(fieldId, input.value);
       const message = getErrorMessage(fieldId, isValid);
+      // Force display validation messages when validating all fields (on submit)
       displayValidationMessage(fieldId, message, isValid);
+      updateFieldState(fieldId, input.value, true); // Mark as touched
 
       if (!isValid) {
         isFormValid = false;

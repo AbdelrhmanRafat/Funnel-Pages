@@ -17,6 +17,7 @@ interface FormField {
   value: string;
   isValid: boolean;
   errorMessage: string;
+  touched: boolean; // Add a flag to track if field has been interacted with
 }
 
 /**
@@ -95,7 +96,8 @@ class ClassicFormFieldsHandler {
           id,
           value: input.value,
           isValid: false,
-          errorMessage: ''
+          errorMessage: '',
+          touched: false // Initialize as untouched
         });
       }
     });
@@ -156,10 +158,17 @@ class ClassicFormFieldsHandler {
    * @param fieldId - The ID of the field
    * @param message - The message to display
    * @param isValid - Whether the field is valid
+   * @param forceDisplay - Whether to force display the message regardless of touched state
    */
-  private displayValidationMessage(fieldId: string, message: string, isValid: boolean): void {
-    this.updateErrorElement(fieldId, message, isValid);
-    this.updateInputStyling(fieldId, isValid);
+  private displayValidationMessage(fieldId: string, message: string, isValid: boolean, forceDisplay: boolean = false): void {
+    const field = this.fields.get(fieldId);
+    
+    // Only show validation messages if the field has been touched or if forced
+    if (field && (field.touched || forceDisplay)) {
+      this.updateErrorElement(fieldId, message, isValid);
+      this.updateInputStyling(fieldId, isValid);
+    }
+    
     this.updateFieldState(fieldId, message, isValid);
   }
 
@@ -224,11 +233,51 @@ class ClassicFormFieldsHandler {
     this.fields.forEach((field, fieldId) => {
       const input = document.getElementById(fieldId) as HTMLInputElement;
       if (input) {
+        // Add input event listener
         input.addEventListener('input', () => {
+          // Mark the field as touched on first interaction
+          const fieldData = this.fields.get(fieldId);
+          if (fieldData) {
+            fieldData.touched = true;
+          }
           this.handleInputChange(fieldId, input.value);
+        });
+        
+        // Also mark as touched on blur (when user leaves the field)
+        input.addEventListener('blur', () => {
+          const fieldData = this.fields.get(fieldId);
+          if (fieldData) {
+            fieldData.touched = true;
+            this.handleInputChange(fieldId, input.value);
+          }
         });
       }
     });
+    
+    // Add form submit event listener to validate all fields
+    if (this.form) {
+      this.form.addEventListener('submit', (e) => {
+        // Validate all fields and force display of error messages
+        let isValid = true;
+        this.fields.forEach((field, fieldId) => {
+          const input = document.getElementById(fieldId) as HTMLInputElement;
+          if (input) {
+            const fieldIsValid = this.validateField(fieldId, input.value);
+            const message = this.getErrorMessage(fieldId, fieldIsValid);
+            // Force display of validation messages on submit
+            this.displayValidationMessage(fieldId, message, fieldIsValid, true);
+            if (!fieldIsValid) {
+              isValid = false;
+            }
+          }
+        });
+        
+        // Prevent form submission if validation fails
+        if (!isValid) {
+          e.preventDefault();
+        }
+      });
+    }
   }
 
   /**
