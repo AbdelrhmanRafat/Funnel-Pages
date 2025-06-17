@@ -17,7 +17,7 @@ export function getThemeFromString(themeName: string): Theme | undefined {
   }
 }
 
-// Gets the component name for the Classic theme.
+// Gets the available components for the Classic theme.
 export function getClassicThemeComponent(name: string): FunnelClassicComponents | undefined {
   switch (name.toLowerCase()) {
     case "classic_header":
@@ -62,6 +62,8 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return undefined;
   }
 }
+
+
 
 // Gets the component name for the Nasa theme.
 export function getNasaThemeComponent(name: string): FunnelNasaComponents | undefined {

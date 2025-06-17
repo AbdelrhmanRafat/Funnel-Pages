@@ -1,7 +1,7 @@
 /* === Order Confirmation Notice === */
 .classic-order-confirmation-notice {
-    background-color: var(--classic-color-surface-variant);
-    color: var(--classic-color-on-surface-variant);
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface);
     border-radius: var(--classic-section-radius);
     padding: 1rem 0.5rem;
 }

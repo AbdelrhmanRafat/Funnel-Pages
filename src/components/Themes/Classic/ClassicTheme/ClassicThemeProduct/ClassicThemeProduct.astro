@@ -13,30 +13,23 @@ import type {
 import ClassicThemeProductFunnel from "../ClassicThemeProductFunnel/ClassicThemeProductFunnel.astro";
 import "./ClassicThemeProduct.css";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import { ClassicProductInfoComponents } from "../../../../../lib/constants/themes";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 import ClassicThemeRates from "../ClassicThemeRates/ClassicThemeRates.astro";
 import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
 import ClassicGalleryComponent from "../UI/ClassicGallery/ClassicGalleryComponent.astro";
 import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
 
-// Define the available product info section components
-enum ProductInfoComponents {
-  Rating = "rating",
-  ProductHeader = "productHeader",
-  ProductDescription = "productDescription",
-  PurchaseOptions = "purchaseOptions",
-  FormFields = "formFields",
-  OrderConfirmation = "orderConfirmation",
-}
+
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
-  ProductInfoComponents.Rating,
-  ProductInfoComponents.ProductHeader,
-  ProductInfoComponents.ProductDescription,
-  ProductInfoComponents.PurchaseOptions,
-  ProductInfoComponents.FormFields,
-  ProductInfoComponents.OrderConfirmation,
+  ClassicProductInfoComponents.Rating,
+  ClassicProductInfoComponents.ProductHeader,
+  ClassicProductInfoComponents.ProductDescription,
+  ClassicProductInfoComponents.PurchaseOptions,
+  ClassicProductInfoComponents.FormFields,
+  ClassicProductInfoComponents.OrderConfirmation,
 ];
 
 // Retrieves product and purchaseOptions from Astro's props.
@@ -60,34 +53,34 @@ interface ComponentCheckResult {
   componentData: any;
 }
 
-function isComponentDataAvailable(componentType: ProductInfoComponents): ComponentCheckResult {
+function isComponentDataAvailable(componentType: ClassicProductInfoComponents): ComponentCheckResult {
   switch (componentType) {
-    case ProductInfoComponents.Rating:
+    case ClassicProductInfoComponents.Rating:
       return {
         isComponentFound: !!ratingData,
         componentData: ratingData,
       };
-    case ProductInfoComponents.ProductHeader:
+    case ClassicProductInfoComponents.ProductHeader:
       return {
         isComponentFound: !!product,
         componentData: product,
       };
-    case ProductInfoComponents.ProductDescription:
+    case ClassicProductInfoComponents.ProductDescription:
       return {
         isComponentFound: !!product && (!!product.description_ar || !!product.description_en),
         componentData: product,
       };
-    case ProductInfoComponents.PurchaseOptions:
+    case ClassicProductInfoComponents.PurchaseOptions:
       return {
         isComponentFound: !!purchaseOptions,
         componentData: purchaseOptions,
       };
-    case ProductInfoComponents.FormFields:
+    case ClassicProductInfoComponents.FormFields:
       return {
         isComponentFound: !!formFieldsData,
         componentData: formFieldsData,
       };
-    case ProductInfoComponents.OrderConfirmation:
+    case ClassicProductInfoComponents.OrderConfirmation:
       return {
         isComponentFound: !!orderConfirmationNoticeData,
         componentData: orderConfirmationNoticeData,
@@ -102,12 +95,12 @@ function isComponentDataAvailable(componentType: ProductInfoComponents): Compone
 ---
 
 <section id="classic-product-details" class="classic-section">
-    <div class="flex flex-col lg:flex-row gap-2">
+    <div class="flex flex-col lg:flex-row gap-5">
         <!-- Gallery Section -->
         {galleryData && <ClassicGalleryComponent data={galleryData} />}
         
         <!-- Product Info Section with Array-Based Rendering -->
-        <div class="lg:w-1/2 classic-product-info md:px-2">
+        <div class="lg:w-1/2 classic-product-info flex flex-col gap-3 justify-center items-center p-2 md:px-8 md:py-3">
             {
                 PRODUCT_INFO_RENDER_ORDER.map((componentType) => {
                     const componentCheck = isComponentDataAvailable(componentType);
@@ -117,15 +110,15 @@ function isComponentDataAvailable(componentType: ProductInfoComponents): Compone
                     }
 
                     // Rating Component
-                    if (componentType === ProductInfoComponents.Rating) {
+                    if (componentType === ClassicProductInfoComponents.Rating) {
                         return <ClassicThemeRates ratingData={componentCheck.componentData} />;
                     }
 
                     // Product Header Component
-                    if (componentType === ProductInfoComponents.ProductHeader) {
+                    if (componentType === ClassicProductInfoComponents.ProductHeader) {
                         return (
-                            <div class="classic-product-header">
-                                <div class="flex items-center gap-2 mb-3">
+                            <div class="w-full flex flex-col justify-start items-start gap-2">
+                                <div class="flex items-center gap-2">
                                     <span 
                                         class={product.is_active ? "classic-badge-success" : "classic-badge-error"}
                                         data-translate={product.is_active ? "product.available" : "product.notAvailable"}
@@ -145,18 +138,19 @@ function isComponentDataAvailable(componentType: ProductInfoComponents): Compone
                                 <h2 class="classic-product-title">
                                     {isArabic ? product.name_ar : product.name_en}
                                 </h2>
-                                <div class="classic-product-price">
-                                    {product.price} ج.م
+                                <div class="classic-product-price flex justify-center items-center gap-2">
+                                   <span>{product.price}</span>
+                                    <span data-translate="productFunnel.currency"></span>
                                 </div>
                             </div>
                         );
                     }
 
                     // Product Description Component
-                    if (componentType === ProductInfoComponents.ProductDescription) {
+                    if (componentType === ClassicProductInfoComponents.ProductDescription) {
                         return (
-                            <div class="classic-product-description">
-                                <h3 class="classic-section-header" data-translate="product.description">
+                            <div class="classic-product-description w-full">
+                                <h3 class="classic-description-header text-2xl font-bold pb-3" data-translate="product.description">
                                     {getTranslation("product.description", currentLang)}
                                 </h3>
                                 <p
@@ -168,32 +162,26 @@ function isComponentDataAvailable(componentType: ProductInfoComponents): Compone
                     }
 
                     // Purchase Options Component
-                    if (componentType === ProductInfoComponents.PurchaseOptions) {
+                    if (componentType === ClassicProductInfoComponents.PurchaseOptions) {
                         return (
-                            <div class="flex flex-col gap-5">
                                 <ClassicThemeProductFunnel
                                     data={componentCheck.componentData}
                                     colorSizeOptions={colorSizeOptions}
                                 />
-                            </div>
                         );
                     }
 
                     // Form Fields Component
-                    if (componentType === ProductInfoComponents.FormFields) {
+                    if (componentType === ClassicProductInfoComponents.FormFields) {
                         return (
-                            <div class="flex flex-col gap-5">
                                 <ClassicThemeFormFields data={componentCheck.componentData} />
-                            </div>
                         );
                     }
 
                     // Order Confirmation Component
-                    if (componentType === ProductInfoComponents.OrderConfirmation) {
+                    if (componentType === ClassicProductInfoComponents.OrderConfirmation) {
                         return (
-                            <div class="flex flex-col gap-5">
                                 <ClassicOrderConfirmationNotice data={componentCheck.componentData} />
-                            </div>
                         );
                     }
 

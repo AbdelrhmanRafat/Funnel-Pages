@@ -31,6 +31,16 @@ export enum FunnelClassicComponents {
   ClassicImageTextBeside = "classic_Image_Text_beside"
 }
 
+// Define the available product info section components
+export enum ClassicProductInfoComponents {
+  Rating = "rating",
+  ProductHeader = "productHeader",
+  ProductDescription = "productDescription",
+  PurchaseOptions = "purchaseOptions",
+  FormFields = "formFields",
+  OrderConfirmation = "orderConfirmation",
+}
+
 // Defines the component names for the Nasa theme.
 export enum FunnelNasaComponents {
   NasaHeader = "nasa_header",

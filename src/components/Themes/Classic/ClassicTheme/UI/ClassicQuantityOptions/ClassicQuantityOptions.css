@@ -1,9 +1,6 @@
 /* === Quantity Selection === */
 .classic-quantity-title {
-    font-size: 1.25rem;
-    font-weight: 700;
     color: var(--classic-color-on-surface);
-    margin-bottom: 1rem;
 }
 
 .classic-quantity-option-group {

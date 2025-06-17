@@ -38,7 +38,6 @@
     font-size: 1.875rem;
     font-weight: 700;
     color: var(--classic-color-on-surface);
-    margin-bottom: 1rem;
     line-height: 1.25;
 }
 
@@ -52,13 +51,11 @@
     font-size: 2.25rem;
     font-weight: 700;
     color: var(--classic-color-primary);
-    margin-bottom: 1.5rem;
 }
 
-.classic-product-description {
-    margin-bottom: 2rem;
+.classic-description-header {
+    color: var(--classic-color-on-surface);
 }
-
 .classic-text-body {
     color: var(--classic-color-on-surface-variant);
     line-height: 1.625;

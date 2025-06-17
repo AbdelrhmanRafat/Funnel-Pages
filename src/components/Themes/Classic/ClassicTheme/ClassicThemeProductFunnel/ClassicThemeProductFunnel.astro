@@ -10,6 +10,7 @@ const initialOffer = data[0];
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantityOptions.astro";
 ---
+<div class="w-full flex flex-col gap-2">
 <ClassicQuantityOptions data={data} colorSizeOptions={colorSizeOptions} />
 
 <div class="classic-purchase-options">
@@ -82,6 +83,7 @@ import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantity
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>

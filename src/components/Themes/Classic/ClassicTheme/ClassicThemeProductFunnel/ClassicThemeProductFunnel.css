@@ -1,9 +1,9 @@
 /* === Purchase Options === */
 .classic-purchase-options {
     background-color: var(--classic-color-surface);
+    padding: var(--classic-section-padding);
     border-radius: var(--classic-section-radius);
     overflow: hidden;
-    padding: var(--classic-section-padding);
 }
 
 .classic-purchase-options-body {

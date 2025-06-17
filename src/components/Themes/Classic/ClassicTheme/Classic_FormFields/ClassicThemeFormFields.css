@@ -3,7 +3,6 @@
 .classic-form {
     background-color: var(--classic-color-surface);
     border-radius: var(--classic-section-radius);
-    padding: var(--classic-section-padding);
 }
 
 
