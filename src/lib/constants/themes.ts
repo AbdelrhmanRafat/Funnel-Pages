@@ -3,6 +3,7 @@
 // Defines the available themes.
 export enum Theme {
   Classic = "classic",
+  Troy = "troy",
   Nasa = "nasa",
   Dark = "dark",
   Light = "light",
@@ -31,8 +32,41 @@ export enum FunnelClassicComponents {
   ClassicImageTextBeside = "classic_Image_Text_beside"
 }
 
+// Defines the component names for the TROY theme.
+export enum FunnelTroyComponents {
+  TroyHeader = "troy_header",
+  TroyFormFields = "troy_form_fields",
+  TroyCountdown = "troy_countdown",
+  TroyTodayOrders = "troy_today_orders",
+  TroyRates = "troy_rates",
+  TroyProductFunnel = "troy_product_funnel",
+  TroyFooter = "troy_footer",
+  TroyOrderConfirmationNotice = "troy_order_confirmation_notice",
+  TroyFaq = "troy_faq",
+  TroyProductPreview = "troy_product_preview",
+  TroyProductUsage = "troy_product_usage",
+  TroyProductFeatures = "troy_product_features",
+  TroyDeliveryFeatures = "troy_delivery_features",
+  TroyReviews = "troy_reviews",
+  TroyTextBar = "troy_text-bar",
+  TroyGallery = "troy_Gallery",
+  Troy_Before_After = "troy_before_&_after",
+  TroyImageTextOverLay = "troy_Image_Text_overlay",
+  TroyImageTextBeside = "troy_Image_Text_beside"
+}
+
 // Define the available product info section components
 export enum ClassicProductInfoComponents {
+  Rating = "rating",
+  ProductHeader = "productHeader",
+  ProductDescription = "productDescription",
+  PurchaseOptions = "purchaseOptions",
+  FormFields = "formFields",
+  OrderConfirmation = "orderConfirmation",
+}
+
+// Define the available product info section components for TROY theme
+export enum TroyProductInfoComponents {
   Rating = "rating",
   ProductHeader = "productHeader",
   ProductDescription = "productDescription",

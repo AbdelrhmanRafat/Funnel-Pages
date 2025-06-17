@@ -1,11 +1,13 @@
 // This file contains functions to convert theme strings to `Theme` enum values and to get theme-specific component names.
-import { FunnelClassicComponents, Theme } from "../constants/themes";
+import { FunnelClassicComponents, FunnelTroyComponents, Theme } from "../constants/themes";
 
 // Converts a theme string to a Theme enum value.
 export function getThemeFromString(themeName: string): Theme | undefined {
   switch (themeName.toLowerCase()) {
     case "classic":
       return Theme.Classic;
+    case "troy":
+      return Theme.Troy;
     case "dark":
       return Theme.Dark;
     case "light":
@@ -58,6 +60,66 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.Classic_Before_After;
     case "classic_gallery":
       return FunnelClassicComponents.ClassicGallery;
+    default:
+      return undefined;
+  }
+}
+
+// Gets the available components for the TROY theme.
+export function getTroyThemeComponent(name: string): FunnelTroyComponents | undefined {
+  switch (name.toLowerCase()) {
+    case "troy_header":
+      return FunnelTroyComponents.TroyHeader;
+    case "troy_form_fields":
+      return FunnelTroyComponents.TroyFormFields;
+    case "troy_countdown":
+      return FunnelTroyComponents.TroyCountdown;
+    case "troy_today_orders":
+      return FunnelTroyComponents.TroyTodayOrders;
+    case "troy_rates":
+      return FunnelTroyComponents.TroyRates;
+    case "troy_product_funnel":
+      return FunnelTroyComponents.TroyProductFunnel;
+    case "troy_footer":
+      return FunnelTroyComponents.TroyFooter;
+    case "troy_order_confirmation_notice":
+      return FunnelTroyComponents.TroyOrderConfirmationNotice;
+    case "troy_faq":
+      return FunnelTroyComponents.TroyFaq;
+    case "troy_product_preview":
+      return FunnelTroyComponents.TroyProductPreview;
+    case "troy_product_usage":
+      return FunnelTroyComponents.TroyProductUsage;
+    case "troy_delivery_features":
+      return FunnelTroyComponents.TroyDeliveryFeatures;
+    case "troy_product_features":
+      return FunnelTroyComponents.TroyProductFeatures;
+    case "troy_reviews":
+      return FunnelTroyComponents.TroyReviews;
+    case "troy_text-bar":
+      return FunnelTroyComponents.TroyTextBar;
+    case "troy_image_text_overlay":
+      return FunnelTroyComponents.TroyImageTextOverLay;
+    case "troy_image_text_beside":
+      return FunnelTroyComponents.TroyImageTextBeside;  
+    case "troy_before_&_after":
+      return FunnelTroyComponents.Troy_Before_After;
+    case "troy_gallery":
+      return FunnelTroyComponents.TroyGallery;
+    default:
+      return undefined;
+  }
+}
+
+// Generic function to get theme component based on theme type
+export function getThemeComponent(themeName: string, componentName: string): FunnelClassicComponents | FunnelTroyComponents | undefined {
+  const theme = getThemeFromString(themeName);
+  
+  switch (theme) {
+    case Theme.Classic:
+      return getClassicThemeComponent(componentName);
+    case Theme.Troy:
+      return getTroyThemeComponent(componentName);
     default:
       return undefined;
   }
