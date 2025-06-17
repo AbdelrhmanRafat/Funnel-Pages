@@ -10,20 +10,21 @@ import type { BlockData } from "../../../../../lib/api/types";
 // Retrieves the data prop passed to the component.
 const data: BlockData = Astro.props.data;
 ---
-<footer class="classic-footer">
-  <div class="classic-footer-content">
+
+<footer class="classic-footer text-center w-full p-14 md:p-24 border-t-2 mx-auto">
+  <div class="classic-footer-content flex flex-col justify-center items-center gap-7">
     <!-- Title -->
-    <h5 class="classic-footer-title">{data.company_name}</h5>
-    
+    <h5 class="classic-footer-title text-3xl font-bold">{data.company_name}</h5>
+        
     <!-- Links -->
-    <div class="classic-footer-links">
+    <div class="classic-footer-links flex justify-center flex-wrap gap-6 text-sm font-medium mb-6">
       {data.policies.map((policy : string) => (
-        <a href="#" class="classic-footer-link">{policy}</a>
+        <a href="#" class="classic-footer-link underline">{policy}</a>
       ))}
     </div>
-    
+        
     <!-- Social Icons -->
-    <div class="classic-footer-social">
+    <div class="classic-footer-social flex justify-center gap-6 text-2xl">
       {data.social_icons.map((iconClass : string, index : number) => (
         <a href="#" class="classic-footer-social-link" aria-label={`social-${index}`}>
           <i class={iconClass}></i>

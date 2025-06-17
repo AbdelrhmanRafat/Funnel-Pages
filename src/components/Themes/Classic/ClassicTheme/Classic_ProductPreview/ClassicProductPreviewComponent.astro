@@ -21,7 +21,7 @@ const productPreview: ProductPreview = data.productPreview ?? {} as ProductPrevi
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch">
         <!-- Video Section (3/5 width on desktop) -->
         <div class="w-full lg:w-3/5 order-2 lg:order-1">
-            <div class="classic-product-video-container classic-product-video-height">
+            <div class="classic-product-video-container classic-product-video-height border-4 rounded-xl overflow-hidden relative">
                 <iframe
                     class="w-full h-full rounded-[inherit]"
                     src={productPreview.videoInfo.link}
@@ -29,7 +29,7 @@ const productPreview: ProductPreview = data.productPreview ?? {} as ProductPrevi
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
-                <div class="classic-product-video-title">
+                <div class="classic-product-video-title absolute bottom-9 right-2 text-3xl font-bold z-10">
                     <p>{productPreview.videoInfo.title}</p>
                 </div>
             </div>
@@ -37,14 +37,14 @@ const productPreview: ProductPreview = data.productPreview ?? {} as ProductPrevi
                 
         <!-- Features Section (2/5 width on desktop) -->
         <div class="w-full lg:w-2/5 order-1 lg:order-2">
-            <div class="classic-product-features-container h-full">
+            <div class="classic-product-features-container h-full flex flex-col rounded-xl p-6">
                 <!-- Features Header -->
-                <div class="classic-product-features-header">
+                <div class="classic-product-features-header border-b pb-3">
                     <div class="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center sm:gap-4">
-                        <h2 class="classic-product-features-title">
+                        <h2 class="classic-product-features-title text-2xl font-bold">
                             {productPreview.featuresSectionTitle}
                         </h2>
-                        <div class="classic-product-views-badge flex-shrink-0">
+                        <div class="classic-product-views-badge flex-shrink-0 py-1 px-4 rounded-2xl flex items-center gap-2 text-lg max-w-full">
                             <div class="flex-shrink-0">
                                 <i class={productPreview.viewsIcon}></i>
                             </div>
@@ -58,13 +58,13 @@ const productPreview: ProductPreview = data.productPreview ?? {} as ProductPrevi
                     <div class="space-y-6 lg:space-y-8">
                         {
                             productPreview.features.map((feature) => (
-                                <div class="classic-product-feature-item">
-                                    <div class="classic-product-feature-icon">
-                                        <i class="fa-solid fa-circle-check"></i>
+                                <div class="classic-product-feature-item flex items-start gap-3">
+                                    <div class="classic-product-feature-icon rounded-full p-2 flex-shrink-0 flex items-center justify-center mt-0.5">
+                                        <i class="fa-solid fa-circle-check w-5 h-5"></i>
                                     </div>
-                                    <div class="classic-product-feature-content flex-1 min-w-0">
-                                        <div class="classic-product-feature-title">{feature.title}</div>
-                                        <div class="classic-product-feature-subtitle">
+                                    <div class="classic-product-feature-content flex-1 min-w-0 text-right">
+                                        <div class="classic-product-feature-title font-semibold leading-snug">{feature.title}</div>
+                                        <div class="classic-product-feature-subtitle text-sm leading-snug mt-1">
                                             {feature.subtitle}
                                         </div>
                                     </div>

@@ -1,57 +1,19 @@
 /* === Classic Footer Component === */
 .classic-footer {
-    text-align: center;
-    width: 100%;
-    padding: 3.5rem;
-    border-top: 2px solid var(--classic-color-outline);
-    margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-    .classic-footer {
-        padding: 6rem;
-    }
-}
-
-.classic-footer-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1.75rem;
+    border-top-color: var(--classic-color-outline);
 }
 
 .classic-footer-title {
-    font-size: 1.875rem;
-    font-weight: 700;
     color: var(--classic-color-on-surface);
-}
-
-.classic-footer-links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
 }
 
 .classic-footer-link {
     color: var(--classic-color-on-surface);
-    text-decoration: underline;
     transition: color 0.2s ease;
 }
 
 .classic-footer-link:hover {
     color: var(--classic-color-primary);
-}
-
-.classic-footer-social {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    font-size: 1.5rem;
 }
 
 .classic-footer-social-link {

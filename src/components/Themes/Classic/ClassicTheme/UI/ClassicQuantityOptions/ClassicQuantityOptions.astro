@@ -21,9 +21,9 @@ const name = "qty";
     {
       data.map((item, index) => (
         <div class="quantity-option-group">
-          <div class="classic-quantity-option-group">
+          <div class="classic-quantity-option-group border border-primary rounded-3xl p-2">
             <label
-              class="classic-quantity-option-label group mb-1"
+              class="classic-quantity-option-label group mb-1 relative overflow-hidden cursor-pointer block rounded-xl"
               for={`${name}${index + 1}`}
             >
               <input
@@ -35,19 +35,19 @@ const name = "qty";
                 selected-item={JSON.stringify(item)}
                 data-items={item.items}
               />
-              <div class="classic-quantity-option-content">
-                <div class="classic-quantity-option-header flex flex-col sm:flex-row sm:justify-between sm:items-start space-y-2 sm:space-y-0">
+              <div class="classic-quantity-option-content p-2 md:p-3">
+                <div class="classic-quantity-option-header flex flex-col sm:flex-row sm:justify-between sm:items-start space-y-2 sm:space-y-0 mb-3">
                   <div class="flex-1">
-                    <h3 class="classic-quantity-option-title">{item.title}</h3>
-                    <div class="classic-quantity-option-details flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                      <div class="classic-quantity-unit-badge">
+                    <h3 class="classic-quantity-option-title font-bold text-base sm:text-lg mb-1">{item.title}</h3>
+                    <div class="classic-quantity-option-details flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                      <div class="classic-quantity-unit-badge py-1 px-2 rounded-full inline-block w-fit">
                         <span>{item.items === 1 ? "" : item.items}</span>
                         <span
                           data-translate={"quantityOptions.itemUnit.singular"}
                         />
                       </div>
                       <span class="hidden sm:inline">•</span>
-                      <div class="classic-quantity-price-info flex justify-start gap-1">
+                      <div class="classic-quantity-price-info flex justify-start gap-1 text-xs sm:text-sm">
                         <span>{item.price_per_item}</span>
                         <span data-translate="productFunnel.currency" />
                         <span data-translate="quantityOptions.pricePerItem" />
@@ -57,20 +57,20 @@ const name = "qty";
 
                   <div class="text-left sm:text-right mt-2 sm:mt-0">
                     <div
-                      class={`classic-quantity-final-price ${item.discount > 0 ? "classic-quantity-price-discount" : "classic-quantity-price-regular"}`}
+                      class={`classic-quantity-final-price text-xl sm:text-2xl font-bold mb-1 ${item.discount > 0 ? "classic-quantity-price-discount" : "classic-quantity-price-regular"}`}
                     >
                       {item.final_total.toLocaleString()}{" "}
                       {getTranslation("productFunnel.currency")}
                     </div>
                     {item.discount > 0 && (
                       <div class="flex flex-col items-start sm:items-end">
-                        <div class="classic-quantity-original-price">
+                        <div class="classic-quantity-original-price text-xs sm:text-sm line-through">
                           {item.original_total.toLocaleString()}{" "}
                           {getTranslation("productFunnel.currency")}
                         </div>
-                        <div class="classic-quantity-discount-badge inline-flex items-center">
+                        <div class="classic-quantity-discount-badge inline-flex items-center text-xs font-semibold py-1 px-2 rounded-full mt-1">
                           <svg
-                            class="classic-quantity-discount-icon"
+                            class="classic-quantity-discount-icon w-3 h-3 ml-1"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >

@@ -1,10 +1,6 @@
 .classic-theme-today-order-count {
   background-color: var(--classic-color-primary-light);
   color: var(--classic-color-on-primary);
-  padding: 1rem 1.5rem; /* py-4 px-6 */
-  border-radius: 0.75rem; /* rounded-xl */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
-  font-size: 1.875rem; /* text-3xl */
-  font-weight: 700; /* font-bold */
-  text-align: center;
+  box-shadow: var(--classic-section-shadow);
+  border-radius: var(--classic-section-radius);
 }

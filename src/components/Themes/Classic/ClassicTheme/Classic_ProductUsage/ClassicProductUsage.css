@@ -1,21 +1,7 @@
 /* === Classic Product Usage Component === */
-.classic-usage-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
-@media (min-width: 768px) {
-    .classic-usage-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-}
-
 .classic-usage-card {
-    border-radius: 1rem;
-    overflow: hidden;
     background-color: var(--classic-color-surface-container);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--classic-section-shadow);
     transition: transform 0.2s ease;
 }
 
@@ -23,35 +9,10 @@
     transform: scale(1.05);
 }
 
-.classic-usage-video {
-    position: relative;
-}
-
-.classic-usage-iframe {
-    width: 100%;
-    height: 300px;
-}
-
-@media (min-width: 1024px) {
-    .classic-usage-iframe {
-        height: 620px;
-    }
-}
-
-
-.classic-usage-content {
-    padding: 0.75rem;
-}
-
 .classic-usage-title {
-    font-weight: 500;
     color: var(--classic-color-on-surface);
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
 }
 
 .classic-usage-subtitle {
     color: var(--classic-color-on-surface-variant);
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
 }

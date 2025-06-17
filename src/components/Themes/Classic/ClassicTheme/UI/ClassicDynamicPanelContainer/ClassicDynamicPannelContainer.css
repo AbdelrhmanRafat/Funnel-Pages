@@ -1,76 +1,30 @@
 /* === Dynamic Panel Container === */
 .classic-option-panel {
     background-color: var(--classic-color-surface);
-    padding: 1rem;
     border-radius: var(--classic-section-radius);
-    border: 1px solid var(--classic-color-primary);
+    border-color: var(--classic-color-primary);
     border-color: rgba(0, 150, 136, 0.2);
-}
-
-@media (min-width: 640px) {
-    .classic-option-panel {
-        border-radius: 1.5rem;
-    }
 }
 
 .classic-panel-header {
     color: var(--classic-color-primary-dark);
-    font-weight: 700;
-    font-size: 1.125rem;
-}
-
-@media (min-width: 640px) {
-    .classic-panel-header {
-        font-size: 1.25rem;
-    }
 }
 
 .classic-selection-indicator {
     background-color: var(--classic-color-primary-light);
     background-color: rgba(77, 182, 172, 0.2);
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
     color: var(--classic-color-primary-dark);
-    font-size: 0.75rem;
-}
-
-@media (min-width: 640px) {
-    .classic-selection-indicator {
-        font-size: 0.875rem;
-    }
 }
 
 .classic-selection-title {
-    font-size: 1rem;
-    font-weight: 600;
     color: var(--classic-color-on-surface-variant);
-}
-
-@media (min-width: 640px) {
-    .classic-selection-title {
-        font-size: 1.125rem;
-    }
 }
 
 .classic-size-option {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid var(--classic-color-outline);
-    border-radius: 0.5rem;
-    cursor: pointer;
+    border-color: var(--classic-color-outline);
     transition: all 0.2s ease;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    font-size: 0.75rem;
-    font-weight: 500;
     color: var(--classic-color-on-surface-variant);
-    text-align: center;
-}
-
-@media (min-width: 640px) {
-    .classic-size-option {
-        padding: 0.625rem 1.25rem;
-        border-radius: 0.75rem;
-        font-size: 0.875rem;
-    }
 }
 
 .classic-size-option:hover {
@@ -80,7 +34,6 @@
 }
 
 .classic-color-option {
-    cursor: pointer;
     transition: transform 0.2s ease;
 }
 
@@ -89,30 +42,12 @@
 }
 
 .classic-color-swatch {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    border: 2px solid var(--classic-color-surface);
+    border-color: var(--classic-color-surface);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-@media (min-width: 640px) {
-    .classic-color-swatch {
-        width: 2.25rem;
-        height: 2.25rem;
-    }
-}
-
 .classic-color-name {
-    font-size: 0.75rem;
     color: var(--classic-color-on-surface-variant);
-    text-align: center;
-}
-
-@media (min-width: 640px) {
-    .classic-color-name {
-        font-size: 0.875rem;
-    }
 }
 
 /* === Selection States (Updated) === */

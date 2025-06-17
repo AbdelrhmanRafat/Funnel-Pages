@@ -1,39 +1,14 @@
 /* === Gallery Section Classes === */
 
 .classic-gallery-main {
-    position: relative;
     background: linear-gradient(135deg, var(--classic-color-surface-variant) 0%, var(--classic-color-surface-container) 100%);
-    border-radius: 1.5rem;
-    overflow: hidden;
-}
-
-.classic-main-image {
-    width: 100%;
-    height: 24rem;
-    object-fit: cover;
-}
-
-@media (min-width: 1024px) {
-    .classic-main-image {
-        height: 31.25rem; /* 500px */
-    }
+    border-radius: var(--classic-section-radius);
 }
 
 .classic-gallery-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
     background-color: var(--classic-color-surface);
     box-shadow: var(--classic-section-shadow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: var(--classic-color-on-surface-variant);
-    border: none;
-    cursor: pointer;
     transition: all 0.3s ease;
 }
 
@@ -42,52 +17,20 @@
     transform: translateY(-50%) scale(1.05);
 }
 
-.classic-gallery-nav-left {
-    left: 1rem;
-}
-
-.classic-gallery-nav-right {
-    right: 1rem;
-}
-
 .classic-gallery-counter {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
     background-color: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 500;
     color: var(--classic-color-on-surface);
-    border: 1px solid var(--classic-color-outline-variant);
+    border-color: var(--classic-color-outline-variant);
 }
 
 .classic-thumbnail-container {
-    max-height: 24rem;
-    overflow-x: auto;
-    white-space: nowrap;
     scrollbar-width: auto;
-    padding-bottom: 0.5rem;
 }
 
 .classic-thumbnail {
-    width: 5rem;
-    height: 5rem;
-    object-fit: cover;
     border-radius: var(--classic-section-radius);
-    cursor: pointer;
-    border: 2px solid transparent;
     transition: all 0.3s ease;
-}
-
-@media (min-width: 1024px) {
-    .classic-thumbnail {
-        width: 6rem;
-        height: 6rem;
-    }
 }
 
 .classic-thumbnail:hover {

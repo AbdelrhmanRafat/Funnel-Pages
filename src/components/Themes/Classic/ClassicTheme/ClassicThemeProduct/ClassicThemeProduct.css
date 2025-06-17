@@ -5,58 +5,32 @@
     border-radius: var(--classic-section-radius);
 }
 
-.classic-product-header {
-    margin-bottom: 2rem;
-}
-
-
-
 .classic-badge-success {
     background-color: var(--classic-color-success-light);
     color: var(--classic-color-on-success);
-    font-size: 0.75rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-weight: 500;
 }
 
 .classic-badge-error {
     background-color: var(--classic-color-error-light);
     color: var(--classic-color-on-error);
-    font-size: 0.75rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-weight: 500;
 }
 
 .classic-product-sku {
     color: var(--classic-color-on-surface-variant);
-    font-size: 0.875rem;
 }
 
 .classic-product-title {
-    font-size: 1.875rem;
-    font-weight: 700;
     color: var(--classic-color-on-surface);
-    line-height: 1.25;
-}
-
-@media (min-width: 1024px) {
-    .classic-product-title {
-        font-size: 2.25rem;
-    }
 }
 
 .classic-product-price {
-    font-size: 2.25rem;
-    font-weight: 700;
     color: var(--classic-color-primary);
 }
 
 .classic-description-header {
     color: var(--classic-color-on-surface);
 }
+
 .classic-text-body {
     color: var(--classic-color-on-surface-variant);
-    line-height: 1.625;
 }

@@ -15,11 +15,9 @@
 
 /* Image Card Styles */
 .classic-image-card {
-    position: relative;
     transform: translateY(0);
     transition: transform 0.3s ease;
     border-radius: var(--classic-section-radius);
-    overflow: hidden;
     box-shadow: var(--classic-section-shadow);
 }
 
@@ -30,20 +28,12 @@
 
 /* Badge Styles */
 .classic-badge-before {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 10;
     background: linear-gradient(to right, var(--classic-color-error), var(--classic-color-warning));
     color: var(--classic-color-on-error);
     animation: pulse 2s infinite;
 }
 
 .classic-badge-after {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 10;
     background: linear-gradient(to right, var(--classic-color-success), var(--classic-color-primary));
     color: var(--classic-color-on-success);
     animation: pulse 2s infinite;
@@ -51,8 +41,6 @@
 
 /* Overlay Effects */
 .classic-overlay-before {
-    position: absolute;
-    inset: 0;
     background-color: rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease;
 }
@@ -62,8 +50,6 @@
 }
 
 .classic-overlay-after {
-    position: absolute;
-    inset: 0;
     background-color: rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
 }
@@ -81,15 +67,7 @@
     color: var(--classic-color-on-surface-variant);
 }
 
-/* Badge Icon Flex */
-.classic-badge-content {
-    display: flex;
-    align-items: center;
-}
-
+/* Badge Icon */
 .classic-badge-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-left: 0.5rem;
     fill: var(--classic-color-on-primary);
 }
