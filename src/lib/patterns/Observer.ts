@@ -65,7 +65,6 @@ export class QuantityOptionsSubject extends GenericSubject<QuantityState> {
 
   private constructor() {
     super({ quantity: 1, selectedItem: null });
-    this.initializeQuantityOptions();
   }
 
   public static getInstance(): QuantityOptionsSubject {
@@ -73,23 +72,6 @@ export class QuantityOptionsSubject extends GenericSubject<QuantityState> {
       QuantityOptionsSubject.instance = new QuantityOptionsSubject();
     }
     return QuantityOptionsSubject.instance;
-  }
-
-  private initializeQuantityOptions(): void {
-    const initialRadio = document.querySelector('input[type="radio"]:checked');
-    if (initialRadio) {
-      const quantity = parseInt(initialRadio.getAttribute('data-items') || '1');
-      const selectedItem = JSON.parse(initialRadio.getAttribute('selected-item') || 'null');
-      this.setState({ quantity, selectedItem });
-    }
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-      radio.addEventListener('change', e => {
-        const target = e.target as HTMLInputElement;
-        const quantity = parseInt(target.getAttribute('data-items') || '1');
-        const selectedItem = JSON.parse(target.getAttribute('selected-item') || 'null');
-        this.setState({ quantity, selectedItem });
-      });
-    });
   }
 }
 

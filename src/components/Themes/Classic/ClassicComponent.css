@@ -28,3 +28,40 @@ body {
     color: var(--classic-color-on-surface);
     margin-bottom: var(--classic-header-center-margin-bottom);
 }
+
+/* === Scroll to Top Button === */
+.scrollToTopBtn {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+    width: 3.5rem; /* w-14 */
+    height: 3.5rem; /* h-14 */
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem; /* text-xl */
+    box-shadow: var(--classic-section-shadow);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.scrollToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scrollToTopBtn:hover {
+    background-color: var(--classic-color-primary-dark);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.scrollToTopBtn:active {
+    transform: translateY(0) scale(0.95);
+}
