@@ -1,0 +1,42 @@
+---
+// ProductImageSection.astro
+import "./classicImageTextOverlay.css";
+import type { BlockData } from "../../../../../lib/api/types";
+import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+
+const data: BlockData = Astro.props.data;
+---
+
+<section id="classic-text-image-overlay" class="classic-section">
+  <!-- Header -->
+  <div class="classic-section-header">
+    <i class="fa-solid fa-images"></i>
+    <h5>{data.title}</h5>
+  </div>
+  
+  <!-- Featured Product with Overlay -->
+  <div class="classic-image-text-overlay-card rounded-2xl overflow-hidden">
+    <div class="relative w-full rounded-2xl overflow-hidden">
+            
+      <!-- Image (fills parent height) -->
+      <img 
+        src={data.image?.src}
+        alt={data.image?.alt}
+        class="absolute inset-0 w-full h-full object-cover brightness-75 z-0"
+      />
+      
+      <!-- Overlay Content (dictates height) -->
+      <div class="relative z-10 w-full flex flex-col items-center justify-center text-center px-4 sm:px-8 py-8">
+        <div class="classic-image-text-overlay-content p-4 sm:p-6 rounded-xl space-y-3 w-full max-w-2xl">
+          <h2 class="classic-image-text-overlay-title text-lg sm:text-2xl md:text-3xl font-bold leading-snug mb-4">
+            {data.subtitle}
+          </h2>
+          <p class="classic-image-text-overlay-subtitle text-sm sm:text-base md:text-lg leading-relaxed mb-8 opacity-90">
+            {data.description}
+          </p>
+          <ClassicBuyNowButton />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

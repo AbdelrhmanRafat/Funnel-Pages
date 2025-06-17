@@ -1,0 +1,44 @@
+/* === Buy Now Button Classes === */
+.classic-buy-now-button {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+    font-weight: 700; /* font-bold */
+    padding: 1.25rem; /* p-5 */
+    border-radius: 0.5rem; /* rounded-lg */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* gap-2 */
+    text-decoration: none;
+    width: 100%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.classic-buy-now-button:hover {
+    background-color: var(--classic-color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.classic-buy-now-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.classic-buy-now-button:focus {
+    outline: none;
+    border-color: var(--classic-color-outline-focus);
+    box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.2);
+}
+
+.classic-buy-now-button-icon {
+    font-size: 1.125rem; /* text-lg */
+    transition: transform 0.3s ease;
+}
+
+.classic-buy-now-button:hover .classic-buy-now-button-icon {
+    transform: scale(1.1);
+}

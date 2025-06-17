@@ -1,0 +1,33 @@
+/* === Rates Section Classes === */
+
+.classic-rates {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--classic-color-on-surface);
+}
+
+.classic-rating-display {
+    display: flex;
+    align-items: center;
+    color: var(--classic-color-warning);
+    font-weight: 600;
+}
+
+.classic-rating-star {
+    color: var(--classic-color-warning);
+    padding-inline: 3px;
+}
+
+.classic-rating-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.classic-rating-label {
+    color: var(--classic-color-on-surface-variant);
+    display: inline-block;
+    margin: 0;
+}

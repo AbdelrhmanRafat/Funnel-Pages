@@ -1,0 +1,19 @@
+/* === Classic Reviews Component === */
+.classic-review-card {
+    background-color: var(--classic-color-surface-variant);
+    border-radius: var(--classic-section-radius);
+    border-left-color: var(--classic-color-primary);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.classic-review-description {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-review-name {
+    color: var(--classic-color-primary);
+}
+
+.classic-review-city {
+    color: var(--classic-color-on-surface-variant);
+}

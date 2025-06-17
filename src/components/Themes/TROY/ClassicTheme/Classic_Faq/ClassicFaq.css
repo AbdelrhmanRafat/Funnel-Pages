@@ -1,0 +1,31 @@
+/* === Classic FAQ Component === */
+.classic-faq-item {
+    background-color: var(--classic-color-surface);
+    border-radius: var(--classic-section-radius);
+    border: 1px solid var(--classic-color-outline-variant);
+}
+
+.classic-faq-question {
+    transition: background-color 0.2s ease;
+}
+
+.classic-faq-question:hover {
+    background-color: var(--classic-color-surface-variant);
+}
+
+.classic-faq-question-text {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-faq-icon {
+    color: var(--classic-color-on-surface-variant);
+    transition: transform 0.3s ease;
+}
+
+.classic-faq-answer {
+    transition: all 0.3s ease-out;
+}
+
+.classic-faq-answer-content {
+    color: var(--classic-color-on-surface-variant);
+}

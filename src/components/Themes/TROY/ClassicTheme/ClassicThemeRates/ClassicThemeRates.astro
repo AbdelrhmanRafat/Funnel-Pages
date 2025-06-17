@@ -1,0 +1,19 @@
+---
+import "./ClassicThemeRates.css";
+import type { BlockData } from '../../../../../lib/api/types';
+import { getTranslation } from '../../../../../lib/utils/i18n/translations';
+
+const ratingData: BlockData = Astro.props.ratingData;
+---
+<div id="classic-rates" class="classic-rates w-full">
+  <div class="classic-rating-display">
+    <span>{ratingData.rate}</span>
+    <i class="fa-solid fa-star classic-rating-star"></i>
+  </div>
+  <div class="classic-rating-count">
+    <span>{ratingData.count}</span>
+    <p class="classic-rating-label" data-translate="ratings.count">
+      {getTranslation("ratings.count")}
+    </p>
+  </div>
+</div>

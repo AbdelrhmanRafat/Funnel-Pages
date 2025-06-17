@@ -1,0 +1,41 @@
+---
+import "./ClassicThemeReviews.css";
+import type { BlockData, Review } from "../../../../../lib/api/types";
+import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+
+const data: BlockData = Astro.props.data;
+const reviews: Review[] = data.reviews;
+---
+
+<section id="classic-theme-reviews" class="classic-section">
+  <h2 class="classic-section-header">
+    {data.title}
+  </h2>
+  
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 mb-8">
+    {
+      reviews.map((review) => (
+        <div class="classic-review-card p-6 rounded-xl border-l-4">
+          <p class="classic-review-description text-base leading-relaxed mb-4 italic">{review.description}</p>
+          <div class="classic-review-author flex flex-col gap-1">
+           <div class="flex justify-start items-center gap-2">
+            <div class="w-12 h-12 rounded-full bg-white shadow-2xl flex items-center justify-center">
+              <img
+                src={review.image}
+                alt={`Profile of ${review.name}`}
+                class="w-10 h-10 rounded-full object-cover"
+              />
+            </div>
+            <span class="classic-review-name font-semibold text-[0.95rem]">{review.name}</span>
+            </div>
+            <span class="classic-review-city text-[0.85rem]">{review.city}</span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  
+  <div class="classic-reviews-action flex justify-center mt-8">
+    <ClassicBuyNowButton />
+  </div>
+</section>

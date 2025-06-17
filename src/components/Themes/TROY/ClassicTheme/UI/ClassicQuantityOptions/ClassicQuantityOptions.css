@@ -1,0 +1,55 @@
+/* === Quantity Selection === */
+.classic-quantity-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-quantity-option-group {
+    border-color: var(--classic-color-primary);
+}
+
+.classic-quantity-option-label {
+    transition: all 0.3s ease;
+    border-radius: var(--classic-section-radius);
+    background-color: var(--classic-color-surface);
+}
+
+.classic-quantity-option-label:hover {
+    box-shadow: var(--classic-section-shadow);
+}
+
+.classic-quantity-option-label:has(:checked) {
+    border-color: var(--classic-color-primary);
+    background-color: var(--classic-color-primary-light);
+    background-color: rgba(79, 182, 172, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.classic-quantity-option-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-quantity-option-details {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-quantity-unit-badge {
+    background-color: var(--classic-color-surface-variant);
+}
+
+.classic-quantity-price-discount {
+    color: var(--classic-color-success);
+}
+
+.classic-quantity-price-regular {
+    color: var(--classic-color-primary);
+}
+
+.classic-quantity-original-price {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-quantity-discount-badge {
+    background-color: var(--classic-color-success-light);
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--classic-color-success-dark);
+}

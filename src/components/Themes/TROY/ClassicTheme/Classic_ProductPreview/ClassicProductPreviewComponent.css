@@ -1,0 +1,90 @@
+/* === Classic Theme Enhanced Classes === */
+
+/* === Product Preview Specific Classes === */
+.classic-product-video-container {
+    border-color: var(--classic-color-primary);
+    box-shadow: var(--classic-section-shadow);
+}
+
+.classic-product-video-title {
+    color: var(--classic-color-on-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.classic-product-features-container {
+    background-color: var(--classic-color-surface-container-high);
+    border-radius: var(--classic-section-radius);
+    padding: var(--classic-section-padding);
+}
+
+.classic-product-features-header {
+    border-bottom-color: var(--classic-color-outline);
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-features-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-views-badge {
+    background-color: var(--classic-color-surface-variant);
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-product-feature-icon {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+}
+
+.classic-product-feature-icon svg {
+    color: var(--classic-color-on-primary);
+    fill: currentColor;
+}
+
+.classic-product-feature-content {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-feature-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-feature-subtitle {
+    color: var(--classic-color-on-surface-variant);
+}
+
+/* === Alternative Color Variations === */
+.classic-product-features-container--secondary {
+    background-color: var(--classic-color-secondary);
+}
+
+.classic-product-features-container--secondary .classic-product-features-title,
+.classic-product-features-container--secondary .classic-product-feature-title {
+    color: var(--classic-color-on-secondary);
+}
+
+.classic-product-features-container--secondary .classic-product-feature-subtitle {
+    color: rgba(255, 255, 255, 0.7); /* Lighter version of on-secondary */
+}
+
+.classic-product-features-container--secondary .classic-product-features-header {
+    border-bottom-color: var(--classic-color-on-secondary);
+}
+
+/* === Responsive Utilities === */
+.classic-product-video-height {
+    height: 300px; /* Base height */
+}
+
+@media (min-width: 768px) {
+    .classic-product-video-height {
+        height: 400px; /* md:h-[400px] */
+    }
+}
+
+@media (min-width: 1024px) {
+    .classic-product-video-height {
+        height: 100%; /* lg:h-full */
+        min-height: 450px; /* Ensures minimum height for better proportions */
+    }
+}

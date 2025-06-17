@@ -1,0 +1,19 @@
+/* === Delivery Features Section Classes === */
+
+.classic-delivery-icon-container {
+    /* Keeping width/height in CSS in case they need to be dynamic */
+    width: 4rem; /* w-16 */
+    height: 4rem; /* h-16 */
+}
+
+.classic-delivery-icon {
+    color: var(--classic-color-primary);
+}
+
+.classic-delivery-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-delivery-subtitle {
+    color: var(--classic-color-on-surface-variant);
+}

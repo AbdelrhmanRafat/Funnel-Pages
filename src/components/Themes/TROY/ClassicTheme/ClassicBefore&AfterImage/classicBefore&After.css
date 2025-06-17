@@ -1,0 +1,73 @@
+/* === Classic Theme Additional Reusable Classes === */
+
+/* Section Title Styles */
+.classic-section-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-section-description {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-section-divider {
+    background: linear-gradient(to right, var(--classic-color-tertiary), var(--classic-color-secondary));
+}
+
+/* Image Card Styles */
+.classic-image-card {
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    border-radius: var(--classic-section-radius);
+    box-shadow: var(--classic-section-shadow);
+}
+
+.classic-image-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.35);
+}
+
+/* Badge Styles */
+.classic-badge-before {
+    background: linear-gradient(to right, var(--classic-color-error), var(--classic-color-warning));
+    color: var(--classic-color-on-error);
+    animation: pulse 2s infinite;
+}
+
+.classic-badge-after {
+    background: linear-gradient(to right, var(--classic-color-success), var(--classic-color-primary));
+    color: var(--classic-color-on-success);
+    animation: pulse 2s infinite;
+}
+
+/* Overlay Effects */
+.classic-overlay-before {
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.classic-image-card:hover .classic-overlay-before {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.classic-overlay-after {
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.classic-image-card:hover .classic-overlay-after {
+    background-color: transparent;
+}
+
+/* Card Content */
+.classic-card-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-card-description {
+    color: var(--classic-color-on-surface-variant);
+}
+
+/* Badge Icon */
+.classic-badge-icon {
+    fill: var(--classic-color-on-primary);
+}

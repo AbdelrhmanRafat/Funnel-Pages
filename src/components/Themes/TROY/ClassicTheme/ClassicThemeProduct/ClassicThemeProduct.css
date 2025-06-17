@@ -1,0 +1,36 @@
+/* === Product Details Section Classes === */
+
+.classic-product-info {
+    background: linear-gradient(135deg, var(--classic-color-surface) 0%, var(--classic-color-surface-variant) 100%);
+    border-radius: var(--classic-section-radius);
+}
+
+.classic-badge-success {
+    background-color: var(--classic-color-success-light);
+    color: var(--classic-color-on-success);
+}
+
+.classic-badge-error {
+    background-color: var(--classic-color-error-light);
+    color: var(--classic-color-on-error);
+}
+
+.classic-product-sku {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-product-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-price {
+    color: var(--classic-color-primary);
+}
+
+.classic-description-header {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-text-body {
+    color: var(--classic-color-on-surface-variant);
+}

@@ -1,0 +1,24 @@
+---
+import "./ClassicOrderConfirmationNotice.css";
+import type { BlockData, Features } from "../../../../../lib/api/types";
+
+const data: BlockData = Astro.props.data;
+const confirmationNotices : Features[] = data.confirmationNotices ?? [];
+---
+<section id="classic-order-confirmation-notice" class="w-full">
+    <div class="classic-order-confirmation-notice text-start md:text-center py-4 px-2 rounded-xl">
+        <p class="classic-order-confirmation-title mb-2">{data.title}</p>
+        <div class="classic-order-confirmation-list flex flex-col justify-start items-start gap-3 md:flex-row md:justify-center md:items-center md:gap-8 text-sm">
+            {
+                confirmationNotices.map((item, index) => (
+                    <div class="flex items-center gap-2 md:gap-1">
+                        <div class="classic-order-confirmation-icon flex justify-center items-center rounded-full w-8 h-8">
+                            <i class={item.icon} />
+                        </div>
+                        <span>{item.title}</span>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

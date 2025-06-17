@@ -1,0 +1,19 @@
+/* === Order Confirmation Notice === */
+.classic-order-confirmation-notice {
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface);
+    border-radius: var(--classic-section-radius);
+}
+
+.classic-order-confirmation-title {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-order-confirmation-list {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-order-confirmation-icon {
+    background-color: var(--classic-color-info);
+    color: var(--classic-color-on-info);
+}
