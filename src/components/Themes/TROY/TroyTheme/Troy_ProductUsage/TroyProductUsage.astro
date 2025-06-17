@@ -1,0 +1,52 @@
+---
+// server-side code
+import "./TroyProductUsage.css";
+import type { BlockData, VideoInfo } from "../../../../../lib/api/types";
+
+const data: BlockData = Astro.props.data;
+const productUsage: VideoInfo[] = data.productUsage ?? [];
+
+// Helper function to convert watch URL to embed
+const getEmbedUrl = (url: string) => {
+    const videoIdMatch = url.match(/v=([^&]+)/);
+    return videoIdMatch
+        ? `https://www.youtube.com/embed/${videoIdMatch[1]}`
+        : "";
+};
+---
+
+<section id="Troy-product-usage" class="troy-section">
+    <!-- Header -->
+    <div class="troy-section-header">
+        <i class="fa-solid fa-circle-chevron-right"></i>
+        <h5>شاهد كيفية الاستخدام</h5>
+    </div>
+    
+    <!-- Video Grid -->
+    <div class={`grid grid-cols-1 gap-x-2 gap-y-4 md:grid-cols-3`}>
+        {
+            productUsage.map((video) => (
+                <div class="troy-usage-card rounded-2xl overflow-hidden">
+                    <div class="troy-usage-video relative">
+                        <iframe
+                            class="troy-usage-iframe w-full h-[300px] lg:h-[620px]"
+                            src={getEmbedUrl(video.link)}
+                            title={video.title}
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        />
+                    </div>
+                    <div class="troy-usage-content p-3">
+                        <h3 class="troy-usage-title font-medium text-base mb-1">
+                            {video.title}
+                        </h3>
+                        <p class="troy-usage-subtitle text-sm mb-2">
+                            {video.subtitle}
+                        </p>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

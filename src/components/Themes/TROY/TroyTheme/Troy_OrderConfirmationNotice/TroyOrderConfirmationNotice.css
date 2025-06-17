@@ -1,0 +1,19 @@
+/* === Order Confirmation Notice === */
+.troy-order-confirmation-notice {
+    background-color: var(--troy-color-surface);
+    color: var(--troy-color-on-surface);
+    border-radius: var(--troy-section-radius);
+}
+
+.troy-order-confirmation-title {
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-order-confirmation-list {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-order-confirmation-icon {
+    background-color: var(--troy-color-info);
+    color: var(--troy-color-on-info);
+}

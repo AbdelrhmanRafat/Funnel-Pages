@@ -1,0 +1,33 @@
+/* === Rates Section Classes === */
+
+.troy-rates {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--troy-color-on-surface);
+}
+
+.troy-rating-display {
+    display: flex;
+    align-items: center;
+    color: var(--troy-color-warning);
+    font-weight: 600;
+}
+
+.troy-rating-star {
+    color: var(--troy-color-warning);
+    padding-inline: 3px;
+}
+
+.troy-rating-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.troy-rating-label {
+    color: var(--troy-color-on-surface-variant);
+    display: inline-block;
+    margin: 0;
+}

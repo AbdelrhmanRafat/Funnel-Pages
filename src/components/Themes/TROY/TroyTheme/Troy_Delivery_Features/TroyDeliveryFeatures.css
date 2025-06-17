@@ -1,0 +1,19 @@
+/* === Delivery Features Section Classes === */
+
+.troy-delivery-icon-container {
+    /* Keeping width/height in CSS in case they need to be dynamic */
+    width: 4rem; /* w-16 */
+    height: 4rem; /* h-16 */
+}
+
+.troy-delivery-icon {
+    color: var(--troy-color-primary);
+}
+
+.troy-delivery-title {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-delivery-subtitle {
+    color: var(--troy-color-on-surface-variant);
+}

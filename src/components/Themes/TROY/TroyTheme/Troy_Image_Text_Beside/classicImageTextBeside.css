@@ -1,0 +1,19 @@
+/* Troy Image-Text Section */
+.troy-image-text-beside {
+  background-color: var(--troy-color-surface);
+  border-radius: var(--troy-section-radius);
+}
+
+.troy-image-text-beside-content {
+  background-color: var(--troy-color-surface-container-high);
+  border-radius: var(--troy-section-radius);
+  transition: all 0.3s ease;
+}
+
+.troy-image-text-beside-title {
+  color: var(--troy-color-on-surface);
+}
+
+.troy-image-text-beside-description {
+  color: var(--troy-color-on-surface-variant);
+}

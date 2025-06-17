@@ -1,0 +1,15 @@
+/* === Troy Product Image Section === */
+
+/* Product Cards */
+.troy-image-text-overlay-card {
+    border-radius: var(--troy-section-radius);
+    background-color: var(--troy-color-surface-container);
+}
+
+.troy-image-text-overlay-title {
+    color: var(--troy-color-on-primary);
+}
+
+.troy-image-text-overlay-subtitle {
+    color: var(--troy-color-surface);
+}

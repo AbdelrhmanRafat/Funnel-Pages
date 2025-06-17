@@ -1,0 +1,31 @@
+/* === Troy FAQ Component === */
+.troy-faq-item {
+    background-color: var(--troy-color-surface);
+    border-radius: var(--troy-section-radius);
+    border: 1px solid var(--troy-color-outline-variant);
+}
+
+.troy-faq-question {
+    transition: background-color 0.2s ease;
+}
+
+.troy-faq-question:hover {
+    background-color: var(--troy-color-surface-variant);
+}
+
+.troy-faq-question-text {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-faq-icon {
+    color: var(--troy-color-on-surface-variant);
+    transition: transform 0.3s ease;
+}
+
+.troy-faq-answer {
+    transition: all 0.3s ease-out;
+}
+
+.troy-faq-answer-content {
+    color: var(--troy-color-on-surface-variant);
+}

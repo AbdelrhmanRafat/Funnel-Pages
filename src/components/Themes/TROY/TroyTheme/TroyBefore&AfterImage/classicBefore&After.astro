@@ -1,0 +1,93 @@
+---
+import "./classicBefore&After.css"
+import type { BlockData } from "../../../../../lib/api/types";
+import TroyBuyNowButton from "../UI/TroyBuyNowButton/TroyBuyNowButton.astro";
+
+const data: BlockData = Astro.props.data;
+---
+
+<section id="troy-before-after" class="troy-section">
+    <!-- Section Header -->
+    <div class="troy-middle-title flex flex-col justify-center items-center gap-3">
+        <h1 class="text-center troy-section-title">
+            {data.title}
+        </h1>
+        <p class="text-xl max-w-2xl mx-auto font-medium troy-section-description">
+          {data.description}
+        </p>
+        <div class="w-24 h-1 troy-section-divider mx-auto rounded-full"></div>
+    </div>
+    
+    <div class="flex flex-col justify-center items-center gap-10">
+    <!-- Before and After Images Container -->
+    <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div class="flex flex-col gap-3 justify-center items-center">
+        <!-- Before Image -->
+        <div class="troy-image-card relative rounded-xl overflow-hidden">
+            <!-- Badge -->
+            <div class="troy-badge-before absolute top-6 right-6 z-10 px-6 py-3 rounded-full font-bold text-lg shadow-lg">
+                <span class="troy-badge-content flex items-center">
+                    <svg class="troy-badge-icon w-5 h-5 ml-2" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                    </svg>
+                    قبل
+                </span>
+            </div>
+                        
+            <!-- Placeholder Image -->
+            <div class="aspect-[4/3]">
+               <img
+                 class="w-full h-full object-cover"
+                src={data.beforeImage.src}
+                alt={data.beforeImage.alt}
+               >
+            </div>
+                        
+            <!-- Overlay Effect -->
+            <div class="troy-overlay-before absolute inset-0"></div>
+        </div>
+        
+        <!-- Before Description -->
+        <div class="mt-6 text-center">
+            <h3 class="text-2xl font-bold troy-card-title mb-2">{data.beforetitle}</h3>
+            <p class="troy-card-description">{data.beforedescription}</p>
+        </div>
+        </div>
+               
+        <div class="flex flex-col gap-3 justify-center items-center">
+        <!-- After Image -->
+        <div class="troy-image-card relative rounded-xl overflow-hidden">
+            <!-- Badge -->
+            <div class="troy-badge-after absolute top-6 right-6 z-10 px-6 py-3 rounded-full font-bold text-lg shadow-lg">
+                <span class="troy-badge-content flex items-center">
+                    <svg class="troy-badge-icon w-5 h-5 ml-2" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    بعد
+                </span>
+            </div>
+                        
+            <!-- Placeholder Image -->
+            <div class="aspect-[4/3]">
+                <img
+                 class="w-full h-full object-cover"
+                src={data.afterImage.src}
+                alt={data.afterImage.alt}
+               >
+            </div>
+                        
+            <!-- Overlay Effect -->
+            <div class="troy-overlay-after absolute inset-0"></div>
+        </div>
+        <!-- After Description -->
+        <div class="mt-6 text-center">
+            <h3 class="text-2xl font-bold troy-card-title mb-2">{data.aftertitle}</h3>
+            <p class="troy-card-description">{data.afterdescription}</p>
+        </div>
+    </div>
+    </div>
+    
+    <!-- Call to Action -->
+   <TroyBuyNowButton />
+</div>
+</section>

@@ -1,0 +1,82 @@
+---
+// This component displays a countdown timer for the Troy theme.
+// It takes hours, minutes, and seconds from the API data and renders a visual timer.
+// Props:
+// - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
+import "./TroyThemeCountDown.css";
+import type { BlockData } from "../../../../../lib/api/types";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+
+const data: BlockData = Astro.props.data;
+let totalSeconds = 0;
+
+// Calculate the total seconds from the provided hours, minutes, and seconds.
+if(data.hours != null && data.minutes != null && data.seconds != null) {
+  totalSeconds =
+  (parseInt(data.hours?.toString() || '0') || 0) * 3600 +
+  (parseInt(data.minutes?.toString() || '0' ) || 0) * 60 +
+  (parseInt(data.seconds.toString() || '0' ) || 0);
+}
+---
+
+<!-- Elegant Countdown Timer with proper spacing for fixed header -->
+<section id="troy-countDown" class="troy-section">
+  <div class="troy-countdown-container px-6 text-center">
+    <div class="troy-middle-title">
+    <h2 data-translate="countdown.offerEndsIn">
+      {getTranslation('countdown.offerEndsIn')}
+    </h2>
+    </div>
+        
+    <div
+      class="troy-countdown-display flex justify-center gap-4 sm:gap-8 items-center my-7"
+      id="countdown"
+      data-time={totalSeconds}
+    >
+      {/* Hours display block */}
+      <div class="troy-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
+        <div class="troy-countdown-number text-4xl font-extrabold" id="hours">--</div>
+        <div class="troy-countdown-label text-sm font-serif" data-translate="countdown.hours">
+          {getTranslation('countdown.hours')}
+        </div>
+      </div>
+            
+      {/* Minutes display block */}
+      <div class="troy-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
+        <div class="troy-countdown-number text-4xl font-extrabold" id="minutes">--</div>
+        <div class="troy-countdown-label text-sm font-serif" data-translate="countdown.minutes">
+          {getTranslation('countdown.minutes')}
+        </div>
+      </div>
+            
+      {/* Seconds display block */}
+      <div class="troy-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
+        <div class="troy-countdown-number text-4xl font-extrabold" id="seconds">--</div>
+        <div class="troy-countdown-label text-sm font-serif" data-translate="countdown.seconds">
+          {getTranslation('countdown.seconds')}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initCountdown } from "./TroyThemeCountDown";
+    
+  // Initialize countdown timer when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    // Start the countdown timer
+    initCountdown();
+        
+    // Handle positioning relative to header
+    const countdownSection = document.querySelector('.troy-countDown');
+    const countdownContainer = document.querySelector('.countdown-container');
+        
+    if (countdownSection && countdownContainer) {
+      const prevSibling = countdownSection.previousElementSibling;
+      if (!prevSibling || prevSibling.tagName === 'HEADER') {
+        countdownContainer.classList.add('after-header');
+      }
+    }
+  });
+</script>

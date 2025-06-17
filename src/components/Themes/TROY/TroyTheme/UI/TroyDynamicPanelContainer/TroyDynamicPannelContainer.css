@@ -1,0 +1,78 @@
+/* === Dynamic Panel Container === */
+.troy-option-panel {
+    background-color: var(--troy-color-surface);
+    border-radius: var(--troy-section-radius);
+    border-color: var(--troy-color-primary);
+    border-color: rgba(0, 150, 136, 0.2);
+}
+
+.troy-panel-header {
+    color: var(--troy-color-primary-dark);
+}
+
+.troy-selection-indicator {
+    background-color: var(--troy-color-primary-light);
+    background-color: rgba(77, 182, 172, 0.2);
+    color: var(--troy-color-primary-dark);
+}
+
+.troy-selection-title {
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-size-option {
+    border-color: var(--troy-color-outline);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-size-option:hover {
+    background-color: var(--troy-color-primary-light);
+    background-color: rgba(77, 182, 172, 0.1);
+    color: var(--troy-color-primary-dark);
+}
+
+.troy-color-option {
+    transition: transform 0.2s ease;
+}
+
+.troy-color-option:hover {
+    transform: scale(1.05);
+}
+
+.troy-color-swatch {
+    border-color: var(--troy-color-surface);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.troy-color-name {
+    color: var(--troy-color-on-surface-variant);
+}
+
+/* === Selection States (Updated) === */
+.selected-color-option {
+    transform: scale(1.1);
+}
+
+.selected-color-option .troy-color-swatch {
+    border: 3px solid var(--troy-color-primary);
+    box-shadow: 0 0 0 2px var(--troy-color-surface), 
+                0 0 0 4px var(--troy-color-primary), 
+                0 6px 16px rgba(0, 150, 136, 0.25);
+}
+
+.selected-color-option .troy-color-name {
+    color: var(--troy-color-primary-dark);
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.selected-size-option {
+    color: var(--troy-color-primary-dark);
+    border-color: var(--troy-color-primary);
+    box-shadow: 0 4px 12px rgba(0, 150, 136, 0.3), 
+                0 0 0 2px rgba(0, 150, 136, 0.1);
+    transform: translateY(-2px);
+    font-weight: 600;
+}

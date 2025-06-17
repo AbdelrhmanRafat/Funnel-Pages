@@ -1,0 +1,9 @@
+---
+import "./classicThemeTextBar.css";
+import type { BlockData } from "../../../../../lib/api/types";
+
+const data: BlockData = Astro.props.data;
+---
+<section id="troy-text-bar" class="troy-section">
+    <h5 class="troy-text-bar-title">{data.title}</h5>
+</section>
