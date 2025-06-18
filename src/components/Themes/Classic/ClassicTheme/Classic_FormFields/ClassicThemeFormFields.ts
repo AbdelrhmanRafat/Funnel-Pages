@@ -16,7 +16,7 @@ interface FormField {
   value: string;
   isValid: boolean;
   errorMessage: string;
-  touched: boolean; // Add a flag to track if field has been interacted with
+  touched: boolean; 
 }
 
 /**
@@ -29,7 +29,7 @@ const FORM_FIELD_CONFIG = {
     'form-email',
     'form-address',
     'form-city',
-    'form-delivery',
+    'form-payment',
     'form-notes'
   ] as const,
   ERROR_CLASSES: {
@@ -69,7 +69,7 @@ class ClassicFormFieldsHandler {
    * Get the form element from DOM
    */
   private getFormElement(): HTMLFormElement | null {
-    return document.querySelector('form');
+    return document.querySelector('#form-personal-payment-data');
   }
 
   /**

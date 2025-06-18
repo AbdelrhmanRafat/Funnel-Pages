@@ -67,4 +67,9 @@
   --classic-header-gap: 0.75rem;
   --classic-header-margin-bottom: 1.5rem;
   --classic-header-weight: 500;
+
+  /* Header Section Center variables */
+  --classic-header-center-size : 1.875rem; 
+  --classic-header-center-wight : 700; 
+  --classic-header-center-margin-bottom : 1.75rem; 
 }

@@ -130,6 +130,7 @@ export interface FormFieldData {
   value: string;
   isValid: boolean;
   errorMessage: string;
+  touched : Boolean;
 }
 
 export interface FormFieldsState extends State {
@@ -187,7 +188,8 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
           id,
           value: '',
           isValid: false,
-          errorMessage: ''
+          errorMessage: '',
+          touched : false,
         };
       }
     });

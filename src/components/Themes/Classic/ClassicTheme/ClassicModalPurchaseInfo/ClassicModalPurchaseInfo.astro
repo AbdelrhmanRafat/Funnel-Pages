@@ -1,7 +1,6 @@
 ---
 import "./ClassicModalPurchaseInfo.css";
 import { type Language } from "../../../../../lib/utils/i18n/translations";
-import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import ClassicConfirmPurchaseButton from "../UI/ClassicConfirmPurchaseButton/ClassicConfirmPurchaseButton.astro";
 
 // Get language from cookie during SSR
@@ -15,185 +14,160 @@ interface Props {
 
 const { isOpen = false } = Astro.props;
 ---
-<div id="classic-purchase-modal" class={`classic-modal ${isOpen ? "classic-modal-open" : ""}`}>
-  <div class="classic-modal-overlay" id="classic-modal-overlay"></div>
-  <div class="classic-modal-container">
-    
+<div id="classic-purchase-modal" class="classic-modal fixed top-0 left-0 w-full h-full z-[1000] hidden">
+  <div class="classic-modal-overlay absolute top-0 left-0 w-full h-full z-[1001]" id="classic-modal-overlay"></div>
+  <div class="classic-modal-container relative container md:w-7/12 max-h-[90vh] overflow-y-auto z-[1002]">
+
     <!-- Purchase Info View (Default) -->
-    <div id="purchase-info-view" class="modal-view">
-      <div class="classic-modal-header">
-        <h3 class="classic-modal-title" data-translate="modal.purchaseInfo">
-          {getTranslation("modal.purchaseInfo", currentLang) || (isArabic ? "معلومات الشراء" : "Purchase Information")}
-        </h3>
-        <button type="button" class="classic-modal-close" id="classic-modal-close">
+    <div id="purchase-info-view" class="modal-view w-full">
+      <div class="classic-modal-header flex justify-between items-center p-4 border-b">
+        <h3 class="classic-modal-title text-xl font-semibold m-0" data-translate="modal.purchaseInfo"></h3>
+        <button type="button" class="classic-modal-close bg-transparent border-none cursor-pointer text-xl p-1 flex items-center justify-center transition-colors duration-200" id="classic-modal-close">
           <i class="fa-solid fa-times"></i>
         </button>
       </div>
-      <div class="classic-modal-body">
-        <div class="classic-modal-content">
-          
+
+      <div class="classic-modal-body p-4">
+        <div class="classic-modal-content flex flex-col gap-6">
+
           <!-- Order Summary Section -->
-          <div class="classic-purchase-summary">
-            <h4 class="classic-summary-title">
-              {isArabic ? "ملخص الطلب" : "Order Summary"}
-            </h4>
-            
+          <div class="classic-purchase-summary flex flex-col gap-4">
+            <h4 class="classic-summary-title text-xl font-semibold mb-2 pb-2 border-b-2" data-translate="modal.orderSummary"></h4>
+
             <!-- Quantity Information -->
-            <div id="quantity-info" class="classic-summary-section">
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "نوع الطلب" : "Order Type"}:</span>
-                <span class="classic-summary-value" id="order-title">-</span>
+            <div id="quantity-info" class="classic-summary-section border-l-4">
+              <div class="classic-summary-item  py-2 last:border-b-0">
+                <span class="classic-summary-label font-medium" data-translate="modal.orderType"></span>:
+                <span class="classic-summary-value font-semibold text-right" id="order-title">-</span>
               </div>
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "عدد القطع" : "Items Count"}:</span>
-                <span class="classic-summary-value" id="items-count">-</span>
+              <div class="classic-summary-item  py-2 last:border-b-0">
+                <span class="classic-summary-label font-medium" data-translate="modal.itemsCount"></span>:
+                <span class="classic-summary-value font-semibold text-right" id="items-count">-</span>
               </div>
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "سعر القطعة" : "Price per Item"}:</span>
-                <span class="classic-summary-value" id="price-per-item">-</span>
+              <div class="classic-summary-item  py-2 last:border-b-0">
+                <span class="classic-summary-label font-medium" data-translate="modal.pricePerItem"></span>:
+                <span class="classic-summary-value font-semibold text-right" id="price-per-item">-</span>
               </div>
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "الخصم" : "Discount"}:</span>
-                <span class="classic-summary-value classic-discount-info" id="discount-info">-</span>
+              <div class="classic-summary-item  py-2 last:border-b-0">
+                <span class="classic-summary-label font-medium" data-translate="modal.discount"></span>:
+                <span class="classic-summary-value classic-discount-info font-semibold text-right" id="discount-info">-</span>
               </div>
             </div>
 
-            <!-- Color & Size Selection -->
-            <div id="color-size-info" class="classic-summary-section">
-              <h5 class="classic-subsection-title">{isArabic ? "اختيار الألوان والأحجام" : "Color & Size Selection"}</h5>
-              <div id="selection-items" class="classic-selection-items">
-                <!-- Dynamic content will be inserted here -->
-              </div>
+              <!-- Color & Size Selection -->
+            <div id="color-size-info" class="classic-summary-section flex flex-col justify-start items-start  md:flex-row md:justify-between md:items-center p-4  border-l-4">
+              <h5 class="classic-subsection-title text-base font-semibold mb-3" data-translate="modal.colorSizeSelection"></h5>
+              <div id="selection-items" class="classic-selection-items flex flex-col justify-center items-start gap-1"></div>
             </div>
 
             <!-- Customer Information -->
-            <div id="customer-info" class="classic-summary-section">
-              <h5 class="classic-subsection-title">{isArabic ? "معلومات العميل" : "Customer Information"}</h5>
-              <div class="classic-customer-details">
-                <div class="classic-summary-item">
-                  <span class="classic-summary-label">{isArabic ? "الاسم الكامل" : "Full Name"}:</span>
-                  <span class="classic-summary-value" id="customer-name">-</span>
+            <div id="customer-info" class="classic-summary-section p-4 rounded-xl border-l-4">
+              <h5 class="classic-subsection-title text-base font-semibold mb-3" data-translate="modal.customerInfo"></h5>
+              <div class="classic-customer-details flex flex-col gap-2">
+                <div class="classic-summary-item  py-2 last:border-b-0">
+                  <span class="classic-summary-label font-medium" data-translate="modal.fullName"></span>:
+                  <span class="classic-summary-value font-semibold text-right" id="customer-name">-</span>
                 </div>
-                <div class="classic-summary-item">
-                  <span class="classic-summary-label">{isArabic ? "الهاتف" : "Phone"}:</span>
-                  <span class="classic-summary-value" id="customer-phone">-</span>
+                <div class="classic-summary-item  py-2 last:border-b-0">
+                  <span class="classic-summary-label font-medium" data-translate="modal.phone"></span>:
+                  <span class="classic-summary-value font-semibold text-right" id="customer-phone">-</span>
                 </div>
-                <div class="classic-summary-item">
-                  <span class="classic-summary-label">{isArabic ? "البريد الإلكتروني" : "Email"}:</span>
-                  <span class="classic-summary-value" id="customer-email">-</span>
+                <div class="classic-summary-item  py-2 last:border-b-0">
+                  <span class="classic-summary-label font-medium" data-translate="modal.email"></span>:
+                  <span class="classic-summary-value font-semibold text-right" id="customer-email">-</span>
                 </div>
-                <div class="classic-summary-item">
-                  <span class="classic-summary-label">{isArabic ? "العنوان" : "Address"}:</span>
-                  <span class="classic-summary-value" id="customer-address">-</span>
+                <div class="classic-summary-item  py-2 last:border-b-0">
+                  <span class="classic-summary-label font-medium" data-translate="modal.address"></span>:
+                  <span class="classic-summary-value font-semibold text-right" id="customer-address">-</span>
                 </div>
-                <div class="classic-summary-item">
-                  <span class="classic-summary-label">{isArabic ? "المدينة" : "City"}:</span>
-                  <span class="classic-summary-value" id="customer-city">-</span>
+                <div class="classic-summary-item  py-2 last:border-b-0">
+                  <span class="classic-summary-label font-medium" data-translate="modal.city"></span>:
+                  <span class="classic-summary-value font-semibold text-right" id="customer-city">-</span>
                 </div>
-                <div class="classic-summary-item">
-                  <span class="classic-summary-label">{isArabic ? "طريقة الدفع" : "Payment Method"}:</span>
-                  <span class="classic-summary-value" id="payment-method">-</span>
+                <div class="classic-summary-item  py-2 last:border-b-0">
+                  <span class="classic-summary-label font-medium" data-translate="modal.paymentMethod"></span>:
+                  <span class="classic-summary-value font-semibold text-right" id="payment-method">-</span>
                 </div>
-                <div class="classic-summary-item" id="notes-section" style="display: none;">
-                  <span class="classic-summary-label">{isArabic ? "ملاحظات" : "Notes"}:</span>
-                  <span class="classic-summary-value" id="customer-notes">-</span>
+                <div class="classic-summary-item  py-2 last:border-b-0" id="notes-section">
+                  <span class="classic-summary-label font-medium" data-translate="modal.notes"></span>:
+                  <span class="classic-summary-value font-semibold text-right" id="customer-notes">-</span>
                 </div>
               </div>
             </div>
 
             <!-- Total Section -->
-            <div class="classic-summary-total">
-              <span class="classic-summary-label">{isArabic ? "الإجمالي النهائي" : "Final Total"}:</span>
-              <span class="classic-summary-value" id="final-total">-</span>
+            <div class="classic-summary-total flex justify-between items-center p-4 mt-2 border-2 rounded-xl font-bold text-lg">
+              <span class="classic-summary-label" data-translate="modal.finalTotal"></span>:
+              <span class="classic-summary-value text-xl" id="final-total">-</span>
             </div>
           </div>
 
-          <div class="classic-modal-actions">
+          <div class="classic-modal-actions flex gap-4 mt-4">
             <ClassicConfirmPurchaseButton />
-            <button type="button" class="classic-modal-cancel" id="classic-modal-cancel">
-              {isArabic ? "إلغاء" : "Cancel"}
-            </button>
+            <button type="button" class="classic-modal-cancel flex-1 py-3 px-4 rounded-md font-semibold border cursor-pointer transition-colors duration-300" id="classic-modal-cancel" data-translate="modal.cancel"></button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Celebration View (Hidden by default) -->
-    <div id="celebration-view" class="modal-view celebration-view" style="display: none;">
-      <div class="classic-modal-header celebration-header">
-        <h3 class="classic-modal-title celebration-title">
-          {isArabic ? "🎉 تم تأكيد طلبك بنجاح!" : "🎉 Order Confirmed Successfully!"}
-        </h3>
-        <button type="button" class="classic-modal-close" id="classic-modal-close-celebration">
+    <!-- Celebration View -->
+    <div id="celebration-view" class="modal-view celebration-view w-full hidden" style="display: none;">
+      <div class="classic-modal-header celebration-header flex justify-between items-center p-4 border-b">
+        <h3 class="classic-modal-title celebration-title text-xl font-bold m-0" data-translate="celebration.orderConfirmed"></h3>
+        <button type="button" class="classic-modal-close bg-transparent border-none cursor-pointer text-xl p-1 flex items-center justify-center transition-colors duration-200" id="classic-modal-close-celebration">
           <i class="fa-solid fa-times"></i>
         </button>
       </div>
-      <div class="classic-modal-body">
-        <div class="classic-modal-content celebration-content">
-          
-          <!-- Success Animation Container -->
-          <div class="celebration-animation">
-            <div class="success-checkmark">
-              <div class="check-icon">
-                <span class="icon-line line-tip"></span>
-                <span class="icon-line line-long"></span>
-                <div class="icon-circle"></div>
-                <div class="icon-fix"></div>
-              </div>
+
+      <div class="classic-modal-body p-4">
+        <div class="classic-modal-content celebration-content flex flex-col gap-8 text-center">
+
+          <!-- Success Animation -->
+          <div class="celebration-animation flex justify-center items-center my-4">
+            <div class="success-checkmark w-20 h-20 rounded-full block relative mx-auto">
+              <div class="check-icon w-14 h-14 absolute left-3 top-3 z-10 rounded-full"></div>
             </div>
           </div>
 
           <!-- Thank You Message -->
-          <div class="celebration-message">
-            <h2 class="celebration-main-title">
-              {isArabic ? "شكراً لك على شرائك!" : "Thank You for Your Purchase!"}
-            </h2>
-            <p class="celebration-subtitle">
-              {isArabic 
-                ? "تم استلام طلبك وسيتم التواصل معك قريباً لتأكيد التفاصيل." 
-                : "Your order has been received and we'll contact you soon to confirm the details."
-              }
-            </p>
+          <div class="celebration-message my-8">
+            <h2 class="celebration-main-title text-3xl font-bold mb-4" data-translate="celebration.thankYou"></h2>
+            <p class="celebration-subtitle text-lg leading-relaxed max-w-md mx-auto" data-translate="celebration.detailsMessage"></p>
           </div>
 
-          <!-- Order Summary for Celebration -->
-          <div class="celebration-summary">
-            <div class="celebration-summary-item">
-              <i class="fa-solid fa-shopping-bag celebration-icon"></i>
-              <div class="celebration-summary-text">
-                <strong>{isArabic ? "رقم الطلب" : "Order Number"}</strong>
-                <span id="order-number">#{Math.floor(Math.random() * 100000)}</span>
+          <!-- Order Summary -->
+          <div class="celebration-summary p-6 rounded-xl my-6">
+            <div class="celebration-summary-item flex items-center gap-4 py-3 last:border-b-0">
+              <i class="fa-solid fa-shopping-bag celebration-icon text-2xl w-6 text-center"></i>
+              <div class="celebration-summary-text flex flex-col text-left flex-1">
+                <strong class="font-semibold mb-1" data-translate="celebration.orderNumber"></strong>
+                <span class="text-sm" id="order-number">#{Math.floor(Math.random() * 100000)}</span>
               </div>
             </div>
-            
-            <div class="celebration-summary-item">
-              <i class="fa-solid fa-clock celebration-icon"></i>
-              <div class="celebration-summary-text">
-                <strong>{isArabic ? "وقت التوصيل المتوقع" : "Expected Delivery"}</strong>
-                <span>{isArabic ? "2-3 أيام عمل" : "2-3 Business Days"}</span>
+            <div class="celebration-summary-item flex items-center gap-4 py-3 last:border-b-0">
+              <i class="fa-solid fa-clock celebration-icon text-2xl w-6 text-center"></i>
+              <div class="celebration-summary-text flex flex-col text-left flex-1">
+                <strong class="font-semibold mb-1" data-translate="celebration.expectedDelivery"></strong>
+                <span class="text-sm" data-translate="celebration.deliveryTime"></span>
               </div>
             </div>
-
-            <div class="celebration-summary-item">
-              <i class="fa-solid fa-phone celebration-icon"></i>
-              <div class="celebration-summary-text">
-                <strong>{isArabic ? "سيتم التواصل معك" : "We'll Contact You"}</strong>
-                <span>{isArabic ? "خلال 24 ساعة" : "Within 24 Hours"}</span>
+            <div class="celebration-summary-item flex items-center gap-4 py-3 last:border-b-0">
+              <i class="fa-solid fa-phone celebration-icon text-2xl w-6 text-center"></i>
+              <div class="celebration-summary-text flex flex-col text-left flex-1">
+                <strong class="font-semibold mb-1" data-translate="celebration.contactYou"></strong>
+                <span class="text-sm" data-translate="celebration.contactTime"></span>
               </div>
             </div>
           </div>
 
-          <!-- Celebration Actions -->
-          <div class="celebration-actions">
-            <button type="button" class="celebration-primary-button" id="celebration-continue">
-              {isArabic ? "متابعة التسوق" : "Continue Shopping"}
-            </button>
+          <!-- Actions -->
+          <div class="celebration-actions mt-8">
+            <button type="button" class="celebration-primary-button py-4 px-8 rounded-full border-none font-semibold text-lg cursor-pointer transition-all duration-300 shadow-lg hover:-translate-y-0.5 hover:shadow-xl" id="celebration-continue" data-translate="celebration.continueShopping"></button>
           </div>
 
         </div>
       </div>
     </div>
-
   </div>
 </div>
 

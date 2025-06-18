@@ -58,14 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Add this interface at the top of the file with other imports
-interface FormFieldState {
-  value: string;
-  isValid: boolean;
-  errorMessage: string;
-  touched?: boolean; // Add touched flag
-}
-
 /**
  * Set up listeners for form field inputs
  */

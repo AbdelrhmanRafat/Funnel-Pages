@@ -52,7 +52,7 @@
     margin-top: 0.25rem; /* Tailwind: mt-1 */
 }
 
-.classic-form-delivery-option {
+.classic-form-payment-option {
     display: flex;
     align-items: start;
     padding: 0.75rem; /* Tailwind: p-3 */
@@ -63,39 +63,39 @@
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
-.classic-form-delivery-option:hover {
+.classic-form-payment-option:hover {
     background-color: var(--classic-color-surface-variant);
     border-color: var(--classic-color-outline-variant);
 }
 
-.classic-form-delivery-option-content {
+.classic-form-payment-option-content {
     flex: 1;
     margin-left: 0.75rem; /* Tailwind: ml-3 */
 }
 
-.classic-form-delivery-option-label {
+.classic-form-payment-option-label {
     display: block;
     font-weight: 500; /* Tailwind: font-medium */
     color: var(--classic-color-on-surface);
     cursor: pointer;
 }
 
-.classic-form-delivery-option-description {
+.classic-form-payment-option-description {
     display: block;
     font-size: 0.875rem; /* Tailwind: text-sm */
     color: var(--classic-color-on-surface-variant);
 }
 
-.classic-form-delivery-option-price {
+.classic-form-payment-option-price {
     font-size: 0.875rem; /* Tailwind: text-sm */
     font-weight: 500; /* Tailwind: font-medium */
 }
 
-.classic-form-delivery-option-price-free {
+.classic-form-payment-option-price-free {
     color: var(--classic-color-success);
 }
 
-.classic-form-delivery-option-price-paid {
+.classic-form-payment-option-price-paid {
     color: var(--classic-color-on-surface-variant);
 }
 

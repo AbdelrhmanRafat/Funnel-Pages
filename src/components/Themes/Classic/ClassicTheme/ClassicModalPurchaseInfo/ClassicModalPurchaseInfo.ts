@@ -1,10 +1,5 @@
-import { ColorSizeOptionsSubject, QuantityOptionsSubject, FormFieldsSubject } from '../../../../../lib/patterns/Observer';
+import { ColorSizeOptionsSubject, QuantityOptionsSubject, FormFieldsSubject, type ColorSizeOption } from '../../../../../lib/patterns/Observer';
 
-interface ColorSizeOption {
-  panelIndex: number;
-  color: string;
-  size: string;
-}
 
 interface QuantityItem {
   title: string;
@@ -190,7 +185,6 @@ class ClassicModalPurchaseInfo {
       const colorSizeState = colorSizeSubject.getState();
       const quantityState = quantitySubject.getState();
       const formFieldsState = formFieldsSubject.getState();
-
       // Populate quantity information
       this.populateQuantityInfo(quantityState.selectedItem);
       
@@ -245,11 +239,13 @@ class ClassicModalPurchaseInfo {
       
       selectionItem.innerHTML = `
         <div class="classic-panel-info">القطعة ${option.panelIndex}</div>
-        <div class="classic-selection-details">
+        <div class="classic-selection-details flex justify-center gap-3 items-center">
           <div class="classic-color-display">
-            <span>اللون: ${option.color}</span>
+            <span>${option.color}</span>
           </div>
-          <div class="classic-size-display">${option.size}</div>
+          <div class="classic-size-display">
+          <span>${option.size}</span>
+          </div>
         </div>
       `;
       

@@ -44,7 +44,6 @@ body {
     font-size: 1.25rem; /* text-xl */
     box-shadow: var(--classic-section-shadow);
     transition: all 0.3s ease;
-    z-index: 1000;
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);

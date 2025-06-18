@@ -115,6 +115,36 @@ export const translations = {
         cancelled: "Cancelled"
       }
     },
+    modal: {
+      purchaseInfo: "Purchase Information",
+      orderSummary: "Order Summary",
+      orderType: "Order Type",
+      itemsCount: "Items Count",
+      pricePerItem: "Price per Item",
+      discount: "Discount",
+      colorSizeSelection: "Color & Size Selection",
+      customerInfo: "Customer Information",
+      fullName: "Full Name",
+      phone: "Phone",
+      email: "Email",
+      address: "Address",
+      city: "City",
+      paymentMethod: "Payment Method",
+      notes: "Notes",
+      finalTotal: "Final Total",
+      cancel: "Cancel"
+    },
+    celebration: {
+      orderConfirmed: "🎉 Order Confirmed Successfully!",
+      thankYou: "Thank You for Your Purchase!",
+      detailsMessage: "Your order has been received and we'll contact you soon to confirm the details.",
+      orderNumber: "Order Number",
+      expectedDelivery: "Expected Delivery",
+      deliveryTime: "2-3 Business Days",
+      contactYou: "We'll Contact You",
+      contactTime: "Within 24 Hours",
+      continueShopping: "Continue Shopping"
+    }
   },
   ar: {
     countdown: {
@@ -254,6 +284,36 @@ export const translations = {
         cancelled: "ملغي"
       }
     },
+    modal: {
+       purchaseInfo: "معلومات الشراء",
+      orderSummary: "ملخص الطلب",
+      orderType: "نوع الطلب",
+      itemsCount: "عدد القطع",
+      pricePerItem: "سعر القطعة",
+      discount: "الخصم",
+      colorSizeSelection: "اختيار الألوان والأحجام",
+      customerInfo: "معلومات العميل",
+      fullName: "الاسم الكامل",
+      phone: "الهاتف",
+      email: "البريد الإلكتروني",
+      address: "العنوان",
+      city: "المدينة",
+      paymentMethod: "طريقة الدفع",
+      notes: "ملاحظات",
+      finalTotal: "الإجمالي النهائي",
+      cancel: "إلغاء"
+    },
+    celebration: {
+      orderConfirmed: "🎉 تم تأكيد طلبك بنجاح!",
+      thankYou: "شكراً لك على شرائك!",
+      detailsMessage: "تم استلام طلبك وسيتم التواصل معك قريباً لتأكيد التفاصيل.",
+      orderNumber: "رقم الطلب",
+      expectedDelivery: "وقت التوصيل المتوقع",
+      deliveryTime: "2-3 أيام عمل",
+      contactYou: "سيتم التواصل معك",
+      contactTime: "خلال 24 ساعة",
+      continueShopping: "متابعة التسوق"
+    }
   },
 } as const;
 

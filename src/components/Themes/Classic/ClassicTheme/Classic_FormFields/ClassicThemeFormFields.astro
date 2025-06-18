@@ -1,18 +1,12 @@
 ---
-// ===============================================
-// IMPORTS & DEPENDENCIES
-// ===============================================
 import "./ClassicThemeFormFields.css";
 import {
-  getTranslation,
   type Language,
 } from "../../../../../lib/utils/i18n/translations";
 import type { BlockData, PaymentOption } from "../../../../../lib/api/types";
 import ClassicSubmitOrderButton from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButton.astro";
 
-// ===============================================
 // DATA INITIALIZATION & PROCESSING
-// ===============================================
 const data: BlockData = Astro.props.data;
 
 // Get initial language from cookie during SSR
@@ -28,48 +22,32 @@ if (data.cities !== null) cities = data.cities ?? [];
 if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
 ---
 
-<!-- =============================================== -->
 <!-- MAIN FORM SECTION -->
-<!-- =============================================== -->
 <section id="classic-form" class="classic-form w-full p-3">
   <div class="mx-auto py-2 flex flex-col justify-center items-center gap-2">
     
-    <!-- =============================================== -->
     <!-- FORM HEADER -->
-    <!-- =============================================== -->
     <div class="text-center">
       <h5 class="classic-form-title" data-translate="form.completeOrder">
-        {getTranslation("form.completeOrder")}
       </h5>
     </div>
 
-    <!-- =============================================== -->
     <!-- MAIN FORM -->
-    <!-- =============================================== -->
-    <form class="w-full">
+    <form id="form-personal-payment-data" class="w-full">
       <div class="mb-8">
-        
-        <!-- =============================================== -->
         <!-- PERSONAL INFORMATION SECTION -->
-        <!-- =============================================== -->
         <h2
           class="classic-form-section-title mb-6"
           data-translate="form.personalInfo"
         >
-          {getTranslation("form.personalInfo")}
         </h2>
-        
         <div class="space-y-4">
-          
-          <!-- ========================================= -->
-          <!-- FULL NAME INPUT FIELD -->
-          <!-- ========================================= -->
+        <!-- FULL NAME INPUT FIELD -->
           <div>
             <label
               class="classic-form-label block mb-2"
               data-translate="form.fullName"
             >
-              {getTranslation("form.fullName")}
             </label>
             <input
               type="text"
@@ -80,19 +58,14 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
             <span
               id="form-fullName-error"
               class="classic-form-error"
-              style="display: none;"
             ></span>
           </div>
-
-          <!-- ========================================= -->
           <!-- PHONE NUMBER INPUT FIELD -->
-          <!-- ========================================= -->
           <div>
             <label
               class="classic-form-label block mb-2"
               data-translate="form.phoneNumber"
             >
-              {getTranslation("form.phoneNumber")}
             </label>
             <input
               type="tel"
@@ -106,21 +79,16 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
               style="display: none;"
             ></span>
           </div>
-
-          <!-- ========================================= -->
           <!-- EMAIL INPUT FIELD -->
-          <!-- ========================================= -->
           <div>
             <label
               class="classic-form-label block mb-2"
               data-translate="form.email"
             >
-              {getTranslation("form.email")}
             </label>
             <input
               type="email"
               id="form-email"
-              placeholder={getTranslation("form.enterEmail")}
               class="classic-form-input text-right"
             />
             <span
@@ -129,20 +97,15 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
               style="display: none;"
             ></span>
           </div>
-
-          <!-- ========================================= -->
           <!-- ADDRESS TEXTAREA FIELD -->
-          <!-- ========================================= -->
           <div>
             <label
               class="classic-form-label block mb-2"
               data-translate="form.address"
             >
-              {getTranslation("form.address")}
             </label>
             <textarea
               id="form-address"
-              placeholder="...."
               class="classic-form-input text-right min-h-[80px] resize-y"
             ></textarea>
             <span
@@ -151,20 +114,15 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
               style="display: none;"
             ></span>
           </div>
-
-          <!-- ========================================= -->
           <!-- CITY SELECTION DROPDOWN -->
-          <!-- ========================================= -->
           <div>
             <label
               class="classic-form-label block mb-2"
               data-translate="form.city"
             >
-              {getTranslation("form.city")}
             </label>
             <select id="form-city" class="classic-form-input text-right">
               <option value="" data-translate="form.selectCity">
-                {getTranslation("form.selectCity")}
               </option>
               {
                 cities.map((city: string) => (
@@ -180,16 +138,12 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
               style="display: none;"
             ></span>
           </div>
-
-          <!-- ========================================= -->
           <!-- PAYMENT OPTIONS SECTION -->
-          <!-- ========================================= -->
           <div>
             <label
               class="classic-form-label block mb-2"
               data-translate="form.paymentOptions"
             >
-              {getTranslation("form.paymentOptions")}
             </label>
             <div
               class="space-y-3"
@@ -199,11 +153,10 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
               {
                 paymentOptions.map((option, index) => {
                   const value = isArabic ? option.label.ar : option.label.en;
-                  const id = `payment-${value}`;
+                  const id = `payment-${option.id}`;
                   const isChecked = index === 0;
-                  
                   return (
-                    <div class="classic-form-delivery-option">
+                    <div class="classic-form-payment-option">
                       <input
                         type="radio"
                         id={id}
@@ -214,14 +167,14 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
                       />
                       <label
                         for={id}
-                        class="classic-form-delivery-option-content"
+                        class="classic-form-payment-option-content"
                       >
                         <div class="flex justify-between items-center">
                           <div class="flex-1 flex flex-col justify-start items-start gap-2">
-                            <span class="classic-form-delivery-option-label">
+                            <span class="classic-form-payment-option-label">
                               {option.label[currentLang]}
                             </span>
-                            <span class="classic-form-delivery-option-description">
+                            <span class="classic-form-payment-option-description">
                               {option.description[currentLang]}
                             </span>
 
@@ -258,16 +211,12 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
               style="display: none;"
             ></span>
           </div>
-
-          <!-- ========================================= -->
           <!-- NOTES TEXTAREA FIELD -->
-          <!-- ========================================= -->
           <div>
             <label
               class="classic-form-label block mb-2"
               data-translate="form.notes"
             >
-              {getTranslation("form.notes")}
             </label>
             <textarea
               id="form-notes"
@@ -280,21 +229,15 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
               style="display: none;"
             ></span>
           </div>
-
         </div>
       </div>
-      
-      <!-- =============================================== -->
       <!-- SUBMIT BUTTON SECTION -->
-      <!-- =============================================== -->
       <ClassicSubmitOrderButton />
     </form>
   </div>
 </section>
 
-<!-- =============================================== -->
 <!-- CLIENT-SIDE SCRIPTS -->
-<!-- =============================================== -->
 <script>
   import "./ClassicThemeFormFields";
 </script>
