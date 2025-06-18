@@ -4,7 +4,6 @@ import {
   isValidEmail,
   isValidCity,
   isValidNotes,
-  isValidDeliveryOption,
   isValidAddress,
 } from '../../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../../lib/utils/i18n/translations';
@@ -21,7 +20,6 @@ const FORM_FIELD_CONFIG = {
     'form-email',
     'form-address',
     'form-city',
-    'form-delivery',
     'form-notes'
   ] as const,
   ERROR_CLASSES: {
@@ -162,7 +160,6 @@ function validateField(fieldId: string, value: string): boolean {
     'form-email': isValidEmail,
     'form-address': isValidAddress,
     'form-city': isValidCity,
-    'form-delivery': isValidDeliveryOption,
     'form-notes': isValidNotes,
   };
 

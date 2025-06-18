@@ -198,7 +198,7 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
             >
               {
                 paymentOptions.map((option, index) => {
-                  const value = option.id;
+                  const value = isArabic ? option.label.ar : option.label.en;
                   const id = `payment-${value}`;
                   const isChecked = index === 0;
                   

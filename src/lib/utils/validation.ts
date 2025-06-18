@@ -45,15 +45,6 @@ export function isValidNotes(notes: string): boolean {
   return notes.trim().length <= 500;
 }
 
-// Validates delivery option selection.
-// Must be one of the predefined delivery options.
-export function isValidDeliveryOption(option: string): boolean {
-  if (!option || option.trim().length === 0) {
-    return false;
-  }
-  const validOptions = ['standard', 'express', 'sameDay'];
-  return validOptions.includes(option.trim());
-}
 
 // Validates city selection.
 // Must be one of the predefined city options.

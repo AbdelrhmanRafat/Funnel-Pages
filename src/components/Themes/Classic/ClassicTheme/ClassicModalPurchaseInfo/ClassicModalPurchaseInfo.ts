@@ -78,6 +78,7 @@ class ClassicModalPurchaseInfo {
       const colorSizeState = colorSizeSubject.getState();
       const quantityState = quantitySubject.getState();
       const formFieldsState = formFieldsSubject.getState();
+      
 
       // Populate quantity information
       this.populateQuantityInfo(quantityState.selectedItem);
