@@ -4,7 +4,6 @@ import {
   isValidEmail,
   isValidCity,
   isValidNotes,
-  isValidDeliveryOption,
   isValidAddress,
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
@@ -128,7 +127,6 @@ class TroyFormValidator {
       'form-email': isValidEmail,
       'form-address': isValidAddress,
       'form-city': isValidCity,
-      'form-delivery': isValidDeliveryOption,
       'form-notes': isValidNotes,
     };
 

@@ -2,6 +2,7 @@
 import "./ClassicModalPurchaseInfo.css";
 import { type Language } from "../../../../../lib/utils/i18n/translations";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import ClassicConfirmPurchaseButton from "../UI/ClassicConfirmPurchaseButton/ClassicConfirmPurchaseButton.astro";
 
 // Get language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
@@ -20,7 +21,7 @@ const { isOpen = false } = Astro.props;
   <div class="classic-modal-container">
     <div class="classic-modal-header">
       <h3 class="classic-modal-title" data-translate="modal.purchaseInfo">
-        {getTranslation("modal.purchaseInfo", currentLang) || (isArabic ? "معلومات الشراء" : "Purchase Information")}
+        {(isArabic ? "معلومات الشراء" : "Purchase Information")}
       </h3>
       <button type="button" class="classic-modal-close" id="classic-modal-close">
         <i class="fa-solid fa-times"></i>
@@ -106,9 +107,7 @@ const { isOpen = false } = Astro.props;
         </div>
 
         <div class="classic-modal-actions">
-          <button type="button" class="classic-modal-confirm" id="classic-modal-confirm">
-            {isArabic ? "تأكيد الطلب" : "Confirm Order"}
-          </button>
+         <ClassicConfirmPurchaseButton />
           <button type="button" class="classic-modal-cancel" id="classic-modal-cancel">
             {isArabic ? "إلغاء" : "Cancel"}
           </button>
