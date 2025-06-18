@@ -35,27 +35,37 @@ class ClassicModalPurchaseInfo {
   private overlay: HTMLElement | null;
   private closeButton: HTMLElement | null;
   private cancelButton: HTMLElement | null;
-  private confirmButton: HTMLElement | null;
+  private purchaseInfoView: HTMLElement | null;
+  private celebrationView: HTMLElement | null;
+  private celebrationCloseButton: HTMLElement | null;
+  private celebrationContinueButton: HTMLElement | null;
 
   constructor() {
     this.modal = document.getElementById('classic-purchase-modal');
     this.overlay = document.getElementById('classic-modal-overlay');
     this.closeButton = document.getElementById('classic-modal-close');
     this.cancelButton = document.getElementById('classic-modal-cancel');
-    this.confirmButton = document.getElementById('classic-modal-confirm');
+    this.purchaseInfoView = document.getElementById('purchase-info-view');
+    this.celebrationView = document.getElementById('celebration-view');
+    this.celebrationCloseButton = document.getElementById('classic-modal-close-celebration');
+    this.celebrationContinueButton = document.getElementById('celebration-continue');
     
     this.initialize();
   }
 
   private initialize(): void {
-    // Add event listeners
+    // Add event listeners for original modal controls
     this.overlay?.addEventListener('click', () => this.closeModal());
     this.closeButton?.addEventListener('click', () => this.closeModal());
     this.cancelButton?.addEventListener('click', () => this.closeModal());
-    this.confirmButton?.addEventListener('click', () => this.handleConfirm());
 
-    // Listen for custom open event
+    // Add event listeners for celebration view controls
+    this.celebrationCloseButton?.addEventListener('click', () => this.closeModal());
+    this.celebrationContinueButton?.addEventListener('click', () => this.closeModal());
+
+    // Listen for custom events
     document.addEventListener('openPurchaseModal', () => this.openModal());
+    document.addEventListener('orderConfirmed', () => this.showCelebrationView());
   }
 
   private openModal(): void {
@@ -63,8 +73,110 @@ class ClassicModalPurchaseInfo {
       this.modal.classList.add('classic-modal-open');
       document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
       
+      // Reset to purchase info view
+      this.showPurchaseInfoView();
+      
       // Load data when modal opens
       this.loadModalData();
+    }
+  }
+
+  private closeModal(): void {
+    if (this.modal) {
+      this.modal.classList.remove('classic-modal-open');
+      document.body.style.overflow = ''; // Restore scrolling
+      
+      // Reset to purchase info view for next time
+      setTimeout(() => {
+        this.showPurchaseInfoView();
+      }, 300); // Wait for modal close animation
+    }
+  }
+
+  private showPurchaseInfoView(): void {
+    if (this.purchaseInfoView && this.celebrationView) {
+      this.purchaseInfoView.style.display = 'block';
+      this.celebrationView.style.display = 'none';
+    }
+  }
+
+  private showCelebrationView(): void {
+    if (this.purchaseInfoView && this.celebrationView) {
+      // Hide purchase info view
+      this.purchaseInfoView.style.display = 'none';
+      
+      // Show celebration view with animation
+      this.celebrationView.style.display = 'block';
+      
+      // Generate a random order number
+      this.generateOrderNumber();
+      
+      // Trigger confetti effect (optional)
+      this.triggerConfettiEffect();
+    }
+  }
+
+  private generateOrderNumber(): void {
+    const orderNumberElement = document.getElementById('order-number');
+    if (orderNumberElement) {
+      const orderNumber = '#' + Math.floor(Math.random() * 900000 + 100000);
+      orderNumberElement.textContent = orderNumber;
+    }
+  }
+
+  private triggerConfettiEffect(): void {
+    // Optional: Add confetti effect using CSS animations or a library
+    // For now, we'll add some floating animation elements
+    setTimeout(() => {
+      this.createFloatingEmojis();
+    }, 800);
+  }
+
+  private createFloatingEmojis(): void {
+    const emojis = ['🎉', '✨', '🎊', '🌟', '💫'];
+    const modalContainer = document.querySelector('.classic-modal-container');
+    
+    if (!modalContainer) return;
+
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => {
+        const emoji = document.createElement('div');
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.cssText = `
+          position: absolute;
+          font-size: 1.5rem;
+          pointer-events: none;
+          z-index: 9999;
+          animation: float-up 3s ease-out forwards;
+          left: ${Math.random() * 100}%;
+          top: 100%;
+        `;
+        
+        // Add floating animation
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes float-up {
+            0% {
+              transform: translateY(0) rotate(0deg);
+              opacity: 1;
+            }
+            100% {
+              transform: translateY(-200px) rotate(360deg);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(style);
+        
+        modalContainer.appendChild(emoji);
+        
+        // Remove emoji after animation
+        setTimeout(() => {
+          if (emoji.parentNode) {
+            emoji.parentNode.removeChild(emoji);
+          }
+        }, 3000);
+      }, i * 200);
     }
   }
 
@@ -78,7 +190,6 @@ class ClassicModalPurchaseInfo {
       const colorSizeState = colorSizeSubject.getState();
       const quantityState = quantitySubject.getState();
       const formFieldsState = formFieldsSubject.getState();
-      
 
       // Populate quantity information
       this.populateQuantityInfo(quantityState.selectedItem);
@@ -192,19 +303,6 @@ class ClassicModalPurchaseInfo {
     if (element) {
       element.textContent = text;
     }
-  }
-
-  private closeModal(): void {
-    if (this.modal) {
-      this.modal.classList.remove('classic-modal-open');
-      document.body.style.overflow = ''; // Restore scrolling
-    }
-  }
-
-  private handleConfirm(): void {
-    // Only close the modal as requested
-    console.log('Order confirmed - modal closing');
-    this.closeModal();
   }
 }
 

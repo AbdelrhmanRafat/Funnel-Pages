@@ -15,105 +15,185 @@ interface Props {
 
 const { isOpen = false } = Astro.props;
 ---
-
 <div id="classic-purchase-modal" class={`classic-modal ${isOpen ? "classic-modal-open" : ""}`}>
   <div class="classic-modal-overlay" id="classic-modal-overlay"></div>
   <div class="classic-modal-container">
-    <div class="classic-modal-header">
-      <h3 class="classic-modal-title" data-translate="modal.purchaseInfo">
-        {(isArabic ? "معلومات الشراء" : "Purchase Information")}
-      </h3>
-      <button type="button" class="classic-modal-close" id="classic-modal-close">
-        <i class="fa-solid fa-times"></i>
-      </button>
-    </div>
-    <div class="classic-modal-body">
-      <div class="classic-modal-content">
-        
-        <!-- Order Summary Section -->
-        <div class="classic-purchase-summary">
-          <h4 class="classic-summary-title">
-            {isArabic ? "ملخص الطلب" : "Order Summary"}
-          </h4>
+    
+    <!-- Purchase Info View (Default) -->
+    <div id="purchase-info-view" class="modal-view">
+      <div class="classic-modal-header">
+        <h3 class="classic-modal-title" data-translate="modal.purchaseInfo">
+          {getTranslation("modal.purchaseInfo", currentLang) || (isArabic ? "معلومات الشراء" : "Purchase Information")}
+        </h3>
+        <button type="button" class="classic-modal-close" id="classic-modal-close">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      <div class="classic-modal-body">
+        <div class="classic-modal-content">
           
-          <!-- Quantity Information -->
-          <div id="quantity-info" class="classic-summary-section">
-            <div class="classic-summary-item">
-              <span class="classic-summary-label">{isArabic ? "نوع الطلب" : "Order Type"}:</span>
-              <span class="classic-summary-value" id="order-title">-</span>
+          <!-- Order Summary Section -->
+          <div class="classic-purchase-summary">
+            <h4 class="classic-summary-title">
+              {isArabic ? "ملخص الطلب" : "Order Summary"}
+            </h4>
+            
+            <!-- Quantity Information -->
+            <div id="quantity-info" class="classic-summary-section">
+              <div class="classic-summary-item">
+                <span class="classic-summary-label">{isArabic ? "نوع الطلب" : "Order Type"}:</span>
+                <span class="classic-summary-value" id="order-title">-</span>
+              </div>
+              <div class="classic-summary-item">
+                <span class="classic-summary-label">{isArabic ? "عدد القطع" : "Items Count"}:</span>
+                <span class="classic-summary-value" id="items-count">-</span>
+              </div>
+              <div class="classic-summary-item">
+                <span class="classic-summary-label">{isArabic ? "سعر القطعة" : "Price per Item"}:</span>
+                <span class="classic-summary-value" id="price-per-item">-</span>
+              </div>
+              <div class="classic-summary-item">
+                <span class="classic-summary-label">{isArabic ? "الخصم" : "Discount"}:</span>
+                <span class="classic-summary-value classic-discount-info" id="discount-info">-</span>
+              </div>
             </div>
-            <div class="classic-summary-item">
-              <span class="classic-summary-label">{isArabic ? "عدد القطع" : "Items Count"}:</span>
-              <span class="classic-summary-value" id="items-count">-</span>
+
+            <!-- Color & Size Selection -->
+            <div id="color-size-info" class="classic-summary-section">
+              <h5 class="classic-subsection-title">{isArabic ? "اختيار الألوان والأحجام" : "Color & Size Selection"}</h5>
+              <div id="selection-items" class="classic-selection-items">
+                <!-- Dynamic content will be inserted here -->
+              </div>
             </div>
-            <div class="classic-summary-item">
-              <span class="classic-summary-label">{isArabic ? "سعر القطعة" : "Price per Item"}:</span>
-              <span class="classic-summary-value" id="price-per-item">-</span>
+
+            <!-- Customer Information -->
+            <div id="customer-info" class="classic-summary-section">
+              <h5 class="classic-subsection-title">{isArabic ? "معلومات العميل" : "Customer Information"}</h5>
+              <div class="classic-customer-details">
+                <div class="classic-summary-item">
+                  <span class="classic-summary-label">{isArabic ? "الاسم الكامل" : "Full Name"}:</span>
+                  <span class="classic-summary-value" id="customer-name">-</span>
+                </div>
+                <div class="classic-summary-item">
+                  <span class="classic-summary-label">{isArabic ? "الهاتف" : "Phone"}:</span>
+                  <span class="classic-summary-value" id="customer-phone">-</span>
+                </div>
+                <div class="classic-summary-item">
+                  <span class="classic-summary-label">{isArabic ? "البريد الإلكتروني" : "Email"}:</span>
+                  <span class="classic-summary-value" id="customer-email">-</span>
+                </div>
+                <div class="classic-summary-item">
+                  <span class="classic-summary-label">{isArabic ? "العنوان" : "Address"}:</span>
+                  <span class="classic-summary-value" id="customer-address">-</span>
+                </div>
+                <div class="classic-summary-item">
+                  <span class="classic-summary-label">{isArabic ? "المدينة" : "City"}:</span>
+                  <span class="classic-summary-value" id="customer-city">-</span>
+                </div>
+                <div class="classic-summary-item">
+                  <span class="classic-summary-label">{isArabic ? "طريقة الدفع" : "Payment Method"}:</span>
+                  <span class="classic-summary-value" id="payment-method">-</span>
+                </div>
+                <div class="classic-summary-item" id="notes-section" style="display: none;">
+                  <span class="classic-summary-label">{isArabic ? "ملاحظات" : "Notes"}:</span>
+                  <span class="classic-summary-value" id="customer-notes">-</span>
+                </div>
+              </div>
             </div>
-            <div class="classic-summary-item">
-              <span class="classic-summary-label">{isArabic ? "الخصم" : "Discount"}:</span>
-              <span class="classic-summary-value classic-discount-info" id="discount-info">-</span>
+
+            <!-- Total Section -->
+            <div class="classic-summary-total">
+              <span class="classic-summary-label">{isArabic ? "الإجمالي النهائي" : "Final Total"}:</span>
+              <span class="classic-summary-value" id="final-total">-</span>
             </div>
           </div>
 
-          <!-- Color & Size Selection -->
-          <div id="color-size-info" class="classic-summary-section">
-            <h5 class="classic-subsection-title">{isArabic ? "اختيار الألوان والأحجام" : "Color & Size Selection"}</h5>
-            <div id="selection-items" class="classic-selection-items">
-              <!-- Dynamic content will be inserted here -->
-            </div>
+          <div class="classic-modal-actions">
+            <ClassicConfirmPurchaseButton />
+            <button type="button" class="classic-modal-cancel" id="classic-modal-cancel">
+              {isArabic ? "إلغاء" : "Cancel"}
+            </button>
           </div>
-
-          <!-- Customer Information -->
-          <div id="customer-info" class="classic-summary-section">
-            <h5 class="classic-subsection-title">{isArabic ? "معلومات العميل" : "Customer Information"}</h5>
-            <div class="classic-customer-details">
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "الاسم الكامل" : "Full Name"}:</span>
-                <span class="classic-summary-value" id="customer-name">-</span>
-              </div>
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "الهاتف" : "Phone"}:</span>
-                <span class="classic-summary-value" id="customer-phone">-</span>
-              </div>
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "البريد الإلكتروني" : "Email"}:</span>
-                <span class="classic-summary-value" id="customer-email">-</span>
-              </div>
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "العنوان" : "Address"}:</span>
-                <span class="classic-summary-value" id="customer-address">-</span>
-              </div>
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "المدينة" : "City"}:</span>
-                <span class="classic-summary-value" id="customer-city">-</span>
-              </div>
-              <div class="classic-summary-item">
-                <span class="classic-summary-label">{isArabic ? "طريقة الدفع" : "Payment Method"}:</span>
-                <span class="classic-summary-value" id="payment-method">-</span>
-              </div>
-              <div class="classic-summary-item" id="notes-section" style="display: none;">
-                <span class="classic-summary-label">{isArabic ? "ملاحظات" : "Notes"}:</span>
-                <span class="classic-summary-value" id="customer-notes">-</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Total Section -->
-          <div class="classic-summary-total">
-            <span class="classic-summary-label">{isArabic ? "الإجمالي النهائي" : "Final Total"}:</span>
-            <span class="classic-summary-value" id="final-total">-</span>
-          </div>
-        </div>
-
-        <div class="classic-modal-actions">
-         <ClassicConfirmPurchaseButton />
-          <button type="button" class="classic-modal-cancel" id="classic-modal-cancel">
-            {isArabic ? "إلغاء" : "Cancel"}
-          </button>
         </div>
       </div>
     </div>
+
+    <!-- Celebration View (Hidden by default) -->
+    <div id="celebration-view" class="modal-view celebration-view" style="display: none;">
+      <div class="classic-modal-header celebration-header">
+        <h3 class="classic-modal-title celebration-title">
+          {isArabic ? "🎉 تم تأكيد طلبك بنجاح!" : "🎉 Order Confirmed Successfully!"}
+        </h3>
+        <button type="button" class="classic-modal-close" id="classic-modal-close-celebration">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      <div class="classic-modal-body">
+        <div class="classic-modal-content celebration-content">
+          
+          <!-- Success Animation Container -->
+          <div class="celebration-animation">
+            <div class="success-checkmark">
+              <div class="check-icon">
+                <span class="icon-line line-tip"></span>
+                <span class="icon-line line-long"></span>
+                <div class="icon-circle"></div>
+                <div class="icon-fix"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thank You Message -->
+          <div class="celebration-message">
+            <h2 class="celebration-main-title">
+              {isArabic ? "شكراً لك على شرائك!" : "Thank You for Your Purchase!"}
+            </h2>
+            <p class="celebration-subtitle">
+              {isArabic 
+                ? "تم استلام طلبك وسيتم التواصل معك قريباً لتأكيد التفاصيل." 
+                : "Your order has been received and we'll contact you soon to confirm the details."
+              }
+            </p>
+          </div>
+
+          <!-- Order Summary for Celebration -->
+          <div class="celebration-summary">
+            <div class="celebration-summary-item">
+              <i class="fa-solid fa-shopping-bag celebration-icon"></i>
+              <div class="celebration-summary-text">
+                <strong>{isArabic ? "رقم الطلب" : "Order Number"}</strong>
+                <span id="order-number">#{Math.floor(Math.random() * 100000)}</span>
+              </div>
+            </div>
+            
+            <div class="celebration-summary-item">
+              <i class="fa-solid fa-clock celebration-icon"></i>
+              <div class="celebration-summary-text">
+                <strong>{isArabic ? "وقت التوصيل المتوقع" : "Expected Delivery"}</strong>
+                <span>{isArabic ? "2-3 أيام عمل" : "2-3 Business Days"}</span>
+              </div>
+            </div>
+
+            <div class="celebration-summary-item">
+              <i class="fa-solid fa-phone celebration-icon"></i>
+              <div class="celebration-summary-text">
+                <strong>{isArabic ? "سيتم التواصل معك" : "We'll Contact You"}</strong>
+                <span>{isArabic ? "خلال 24 ساعة" : "Within 24 Hours"}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Celebration Actions -->
+          <div class="celebration-actions">
+            <button type="button" class="celebration-primary-button" id="celebration-continue">
+              {isArabic ? "متابعة التسوق" : "Continue Shopping"}
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
