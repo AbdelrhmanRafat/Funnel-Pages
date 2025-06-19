@@ -1,0 +1,21 @@
+---
+import "./nasaSubmitOrderButton.css";
+import nasaModalPurchaseInfo from "../../nasaModalPurchaseInfo/nasaModalPurchaseInfo.astro";
+---
+
+<div>
+  <button
+    type="button"
+    id="SubmitOrderButton"
+    class="nasa-form-submit"
+    data-translate="form.submit"
+  >
+  </button>
+</div>
+
+<!-- Include the modal component -->
+<nasaModalPurchaseInfo />
+
+<script>
+  import "./nasaSubmitOrderButton";
+</script>

@@ -1,0 +1,90 @@
+/* === nasa Theme Enhanced Classes === */
+
+/* === Product Preview Specific Classes === */
+.nasa-product-video-container {
+    border-color: var(--nasa-color-primary);
+    box-shadow: var(--nasa-section-shadow);
+}
+
+.nasa-product-video-title {
+    color: var(--nasa-color-on-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.nasa-product-features-container {
+    background-color: var(--nasa-color-surface-container-high);
+    border-radius: var(--nasa-section-radius);
+    padding: var(--nasa-section-padding);
+}
+
+.nasa-product-features-header {
+    border-bottom-color: var(--nasa-color-outline);
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-product-features-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-product-views-badge {
+    background-color: var(--nasa-color-surface-variant);
+    color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-product-feature-icon {
+    background-color: var(--nasa-color-primary);
+    color: var(--nasa-color-on-primary);
+}
+
+.nasa-product-feature-icon svg {
+    color: var(--nasa-color-on-primary);
+    fill: currentColor;
+}
+
+.nasa-product-feature-content {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-product-feature-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-product-feature-subtitle {
+    color: var(--nasa-color-on-surface-variant);
+}
+
+/* === Alternative Color Variations === */
+.nasa-product-features-container--secondary {
+    background-color: var(--nasa-color-secondary);
+}
+
+.nasa-product-features-container--secondary .nasa-product-features-title,
+.nasa-product-features-container--secondary .nasa-product-feature-title {
+    color: var(--nasa-color-on-secondary);
+}
+
+.nasa-product-features-container--secondary .nasa-product-feature-subtitle {
+    color: rgba(255, 255, 255, 0.7); /* Lighter version of on-secondary */
+}
+
+.nasa-product-features-container--secondary .nasa-product-features-header {
+    border-bottom-color: var(--nasa-color-on-secondary);
+}
+
+/* === Responsive Utilities === */
+.nasa-product-video-height {
+    height: 300px; /* Base height */
+}
+
+@media (min-width: 768px) {
+    .nasa-product-video-height {
+        height: 400px; /* md:h-[400px] */
+    }
+}
+
+@media (min-width: 1024px) {
+    .nasa-product-video-height {
+        height: 100%; /* lg:h-full */
+        min-height: 450px; /* Ensures minimum height for better proportions */
+    }
+}

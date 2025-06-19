@@ -1,0 +1,18 @@
+/* === nasa Product Usage Component === */
+.nasa-usage-card {
+    background-color: var(--nasa-color-surface-container);
+    box-shadow: var(--nasa-section-shadow);
+    transition: transform 0.2s ease;
+}
+
+.nasa-usage-card:hover {
+    transform: scale(1.05);
+}
+
+.nasa-usage-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-usage-subtitle {
+    color: var(--nasa-color-on-surface-variant);
+}

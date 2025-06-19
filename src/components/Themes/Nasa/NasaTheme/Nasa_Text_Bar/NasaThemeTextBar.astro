@@ -1,0 +1,9 @@
+---
+import "./nasaThemeTextBar.css";
+import type { BlockData } from "../../../../../lib/api/types";
+
+const data: BlockData = Astro.props.data;
+---
+<section id="nasa-text-bar" class="nasa-section">
+    <h5 class="nasa-text-bar-title">{data.title}</h5>
+</section>

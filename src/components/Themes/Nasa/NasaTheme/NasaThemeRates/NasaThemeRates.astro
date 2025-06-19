@@ -1,0 +1,19 @@
+---
+import "./nasaThemeRates.css";
+import type { BlockData } from '../../../../../lib/api/types';
+import { getTranslation } from '../../../../../lib/utils/i18n/translations';
+
+const ratingData: BlockData = Astro.props.ratingData;
+---
+<div id="nasa-rates" class="nasa-rates w-full">
+  <div class="nasa-rating-display">
+    <span>{ratingData.rate}</span>
+    <i class="fa-solid fa-star nasa-rating-star"></i>
+  </div>
+  <div class="nasa-rating-count">
+    <span>{ratingData.count}</span>
+    <p class="nasa-rating-label" data-translate="ratings.count">
+      {getTranslation("ratings.count")}
+    </p>
+  </div>
+</div>

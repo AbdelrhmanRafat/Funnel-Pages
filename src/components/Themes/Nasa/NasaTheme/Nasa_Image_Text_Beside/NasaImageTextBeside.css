@@ -1,0 +1,19 @@
+/* nasa Image-Text Section */
+.nasa-image-text-beside {
+  background-color: var(--nasa-color-surface);
+  border-radius: var(--nasa-section-radius);
+}
+
+.nasa-image-text-beside-content {
+  background-color: var(--nasa-color-surface-container-high);
+  border-radius: var(--nasa-section-radius);
+  transition: all 0.3s ease;
+}
+
+.nasa-image-text-beside-title {
+  color: var(--nasa-color-on-surface);
+}
+
+.nasa-image-text-beside-description {
+  color: var(--nasa-color-on-surface-variant);
+}

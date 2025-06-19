@@ -1,0 +1,18 @@
+/* === nasa Header Component === */
+.nasa-header {
+    background-color: var(--nasa-color-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.nasa-header-logo {
+    /* Keeping width as CSS variable in case it needs to be dynamic */
+    width: 100px;
+}
+
+.nasa-header-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-header-subtitle {
+    color: var(--nasa-color-on-surface-variant);
+}

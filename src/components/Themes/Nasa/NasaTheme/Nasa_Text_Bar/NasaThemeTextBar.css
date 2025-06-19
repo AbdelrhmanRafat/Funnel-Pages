@@ -1,0 +1,6 @@
+/* === nasa Text Bar Component === */
+.nasa-text-bar-title {
+    font-size: 1.875rem;
+    text-align: center;
+    color: var(--nasa-color-on-surface);
+}

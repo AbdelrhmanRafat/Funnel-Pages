@@ -1,0 +1,176 @@
+---
+import "./nasaModalPurchaseInfo.css";
+import { type Language } from "../../../../../lib/utils/i18n/translations";
+import nasaConfirmPurchaseButton from "../UI/nasaConfirmPurchaseButton/nasaConfirmPurchaseButton.astro";
+
+// Get language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+// Props for the modal
+interface Props {
+  isOpen?: boolean;
+}
+
+const { isOpen = false } = Astro.props;
+---
+<div id="nasa-purchase-modal" class="nasa-modal fixed top-0 left-0 w-full h-full z-[1000] hidden">
+  <div class="nasa-modal-overlay absolute top-0 left-0 w-full h-full z-[1001]" id="nasa-modal-overlay"></div>
+  <div class="nasa-modal-container relative container md:w-7/12 max-h-[90vh] overflow-y-auto z-[1002]">
+
+    <!-- Purchase Info View (Default) -->
+    <div id="purchase-info-view" class="modal-view w-full">
+      <div class="nasa-modal-header flex justify-between items-center p-4 border-b">
+        <h3 class="nasa-modal-title text-xl font-semibold m-0" data-translate="modal.purchaseInfo"></h3>
+        <button type="button" class="nasa-modal-close bg-transparent border-none cursor-pointer text-xl p-1 flex items-center justify-center transition-colors duration-200" id="nasa-modal-close">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+
+      <div class="nasa-modal-body p-4">
+        <div class="nasa-modal-content flex flex-col gap-6">
+
+          <!-- Order Summary Section -->
+          <div class="nasa-purchase-summary flex flex-col gap-4">
+            <h4 class="nasa-summary-title text-xl font-semibold mb-2 pb-2 border-b-2" data-translate="modal.orderSummary"></h4>
+
+            <!-- Quantity Information -->
+            <div id="quantity-info" class="nasa-summary-section border-l-4">
+              <div class="nasa-summary-item  py-2 last:border-b-0">
+                <span class="nasa-summary-label font-medium" data-translate="modal.orderType"></span>:
+                <span class="nasa-summary-value font-semibold text-right" id="order-title">-</span>
+              </div>
+              <div class="nasa-summary-item  py-2 last:border-b-0">
+                <span class="nasa-summary-label font-medium" data-translate="modal.itemsCount"></span>:
+                <span class="nasa-summary-value font-semibold text-right" id="items-count">-</span>
+              </div>
+              <div class="nasa-summary-item  py-2 last:border-b-0">
+                <span class="nasa-summary-label font-medium" data-translate="modal.pricePerItem"></span>:
+                <span class="nasa-summary-value font-semibold text-right" id="price-per-item">-</span>
+              </div>
+              <div class="nasa-summary-item  py-2 last:border-b-0">
+                <span class="nasa-summary-label font-medium" data-translate="modal.discount"></span>:
+                <span class="nasa-summary-value nasa-discount-info font-semibold text-right" id="discount-info">-</span>
+              </div>
+            </div>
+
+              <!-- Color & Size Selection -->
+            <div id="color-size-info" class="nasa-summary-section flex flex-col justify-start items-start  md:flex-row md:justify-between md:items-center p-4  border-l-4">
+              <h5 class="nasa-subsection-title text-base font-semibold mb-3" data-translate="modal.colorSizeSelection"></h5>
+              <div id="selection-items" class="nasa-selection-items flex flex-col justify-center items-start gap-1"></div>
+            </div>
+
+            <!-- Customer Information -->
+            <div id="customer-info" class="nasa-summary-section p-4 rounded-xl border-l-4">
+              <h5 class="nasa-subsection-title text-base font-semibold mb-3" data-translate="modal.customerInfo"></h5>
+              <div class="nasa-customer-details flex flex-col gap-2">
+                <div class="nasa-summary-item  py-2 last:border-b-0">
+                  <span class="nasa-summary-label font-medium" data-translate="modal.fullName"></span>:
+                  <span class="nasa-summary-value font-semibold text-right" id="customer-name">-</span>
+                </div>
+                <div class="nasa-summary-item  py-2 last:border-b-0">
+                  <span class="nasa-summary-label font-medium" data-translate="modal.phone"></span>:
+                  <span class="nasa-summary-value font-semibold text-right" id="customer-phone">-</span>
+                </div>
+                <div class="nasa-summary-item  py-2 last:border-b-0">
+                  <span class="nasa-summary-label font-medium" data-translate="modal.email"></span>:
+                  <span class="nasa-summary-value font-semibold text-right" id="customer-email">-</span>
+                </div>
+                <div class="nasa-summary-item  py-2 last:border-b-0">
+                  <span class="nasa-summary-label font-medium" data-translate="modal.address"></span>:
+                  <span class="nasa-summary-value font-semibold text-right" id="customer-address">-</span>
+                </div>
+                <div class="nasa-summary-item  py-2 last:border-b-0">
+                  <span class="nasa-summary-label font-medium" data-translate="modal.city"></span>:
+                  <span class="nasa-summary-value font-semibold text-right" id="customer-city">-</span>
+                </div>
+                <div class="nasa-summary-item  py-2 last:border-b-0">
+                  <span class="nasa-summary-label font-medium" data-translate="modal.paymentMethod"></span>:
+                  <span class="nasa-summary-value font-semibold text-right" id="payment-method">-</span>
+                </div>
+                <div class="nasa-summary-item  py-2 last:border-b-0" id="notes-section">
+                  <span class="nasa-summary-label font-medium" data-translate="modal.notes"></span>:
+                  <span class="nasa-summary-value font-semibold text-right" id="customer-notes">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Total Section -->
+            <div class="nasa-summary-total flex justify-between items-center p-4 mt-2 border-2 rounded-xl font-bold text-lg">
+              <span class="nasa-summary-label" data-translate="modal.finalTotal"></span>:
+              <span class="nasa-summary-value text-xl" id="final-total">-</span>
+            </div>
+          </div>
+
+          <div class="nasa-modal-actions flex gap-4 mt-4">
+            <nasaConfirmPurchaseButton />
+            <button type="button" class="nasa-modal-cancel flex-1 py-3 px-4 rounded-md font-semibold border cursor-pointer transition-colors duration-300" id="nasa-modal-cancel" data-translate="modal.cancel"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Celebration View -->
+    <div id="celebration-view" class="modal-view celebration-view w-full hidden" style="display: none;">
+      <div class="nasa-modal-header celebration-header flex justify-between items-center p-4 border-b">
+        <h3 class="nasa-modal-title celebration-title text-xl font-bold m-0" data-translate="celebration.orderConfirmed"></h3>
+        <button type="button" class="nasa-modal-close bg-transparent border-none cursor-pointer text-xl p-1 flex items-center justify-center transition-colors duration-200" id="nasa-modal-close-celebration">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+
+      <div class="nasa-modal-body p-4">
+        <div class="nasa-modal-content celebration-content flex flex-col gap-8 text-center">
+
+          <!-- Success Animation -->
+          <div class="celebration-animation flex justify-center items-center my-4">
+            <div class="success-checkmark w-20 h-20 rounded-full block relative mx-auto">
+              <div class="check-icon w-14 h-14 absolute left-3 top-3 z-10 rounded-full"></div>
+            </div>
+          </div>
+
+          <!-- Thank You Message -->
+          <div class="celebration-message my-8">
+            <h2 class="celebration-main-title text-3xl font-bold mb-4" data-translate="celebration.thankYou"></h2>
+            <p class="celebration-subtitle text-lg leading-relaxed max-w-md mx-auto" data-translate="celebration.detailsMessage"></p>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="celebration-summary p-6 rounded-xl my-6">
+            <div class="celebration-summary-item flex items-center gap-4 py-3 last:border-b-0">
+              <i class="fa-solid fa-shopping-bag celebration-icon text-2xl w-6 text-center"></i>
+              <div class="celebration-summary-text flex flex-col text-left flex-1">
+                <strong class="font-semibold mb-1" data-translate="celebration.orderNumber"></strong>
+                <span class="text-sm" id="order-number">#{Math.floor(Math.random() * 100000)}</span>
+              </div>
+            </div>
+            <div class="celebration-summary-item flex items-center gap-4 py-3 last:border-b-0">
+              <i class="fa-solid fa-clock celebration-icon text-2xl w-6 text-center"></i>
+              <div class="celebration-summary-text flex flex-col text-left flex-1">
+                <strong class="font-semibold mb-1" data-translate="celebration.expectedDelivery"></strong>
+                <span class="text-sm" data-translate="celebration.deliveryTime"></span>
+              </div>
+            </div>
+            <div class="celebration-summary-item flex items-center gap-4 py-3 last:border-b-0">
+              <i class="fa-solid fa-phone celebration-icon text-2xl w-6 text-center"></i>
+              <div class="celebration-summary-text flex flex-col text-left flex-1">
+                <strong class="font-semibold mb-1" data-translate="celebration.contactYou"></strong>
+                <span class="text-sm" data-translate="celebration.contactTime"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="celebration-actions mt-8">
+            <button type="button" class="celebration-primary-button py-4 px-8 rounded-full border-none font-semibold text-lg cursor-pointer transition-all duration-300 shadow-lg hover:-translate-y-0.5 hover:shadow-xl" id="celebration-continue" data-translate="celebration.continueShopping"></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import "./nasaModalPurchaseInfo";
+</script>
