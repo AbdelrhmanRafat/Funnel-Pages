@@ -3,11 +3,12 @@
 import "./classicImageTextOverlay.css";
 import type { BlockData } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 ---
 
-<section id="classic-text-image-overlay" class="classic-section">
+<section id={FunnelClassicComponents.ClassicImageTextOverLay} class="classic-section">
   <!-- Header -->
   <div class="classic-section-header">
     <i class="fa-solid fa-images"></i>

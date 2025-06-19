@@ -5,10 +5,11 @@
 // - data: An object of type BlockData, expected to contain `count` (the number of orders today).
 import "./ClassicThemeTodayOrders.css";
 import type { BlockData, Image } from "../../../../../lib/api/types";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 const data: BlockData = Astro.props.data;
 ---
 
-<section id="classic-today-orders" class="classic-section">
+<section id={FunnelClassicComponents.ClassicTodayOrders} class="classic-section">
     <div class="classic-middle-title">
     <h5 data-translate="todayOrders.title"></h5>
     </div>

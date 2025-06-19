@@ -104,6 +104,7 @@ const orderConfirmationNoticeData =
 const galleryData = isGalleryFound.isComponentFound
   ? isGalleryFound.componentData
   : undefined;
+
 ---
 
 <main class="lg:container w-11/12 mx-auto flex flex-col gap-7">
@@ -114,7 +115,7 @@ const galleryData = isGalleryFound.isComponentFound
           FunnelClassicComponents.ClassicHeader,
         );
         return headerData.isComponentFound ? (
-          <ClassicThemeHeader data={headerData.componentData} />
+          <ClassicThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
         ) : null;
       }
       

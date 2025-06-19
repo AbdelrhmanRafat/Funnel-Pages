@@ -451,6 +451,8 @@
             {
                 "name": "classic_product_usage",
                 "data": {
+                    "title" : "شاهد كيفية الاستخدام",
+                    "icon" : "fa-solid fa-circle-chevron-right",
                     "productUsage": [
                         {
                             "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",

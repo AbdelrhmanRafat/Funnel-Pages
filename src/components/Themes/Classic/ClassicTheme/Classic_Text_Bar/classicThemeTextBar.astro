@@ -1,9 +1,10 @@
 ---
 import "./classicThemeTextBar.css";
 import type { BlockData } from "../../../../../lib/api/types";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 ---
-<section id="classic-text-bar" class="classic-section">
+<section id={FunnelClassicComponents.ClassicTextBar} class="classic-section">
     <h5 class="classic-text-bar-title">{data.title}</h5>
 </section>

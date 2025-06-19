@@ -3,7 +3,7 @@
 import { baseUrl, headers } from "../../Enviroment/Local.enviroment";
 import type { FunnelRes } from "./types";
 // import classicData from "../../Mock Data/classic.json"; // Keep classic for now, or switch based on a flag
-import classicData from "../../Mock Data/nasa.json"; // Import NASA data
+import classicData from "../../Mock Data/classic.json"; // Import NASA data
 
 /**
  * Fetches the funnel data.

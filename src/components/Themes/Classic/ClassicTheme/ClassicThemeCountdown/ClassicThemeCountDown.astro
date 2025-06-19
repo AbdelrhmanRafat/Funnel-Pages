@@ -6,6 +6,7 @@
 import "./ClassicThemeCountDown.css";
 import type { BlockData } from "../../../../../lib/api/types";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 let totalSeconds = 0;
@@ -20,7 +21,7 @@ if(data.hours != null && data.minutes != null && data.seconds != null) {
 ---
 
 <!-- Elegant Countdown Timer with proper spacing for fixed header -->
-<section id="classic-countDown" class="classic-section">
+<section id={FunnelClassicComponents.ClassicCountdown} class="classic-section">
   <div class="classic-countdown-container px-6 text-center">
     <div class="classic-middle-title">
     <h2 data-translate="countdown.offerEndsIn">

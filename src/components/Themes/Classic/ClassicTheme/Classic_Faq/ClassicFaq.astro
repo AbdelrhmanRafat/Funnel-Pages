@@ -1,13 +1,14 @@
 ---
 import "./ClassicFaq.css";
 import type { BlockData, Faqs } from "../../../../../lib/api/types";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 const faqs : Faqs[] = data.faqs ?? [];
 ---
 
 <!-- FAQ Section Component for Astro -->
-<section id="classic-faq" class="classic-section">
+<section id={FunnelClassicComponents.ClassicFaq} class="classic-section">
     <!-- Header -->
     <div class="classic-section-header">
         <i class={data.icon}></i>

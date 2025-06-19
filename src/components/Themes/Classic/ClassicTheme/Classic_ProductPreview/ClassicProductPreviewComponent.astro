@@ -5,12 +5,13 @@
 import "./ClassicProductPreviewComponent.css"
 import type { BlockData, ProductPreview } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 const productPreview: ProductPreview = data.productPreview ?? {} as ProductPreview;
 ---
 
-<section id="classic-product-preview" class="classic-section">
+<section id={FunnelClassicComponents.ClassicProductPreview} class="classic-section">
     <!-- Header -->
     <div class="classic-section-header">
         <i class={productPreview.headerBadgeIcon}></i>
@@ -60,7 +61,7 @@ const productPreview: ProductPreview = data.productPreview ?? {} as ProductPrevi
                             productPreview.features.map((feature) => (
                                 <div class="classic-product-feature-item flex items-start gap-3">
                                     <div class="classic-product-feature-icon rounded-full p-2 flex-shrink-0 flex items-center justify-center mt-0.5">
-                                        <i class="fa-solid fa-circle-check w-5 h-5"></i>
+                                        <i class="fa-solid fa-circle-check"></i>
                                     </div>
                                     <div class="classic-product-feature-content flex-1 min-w-0 text-right">
                                         <div class="classic-product-feature-title font-semibold leading-snug">{feature.title}</div>

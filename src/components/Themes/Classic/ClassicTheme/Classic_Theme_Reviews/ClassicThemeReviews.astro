@@ -2,12 +2,13 @@
 import "./ClassicThemeReviews.css";
 import type { BlockData, Review } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 const reviews: Review[] = data.reviews;
 ---
 
-<section id="classic-theme-reviews" class="classic-section">
+<section id={FunnelClassicComponents.ClassicReviews} class="classic-section">
   <h2 class="classic-section-header">
     {data.title}
   </h2>

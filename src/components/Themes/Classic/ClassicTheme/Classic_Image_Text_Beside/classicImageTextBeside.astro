@@ -3,11 +3,12 @@
 import "./classicImageTextBeside.css"
 import type { BlockData } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 ---
 
-<section id="classic-text-image-beside" class="classic-section px-4 sm:px-6 lg:px-12 py-12">
+<section id={FunnelClassicComponents.ClassicImageTextBeside} class="classic-section px-4 sm:px-6 lg:px-12 py-12">
   <!-- Header -->
   <div class="classic-section-header">
     <i class="fa-solid fa-images"></i>
@@ -27,7 +28,7 @@ const data: BlockData = Astro.props.data;
     </div>
     
     <!-- Text Section -->
-    <div class="classic-image-text-beside-content flex flex-col justify-start items-start w-full gap-2 p-6 sm:p-10 space-y-6 text-right backdrop-blur-sm bg-white/80 shadow-lg rounded-2xl h-full">
+    <div class="classic-image-text-beside-content flex flex-col justify-start items-start w-full gap-2 p-6 sm:p-10 space-y-6 text-right backdrop-blur-sm h-full">
       <h2 class="classic-image-text-beside-title text-3xl font-bold">
         {data.subtitle}
       </h2>

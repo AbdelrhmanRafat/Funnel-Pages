@@ -2,11 +2,12 @@
 import "./classicBefore&After.css"
 import type { BlockData } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 ---
 
-<section id="classic-before-after" class="classic-section">
+<section id={FunnelClassicComponents.Classic_Before_After} class="classic-section">
     <!-- Section Header -->
     <div class="classic-middle-title flex flex-col justify-center items-center gap-3">
         <h1 class="text-center classic-section-title">

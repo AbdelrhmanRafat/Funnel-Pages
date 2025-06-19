@@ -5,6 +5,7 @@ import {
 } from "../../../../../lib/utils/i18n/translations";
 import type { BlockData, PaymentOption } from "../../../../../lib/api/types";
 import ClassicSubmitOrderButton from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButton.astro";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 // DATA INITIALIZATION & PROCESSING
 const data: BlockData = Astro.props.data;
@@ -23,7 +24,7 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
 ---
 
 <!-- MAIN FORM SECTION -->
-<section id="classic-form" class="classic-form w-full p-3">
+<section id={FunnelClassicComponents.ClassicFormFields} class="classic-form w-full p-3">
   <div class="mx-auto py-2 flex flex-col justify-center items-center gap-2">
     
     <!-- FORM HEADER -->

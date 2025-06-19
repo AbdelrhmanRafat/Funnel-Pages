@@ -9,8 +9,9 @@ const initialOffer = data[0];
 
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantityOptions.astro";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 ---
-<div class="w-full flex flex-col gap-2">
+<div id={FunnelClassicComponents.ClassicProductFunnel} class="w-full flex flex-col gap-2">
 <ClassicQuantityOptions data={data} colorSizeOptions={colorSizeOptions} />
 
 <div class="classic-purchase-options">

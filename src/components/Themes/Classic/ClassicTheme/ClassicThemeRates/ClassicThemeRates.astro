@@ -2,10 +2,11 @@
 import "./ClassicThemeRates.css";
 import type { BlockData } from '../../../../../lib/api/types';
 import { getTranslation } from '../../../../../lib/utils/i18n/translations';
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const ratingData: BlockData = Astro.props.ratingData;
 ---
-<div id="classic-rates" class="classic-rates w-full">
+<div id={FunnelClassicComponents.ClassicRates} class="classic-rates w-full">
   <div class="classic-rating-display">
     <span>{ratingData.rate}</span>
     <i class="fa-solid fa-star classic-rating-star"></i>

@@ -2,6 +2,7 @@
 // server-side code
 import "./ClassicProductUsage.css";
 import type { BlockData, VideoInfo } from "../../../../../lib/api/types";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 const productUsage: VideoInfo[] = data.productUsage ?? [];
@@ -15,11 +16,11 @@ const getEmbedUrl = (url: string) => {
 };
 ---
 
-<section id="Classic-product-usage" class="classic-section">
+<section id={FunnelClassicComponents.ClassicProductUsage} class="classic-section">
     <!-- Header -->
     <div class="classic-section-header">
-        <i class="fa-solid fa-circle-chevron-right"></i>
-        <h5>شاهد كيفية الاستخدام</h5>
+        <i class={data.icon}></i>
+        <h5>{data.title}</h5>
     </div>
     
     <!-- Video Grid -->
