@@ -135,13 +135,13 @@ export interface FormFieldData {
 
 export interface FormFieldsState extends State {
   formData: {
-    fullName: FormFieldData | null;
-    phone: FormFieldData | null;
-    email: FormFieldData | null;
-    address: FormFieldData | null;
-    city: FormFieldData | null;
-    paymentOption: FormFieldData | null;
-    notes: FormFieldData | null;
+    fullName: FormFieldData;
+    phone: FormFieldData;
+    email: FormFieldData;
+    address: FormFieldData;
+    city: FormFieldData;
+    paymentOption: FormFieldData;
+    notes: FormFieldData;
   };
 }
 
@@ -151,13 +151,13 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
   private constructor() {
     super({
       formData: {
-        fullName: null,
-        phone: null,
-        email: null,
-        address: null,
-        city: null,
-        paymentOption: null,
-        notes: null
+        fullName: { id: 'form-fullName', value: '', isValid: false, errorMessage: '', touched: false },
+        phone: { id: 'form-phone', value: '', isValid: false, errorMessage: '', touched: false },
+        email: { id: 'form-email', value: '', isValid: false, errorMessage: '', touched: false },
+        address: { id: 'form-address', value: '', isValid: false, errorMessage: '', touched: false },
+        city: { id: 'form-city', value: '', isValid: false, errorMessage: '', touched: false },
+        paymentOption: { id: 'payment-option', value: '', isValid: true, errorMessage: '', touched: false },
+        notes: { id: 'form-notes', value: '', isValid: false, errorMessage: '', touched: false }
       }
     });
   }
@@ -171,13 +171,13 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
 
   public initializeFields(fieldIds: readonly string[]): void {
     const formData = {
-      fullName: null,
-      phone: null,
-      email: null,
-      address: null,
-      city: null,
-      paymentOption: null,
-      notes: null
+      fullName: { id: 'form-fullName', value: '', isValid: false, errorMessage: '', touched: false },
+      phone: { id: 'form-phone', value: '', isValid: false, errorMessage: '', touched: false },
+      email: { id: 'form-email', value: '', isValid: false, errorMessage: '', touched: false },
+      address: { id: 'form-address', value: '', isValid: false, errorMessage: '', touched: false },
+      city: { id: 'form-city', value: '', isValid: false, errorMessage: '', touched: false },
+      paymentOption: { id: 'payment-option', value: '', isValid: true, errorMessage: '', touched: false },
+      notes: { id: 'form-notes', value: '', isValid: false, errorMessage: '', touched: false }
     };
 
     // Initialize fields based on their IDs
@@ -189,7 +189,7 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
           value: '',
           isValid: false,
           errorMessage: '',
-          touched : false,
+          touched: false,
         };
       }
     });
@@ -199,7 +199,8 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
       id: 'payment-option',
       value: this.getSelectedPaymentOption(),
       isValid: true, // Assuming it's valid by default since one option is pre-selected
-      errorMessage: ''
+      errorMessage: '',
+      touched: false,
     };
 
     this.setState({ formData });
@@ -241,7 +242,8 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
           id: fieldId,
           value: updates.value || '',
           isValid: updates.isValid !== undefined ? updates.isValid : true,
-          errorMessage: updates.errorMessage || ''
+          errorMessage: updates.errorMessage || '',
+          touched: updates.touched !== undefined ? updates.touched : false,
         };
       }
     } else {
@@ -283,5 +285,38 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
       formData.paymentOption?.isValid === true
       // Notes field is optional, so we don't check it here
     );
+  }
+}
+
+// Delivery Options Observer Example
+export interface DeliveryOptionState extends State {
+  selectedDeliveryOptionId: string | null;
+  selectedDeliveryOptionValue: string | null;
+}
+
+export class DeliveryOptionsSubject extends GenericSubject<DeliveryOptionState> {
+  private static instance: DeliveryOptionsSubject;
+
+  private constructor() {
+    super({ selectedDeliveryOptionId: null, selectedDeliveryOptionValue: null });
+  }
+
+  public static getInstance(): DeliveryOptionsSubject {
+    if (!DeliveryOptionsSubject.instance) {
+      DeliveryOptionsSubject.instance = new DeliveryOptionsSubject();
+    }
+    return DeliveryOptionsSubject.instance;
+  }
+
+  public setDeliveryOption(optionId: string, optionValue: string): void {
+    this.setState({ selectedDeliveryOptionId: optionId, selectedDeliveryOptionValue: optionValue });
+  }
+
+  public getDeliveryOptionId(): string | null {
+    return this.getState().selectedDeliveryOptionId;
+  }
+
+  public getDeliveryOptionValue(): string | null {
+    return this.getState().selectedDeliveryOptionValue;
   }
 }

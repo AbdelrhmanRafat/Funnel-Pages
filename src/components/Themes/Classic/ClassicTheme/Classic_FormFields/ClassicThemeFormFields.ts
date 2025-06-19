@@ -7,6 +7,7 @@ import {
   isValidAddress,
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
+import { DeliveryOptionsSubject } from '../../../../../lib/patterns/Observer';
 
 /**
  * Interface representing a form field with validation state
@@ -297,4 +298,19 @@ class ClassicFormFieldsHandler {
  */
 document.addEventListener('DOMContentLoaded', () => {
   new ClassicFormFieldsHandler();
+
+  // Delivery Options: update observer state on change
+  const deliveryRadios = document.querySelectorAll('input[name="delivery-option"]');
+  deliveryRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.checked) {
+        DeliveryOptionsSubject.getInstance().setDeliveryOption(target.id, target.value);
+      }
+    });
+    // Set initial state if checked
+    if ((radio as HTMLInputElement).checked) {
+      DeliveryOptionsSubject.getInstance().setDeliveryOption((radio as HTMLInputElement).id, (radio as HTMLInputElement).value);
+    }
+  });
 });

@@ -1,4 +1,4 @@
-import { ColorSizeOptionsSubject, QuantityOptionsSubject, FormFieldsSubject, type ColorSizeOption } from '../../../../../lib/patterns/Observer';
+import { ColorSizeOptionsSubject, QuantityOptionsSubject, FormFieldsSubject, type ColorSizeOption, DeliveryOptionsSubject } from '../../../../../lib/patterns/Observer';
 
 
 interface QuantityItem {
@@ -181,10 +181,14 @@ class ClassicModalPurchaseInfo {
       const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
       const quantitySubject = QuantityOptionsSubject.getInstance();
       const formFieldsSubject = FormFieldsSubject.getInstance();
+      const deliverySubject = DeliveryOptionsSubject.getInstance();
+      
+
       
       const colorSizeState = colorSizeSubject.getState();
       const quantityState = quantitySubject.getState();
       const formFieldsState = formFieldsSubject.getState();
+      const deliveryOption = deliverySubject.getState();
       // Populate quantity information
       this.populateQuantityInfo(quantityState.selectedItem);
       
@@ -207,6 +211,18 @@ class ClassicModalPurchaseInfo {
   private populateQuantityInfo(quantityData: QuantityItem | null): void {
     if (!quantityData) return;
 
+    // Get delivery option state
+    const deliverySubject = DeliveryOptionsSubject.getInstance();
+    const deliveryOption = deliverySubject.getState();
+
+    // Calculate actual final total and shipping based on delivery option
+    let actualShipping = quantityData.shipping_price;
+    let actualFinalTotal = quantityData.final_total;
+    if (deliveryOption.selectedDeliveryOptionId === 'delivery-pickup') {
+      actualFinalTotal = Number(quantityData.final_total) - Number(quantityData.shipping_price);
+      actualShipping = 0;
+    }
+
     // Update quantity information
     this.updateElementText('order-title', quantityData.title);
     this.updateElementText('items-count', quantityData.items.toString());
@@ -224,7 +240,7 @@ class ClassicModalPurchaseInfo {
     }
     
     // Update final total
-    this.updateElementText('final-total', `${quantityData.final_total} جنيه`);
+    this.updateElementText('final-total', `${actualFinalTotal} جنيه`);
   }
 
   private populateColorSizeInfo(colorSizeOptions: ColorSizeOption[]): void {

@@ -62,6 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 quantity: items,
                 selectedItem: JSON.parse(selectedItem)
             });
+            // Store the actual updated selectedItem in localStorage
+            const updatedSelectedItem = quantitySubject.getState().selectedItem;
+            localStorage.setItem('selectedItem', JSON.stringify(updatedSelectedItem));
             colorSizeSubject.initializePanels(items);
             updateRepeatedElementsVisibility(initialRadio as HTMLInputElement);
         }
@@ -78,6 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     quantity: items,
                     selectedItem: JSON.parse(selectedItem)
                 });
+                // Store the actual updated selectedItem in localStorage
+                const updatedSelectedItem = quantitySubject.getState().selectedItem;
+                localStorage.setItem('selectedItem', JSON.stringify(updatedSelectedItem));
                 colorSizeSubject.initializePanels(items);
                 updateRepeatedElementsVisibility(target);
             }

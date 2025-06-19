@@ -44,6 +44,7 @@ export interface BlockData {
   purchase_options?: PurchaseOption[];
   cities?: string[];
   PaymentOptions?: PaymentOption[];
+  DeliveryOptions?: DeliveryOption[];
   productPreview?: ProductPreview;
   productUsage?: VideoInfo[];
   confirmationNotices?: Features[];
@@ -65,6 +66,17 @@ export interface PaymentOption {
     ar: string;
   };
   images?: string[]; // Optional: could be empty or undefined
+}
+export interface DeliveryOption {
+  id: string;
+  label: {
+    en: string;
+    ar: string;
+  };
+  description: {
+    en: string;
+    ar: string;
+  };
 }
 
 export interface Image {

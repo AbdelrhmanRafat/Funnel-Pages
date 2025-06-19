@@ -177,7 +177,6 @@
                 "name": "classic_reviews",
                 "data": {
                     "title": "لا تكتفي بكلامنا استمع لتجارب المشترين",
-                    
                     "subtitle": "في الأسفل بعض من تجارب زبائننا الذين اعجبهم منتجنا و اردوا اخباركم بذلك.",
                     "reviews": [
                         {
@@ -242,6 +241,30 @@
                             "description": {
                                 "en": "Pay in cash upon delivery.",
                                 "ar": "ادفع نقدًا عند الاستلام."
+                            }
+                        }
+                    ],
+                    "DeliveryOptions": [
+                        {
+                            "id": "homeDelivery",
+                            "label": {
+                                "en": "Home Delivery",
+                                "ar": "توصيل إلى المنزل"
+                            },
+                            "description": {
+                                "en": "Your order will be delivered to your doorstep.",
+                                "ar": "سيتم توصيل طلبك إلى باب منزلك."
+                            }
+                        },
+                        {
+                            "id": "pickup",
+                            "label": {
+                                "en": "Receive from Store",
+                                "ar": "الاستلام من المتجر"
+                            },
+                            "description": {
+                                "en": "Pick up your order directly from the store.",
+                                "ar": "استلم طلبك مباشرة من المتجر."
                             }
                         }
                     ]
@@ -404,8 +427,8 @@
             {
                 "name": "classic_product_preview",
                 "data": {
-                    "title" : "عرض توضيحي للمنتج",
-                    "icon" : "fa-solid fa-video",
+                    "title": "عرض توضيحي للمنتج",
+                    "icon": "fa-solid fa-video",
                     "productPreview": {
                         "viewsText": "رقم مشاهدة 27682",
                         "viewsIcon": "fa-solid fa-eye",
@@ -452,8 +475,8 @@
             {
                 "name": "classic_product_usage",
                 "data": {
-                    "title" : "شاهد كيفية الاستخدام",
-                    "icon" : "fa-solid fa-circle-chevron-right",
+                    "title": "شاهد كيفية الاستخدام",
+                    "icon": "fa-solid fa-circle-chevron-right",
                     "productUsage": [
                         {
                             "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",

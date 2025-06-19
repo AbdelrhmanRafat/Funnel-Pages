@@ -26,6 +26,7 @@ export const translations = {
       notes: "Order Notes",
       enterNotes: "Add any special instructions or notes for your order",
       paymentOptions: "Payment Options",
+      deliveryOptions: "Delivery Options",
       paymentMethod: "Select your preferred payment method",
       paymentOptionsList: {
         creditCard: {
@@ -185,6 +186,7 @@ export const translations = {
       notes: "ملاحظات الطلب",
       enterNotes: "أضف أي تعليمات خاصة أو ملاحظات لطلبك",
       paymentOptions: "خيارات الدفع",
+      deliveryOptions : "خيارات التوصيل",
       paymentMethod: "اختر طريقة الدفع المفضلة لديك",
       paymentOptionsList: {
         creditCard: {
