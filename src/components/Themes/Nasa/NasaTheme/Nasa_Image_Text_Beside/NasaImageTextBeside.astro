@@ -2,7 +2,7 @@
 // ProductImageSection.astro
 import "./nasaImageTextBeside.css"
 import type { BlockData } from "../../../../../lib/api/types";
-import nasaBuyNowButton from "../UI/nasaBuyNowButton/nasaBuyNowButton.astro";
+import NasaBuyNowButton from "../UI/nasaBuyNowButton/nasaBuyNowButton.astro";
 
 const data: BlockData = Astro.props.data;
 ---
@@ -35,7 +35,7 @@ const data: BlockData = Astro.props.data;
         {data.description}
       </p>
       <div class="flex-1"></div>
-      <nasaBuyNowButton />
+      <NasaBuyNowButton />
     </div>
   </div>
   

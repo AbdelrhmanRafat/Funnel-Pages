@@ -1,7 +1,7 @@
 ---
 import "./nasaThemeHeader.css";
 import type { BlockData } from "../../../../../lib/api/types";
-import nasaLanguageSwitcher from "../UI/nasaLanguageSwitcher/nasaLanguageSwitcher.astro";
+import NasaLanguageSwitcher from "../UI/NasaLanguageSwitcher/NasaLanguageSwitcher.astro";
 
 const defaultLogoSrc : string =  "assets/default-logo.svg";
 
@@ -14,7 +14,7 @@ const subtitle = data?.subtitle || "";
 <header>
   <div id="nasa-header" class="nasa-header fixed top-0 left-0 right-0 z-50">
     <div class="container mx-auto py-2">
-      <nasaLanguageSwitcher />
+      <NasaLanguageSwitcher />
       
       <div class="flex flex-col items-center">
         <div class="flex flex-col items-center text-center">
@@ -40,6 +40,6 @@ const subtitle = data?.subtitle || "";
 </header>
 
 <script>
-  import { initHeader } from "./nasaThemeHeader";
+  import { initHeader } from "./NasaThemeHeader";
   initHeader();
 </script>

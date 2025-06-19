@@ -2,6 +2,7 @@
 // ProductImageSection.astro
 import "./nasaImageTextOverlay.css";
 import type { BlockData } from "../../../../../lib/api/types";
+import NasaBuyNowButton from "../UI/nasaBuyNowButton/nasaBuyNowButton.astro";
 
 const data: BlockData = Astro.props.data;
 ---
@@ -33,7 +34,7 @@ const data: BlockData = Astro.props.data;
           <p class="nasa-image-text-overlay-subtitle text-sm sm:text-base md:text-lg leading-relaxed mb-8 opacity-90">
             {data.description}
           </p>
-          <nasaBuyNowButton />
+          <NasaBuyNowButton />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 ---
 import "./nasaThemeReviews.css";
 import type { BlockData, Review } from "../../../../../lib/api/types";
-import nasaBuyNowButton from "../UI/nasaBuyNowButton/nasaBuyNowButton.astro";
+import NasaBuyNowButton from "../UI/NasaBuyNowButton/NasaBuyNowButton.astro";
 
 const data: BlockData = Astro.props.data;
 const reviews: Review[] = data.reviews;
@@ -36,6 +36,6 @@ const reviews: Review[] = data.reviews;
   </div>
   
   <div class="nasa-reviews-action flex justify-center mt-8">
-    <nasaBuyNowButton />
+    <NasaBuyNowButton />
   </div>
 </section>

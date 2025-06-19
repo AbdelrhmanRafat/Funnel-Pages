@@ -2,7 +2,7 @@
 import "./nasaQuantityOptions.css";
 import type { BlockData, OptionOption } from "../../../../../../lib/api/types";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
-import nasaDynamicPannelContainer from "../nasaDynamicPanelContainer/nasaDynamicPannelContainer.astro";
+import NasaDynamicPannelContainer from "../NasaDynamicPanelContainer/NasaDynamicPannelContainer.astro";
 
 const data: BlockData[] = Astro.props.data;
 const colorSizeOptions: OptionOption[] = Astro.props.colorSizeOptions;
@@ -105,7 +105,7 @@ const name = "qty";
               data-option-id={`${name}${index + 1}`}
             >
               {[...Array(item.items)].map((_, panelIndex) => (
-              <nasaDynamicPannelContainer
+              <NasaDynamicPannelContainer
                   key={panelIndex}
                   colorSizeOptions={colorSizeOptions}
                   panel-index={panelIndex + 1}
@@ -120,5 +120,5 @@ const name = "qty";
 </div>
 
 <script>
-  import "./nasaQuantityOptions";
+  import "./NasaQuantityOptions"
 </script>

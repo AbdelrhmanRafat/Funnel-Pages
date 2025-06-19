@@ -4,7 +4,7 @@ import {
   type Language,
 } from "../../../../../lib/utils/i18n/translations";
 import type { BlockData, PaymentOption } from "../../../../../lib/api/types";
-import nasaSubmitOrderButton from "../UI/nasaSubmitOrderButton/nasaSubmitOrderButton.astro";
+import NasaSubmitOrderButton from "../UI/NasaSubmitOrderButton/NasaSubmitOrderButton.astro";
 
 // DATA INITIALIZATION & PROCESSING
 const data: BlockData = Astro.props.data;
@@ -232,12 +232,12 @@ if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
         </div>
       </div>
       <!-- SUBMIT BUTTON SECTION -->
-      <nasaSubmitOrderButton />
+      <NasaSubmitOrderButton />
     </form>
   </div>
 </section>
 
 <!-- CLIENT-SIDE SCRIPTS -->
 <script>
-  import "./nasaThemeFormFields";
+  import "./NasaThemeFormFields"
 </script>

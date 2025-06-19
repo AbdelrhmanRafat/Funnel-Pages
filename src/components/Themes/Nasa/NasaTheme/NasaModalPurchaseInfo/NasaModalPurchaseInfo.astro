@@ -1,7 +1,7 @@
 ---
 import "./nasaModalPurchaseInfo.css";
 import { type Language } from "../../../../../lib/utils/i18n/translations";
-import nasaConfirmPurchaseButton from "../UI/nasaConfirmPurchaseButton/nasaConfirmPurchaseButton.astro";
+import NasaConfirmPurchaseButton from "../UI/NasaConfirmPurchaseButton/NasaConfirmPurchaseButton.astro";
 
 // Get language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
@@ -103,7 +103,7 @@ const { isOpen = false } = Astro.props;
           </div>
 
           <div class="nasa-modal-actions flex gap-4 mt-4">
-            <nasaConfirmPurchaseButton />
+            <NasaConfirmPurchaseButton />
             <button type="button" class="nasa-modal-cancel flex-1 py-3 px-4 rounded-md font-semibold border cursor-pointer transition-colors duration-300" id="nasa-modal-cancel" data-translate="modal.cancel"></button>
           </div>
         </div>
@@ -172,5 +172,5 @@ const { isOpen = false } = Astro.props;
 </div>
 
 <script>
-  import "./nasaModalPurchaseInfo";
+  import "./NasaModalPurchaseInfo";
 </script>

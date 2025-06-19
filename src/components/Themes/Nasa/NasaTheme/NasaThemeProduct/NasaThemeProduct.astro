@@ -10,26 +10,26 @@ import type {
     OptionOption,
     Product,
 } from "../../../../../lib/api/types";
-import nasaThemeProductFunnel from "../nasaThemeProductFunnel/nasaThemeProductFunnel.astro";
 import "./nasaThemeProduct.css";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
-import { nasaProductInfoComponents } from "../../../../../lib/constants/themes";
+import { NasaProductInfoComponents } from "../../../../../lib/constants/themes";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
-import nasaThemeRates from "../nasaThemeRates/nasaThemeRates.astro";
-import nasaThemeFormFields from "../nasa_FormFields/nasaThemeFormFields.astro";
-import nasaGalleryComponent from "../UI/nasaGallery/nasaGalleryComponent.astro";
-import nasaOrderConfirmationNotice from "../nasa_OrderConfirmationNotice/nasaOrderConfirmationNotice.astro";
+import NasaGalleryComponent from "../UI/NasaGallery/NasaGalleryComponent.astro";
+import NasaThemeRates from "../NasaThemeRates/NasaThemeRates.astro";
+import NasaThemeProductFunnel from "../NasaThemeProductFunnel/NasaThemeProductFunnel.astro";
+import NasaThemeFormFields from "../Nasa_FormFields/NasaThemeFormFields.astro";
+import NasaOrderConfirmationNotice from "../Nasa_OrderConfirmationNotice/NasaOrderConfirmationNotice.astro";
 
 
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
-  nasaProductInfoComponents.Rating,
-  nasaProductInfoComponents.ProductHeader,
-  nasaProductInfoComponents.ProductDescription,
-  nasaProductInfoComponents.PurchaseOptions,
-  nasaProductInfoComponents.FormFields,
-  nasaProductInfoComponents.OrderConfirmation,
+  NasaProductInfoComponents.Rating,
+  NasaProductInfoComponents.ProductHeader,
+  NasaProductInfoComponents.ProductDescription,
+  NasaProductInfoComponents.PurchaseOptions,
+  NasaProductInfoComponents.FormFields,
+  NasaProductInfoComponents.OrderConfirmation,
 ];
 
 // Retrieves product and purchaseOptions from Astro's props.
@@ -53,34 +53,34 @@ interface ComponentCheckResult {
   componentData: any;
 }
 
-function isComponentDataAvailable(componentType: nasaProductInfoComponents): ComponentCheckResult {
+function isComponentDataAvailable(componentType: NasaProductInfoComponents): ComponentCheckResult {
   switch (componentType) {
-    case nasaProductInfoComponents.Rating:
+    case NasaProductInfoComponents.Rating:
       return {
         isComponentFound: !!ratingData,
         componentData: ratingData,
       };
-    case nasaProductInfoComponents.ProductHeader:
+    case NasaProductInfoComponents.ProductHeader:
       return {
         isComponentFound: !!product,
         componentData: product,
       };
-    case nasaProductInfoComponents.ProductDescription:
+    case NasaProductInfoComponents.ProductDescription:
       return {
         isComponentFound: !!product && (!!product.description_ar || !!product.description_en),
         componentData: product,
       };
-    case nasaProductInfoComponents.PurchaseOptions:
+    case NasaProductInfoComponents.PurchaseOptions:
       return {
         isComponentFound: !!purchaseOptions,
         componentData: purchaseOptions,
       };
-    case nasaProductInfoComponents.FormFields:
+    case NasaProductInfoComponents.FormFields:
       return {
         isComponentFound: !!formFieldsData,
         componentData: formFieldsData,
       };
-    case nasaProductInfoComponents.OrderConfirmation:
+    case NasaProductInfoComponents.OrderConfirmation:
       return {
         isComponentFound: !!orderConfirmationNoticeData,
         componentData: orderConfirmationNoticeData,
@@ -97,7 +97,7 @@ function isComponentDataAvailable(componentType: nasaProductInfoComponents): Com
 <section id="nasa-product-details" class="nasa-section">
     <div class="flex flex-col lg:flex-row gap-5">
         <!-- Gallery Section -->
-        {galleryData && <nasaGalleryComponent data={galleryData} />}
+        {galleryData && <NasaGalleryComponent data={galleryData} />}
         
         <!-- Product Info Section with Array-Based Rendering -->
         <div class="lg:w-1/2 nasa-product-info flex flex-col gap-3 justify-center items-center p-2 md:px-8 md:py-3 rounded-xl">
@@ -110,12 +110,12 @@ function isComponentDataAvailable(componentType: nasaProductInfoComponents): Com
                     }
 
                     // Rating Component
-                    if (componentType === nasaProductInfoComponents.Rating) {
-                        return <nasaThemeRates ratingData={componentCheck.componentData} />;
+                    if (componentType === NasaProductInfoComponents.Rating) {
+                        return <NasaThemeRates ratingData={componentCheck.componentData} />;
                     }
 
                     // Product Header Component
-                    if (componentType === nasaProductInfoComponents.ProductHeader) {
+                    if (componentType === NasaProductInfoComponents.ProductHeader) {
                         return (
                             <div class="w-full flex flex-col justify-start items-start gap-2 mb-8">
                                 <div class="flex items-center gap-2">
@@ -147,7 +147,7 @@ function isComponentDataAvailable(componentType: nasaProductInfoComponents): Com
                     }
 
                     // Product Description Component
-                    if (componentType === nasaProductInfoComponents.ProductDescription) {
+                    if (componentType === NasaProductInfoComponents.ProductDescription) {
                         return (
                             <div class="nasa-product-description w-full">
                                 <h3 class="nasa-description-header text-2xl font-bold pb-3" data-translate="product.description">
@@ -162,9 +162,9 @@ function isComponentDataAvailable(componentType: nasaProductInfoComponents): Com
                     }
 
                     // Purchase Options Component
-                    if (componentType === nasaProductInfoComponents.PurchaseOptions) {
+                    if (componentType === NasaProductInfoComponents.PurchaseOptions) {
                         return (
-                                <nasaThemeProductFunnel
+                                <NasaThemeProductFunnel
                                     data={componentCheck.componentData}
                                     colorSizeOptions={colorSizeOptions}
                                 />
@@ -172,16 +172,16 @@ function isComponentDataAvailable(componentType: nasaProductInfoComponents): Com
                     }
 
                     // Form Fields Component
-                    if (componentType === nasaProductInfoComponents.FormFields) {
+                    if (componentType === NasaProductInfoComponents.FormFields) {
                         return (
-                                <nasaThemeFormFields data={componentCheck.componentData} />
+                                <NasaThemeFormFields data={componentCheck.componentData} />
                         );
                     }
 
                     // Order Confirmation Component
-                    if (componentType === nasaProductInfoComponents.OrderConfirmation) {
+                    if (componentType === NasaProductInfoComponents.OrderConfirmation) {
                         return (
-                                <nasaOrderConfirmationNotice data={componentCheck.componentData} />
+                                <NasaOrderConfirmationNotice data={componentCheck.componentData} />
                         );
                     }
 
@@ -193,5 +193,5 @@ function isComponentDataAvailable(componentType: nasaProductInfoComponents): Com
 </section>
 
 <script>
-    import "./nasaThemeProduct";
+  import "./NasaThemeProduct"
 </script>

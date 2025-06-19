@@ -8,10 +8,10 @@ const colorSizeOptions = Astro.props.colorSizeOptions;
 const initialOffer = data[0];
 
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
-import nasaQuantityOptions from "../UI/nasaQuantityOptions/nasaQuantityOptions.astro";
+import NasaQuantityOptions from "../UI/NasaQuantityOptions/NasaQuantityOptions.astro";
 ---
 <div class="w-full flex flex-col gap-2">
-<nasaQuantityOptions data={data} colorSizeOptions={colorSizeOptions} />
+<NasaQuantityOptions data={data} colorSizeOptions={colorSizeOptions} />
 
 <div class="nasa-purchase-options">
     <div class="nasa-purchase-options-body">
@@ -87,6 +87,6 @@ import nasaQuantityOptions from "../UI/nasaQuantityOptions/nasaQuantityOptions.a
 </div>
 
 <script>
-  import { initProductFunnel } from "./nasaThemeProductFunnel";
+  import { initProductFunnel } from "./NasaThemeProductFunnel";
   initProductFunnel();
 </script>

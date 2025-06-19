@@ -1,38 +1,38 @@
-/* === Classic Theme Reusable Classes === */
+/* === nasa Theme Reusable Classes === */
 body {
-    background-color: var(--classic-color-surface);
-    color: var(--classic-color-on-surface);
+    background-color: var(--nasa-color-surface);
+    color: var(--nasa-color-on-surface);
 }
 
-.classic-section {
-    background-color: var(--classic-color-surface);
-    padding: var(--classic-section-padding);
-    border-radius: var(--classic-section-radius);
-    box-shadow: var(--classic-section-shadow);
+.nasa-section {
+    background-color: var(--nasa-color-surface);
+    padding: var(--nasa-section-padding);
+    border-radius: var(--nasa-section-radius);
+    box-shadow: var(--nasa-section-shadow);
 }
 
-.classic-section-header {
+.nasa-section-header {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: var(--classic-header-gap);
-    margin-bottom: var(--classic-header-margin-bottom);
-    font-size: var(--classic-header-size);
-    font-weight: var(--classic-header-weight);
-    color: var(--classic-color-on-surface);
+    gap: var(--nasa-header-gap);
+    margin-bottom: var(--nasa-header-margin-bottom);
+    font-size: var(--nasa-header-size);
+    font-weight: var(--nasa-header-weight);
+    color: var(--nasa-color-on-surface);
 }
-.classic-middle-title {
+.nasa-middle-title {
     text-align: center;
-    font-size: var(--classic-header-center-size);
-    font-weight: var( --classic-header-center-wight);
-    color: var(--classic-color-on-surface);
-    margin-bottom: var(--classic-header-center-margin-bottom);
+    font-size: var(--nasa-header-center-size);
+    font-weight: var( --nasa-header-center-wight);
+    color: var(--nasa-color-on-surface);
+    margin-bottom: var(--nasa-header-center-margin-bottom);
 }
 
 /* === Scroll to Top Button === */
 .scrollToTopBtn {
-    background-color: var(--classic-color-primary);
-    color: var(--classic-color-on-primary);
+    background-color: var(--nasa-color-primary);
+    color: var(--nasa-color-on-primary);
     width: 3.5rem; /* w-14 */
     height: 3.5rem; /* h-14 */
     border-radius: 50%;
@@ -42,7 +42,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.25rem; /* text-xl */
-    box-shadow: var(--classic-section-shadow);
+    box-shadow: var(--nasa-section-shadow);
     transition: all 0.3s ease;
     opacity: 0;
     visibility: hidden;
@@ -56,7 +56,7 @@ body {
 }
 
 .scrollToTopBtn:hover {
-    background-color: var(--classic-color-primary-dark);
+    background-color: var(--nasa-color-primary-dark);
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
