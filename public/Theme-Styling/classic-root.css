@@ -1,0 +1,231 @@
+/* === Multi-Theme Design Tokens Root File === */
+:root {
+  
+    /* ========================================== */
+    /* === CLASSIC - Deep Ocean Blue Theme === */
+    /* ========================================== */
+    
+    /* === Color System === */
+    --classic-color-primary: #1e40af;
+    --classic-color-primary-light: #3b82f6;
+    --classic-color-primary-dark: #1e3a8a;
+    --classic-color-on-primary: #ffffff;
+  
+    --classic-color-secondary: #0891b2;
+    --classic-color-secondary-light: #06b6d4;
+    --classic-color-secondary-dark: #0e7490;
+    --classic-color-on-secondary: #ffffff;
+  
+    --classic-color-tertiary: #374151;
+    --classic-color-tertiary-light: #6b7280;
+    --classic-color-tertiary-dark: #1f2937;
+    --classic-color-on-tertiary: #ffffff;
+  
+    --classic-color-error: #dc2626;
+    --classic-color-error-light: #ef4444;
+    --classic-color-error-dark: #b91c1c;
+    --classic-color-on-error: #ffffff;
+  
+    --classic-color-success: #059669;
+    --classic-color-success-light: #10b981;
+    --classic-color-success-dark: #047857;
+    --classic-color-on-success: #ffffff;
+  
+    --classic-color-warning: #d97706;
+    --classic-color-warning-light: #f59e0b;
+    --classic-color-warning-dark: #b45309;
+    --classic-color-on-warning: #ffffff;
+  
+    --classic-color-info: #0284c7;
+    --classic-color-info-light: #0ea5e9;
+    --classic-color-info-dark: #0369a1;
+    --classic-color-on-info: #ffffff;
+  
+    /* === Surface Colors === */
+    --classic-color-surface: #f8fafc;
+    --classic-color-surface-variant: #f1f5f9;
+    --classic-color-surface-container: #e2e8f0;
+    --classic-color-surface-container-high: #cbd5e1;
+    --classic-color-on-surface: #0f172a;
+    --classic-color-on-surface-variant: #475569;
+  
+    /* === Background === */
+    --classic-color-background: #ffffff;
+    --classic-color-on-background: #1e293b;
+  
+    /* === Outline Colors === */
+    --classic-color-outline: #94a3b8;
+    --classic-color-outline-variant: #cbd5e1;
+    --classic-color-outline-focus: var(--classic-color-primary);
+  
+    /* === Background Pattern === */
+    --classic-background-image: url('/assets/backgrounds/ocean-waves-pattern.svg');
+    
+    /* Section Variables */
+    --classic-section-radius: 1rem;       /* Tailwind: rounded-2xl */
+    --classic-section-padding: 1.25rem;   /* Tailwind: p-5 */
+    --classic-section-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15); /* Ocean blue themed shadow */
+    
+    /* Header Section Variables */
+    --classic-header-size: 1.875rem;         /* Tailwind: text-3xl */
+    --classic-header-gap: 0.75rem;
+    --classic-header-margin-bottom: 1.5rem;
+    --classic-header-weight: 500;
+  
+    /* Header Section Center variables */
+    --classic-header-center-size: 1.875rem; 
+    --classic-header-center-weight: 700; 
+    --classic-header-center-margin-bottom: 1.75rem; 
+  
+    /* ======================================== */
+    /* === NASA - Space Exploration Theme === */
+    /* ======================================== */
+    
+    /* === Color System === */
+    --nasa-color-primary: #0b3d91;
+    --nasa-color-primary-light: #1e40af;
+    --nasa-color-primary-dark: #0c2d6b;
+    --nasa-color-on-primary: #ffffff;
+  
+    --nasa-color-secondary: #fc3d21;
+    --nasa-color-secondary-light: #ff4d32;
+    --nasa-color-secondary-dark: #dc2626;
+    --nasa-color-on-secondary: #ffffff;
+  
+    --nasa-color-tertiary: #1e1e1e;
+    --nasa-color-tertiary-light: #404040;
+    --nasa-color-tertiary-dark: #0a0a0a;
+    --nasa-color-on-tertiary: #ffffff;
+  
+    --nasa-color-error: #ff0000;
+    --nasa-color-error-light: #ff3333;
+    --nasa-color-error-dark: #cc0000;
+    --nasa-color-on-error: #ffffff;
+  
+    --nasa-color-success: #00ff00;
+    --nasa-color-success-light: #33ff33;
+    --nasa-color-success-dark: #00cc00;
+    --nasa-color-on-success: #000000;
+  
+    --nasa-color-warning: #ffaa00;
+    --nasa-color-warning-light: #ffbb33;
+    --nasa-color-warning-dark: #cc8800;
+    --nasa-color-on-warning: #000000;
+  
+    --nasa-color-info: #00aaff;
+    --nasa-color-info-light: #33bbff;
+    --nasa-color-info-dark: #0088cc;
+    --nasa-color-on-info: #ffffff;
+  
+    /* === Surface Colors === */
+    --nasa-color-surface: #f0f4f8;
+    --nasa-color-surface-variant: #e1e8ed;
+    --nasa-color-surface-container: #d1dae0;
+    --nasa-color-surface-container-high: #b8c5ce;
+    --nasa-color-on-surface: #0f1419;
+    --nasa-color-on-surface-variant: #2d3748;
+  
+    /* === Background === */
+    --nasa-color-background: #ffffff;
+    --nasa-color-on-background: #1a202c;
+  
+    /* === Outline Colors === */
+    --nasa-color-outline: #718096;
+    --nasa-color-outline-variant: #cbd5e0;
+    --nasa-color-outline-focus: var(--nasa-color-primary);
+  
+    /* === Background Pattern === */
+    --nasa-background-image: url('/assets/backgrounds/stars-constellation-pattern.svg');
+    
+    /* Section Variables */
+    --nasa-section-radius: 0.5rem;        /* Tailwind: rounded-lg - Sharp, technical look */
+    --nasa-section-padding: 1.5rem;       /* Tailwind: p-6 - Spacious like mission control */
+    --nasa-section-shadow: 0 20px 40px -8px rgba(11, 61, 145, 0.2); /* Deep space blue shadow */
+    
+    /* Header Section Variables */
+    --nasa-header-size: 2rem;             /* Tailwind: text-4xl - Bold like mission titles */
+    --nasa-header-gap: 1rem;              /* Generous spacing for readability */
+    --nasa-header-margin-bottom: 2rem;    /* Clear separation like technical docs */
+    --nasa-header-weight: 700;            /* Bold for authority and clarity */
+  
+    /* Header Section Center variables */
+    --nasa-header-center-size: 2.5rem;    /* Tailwind: text-5xl - Mission-critical prominence */
+    --nasa-header-center-weight: 800;     /* Extra bold for mission headers */
+    --nasa-header-center-margin-bottom: 2.5rem; /* Dramatic spacing for impact */
+  
+    /* ===================================== */
+    /* === TROY - Ancient City Theme === */
+    /* ===================================== */
+    
+    /* === Color System === */
+    --troy-color-primary: #b45309;
+    --troy-color-primary-light: #d97706;
+    --troy-color-primary-dark: #92400e;
+    --troy-color-on-primary: #ffffff;
+  
+    --troy-color-secondary: #a16207;
+    --troy-color-secondary-light: #ca8a04;
+    --troy-color-secondary-dark: #854d0e;
+    --troy-color-on-secondary: #ffffff;
+  
+    --troy-color-tertiary: #78716c;
+    --troy-color-tertiary-light: #a8a29e;
+    --troy-color-tertiary-dark: #57534e;
+    --troy-color-on-tertiary: #ffffff;
+  
+    --troy-color-error: #dc2626;
+    --troy-color-error-light: #ef4444;
+    --troy-color-error-dark: #b91c1c;
+    --troy-color-on-error: #ffffff;
+  
+    --troy-color-success: #16a34a;
+    --troy-color-success-light: #22c55e;
+    --troy-color-success-dark: #15803d;
+    --troy-color-on-success: #ffffff;
+  
+    --troy-color-warning: #eab308;
+    --troy-color-warning-light: #facc15;
+    --troy-color-warning-dark: #ca8a04;
+    --troy-color-on-warning: #1c1917;
+  
+    --troy-color-info: #0369a1;
+    --troy-color-info-light: #0284c7;
+    --troy-color-info-dark: #075985;
+    --troy-color-on-info: #ffffff;
+  
+    /* === Surface Colors === */
+    --troy-color-surface: #fef7ed;
+    --troy-color-surface-variant: #fed7aa;
+    --troy-color-surface-container: #fdba74;
+    --troy-color-surface-container-high: #fb923c;
+    --troy-color-on-surface: #431407;
+    --troy-color-on-surface-variant: #9a3412;
+  
+    /* === Background === */
+    --troy-color-background: #fffbeb;
+    --troy-color-on-background: #451a03;
+  
+    /* === Outline Colors === */
+    --troy-color-outline: #d97706;
+    --troy-color-outline-variant: #fed7aa;
+    --troy-color-outline-focus: var(--troy-color-primary);
+  
+    /* === Background Pattern === */
+    --troy-background-image: url('/assets/backgrounds/ancient-troy-pattern.svg');
+    
+    /* Section Variables */
+    --troy-section-radius: 1.25rem;       /* Tailwind: rounded-3xl - slightly more rounded for ancient aesthetic */
+    --troy-section-padding: 1.5rem;       /* Tailwind: p-6 - more generous padding */
+    --troy-section-shadow: 0 25px 50px -12px rgba(67, 20, 7, 0.2); /* Warm bronze themed shadow */
+    
+    /* Header Section Variables */
+    --troy-header-size: 2rem;              /* Tailwind: text-4xl - larger for ancient grandeur */
+    --troy-header-gap: 0.875rem;
+    --troy-header-margin-bottom: 1.75rem;
+    --troy-header-weight: 600;             /* Bolder for ancient authority */
+  
+    /* Header Section Center variables */
+    --troy-header-center-size: 2.25rem;    /* Tailwind: text-4xl - even larger for center headers */
+    --troy-header-center-weight: 800;      /* Very bold for central importance */
+    --troy-header-center-margin-bottom: 2rem; /* More space for dramatic effect */
+  }

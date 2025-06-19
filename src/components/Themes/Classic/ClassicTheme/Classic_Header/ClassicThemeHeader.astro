@@ -14,21 +14,6 @@ const logo = data?.logo || defaultLogoSrc;
 const title = data?.title;
 const subtitle = data?.subtitle || "";
 
-// Custom Arabic titles for components
-const customComponentTitles = {
-  [FunnelClassicComponents.ClassicProductFeatures]: "عن المنتج",
-  [FunnelClassicComponents.ClassicProductPreview]: "العرض التوضيحي", 
-  [FunnelClassicComponents.ClassicProductUsage]: "طريقة الاستخدام",
-  [FunnelClassicComponents.ClassicTodayOrders]: "طلبات اليوم",
-  [FunnelClassicComponents.Classic_Before_After]: "خدماتنا",
-  [FunnelClassicComponents.ClassicReviews]: "تجارب المشترين",
-  [FunnelClassicComponents.ClassicTextBar]: "متوفر بالسعودية 🇸🇦",
-  [FunnelClassicComponents.ClassicImageTextOverLay]: "عن المنتج",
-  [FunnelClassicComponents.ClassicImageTextBeside]: "عن المنتج", 
-  [FunnelClassicComponents.ClassicFaq]: "الأسئلة",
-  [FunnelClassicComponents.ClassicDeliveryFeatures]: "الشحن",
-};
-
 // Generate anchors from available components with comprehensive null checking
 const availableAnchors = funnelPage?.blocks
   ?.map((block) => {
@@ -39,12 +24,11 @@ const availableAnchors = funnelPage?.blocks
 
     const component = getClassicThemeComponent(block.name);
     
-    // Check if component exists
-    if (component) {
+    // Check if component exists and has title from API
+    if (component && block.data?.title) {
       return {
         component: component,
-        componentData: block.data,
-        customTitle: customComponentTitles[component] || block.data?.title || component
+        componentData: block.data
       };
     }
     return null;
@@ -79,9 +63,10 @@ const orderedAnchors = RENDER_ORDER
     return (
       anchor !== null &&
       !!anchor.component &&
-      !!anchor.customTitle &&
-      typeof anchor.customTitle === 'string' &&
-      anchor.customTitle.trim() !== ''
+      !!anchor.componentData &&
+      !!anchor.componentData.title &&
+      typeof anchor.componentData.title === 'string' &&
+      anchor.componentData.title.trim() !== ''
     );
   });
 ---
@@ -136,7 +121,7 @@ const orderedAnchors = RENDER_ORDER
               <div class="nav-container flex items-center overflow-hidden" id="nav-container">
                 <ul class="flex flex-row items-center gap-2 transition-all duration-300" id="nav-list">
                   {orderedAnchors.map((anchor, index) => {
-                    if (!anchor || !anchor.component || !anchor.customTitle) {
+                    if (!anchor || !anchor.component || !anchor.componentData?.title) {
                       return null;
                     }
                     
@@ -145,7 +130,7 @@ const orderedAnchors = RENDER_ORDER
                         <a 
                           href={`#${anchor.component}`}
                           class="classic-desktop-nav-link block px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap hover:scale-105"
-                          data-anchor-target={anchor.customTitle}
+                          data-anchor-target={anchor.componentData.title}
                         >
                           {anchor.componentData.title}
                         </a>
@@ -157,9 +142,9 @@ const orderedAnchors = RENDER_ORDER
 
               <!-- Dots Indicator (shows when items are hidden) -->
               <div class="nav-dots hidden items-center gap-1 mx-2" id="nav-dots">
-                <div class="w-1 h-1 bg-current rounded-full opacity-60"></div>
-                <div class="w-1 h-1 bg-current rounded-full opacity-60"></div>
-                <div class="w-1 h-1 bg-current rounded-full opacity-60"></div>
+                <div class="w-1 h-1 rounded-full"></div>
+                <div class="w-1 h-1 rounded-full"></div>
+                <div class="w-1 h-1 rounded-full"></div>
               </div>
 
               <!-- Overflow Dropdown -->
@@ -204,12 +189,12 @@ const orderedAnchors = RENDER_ORDER
           </button>
         </div>
         
-        <!-- Menu Items with Custom Titles -->
+        <!-- Menu Items with API Titles -->
         <nav class="classic-menu-nav">
           <ul class="flex flex-col gap-2">
             {orderedAnchors.map((anchor) => {
               // Additional safety check during rendering
-              if (!anchor || !anchor.component || !anchor.customTitle) {
+              if (!anchor || !anchor.component || !anchor.componentData?.title) {
                 return null;
               }
               
@@ -218,7 +203,7 @@ const orderedAnchors = RENDER_ORDER
                   <a 
                     href={`#${anchor.component}`}
                     class="classic-menu-link block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300"
-                    data-anchor-target={anchor.customTitle}
+                    data-anchor-target={anchor.componentData.title}
                   >
                     {anchor.componentData.title}
                   </a>
@@ -231,15 +216,15 @@ const orderedAnchors = RENDER_ORDER
     </div>
   )}
   
-  <div class="pt-36 md:pt-56"></div>
+  <div class="pt-36 md:pt-44"></div>
 </header>
 
 <script>
-  import { initHeader, initEnhancedNavigation } from "./ClassicThemeHeader";
-  
   
 
-  // Initialize both header and enhanced navigation
+  // Initialize from external script first, then enhanced navigation
+  import { initHeader, initEnhancedNavigation } from "./ClassicThemeHeader";
   initHeader();
   initEnhancedNavigation();
 </script>
+>

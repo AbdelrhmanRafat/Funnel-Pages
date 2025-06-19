@@ -1,21 +1,3 @@
-/* === Classic Header Component === */
-.classic-header {
-    background-color: var(--classic-color-surface);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.classic-header-logo {
-    width: 100px;
-}
-
-.classic-header-title {
-    color: var(--classic-color-on-surface);
-}
-
-.classic-header-subtitle {
-    color: var(--classic-color-on-surface-variant);
-}
-
 /* === Desktop Navigation === */
 .classic-desktop-nav {
     border-top: 1px solid var(--classic-color-outline-variant);
