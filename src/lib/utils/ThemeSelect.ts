@@ -1,5 +1,5 @@
 // This file contains functions to convert theme strings to `Theme` enum values and to get theme-specific component names.
-import { FunnelClassicComponents, FunnelTroyComponents, Theme } from "../constants/themes";
+import { FunnelClassicComponents, FunnelNasaComponents, FunnelTroyComponents, Theme } from "../constants/themes";
 
 // Converts a theme string to a Theme enum value.
 export function getThemeFromString(themeName: string): Theme | undefined {
@@ -110,16 +110,63 @@ export function getTroyThemeComponent(name: string): FunnelTroyComponents | unde
       return undefined;
   }
 }
+// Gets the available components for the Nasa theme.
+export function getNasaThemeComponent(name: string): FunnelNasaComponents | undefined {
+  switch (name.toLowerCase()) {
+    case "nasa_header":
+      return FunnelNasaComponents.NasaHeader;
+    case "nasa_form_fields":
+      return FunnelNasaComponents.NasaFormFields;
+    case "nasa_countdown":
+      return FunnelNasaComponents.NasaCountdown;
+    case "nasa_today_orders":
+      return FunnelNasaComponents.NasaTodayOrders;
+    case "nasa_rates":
+      return FunnelNasaComponents.NasaRates;
+    case "nasa_product_funnel":
+      return FunnelNasaComponents.NasaProductFunnel;
+    case "nasa_footer":
+      return FunnelNasaComponents.NasaFooter;
+    case "nasa_order_confirmation_notice":
+      return FunnelNasaComponents.NasaOrderConfirmationNotice;
+    case "nasa_faq":
+      return FunnelNasaComponents.NasaFaq;
+    case "nasa_product_preview":
+      return FunnelNasaComponents.NasaProductPreview;
+    case "nasa_product_usage":
+      return FunnelNasaComponents.NasaProductUsage;
+    case "nasa_product_features":
+      return FunnelNasaComponents.NasaProductFeatures;
+    case "nasa_delivery_features":
+      return FunnelNasaComponents.NasaDeliveryFeatures;
+    case "nasa_reviews":
+      return FunnelNasaComponents.NasaReviews;
+    case "nasa_text_bar":
+      return FunnelNasaComponents.NasaTextBar;
+    case "nasa_gallery":
+      return FunnelNasaComponents.NasaGallery;
+    case "nasa_before_&_after":
+      return FunnelNasaComponents.NasaBeforeAfter;
+    case "nasa_image_text_overlay":
+      return FunnelNasaComponents.NasaImageTextOverlay;
+    case "nasa_image_text_beside":
+      return FunnelNasaComponents.NasaImageTextBeside;
+    default:
+      return undefined;
+  }
+}
+
 
 // Generic function to get theme component based on theme type
-export function getThemeComponent(themeName: string, componentName: string): FunnelClassicComponents | FunnelTroyComponents | undefined {
+export function getThemeComponent(themeName: string, componentName: string): FunnelClassicComponents | FunnelTroyComponents | FunnelNasaComponents | undefined {
   const theme = getThemeFromString(themeName);
-  
   switch (theme) {
     case Theme.Classic:
       return getClassicThemeComponent(componentName);
     case Theme.Troy:
       return getTroyThemeComponent(componentName);
+    case Theme.Nasa:
+      return getNasaThemeComponent(componentName);
     default:
       return undefined;
   }

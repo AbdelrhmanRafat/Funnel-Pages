@@ -32,6 +32,17 @@ export enum FunnelClassicComponents {
   ClassicImageTextBeside = "classic_Image_Text_beside"
 }
 
+
+// Define the available product info section components
+export enum ClassicProductInfoComponents {
+  Rating = "rating",
+  ProductHeader = "productHeader",
+  ProductDescription = "productDescription",
+  PurchaseOptions = "purchaseOptions",
+  FormFields = "formFields",
+  OrderConfirmation = "orderConfirmation",
+}
+
 // Defines the component names for the TROY theme.
 export enum FunnelTroyComponents {
   TroyHeader = "troy_header",
@@ -55,8 +66,8 @@ export enum FunnelTroyComponents {
   TroyImageTextBeside = "troy_Image_Text_beside"
 }
 
-// Define the available product info section components
-export enum ClassicProductInfoComponents {
+// Define the available product info section components for TROY theme
+export enum TroyProductInfoComponents {
   Rating = "rating",
   ProductHeader = "productHeader",
   ProductDescription = "productDescription",
@@ -65,8 +76,30 @@ export enum ClassicProductInfoComponents {
   OrderConfirmation = "orderConfirmation",
 }
 
-// Define the available product info section components for TROY theme
-export enum TroyProductInfoComponents {
+export enum FunnelNasaComponents {
+  NasaHeader = "nasa_header",
+  NasaFormFields = "nasa_form_fields",
+  NasaCountdown = "nasa_countdown",
+  NasaTodayOrders = "nasa_today_orders",
+  NasaRates = "nasa_rates",
+  NasaProductFunnel = "nasa_product_funnel",
+  NasaFooter = "nasa_footer",
+  NasaOrderConfirmationNotice = "nasa_order_confirmation_notice",
+  NasaFaq = "nasa_faq",
+  NasaProductPreview = "nasa_product_preview",
+  NasaProductUsage = "nasa_product_usage",
+  NasaProductFeatures = "nasa_product_features",
+  NasaDeliveryFeatures = "nasa_delivery_features",
+  NasaReviews = "nasa_reviews",
+  NasaTextBar = "nasa_text_bar",
+  NasaGallery = "nasa_gallery",
+  NasaBeforeAfter = "nasa_before_&_after",
+  NasaImageTextOverlay = "nasa_image_text_overlay",
+  NasaImageTextBeside = "nasa_image_text_beside",
+}
+
+// Define the available product info section components
+export enum NasaProductInfoComponents {
   Rating = "rating",
   ProductHeader = "productHeader",
   ProductDescription = "productDescription",
