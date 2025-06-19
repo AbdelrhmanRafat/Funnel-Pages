@@ -177,6 +177,7 @@
                 "name": "classic_reviews",
                 "data": {
                     "title": "لا تكتفي بكلامنا استمع لتجارب المشترين",
+                    
                     "subtitle": "في الأسفل بعض من تجارب زبائننا الذين اعجبهم منتجنا و اردوا اخباركم بذلك.",
                     "reviews": [
                         {
@@ -263,7 +264,7 @@
             {
                 "name": "classic_today_orders",
                 "data": {
-                    "title": "طلبات اليوم :",
+                    "title": "طلبات اليوم",
                     "count": 27
                 }
             },
@@ -403,10 +404,10 @@
             {
                 "name": "classic_product_preview",
                 "data": {
+                    "title" : "عرض توضيحي للمنتج",
+                    "icon" : "fa-solid fa-video",
                     "productPreview": {
-                        "headerBadgetext": "عرض توضيحي للمنتج",
                         "viewsText": "رقم مشاهدة 27682",
-                        "headerBadgeIcon": "fa-solid fa-video",
                         "viewsIcon": "fa-solid fa-eye",
                         "videoInfo": {
                             "title": "سماعات رأس لاسلكية ممتازة - التجربة الشاملة",

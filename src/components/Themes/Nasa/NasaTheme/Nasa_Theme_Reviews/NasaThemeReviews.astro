@@ -2,40 +2,62 @@
 import "./nasaThemeReviews.css";
 import type { BlockData, Review } from "../../../../../lib/api/types";
 import NasaBuyNowButton from "../UI/NasaBuyNowButton/NasaBuyNowButton.astro";
+import { FunnelNasaComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 const reviews: Review[] = data.reviews;
 ---
 
-<section id="nasa-theme-reviews" class="nasa-section">
-  <h2 class="nasa-section-header">
-    {data.title}
-  </h2>
+<section id={FunnelNasaComponents.NasaReviews} class="nasa-section">
+  <h2 class="nasa-middle-title">{data.title}</h2>
   
-  <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 mb-8">
-    {
-      reviews.map((review) => (
-        <div class="nasa-review-card p-6 rounded-xl border-l-4">
-          <p class="nasa-review-description text-base leading-relaxed mb-4 italic">{review.description}</p>
-          <div class="nasa-review-author flex flex-col gap-1">
-           <div class="flex justify-start items-center gap-2">
-            <div class="w-12 h-12 rounded-full bg-white shadow-2xl flex items-center justify-center">
-              <img
-                src={review.image}
-                alt={`Profile of ${review.name}`}
-                class="w-10 h-10 rounded-full object-cover"
+  <div class="relative">
+    
+    <!-- Carousel Content -->
+    <div 
+      id="carousel" 
+      class="nasa-carousel-container flex gap-6 overflow-x-auto px-4 py-2"
+      style="scroll-snap-type: x mandatory;"
+    >
+      {reviews.map((review) => (
+        <div class="nasa-review-card flex-shrink-0 w-80 p-8 flex flex-col" style="scroll-snap-align: start;">
+          <!-- Profile image centered -->
+          <div class="flex justify-center mb-8">
+            <div class="nasa-profile-container w-24 h-24 rounded-full flex items-center justify-center">
+              <img 
+                src={review.image} 
+                alt={`Profile of ${review.name}`} 
+                class="w-20 h-20 rounded-full object-cover"
               />
             </div>
-            <span class="nasa-review-name font-semibold text-[0.95rem]">{review.name}</span>
-            </div>
-            <span class="nasa-review-city text-[0.85rem]">{review.city}</span>
           </div>
+          
+          <!-- Name -->
+          <h3 class="nasa-review-name text-xl font-bold text-center mb-3">{review.name}</h3>
+          
+          <!-- Country -->
+          <p class="nasa-review-city text-sm font-medium text-center mb-6">{review.city}</p>
+          
+          <!-- Comment -->
+          <blockquote class="nasa-review-description text-base leading-relaxed text-center flex-grow">
+            "{review.description}"
+          </blockquote>
         </div>
-      ))
-    }
+      ))}
+    </div>
+    
+    <!-- Pagination Dots -->
+    <div id="pagination-dots" class="flex justify-center mt-8 gap-3">
+      <!-- Dots will be generated dynamically by TypeScript -->
+    </div>
   </div>
   
-  <div class="nasa-reviews-action flex justify-center mt-8">
+  <!-- Action Button -->
+  <div class="nasa-reviews-action flex justify-center mt-12">
     <NasaBuyNowButton />
   </div>
 </section>
+
+<script>
+  import './nasaCarousel.ts';
+</script>

@@ -1,45 +1,246 @@
 ---
 import "./ClassicThemeHeader.css";
-import type { BlockData } from "../../../../../lib/api/types";
+import type { BlockData, Data } from "../../../../../lib/api/types";
 import ClassicLanguageSwitcher from "../UI/ClassicLanguageSwitcher/ClassicLanguageSwitcher.astro";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import { getClassicThemeComponent } from "../../../../../lib/utils/ThemeSelect";
 
 const defaultLogoSrc : string =  "assets/default-logo.svg";
 
 const data : BlockData = Astro.props.data;
+const funnelPage: Data = Astro.props.funnelPage;
 
 const logo = data?.logo || defaultLogoSrc;
 const title = data?.title;
 const subtitle = data?.subtitle || "";
+
+// Custom Arabic titles for components
+const customComponentTitles = {
+  [FunnelClassicComponents.ClassicProductFeatures]: "عن المنتج",
+  [FunnelClassicComponents.ClassicProductPreview]: "العرض التوضيحي", 
+  [FunnelClassicComponents.ClassicProductUsage]: "طريقة الاستخدام",
+  [FunnelClassicComponents.ClassicTodayOrders]: "طلبات اليوم",
+  [FunnelClassicComponents.Classic_Before_After]: "خدماتنا",
+  [FunnelClassicComponents.ClassicReviews]: "تجارب المشترين",
+  [FunnelClassicComponents.ClassicTextBar]: "متوفر بالسعودية 🇸🇦",
+  [FunnelClassicComponents.ClassicImageTextOverLay]: "عن المنتج",
+  [FunnelClassicComponents.ClassicImageTextBeside]: "عن المنتج", 
+  [FunnelClassicComponents.ClassicFaq]: "الأسئلة",
+  [FunnelClassicComponents.ClassicDeliveryFeatures]: "الشحن",
+};
+
+// Generate anchors from available components with comprehensive null checking
+const availableAnchors = funnelPage?.blocks
+  ?.map((block) => {
+    // Check if block exists and has required properties
+    if (!block || !block.name || !block.data) {
+      return null;
+    }
+
+    const component = getClassicThemeComponent(block.name);
+    
+    // Check if component exists
+    if (component) {
+      return {
+        component: component,
+        componentData: block.data,
+        customTitle: customComponentTitles[component] || block.data?.title || component
+      };
+    }
+    return null;
+  })
+  ?.filter((anchor): anchor is NonNullable<typeof anchor> => anchor !== null) || [];
+
+// Order anchors based on render order
+const RENDER_ORDER = [
+  FunnelClassicComponents.ClassicProductFeatures,
+  FunnelClassicComponents.ClassicProductPreview,
+  FunnelClassicComponents.ClassicProductUsage,
+  FunnelClassicComponents.ClassicTodayOrders,
+  FunnelClassicComponents.Classic_Before_After,
+  FunnelClassicComponents.ClassicReviews,
+  FunnelClassicComponents.ClassicTextBar,
+  FunnelClassicComponents.ClassicImageTextOverLay,
+  FunnelClassicComponents.ClassicImageTextBeside,
+  FunnelClassicComponents.ClassicFaq,
+  FunnelClassicComponents.ClassicDeliveryFeatures,
+];
+
+// Safe filtering with additional null checks
+const orderedAnchors = RENDER_ORDER
+  .map(component => {
+    const foundAnchor = availableAnchors.find(anchor => 
+      anchor && anchor.component === component
+    );
+    return foundAnchor || null;
+  })
+  .filter((anchor): anchor is NonNullable<typeof anchor> => {
+    // Ensure anchor exists and has required properties
+    return (
+      anchor !== null &&
+      !!anchor.component &&
+      !!anchor.customTitle &&
+      typeof anchor.customTitle === 'string' &&
+      anchor.customTitle.trim() !== ''
+    );
+  });
+console.log(orderedAnchors);
 ---
+
 <header>
   <div id="classic-header" class="classic-header fixed top-0 left-0 right-0 z-50">
-    <div class="container mx-auto py-2">
-      <ClassicLanguageSwitcher />
-      
+    <div class="w-11/12 md:container mx-auto py-2">
+      <!-- Top row with Language Switcher and Menu Button -->
+      <div class="flex justify-between items-center mb-2">
+        <ClassicLanguageSwitcher />
+        
+        {orderedAnchors && orderedAnchors.length > 0 && (
+          <button 
+            id="header-menu-button"
+            class="classic-menu-button p-2 rounded-lg transition-all duration-300 md:hidden"
+            aria-label="Open navigation menu"
+          >
+            <div class="hamburger-icon">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+            </div>
+          </button>
+        )}
+      </div>
+             
       <div class="flex flex-col items-center">
         <div class="flex flex-col items-center text-center">
           <img
             id="headerLogo"
             src={logo}
-            alt={title}
+            alt={title || "Logo"}
             class="classic-header-logo w-25 mb-2 object-contain"
           />
-          <h1 class="classic-header-title text-4xl font-bold leading-tight">
-            {title}
-          </h1>
-          {subtitle && (
+          {title && (
+            <h1 class="classic-header-title text-4xl font-bold leading-tight">
+              {title}
+            </h1>
+          )}
+          {!!subtitle && subtitle.trim() !== '' && (
             <p class="classic-header-subtitle text-sm max-w-80 mt-1" title={subtitle}>
               {subtitle}
             </p>
           )}
         </div>
+        
+        <!-- Enhanced Desktop Navigation with Overflow Handling -->
+        {orderedAnchors && orderedAnchors.length > 0 && (
+          <nav class="classic-desktop-nav hidden md:block w-full mt-4" id="desktop-nav">
+            <div class="relative flex items-center justify-center">
+              <!-- Visible Navigation Items -->
+              <div class="nav-container flex items-center overflow-hidden" id="nav-container">
+                <ul class="flex flex-row items-center gap-2 transition-all duration-300" id="nav-list">
+                  {orderedAnchors.map((anchor, index) => {
+                    if (!anchor || !anchor.component || !anchor.customTitle) {
+                      return null;
+                    }
+                    
+                    return (
+                      <li class="nav-item flex-shrink-0" data-index={index}>
+                        <a 
+                          href={`#${anchor.component}`}
+                          class="classic-desktop-nav-link block px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap hover:scale-105"
+                          data-anchor-target={anchor.customTitle}
+                        >
+                          {anchor.componentData.title}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              <!-- Dots Indicator (shows when items are hidden) -->
+              <div class="nav-dots hidden items-center gap-1 mx-2" id="nav-dots">
+                <div class="w-1 h-1 bg-current rounded-full opacity-60"></div>
+                <div class="w-1 h-1 bg-current rounded-full opacity-60"></div>
+                <div class="w-1 h-1 bg-current rounded-full opacity-60"></div>
+              </div>
+
+              <!-- Overflow Dropdown -->
+              <div class="nav-overflow relative hidden" id="nav-overflow">
+                <button 
+                  class="overflow-toggle px-3 py-2 text-sm font-medium rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-1"
+                  id="overflow-toggle"
+                  aria-label="More navigation items"
+                >
+                  <span>المزيد</span>
+                  <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" id="dropdown-arrow"></i>
+                </button>
+                
+                <!-- Dropdown Menu -->
+                <div class="overflow-dropdown absolute top-full left-1/2 transform -translate-x-1/2 mt-2 py-2 rounded-lg shadow-lg border min-w-40 z-10 hidden" id="overflow-dropdown">
+                  <ul class="overflow-items" id="overflow-items">
+                    <!-- Hidden items will be populated here by JavaScript -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
+        )}
       </div>
     </div>
   </div>
-  <div class="pt-36"></div>
+  
+  <!-- Mobile Navigation Menu Overlay - Only visible on mobile -->
+  {orderedAnchors && orderedAnchors.length > 0 && (
+    <div id="header-menu-overlay" class="classic-menu-overlay fixed inset-0 z-[60] md:hidden">
+      <div class="classic-menu-backdrop absolute inset-0" id="header-menu-backdrop"></div>
+      <div class="classic-menu-content absolute top-0 right-0 h-full w-80 max-w-[85vw] p-6">
+        <!-- Menu Header -->
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="classic-menu-title text-lg font-semibold">القائمة</h3>
+          <button 
+            id="header-menu-close"
+            class="classic-menu-close p-2 rounded-lg transition-all duration-300"
+            aria-label="Close menu"
+          >
+            <i class="fa-solid fa-times text-xl"></i>
+          </button>
+        </div>
+        
+        <!-- Menu Items with Custom Titles -->
+        <nav class="classic-menu-nav">
+          <ul class="flex flex-col gap-2">
+            {orderedAnchors.map((anchor) => {
+              // Additional safety check during rendering
+              if (!anchor || !anchor.component || !anchor.customTitle) {
+                return null;
+              }
+              
+              return (
+                <li>
+                  <a 
+                    href={`#${anchor.component}`}
+                    class="classic-menu-link block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300"
+                    data-anchor-target={anchor.customTitle}
+                  >
+                    {anchor.componentData.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  )}
+  
+  <div class="pt-36 md:pt-56"></div>
 </header>
 
 <script>
-  import { initHeader } from "./ClassicThemeHeader";
+  import { initHeader, initEnhancedNavigation } from "./ClassicThemeHeader";
+  
+  
+
+  // Initialize both header and enhanced navigation
   initHeader();
+  initEnhancedNavigation();
 </script>
