@@ -1,68 +1,34 @@
 ---
-import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
-
+import "./ClassicLanguageSwitcher.css";
 // Get language from cookie during SSR
 const currentLang = Astro.cookies.get('lang')?.value || 'en';
 const isArabic = currentLang === 'ar';
+
+// Configuration options
+const redirectDelay = 150; // Delay before redirect in ms
+const cookieMaxAge = 31536000; // 1 year in seconds
+const showTransition = true; // Enable visual transition
 ---
 
 <div class="flex justify-end">
-  <button
-    id="langToggleBtn"
-    class="p-1 text-xs rounded-full hover:bg-gray-100 focus:outline-none"
-    aria-label="Switch language"
+  <language-switcher 
+    data-lang-current={currentLang}
+    data-lang-redirect-delay={redirectDelay}
+    data-lang-cookie-max-age={cookieMaxAge}
+    data-lang-show-transition={showTransition}
   >
-    <span class="text-xs font-medium" id="langText">{isArabic ? "En" : "عربي"}</span>
-  </button>
+    <button
+      data-lang-toggle-btn
+      class="p-1 classic-lang-switcher text-xs  hover:bg-gray-100 focus:outline-none"
+      aria-label="Switch language"
+    >
+      <span class="text-xs font-medium" data-lang-text>{isArabic ? "En" : "عربي"}</span>
+    </button>
+  </language-switcher>
 </div>
 
 <script>
   import { initTranslations } from "../../../../../../lib/utils/i18n/client";
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const langToggleBtn = document.getElementById("langToggleBtn");
-    const langText = document.getElementById("langText");
-
-    if (langToggleBtn && langText) {
-      // Get initial language from cookie
-      const getCookie = (name: string) => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop()?.split(';').shift();
-        return 'en';
-      };
-
-      const currentLang = getCookie('lang') || 'en';
-      const isArabic = currentLang === 'ar';
-
-      // Set initial button state
-      langText.textContent = isArabic ? "EN" : "عربي";
-      langToggleBtn.setAttribute(
-        "aria-label",
-        isArabic ? "Switch to English" : "التبديل إلى العربية",
-      );
-
-      langToggleBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        const newLang = currentLang === "en" ? "ar" : "en";
-
-        // Save to cookie
-        document.cookie = `lang=${newLang}; path=/; max-age=31536000`; // 1 year expiry
-
-        // Update URL query param
-        const url = new URL(window.location.href);
-        url.searchParams.set("lang", newLang);
-
-        // Visual feedback
-        langToggleBtn.classList.add("opacity-60", "scale-95");
-
-        // Redirect with new lang
-        setTimeout(() => {
-          window.location.href = url.toString();
-        }, 150);
-      });
-    }
-  });
+  import "./ClassicLanguageSwitcher";  
   initTranslations();
 </script>

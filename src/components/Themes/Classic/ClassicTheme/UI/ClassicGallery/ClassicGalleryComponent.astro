@@ -2,18 +2,30 @@
 import "./ClassicGalleryComponent.css";
 import type { BlockData, Image } from "../../../../../../lib/api/types";
 
-const data : BlockData = Astro.props.data;
-const gallery : Image[] = data.galleryimages ?? [];   
+const data: BlockData = Astro.props.data;
+const gallery: Image[] = data.galleryimages ?? [];
+
+// Gallery options
+const autoPlay = data.autoPlay ?? false;
+const autoPlayDelay = data.autoPlayDelay ?? 5000;
+const enableKeyboard = data.enableKeyboard ?? true;
+const enableTouch = data.enableTouch ?? true;
 ---
 
 <!-- Gallery Section - Enhanced -->
-<div id="classic-gallery" class="lg:w-1/2 lg:sticky lg:top-0 lg:self-start">
+<classic-gallery 
+    class="lg:w-1/2 lg:sticky lg:top-0 lg:self-start"
+    data-gallery-auto-play={autoPlay}
+    data-gallery-auto-play-delay={autoPlayDelay}
+    data-gallery-enable-keyboard={enableKeyboard}
+    data-gallery-enable-touch={enableTouch}
+>
     <div class="flex flex-col gap-6">
         <!-- Main Image Display -->
         <div class="relative">
             <div class="classic-gallery-main relative overflow-hidden">
                 <img
-                    id="mainImage"
+                    data-gallery-main-image
                     src={gallery[0]?.src}
                     class="classic-main-image w-full h-96 lg:h-[500px] object-cover"
                     alt={gallery[0]?.alt}
@@ -21,7 +33,7 @@ const gallery : Image[] = data.galleryimages ?? [];
                 
                 <!-- Navigation Buttons -->
                 <button
-                    id="prevBtn"
+                    data-gallery-prev-btn
                     class="classic-gallery-nav classic-gallery-nav-left absolute top-1/2 -translate-y-1/2 left-4 w-12 h-12 rounded-full flex items-center justify-center border-none cursor-pointer"
                 >
                     <svg
@@ -39,7 +51,7 @@ const gallery : Image[] = data.galleryimages ?? [];
                 </button>
                 
                 <button
-                    id="nextBtn"
+                    data-gallery-next-btn
                     class="classic-gallery-nav classic-gallery-nav-right absolute top-1/2 -translate-y-1/2 right-4 w-12 h-12 rounded-full flex items-center justify-center border-none cursor-pointer"
                 >
                     <svg
@@ -58,7 +70,7 @@ const gallery : Image[] = data.galleryimages ?? [];
                 
                 <!-- Image Counter -->
                 <div class="classic-gallery-counter absolute bottom-4 left-1/2 -translate-x-1/2 py-2 px-4 rounded-full text-sm font-medium border">
-                    <span id="currentImageIndex">1</span> / <span id="totalImages">{gallery.length}</span>
+                    <span data-gallery-current-index>1</span> / <span data-gallery-total-images>{gallery.length}</span>
                 </div>
             </div>
         </div>
@@ -71,7 +83,8 @@ const gallery : Image[] = data.galleryimages ?? [];
                     <img
                         src={image.src}
                         class={`classic-thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-xl cursor-pointer border-2 border-transparent ${index === 0 ? 'classic-thumbnail-active' : ''}`}
-                        data-index={index}
+                        data-gallery-thumbnail
+                        data-gallery-index={index}
                         alt={image.alt}
                     />
                   ))
@@ -79,9 +92,8 @@ const gallery : Image[] = data.galleryimages ?? [];
             </div>
         </div>
     </div>
-</div>
+</classic-gallery>
 
 <script>
     import "./ClassicGalleryComponent";
-    // The gallery will initialize automatically via the DOMContentLoaded event
 </script>

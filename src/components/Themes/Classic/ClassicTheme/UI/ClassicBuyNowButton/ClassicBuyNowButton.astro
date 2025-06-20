@@ -1,13 +1,14 @@
 ---
 // Enhanced ClassicBuyNowButton component with proper theming
 // Optional props for button variations
+import { FunnelClassicComponents } from "../../../../../../lib/constants/themes";
 import "./ClassicBuyNowButton.css";
 ---
 
 <div>
     <a
         class="classic-buy-now-button"
-        href="#classic-quantity-selection"
+        href=`#${FunnelClassicComponents.ClassicProductFunnel}`
     >
         <i class="fa-solid fa-cart-shopping classic-buy-now-button-icon"></i>
         <span data-translate="CTA.button"></span>

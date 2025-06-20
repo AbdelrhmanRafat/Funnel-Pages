@@ -1,0 +1,10 @@
+.classic-lang-switcher {
+    color: var(  --classic-color-on-surface);
+    transition:cubic-bezier(1, 0, 0, 1);
+}
+.classic-lang-switcher:hover {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+    border-radius: var(--classic-section-radius);
+    scale: 1.1;
+}
