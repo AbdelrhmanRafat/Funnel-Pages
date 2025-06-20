@@ -4,7 +4,7 @@ import type { BlockData, Faqs } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
-const faqs : Faqs[] = data.faqs ?? [];
+const faqs: Faqs[] = data.faqs ?? [];
 ---
 
 <!-- FAQ Section Component for Astro -->
@@ -14,35 +14,37 @@ const faqs : Faqs[] = data.faqs ?? [];
         <i class={data.icon}></i>
         <h5>{data.title}</h5>
     </div>
-    
     <!-- FAQ Items -->
-    <div class="flex flex-col gap-4">
+    <faq-accordion class="flex flex-col gap-4">
         {
-            faqs.map((faq, index) => (
-                <div class="classic-faq-item overflow-hidden">
-                    <button
+            faqs.map((faq) => (
+                <faq-item class="classic-faq-item overflow-hidden">
+                    <button 
                         class="classic-faq-question w-full p-6 flex items-center justify-between bg-transparent border-none cursor-pointer"
-                        data-faq-index={index}
+                        data-faq-button
                     >
                         <span class="classic-faq-question-text font-medium">
                             {faq.question}
                         </span>
-                        <span class="classic-faq-icon text-xl font-light">
+                        <span 
+                            class="classic-faq-icon text-xl font-light transition-transform duration-300 ease-in-out rotate-0"
+                            data-faq-icon
+                        >
                             +
                         </span>
                     </button>
-                    <div
+                    <div 
                         class="classic-faq-answer px-6 max-h-0 overflow-hidden"
-                        data-answer-index={index}
+                        data-faq-answer
                     >
                         <div class="classic-faq-answer-content leading-relaxed py-2">
                             {faq.answer}
                         </div>
                     </div>
-                </div>
+                </faq-item>
             ))
         }
-    </div>
+    </faq-accordion>
 </section>
 
 <script>
