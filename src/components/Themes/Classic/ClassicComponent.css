@@ -30,7 +30,7 @@ body {
 }
 
 /* === Scroll to Top Button === */
-.scrollToTopBtn {
+.classic-scrollToTopBtn {
     background-color: var(--classic-color-primary);
     color: var(--classic-color-on-primary);
     width: 3.5rem; /* w-14 */
@@ -49,18 +49,18 @@ body {
     transform: translateY(20px);
 }
 
-.scrollToTopBtn.show {
+.classic-scrollToTopBtn.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-.scrollToTopBtn:hover {
+.classic-scrollToTopBtn:hover {
     background-color: var(--classic-color-primary-dark);
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-.scrollToTopBtn:active {
+.classic-scrollToTopBtn:active {
     transform: translateY(0) scale(0.95);
 }

@@ -2,8 +2,7 @@
 .classic-option-panel {
     background-color: var(--classic-color-surface);
     border-radius: var(--classic-section-radius);
-    border-color: var(--classic-color-primary);
-    border-color: rgba(0, 150, 136, 0.2);
+    border-color: var(--classic-color-primary-light);
 }
 
 .classic-panel-header {
@@ -11,9 +10,8 @@
 }
 
 .classic-selection-indicator {
-    background-color: var(--classic-color-primary-light);
-    background-color: rgba(77, 182, 172, 0.2);
-    color: var(--classic-color-primary-dark);
+    background-color: var(--classic-color-secondary);
+    color: var(--classic-color-on-secondary);
 }
 
 .classic-selection-title {
@@ -23,14 +21,13 @@
 .classic-size-option {
     border-color: var(--classic-color-outline);
     transition: all 0.2s ease;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: var(--classic-section-shadow);
     color: var(--classic-color-on-surface-variant);
 }
 
 .classic-size-option:hover {
-    background-color: var(--classic-color-primary-light);
-    background-color: rgba(77, 182, 172, 0.1);
-    color: var(--classic-color-primary-dark);
+    background-color: var(--classic-color-secondary);
+    color: var(--classic-color-on-secondary);
 }
 
 .classic-color-option {
@@ -43,7 +40,7 @@
 
 .classic-color-swatch {
     border-color: var(--classic-color-surface);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--classic-section-shadow);
 }
 
 .classic-color-name {
@@ -63,16 +60,16 @@
 }
 
 .selected-color-option .classic-color-name {
-    color: var(--classic-color-primary-dark);
+    color: var(--classic-color-secondary);
     font-weight: 600;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .selected-size-option {
-    color: var(--classic-color-primary-dark);
-    border-color: var(--classic-color-primary);
-    box-shadow: 0 4px 12px rgba(0, 150, 136, 0.3), 
-                0 0 0 2px rgba(0, 150, 136, 0.1);
+    background-color: var(--classic-color-secondary);
+    color: var(--classic-color-on-secondary);
+    border-color: var(--classic-color-secondary-light);
+    box-shadow: var(--classic-section-shadow);
     transform: translateY(-2px);
     font-weight: 600;
 }
