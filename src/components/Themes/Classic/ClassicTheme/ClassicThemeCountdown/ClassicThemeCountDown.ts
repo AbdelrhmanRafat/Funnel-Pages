@@ -1,9 +1,4 @@
-/**
- * ClassicThemeCountDown.ts
- * 
- * This file handles the countdown timer functionality for the Classic Theme.
- * It updates the hours, minutes, and seconds display based on the provided time.
- */
+// ClassicThemeCountDown.ts - Simple Web Component for Countdown Timer
 
 interface CountdownElements {
   hours: HTMLElement | null;
@@ -11,18 +6,44 @@ interface CountdownElements {
   seconds: HTMLElement | null;
 }
 
-class CountdownTimer {
-  private timeLeft: number;
-  private timer: NodeJS.Timeout | null = null;
-  private elements: CountdownElements;
+class CountdownTimer extends HTMLElement {
+  private timeLeft: number = 0;
+  private timer: number | null = null;
+  private elements: CountdownElements = {
+    hours: null,
+    minutes: null,
+    seconds: null
+  };
 
-  constructor(totalSeconds: number) {
-    this.timeLeft = totalSeconds;
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    this.initializeSettings();
+    this.initializeElements();
+    this.start();
+  }
+
+  disconnectedCallback() {
+    this.stop();
+  }
+
+  private initializeSettings(): void {
+    this.timeLeft = parseInt(this.getAttribute('data-total-seconds') || '0');
+  }
+
+  private initializeElements(): void {
     this.elements = {
-      hours: document.getElementById('hours'),
-      minutes: document.getElementById('minutes'),
-      seconds: document.getElementById('seconds')
+      hours: this.querySelector('[data-countdown-hours]') as HTMLElement,
+      minutes: this.querySelector('[data-countdown-minutes]') as HTMLElement,
+      seconds: this.querySelector('[data-countdown-seconds]') as HTMLElement
     };
+
+    if (!this.elements.hours || !this.elements.minutes || !this.elements.seconds) {
+      console.warn('Countdown Timer: Required elements not found');
+      return;
+    }
   }
 
   private updateDisplay(): void {
@@ -42,7 +63,7 @@ class CountdownTimer {
     if (this.timer) return;
 
     this.updateDisplay();
-    this.timer = setInterval(() => {
+    this.timer = window.setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
         this.updateDisplay();
@@ -60,11 +81,21 @@ class CountdownTimer {
   }
 }
 
-export function initCountdown(): void {
-  const countdownContainer = document.getElementById('countdown');
-  if (!countdownContainer) return;
+// Register the custom element
+document.addEventListener('DOMContentLoaded', () => {
+  if (!customElements.get('countdown-timer')) {
+    customElements.define('countdown-timer', CountdownTimer);
+  }
+});
 
-  const totalSeconds = parseInt(countdownContainer.dataset.time ?? '0') || 0;
-  const timer = new CountdownTimer(totalSeconds);
-  timer.start();
-}
+// Handle Astro page transitions
+document.addEventListener('astro:page-load', () => {
+  const countdownTimers = document.querySelectorAll('countdown-timer:not(:defined)');
+  countdownTimers.forEach(timer => {
+    if (timer instanceof CountdownTimer) {
+      timer.connectedCallback();
+    }
+  });
+});
+
+export { CountdownTimer };

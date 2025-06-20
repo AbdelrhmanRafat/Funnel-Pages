@@ -2,6 +2,7 @@
 .classic-usage-card {
     background-color: var(--classic-color-surface-container);
     box-shadow: var(--classic-section-shadow);
+    border-radius: var(--classic-section-radius);
     transition: transform 0.2s ease;
 }
 

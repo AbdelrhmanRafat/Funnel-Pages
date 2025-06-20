@@ -10,10 +10,10 @@ const data: BlockData = Astro.props.data;
 <section id={FunnelClassicComponents.Classic_Before_After} class="classic-section">
     <!-- Section Header -->
     <div class="classic-middle-title flex flex-col justify-center items-center gap-3">
-        <h1 class="text-center classic-section-title">
+        <h3 class="text-center classic-section-title">
             {data.title}
-        </h1>
-        <p class="text-xl max-w-2xl mx-auto font-medium classic-section-description">
+        </h3>
+        <p class="text-xl text-center font-medium classic-section-description">
           {data.description}
         </p>
         <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
@@ -21,10 +21,10 @@ const data: BlockData = Astro.props.data;
     
     <div class="flex flex-col justify-center items-center gap-10">
     <!-- Before and After Images Container -->
-    <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-12">
         <div class="flex flex-col gap-3 justify-center items-center">
         <!-- Before Image -->
-        <div class="classic-image-card relative rounded-xl overflow-hidden">
+        <div class="classic-image-card relative overflow-hidden">
             <!-- Badge -->
             <div class="classic-badge-before absolute top-6 right-6 z-10 px-6 py-3 rounded-full font-bold text-lg shadow-lg">
                 <span class="classic-badge-content flex items-center">
@@ -53,11 +53,10 @@ const data: BlockData = Astro.props.data;
             <h3 class="text-2xl font-bold classic-card-title mb-2">{data.beforetitle}</h3>
             <p class="classic-card-description">{data.beforedescription}</p>
         </div>
-        </div>
-               
+        </div>   
         <div class="flex flex-col gap-3 justify-center items-center">
         <!-- After Image -->
-        <div class="classic-image-card relative rounded-xl overflow-hidden">
+        <div class="classic-image-card relative overflow-hidden">
             <!-- Badge -->
             <div class="classic-badge-after absolute top-6 right-6 z-10 px-6 py-3 rounded-full font-bold text-lg shadow-lg">
                 <span class="classic-badge-content flex items-center">
@@ -87,7 +86,7 @@ const data: BlockData = Astro.props.data;
         </div>
     </div>
     </div>
-    
+
     <!-- Call to Action -->
    <ClassicBuyNowButton />
 </div>

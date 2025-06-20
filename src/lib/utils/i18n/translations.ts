@@ -135,6 +135,9 @@ export const translations = {
       finalTotal: "Final Total",
       cancel: "Cancel"
     },
+    CTA : {
+     button : "Buy Now",
+    },
     celebration: {
       orderConfirmed: "🎉 Order Confirmed Successfully!",
       thankYou: "Thank You for Your Purchase!",
@@ -145,7 +148,8 @@ export const translations = {
       contactYou: "We'll Contact You",
       contactTime: "Within 24 Hours",
       continueShopping: "Continue Shopping"
-    }
+    },
+    
   },
   ar: {
     countdown: {
@@ -153,6 +157,9 @@ export const translations = {
       hours: "ساعة",
       minutes: "دقيقة",
       seconds: "ثانية",
+    },
+    CTA : {
+     button : "شراء المنتج الآن",
     },
     form: {
       completeOrder: "إتمام الطلب",

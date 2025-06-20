@@ -3,7 +3,8 @@
     background-color: var(--classic-color-surface-variant);
     border-radius: var(--classic-section-radius);
     border-left-color: var(--classic-color-primary);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: var(--classic-section-padding);
+    box-shadow: var(--classic-section-shadow);
 }
 
 .classic-review-description {
@@ -12,6 +13,11 @@
 
 .classic-review-name {
     color: var(--classic-color-primary);
+}
+
+.classic-review-author-image {
+    background-color: var(--classic-color-primary);
+    box-shadow: var(--classic-section-shadow);
 }
 
 .classic-review-city {

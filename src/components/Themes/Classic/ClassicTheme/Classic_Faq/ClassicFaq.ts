@@ -8,7 +8,6 @@ class FaqItem extends HTMLElement {
     constructor() {
         super();
     }
-
     connectedCallback() {
         this.initializeElements();
         this.attachEventListeners();
@@ -71,7 +70,6 @@ class FaqItem extends HTMLElement {
         this.icon.classList.add('rotate-0');
     }
 }
-
 class FaqAccordion extends HTMLElement {
     constructor() {
         super();
@@ -91,7 +89,6 @@ class FaqAccordion extends HTMLElement {
         });
     }
 }
-
 // Wait for DOM to be ready before registering components
 document.addEventListener('DOMContentLoaded', () => {
     // Register the custom elements only if not already registered
@@ -103,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
         customElements.define('faq-accordion', FaqAccordion);
     }
 });
-
 // Also handle Astro's page transitions
 document.addEventListener('astro:page-load', () => {
     // Re-initialize if needed for Astro view transitions
@@ -115,6 +111,5 @@ document.addEventListener('astro:page-load', () => {
         }
     });
 });
-
 // Export for potential external use
 export { FaqItem, FaqAccordion };

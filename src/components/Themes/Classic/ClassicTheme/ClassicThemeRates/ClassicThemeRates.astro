@@ -6,7 +6,7 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const ratingData: BlockData = Astro.props.ratingData;
 ---
-<div id={FunnelClassicComponents.ClassicRates} class="classic-rates w-full">
+<div id={FunnelClassicComponents.ClassicRates} class="classic-rates w-full flex justify-between items-center">
   <div class="classic-rating-display">
     <span>{ratingData.rate}</span>
     <i class="fa-solid fa-star classic-rating-star"></i>

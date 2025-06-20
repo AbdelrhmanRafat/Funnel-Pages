@@ -5,14 +5,14 @@
 // - data: An object of type BlockData, containing company name and year for the copyright notice.
 import "./ClassicThemeFooter.css";
 import type { BlockData } from "../../../../../lib/api/types";
-import { FunnelNasaComponents } from "../../../../../lib/constants/themes";
+import { FunnelClassicComponents, FunnelNasaComponents } from "../../../../../lib/constants/themes";
 // Defines the expected props for the component.
 
 // Retrieves the data prop passed to the component.
 const data: BlockData = Astro.props.data;
 ---
 
-<footer id={FunnelNasaComponents.NasaFooter} class="classic-footer text-center w-full p-14 md:p-24 border-t-2 mx-auto">
+<footer id={FunnelClassicComponents.ClassicFooter} class="classic-footer text-center w-full p-14 md:p-24 border-t-2 mx-auto">
   <div class="classic-footer-content flex flex-col justify-center items-center gap-7">
     <!-- Title -->
     <h5 class="classic-footer-title text-3xl font-bold">{data.company_name}</h5>

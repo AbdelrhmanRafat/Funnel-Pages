@@ -16,14 +16,14 @@ const data: BlockData = Astro.props.data;
   </div>
   
   <!-- Product Grid -->
-  <div class="classic-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start rounded-2xl overflow-hidden">
+  <div class="classic-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start overflow-hidden">
     
     <!-- Image Section -->
-    <div class="h-64 sm:h-96 overflow-hidden">
+    <div class="h-64 sm:h-96  overflow-hidden">
       <img 
         src={data.image?.src}
         alt={data.image?.alt}
-        class="w-full h-full object-cover rounded-2xl"
+        class="w-full h-full object-cover classic-image-text-beside-image"
       />
     </div>
     
@@ -39,5 +39,4 @@ const data: BlockData = Astro.props.data;
       <ClassicBuyNowButton />
     </div>
   </div>
-  
 </section>

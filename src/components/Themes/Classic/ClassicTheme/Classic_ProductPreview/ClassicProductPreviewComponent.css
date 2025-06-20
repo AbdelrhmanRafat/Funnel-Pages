@@ -3,6 +3,7 @@
 /* === Product Preview Specific Classes === */
 .classic-product-video-container {
     border-color: var(--classic-color-primary);
+    border-radius: var(--classic-section-radius);
     box-shadow: var(--classic-section-shadow);
 }
 
@@ -64,7 +65,7 @@
 }
 
 .classic-product-features-container--secondary .classic-product-feature-subtitle {
-    color: rgba(255, 255, 255, 0.7); /* Lighter version of on-secondary */
+    color: var(--classic-color-on-secondary-light);
 }
 
 .classic-product-features-container--secondary .classic-product-features-header {

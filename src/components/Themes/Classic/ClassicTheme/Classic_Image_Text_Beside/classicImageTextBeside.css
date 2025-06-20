@@ -3,6 +3,9 @@
   background-color: var(--classic-color-surface);
   border-radius: var(--classic-section-radius);
 }
+.classic-image-text-beside-image {
+  border-radius: var(--classic-section-radius);
+}
 
 .classic-image-text-beside-content {
   background-color: var(--classic-color-surface-container-high);

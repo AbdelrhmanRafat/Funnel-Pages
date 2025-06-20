@@ -3,7 +3,7 @@
     background-color: var(--classic-color-surface);
     border: 1px solid var(--classic-color-outline-variant);
     transition: all 0.3s ease;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: var(--classic-section-shadow);
 }
 
 .classic-feature-card:hover {
