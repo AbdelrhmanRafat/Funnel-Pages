@@ -1,7 +1,7 @@
 ---
 import type { Data } from "../../../../../lib/api/types";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
-import { gettroyThemeComponent } from "../../../../../lib/utils/ThemeSelect";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
+import { getTroyThemeComponent } from "../../../../../lib/utils/ThemeSelect";
 
 
 const funnelPage: Data = Astro.props.funnelPage;
@@ -15,7 +15,7 @@ const availableAnchors = funnelPage?.blocks
       return null;
     }
 
-    const component = gettroyThemeComponent(block.name);
+    const component = getTroyThemeComponent(block.name);
     
     // Check if component exists and has title from API
     if (component && block.data?.title) {
@@ -30,17 +30,17 @@ const availableAnchors = funnelPage?.blocks
 
 // Order anchors based on render order
 const RENDER_ORDER = [
-  FunneltroyComponents.troyProductFeatures,
-  FunneltroyComponents.troyProductPreview,
-  FunneltroyComponents.troyProductUsage,
-  FunneltroyComponents.troyTodayOrders,
-  FunneltroyComponents.troy_Before_After,
-  FunneltroyComponents.troyReviews,
-  FunneltroyComponents.troyTextBar,
-  FunneltroyComponents.troyImageTextOverLay,
-  FunneltroyComponents.troyImageTextBeside,
-  FunneltroyComponents.troyFaq,
-  FunneltroyComponents.troyDeliveryFeatures,
+  FunnelTroyComponents.TroyProductFeatures,
+  FunnelTroyComponents.TroyProductPreview,
+  FunnelTroyComponents.TroyProductUsage,
+  FunnelTroyComponents.TroyTodayOrders,
+  FunnelTroyComponents.Troy_Before_After,
+  FunnelTroyComponents.TroyReviews,
+  FunnelTroyComponents.TroyTextBar,
+  FunnelTroyComponents.TroyImageTextOverLay,
+  FunnelTroyComponents.TroyImageTextBeside,
+  FunnelTroyComponents.TroyFaq,
+  FunnelTroyComponents.TroyDeliveryFeatures,
 ];
 
 // Safe filtering with additional null checks

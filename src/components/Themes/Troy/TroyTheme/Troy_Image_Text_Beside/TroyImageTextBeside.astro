@@ -1,14 +1,14 @@
 ---
 // ProductImageSection.astro
-import "./troyImageTextBeside.css"
+import "./TroyImageTextBeside.css"
 import type { BlockData } from "../../../../../lib/api/types";
-import troyBuyNowButton from "../UI/troyBuyNowButton/troyBuyNowButton.astro";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import TroyBuyNowButton from "../UI/TroyBuyNowButton/TroyBuyNowButton.astro";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 ---
 
-<section id={FunneltroyComponents.troyImageTextBeside} class="troy-section px-4 sm:px-6 lg:px-12 py-12">
+<section id={FunnelTroyComponents.TroyImageTextBeside} class="troy-section px-4 sm:px-6 lg:px-12 py-12">
   <!-- Header -->
   <div class="troy-section-header">
     <i class="fa-solid fa-images"></i>
@@ -36,7 +36,7 @@ const data: BlockData = Astro.props.data;
         {data.description}
       </p>
       <div class="flex-1"></div>
-      <troyBuyNowButton />
+      <TroyBuyNowButton />
     </div>
   </div>
 </section>

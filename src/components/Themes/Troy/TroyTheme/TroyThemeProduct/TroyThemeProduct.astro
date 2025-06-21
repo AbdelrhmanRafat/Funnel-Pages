@@ -4,32 +4,32 @@
 // Props:
 // - product: An object of type Product, containing all details about the product.
 // - purchaseOptions: An object of type BlockData, containing data for the purchase options/funnel.
-import "./troyThemeProduct.css";
+import "./TroyThemeProduct.css";
 import type {
     BlockData,
     OptionOption,
     Product,
 } from "../../../../../lib/api/types";
-import troyThemeProductFunnel from "../troyThemeProductFunnel/troyThemeProductFunnel.astro";
-import "./troyThemeProduct.css";
+import TroyThemeProductFunnel from "../TroyThemeProductFunnel/TroyThemeProductFunnel.astro";
+import "./TroyThemeProduct.css";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
-import { troyProductInfoComponents } from "../../../../../lib/constants/themes";
+import { TroyProductInfoComponents } from "../../../../../lib/constants/themes";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
-import troyThemeRates from "../troyThemeRates/troyThemeRates.astro";
-import troyThemeFormFields from "../troy_FormFields/troyThemeFormFields.astro";
-import troyGalleryComponent from "../UI/troyGallery/troyGalleryComponent.astro";
-import troyOrderConfirmationNotice from "../troy_OrderConfirmationNotice/troyOrderConfirmationNotice.astro";
+import TroyThemeRates from "../TroyThemeRates/TroyThemeRates.astro";
+import TroyThemeFormFields from "../Troy_FormFields/TroyThemeFormFields.astro";
+import TroyGalleryComponent from "../UI/TroyGallery/TroyGalleryComponent.astro";
+import TroyOrderConfirmationNotice from "../Troy_OrderConfirmationNotice/TroyOrderConfirmationNotice.astro";
 
 
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
-  troyProductInfoComponents.Rating,
-  troyProductInfoComponents.ProductHeader,
-  troyProductInfoComponents.ProductDescription,
-  troyProductInfoComponents.PurchaseOptions,
-  troyProductInfoComponents.FormFields,
-  troyProductInfoComponents.OrderConfirmation,
+  TroyProductInfoComponents.Rating,
+  TroyProductInfoComponents.ProductHeader,
+  TroyProductInfoComponents.ProductDescription,
+  TroyProductInfoComponents.PurchaseOptions,
+  TroyProductInfoComponents.FormFields,
+  TroyProductInfoComponents.OrderConfirmation,
 ];
 
 // Retrieves product and purchaseOptions from Astro's props.
@@ -53,34 +53,34 @@ interface ComponentCheckResult {
   componentData: any;
 }
 
-function isComponentDataAvailable(componentType: troyProductInfoComponents): ComponentCheckResult {
+function isComponentDataAvailable(componentType: TroyProductInfoComponents): ComponentCheckResult {
   switch (componentType) {
-    case troyProductInfoComponents.Rating:
+    case TroyProductInfoComponents.Rating:
       return {
         isComponentFound: !!ratingData,
         componentData: ratingData,
       };
-    case troyProductInfoComponents.ProductHeader:
+    case TroyProductInfoComponents.ProductHeader:
       return {
         isComponentFound: !!product,
         componentData: product,
       };
-    case troyProductInfoComponents.ProductDescription:
+    case TroyProductInfoComponents.ProductDescription:
       return {
         isComponentFound: !!product && (!!product.description_ar || !!product.description_en),
         componentData: product,
       };
-    case troyProductInfoComponents.PurchaseOptions:
+    case TroyProductInfoComponents.PurchaseOptions:
       return {
         isComponentFound: !!purchaseOptions,
         componentData: purchaseOptions,
       };
-    case troyProductInfoComponents.FormFields:
+    case TroyProductInfoComponents.FormFields:
       return {
         isComponentFound: !!formFieldsData,
         componentData: formFieldsData,
       };
-    case troyProductInfoComponents.OrderConfirmation:
+    case TroyProductInfoComponents.OrderConfirmation:
       return {
         isComponentFound: !!orderConfirmationNoticeData,
         componentData: orderConfirmationNoticeData,
@@ -97,7 +97,7 @@ function isComponentDataAvailable(componentType: troyProductInfoComponents): Com
 <section id="troy-product-details" class="troy-section">
     <div class="flex flex-col lg:flex-row gap-5">
         <!-- Gallery Section -->
-        {galleryData && <troyGalleryComponent data={galleryData} />}
+        {galleryData && <TroyGalleryComponent data={galleryData} />}
         
         <!-- Product Info Section with Array-Based Rendering -->
         <div class="lg:w-1/2 troy-product-info flex flex-col gap-3 justify-center items-center p-2 md:px-8 md:py-3 rounded-xl">
@@ -110,12 +110,12 @@ function isComponentDataAvailable(componentType: troyProductInfoComponents): Com
                     }
 
                     // Rating Component
-                    if (componentType === troyProductInfoComponents.Rating) {
-                        return <troyThemeRates ratingData={componentCheck.componentData} />;
+                    if (componentType === TroyProductInfoComponents.Rating) {
+                        return <TroyThemeRates ratingData={componentCheck.componentData} />;
                     }
 
                     // Product Header Component
-                    if (componentType === troyProductInfoComponents.ProductHeader) {
+                    if (componentType === TroyProductInfoComponents.ProductHeader) {
                         return (
                             <div class="w-full flex flex-col justify-start items-start gap-2 mb-8">
                                 <div class="flex items-center gap-2">
@@ -147,7 +147,7 @@ function isComponentDataAvailable(componentType: troyProductInfoComponents): Com
                     }
 
                     // Product Description Component
-                    if (componentType === troyProductInfoComponents.ProductDescription) {
+                    if (componentType === TroyProductInfoComponents.ProductDescription) {
                         return (
                             <div class="troy-product-description w-full">
                                 <h3 class="troy-description-header text-2xl font-bold pb-3" data-translate="product.description">
@@ -162,9 +162,9 @@ function isComponentDataAvailable(componentType: troyProductInfoComponents): Com
                     }
 
                     // Purchase Options Component
-                    if (componentType === troyProductInfoComponents.PurchaseOptions) {
+                    if (componentType === TroyProductInfoComponents.PurchaseOptions) {
                         return (
-                                <troyThemeProductFunnel
+                                <TroyThemeProductFunnel
                                     data={componentCheck.componentData}
                                     colorSizeOptions={colorSizeOptions}
                                 />
@@ -172,16 +172,16 @@ function isComponentDataAvailable(componentType: troyProductInfoComponents): Com
                     }
 
                     // Form Fields Component
-                    if (componentType === troyProductInfoComponents.FormFields) {
+                    if (componentType === TroyProductInfoComponents.FormFields) {
                         return (
-                                <troyThemeFormFields data={componentCheck.componentData} />
+                                <TroyThemeFormFields data={componentCheck.componentData} />
                         );
                     }
 
                     // Order Confirmation Component
-                    if (componentType === troyProductInfoComponents.OrderConfirmation) {
+                    if (componentType === TroyProductInfoComponents.OrderConfirmation) {
                         return (
-                                <troyOrderConfirmationNotice data={componentCheck.componentData} />
+                                <TroyOrderConfirmationNotice data={componentCheck.componentData} />
                         );
                     }
 
@@ -193,5 +193,5 @@ function isComponentDataAvailable(componentType: troyProductInfoComponents): Com
 </section>
 
 <script>
-    import "./troyThemeProduct";
+    import "./TroyThemeProduct";
 </script>

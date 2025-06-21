@@ -3,16 +3,16 @@
 // It displays information about the store and copyright details.
 // Props:
 // - data: An object of type BlockData, containing company name and year for the copyright notice.
-import "./troyThemeFooter.css";
+import "./TroyThemeFooter.css";
 import type { BlockData } from "../../../../../lib/api/types";
-import { FunneltroyComponents, FunnelNasaComponents } from "../../../../../lib/constants/themes";
+import { FunnelTroyComponents, FunnelNasaComponents } from "../../../../../lib/constants/themes";
 // Defines the expected props for the component.
 
 // Retrieves the data prop passed to the component.
 const data: BlockData = Astro.props.data;
 ---
 
-<footer id={FunneltroyComponents.troyFooter} class="troy-footer text-center w-full p-14 md:p-24 border-t-2 mx-auto">
+<footer id={FunnelTroyComponents.TroyFooter} class="troy-footer text-center w-full p-14 md:p-24 border-t-2 mx-auto">
   <div class="troy-footer-content flex flex-col justify-center items-center gap-7">
     <!-- Title -->
     <h5 class="troy-footer-title text-3xl font-bold">{data.company_name}</h5>

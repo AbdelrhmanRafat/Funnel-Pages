@@ -2,16 +2,16 @@
 // This component renders a preview of the product for the troy theme.
 // Props:
 // - data: An object of type BlockData, containing product preview information.
-import "./troyProductPreviewComponent.css"
+import "./TroyProductPreviewComponent.css"
 import type { BlockData, ProductPreview } from "../../../../../lib/api/types";
-import troyBuyNowButton from "../UI/troyBuyNowButton/troyBuyNowButton.astro";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import TroyBuyNowButton from "../UI/TroyBuyNowButton/TroyBuyNowButton.astro";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 const productPreview: ProductPreview = data.productPreview ?? {} as ProductPreview;
 console.log(productPreview.videoInfo.link);
 ---
-<section id={FunneltroyComponents.troyProductPreview} class="troy-section">
+<section id={FunnelTroyComponents.TroyProductPreview} class="troy-section">
     <!-- Header -->
     <div class="troy-section-header">
         <i class={data.icon}></i>
@@ -76,7 +76,7 @@ console.log(productPreview.videoInfo.link);
                                 
                 <!-- Buy Now Button -->
                 <div class="mt-auto pt-4 border-t border-current/10">
-                    <troyBuyNowButton />
+                    <TroyBuyNowButton />
                 </div>
             </div>
         </div>

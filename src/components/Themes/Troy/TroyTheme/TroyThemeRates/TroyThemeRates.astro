@@ -1,12 +1,12 @@
 ---
-import "./troyThemeRates.css";
+import "./TroyThemeRates.css";
 import type { BlockData } from '../../../../../lib/api/types';
 import { getTranslation } from '../../../../../lib/utils/i18n/translations';
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 
 const ratingData: BlockData = Astro.props.ratingData;
 ---
-<div id={FunneltroyComponents.troyRates} class="troy-rates w-full flex justify-between items-center">
+<div id={FunnelTroyComponents.TroyRates} class="troy-rates w-full flex justify-between items-center">
   <div class="troy-rating-display">
     <span>{ratingData.rate}</span>
     <i class="fa-solid fa-star troy-rating-star"></i>

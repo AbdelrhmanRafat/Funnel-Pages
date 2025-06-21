@@ -1,14 +1,14 @@
 ---
-import "./troyThemeReviews.css";
+import "./TroyThemeReviews.css";
 import type { BlockData, Review } from "../../../../../lib/api/types";
-import troyBuyNowButton from "../UI/troyBuyNowButton/troyBuyNowButton.astro";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import TroyBuyNowButton from "../UI/TroyBuyNowButton/TroyBuyNowButton.astro";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 const reviews: Review[] = data.reviews;
 ---
 
-<section id={FunneltroyComponents.troyReviews} class="troy-section">
+<section id={FunnelTroyComponents.TroyReviews} class="troy-section">
   <h2 class="troy-section-header">
     {data.title}
   </h2>
@@ -38,6 +38,6 @@ const reviews: Review[] = data.reviews;
   </div>
   
   <div class="troy-reviews-action flex justify-center mt-8">
-    <troyBuyNowButton />
+    <TroyBuyNowButton />
   </div>
 </section>

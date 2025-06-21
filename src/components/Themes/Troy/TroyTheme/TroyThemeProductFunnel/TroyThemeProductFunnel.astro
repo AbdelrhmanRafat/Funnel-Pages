@@ -1,5 +1,5 @@
 ---
-import "./troyThemeProductFunnel.css";
+import "./TroyThemeProductFunnel.css";
 import type { BlockData, OptionOption } from "../../../../../lib/api/types";
 
 const data: BlockData[] = Astro.props.data;
@@ -8,8 +8,8 @@ const colorSizeOptions = Astro.props.colorSizeOptions;
 const initialOffer = data[0];
 
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
-import troyQuantityOptions from "../UI/troyQuantityOptions/troyQuantityOptions.astro";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import TroyQuantityOptions from "../UI/TroyQuantityOptions/TroyQuantityOptions.astro";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 
 // Component configuration
 const autoUpdate = Astro.props.autoUpdate ?? true;
@@ -17,8 +17,8 @@ const showDiscountWhenZero = Astro.props.showDiscountWhenZero ?? false;
 const currency = Astro.props.currency ?? getTranslation('productFunnel.currency');
 ---
 
-<div id={FunneltroyComponents.troyProductFunnel} class="w-full flex flex-col gap-2">
-  <troyQuantityOptions data={data} colorSizeOptions={colorSizeOptions} />
+<div id={FunnelTroyComponents.TroyProductFunnel} class="w-full flex flex-col gap-2">
+  <TroyQuantityOptions data={data} colorSizeOptions={colorSizeOptions} />
 
   <troy-product-funnel 
     data-funnel-auto-update={autoUpdate}
@@ -100,6 +100,6 @@ const currency = Astro.props.currency ?? getTranslation('productFunnel.currency'
 </div>
 
 <script>
-  import { initProductFunnel } from "./troyThemeProductFunnel";
+  import { initProductFunnel } from "./TroyThemeProductFunnel";
   initProductFunnel();
 </script>

@@ -1,12 +1,12 @@
 ---
-import "./troyOrderConfirmationNotice.css";
+import "./TroyOrderConfirmationNotice.css";
 import type { BlockData, Features } from "../../../../../lib/api/types";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 const confirmationNotices : Features[] = data.confirmationNotices ?? [];
 ---
-<section id={FunneltroyComponents.troyOrderConfirmationNotice} class="w-full">
+<section id={FunnelTroyComponents.TroyOrderConfirmationNotice} class="w-full">
     <div class="troy-order-confirmation-notice text-start md:text-center py-4 px-2 rounded-xl">
         <p class="troy-order-confirmation-title mb-2">{data.title}</p>
         <div class="troy-order-confirmation-list flex flex-col justify-start items-start gap-3 md:flex-row md:justify-center md:items-center md:gap-8 text-sm">

@@ -4,8 +4,8 @@ import {
   type Language,
 } from "../../../../../lib/utils/i18n/translations";
 import type { BlockData, PaymentOption, DeliveryOption } from "../../../../../lib/api/types";
-import troySubmitOrderButton from "../UI/troySubmitOrderButton/troySubmitOrderButton.astro";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import TroySubmitOrderButton from "../UI/TroySubmitOrderButton/TroySubmitOrderButton.astro";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 
 // DATA INITIALIZATION & PROCESSING
 const data: BlockData = Astro.props.data;
@@ -26,7 +26,7 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
 ---
 
 <!-- MAIN FORM SECTION -->
-<section id={FunneltroyComponents.troyFormFields} class="troy-form w-full p-3">
+<section id={FunnelTroyComponents.TroyFormFields} class="troy-form w-full p-3">
   <div class="mx-auto py-2 flex flex-col justify-center items-center gap-2">
     
     <!-- FORM HEADER -->
@@ -291,12 +291,12 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
         </div>
       </div>
       <!-- SUBMIT BUTTON SECTION -->
-      <troySubmitOrderButton />
+      <TroySubmitOrderButton />
     </form>
   </div>
 </section>
 
 <!-- CLIENT-SIDE SCRIPTS -->
 <script>
-  import "./troyThemeFormFields";
+  import "./TroyThemeFormFields";
 </script>

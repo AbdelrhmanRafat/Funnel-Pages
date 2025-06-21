@@ -3,13 +3,13 @@
 // It features an animated counter that counts up to the provided order number.
 // Props:
 // - data: An object of type BlockData, expected to contain `count` (the number of orders today).
-import "./troyThemeTodayOrders.css";
+import "./TroyThemeTodayOrders.css";
 import type { BlockData, Image } from "../../../../../lib/api/types";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 const data: BlockData = Astro.props.data;
 ---
 
-<section id={FunneltroyComponents.troyTodayOrders} class="troy-section">
+<section id={FunnelTroyComponents.TroyTodayOrders} class="troy-section">
     <div class="troy-middle-title">
     <h5>{data.title}</h5>
     </div>
@@ -22,5 +22,5 @@ const data: BlockData = Astro.props.data;
 </section>
 
 <script>
- "./troyThemeTodayOrders.ts"
+ import "./TroyThemeTodayOrders.ts";
 </script>

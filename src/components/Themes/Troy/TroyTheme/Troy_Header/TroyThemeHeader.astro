@@ -1,9 +1,9 @@
 ---
-import "./troyThemeHeader.css";
+import "./TroyThemeHeader.css";
 import type { BlockData, Data } from "../../../../../lib/api/types";
-import troyLanguageSwitcher from "../UI/troyLanguageSwitcher/troyLanguageSwitcher.astro";
-import troyNavigationMenuDesktop from "../troyNavigationMenuDesktop/troyNavigationMenuDesktop.astro";
-import troyNavigationMenuMobile from "../troyNavigationMenuMobile/troyNavigationMenuMobile.astro";
+import TroyLanguageSwitcher from "../UI/TroyLanguageSwitcher/TroyLanguageSwitcher.astro";
+import TroyNavigationMenuDesktop from "../TroyNavigationMenuDesktop/TroyNavigationMenuDesktop.astro";
+import TroyNavigationMenuMobile from "../TroyNavigationMenuMobile/TroyNavigationMenuMobile.astro";
 
 const defaultLogoSrc: string = "assets/default-logo.svg";
 
@@ -20,7 +20,7 @@ const subtitle = data?.subtitle || "";
     <div class="w-11/12 md:container mx-auto py-2">
       <!-- Top row with Language Switcher and Menu Button -->
       <div class="flex justify-between items-center mb-2">
-        <troyLanguageSwitcher />
+        <TroyLanguageSwitcher />
         
         <button
           id="header-menu-button"
@@ -55,18 +55,18 @@ const subtitle = data?.subtitle || "";
         </div>
         
         <!-- Enhanced Desktop Navigation with Overflow Handling -->
-        <troyNavigationMenuDesktop funnelPage={funnelPage} />
+        <TroyNavigationMenuDesktop funnelPage={funnelPage} />
       </div>
     </div>
   </div>
 
   <!-- Mobile Navigation Menu Overlay - Only visible on mobile -->
-  <troyNavigationMenuMobile funnelPage={funnelPage} />
+  <TroyNavigationMenuMobile funnelPage={funnelPage} />
   
   <div class="pt-36 md:pt-60"></div>
 </header>
 
 <script>
   // Initialize header functionality
-  import "./troyThemeHeader";
+  import "./TroyThemeHeader";
 </script>

@@ -3,10 +3,10 @@
 // It takes hours, minutes, and seconds from the API data and renders a visual timer.
 // Props:
 // - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
-import "./troyThemeCountDown.css";
+import "./TroyThemeCountDown.css";
 import type { BlockData } from "../../../../../lib/api/types";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 let totalSeconds = 0;
@@ -21,7 +21,7 @@ if(data.hours != null && data.minutes != null && data.seconds != null) {
 ---
 
 <!-- Elegant Countdown Timer with proper spacing for fixed header -->
-<section id={FunneltroyComponents.troyCountdown} class="troy-section">
+<section id={FunnelTroyComponents.TroyCountdown} class="troy-section">
   <div class="troy-countdown-container px-6 text-center">
     <div class="troy-middle-title">
     <h2 data-translate="countdown.offerEndsIn">
@@ -61,5 +61,5 @@ if(data.hours != null && data.minutes != null && data.seconds != null) {
 </section>
 
 <script>
-       import "./troyThemeCountDown"
+       import "./TroyThemeCountDown"
 </script>

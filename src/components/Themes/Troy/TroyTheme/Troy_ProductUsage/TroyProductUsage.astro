@@ -1,8 +1,8 @@
 ---
 // server-side code
-import "./troyProductUsage.css";
+import "./TroyProductUsage.css";
 import type { BlockData, VideoInfo } from "../../../../../lib/api/types";
-import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
 
 function convertToEmbed(link: string) {
   if (link.includes("youtube.com/watch?v=")) {
@@ -16,7 +16,7 @@ const data: BlockData = Astro.props.data;
 const productUsage: VideoInfo[] = data.productUsage ?? [];
 ---
 
-<section id={FunneltroyComponents.troyProductUsage} class="troy-section">
+<section id={FunnelTroyComponents.TroyProductUsage} class="troy-section">
     <!-- Header -->
     <div class="troy-section-header">
         <i class={data.icon}></i>

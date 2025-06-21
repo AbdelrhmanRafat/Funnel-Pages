@@ -1,8 +1,8 @@
 ---
-import "./troyQuantityOptions.css";
+import "./TroyQuantityOptions.css";
 import type { BlockData, OptionOption } from "../../../../../../lib/api/types";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
-import troyDynamicPannelContainer from "../troyDynamicPanelContainer/troyDynamicPannelContainer.astro";
+import TroyDynamicPannelContainer from "../TroyDynamicPanelContainer/TroyDynamicPannelContainer.astro";
 
 const data: BlockData[] = Astro.props.data;
 const colorSizeOptions: OptionOption[] = Astro.props.colorSizeOptions;
@@ -110,7 +110,7 @@ const name = "qty";
                 data-offer-option-id={`${name}${index + 1}`}
               >
                 {[...Array(item.items)].map((_, panelIndex) => (
-                <troyDynamicPannelContainer
+                <TroyDynamicPannelContainer
                     key={panelIndex}
                     colorSizeOptions={colorSizeOptions}
                     panel-index={panelIndex + 1}
@@ -126,5 +126,5 @@ const name = "qty";
 </offer-selector>
 
 <script>
-  import "./troyQuantityOptions";
+  import "./TroyQuantityOptions";
 </script>

@@ -1,7 +1,7 @@
 ---
 import type { OptionOption } from "../../../../../../lib/api/types";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
-import "./troyDynamicPannelContainer.css"
+import "./TroyDynamicPannelContainer.css"
 
 const colorSizeOptions: OptionOption[] = Astro.props.colorSizeOptions;
 const panelIndex: number = Astro.props["panel-index"] || 1;
@@ -91,5 +91,5 @@ const enableAutoSelect = Astro.props.enableAutoSelect ?? false; // Auto-select f
 </div>
 
 <script>
-  import "./troyDynamicPannelContainer";
+  import "./TroyDynamicPannelContainer";
 </script>
