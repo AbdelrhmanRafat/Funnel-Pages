@@ -7,7 +7,7 @@ const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Lang
 const isArabic = currentLang === "ar";
 ---
 
-<button type="button" class="classic-modal-confirm" id="classic-modal-confirm">
+<button type="button" class="classic-modal-confirm" classic-confirm-purchase>
   <span class="confirm-text">
     {isArabic ? "تأكيد الطلب" : "Confirm Order"}
   </span>

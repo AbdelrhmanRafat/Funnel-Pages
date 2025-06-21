@@ -7,13 +7,6 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 const data: BlockData = Astro.props.data;
 const productUsage: VideoInfo[] = data.productUsage ?? [];
 
-// Helper function to convert watch URL to embed
-const getEmbedUrl = (url: string) => {
-    const videoIdMatch = url.match(/v=([^&]+)/);
-    return videoIdMatch
-        ? `https://www.youtube.com/embed/${videoIdMatch[1]}`
-        : "";
-};
 ---
 
 <section id={FunnelClassicComponents.ClassicProductUsage} class="classic-section">
@@ -31,7 +24,7 @@ const getEmbedUrl = (url: string) => {
                     <div class="classic-usage-video relative">
                         <iframe
                             class="classic-usage-iframe w-full h-[300px] lg:h-[620px]"
-                            src={getEmbedUrl(video.link)}
+                            src={video.link}
                             title={video.title}
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

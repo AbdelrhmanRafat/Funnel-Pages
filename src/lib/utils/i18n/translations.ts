@@ -73,6 +73,10 @@ export const translations = {
       pieces: "pieces",
       currency: "EGP"
     },
+    BeforeAfter : {
+     Before : "Before",
+     After : "After"
+    },
     quantityOptions: {
       chooseQuantity: "Choose the right quantity",
       popular: "Most Popular",
@@ -166,6 +170,10 @@ export const translations = {
     },
      ConfirmOrder : {
       button : "تأكيد الطلب",
+    },
+    BeforeAfter : {
+     Before : "قبل",
+     After : "بعد"
     },
     form: {
       completeOrder: "إتمام الطلب",
