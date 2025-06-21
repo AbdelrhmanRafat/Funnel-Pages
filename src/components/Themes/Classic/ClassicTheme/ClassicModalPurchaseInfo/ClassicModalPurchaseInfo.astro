@@ -8,11 +8,11 @@ const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Lang
 const isArabic = currentLang === "ar";
 
 // Component configuration
-const autoLoadData = Astro.props.autoLoadData ?? true;
-const showConfetti = Astro.props.showConfetti ?? true;
-const preventBodyScroll = Astro.props.preventBodyScroll ?? true;
-const closeOnOverlayClick = Astro.props.closeOnOverlayClick ?? true;
-const autoGenerateOrderNumber = Astro.props.autoGenerateOrderNumber ?? true;
+const autoLoadData =   true;
+const showConfetti =   true;
+const preventBodyScroll =   true;
+const closeOnOverlayClick =   true;
+const autoGenerateOrderNumber =  true;
 
 // Props for the modal
 interface Props {
