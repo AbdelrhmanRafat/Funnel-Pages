@@ -1,5 +1,5 @@
 /* === nasa Theme Reusable Classes === */
-body {
+.nasa-main-color {
     background-color: var(--nasa-color-surface);
     color: var(--nasa-color-on-surface);
 }

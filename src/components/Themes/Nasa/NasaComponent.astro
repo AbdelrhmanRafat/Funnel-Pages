@@ -109,7 +109,8 @@ const galleryData = isGalleryFound.isComponentFound
 
 ---
 
-<main class="lg:container w-11/12 mx-auto flex flex-col gap-7">
+<main class="nasa-main-color">
+  <section class="lg:container w-11/12 mx-auto flex flex-col gap-7">
   {
     RENDER_ORDER.map((componentName) => {
       if (componentName === FunnelNasaComponents.NasaHeader) {
@@ -245,6 +246,7 @@ const galleryData = isGalleryFound.isComponentFound
   <button id="scrollToTopBtn" class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 Nasa-scrollToTopBtn">
    <i class="fa-solid fa-up-long"></i>
   </button>
+  </section>
 </main>
 <script>
   import "./NasaTheme.config"

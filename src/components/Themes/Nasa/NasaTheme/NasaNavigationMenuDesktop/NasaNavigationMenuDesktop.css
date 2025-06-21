@@ -24,25 +24,25 @@
 }
 
 /* Active state for current section */
-.overflow-toggle {
+.nasa-overflow-toggle {
     background-color: var(--nasa-color-surface-variant);
     border: 1px solid var(--nasa-color-outline-variant);
     color: var(--nasa-color-on-surface-variant);
 }
 
-.overflow-toggle:hover {
+.nasa-overflow-toggle:hover {
     background-color: var(--nasa-color-primary);
     border-color: var(--nasa-color-primary);
     color: var(--nasa-color-on-primary);
 }
 
-.overflow-dropdown {
+.nasa-overflow-dropdown {
     background-color: var(--nasa-color-surface);
     border: 1px solid var(--nasa-color-outline);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-.overflow-dropdown a {
+.nasa-overflow-dropdown a {
     color: var(--nasa-color-on-surface);
     text-decoration: none;
     padding: 0.5rem 1rem;
@@ -50,21 +50,21 @@
     transition: background-color 0.2s ease;
 }
 
-.overflow-dropdown a:hover {
+.nasa-overflow-dropdown a:hover {
     background-color: var(--nasa-color-surface-variant);
 }
 
 /* Nav dots styling */
-.nav-dots div {
+.nasa-nav-dots div {
     background-color: var(--nasa-color-on-surface-variant);
     animation: pulse 2s infinite;
 }
 
-.nav-dots div:nth-child(2) {
+.nasa-nav-dots div:nth-child(2) {
     animation-delay: 0.3s;
 }
 
-.nav-dots div:nth-child(3) {
+.nasa-nav-dots div:nth-child(3) {
     animation-delay: 0.6s;
 }
 
@@ -74,6 +74,6 @@
 }
 
 /* Nav item transitions */
-.nav-item {
+.nasa-nav-item {
     transition: all 0.3s ease;
 }

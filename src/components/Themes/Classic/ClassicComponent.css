@@ -1,5 +1,5 @@
 /* === Classic Theme Reusable Classes === */
-body {
+.classic-main-color {
     background-color: var(--classic-color-surface);
     color: var(--classic-color-on-surface);
 }

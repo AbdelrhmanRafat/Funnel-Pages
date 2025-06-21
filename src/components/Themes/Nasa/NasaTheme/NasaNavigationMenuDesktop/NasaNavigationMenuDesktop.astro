@@ -71,7 +71,7 @@ const orderedAnchors = RENDER_ORDER
                       return null;
                     }
                     return (
-                      <li class="nav-item flex-shrink-0" data-index={index}>
+                      <li class="nasa-nav-item flex-shrink-0" data-index={index}>
                         <a 
                           href={`#${anchor.component}`}
                           class="nasa-desktop-nav-link block px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap hover:scale-105"
@@ -86,7 +86,7 @@ const orderedAnchors = RENDER_ORDER
               </div>
 
               <!-- Dots Indicator (shows when items are hidden) -->
-              <div class="nav-dots hidden items-center gap-1 mx-2" id="nav-dots">
+              <div class="nasa-nav-dots hidden items-center gap-1 mx-2" id="nav-dots">
                 <div class="w-1 h-1 rounded-full"></div>
                 <div class="w-1 h-1 rounded-full"></div>
                 <div class="w-1 h-1 rounded-full"></div>
@@ -95,7 +95,7 @@ const orderedAnchors = RENDER_ORDER
               <!-- Overflow Dropdown -->
               <div class="nav-overflow relative hidden" id="nav-overflow">
                 <button 
-                  class="overflow-toggle px-3 py-2 text-sm font-medium rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-1"
+                  class="nasa-overflow-toggle px-3 py-2 text-sm font-medium rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-1"
                   id="overflow-toggle"
                   aria-label="More navigation items"
                 >
@@ -104,7 +104,7 @@ const orderedAnchors = RENDER_ORDER
                 </button>
                 
                 <!-- Dropdown Menu -->
-                <div class="overflow-dropdown absolute top-full left-1/2 transform -translate-x-1/2 mt-2 py-2 rounded-lg shadow-lg border min-w-40 z-10 hidden" id="overflow-dropdown">
+                <div class="nasa-overflow-dropdown absolute top-full left-1/2 transform -translate-x-1/2 mt-2 py-2 rounded-lg shadow-lg border min-w-40 z-10 hidden" id="overflow-dropdown">
                   <ul class="overflow-items" id="overflow-items">
                     <!-- Hidden items will be populated here by JavaScript -->
                   </ul>

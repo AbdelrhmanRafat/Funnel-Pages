@@ -25,7 +25,12 @@ export function initEnhancedNavigation(): void {
       return; // Don't run overflow logic on mobile
     }
 
-    const navItems = navList.querySelectorAll<HTMLElement>('.nav-item');
+    // Re-validate elements since they might have been removed from DOM
+    if (!navList || !navDots || !navOverflow || !overflowItems) {
+      return;
+    }
+
+    const navItems = navList.querySelectorAll<HTMLElement>('.nasa-nav-item');
     
     if (navItems.length === 0) return;
     
@@ -43,6 +48,11 @@ export function initEnhancedNavigation(): void {
     
     // Wait for layout to settle
     setTimeout(() => {
+      // Re-validate elements again
+      if (!navContainer || !navList || !navDots || !navOverflow || !overflowItems) {
+        return;
+      }
+
       const containerWidth = navContainer.offsetWidth;
       let totalWidth = 0;
       let visibleCount = 0;
@@ -105,6 +115,11 @@ export function initEnhancedNavigation(): void {
 
   // Dropdown functionality
   function toggleDropdown(): void {
+    // Re-validate elements
+    if (!overflowDropdown || !dropdownArrow) {
+      return;
+    }
+
     isDropdownOpen = !isDropdownOpen;
     if (isDropdownOpen) {
       overflowDropdown.classList.remove('hidden');
@@ -116,6 +131,11 @@ export function initEnhancedNavigation(): void {
   }
 
   function closeDropdown(): void {
+    // Re-validate elements
+    if (!overflowDropdown || !dropdownArrow) {
+      return;
+    }
+
     isDropdownOpen = false;
     overflowDropdown.classList.add('hidden');
     dropdownArrow.style.transform = 'rotate(0deg)';
@@ -146,6 +166,11 @@ export function initEnhancedNavigation(): void {
   function handleResize(): void {
     clearTimeout(resizeTimeout);
     resizeTimeout = window.setTimeout(() => {
+      // Re-validate elements
+      if (!navContainer) {
+        return;
+      }
+
       // Force a reflow to ensure proper measurements
       navContainer.style.visibility = 'hidden';
       navContainer.offsetHeight; // Trigger reflow

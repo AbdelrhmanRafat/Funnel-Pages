@@ -6,7 +6,13 @@ import { FunnelNasaComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 const productUsage: VideoInfo[] = data.productUsage ?? [];
-
+function convertToEmbed(link: string) {
+  if (link.includes("youtube.com/watch?v=")) {
+    const id = new URL(link).searchParams.get("v");
+    return `https://www.youtube.com/embed/${id}`;
+  }
+  return link; // Already in embed format or from another platform
+}
 ---
 
 <section id={FunnelNasaComponents.NasaProductUsage} class="nasa-section">
@@ -24,9 +30,8 @@ const productUsage: VideoInfo[] = data.productUsage ?? [];
                     <div class="nasa-usage-video relative">
                         <iframe
                             class="nasa-usage-iframe w-full h-[300px] lg:h-[620px]"
-                            src={video.link}
+  src={convertToEmbed(video.link)}
                             title={video.title}
-                            frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen
                         />
