@@ -1,0 +1,140 @@
+/* === nasa Form Components === */
+
+.nasa-form {
+    background-color: var(--nasa-color-surface);
+    border-radius: var(--nasa-section-radius);
+}
+
+
+.nasa-form-title {
+    font-size: 1.5rem; /* Tailwind: text-2xl */
+    font-weight: 600; /* Tailwind: font-semibold */
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-form-section-title {
+    font-size: 1.25rem; /* Tailwind: text-xl */
+    font-weight: 600; /* Tailwind: font-semibold */
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-form-label {
+    font-size: 0.875rem; /* Tailwind: text-sm */
+    font-weight: 500; /* Tailwind: font-medium */
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--nasa-color-outline);
+    border-radius: 0.5rem; /* Tailwind: rounded-lg */
+    font-size: 0.875rem; /* Tailwind: text-sm */
+    color: var(--nasa-color-on-surface);
+    background-color: var(--nasa-color-surface);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nasa-form-input:focus {
+    outline: none;
+    border-color: var(--nasa-color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.1);
+}
+
+.nasa-form-input::placeholder {
+    color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-form-error {
+    display: block;
+    font-size: 0.75rem; /* Tailwind: text-xs */
+    color: var(--nasa-color-error);
+    margin-top: 0.25rem; /* Tailwind: mt-1 */
+}
+
+.nasa-form-payment-option {
+    display: flex;
+    align-items: start;
+    padding: 0.75rem; /* Tailwind: p-3 */
+    border: 1px solid var(--nasa-color-outline);
+    gap: 8px;
+    border-radius: 0.5rem; /* Tailwind: rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.nasa-form-payment-option:hover {
+    background-color: var(--nasa-color-surface-variant);
+    border-color: var(--nasa-color-outline-variant);
+}
+
+.nasa-form-payment-option-content {
+    flex: 1;
+    margin-left: 0.75rem; /* Tailwind: ml-3 */
+}
+
+.nasa-form-payment-option-label {
+    display: block;
+    font-weight: 500; /* Tailwind: font-medium */
+    color: var(--nasa-color-on-surface);
+    cursor: pointer;
+}
+
+.nasa-form-payment-option-description {
+    display: block;
+    font-size: 0.875rem; /* Tailwind: text-sm */
+    color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-form-payment-option-price {
+    font-size: 0.875rem; /* Tailwind: text-sm */
+    font-weight: 500; /* Tailwind: font-medium */
+}
+
+.nasa-form-payment-option-price-free {
+    color: var(--nasa-color-success);
+}
+
+.nasa-form-payment-option-price-paid {
+    color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-form-radio {
+    width: 1rem; /* Tailwind: w-4 */
+    height: 1rem; /* Tailwind: h-4 */
+    accent-color: var(--nasa-color-primary);
+    border-color: var(--nasa-color-outline);
+}
+
+/* Error Messages */
+/* Border Colors */
+.nasa-border-error {
+  border-color: var(--nasa-color-error) !important;
+}
+.nasa-text-error {
+   color: var(--nasa-color-error) !important;   
+}
+
+.nasa-border-success {
+   border-color: var(--nasa-color-success) !important;
+}
+
+.nasa-text-success {
+   color: var(--nasa-color-success) !important;
+}
+
+/* Error Container */
+.nasa-error-container {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background-color: var(--nasa-color-error-light);
+  color: var(--nasa-color-on-error);
+  border-radius: 0.5rem;
+}
+
+/* Error Message */
+.nasa-error-message {
+  color: var(--nasa-color-on-error);
+  font-size: 0.875rem; /* text-sm */
+  margin-bottom: 0.25rem; /* mb-1 */
+}

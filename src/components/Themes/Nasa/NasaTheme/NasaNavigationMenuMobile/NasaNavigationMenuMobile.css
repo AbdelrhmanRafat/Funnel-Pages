@@ -1,0 +1,91 @@
+
+/* === Menu Overlay === */
+.nasa-menu-overlay {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nasa-menu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nasa-menu-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.nasa-menu-content {
+    background-color: var(--nasa-color-surface);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 2px solid var(--nasa-color-primary);
+}
+
+.nasa-menu-overlay.show .nasa-menu-content {
+    transform: translateX(0);
+}
+
+/* === Menu Styling === */
+.nasa-menu-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-menu-close {
+    background-color: var(--nasa-color-surface-variant);
+    border: 1px solid var(--nasa-color-outline-variant);
+    color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-menu-close:hover {
+    background-color: var(--nasa-color-error);
+    border-color: var(--nasa-color-error);
+    color: var(--nasa-color-on-error);
+    transform: scale(1.1);
+}
+
+.nasa-menu-link {
+    background-color: var(--nasa-color-surface-variant);
+    color: var(--nasa-color-on-surface);
+    text-decoration: none;
+    border: 1px solid var(--nasa-color-outline-variant);
+}
+
+.nasa-menu-link:hover {
+    background-color: var(--nasa-color-primary);
+    color: var(--nasa-color-on-primary);
+    border-color: var(--nasa-color-primary);
+    transform: translateX(-4px);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.nasa-menu-link:focus {
+    outline: 2px solid var(--nasa-color-primary);
+    outline-offset: 2px;
+}
+
+/* Menu Items Animation */
+.nasa-menu-nav ul li {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nasa-menu-overlay.show .nasa-menu-nav ul li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Staggered animation for menu items */
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(1) { transition-delay: 0.1s; }
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(2) { transition-delay: 0.15s; }
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(3) { transition-delay: 0.2s; }
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(4) { transition-delay: 0.25s; }
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(5) { transition-delay: 0.3s; }
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(6) { transition-delay: 0.35s; }
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(7) { transition-delay: 0.4s; }
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(8) { transition-delay: 0.45s; }
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(9) { transition-delay: 0.5s; }
+.nasa-menu-overlay.show .nasa-menu-nav ul li:nth-child(10) { transition-delay: 0.55s; }

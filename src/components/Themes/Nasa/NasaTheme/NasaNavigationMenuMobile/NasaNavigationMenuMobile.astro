@@ -1,0 +1,111 @@
+---
+import "./NasaNavigationMenuMobile.css";
+import type { Data } from "../../../../../lib/api/types";
+import { FunnelNasaComponents } from "../../../../../lib/constants/themes";
+import { getNasaThemeComponent } from "../../../../../lib/utils/ThemeSelect";
+const funnelPage: Data = Astro.props.funnelPage;
+
+
+// Generate anchors from available components with comprehensive null checking
+const availableAnchors = funnelPage?.blocks
+  ?.map((block) => {
+    // Check if block exists and has required properties
+    if (!block || !block.name || !block.data) {
+      return null;
+    }
+
+    const component = getNasaThemeComponent(block.name);
+    
+    // Check if component exists and has title from API
+    if (component && block.data?.title) {
+      return {
+        component: component,
+        componentData: block.data
+      };
+    }
+    return null;
+  })
+  ?.filter((anchor): anchor is NonNullable<typeof anchor> => anchor !== null) || [];
+
+// Order anchors based on render order
+const RENDER_ORDER = [
+  FunnelNasaComponents.NasaProductFeatures,
+  FunnelNasaComponents.NasaProductPreview,
+  FunnelNasaComponents.NasaProductUsage,
+  FunnelNasaComponents.NasaTodayOrders,
+  FunnelNasaComponents.NasaBeforeAfter,
+  FunnelNasaComponents.NasaReviews,
+  FunnelNasaComponents.NasaTextBar,
+  FunnelNasaComponents.NasaImageTextOverlay,
+  FunnelNasaComponents.NasaImageTextBeside,
+  FunnelNasaComponents.NasaFaq,
+  FunnelNasaComponents.NasaDeliveryFeatures,
+];
+
+// Safe filtering with additional null checks
+const orderedAnchors = RENDER_ORDER
+  .map(component => {
+    const foundAnchor = availableAnchors.find(anchor => 
+      anchor && anchor.component === component
+    );
+    return foundAnchor || null;
+  })
+  .filter((anchor): anchor is NonNullable<typeof anchor> => {
+    // Ensure anchor exists and has required properties
+    return (
+      anchor !== null &&
+      !!anchor.component &&
+      !!anchor.componentData &&
+      !!anchor.componentData.title &&
+      typeof anchor.componentData.title === 'string' &&
+      anchor.componentData.title.trim() !== ''
+    );
+  });
+---
+<!-- Mobile Navigation Menu Overlay - Only visible on mobile -->
+{orderedAnchors && orderedAnchors.length > 0 && (
+  <div id="header-menu-overlay" class="nasa-menu-overlay">
+    <!-- Backdrop for closing menu -->
+    <div class="nasa-menu-backdrop" id="header-menu-backdrop"></div>
+    
+    <!-- Menu Content -->
+    <div class="nasa-menu-content">
+      <!-- Menu Header -->
+      <div class="nasa-menu-header">
+        <h3 class="nasa-menu-title">القائمة</h3>
+        <button 
+          id="header-menu-close"
+          class="nasa-menu-close"
+          aria-label="Close menu"
+          type="button"
+        >
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      
+      <!-- Menu Items with API Titles -->
+      <nav class="nasa-menu-nav">
+        <ul class="nasa-menu-list">
+          {orderedAnchors.map((anchor) => {
+            // Additional safety check during rendering
+            if (!anchor || !anchor.component || !anchor.componentData?.title) {
+              return null;
+            }
+            
+            return (
+              <li class="nasa-menu-item">
+                <a 
+                  href={`#${anchor.component}`}
+                  class="nasa-menu-link"
+                  data-anchor-target={anchor.componentData.title}
+                >
+                  {anchor.componentData.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </div>
+  </div>
+)}

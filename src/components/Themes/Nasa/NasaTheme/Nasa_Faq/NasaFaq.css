@@ -1,0 +1,31 @@
+/* === nasa FAQ Component === */
+.nasa-faq-item {
+    background-color: var(--nasa-color-surface);
+    border-radius: var(--nasa-section-radius);
+    border: 1px solid var(--nasa-color-outline-variant);
+}
+
+.nasa-faq-question {
+    transition: background-color 0.2s ease;
+}
+
+.nasa-faq-question:hover {
+    background-color: var(--nasa-color-surface-variant);
+}
+
+.nasa-faq-question-text {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-faq-icon {
+    color: var(--nasa-color-on-surface-variant);
+    transition: transform 0.3s ease;
+}
+
+.nasa-faq-answer {
+    transition: all 0.3s ease-out;
+}
+
+.nasa-faq-answer-content {
+    color: var(--nasa-color-on-surface-variant);
+}

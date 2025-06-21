@@ -1,0 +1,10 @@
+.nasa-lang-switcher {
+    color: var(  --nasa-color-on-surface);
+    transition:cubic-bezier(1, 0, 0, 1);
+}
+.nasa-lang-switcher:hover {
+    background-color: var(--nasa-color-primary);
+    color: var(--nasa-color-on-primary);
+    border-radius: var(--nasa-section-radius);
+    scale: 1.1;
+}

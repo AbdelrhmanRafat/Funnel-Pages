@@ -1,0 +1,251 @@
+---
+// This component is the main entry point for the Nasa theme.
+// It orchestrates the rendering of various sub-components based on the data received from the API.
+// Props:
+// - funnelPage: An object of type Data, containing all the information for the funnel page.
+import "./NasaComponent.css";
+import { getNasaThemeComponent } from "../../../lib/utils/ThemeSelect";
+import type { BlockData, Data } from "../../../lib/api/types";
+import { FunnelNasaComponents } from "../../../lib/constants/themes";
+import NasaDeliveryFeatures from "./NasaTheme/Nasa_Delivery_Features/NasaDeliveryFeatures.astro";
+import NasaFaq from "./NasaTheme/Nasa_Faq/NasaFaq.astro";
+import NasaThemeHeader from "./NasaTheme/Nasa_Header/NasaThemeHeader.astro";
+import NasaImageTextBeside from "./NasaTheme/Nasa_Image_Text_Beside/NasaImageTextBeside.astro";
+import NasaImageTextOverlay from "./NasaTheme/Nasa_Image_Text_Overlay/NasaImageTextOverlay.astro";
+import NasaProductFeatures from "./NasaTheme/Nasa_Product_Features/NasaProductFeatures.astro";
+import NasaProductPreviewComponent from "./NasaTheme/Nasa_ProductPreview/NasaProductPreviewComponent.astro";
+import NasaProductUsage from "./NasaTheme/Nasa_ProductUsage/NasaProductUsage.astro";
+import NasaThemeTextBar from "./NasaTheme/Nasa_Text_Bar/NasaThemeTextBar.astro";
+import NasaThemeReviews from "./NasaTheme/Nasa_Theme_Reviews/NasaThemeReviews.astro";
+import NasaBeforeAfter from "./NasaTheme/NasaBefore&AfterImage/NasaBefore&After.astro";
+import NasaThemeCountDown from "./NasaTheme/NasaThemeCountdown/NasaThemeCountDown.astro";
+import NasaThemeFooter from "./NasaTheme/NasaThemeFooter/NasaThemeFooter.astro";
+import NasaThemeProduct from "./NasaTheme/NasaThemeProduct/NasaThemeProduct.astro";
+import NasaThemeTodayOrders from "./NasaTheme/NasaThemeTodayOrders/NasaThemeTodayOrders.astro";
+
+
+
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: BlockData | undefined;
+}
+
+const funnelPage: Data = Astro.props.funnelPage;
+
+// Maps the block names from the API response to their corresponding nasa theme components and data.
+const nasaComponentNames: [FunnelNasaComponents, BlockData][] =
+  funnelPage.blocks
+    .map((block) => {
+      const component = getNasaThemeComponent(block.name);
+      return component ? [component, block.data] : undefined;
+    })
+    .filter(
+      (tuple): tuple is [FunnelNasaComponents, BlockData] =>
+        tuple !== undefined,
+    );
+
+// Checks if a specific component is present in the API response and returns its data if found.
+function isComponentFound(
+  componentName: FunnelNasaComponents,
+): ComponentCheckResult {
+  const found = nasaComponentNames.find(([comp]) => comp === componentName);
+  return {
+    isComponentFound: !!found,
+    componentData: found?.[1],
+  };
+}
+
+// Define render order - just change this array to reorder components!
+const RENDER_ORDER = [
+  FunnelNasaComponents.NasaHeader,
+  FunnelNasaComponents.NasaProductFunnel, // Always render (required)
+  FunnelNasaComponents.NasaProductFeatures,
+  FunnelNasaComponents.NasaProductPreview,
+  FunnelNasaComponents.NasaProductUsage,
+  FunnelNasaComponents.NasaTodayOrders,
+  FunnelNasaComponents.NasaBeforeAfter,
+  FunnelNasaComponents.NasaReviews,
+  FunnelNasaComponents.NasaTextBar,
+  FunnelNasaComponents.NasaImageTextOverlay,
+  FunnelNasaComponents.NasaImageTextBeside,
+  FunnelNasaComponents.NasaFaq,
+  FunnelNasaComponents.NasaDeliveryFeatures,
+  FunnelNasaComponents.NasaCountdown,
+  FunnelNasaComponents.NasaFooter,
+];
+
+// Extracts purchase options and other data
+const productFunnelData = isComponentFound(
+  FunnelNasaComponents.NasaProductFunnel,
+);
+const isFormFieldsDataFound = isComponentFound(
+  FunnelNasaComponents.NasaFormFields,
+);
+
+const isOrderConfirmationNoticeFound = isComponentFound(
+  FunnelNasaComponents.NasaOrderConfirmationNotice,
+);
+const isRatingFound = isComponentFound(FunnelNasaComponents.NasaRates);
+const isGalleryFound = isComponentFound(FunnelNasaComponents.NasaGallery);
+
+const purchaseOptions = productFunnelData.isComponentFound
+  ? productFunnelData.componentData?.purchase_options
+  : undefined;
+const formFieldsData = isFormFieldsDataFound.isComponentFound
+  ? isFormFieldsDataFound.componentData
+  : undefined;
+const ratingData = isRatingFound.isComponentFound
+  ? isRatingFound.componentData
+  : undefined;
+
+const orderConfirmationNoticeData =
+  isOrderConfirmationNoticeFound.isComponentFound
+    ? isOrderConfirmationNoticeFound.componentData
+    : undefined;
+
+const galleryData = isGalleryFound.isComponentFound
+  ? isGalleryFound.componentData
+  : undefined;
+
+---
+
+<main class="lg:container w-11/12 mx-auto flex flex-col gap-7">
+  {
+    RENDER_ORDER.map((componentName) => {
+      if (componentName === FunnelNasaComponents.NasaHeader) {
+        const headerData = isComponentFound(
+          FunnelNasaComponents.NasaHeader,
+        );
+        return headerData.isComponentFound ? (
+          <NasaThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelNasaComponents.NasaProductFunnel) {
+        return (
+          <NasaThemeProduct
+            galleryData={galleryData}
+            formFieldsData={formFieldsData}
+            ratingData={ratingData}
+            orderConfirmationNoticeData={orderConfirmationNoticeData}
+            product={funnelPage.product}
+            purchaseOptions={purchaseOptions}
+          />
+        );
+      }
+      if (componentName === FunnelNasaComponents.NasaCountdown) {
+        const countdownData = isComponentFound(
+          FunnelNasaComponents.NasaCountdown,
+        );
+        return countdownData.isComponentFound ? (
+          <NasaThemeCountDown data={countdownData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaFaq) {
+        const faqData = isComponentFound(FunnelNasaComponents.NasaFaq);
+        return faqData.isComponentFound ? (
+          <NasaFaq data={faqData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaProductPreview) {
+        const productPreviewData = isComponentFound(
+          FunnelNasaComponents.NasaProductPreview,
+        );
+        return productPreviewData.isComponentFound ? (
+          <NasaProductPreviewComponent
+            data={productPreviewData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaTodayOrders) {
+        const todayOrdersData = isComponentFound(
+          FunnelNasaComponents.NasaTodayOrders,
+        );
+        return todayOrdersData.isComponentFound ? (
+          <NasaThemeTodayOrders
+            data={todayOrdersData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaDeliveryFeatures) {
+        const deliveryFeaturesData = isComponentFound(
+          FunnelNasaComponents.NasaDeliveryFeatures,
+        );
+        return deliveryFeaturesData.isComponentFound ? (
+          <NasaDeliveryFeatures data={deliveryFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaProductFeatures) {
+        const ProductFeaturesData = isComponentFound(
+          FunnelNasaComponents.NasaProductFeatures,
+        );
+        return ProductFeaturesData.isComponentFound ? (
+          <NasaProductFeatures data={ProductFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaReviews) {
+        const ReviewsData = isComponentFound(
+          FunnelNasaComponents.NasaReviews,
+        );
+        return ReviewsData.isComponentFound ? (
+          <NasaThemeReviews data={ReviewsData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaTextBar) {
+        const TextBarData = isComponentFound(
+          FunnelNasaComponents.NasaTextBar,
+        );
+        return TextBarData.isComponentFound ? (
+          <NasaThemeTextBar data={TextBarData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaImageTextOverlay) {
+        const ImageTextData = isComponentFound(
+          FunnelNasaComponents.NasaImageTextOverlay,
+        );
+        return ImageTextData.isComponentFound ? (
+          <NasaImageTextOverlay data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaImageTextBeside) {
+        const ImageTextData = isComponentFound(
+          FunnelNasaComponents.NasaImageTextBeside,
+        );
+        return ImageTextData.isComponentFound ? (
+          <NasaImageTextBeside data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaProductUsage) {
+        const productUsageData = isComponentFound(
+          FunnelNasaComponents.NasaProductUsage,
+        );
+        return productUsageData.isComponentFound ? (
+          <NasaProductUsage data={productUsageData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaBeforeAfter) {
+        const BeforeAfterData = isComponentFound(
+          FunnelNasaComponents.NasaBeforeAfter,
+        );
+        return BeforeAfterData.isComponentFound ? (
+          <NasaBeforeAfter data={BeforeAfterData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelNasaComponents.NasaFooter) {
+        const footerData = isComponentFound(
+          FunnelNasaComponents.NasaFooter,
+        );
+        return footerData.isComponentFound ? (
+          <NasaThemeFooter data={footerData.componentData} />
+        ) : null;
+      }
+      return null;
+    })
+  }
+  <button id="scrollToTopBtn" class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 Nasa-scrollToTopBtn">
+   <i class="fa-solid fa-up-long"></i>
+  </button>
+</main>
+<script>
+  import "./NasaTheme.config"
+</script>

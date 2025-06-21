@@ -1,0 +1,51 @@
+/* === Product Features Section Classes === */
+.nasa-feature-card {
+    background-color: var(--nasa-color-surface);
+    border: 1px solid var(--nasa-color-outline-variant);
+    transition: all 0.3s ease;
+    box-shadow: var(--nasa-section-shadow);
+}
+
+.nasa-feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--nasa-section-shadow);
+    border-color: var(--nasa-color-primary);
+}
+
+.nasa-feature-icon-container {
+    /* Keeping width/height in CSS for potential dynamic sizing */
+    width: 4rem; /* w-16 */
+    height: 4rem; /* h-16 */
+    background-color: var(--nasa-color-primary);
+    color: var(--nasa-color-on-primary);
+    transition: all 0.3s ease;
+}
+
+.nasa-feature-card:hover .nasa-feature-icon-container {
+    background-color: var(--nasa-color-primary);
+    transform: scale(1.1);
+}
+
+.nasa-feature-icon {
+    color: var(--nasa-color-on-primary);
+    transition: all 0.3s ease;
+}
+
+.nasa-feature-card:hover .nasa-feature-icon {
+    color: var(--nasa-color-on-primary);
+    transform: scale(1.1);
+}
+
+.nasa-feature-title {
+    color: var(--nasa-color-on-surface);
+    transition: color 0.3s ease;
+}
+
+.nasa-feature-card:hover .nasa-feature-title {
+    color: var(--nasa-color-primary);
+}
+
+.nasa-feature-subtitle {
+    color: var(--nasa-color-on-surface-variant);
+    line-height: 1.4;
+}

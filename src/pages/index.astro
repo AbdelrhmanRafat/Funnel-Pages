@@ -7,6 +7,7 @@ import { getThemeFromString } from "../lib/utils/ThemeSelect";
 import { getFunnelPage } from "../lib/api/funnel";
 import { Theme } from "../lib/constants/themes";
 import type { FunnelRes } from "../lib/api/types";
+import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
 
 // Fetches the funnel page data from the API.
 const funnelPage: FunnelRes = await getFunnelPage();
@@ -16,7 +17,6 @@ const strTheme: string = funnelPage.data.theme;
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
 const meta = funnelPage.data.product.meta; 
 ---
-
 <Layout metadata={meta} strThemeName={strTheme}>
   {
     (() => {
@@ -24,6 +24,9 @@ const meta = funnelPage.data.product.meta;
       switch (enumTheme) {
         case Theme.Classic:
           return <ClassicComponent funnelPage={funnelPage.data} />;
+          case Theme.Nasa: 
+           return <NasaComponent funnelPage={funnelPage.data} />
+
         default:
           return <p>Theme not found</p>;
       }

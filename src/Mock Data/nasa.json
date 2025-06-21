@@ -196,42 +196,6 @@
                             "name": "سارة الجوهري",
                             "city": "دبي",
                             "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
-                            "name": "سارة الجوهري",
-                            "city": "دبي",
-                            "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
-                            "name": "سارة الجوهري",
-                            "city": "دبي",
-                            "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
-                            "name": "سارة الجوهري",
-                            "city": "دبي",
-                            "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
-                            "name": "سارة الجوهري",
-                            "city": "دبي",
-                            "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
-                            "name": "سارة الجوهري",
-                            "city": "دبي",
-                            "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
-                            "name": "سارة الجوهري",
-                            "city": "دبي",
-                            "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
                         }
                     ]
                 }
@@ -279,6 +243,30 @@
                                 "ar": "ادفع نقدًا عند الاستلام."
                             }
                         }
+                    ],
+                    "DeliveryOptions": [
+                        {
+                            "id": "homeDelivery",
+                            "label": {
+                                "en": "Home Delivery",
+                                "ar": "توصيل إلى المنزل"
+                            },
+                            "description": {
+                                "en": "Your order will be delivered to your doorstep.",
+                                "ar": "سيتم توصيل طلبك إلى باب منزلك."
+                            }
+                        },
+                        {
+                            "id": "pickup",
+                            "label": {
+                                "en": "Receive from Store",
+                                "ar": "الاستلام من المتجر"
+                            },
+                            "description": {
+                                "en": "Pick up your order directly from the store.",
+                                "ar": "استلم طلبك مباشرة من المتجر."
+                            }
+                        }
                     ]
                 }
             },
@@ -299,7 +287,7 @@
             {
                 "name": "nasa_today_orders",
                 "data": {
-                    "title": "طلبات اليوم :",
+                    "title": "طلبات اليوم",
                     "count": 27
                 }
             },
@@ -439,10 +427,10 @@
             {
                 "name": "nasa_product_preview",
                 "data": {
+                    "title": "عرض توضيحي للمنتج",
+                    "icon": "fa-solid fa-video",
                     "productPreview": {
-                        "headerBadgetext": "عرض توضيحي للمنتج",
                         "viewsText": "رقم مشاهدة 27682",
-                        "headerBadgeIcon": "fa-solid fa-video",
                         "viewsIcon": "fa-solid fa-eye",
                         "videoInfo": {
                             "title": "سماعات رأس لاسلكية ممتازة - التجربة الشاملة",
@@ -487,6 +475,8 @@
             {
                 "name": "nasa_product_usage",
                 "data": {
+                    "title": "شاهد كيفية الاستخدام",
+                    "icon": "fa-solid fa-circle-chevron-right",
                     "productUsage": [
                         {
                             "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",

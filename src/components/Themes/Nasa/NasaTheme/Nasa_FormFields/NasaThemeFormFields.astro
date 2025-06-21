@@ -1,0 +1,302 @@
+---
+import "./NasaThemeFormFields.css";
+import {
+  type Language,
+} from "../../../../../lib/utils/i18n/translations";
+import type { BlockData, PaymentOption, DeliveryOption } from "../../../../../lib/api/types";
+import { FunnelNasaComponents } from "../../../../../lib/constants/themes";
+import NasaSubmitOrderButton from "../UI/NasaSubmitOrderButton/NasaSubmitOrderButton.astro";
+
+// DATA INITIALIZATION & PROCESSING
+const data: BlockData = Astro.props.data;
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
+
+// Initialize arrays for cities and payment options
+let cities: string[] = [];
+let paymentOptions: PaymentOption[] = [];
+let deliveryOptions: DeliveryOption[] = [];
+
+if (data.cities !== null) cities = data.cities ?? [];
+if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
+if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
+---
+
+<!-- MAIN FORM SECTION -->
+<section id={FunnelNasaComponents.NasaFormFields} class="nasa-form w-full p-3">
+  <div class="mx-auto py-2 flex flex-col justify-center items-center gap-2">
+    
+    <!-- FORM HEADER -->
+    <div class="text-center">
+      <h5 class="nasa-form-title" data-translate="form.completeOrder">
+      </h5>
+    </div>
+
+    <!-- MAIN FORM -->
+    <form id="form-personal-payment-data" form-personal-payment-data class="w-full">
+      <div class="mb-8">
+        <!-- PERSONAL INFORMATION SECTION -->
+        <h2
+          class="nasa-form-section-title mb-6"
+          data-translate="form.personalInfo"
+        >
+        </h2>
+        <div class="space-y-4">
+        <!-- FULL NAME INPUT FIELD -->
+          <div>
+            <label
+              class="nasa-form-label block mb-2"
+              data-translate="form.fullName"
+            >
+            </label>
+            <input
+              type="text"
+              id="form-fullName"
+              placeholder={data.full_name}
+              class="nasa-form-input text-right"
+            />
+            <span
+              id="form-fullName-error"
+              class="nasa-form-error"
+            ></span>
+          </div>
+          <!-- PHONE NUMBER INPUT FIELD -->
+          <div>
+            <label
+              class="nasa-form-label block mb-2"
+              data-translate="form.phoneNumber"
+            >
+            </label>
+            <input
+              type="tel"
+              id="form-phone"
+              placeholder={data.phone}
+              class="nasa-form-input text-right"
+            />
+            <span
+              id="form-phone-error"
+              class="nasa-form-error"
+              style="display: none;"
+            ></span>
+          </div>
+          <!-- EMAIL INPUT FIELD -->
+          <div>
+            <label
+              class="nasa-form-label block mb-2"
+              data-translate="form.email"
+            >
+            </label>
+            <input
+              type="email"
+              id="form-email"
+              class="nasa-form-input text-right"
+            />
+            <span
+              id="form-email-error"
+              class="nasa-form-error"
+              style="display: none;"
+            ></span>
+          </div>
+          <!-- ADDRESS TEXTAREA FIELD -->
+          <div>
+            <label
+              class="nasa-form-label block mb-2"
+              data-translate="form.address"
+            >
+            </label>
+            <textarea
+              id="form-address"
+              class="nasa-form-input text-right min-h-[80px] resize-y"
+            ></textarea>
+            <span
+              id="form-address-error"
+              class="nasa-form-error"
+              style="display: none;"
+            ></span>
+          </div>
+          <!-- CITY SELECTION DROPDOWN -->
+          <div>
+            <label
+              class="nasa-form-label block mb-2"
+              data-translate="form.city"
+            >
+            </label>
+            <select id="form-city" class="nasa-form-input text-right">
+              <option value="" data-translate="form.selectCity">
+              </option>
+              {
+                cities.map((city: string) => (
+                  <option value={city.toLowerCase().replace(/\s+/g, "")}>
+                    {city}
+                  </option>
+                ))
+              }
+            </select>
+            <span
+              id="form-city-error"
+              class="nasa-form-error"
+              style="display: none;"
+            ></span>
+          </div>
+          <!-- PAYMENT OPTIONS SECTION -->
+          <div>
+            <label
+              class="nasa-form-label block mb-2"
+              data-translate="form.paymentOptions"
+            >
+            </label>
+            <div
+              class="space-y-3"
+              role="radiogroup"
+              aria-label="Payment Method"
+            >
+              {
+                paymentOptions.map((option, index) => {
+                  const value = isArabic ? option.label.ar : option.label.en;
+                  const id = `payment-${option.id}`;
+                  const isChecked = index === 0;
+                  return (
+                    <div class="nasa-form-payment-option">
+                      <input
+                        type="radio"
+                        id={id}
+                        name="payment-option"
+                        value={value}
+                        class="nasa-form-radio"
+                        checked={isChecked}
+                      />
+                      <label
+                        for={id}
+                        class="nasa-form-payment-option-content"
+                      >
+                        <div class="flex justify-between items-center">
+                          <div class="flex-1 flex flex-col justify-start items-start gap-2">
+                            <span class="nasa-form-payment-option-label">
+                              {option.label[currentLang]}
+                            </span>
+                            <span class="nasa-form-payment-option-description">
+                              {option.description[currentLang]}
+                            </span>
+
+                            {/* Payment method images */}
+                            {option.images && option.images.length > 0 && (
+                              <div class="flex justify-start items-center flex-wrap gap-4">
+                                {option.images.map((imageSrc) => (
+                                  <div class="w-8 h-8 flex justify-center items-center">
+                                    <img
+                                      src={imageSrc}
+                                      alt={option.label[currentLang]}
+                                      class="w-full"
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          {/* Custom radio indicator */}
+                          <div class="nasa-form-radio-indicator">
+                            <div class="nasa-form-radio-dot" />
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+                  );
+                })
+              }
+            </div>
+            <span
+              id="form-payment-error"
+              class="nasa-form-error"
+              style="display: none;"
+            ></span>
+          </div>
+          <!-- DELIVERY OPTIONS SECTION -->
+          <div>
+            <label
+              class="nasa-form-label block mb-2"
+              data-translate="form.deliveryOptions"
+            >
+            </label>
+            <div
+              class="space-y-3"
+              role="radiogroup"
+              aria-label="Delivery Method"
+            >
+              {
+                deliveryOptions.map((option, index) => {
+                  const value = isArabic ? option.label.ar : option.label.en;
+                  const id = `delivery-${option.id}`;
+                  const isChecked = index === 0;
+                  return (
+                    <div class="nasa-form-payment-option">
+                      <input
+                        type="radio"
+                        id={id}
+                        name="delivery-option"
+                        value={value}
+                        class="nasa-form-radio"
+                        checked={isChecked}
+                      />
+                      <label
+                        for={id}
+                        class="nasa-form-payment-option-content"
+                      >
+                        <div class="flex justify-between items-center">
+                          <div class="flex-1 flex flex-col justify-start items-start gap-2">
+                            <span class="nasa-form-payment-option-label">
+                              {option.label[currentLang]}
+                            </span>
+                            <span class="nasa-form-payment-option-description">
+                              {option.description[currentLang]}
+                            </span>
+                          </div>
+                          {/* Custom radio indicator */}
+                          <div class="nasa-form-radio-indicator">
+                            <div class="nasa-form-radio-dot" />
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+                  );
+                })
+              }
+            </div>
+            <span
+              id="form-delivery-error"
+              class="nasa-form-error"
+              style="display: none;"
+            ></span>
+          </div>
+          <!-- NOTES TEXTAREA FIELD -->
+          <div>
+            <label
+              class="nasa-form-label block mb-2"
+              data-translate="form.notes"
+            >
+            </label>
+            <textarea
+              id="form-notes"
+              placeholder=""
+              class="nasa-form-input text-right min-h-[100px] resize-y"
+            ></textarea>
+            <span
+              id="form-notes-error"
+              class="nasa-form-error"
+              style="display: none;"
+            ></span>
+          </div>
+        </div>
+      </div>
+      <!-- SUBMIT BUTTON SECTION -->
+      <NasaSubmitOrderButton />
+    </form>
+  </div>
+</section>
+
+<!-- CLIENT-SIDE SCRIPTS -->
+<script>
+  import "./NasaThemeFormFields";
+</script>

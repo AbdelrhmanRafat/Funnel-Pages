@@ -1,0 +1,30 @@
+/* === Rates Section Classes === */
+
+.nasa-rates {
+    font-size: 1.5rem;
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-rating-display {
+    display: flex;
+    align-items: center;
+    color: var(--nasa-color-warning);
+    font-weight: 600;
+}
+
+.nasa-rating-star {
+    color: var(--nasa-color-warning);
+    padding-inline: 3px;
+}
+
+.nasa-rating-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.nasa-rating-label {
+    color: var(--nasa-color-on-surface-variant);
+    display: inline-block;
+    margin: 0;
+}

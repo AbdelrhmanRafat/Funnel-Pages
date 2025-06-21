@@ -1,0 +1,50 @@
+/* === Purchase Options === */
+.nasa-purchase-options {
+    background-color: var(--nasa-color-surface);
+    padding: var(--nasa-section-padding);
+    border-radius: var(--nasa-section-radius);
+    overflow: hidden;
+}
+
+.nasa-purchase-options-body {
+    border-bottom: 1px solid var(--nasa-color-outline);
+}
+
+.nasa-purchase-row {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--nasa-color-outline-variant);
+}
+
+.nasa-purchase-label {
+    color: var(--nasa-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.nasa-purchase-value {
+    color: var(--nasa-color-on-surface);
+    font-weight: 600;
+}
+
+.nasa-purchase-discount {
+    color: var(--nasa-color-success);
+    font-weight: 600;
+}
+
+.nasa-purchase-total-section {
+    background-color: var(--nasa-color-info-light);
+    padding: 1rem 1.5rem;
+    border-top: 2px solid var(--nasa-color-info);
+    margin-bottom: 0.75rem;
+}
+
+.nasa-purchase-total-label {
+    color: var(--nasa-color-on-info);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.nasa-purchase-total-value {
+    color: var(--nasa-color-on-info);
+    font-weight: 700;
+    font-size: 1.25rem;
+}

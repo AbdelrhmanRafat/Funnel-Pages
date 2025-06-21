@@ -1,0 +1,75 @@
+/* === Dynamic Panel Container === */
+.nasa-option-panel {
+    background-color: var(--nasa-color-surface);
+    border-radius: var(--nasa-section-radius);
+    border-color: var(--nasa-color-primary-light);
+}
+
+.nasa-panel-header {
+    color: var(--nasa-color-primary-dark);
+}
+
+.nasa-selection-indicator {
+    background-color: var(--nasa-color-secondary);
+    color: var(--nasa-color-on-secondary);
+}
+
+.nasa-selection-title {
+    color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-size-option {
+    border-color: var(--nasa-color-outline);
+    transition: all 0.2s ease;
+    box-shadow: var(--nasa-section-shadow);
+    color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-size-option:hover {
+    background-color: var(--nasa-color-secondary);
+    color: var(--nasa-color-on-secondary);
+}
+
+.nasa-color-option {
+    transition: transform 0.2s ease;
+}
+
+.nasa-color-option:hover {
+    transform: scale(1.05);
+}
+
+.nasa-color-swatch {
+    border-color: var(--nasa-color-surface);
+    box-shadow: var(--nasa-section-shadow);
+}
+
+.nasa-color-name {
+    color: var(--nasa-color-on-surface-variant);
+}
+
+/* === Selection States (Updated) === */
+.selected-color-option {
+    transform: scale(1.1);
+}
+
+.selected-color-option .nasa-color-swatch {
+    border: 3px solid var(--nasa-color-primary);
+    box-shadow: 0 0 0 2px var(--nasa-color-surface), 
+                0 0 0 4px var(--nasa-color-primary), 
+                0 6px 16px rgba(0, 150, 136, 0.25);
+}
+
+.selected-color-option .nasa-color-name {
+    color: var(--nasa-color-secondary);
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.selected-size-option {
+    background-color: var(--nasa-color-secondary);
+    color: var(--nasa-color-on-secondary);
+    border-color: var(--nasa-color-secondary-light);
+    box-shadow: var(--nasa-section-shadow);
+    transform: translateY(-2px);
+    font-weight: 600;
+}

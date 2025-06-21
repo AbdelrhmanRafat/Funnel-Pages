@@ -1,0 +1,10 @@
+---
+import "./NasaThemeTextBar.css";
+import type { BlockData } from "../../../../../lib/api/types";
+import { FunnelNasaComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+---
+<section id={FunnelNasaComponents.NasaTextBar} class="nasa-section">
+    <h5 class="nasa-text-bar-title">{data.title}</h5>
+</section>

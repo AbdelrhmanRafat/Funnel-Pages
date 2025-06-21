@@ -1,0 +1,72 @@
+---
+import "./NasaThemeHeader.css";
+import type { BlockData, Data } from "../../../../../lib/api/types";
+import NasaNavigationMenuDesktop from "../NasaNavigationMenuDesktop/NasaNavigationMenuDesktop.astro";
+import NasaLanguageSwitcher from "../UI/NasaLanguageSwitcher/NasaLanguageSwitcher.astro";
+import NasaNavigationMenuMobile from "../NasaNavigationMenuMobile/NasaNavigationMenuMobile.astro";
+
+const defaultLogoSrc: string = "assets/default-logo.svg";
+
+const data: BlockData = Astro.props.data;
+const funnelPage: Data = Astro.props.funnelPage;
+
+const logo = data?.logo || defaultLogoSrc;
+const title = data?.title || "";
+const subtitle = data?.subtitle || "";
+---
+
+<header>
+  <div id="nasa-header" class="nasa-header fixed top-0 left-0 right-0 z-50">
+    <div class="w-11/12 md:container mx-auto py-2">
+      <!-- Top row with Language Switcher and Menu Button -->
+      <div class="flex justify-between items-center mb-2">
+        <NasaLanguageSwitcher />
+        
+        <button
+          id="header-menu-button"
+          class="nasa-menu-button p-2 rounded-lg transition-all duration-300 md:hidden"
+          aria-label="Open navigation menu"
+          type="button"
+        >
+          <div class="hamburger-icon">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </div>
+        </button>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center text-center">
+          <img
+            id="headerLogo"
+            src={logo}
+            alt={title || "Logo"}
+            class="nasa-header-logo w-25 mb-2 object-contain"
+          />
+          
+          <h1 class="nasa-header-title text-4xl font-bold leading-tight">
+            {title}
+          </h1>
+          
+          <p class="nasa-header-subtitle text-sm max-w-80 mt-1" title={subtitle}>
+            {subtitle}
+          </p>
+        </div>
+        
+        <!-- Enhanced Desktop Navigation with Overflow Handling -->
+        <NasaNavigationMenuDesktop funnelPage={funnelPage} />
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu Overlay - Only visible on mobile -->
+  <NasaNavigationMenuMobile funnelPage={funnelPage} />
+  
+  <div class="pt-36 md:pt-60"></div>
+</header>
+
+<script>
+  // Initialize header functionality
+  import "./NasaThemeHeader";
+</script>
