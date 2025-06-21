@@ -1,0 +1,12 @@
+/* === Delivery Features Section Classes === */
+.troy-delivery-icon {
+    color: var(--troy-color-primary);
+}
+
+.troy-delivery-title {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-delivery-subtitle {
+    color: var(--troy-color-on-surface-variant);
+}

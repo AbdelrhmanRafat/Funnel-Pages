@@ -1,0 +1,34 @@
+---
+import "./troySubmitOrderButton.css";
+import troyModalPurchaseInfo from "../../troyModalPurchaseInfo/troyModalPurchaseInfo.astro";
+
+// Component configuration
+const validateOnSubmit =  true;
+const showValidationMessages =  true;
+const autoFocusFirstError =  true;
+const enableColorSizeValidation =  true;
+---
+
+<troy-submit-order 
+  data-submit-validate-on-submit={validateOnSubmit}
+  data-submit-show-validation-messages={showValidationMessages}
+  data-submit-auto-focus-first-error={autoFocusFirstError}
+  data-submit-enable-color-size-validation={enableColorSizeValidation}
+>
+  <div>
+    <button
+      type="button"
+      data-submit-order-button
+      class="troy-form-submit"
+      data-translate="form.submit"
+    >
+    </button>
+  </div>
+</troy-submit-order>
+
+<!-- Include the modal component -->
+<troyModalPurchaseInfo />
+
+<script>
+  import "./troySubmitOrderButton";
+</script>

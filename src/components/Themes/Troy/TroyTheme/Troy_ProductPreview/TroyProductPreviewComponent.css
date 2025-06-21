@@ -1,0 +1,91 @@
+/* === troy Theme Enhanced Classes === */
+
+/* === Product Preview Specific Classes === */
+.troy-product-video-container {
+    border-color: var(--troy-color-primary);
+    border-radius: var(--troy-section-radius);
+    box-shadow: var(--troy-section-shadow);
+}
+
+.troy-product-video-title {
+    color: var(--troy-color-on-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.troy-product-features-container {
+    background-color: var(--troy-color-surface-container-high);
+    border-radius: var(--troy-section-radius);
+    padding: var(--troy-section-padding);
+}
+
+.troy-product-features-header {
+    border-bottom-color: var(--troy-color-outline);
+    color: var(--troy-color-on-surface);
+}
+
+.troy-product-features-title {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-product-views-badge {
+    background-color: var(--troy-color-surface-variant);
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-product-feature-icon {
+    background-color: var(--troy-color-primary);
+    color: var(--troy-color-on-primary);
+}
+
+.troy-product-feature-icon svg {
+    color: var(--troy-color-on-primary);
+    fill: currentColor;
+}
+
+.troy-product-feature-content {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-product-feature-title {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-product-feature-subtitle {
+    color: var(--troy-color-on-surface-variant);
+}
+
+/* === Alternative Color Variations === */
+.troy-product-features-container--secondary {
+    background-color: var(--troy-color-secondary);
+}
+
+.troy-product-features-container--secondary .troy-product-features-title,
+.troy-product-features-container--secondary .troy-product-feature-title {
+    color: var(--troy-color-on-secondary);
+}
+
+.troy-product-features-container--secondary .troy-product-feature-subtitle {
+    color: var(--troy-color-on-secondary-light);
+}
+
+.troy-product-features-container--secondary .troy-product-features-header {
+    border-bottom-color: var(--troy-color-on-secondary);
+}
+
+/* === Responsive Utilities === */
+.troy-product-video-height {
+    height: 300px; /* Base height */
+}
+
+@media (min-width: 768px) {
+    .troy-product-video-height {
+        height: 400px; /* md:h-[400px] */
+    }
+}
+
+@media (min-width: 1024px) {
+    .troy-product-video-height {
+        height: 100%; /* lg:h-full */
+        min-height: 450px; /* Ensures minimum height for better proportions */
+    }
+}

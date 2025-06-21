@@ -1,0 +1,130 @@
+---
+import "./troyQuantityOptions.css";
+import type { BlockData, OptionOption } from "../../../../../../lib/api/types";
+import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
+import troyDynamicPannelContainer from "../troyDynamicPanelContainer/troyDynamicPannelContainer.astro";
+
+const data: BlockData[] = Astro.props.data;
+const colorSizeOptions: OptionOption[] = Astro.props.colorSizeOptions;
+const name = "qty";
+---
+
+<offer-selector 
+  data-offer-name={name}
+>
+  <div id="troy-quantity-selection">
+    <h3
+      class="troy-quantity-title text-2xl py-3"
+      data-translate="quantityOptions.chooseQuantity"
+    >
+      {getTranslation("quantityOptions.chooseQuantity")}
+    </h3>
+
+    <div class="space-y-3">
+      {
+        data.map((item, index) => (
+          <div class="quantity-option-group">
+            <div class="troy-quantity-option-group border border-primary rounded-3xl p-2">
+              <label
+                class="troy-quantity-option-label group mb-1 relative overflow-hidden cursor-pointer block rounded-xl"
+                for={`${name}${index + 1}`}
+              >
+                <input
+                  type="radio"
+                  id={`${name}${index + 1}`}
+                  name={name}
+                  class="hidden"
+                  checked={index === 0}
+                  data-offer-radio
+                  data-offer-selected-item={JSON.stringify(item)}
+                  data-offer-items={item.items}
+                />
+                <div class="troy-quantity-option-content p-2 md:p-3">
+                  <div class="troy-quantity-option-header flex flex-col sm:flex-row sm:justify-between sm:items-start space-y-2 sm:space-y-0 mb-3">
+                    <div class="flex-1">
+                      <h3 class="troy-quantity-option-title font-bold text-base sm:text-lg mb-1">{item.title}</h3>
+                      <div class="troy-quantity-option-details flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                        <div class="troy-quantity-unit-badge py-1 px-2 rounded-full inline-block w-fit">
+                          <span>{item.items === 1 ? "" : item.items}</span>
+                          <span
+                            data-translate={"quantityOptions.itemUnit.singular"}
+                          />
+                        </div>
+                        <span class="hidden sm:inline">•</span>
+                        <div class="troy-quantity-price-info flex justify-start gap-1 text-xs sm:text-sm">
+                          <span>{item.price_per_item}</span>
+                          <span data-translate="productFunnel.currency" />
+                          <span data-translate="quantityOptions.pricePerItem" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="text-left sm:text-right mt-2 sm:mt-0">
+                      <div
+                        class={`troy-quantity-final-price text-xl sm:text-2xl font-bold mb-1 ${item.discount > 0 ? "troy-quantity-price-discount" : "troy-quantity-price-regular"}`}
+                      >
+                        {item.final_total.toLocaleString()}{" "}
+                        {getTranslation("productFunnel.currency")}
+                      </div>
+                      {item.discount > 0 && (
+                        <div class="flex flex-col items-start sm:items-end">
+                          <div class="troy-quantity-original-price text-xs sm:text-sm line-through">
+                            {item.original_total.toLocaleString()}{" "}
+                            {getTranslation("productFunnel.currency")}
+                          </div>
+                          <div class="troy-quantity-discount-badge inline-flex items-center text-xs font-semibold py-1 px-2 rounded-full mt-1">
+                            <svg
+                              class="troy-quantity-discount-icon w-3 h-3 ml-1"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd"
+                              />
+                            </svg>
+                            <span class="ml-1">
+                              {getTranslation("quantityOptions.saveDiscount")
+                                .replace(
+                                  "{discountAmount}",
+                                  item.discount.toLocaleString() +
+                                    " " +
+                                    getTranslation("productFunnel.currency"),
+                                )
+                                .replace(
+                                  "{discountPercent}",
+                                  item.discount_percent,
+                                )}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </label>
+              <div
+                class={`flex flex-col gap-1 ${index === 0 ? "" : "hidden"}`}
+                data-offer-options-elements
+                data-offer-option-id={`${name}${index + 1}`}
+              >
+                {[...Array(item.items)].map((_, panelIndex) => (
+                <troyDynamicPannelContainer
+                    key={panelIndex}
+                    colorSizeOptions={colorSizeOptions}
+                    panel-index={panelIndex + 1}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</offer-selector>
+
+<script>
+  import "./troyQuantityOptions";
+</script>

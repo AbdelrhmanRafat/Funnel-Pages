@@ -1,0 +1,6 @@
+.troy-theme-today-order-count {
+  background-color: var(--troy-color-primary-light);
+  color: var(--troy-color-on-primary);
+  box-shadow: var(--troy-section-shadow);
+  border-radius: var(--troy-section-radius);
+}

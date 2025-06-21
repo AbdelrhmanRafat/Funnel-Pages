@@ -1,0 +1,25 @@
+/* === troy Reviews Component === */
+.troy-review-card {
+    background-color: var(--troy-color-surface-variant);
+    border-radius: var(--troy-section-radius);
+    border-left-color: var(--troy-color-primary);
+    padding: var(--troy-section-padding);
+    box-shadow: var(--troy-section-shadow);
+}
+
+.troy-review-description {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-review-name {
+    color: var(--troy-color-primary);
+}
+
+.troy-review-author-image {
+    background-color: var(--troy-color-primary);
+    box-shadow: var(--troy-section-shadow);
+}
+
+.troy-review-city {
+    color: var(--troy-color-on-surface-variant);
+}

@@ -1,0 +1,91 @@
+
+/* === Menu Overlay === */
+.troy-menu-overlay {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.troy-menu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.troy-menu-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.troy-menu-content {
+    background-color: var(--troy-color-surface);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 2px solid var(--troy-color-primary);
+}
+
+.troy-menu-overlay.show .troy-menu-content {
+    transform: translateX(0);
+}
+
+/* === Menu Styling === */
+.troy-menu-title {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-menu-close {
+    background-color: var(--troy-color-surface-variant);
+    border: 1px solid var(--troy-color-outline-variant);
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-menu-close:hover {
+    background-color: var(--troy-color-error);
+    border-color: var(--troy-color-error);
+    color: var(--troy-color-on-error);
+    transform: scale(1.1);
+}
+
+.troy-menu-link {
+    background-color: var(--troy-color-surface-variant);
+    color: var(--troy-color-on-surface);
+    text-decoration: none;
+    border: 1px solid var(--troy-color-outline-variant);
+}
+
+.troy-menu-link:hover {
+    background-color: var(--troy-color-primary);
+    color: var(--troy-color-on-primary);
+    border-color: var(--troy-color-primary);
+    transform: translateX(-4px);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.troy-menu-link:focus {
+    outline: 2px solid var(--troy-color-primary);
+    outline-offset: 2px;
+}
+
+/* Menu Items Animation */
+.troy-menu-nav ul li {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.troy-menu-overlay.show .troy-menu-nav ul li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Staggered animation for menu items */
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(1) { transition-delay: 0.1s; }
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(2) { transition-delay: 0.15s; }
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(3) { transition-delay: 0.2s; }
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(4) { transition-delay: 0.25s; }
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(5) { transition-delay: 0.3s; }
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(6) { transition-delay: 0.35s; }
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(7) { transition-delay: 0.4s; }
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(8) { transition-delay: 0.45s; }
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(9) { transition-delay: 0.5s; }
+.troy-menu-overlay.show .troy-menu-nav ul li:nth-child(10) { transition-delay: 0.55s; }

@@ -1,0 +1,19 @@
+/* === troy Product Usage Component === */
+.troy-usage-card {
+    background-color: var(--troy-color-surface-container);
+    box-shadow: var(--troy-section-shadow);
+    border-radius: var(--troy-section-radius);
+    transition: transform 0.2s ease;
+}
+
+.troy-usage-card:hover {
+    transform: scale(1.05);
+}
+
+.troy-usage-title {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-usage-subtitle {
+    color: var(--troy-color-on-surface-variant);
+}

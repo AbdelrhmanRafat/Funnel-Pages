@@ -1,0 +1,10 @@
+.troy-lang-switcher {
+    color: var(  --troy-color-on-surface);
+    transition:cubic-bezier(1, 0, 0, 1);
+}
+.troy-lang-switcher:hover {
+    background-color: var(--troy-color-primary);
+    color: var(--troy-color-on-primary);
+    border-radius: var(--troy-section-radius);
+    scale: 1.1;
+}

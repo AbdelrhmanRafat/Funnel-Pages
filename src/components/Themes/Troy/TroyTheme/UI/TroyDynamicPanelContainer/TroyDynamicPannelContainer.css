@@ -1,0 +1,75 @@
+/* === Dynamic Panel Container === */
+.troy-option-panel {
+    background-color: var(--troy-color-surface);
+    border-radius: var(--troy-section-radius);
+    border-color: var(--troy-color-primary-light);
+}
+
+.troy-panel-header {
+    color: var(--troy-color-primary-dark);
+}
+
+.troy-selection-indicator {
+    background-color: var(--troy-color-secondary);
+    color: var(--troy-color-on-secondary);
+}
+
+.troy-selection-title {
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-size-option {
+    border-color: var(--troy-color-outline);
+    transition: all 0.2s ease;
+    box-shadow: var(--troy-section-shadow);
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-size-option:hover {
+    background-color: var(--troy-color-secondary);
+    color: var(--troy-color-on-secondary);
+}
+
+.troy-color-option {
+    transition: transform 0.2s ease;
+}
+
+.troy-color-option:hover {
+    transform: scale(1.05);
+}
+
+.troy-color-swatch {
+    border-color: var(--troy-color-surface);
+    box-shadow: var(--troy-section-shadow);
+}
+
+.troy-color-name {
+    color: var(--troy-color-on-surface-variant);
+}
+
+/* === Selection States (Updated) === */
+.selected-color-option {
+    transform: scale(1.1);
+}
+
+.selected-color-option .troy-color-swatch {
+    border: 3px solid var(--troy-color-primary);
+    box-shadow: 0 0 0 2px var(--troy-color-surface), 
+                0 0 0 4px var(--troy-color-primary), 
+                0 6px 16px rgba(0, 150, 136, 0.25);
+}
+
+.selected-color-option .troy-color-name {
+    color: var(--troy-color-secondary);
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.selected-size-option {
+    background-color: var(--troy-color-secondary);
+    color: var(--troy-color-on-secondary);
+    border-color: var(--troy-color-secondary-light);
+    box-shadow: var(--troy-section-shadow);
+    transform: translateY(-2px);
+    font-weight: 600;
+}

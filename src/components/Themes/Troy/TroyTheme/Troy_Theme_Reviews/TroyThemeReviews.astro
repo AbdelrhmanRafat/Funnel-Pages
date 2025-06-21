@@ -1,0 +1,43 @@
+---
+import "./troyThemeReviews.css";
+import type { BlockData, Review } from "../../../../../lib/api/types";
+import troyBuyNowButton from "../UI/troyBuyNowButton/troyBuyNowButton.astro";
+import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+const reviews: Review[] = data.reviews;
+---
+
+<section id={FunneltroyComponents.troyReviews} class="troy-section">
+  <h2 class="troy-section-header">
+    {data.title}
+  </h2>
+  
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 mb-8">
+    {
+      reviews.map((review) => (
+        <div class="troy-review-card flex flex-col  border-l-4">
+          <p class="troy-review-description text-base leading-relaxed mb-4 italic">{review.description}</p>
+          <div class="flex-1"></div>
+          <div class="troy-review-author flex flex-col gap-1">
+           <div class="flex justify-start items-center gap-2">
+            <div class="troy-review-author-image w-12 h-12 rounded-full flex items-center justify-center">
+              <img
+                src={review.image}
+                alt={`Profile of ${review.name}`}
+                class="w-10 h-10 rounded-full object-cover"
+              />
+            </div>
+            <span class="troy-review-name font-semibold text-md">{review.name}</span>
+            </div>
+            <span class="troy-review-city text-sm">{review.city}</span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  
+  <div class="troy-reviews-action flex justify-center mt-8">
+    <troyBuyNowButton />
+  </div>
+</section>

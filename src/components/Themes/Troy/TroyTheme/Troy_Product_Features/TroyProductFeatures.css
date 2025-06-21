@@ -1,0 +1,51 @@
+/* === Product Features Section Classes === */
+.troy-feature-card {
+    background-color: var(--troy-color-surface);
+    border: 1px solid var(--troy-color-outline-variant);
+    transition: all 0.3s ease;
+    box-shadow: var(--troy-section-shadow);
+}
+
+.troy-feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--troy-section-shadow);
+    border-color: var(--troy-color-primary);
+}
+
+.troy-feature-icon-container {
+    /* Keeping width/height in CSS for potential dynamic sizing */
+    width: 4rem; /* w-16 */
+    height: 4rem; /* h-16 */
+    background-color: var(--troy-color-primary);
+    color: var(--troy-color-on-primary);
+    transition: all 0.3s ease;
+}
+
+.troy-feature-card:hover .troy-feature-icon-container {
+    background-color: var(--troy-color-primary);
+    transform: scale(1.1);
+}
+
+.troy-feature-icon {
+    color: var(--troy-color-on-primary);
+    transition: all 0.3s ease;
+}
+
+.troy-feature-card:hover .troy-feature-icon {
+    color: var(--troy-color-on-primary);
+    transform: scale(1.1);
+}
+
+.troy-feature-title {
+    color: var(--troy-color-on-surface);
+    transition: color 0.3s ease;
+}
+
+.troy-feature-card:hover .troy-feature-title {
+    color: var(--troy-color-primary);
+}
+
+.troy-feature-subtitle {
+    color: var(--troy-color-on-surface-variant);
+    line-height: 1.4;
+}

@@ -1,0 +1,168 @@
+---
+import "./troyModalPurchaseInfo.css";
+import troyConfirmPurchaseButton from "../UI/troyConfirmPurchaseButton/troyConfirmPurchaseButton.astro";
+---
+
+<troy-purchase-modal
+>
+  <div data-modal-container class="troy-modal fixed top-0 left-0 w-full h-full z-[1000] hidden">
+    <div data-modal-overlay class="troy-modal-overlay absolute top-0 left-0 w-full h-full z-[1001]"></div>
+    <div class="troy-modal-container relative container md:w-7/12 max-h-[90vh] overflow-y-auto z-[1002]">
+
+      <!-- Purchase Info View (Default) -->
+      <div data-modal-purchase-info-view class="modal-view w-full">
+        <div class="troy-modal-header flex justify-between items-center p-4 border-b">
+          <h3 class="troy-modal-title text-xl font-semibold m-0" data-translate="modal.purchaseInfo"></h3>
+          <button type="button" class="troy-modal-close bg-transparent border-none cursor-pointer text-xl p-1 flex items-center justify-center transition-colors duration-200" data-modal-close-button>
+            <i class="fa-solid fa-times"></i>
+          </button>
+        </div>
+
+        <div class="troy-modal-body p-4">
+          <div class="troy-modal-content flex flex-col gap-6">
+
+            <!-- Order Summary Section -->
+            <div class="troy-purchase-summary flex flex-col gap-4">
+              <h4 class="troy-summary-title text-xl font-semibold mb-2 pb-2 border-b-2" data-translate="modal.orderSummary"></h4>
+
+              <!-- Quantity Information -->
+              <div data-modal-quantity-info class="troy-summary-section border-l-4">
+                <div class="troy-summary-item py-2 last:border-b-0">
+                  <span class="troy-summary-label font-medium" data-translate="modal.orderType"></span>:
+                  <span class="troy-summary-value font-semibold text-right" data-modal-order-title>-</span>
+                </div>
+                <div class="troy-summary-item py-2 last:border-b-0">
+                  <span class="troy-summary-label font-medium" data-translate="modal.itemsCount"></span>:
+                  <span class="troy-summary-value font-semibold text-right" data-modal-items-count>-</span>
+                </div>
+                <div class="troy-summary-item py-2 last:border-b-0">
+                  <span class="troy-summary-label font-medium" data-translate="modal.pricePerItem"></span>:
+                  <span class="troy-summary-value font-semibold text-right" data-modal-price-per-item>-</span>
+                </div>
+                <div class="troy-summary-item py-2 last:border-b-0">
+                  <span class="troy-summary-label font-medium" data-translate="modal.discount"></span>:
+                  <span class="troy-summary-value troy-discount-info font-semibold text-right" data-modal-discount-info>-</span>
+                </div>
+              </div>
+
+              <!-- Color & Size Selection -->
+              <div data-modal-color-size-info class="troy-summary-section flex flex-col justify-start items-start md:flex-row md:justify-between md:items-center p-4 border-l-4">
+                <h5 class="troy-subsection-title text-base font-semibold mb-3" data-translate="modal.colorSizeSelection"></h5>
+                <div data-modal-selection-items class="troy-selection-items flex flex-col justify-center items-start gap-1"></div>
+              </div>
+
+              <!-- Customer Information -->
+              <div data-modal-customer-info class="troy-summary-section p-4 rounded-xl border-l-4">
+                <h5 class="troy-subsection-title text-base font-semibold mb-3" data-translate="modal.customerInfo"></h5>
+                <div class="troy-customer-details flex flex-col gap-2">
+                  <div class="troy-summary-item py-2 last:border-b-0">
+                    <span class="troy-summary-label font-medium" data-translate="modal.fullName"></span>:
+                    <span class="troy-summary-value font-semibold text-right" data-modal-customer-name>-</span>
+                  </div>
+                  <div class="troy-summary-item py-2 last:border-b-0">
+                    <span class="troy-summary-label font-medium" data-translate="modal.phone"></span>:
+                    <span class="troy-summary-value font-semibold text-right" data-modal-customer-phone>-</span>
+                  </div>
+                  <div class="troy-summary-item py-2 last:border-b-0">
+                    <span class="troy-summary-label font-medium" data-translate="modal.email"></span>:
+                    <span class="troy-summary-value font-semibold text-right" data-modal-customer-email>-</span>
+                  </div>
+                  <div class="troy-summary-item py-2 last:border-b-0">
+                    <span class="troy-summary-label font-medium" data-translate="modal.address"></span>:
+                    <span class="troy-summary-value font-semibold text-right" data-modal-customer-address>-</span>
+                  </div>
+                  <div class="troy-summary-item py-2 last:border-b-0">
+                    <span class="troy-summary-label font-medium" data-translate="modal.city"></span>:
+                    <span class="troy-summary-value font-semibold text-right" data-modal-customer-city>-</span>
+                  </div>
+                  <div class="troy-summary-item py-2 last:border-b-0">
+                    <span class="troy-summary-label font-medium" data-translate="modal.paymentMethod"></span>:
+                    <span class="troy-summary-value font-semibold text-right" data-modal-payment-method>-</span>
+                  </div>
+                  <div class="troy-summary-item py-2 last:border-b-0" data-modal-notes-section>
+                    <span class="troy-summary-label font-medium" data-translate="modal.notes"></span>:
+                    <span class="troy-summary-value font-semibold text-right" data-modal-customer-notes>-</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Total Section -->
+              <div class="troy-summary-total flex justify-between items-center p-4 mt-2 border-2 rounded-xl font-bold text-lg">
+                <span class="troy-summary-label" data-translate="modal.finalTotal"></span>:
+                <span class="troy-summary-value text-xl" data-modal-final-total>-</span>
+              </div>
+            </div>
+
+            <div class="troy-modal-actions flex gap-4 mt-4">
+              <troyConfirmPurchaseButton />
+              <button type="button" class="troy-modal-cancel flex-1 py-3 px-4 rounded-md font-semibold border cursor-pointer transition-colors duration-300" data-modal-cancel-button data-translate="modal.cancel"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Celebration View -->
+      <div data-modal-celebration-view class="modal-view celebration-view w-full hidden" style="display: none;">
+        <div class="troy-modal-header celebration-header flex justify-between items-center p-4 border-b">
+          <h3 class="troy-modal-title celebration-title text-xl font-bold m-0" data-translate="celebration.orderConfirmed"></h3>
+          <button type="button" class="troy-modal-close bg-transparent border-none cursor-pointer text-xl p-1 flex items-center justify-center transition-colors duration-200" data-modal-celebration-close-button>
+            <i class="fa-solid fa-times"></i>
+          </button>
+        </div>
+
+        <div class="troy-modal-body p-4">
+          <div class="troy-modal-content celebration-content flex flex-col gap-8 text-center">
+
+            <!-- Success Animation -->
+            <div class="celebration-animation flex justify-center items-center my-4">
+              <div class="success-checkmark w-20 h-20 rounded-full block relative mx-auto">
+                <div class="check-icon w-14 h-14 absolute left-3 top-3 z-10 rounded-full"></div>
+              </div>
+            </div>
+
+            <!-- Thank You Message -->
+            <div class="celebration-message my-8">
+              <h2 class="celebration-main-title text-3xl font-bold mb-4" data-translate="celebration.thankYou"></h2>
+              <p class="celebration-subtitle text-lg leading-relaxed max-w-md mx-auto" data-translate="celebration.detailsMessage"></p>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="celebration-summary p-6 rounded-xl my-6">
+              <div class="celebration-summary-item flex items-center gap-4 py-3 last:border-b-0">
+                <i class="fa-solid fa-shopping-bag celebration-icon text-2xl w-6 text-center"></i>
+                <div class="celebration-summary-text flex flex-col text-left flex-1">
+                  <strong class="font-semibold mb-1" data-translate="celebration.orderNumber"></strong>
+                  <span class="text-sm" data-modal-order-number>#{Math.floor(Math.random() * 100000)}</span>
+                </div>
+              </div>
+              <div class="celebration-summary-item flex items-center gap-4 py-3 last:border-b-0">
+                <i class="fa-solid fa-clock celebration-icon text-2xl w-6 text-center"></i>
+                <div class="celebration-summary-text flex flex-col text-left flex-1">
+                  <strong class="font-semibold mb-1" data-translate="celebration.expectedDelivery"></strong>
+                  <span class="text-sm" data-translate="celebration.deliveryTime"></span>
+                </div>
+              </div>
+              <div class="celebration-summary-item flex items-center gap-4 py-3 last:border-b-0">
+                <i class="fa-solid fa-phone celebration-icon text-2xl w-6 text-center"></i>
+                <div class="celebration-summary-text flex flex-col text-left flex-1">
+                  <strong class="font-semibold mb-1" data-translate="celebration.contactYou"></strong>
+                  <span class="text-sm" data-translate="celebration.contactTime"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="celebration-actions mt-8">
+              <button type="button" class="celebration-primary-button py-4 px-8 rounded-full border-none font-semibold text-lg cursor-pointer transition-all duration-300 shadow-lg hover:-translate-y-0.5 hover:shadow-xl" data-modal-celebration-continue-button data-translate="celebration.continueShopping"></button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</troy-purchase-modal>
+
+<script>
+  import "./troyModalPurchaseInfo";
+</script>

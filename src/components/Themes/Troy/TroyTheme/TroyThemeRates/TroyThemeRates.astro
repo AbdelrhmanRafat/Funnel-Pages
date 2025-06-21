@@ -1,0 +1,20 @@
+---
+import "./troyThemeRates.css";
+import type { BlockData } from '../../../../../lib/api/types';
+import { getTranslation } from '../../../../../lib/utils/i18n/translations';
+import { FunneltroyComponents } from "../../../../../lib/constants/themes";
+
+const ratingData: BlockData = Astro.props.ratingData;
+---
+<div id={FunneltroyComponents.troyRates} class="troy-rates w-full flex justify-between items-center">
+  <div class="troy-rating-display">
+    <span>{ratingData.rate}</span>
+    <i class="fa-solid fa-star troy-rating-star"></i>
+  </div>
+  <div class="troy-rating-count">
+    <span>{ratingData.count}</span>
+    <p class="troy-rating-label" data-translate="ratings.count">
+      {getTranslation("ratings.count")}
+    </p>
+  </div>
+</div>
