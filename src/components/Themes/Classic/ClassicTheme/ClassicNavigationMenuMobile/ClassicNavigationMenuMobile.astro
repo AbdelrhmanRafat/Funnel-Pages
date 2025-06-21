@@ -64,45 +64,49 @@ const orderedAnchors = RENDER_ORDER
   });
 ---
 <!-- Mobile Navigation Menu Overlay - Only visible on mobile -->
- {orderedAnchors && orderedAnchors.length > 0 && (
-    <div id="header-menu-overlay" class="classic-menu-overlay fixed inset-0 z-[60] md:hidden">
-      <div class="classic-menu-backdrop absolute inset-0" id="header-menu-backdrop"></div>
-      <div class="classic-menu-content absolute top-0 right-0 h-full w-80 max-w-[85vw] p-6">
-        <!-- Menu Header -->
-        <div class="flex justify-between items-center mb-6">
-          <h3 class="classic-menu-title text-lg font-semibold">القائمة</h3>
-          <button 
-            id="header-menu-close"
-            class="classic-menu-close p-2 rounded-lg transition-all duration-300"
-            aria-label="Close menu"
-          >
-            <i class="fa-solid fa-times text-xl"></i>
-          </button>
-        </div>
-        
-        <!-- Menu Items with API Titles -->
-        <nav class="classic-menu-nav">
-          <ul class="flex flex-col gap-2">
-            {orderedAnchors.map((anchor) => {
-              // Additional safety check during rendering
-              if (!anchor || !anchor.component || !anchor.componentData?.title) {
-                return null;
-              }
-              
-              return (
-                <li>
-                  <a 
-                    href={`#${anchor.component}`}
-                    class="classic-menu-link block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300"
-                    data-anchor-target={anchor.componentData.title}
-                  >
-                    {anchor.componentData.title}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+{orderedAnchors && orderedAnchors.length > 0 && (
+  <div id="header-menu-overlay" class="classic-menu-overlay">
+    <!-- Backdrop for closing menu -->
+    <div class="classic-menu-backdrop" id="header-menu-backdrop"></div>
+    
+    <!-- Menu Content -->
+    <div class="classic-menu-content">
+      <!-- Menu Header -->
+      <div class="classic-menu-header">
+        <h3 class="classic-menu-title">القائمة</h3>
+        <button 
+          id="header-menu-close"
+          class="classic-menu-close"
+          aria-label="Close menu"
+          type="button"
+        >
+          <i class="fa-solid fa-times"></i>
+        </button>
       </div>
+      
+      <!-- Menu Items with API Titles -->
+      <nav class="classic-menu-nav">
+        <ul class="classic-menu-list">
+          {orderedAnchors.map((anchor) => {
+            // Additional safety check during rendering
+            if (!anchor || !anchor.component || !anchor.componentData?.title) {
+              return null;
+            }
+            
+            return (
+              <li class="classic-menu-item">
+                <a 
+                  href={`#${anchor.component}`}
+                  class="classic-menu-link"
+                  data-anchor-target={anchor.componentData.title}
+                >
+                  {anchor.componentData.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </div>
-  )}
+  </div>
+)}

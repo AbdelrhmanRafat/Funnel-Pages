@@ -251,7 +251,6 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
 export function initProductFunnel() {
   // This function is now handled by the web component
   // but we keep it for compatibility
-  console.log('Product Funnel: Using web component implementation');
 }
 
 // Register the custom element

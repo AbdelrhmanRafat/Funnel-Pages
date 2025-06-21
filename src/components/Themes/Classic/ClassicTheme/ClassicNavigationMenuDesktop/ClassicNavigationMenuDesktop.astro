@@ -43,7 +43,6 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicFaq,
   FunnelClassicComponents.ClassicDeliveryFeatures,
 ];
-
 // Safe filtering with additional null checks
 const orderedAnchors = RENDER_ORDER
   .map(component => {
@@ -75,7 +74,6 @@ const orderedAnchors = RENDER_ORDER
                     if (!anchor || !anchor.component || !anchor.componentData?.title) {
                       return null;
                     }
-                    
                     return (
                       <li class="nav-item flex-shrink-0" data-index={index}>
                         <a 
@@ -118,8 +116,7 @@ const orderedAnchors = RENDER_ORDER
               </div>
             </div>
           </nav>
-        )}
-
+ )}
 <script>
     import { initEnhancedNavigation } from "./ClassicNavigationMenuDesktop";
     initEnhancedNavigation();
