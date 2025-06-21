@@ -5,7 +5,6 @@ import {
   DeliveryOptionsSubject,
   QuantityOptionsSubject,
   type Observer,
-  type QuantityState
 } from "../../../../../lib/patterns/Observer";
 import { getTranslation } from '../../../../../lib/utils/i18n/translations';
 

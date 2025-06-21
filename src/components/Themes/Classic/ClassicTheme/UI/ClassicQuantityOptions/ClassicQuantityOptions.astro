@@ -7,18 +7,10 @@ import ClassicDynamicPannelContainer from "../ClassicDynamicPanelContainer/Class
 const data: BlockData[] = Astro.props.data;
 const colorSizeOptions: OptionOption[] = Astro.props.colorSizeOptions;
 const name = "qty";
-
-// Component configuration
-const autoSelectFirst = Astro.props.autoSelectFirst ?? true;
-const enableStorage = Astro.props.enableStorage ?? true;
-const storageKey = Astro.props.storageKey ?? 'selectedItem';
 ---
 
 <offer-selector 
   data-offer-name={name}
-  data-offer-auto-select-first={autoSelectFirst}
-  data-offer-enable-storage={enableStorage}
-  data-offer-storage-key={storageKey}
 >
   <div id="classic-quantity-selection">
     <h3

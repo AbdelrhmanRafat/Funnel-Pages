@@ -1,35 +1,9 @@
 ---
 import "./ClassicModalPurchaseInfo.css";
-import { type Language } from "../../../../../lib/utils/i18n/translations";
 import ClassicConfirmPurchaseButton from "../UI/ClassicConfirmPurchaseButton/ClassicConfirmPurchaseButton.astro";
-
-// Get language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
-const isArabic = currentLang === "ar";
-
-// Component configuration
-const autoLoadData =   true;
-const showConfetti =   true;
-const preventBodyScroll =   true;
-const closeOnOverlayClick =   true;
-const autoGenerateOrderNumber =  true;
-
-// Props for the modal
-interface Props {
-  isOpen?: boolean;
-}
-
-const { isOpen = false } = Astro.props;
 ---
 
 <classic-purchase-modal
-  data-modal-auto-load-data={autoLoadData}
-  data-modal-show-confetti={showConfetti}
-  data-modal-prevent-body-scroll={preventBodyScroll}
-  data-modal-close-on-overlay-click={closeOnOverlayClick}
-  data-modal-auto-generate-order-number={autoGenerateOrderNumber}
-  data-modal-language={currentLang}
-  data-modal-is-arabic={isArabic}
 >
   <div data-modal-container class="classic-modal fixed top-0 left-0 w-full h-full z-[1000] hidden">
     <div data-modal-overlay class="classic-modal-overlay absolute top-0 left-0 w-full h-full z-[1001]"></div>

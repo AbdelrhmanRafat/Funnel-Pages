@@ -1,8 +1,13 @@
-// ClassicModalPurchaseInfo.ts - Web Component for Purchase Modal
+import { 
+  ColorSizeOptionsSubject, 
+  QuantityOptionsSubject, 
+  FormFieldsSubject, 
+  type ColorSizeOption, 
+  DeliveryOptionsSubject, 
+  PaymentOptionsSubject 
+} from '../../../../../lib/patterns/Observer';
 
-import { ColorSizeOptionsSubject , QuantityOptionsSubject, FormFieldsSubject, type ColorSizeOption, DeliveryOptionsSubject, PaymentOptionsSubject } from '../../../../../lib/patterns/Observer';
-
-interface QuantityItem {
+interface SelectedOffer {
   title: string;
   items: number;
   price_per_item: number;
@@ -25,507 +30,313 @@ interface FormField {
 interface FormData {
   [key: string]: FormField;
 }
-
-interface PurchaseModalElements {
-  modal: HTMLElement | null;
-  overlay: HTMLElement | null;
-  closeButton: HTMLElement | null;
-  cancelButton: HTMLElement | null;
-  purchaseInfoView: HTMLElement | null;
-  celebrationView: HTMLElement | null;
-  celebrationCloseButton: HTMLElement | null;
-  celebrationContinueButton: HTMLElement | null;
-  orderNumberElement: HTMLElement | null;
-  selectionItemsContainer: HTMLElement | null;
-  notesSection: HTMLElement | null;
-}
-
 class ClassicPurchaseModal extends HTMLElement {
-  private elements: PurchaseModalElements = {
-    modal: null,
-    overlay: null,
-    closeButton: null,
-    cancelButton: null,
-    purchaseInfoView: null,
-    celebrationView: null,
-    celebrationCloseButton: null,
-    celebrationContinueButton: null,
-    orderNumberElement: null,
-    selectionItemsContainer: null,
-    notesSection: null
+  // DOM elements cache
+  private elements: { [key: string]: HTMLElement | null } = {};
+  
+  // Observer subjects - centralized access
+  private subjects = {
+    colorSize: ColorSizeOptionsSubject.getInstance(),
+    quantity: QuantityOptionsSubject.getInstance(),
+    formFields: FormFieldsSubject.getInstance(),
+    delivery: DeliveryOptionsSubject.getInstance(),
+    payment: PaymentOptionsSubject.getInstance()
   };
-  
-  // Observer subjects
-  private colorSizeSubject: ColorSizeOptionsSubject;
-  private quantitySubject: QuantityOptionsSubject;
-  private paymentOptionsSubject : PaymentOptionsSubject;
-  private formFieldsSubject: FormFieldsSubject;
-  private deliverySubject: DeliveryOptionsSubject;
-  
-  // Configuration
-  private autoLoadData: boolean = true;
-  private showConfetti: boolean = true;
-  private preventBodyScroll: boolean = true;
-  private closeOnOverlayClick: boolean = true;
-  private autoGenerateOrderNumber: boolean = true;
-  private language: string = 'en';
-  private isArabic: boolean = false;
 
-  constructor() {
-    super();
-    this.colorSizeSubject = ColorSizeOptionsSubject.getInstance();
-    this.quantitySubject = QuantityOptionsSubject.getInstance();
-    this.formFieldsSubject = FormFieldsSubject.getInstance();
-    this.deliverySubject = DeliveryOptionsSubject.getInstance();
-    this.paymentOptionsSubject = PaymentOptionsSubject.getInstance();
-  }
+  // Element selectors mapping
+  private readonly selectors = {
+    modal: '[data-modal-container]',
+    overlay: '[data-modal-overlay]',
+    closeButton: '[data-modal-close-button]',
+    cancelButton: '[data-modal-cancel-button]',
+    purchaseInfoView: '[data-modal-purchase-info-view]',
+    celebrationView: '[data-modal-celebration-view]',
+    celebrationCloseButton: '[data-modal-celebration-close-button]',
+    celebrationContinueButton: '[data-modal-celebration-continue-button]',
+    orderNumberElement: '[data-modal-order-number]',
+    selectionItemsContainer: '[data-modal-selection-items]',
+    notesSection: '[data-modal-notes-section]'
+  };
+
+  // Field mapping for customer info display
+  private readonly fieldMappings = {
+    fullName: '[data-modal-customer-name]',
+    phone: '[data-modal-customer-phone]',
+    email: '[data-modal-customer-email]',
+    address: '[data-modal-customer-address]',
+    city: '[data-modal-customer-city]',
+    paymentOption: '[data-modal-payment-method]',
+    notes: '[data-modal-customer-notes]'
+  };
 
   connectedCallback() {
-    this.initializeSettings();
-    this.initializeElements();
+    this.cacheElements();
     this.setupEventListeners();
   }
 
-  private initializeSettings(): void {
-    this.autoLoadData = this.getAttribute('data-modal-auto-load-data') !== 'false';
-    this.showConfetti = this.getAttribute('data-modal-show-confetti') !== 'false';
-    this.preventBodyScroll = this.getAttribute('data-modal-prevent-body-scroll') !== 'false';
-    this.closeOnOverlayClick = this.getAttribute('data-modal-close-on-overlay-click') !== 'false';
-    this.autoGenerateOrderNumber = this.getAttribute('data-modal-auto-generate-order-number') !== 'false';
-    this.language = this.getAttribute('data-modal-language') || 'en';
-    this.isArabic = this.getAttribute('data-modal-is-arabic') === 'true';
-  }
-
-  private initializeElements(): void {
-    this.elements = {
-      modal: this.querySelector('[data-modal-container]') as HTMLElement,
-      overlay: this.querySelector('[data-modal-overlay]') as HTMLElement,
-      closeButton: this.querySelector('[data-modal-close-button]') as HTMLElement,
-      cancelButton: this.querySelector('[data-modal-cancel-button]') as HTMLElement,
-      purchaseInfoView: this.querySelector('[data-modal-purchase-info-view]') as HTMLElement,
-      celebrationView: this.querySelector('[data-modal-celebration-view]') as HTMLElement,
-      celebrationCloseButton: this.querySelector('[data-modal-celebration-close-button]') as HTMLElement,
-      celebrationContinueButton: this.querySelector('[data-modal-celebration-continue-button]') as HTMLElement,
-      orderNumberElement: this.querySelector('[data-modal-order-number]') as HTMLElement,
-      selectionItemsContainer: this.querySelector('[data-modal-selection-items]') as HTMLElement,
-      notesSection: this.querySelector('[data-modal-notes-section]') as HTMLElement
-    };
+  // Cache all DOM elements
+  private cacheElements(): void {
+    Object.entries(this.selectors).forEach(([key, selector]) => {
+      this.elements[key] = this.querySelector(selector);
+    });
 
     if (!this.elements.modal) {
       console.warn('Purchase Modal: Modal container not found');
     }
   }
 
+  // Setup all event listeners
   private setupEventListeners(): void {
-    // Modal control event listeners
-    if (this.closeOnOverlayClick && this.elements.overlay) {
-      this.elements.overlay.addEventListener('click', () => this.closeModal());
-    }
+    const { overlay, closeButton, cancelButton, celebrationCloseButton, celebrationContinueButton } = this.elements;
     
-    this.elements.closeButton?.addEventListener('click', () => this.closeModal());
-    this.elements.cancelButton?.addEventListener('click', () => this.closeModal());
-    this.elements.celebrationCloseButton?.addEventListener('click', () => this.closeModal());
-    this.elements.celebrationContinueButton?.addEventListener('click', () => this.closeModal());
+    // Modal close events
+    const closeElements = [closeButton, cancelButton, celebrationCloseButton, celebrationContinueButton];
+    closeElements.forEach(el => el?.addEventListener('click', () => this.closeModal()));
+    
+    if (overlay) {
+      overlay.addEventListener('click', () => this.closeModal());
+    }
 
     // Custom events
     document.addEventListener('openPurchaseModal', () => this.openModal());
     document.addEventListener('orderConfirmed', () => this.showCelebrationView());
   }
 
+  // Modal state management
   private openModal(): void {
     if (!this.elements.modal) return;
 
-    // Dispatch event before opening
-    this.dispatchEvent(new CustomEvent('modal-opening', {
-      detail: { autoLoadData: this.autoLoadData }
-    }));
-
+    this.dispatchCustomEvent('modal-opening', { autoLoadData: true });
+    
     this.elements.modal.classList.add('classic-modal-open');
-    
-    if (this.preventBodyScroll) {
-      document.body.style.overflow = 'hidden';
-    }
-    
-    // Reset to purchase info view
+    this.toggleBodyScroll(false);
     this.showPurchaseInfoView();
     
-    // Load data when modal opens if auto-load is enabled
-    if (this.autoLoadData) {
-      this.loadModalData();
-    }
-
-    // Dispatch event after opening
-    this.dispatchEvent(new CustomEvent('modal-opened', {
-      detail: { view: 'purchase-info' }
-    }));
+    this.loadModalData();
+    
+    this.dispatchCustomEvent('modal-opened', { view: 'purchase-info' });
   }
 
   private closeModal(): void {
     if (!this.elements.modal) return;
 
-    // Dispatch event before closing
-    this.dispatchEvent(new CustomEvent('modal-closing'));
-
+    this.dispatchCustomEvent('modal-closing');
+    
     this.elements.modal.classList.remove('classic-modal-open');
+    this.toggleBodyScroll(true);
     
-    if (this.preventBodyScroll) {
-      document.body.style.overflow = '';
-    }
+    // Reset view after animation
+    setTimeout(() => this.showPurchaseInfoView(), 300);
     
-    // Reset to purchase info view for next time
-    setTimeout(() => {
-      this.showPurchaseInfoView();
-    }, 300); // Wait for modal close animation
-
-    // Dispatch event after closing
-    this.dispatchEvent(new CustomEvent('modal-closed'));
+    this.dispatchCustomEvent('modal-closed');
   }
 
+  // View switching
   private showPurchaseInfoView(): void {
-    if (!this.elements.purchaseInfoView || !this.elements.celebrationView) return;
-
-    this.elements.purchaseInfoView.style.display = 'block';
-    this.elements.celebrationView.style.display = 'none';
-
-    this.dispatchEvent(new CustomEvent('view-changed', {
-      detail: { view: 'purchase-info' }
-    }));
+    this.switchView('purchaseInfoView', 'celebrationView', 'purchase-info');
   }
 
   private showCelebrationView(): void {
-    if (!this.elements.purchaseInfoView || !this.elements.celebrationView) return;
-
-    // Dispatch event before view change
-    this.dispatchEvent(new CustomEvent('celebration-starting'));
-
-    // Hide purchase info view
-    this.elements.purchaseInfoView.style.display = 'none';
+    this.dispatchCustomEvent('celebration-starting');
     
-    // Show celebration view with animation
-    this.elements.celebrationView.style.display = 'block';
+    this.switchView('celebrationView', 'purchaseInfoView', 'celebration');
     
-    // Generate a random order number if enabled
-    if (this.autoGenerateOrderNumber) {
-      this.generateOrderNumber();
-    }
-    
-    // Trigger confetti effect if enabled
-    if (this.showConfetti) {
-      this.triggerConfettiEffect();
-    }
-
-    this.dispatchEvent(new CustomEvent('view-changed', {
-      detail: { view: 'celebration' }
-    }));
+    this.generateOrderNumber();
+   this.triggerConfettiEffect();
   }
 
+  // Helper for view switching
+  private switchView(showView: string, hideView: string, viewName: string): void {
+    const show = this.elements[showView];
+    const hide = this.elements[hideView];
+    
+    if (show && hide) {
+      show.style.display = 'block';
+      hide.style.display = 'none';
+      this.dispatchCustomEvent('view-changed', { view: viewName });
+    }
+  }
+
+  // Utility methods
+  private toggleBodyScroll(enable: boolean): void {
+      document.body.style.overflow = enable ? '' : 'hidden';
+  }
+
+  private dispatchCustomEvent(name: string, detail?: any): void {
+    this.dispatchEvent(new CustomEvent(name, { detail }));
+  }
+
+  private updateElementText(selector: string, text: string): void {
+    const element = this.querySelector(selector);
+    if (element) element.textContent = text;
+  }
+
+  // Order number generation
   private generateOrderNumber(): void {
     if (!this.elements.orderNumberElement) return;
 
     const orderNumber = '#' + Math.floor(Math.random() * 900000 + 100000);
     this.elements.orderNumberElement.textContent = orderNumber;
-
-    this.dispatchEvent(new CustomEvent('order-number-generated', {
-      detail: { orderNumber }
-    }));
+    this.dispatchCustomEvent('order-number-generated', { orderNumber });
   }
 
+  // Confetti effect
   private triggerConfettiEffect(): void {
-    // Optional: Add confetti effect using CSS animations
-    setTimeout(() => {
-      this.createFloatingEmojis();
-    }, 800);
+    setTimeout(() => this.createFloatingEmojis(), 800);
   }
 
   private createFloatingEmojis(): void {
     const emojis = ['🎉', '✨', '🎊', '🌟', '💫'];
-    const modalContainer = this.querySelector('.classic-modal-container');
-    
-    if (!modalContainer) return;
+    const container = this.querySelector('.classic-modal-container');
+    if (!container) return;
 
-    for (let i = 0; i < 10; i++) {
+    // Add animation styles once
+    if (!document.getElementById('float-animation')) {
+      const style = document.createElement('style');
+      style.id = 'float-animation';
+      style.textContent = `
+        @keyframes float-up {
+          0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(-200px) rotate(360deg); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    // Create floating emojis
+    Array.from({ length: 10 }, (_, i) => {
       setTimeout(() => {
         const emoji = document.createElement('div');
         emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
         emoji.style.cssText = `
-          position: absolute;
-          font-size: 1.5rem;
-          pointer-events: none;
-          z-index: 9999;
-          animation: float-up 3s ease-out forwards;
-          left: ${Math.random() * 100}%;
-          top: 100%;
+          position: absolute; font-size: 1.5rem; pointer-events: none;
+          z-index: 9999; animation: float-up 3s ease-out forwards;
+          left: ${Math.random() * 100}%; top: 100%;
         `;
         
-        // Add floating animation
-        const style = document.createElement('style');
-        style.textContent = `
-          @keyframes float-up {
-            0% {
-              transform: translateY(0) rotate(0deg);
-              opacity: 1;
-            }
-            100% {
-              transform: translateY(-200px) rotate(360deg);
-              opacity: 0;
-            }
-          }
-        `;
-        document.head.appendChild(style);
-        
-        modalContainer.appendChild(emoji);
-        
-        // Remove emoji after animation
-        setTimeout(() => {
-          if (emoji.parentNode) {
-            emoji.parentNode.removeChild(emoji);
-          }
-        }, 3000);
+        container.appendChild(emoji);
+        setTimeout(() => emoji.remove(), 3000);
       }, i * 200);
-    }
+    });
 
-    this.dispatchEvent(new CustomEvent('confetti-triggered'));
+    this.dispatchCustomEvent('confetti-triggered');
   }
 
+  // Data loading and population
   private loadModalData(): void {
     try {
-      // Dispatch event before loading data
-      this.dispatchEvent(new CustomEvent('data-loading-start'));
+      this.dispatchCustomEvent('data-loading-start');
 
-      // Get data from observers
-      const colorSizeState = this.colorSizeSubject.getState();
-      const quantityState = this.quantitySubject.getState();
-      const formFieldsState = this.formFieldsSubject.getState();
-      const paymentOptionsState = this.paymentOptionsSubject.getState();
-      const deliveryState = this.deliverySubject.getState();
+      const states = {
+        colorSize: this.subjects.colorSize.getState(),
+        quantity: this.subjects.quantity.getState(),
+        formFields: this.subjects.formFields.getState(),
+        payment: this.subjects.payment.getState(),
+        delivery: this.subjects.delivery.getState()
+      };
       
-      // Populate data sections
-      this.populateQuantityInfo(quantityState.selectedItem);
-      this.populateColorSizeInfo(colorSizeState.options);
-      this.populateCustomerInfo(formFieldsState.formData, paymentOptionsState.selectedPaymentOptionValue ?? "");
+      this.populateQuantityInfo(states.quantity.selectedItem);
+      this.populateColorSizeInfo(states.colorSize.options);
+      this.populateCustomerInfo(states.formFields.formData, states.payment.selectedPaymentOptionValue ?? "");
       
-      // Dispatch event after loading data
-      this.dispatchEvent(new CustomEvent('data-loaded', {
-        detail: {
-          colorSize: colorSizeState.options,
-          quantity: quantityState.selectedItem,
-          formData: formFieldsState.formData,
-          paymentData : paymentOptionsState.selectedPaymentOptionValue,
-          delivery: deliveryState
-        }
-      }));
-
-      console.log('Modal data loaded:', {
-        colorSize: colorSizeState.options,
-        quantity: quantityState.selectedItem,
-        formData: formFieldsState.formData,
-        payment : paymentOptionsState.selectedPaymentOptionValue
-      });
+      this.dispatchCustomEvent('data-loaded', states);
+      console.log('Modal data loaded:', states);
     } catch (error) {
       console.error('Error loading modal data:', error);
-      this.dispatchEvent(new CustomEvent('data-loading-error', {
-        detail: { error }
-      }));
+      this.dispatchCustomEvent('data-loading-error', { error });
     }
   }
 
-  private populateQuantityInfo(quantityData: QuantityItem | null): void {
+  private populateQuantityInfo(quantityData: SelectedOffer | null): void {
     if (!quantityData) return;
 
-    // Get delivery option state
-    const deliveryState = this.deliverySubject.getState();
-
-    // Calculate actual final total and shipping based on delivery option
-    let actualShipping = quantityData.shipping_price;
-    let actualFinalTotal = quantityData.final_total;
-    if (deliveryState.selectedDeliveryOptionId === 'delivery-pickup') {
-      actualFinalTotal = Number(quantityData.final_total) - Number(quantityData.shipping_price);
-      actualShipping = 0;
-    }
-
-    // Update quantity information using data attributes
-    this.updateElementText('[data-modal-order-title]', quantityData.title);
-    this.updateElementText('[data-modal-items-count]', quantityData.items.toString());
-    this.updateElementText('[data-modal-price-per-item]', `${quantityData.price_per_item} جنيه`);
+    const deliveryState = this.subjects.delivery.getState();
+    const isPickup = deliveryState.selectedDeliveryOptionId === 'delivery-pickup';
     
-    // Handle discount information
+    const actualShipping = isPickup ? 0 : quantityData.shipping_price;
+    const actualFinalTotal = isPickup 
+      ? Number(quantityData.final_total) - Number(quantityData.shipping_price)
+      : quantityData.final_total;
+
+    // Update quantity display elements
+    const updates = {
+      '[data-modal-order-title]': quantityData.title,
+      '[data-modal-items-count]': quantityData.items.toString(),
+      '[data-modal-price-per-item]': `${quantityData.price_per_item} جنيه`,
+      '[data-modal-final-total]': `${actualFinalTotal} جنيه`,
+      '[data-modal-discount-info]': quantityData.discount > 0 
+        ? `${quantityData.discount} جنيه (${quantityData.discount_percent})`
+        : 'لا يوجد خصم'
+    };
+
+    Object.entries(updates).forEach(([selector, text]) => {
+      this.updateElementText(selector, text);
+    });
+
+    // Add discount styling if applicable
     if (quantityData.discount > 0) {
-      this.updateElementText('[data-modal-discount-info]', `${quantityData.discount} جنيه (${quantityData.discount_percent})`);
-      const discountElement = this.querySelector('[data-modal-discount-info]');
-      if (discountElement) {
-        discountElement.classList.add('classic-discount-info');
-      }
-    } else {
-      this.updateElementText('[data-modal-discount-info]', 'لا يوجد خصم');
+      this.querySelector('[data-modal-discount-info]')?.classList.add('classic-discount-info');
     }
-    
-    // Update final total
-    this.updateElementText('[data-modal-final-total]', `${actualFinalTotal} جنيه`);
   }
 
   private populateColorSizeInfo(colorSizeOptions: ColorSizeOption[]): void {
-    if (!this.elements.selectionItemsContainer || !colorSizeOptions) return;
+    const container = this.elements.selectionItemsContainer;
+    if (!container || !colorSizeOptions) return;
 
-    this.elements.selectionItemsContainer.innerHTML = '';
-
-    colorSizeOptions.forEach((option) => {
-      const selectionItem = document.createElement('div');
-      selectionItem.className = 'classic-selection-item';
-      
-      selectionItem.innerHTML = `
+    container.innerHTML = colorSizeOptions.map(option => `
+      <div class="classic-selection-item">
         <div class="classic-panel-info">القطعة ${option.panelIndex}</div>
         <div class="classic-selection-details flex justify-center gap-3 items-center">
-          <div class="classic-color-display">
-            <span>${option.color}</span>
-          </div>
-          <div class="classic-size-display">
-          <span>${option.size}</span>
-          </div>
+          <div class="classic-color-display"><span>${option.color}</span></div>
+          <div class="classic-size-display"><span>${option.size}</span></div>
         </div>
-      `;
-      
-      this.elements.selectionItemsContainer.appendChild(selectionItem);
-    });
+      </div>
+    `).join('');
   }
 
-  private populateCustomerInfo(formData: FormData, paymentText : string): void {
+  private populateCustomerInfo(formData: FormData, paymentText: string): void {
     if (!formData) return;
 
-    // Map form field names to display elements using data attributes
-    const fieldMappings = {
-      fullName: '[data-modal-customer-name]',
-      phone: '[data-modal-customer-phone]',
-      email: '[data-modal-customer-email]',
-      address: '[data-modal-customer-address]',
-      city: '[data-modal-customer-city]',
-      paymentOption : '[data-modal-payment-method]',
-      notes: '[data-modal-customer-notes]'
-    };
+    Object.entries(this.fieldMappings).forEach(([fieldName, selector]) => {
+      if (fieldName === 'paymentOption') {
+        this.updateElementText(selector, paymentText);
+        return;
+      }
 
-    Object.entries(fieldMappings).forEach(([fieldName, selector]) => {
-      if (fieldName === 'paymentOption') 
-          {
-          // Translate payment method
-          console.log("NJSJKNKSNKSNK");
-          this.updateElementText(selector, paymentText);
-        }
       const fieldData = formData[fieldName];
-      if (fieldData) {
-        console.log(fieldName);
-        if (fieldName === 'notes') {
-          // Handle notes - show/hide section based on content
-          if (fieldData.value && fieldData.value.trim()) {
-            this.updateElementText(selector, fieldData.value);
-            if (this.elements.notesSection) {
-              this.elements.notesSection.style.display = 'flex';
-            }
-          } else {
-            if (this.elements.notesSection) {
-              this.elements.notesSection.style.display = 'none';
-            }
-          }
-        } else {
-          this.updateElementText(selector, fieldData.value || '-');
+      if (!fieldData) return;
+
+      if (fieldName === 'notes') {
+        const hasNotes = fieldData.value?.trim();
+        if (this.elements.notesSection) {
+          this.elements.notesSection.style.display = hasNotes ? 'flex' : 'none';
         }
+        if (hasNotes) this.updateElementText(selector, fieldData.value);
+      } else {
+        this.updateElementText(selector, fieldData.value || '-');
       }
     });
   }
 
-  private updateElementText(selector: string, text: string): void {
-    const element = this.querySelector(selector);
-    if (element) {
-      element.textContent = text;
-    }
-  }
-
-  // Public API methods
-  public openModalManually(): void {
-    this.openModal();
-  }
-
-  public closeModalManually(): void {
-    this.closeModal();
-  }
-
-  public showCelebrationManually(): void {
-    this.showCelebrationView();
-  }
-
-  public loadDataManually(): void {
-    this.loadModalData();
-  }
-
-  public getCurrentView(): string {
-    if (this.elements.celebrationView?.style.display !== 'none') {
-      return 'celebration';
-    }
-    return 'purchase-info';
-  }
-
-  public enableAutoLoadData(enable: boolean): void {
-    this.autoLoadData = enable;
-    this.setAttribute('data-modal-auto-load-data', enable.toString());
-  }
-
-  public enableConfetti(enable: boolean): void {
-    this.showConfetti = enable;
-    this.setAttribute('data-modal-show-confetti', enable.toString());
-  }
-
-  public enableBodyScrollPrevention(enable: boolean): void {
-    this.preventBodyScroll = enable;
-    this.setAttribute('data-modal-prevent-body-scroll', enable.toString());
-  }
-
-  public enableOverlayClose(enable: boolean): void {
-    this.closeOnOverlayClick = enable;
-    this.setAttribute('data-modal-close-on-overlay-click', enable.toString());
-  }
-
-  public setOrderNumber(orderNumber: string): void {
-    if (this.elements.orderNumberElement) {
-      this.elements.orderNumberElement.textContent = orderNumber;
-    }
-  }
-
-  public getOrderNumber(): string | null {
-    return this.elements.orderNumberElement?.textContent || null;
-  }
-
-  public getModalData(): any {
-    return {
-      colorSize: this.colorSizeSubject.getState(),
-      quantity: this.quantitySubject.getState(),
-      formData: this.formFieldsSubject.getState(),
-      delivery: this.deliverySubject.getState()
-    };
-  }
-
-  public getObserverSubjects(): any {
-    return {
-      colorSizeSubject: this.colorSizeSubject,
-      quantitySubject: this.quantitySubject,
-      formFieldsSubject: this.formFieldsSubject,
-      deliverySubject: this.deliverySubject
-    };
-  }
+  // Public API - simplified method names
+  public open = () => this.openModal();
+  public close = () => this.closeModal();
+  public showCelebration = () => this.showCelebrationView();
+  public loadData = () => this.loadModalData();
 }
-
-// Register the custom element
-document.addEventListener('DOMContentLoaded', () => {
+// Registration and initialization
+const initializeModal = () => {
   if (!customElements.get('classic-purchase-modal')) {
     customElements.define('classic-purchase-modal', ClassicPurchaseModal);
   }
-});
-
-// Handle Astro page transitions
+};
+document.addEventListener('DOMContentLoaded', initializeModal);
 document.addEventListener('astro:page-load', () => {
-  const purchaseModals = document.querySelectorAll('classic-purchase-modal:not(:defined)');
-  purchaseModals.forEach(modal => {
-    if (modal instanceof ClassicPurchaseModal) {
-      modal.connectedCallback();
-    }
-  });
+  document.querySelectorAll('classic-purchase-modal:not(:defined)')
+    .forEach(modal => {
+      if (modal instanceof ClassicPurchaseModal) {
+        modal.connectedCallback();
+      }
+    });
 });
-
 export { ClassicPurchaseModal };

@@ -14,12 +14,9 @@ import {
 } from '../../../../../../lib/patterns/Observer';
 import { FORM_FIELD_CONFIG } from '../../../../../../lib/constants/formConfig';
 
-
-
 interface SubmitOrderElements {
   submitButton: HTMLButtonElement | null;
 }
-
 class ClassicSubmitOrder extends HTMLElement {
   private elements: SubmitOrderElements = {
     submitButton: null
@@ -414,14 +411,12 @@ class ClassicSubmitOrder extends HTMLElement {
     return this.colorSizeSubject;
   }
 }
-
 // Register the custom element
 document.addEventListener('DOMContentLoaded', () => {
   if (!customElements.get('classic-submit-order')) {
     customElements.define('classic-submit-order', ClassicSubmitOrder);
   }
 });
-
 // Handle Astro page transitions
 document.addEventListener('astro:page-load', () => {
   const submitOrders = document.querySelectorAll('classic-submit-order:not(:defined)');

@@ -3,11 +3,7 @@ import "./ClassicNavigationMenuDesktop.css";
 import type { Data } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import { getClassicThemeComponent } from "../../../../../lib/utils/ThemeSelect";
-
-
 const funnelPage: Data = Astro.props.funnelPage;
-
-
 // Generate anchors from available components with comprehensive null checking
 const availableAnchors = funnelPage?.blocks
   ?.map((block) => {

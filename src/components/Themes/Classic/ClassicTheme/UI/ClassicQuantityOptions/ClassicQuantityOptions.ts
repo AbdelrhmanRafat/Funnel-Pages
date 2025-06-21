@@ -170,7 +170,6 @@ class OfferSelector extends HTMLElement {
       this.resetSelectionsManually(panelContainer);
     }
   }
-
   private resetSelectionsManually(panelContainer: HTMLElement): void {
     const selectedSizeClassName = "selected-size-option";
     const selectedColorClassName = "selected-color-option";
@@ -195,12 +194,10 @@ class OfferSelector extends HTMLElement {
     const selectedColorText = panelContainer.querySelector<HTMLElement>('[data-options-selected-color]');
     if (selectedColorText) selectedColorText.textContent = "";
   }
-
   // Public API methods
   public getCurrentSelection(): any {
     return this.quantitySubject.getState();
   }
-
   public selectOffer(radioId: string): boolean {
     if (!this.elements.radioButtons) return false;
 
@@ -213,7 +210,6 @@ class OfferSelector extends HTMLElement {
     }
     return false;
   }
-
   public selectOfferByIndex(index: number): boolean {
     if (!this.elements.radioButtons || index < 0 || index >= this.elements.radioButtons.length) {
       return false;
@@ -224,7 +220,6 @@ class OfferSelector extends HTMLElement {
     this.handleOfferSelection(targetRadio);
     return true;
   }
-
   public clearStorage(): void {
     if (this.enableStorage) {
       try {
@@ -234,28 +229,23 @@ class OfferSelector extends HTMLElement {
       }
     }
   }
-
   public enableStorageFeature(enable: boolean): void {
     this.enableStorage = enable;
     this.setAttribute('data-offer-enable-storage', enable.toString());
   }
-
   public getQuantitySubject(): QuantityOptionsSubject {
     return this.quantitySubject;
   }
-
   public getColorSizeSubject(): ColorSizeOptionsSubject {
     return this.colorSizeSubject;
   }
 }
-
 // Register the custom element
 document.addEventListener('DOMContentLoaded', () => {
   if (!customElements.get('offer-selector')) {
     customElements.define('offer-selector', OfferSelector);
   }
 });
-
 // Handle Astro page transitions
 document.addEventListener('astro:page-load', () => {
   const offerSelectors = document.querySelectorAll('offer-selector:not(:defined)');
@@ -265,6 +255,5 @@ document.addEventListener('astro:page-load', () => {
     }
   });
 });
-
 // Export for potential external use
 export { OfferSelector };
