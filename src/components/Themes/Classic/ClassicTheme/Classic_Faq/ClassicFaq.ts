@@ -1,10 +1,8 @@
 // ClassicFaq.ts - Web Components that work with existing HTML structure
-
-class FaqItem extends HTMLElement {
+class FaqItem extends HTMLElement  {
     private button: HTMLButtonElement | null = null;
     private answer: HTMLDivElement | null = null;
     private icon: HTMLSpanElement | null = null;
-
     constructor() {
         super();
     }
@@ -12,7 +10,6 @@ class FaqItem extends HTMLElement {
         this.initializeElements();
         this.attachEventListeners();
     }
-
     private initializeElements(): void {
         // Find existing elements using semantic data attributes
         this.button = this.querySelector('[data-faq-button]') as HTMLButtonElement;

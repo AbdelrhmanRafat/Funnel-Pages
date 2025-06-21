@@ -140,7 +140,6 @@ export interface FormFieldsState extends State {
     email: FormFieldData;
     address: FormFieldData;
     city: FormFieldData;
-    paymentOption: FormFieldData;
     notes: FormFieldData;
   };
 }
@@ -156,7 +155,6 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
         email: { id: 'form-email', value: '', isValid: false, errorMessage: '', touched: false },
         address: { id: 'form-address', value: '', isValid: false, errorMessage: '', touched: false },
         city: { id: 'form-city', value: '', isValid: false, errorMessage: '', touched: false },
-        paymentOption: { id: 'payment-option', value: '', isValid: true, errorMessage: '', touched: false },
         notes: { id: 'form-notes', value: '', isValid: false, errorMessage: '', touched: false }
       }
     });
@@ -176,7 +174,6 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
       email: { id: 'form-email', value: '', isValid: false, errorMessage: '', touched: false },
       address: { id: 'form-address', value: '', isValid: false, errorMessage: '', touched: false },
       city: { id: 'form-city', value: '', isValid: false, errorMessage: '', touched: false },
-      paymentOption: { id: 'payment-option', value: '', isValid: true, errorMessage: '', touched: false },
       notes: { id: 'form-notes', value: '', isValid: false, errorMessage: '', touched: false }
     };
 
@@ -194,15 +191,6 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
       }
     });
 
-    // Initialize payment option field separately since it's not in fieldIds
-    formData.paymentOption = {
-      id: 'payment-option',
-      value: this.getSelectedPaymentOption(),
-      isValid: true, // Assuming it's valid by default since one option is pre-selected
-      errorMessage: '',
-      touched: false,
-    };
-
     this.setState({ formData });
   }
 
@@ -219,50 +207,23 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
     return mapping[fieldId] || null;
   }
 
-  private getSelectedPaymentOption(): string {
-    const paymentRadios = document.querySelectorAll('input[name="payment-option"]');
-    for (const radio of paymentRadios) {
-      if ((radio as HTMLInputElement).checked) {
-        return (radio as HTMLInputElement).value;
-      }
-    }
-    return '';
-  }
-
   public updateField(fieldId: string, updates: Partial<FormFieldData>): void {
     const currentState = this.getState();
     const formData = { ...currentState.formData };
     
     // Handle payment option separately
-    if (fieldId === 'payment-option') {
-      if (formData.paymentOption) {
-        formData.paymentOption = { ...formData.paymentOption, ...updates };
-      } else {
-        formData.paymentOption = {
-          id: fieldId,
-          value: updates.value || '',
-          isValid: updates.isValid !== undefined ? updates.isValid : true,
-          errorMessage: updates.errorMessage || '',
-          touched: updates.touched !== undefined ? updates.touched : false,
-        };
-      }
-    } else {
+
       // Handle regular form fields
       const fieldKey = this.getFieldKeyFromId(fieldId);
       if (fieldKey && formData[fieldKey]) {
         formData[fieldKey] = { ...formData[fieldKey], ...updates };
       }
-    }
 
     this.setState({ formData });
   }
 
   public getField(fieldId: string): FormFieldData | null {
     const formData = this.getState().formData;
-    
-    if (fieldId === 'payment-option') {
-      return formData.paymentOption;
-    }
     
     const fieldKey = this.getFieldKeyFromId(fieldId);
     return fieldKey ? formData[fieldKey] : null;
@@ -274,21 +235,18 @@ export class FormFieldsSubject extends GenericSubject<FormFieldsState> {
 
   public areAllFieldsValid(): boolean {
     const formData = this.getState().formData;
-    
     // Check if all required fields are valid
     return (
       formData.fullName?.isValid === true &&
       formData.phone?.isValid === true &&
       formData.email?.isValid === true &&
       formData.address?.isValid === true &&
-      formData.city?.isValid === true &&
-      formData.paymentOption?.isValid === true
-      // Notes field is optional, so we don't check it here
+      formData.city?.isValid === true
     );
   }
 }
 
-// Delivery Options Observer Example
+// Delivery Options Observer
 export interface DeliveryOptionState extends State {
   selectedDeliveryOptionId: string | null;
   selectedDeliveryOptionValue: string | null;
@@ -318,5 +276,37 @@ export class DeliveryOptionsSubject extends GenericSubject<DeliveryOptionState> 
 
   public getDeliveryOptionValue(): string | null {
     return this.getState().selectedDeliveryOptionValue;
+  }
+}
+// Payment Options Observer 
+export interface PaymentOptionState extends State {
+  selectedPaymentOptionId: string | null;
+  selectedPaymentOptionValue: string | null;
+}
+
+export class PaymentOptionsSubject extends GenericSubject<PaymentOptionState> {
+  private static instance: PaymentOptionsSubject;
+
+  private constructor() {
+    super({ selectedPaymentOptionId: null, selectedPaymentOptionValue: null });
+  }
+
+  public static getInstance(): PaymentOptionsSubject {
+    if (!PaymentOptionsSubject.instance) {
+      PaymentOptionsSubject.instance = new PaymentOptionsSubject();
+    }
+    return PaymentOptionsSubject.instance;
+  }
+
+  public setPaymentOption(optionId: string, optionValue: string): void {
+    this.setState({ selectedPaymentOptionId: optionId, selectedPaymentOptionValue: optionValue });
+  }
+
+  public getPaymentOptionId(): string | null {
+    return this.getState().selectedPaymentOptionId;
+  }
+
+  public getPaymentOptionValue(): string | null {
+    return this.getState().selectedPaymentOptionValue;
   }
 }

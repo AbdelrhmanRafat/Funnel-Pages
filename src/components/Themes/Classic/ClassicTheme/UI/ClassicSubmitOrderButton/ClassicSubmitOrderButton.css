@@ -2,6 +2,6 @@
     width: 100%;
     background-color: var(--classic-color-primary);
     color: var(--classic-color-on-primary);
-    padding: 0.5rem;
+    padding: 1rem;
     border-radius: var(--classic-section-radius);
 }

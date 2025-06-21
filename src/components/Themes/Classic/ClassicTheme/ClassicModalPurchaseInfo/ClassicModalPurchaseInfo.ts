@@ -1,6 +1,6 @@
 // ClassicModalPurchaseInfo.ts - Web Component for Purchase Modal
 
-import { ColorSizeOptionsSubject, QuantityOptionsSubject, FormFieldsSubject, type ColorSizeOption, DeliveryOptionsSubject } from '../../../../../lib/patterns/Observer';
+import { ColorSizeOptionsSubject , QuantityOptionsSubject, FormFieldsSubject, type ColorSizeOption, DeliveryOptionsSubject, PaymentOptionsSubject } from '../../../../../lib/patterns/Observer';
 
 interface QuantityItem {
   title: string;
@@ -58,6 +58,7 @@ class ClassicPurchaseModal extends HTMLElement {
   // Observer subjects
   private colorSizeSubject: ColorSizeOptionsSubject;
   private quantitySubject: QuantityOptionsSubject;
+  private paymentOptionsSubject : PaymentOptionsSubject;
   private formFieldsSubject: FormFieldsSubject;
   private deliverySubject: DeliveryOptionsSubject;
   
@@ -76,6 +77,7 @@ class ClassicPurchaseModal extends HTMLElement {
     this.quantitySubject = QuantityOptionsSubject.getInstance();
     this.formFieldsSubject = FormFieldsSubject.getInstance();
     this.deliverySubject = DeliveryOptionsSubject.getInstance();
+    this.paymentOptionsSubject = PaymentOptionsSubject.getInstance();
   }
 
   connectedCallback() {
@@ -294,12 +296,13 @@ class ClassicPurchaseModal extends HTMLElement {
       const colorSizeState = this.colorSizeSubject.getState();
       const quantityState = this.quantitySubject.getState();
       const formFieldsState = this.formFieldsSubject.getState();
+      const paymentOptionsState = this.paymentOptionsSubject.getState();
       const deliveryState = this.deliverySubject.getState();
       
       // Populate data sections
       this.populateQuantityInfo(quantityState.selectedItem);
       this.populateColorSizeInfo(colorSizeState.options);
-      this.populateCustomerInfo(formFieldsState.formData);
+      this.populateCustomerInfo(formFieldsState.formData, paymentOptionsState.selectedPaymentOptionValue ?? "");
       
       // Dispatch event after loading data
       this.dispatchEvent(new CustomEvent('data-loaded', {
@@ -307,6 +310,7 @@ class ClassicPurchaseModal extends HTMLElement {
           colorSize: colorSizeState.options,
           quantity: quantityState.selectedItem,
           formData: formFieldsState.formData,
+          paymentData : paymentOptionsState.selectedPaymentOptionValue,
           delivery: deliveryState
         }
       }));
@@ -314,7 +318,8 @@ class ClassicPurchaseModal extends HTMLElement {
       console.log('Modal data loaded:', {
         colorSize: colorSizeState.options,
         quantity: quantityState.selectedItem,
-        formData: formFieldsState.formData
+        formData: formFieldsState.formData,
+        payment : paymentOptionsState.selectedPaymentOptionValue
       });
     } catch (error) {
       console.error('Error loading modal data:', error);
@@ -383,7 +388,7 @@ class ClassicPurchaseModal extends HTMLElement {
     });
   }
 
-  private populateCustomerInfo(formData: FormData): void {
+  private populateCustomerInfo(formData: FormData, paymentText : string): void {
     if (!formData) return;
 
     // Map form field names to display elements using data attributes
@@ -393,18 +398,21 @@ class ClassicPurchaseModal extends HTMLElement {
       email: '[data-modal-customer-email]',
       address: '[data-modal-customer-address]',
       city: '[data-modal-customer-city]',
-      paymentOption: '[data-modal-payment-method]',
+      paymentOption : '[data-modal-payment-method]',
       notes: '[data-modal-customer-notes]'
     };
 
     Object.entries(fieldMappings).forEach(([fieldName, selector]) => {
+      if (fieldName === 'paymentOption') 
+          {
+          // Translate payment method
+          console.log("NJSJKNKSNKSNK");
+          this.updateElementText(selector, paymentText);
+        }
       const fieldData = formData[fieldName];
       if (fieldData) {
-        if (fieldName === 'paymentOption') {
-          // Translate payment method
-          const paymentText = fieldData.value === 'cashOnDelivery' ? 'الدفع عند الاستلام' : fieldData.value;
-          this.updateElementText(selector, paymentText);
-        } else if (fieldName === 'notes') {
+        console.log(fieldName);
+        if (fieldName === 'notes') {
           // Handle notes - show/hide section based on content
           if (fieldData.value && fieldData.value.trim()) {
             this.updateElementText(selector, fieldData.value);

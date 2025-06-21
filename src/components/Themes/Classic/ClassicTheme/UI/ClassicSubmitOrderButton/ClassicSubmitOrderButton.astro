@@ -3,18 +3,16 @@ import "./ClassicSubmitOrderButton.css";
 import ClassicModalPurchaseInfo from "../../ClassicModalPurchaseInfo/ClassicModalPurchaseInfo.astro";
 
 // Component configuration
-const validateOnSubmit = Astro.props.validateOnSubmit ?? true;
-const showValidationMessages = Astro.props.showValidationMessages ?? true;
-const autoFocusFirstError = Astro.props.autoFocusFirstError ?? true;
-const submitButtonText = Astro.props.submitButtonText ?? "form.submit";
-const enableColorSizeValidation = Astro.props.enableColorSizeValidation ?? true;
+const validateOnSubmit =  true;
+const showValidationMessages =  true;
+const autoFocusFirstError =  true;
+const enableColorSizeValidation =  true;
 ---
 
 <classic-submit-order 
   data-submit-validate-on-submit={validateOnSubmit}
   data-submit-show-validation-messages={showValidationMessages}
   data-submit-auto-focus-first-error={autoFocusFirstError}
-  data-submit-button-text={submitButtonText}
   data-submit-enable-color-size-validation={enableColorSizeValidation}
 >
   <div>

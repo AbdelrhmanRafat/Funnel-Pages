@@ -1,5 +1,4 @@
 // ClassicSubmitOrderButton.ts - Web Component for Submit Order with Validation
-
 import {
   isValidFullName,
   isValidPhoneNumber,
@@ -13,24 +12,9 @@ import {
   ColorSizeOptionsSubject,
   FormFieldsSubject 
 } from '../../../../../../lib/patterns/Observer';
+import { FORM_FIELD_CONFIG } from '../../../../../../lib/constants/formConfig';
 
-// Configuration for form fields
-const FORM_FIELD_CONFIG = {
-  FIELD_IDS: [
-    'form-fullName',
-    'form-phone',
-    'form-email',
-    'form-address',
-    'form-city',
-    'form-notes'
-  ] as const,
-  ERROR_CLASSES: {
-    INVALID: 'classic-border-error',
-    VALID: 'classic-border-success',
-    ERROR_CONTAINER: 'classic-error-container',
-    ERROR_MESSAGE: 'classic-error-message'
-  }
-} as const;
+
 
 interface SubmitOrderElements {
   submitButton: HTMLButtonElement | null;
@@ -45,7 +29,6 @@ class ClassicSubmitOrder extends HTMLElement {
   private validateOnSubmit: boolean = true;
   private showValidationMessages: boolean = true;
   private autoFocusFirstError: boolean = true;
-  private buttonText: string = "form.submit";
   private enableColorSizeValidation: boolean = true;
 
   constructor() {
@@ -66,7 +49,6 @@ class ClassicSubmitOrder extends HTMLElement {
     this.validateOnSubmit = this.getAttribute('data-submit-validate-on-submit') !== 'false';
     this.showValidationMessages = this.getAttribute('data-submit-show-validation-messages') !== 'false';
     this.autoFocusFirstError = this.getAttribute('data-submit-auto-focus-first-error') !== 'false';
-    this.buttonText = this.getAttribute('data-submit-button-text') || 'form.submit';
     this.enableColorSizeValidation = this.getAttribute('data-submit-enable-color-size-validation') !== 'false';
   }
 
@@ -105,19 +87,7 @@ class ClassicSubmitOrder extends HTMLElement {
       }
     });
     
-    // Set up listeners for payment option radio buttons
-    const paymentRadios = document.querySelectorAll('input[name="payment-option"]');
-    paymentRadios.forEach((radio) => {
-      radio.addEventListener('change', () => {
-        if ((radio as HTMLInputElement).checked) {
-          this.formFieldsSubject.updateField('payment-option', {
-            value: (radio as HTMLInputElement).value,
-            isValid: true,
-            errorMessage: ''
-          });
-        }
-      });
-    });
+    
   }
 
   private setupSubmitButton(): void {

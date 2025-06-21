@@ -7,7 +7,7 @@ import {
   isValidAddress,
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
-import { DeliveryOptionsSubject } from '../../../../../lib/patterns/Observer';
+import { DeliveryOptionsSubject, PaymentOptionsSubject } from '../../../../../lib/patterns/Observer';
 
 /**
  * Interface representing a form field with validation state
@@ -313,4 +313,22 @@ document.addEventListener('DOMContentLoaded', () => {
       DeliveryOptionsSubject.getInstance().setDeliveryOption((radio as HTMLInputElement).id, (radio as HTMLInputElement).value);
     }
   });
+
+  // Payment Options: update observer state on change
+const paymentRadios = document.querySelectorAll('input[name="payment-option"]');
+paymentRadios.forEach(radio => {
+  radio.addEventListener('change', (e) => {
+    const target = e.target as HTMLInputElement;
+    if (target.checked) {
+      PaymentOptionsSubject.getInstance().setPaymentOption(target.id, target.value);
+    }
+  });
+  // Set initial state if checked
+  if ((radio as HTMLInputElement).checked) {
+    PaymentOptionsSubject.getInstance().setPaymentOption(
+      (radio as HTMLInputElement).id,
+      (radio as HTMLInputElement).value
+    );
+  }
+});
 });
