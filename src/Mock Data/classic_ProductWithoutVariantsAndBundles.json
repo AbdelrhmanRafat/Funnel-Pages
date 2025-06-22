@@ -1,0 +1,668 @@
+{
+    "code": 200,
+    "status": 1,
+    "errors": null,
+    "message": "messages.success",
+    "data": {
+        "product": {
+            "id": 62,
+            "category_id": 30,
+            "ware_house_id": 2,
+            "image": "https:\/\/backend.dev.baseet.co\/uploads\/Product\/9KIXaPWbC3kXBeq6wyvzmzQ8zgcfXXv6lcW5y06l.jpg",
+            "name": "Bracelet",
+            "name_ar": "\u0623\u0633\u0648\u0631\u0629 \u0646\u062d\u0627\u0633",
+            "name_en": "Bracelet",
+            "slug": "bracelet",
+            "slug_ar": "\u0623\u0633\u0648\u0631\u0629-\u0646\u062d\u0627\u0633",
+            "slug_en": "bracelet",
+            "description": "<p>Medical Copper Brand \u2013 Modern Design and Unique Properties for Better Health<\/p><p>\u2705 Relieve joint and neck pain, ideal for those who sit for long periods.<\/p><p>&nbsp;<\/p>",
+            "description_ar": "<p style=\"margin-left:0px;text-align:right;\"><strong>\u0623\u0633\u0648\u0631\u0629 \u0627\u0644\u0646\u062d\u0627\u0633 \u0627\u0644\u0637\u0628\u064a\u0629 \u2013 \u062a\u0635\u0645\u064a\u0645 \u0639\u0635\u0631\u064a \u0648\u062e\u0635\u0627\u0626\u0635 \u0641\u0631\u064a\u062f\u0629 \u0644\u0635\u062d\u0629 \u0623\u0641\u0636\u0644<\/strong><\/p><p style=\"margin-left:0px;text-align:right;\">\u2705 \u062a\u062e\u0641\u064a\u0641 \u0622\u0644\u0627\u0645 \u0627\u0644\u0645\u0641\u0627\u0635\u0644 \u0648\u0627\u0644\u0631\u0642\u0628\u0629\u060c \u0645\u062b\u0627\u0644\u064a\u0629 \u0644\u0645\u0646 \u064a\u062c\u0644\u0633\u0648\u0646 \u0644\u0641\u062a\u0631\u0627\u062a \u0637\u0648\u064a\u0644\u0629.<\/p><p style=\"margin-left:0px;text-align:right;\">\u2705 \u0645\u0635\u0646\u0648\u0639\u0629 \u0645\u0646 \u0645\u0648\u0627\u062f \u0625\u0646\u062c\u0644\u064a\u0632\u064a\u0629 \u0648\u0647\u0646\u062f\u064a\u0629 \u0639\u0627\u0644\u064a\u0629 \u0627\u0644\u062c\u0648\u062f\u0629 \u0644\u0636\u0645\u0627\u0646 \u0627\u0644\u0645\u062a\u0627\u0646\u0629 \u0648\u0627\u0644\u0623\u0646\u0627\u0642\u0629.<\/p><p style=\"margin-left:0px;text-align:right;\">&nbsp;<\/p>",
+            "description_en": "<p>Medical Copper Brand \u2013 Modern Design and Unique Properties for Better Health<\/p><p>\u2705 Relieve joint and neck pain, ideal for those who sit for long periods.<\/p><p>&nbsp;<\/p>",
+            "is_active": 1,
+            "qty": 24,
+            "sku_code": "12113985",
+            "price": 1300,
+            "price_after_discount": 1100,
+            "weight": null,
+            "weight_type": null,
+            "options": [
+                {
+                    "options": [
+                        {
+                            "name": "size",
+                            "value": [
+                                {
+                                    "display": "m",
+                                    "value": "m"
+                                },
+                                {
+                                    "display": "L",
+                                    "value": "L"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "null",
+                            "value": "null"
+                        }
+                    ]
+                }
+            ],
+            "category": {
+                "id": 30,
+                "parent_id": 29,
+                "name_ar": "\u0647\u0627\u0631\u062a \u0641\u0648\u0631\u0645\u064a\u0648\u0644\u0627",
+                "name_en": "Heart Formula",
+                "is_active": 1,
+                "slug_en": "heart-formula",
+                "slug_ar": "\u0647\u0627\u0631\u062a-\u0641\u0648\u0631\u0645\u064a\u0648\u0644\u0627"
+            },
+            "skus": [
+                {
+                    "id": 146,
+                    "category_id": 30,
+                    "product_id": 62,
+                    "store_id": 9,
+                    "ware_house_id": 2,
+                    "SKU_code": "12113985",
+                    "quantity": 24,
+                    "price": 1300,
+                    "price_after_discount": 1100,
+                    "options": null,
+                    "weight": null,
+                    "weight_type": null,
+                    "image": "https:\/\/backend.dev.baseet.co\/uploads\/Product\/9KIXaPWbC3kXBeq6wyvzmzQ8zgcfXXv6lcW5y06l.jpg",
+                    "deleted_at": null,
+                    "created_at": "2025-06-16T22:32:09.000000Z",
+                    "updated_at": "2025-06-16T22:32:09.000000Z",
+                    "qty": 24,
+                    "ware_house": {
+                        "id": 2,
+                        "store_id": 2,
+                        "name": "Elnozha",
+                        "contact_person": "developer",
+                        "phone": "501669804",
+                        "place_number": "5555",
+                        "area": "elnozha",
+                        "zip_code": "11604",
+                        "city": "cairo",
+                        "region": "Egypt",
+                        "deleted_at": null,
+                        "created_at": "2024-12-08T19:25:43.000000Z",
+                        "updated_at": "2024-12-08T19:28:29.000000Z"
+                    }
+                }
+            ],
+            "meta": {
+                "id": 66,
+                "title": "\u0623\u0633\u0648\u0631\u0629 \u0646\u062d\u0627\u0633",
+                "description": "\u0623\u0633\u0648\u0631\u0629 \u0627\u0644\u0646\u062d\u0627\u0633 \u0627\u0644\u0637\u0628\u064a\u0629 \u2013 \u062a\u0635\u0645\u064a\u0645 \u0639\u0635\u0631\u064a \u0648\u062e\u0635\u0627\u0626\u0635 \u0641\u0631\u064a\u062f\u0629 \u0644\u0635\u062d\u0629 \u0623\u0641\u0636\u0644\r\n\u062a\u062e\u0641\u064a\u0641 \u0622\u0644\u0627\u0645 \u0627\u0644\u0645\u0641\u0627\u0635\u0644 \u0648\u0627\u0644\u0631\u0642\u0628\u0629\u060c \u0645\u062b\u0627\u0644\u064a\u0629 \u0644\u0645\u0646 \u064a\u062c\u0644\u0633\u0648\u0646 \u0644\u0641\u062a\u0631\u0627\u062a \u0637\u0648\u064a\u0644\u0629.\r\n\u062a\u0642\u0644\u064a\u0644 \u0627\u0644\u0637\u0627\u0642\u0629 \u0627\u0644\u0633\u0644\u0628\u064a\u0629 \u0648\u062a\u0639\u0632\u064a\u0632 \u0627\u0644\u0631\u0627\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629 \u0637\u0648\u0627\u0644 \u0627\u0644\u064a\u0648\u0645.\r\n\u062a\u062d\u0641\u064a\u0632 \u062d\u0631\u0642 \u0627\u0644\u062f\u0647\u0648\u0646 \u0648\u062f\u0639\u0645 \u0646\u0645\u0637 \u0627\u0644\u062d\u064a\u0627\u0629 \u0627\u0644\u0635\u062d\u064a.\r\n\u062a\u0635\u0645\u064a\u0645 \u0639\u0635\u0631\u064a \u064a\u0646\u0627\u0633\u0628 \u0627\u0644\u0631\u062c\u0627\u0644 \u0648\u0627\u0644\u0634\u0628\u0627\u0628 \u0628\u0625\u0637\u0644\u0627\u0644\u0629 \u0623\u0646\u064a\u0642\u0629.\r\n \u0645\u0635\u0646\u0648\u0639\u0629 \u0645\u0646 \u0645\u0648\u0627\u062f \u0625\u0646\u062c\u0644\u064a\u0632\u064a\u0629 \u0648\u0647\u0646\u062f\u064a\u0629 \u0639\u0627\u0644\u064a\u0629 \u0627\u0644\u062c\u0648\u062f\u0629 \u0644\u0636\u0645\u0627\u0646 \u0627\u0644\u0645\u062a\u0627\u0646\u0629 \u0648\u0627\u0644\u0623\u0646\u0627\u0642\u0629.\r\n\u0627\u062d\u0635\u0644 \u0627\u0644\u0622\u0646 \u0639\u0644\u0649 \u0623\u0633\u0648\u0631\u0629 \u0627\u0644\u0646\u062d\u0627\u0633 \u0627\u0644\u0637\u0628\u064a\u0629 \u0648\u062a\u0645\u062a\u0639 \u0628\u0641\u0648\u0627\u0626\u062f\u0647\u0627 \u0627\u0644\u0635\u062d\u064a\u0629 \u0648\u0627\u0644\u062a\u0635\u0645\u064a\u0645 \u0627\u0644\u0639\u0635\u0631\u064a \u0627\u0644\u0630\u064a \u064a\u0646\u0627\u0633\u0628 \u062c\u0645\u064a\u0639 \u0627\u0644\u0623\u0630\u0648\u0627\u0642!",
+                "image": "https:\/\/backend.dev.baseet.co\/uploads\/Meta\/PJBhN2VRINPa92qfyTpB0SwbENPQKRJoXeHKzovI.jpg",
+                "metaable_type": "App\\Models\\Product\\Product",
+                "metaable_id": 62,
+                "created_at": "2025-05-25T12:47:27.000000Z",
+                "updated_at": "2025-06-16T22:32:09.000000Z"
+            },
+            "attachment": [
+                {
+                    "id": 70,
+                    "path": "https:\/\/backend.dev.baseet.co\/uploads\/attachments\/EZkZ0o101m70el21Tt8euirte5B81wAlPcUWKQy7.png",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 62,
+                    "order": 0,
+                    "created_at": "2025-05-25T12:47:27.000000Z",
+                    "updated_at": "2025-05-25T12:47:27.000000Z"
+                },
+                {
+                    "id": 71,
+                    "path": "https:\/\/backend.dev.baseet.co\/uploads\/attachments\/0cXDOkz1ElIWlISELKjh9U6XoEIb7aJGgwH4Mb87.png",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 62,
+                    "order": 0,
+                    "created_at": "2025-05-25T12:47:27.000000Z",
+                    "updated_at": "2025-05-25T12:47:27.000000Z"
+                },
+                {
+                    "id": 72,
+                    "path": "https:\/\/backend.dev.baseet.co\/uploads\/attachments\/VyK8J4KP2wofpK14LEyinLIiUMRwbGTY7c9EXwku.png",
+                    "attachmentable_type": "App\\Models\\Product\\Product",
+                    "attachmentable_id": 62,
+                    "order": 0,
+                    "created_at": "2025-05-25T12:47:27.000000Z",
+                    "updated_at": "2025-05-25T12:47:27.000000Z"
+                }
+            ],
+            "reviews": [
+                {
+                    "id": 21,
+                    "store_id": 9,
+                    "product_id": 62,
+                    "rate": 5,
+                    "title": "Ahmed",
+                    "description": "Good Materials",
+                    "deleted_at": null,
+                    "created_at": "2025-06-14T15:39:09.000000Z",
+                    "updated_at": "2025-06-14T15:39:09.000000Z"
+                },
+                {
+                    "id": 22,
+                    "store_id": 9,
+                    "product_id": 62,
+                    "rate": 5,
+                    "title": "Mourad",
+                    "description": "\u062c\u0648\u062f\u0629 \u0645\u0642\u0627\u0628\u0644 \u0633\u0639\u0631",
+                    "deleted_at": null,
+                    "created_at": "2025-06-14T15:40:01.000000Z",
+                    "updated_at": "2025-06-14T15:40:01.000000Z"
+                }
+            ],
+            "reviews_count": [
+                {
+                    "product_id": 62,
+                    "rate": 5,
+                    "total": 2
+                }
+            ],
+            "is_have_variant": "false",
+            "is_featured": 0,
+            "is_best_sales": 0,
+            "rate": 5,
+            "total_rates": 2,
+            "shipping": "\n\"\u0633\u064a\u062a\u0645 \u0634\u062d\u0646 \u0637\u0644\u0628\u0643 \u062e\u0644\u0627\u0644 2 \u0625\u0644\u0649 4 \u0623\u064a\u0627\u0645 \u0639\u0645\u0644 \u0628\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0634\u0631\u0643\u0629 \u0627\u0644\u0634\u062d\u0646 \u0627\u0644\u0645\u0639\u062a\u0645\u062f\u0629.\"\n\n\"\u0627\u0644\u0634\u062d\u0646 \u0645\u062c\u0627\u0646\u064a \u0644\u0644\u0637\u0644\u0628\u0627\u062a \u0627\u0644\u062a\u064a \u062a\u062a\u062c\u0627\u0648\u0632 500 \u062c\u0646\u064a\u0647.\"\n\n\"\u0631\u0642\u0645 \u0627\u0644\u062a\u062a\u0628\u0639 \u0627\u0644\u062e\u0627\u0635 \u0628\u0637\u0644\u0628\u0643 \u0633\u064a\u0643\u0648\u0646 \u0645\u062a\u0627\u062d\u064b\u0627 \u0628\u0645\u062c\u0631\u062f \u062a\u062c\u0647\u064a\u0632 \u0627\u0644\u0637\u0644\u0628 \u0644\u0644\u0634\u062d\u0646.\"\n\n\"\u062e\u062f\u0645\u0629 \u0627\u0644\u062a\u0648\u0635\u064a\u0644 \u0645\u062a\u0648\u0641\u0631\u0629 \u0641\u064a \u062c\u0645\u064a\u0639 \u0645\u062d\u0627\u0641\u0638\u0627\u062a \u0645\u0635\u0631.\"\n\n\"\u062a\u0623\u0643\u062f \u0645\u0646 \u0643\u062a\u0627\u0628\u0629 \u0639\u0646\u0648\u0627\u0646\u0643 \u0628\u062f\u0642\u0629 \u0644\u0636\u0645\u0627\u0646 \u0648\u0635\u0648\u0644 \u0627\u0644\u0637\u0644\u0628 \u0628\u0623\u0633\u0631\u0639 \u0648\u0642\u062a.\"\n\n\"\u0631\u0633\u0648\u0645 \u0627\u0644\u0634\u062d\u0646 \u062b\u0627\u0628\u062a\u0629 \u0628\u0642\u064a\u0645\u0629 50 \u062c\u0646\u064a\u0647 \u0644\u0623\u064a \u0645\u0643\u0627\u0646 \u062f\u0627\u062e\u0644 \u0627\u0644\u062c\u0645\u0647\u0648\u0631\u064a\u0629.\"\n\n\"\u0645\u062f\u0629 \u0627\u0644\u062a\u0648\u0635\u064a\u0644 \u0627\u0644\u0645\u062a\u0648\u0642\u0639\u0629: \u0645\u0646 3 \u0625\u0644\u0649 5 \u0623\u064a\u0627\u0645 \u0639\u0645\u0644.\"\n\n\"\u062a\u0648\u0635\u064a\u0644 \u0633\u0631\u064a\u0639 \u062e\u0644\u0627\u0644 24 \u0633\u0627\u0639\u0629 \u062f\u0627\u062e\u0644 \u0627\u0644\u0642\u0627\u0647\u0631\u0629 \u0648\u0627\u0644\u062c\u064a\u0632\u0629.\"",
+            "return_policies": "\n\"\u064a\u064f\u0633\u0645\u062d \u0628\u0625\u0631\u062c\u0627\u0639 \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u062e\u0644\u0627\u0644 14 \u064a\u0648\u0645 \u0645\u0646 \u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0627\u0633\u062a\u0644\u0627\u0645 \u0628\u0634\u0631\u0637 \u0623\u0646 \u062a\u0643\u0648\u0646 \u0628\u062d\u0627\u0644\u062a\u0647\u0627 \u0627\u0644\u0623\u0635\u0644\u064a\u0629 \u0648\u0644\u0645 \u062a\u064f\u0633\u062a\u062e\u062f\u0645.\"\n\n\"\u0644\u0627 \u064a\u0645\u0643\u0646 \u0627\u0633\u062a\u0631\u062c\u0627\u0639 \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u0627\u0644\u062a\u0627\u0644\u0641\u0629 \u0623\u0648 \u0627\u0644\u062a\u064a \u062a\u0645 \u0627\u0633\u062a\u062e\u062f\u0627\u0645\u0647\u0627 \u0625\u0644\u0627 \u0625\u0630\u0627 \u0643\u0627\u0646\u062a \u0628\u0647\u0627 \u0639\u064a\u0648\u0628 \u062a\u0635\u0646\u064a\u0639.\"\n\n\"\u064a\u062a\u0645 \u0627\u0633\u062a\u0631\u062f\u0627\u062f \u0627\u0644\u0645\u0628\u0644\u063a \u0628\u0646\u0641\u0633 \u0648\u0633\u064a\u0644\u0629 \u0627\u0644\u062f\u0641\u0639 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u0629 \u0641\u064a \u0627\u0644\u0637\u0644\u0628 \u062e\u0644\u0627\u0644 7 \u0623\u064a\u0627\u0645 \u0639\u0645\u0644.\"\n\n\"\u064a\u062c\u0628 \u0625\u0631\u0641\u0627\u0642 \u0641\u0627\u062a\u0648\u0631\u0629 \u0627\u0644\u0634\u0631\u0627\u0621 \u0627\u0644\u0623\u0635\u0644\u064a\u0629 \u0639\u0646\u062f \u0637\u0644\u0628 \u0627\u0644\u0627\u0633\u062a\u0631\u062c\u0627\u0639.\"\n\n\"\u0628\u0639\u0636 \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u063a\u064a\u0631 \u0642\u0627\u0628\u0644\u0629 \u0644\u0644\u0625\u0631\u062c\u0627\u0639 \u0645\u062b\u0644 \u0627\u0644\u0645\u0644\u0627\u0628\u0633 \u0627\u0644\u062f\u0627\u062e\u0644\u064a\u0629 \u0623\u0648 \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u0627\u0644\u0634\u062e\u0635\u064a\u0629.\"\n            ",
+            "estimated_delivery_times": "2-4 days",
+            "return_within": "7 days",
+            "custom_options": [],
+            "related_products": [
+                {
+                    "id": 58,
+                    "store_id": 9,
+                    "category_id": 30,
+                    "ware_house_id": 2,
+                    "image": "https:\/\/backend.dev.baseet.co\/uploads\/Product\/6UZbaLRL81Uu2DOxOfdwqGw4Ep5XEFEquvBNpshj.jpg",
+                    "name_ar": "\u0647\u0627\u0631\u062a \u0641\u0648\u0631\u0645\u064a\u0648\u0644\u0627",
+                    "name_en": "Heart Formula",
+                    "slug_ar": "\u0647\u0627\u0631\u062a-\u0641\u0648\u0631\u0645\u064a\u0648\u0644\u0627",
+                    "slug_en": "heart-formula",
+                    "description_ar": "<p style=\"margin-left:0.0px;text-align:right;\">\u062a\u0631\u0643\u064a\u0628\u0629 \u062f\u0639\u0645 \u0627\u0644\u0642\u0644\u0628<\/p><p style=\"margin-left:0.0px;text-align:right;\">\u062a\u0633\u0627\u0639\u062f \u0641\u064a \u062a\u0639\u0632\u064a\u0632 \u0635\u062d\u0629 \u0627\u0644\u0642\u0644\u0628\u060c \u0648\u062a\u062d\u0633\u064a\u0646 \u0627\u0644\u062f\u0648\u0631\u0629 \u0627\u0644\u062f\u0645\u0648\u064a\u0629\u060c \u0648\u0627\u0644\u062d\u0641\u0627\u0638 \u0639\u0644\u0649 \u0645\u0633\u062a\u0648\u064a\u0627\u062a \u0636\u063a\u0637 \u0627\u0644\u062f\u0645 \u0648\u0627\u0644\u0643\u0648\u0644\u064a\u0633\u062a\u0631\u0648\u0644 \u0636\u0645\u0646 \u0627\u0644\u0645\u0639\u062f\u0644\u0627\u062a \u0627\u0644\u0637\u0628\u064a\u0639\u064a\u0629.<\/p><p><br>&nbsp;<\/p>",
+                    "description_en": "<p style=\"margin-left:0.0px;\">Heart Formula<\/p><p style=\"margin-left:0.0px;\">Supports heart health, improves circulation, and helps maintain normal blood pressure and cholesterol levels.<\/p><p>&nbsp;<\/p>",
+                    "is_active": 1,
+                    "qty": 37,
+                    "sku_code": "84784847",
+                    "price": 474,
+                    "price_after_discount": 500,
+                    "weight": null,
+                    "weight_type": null,
+                    "options": null,
+                    "is_have_variant": 0,
+                    "is_featured": 0,
+                    "is_best_sales": 0,
+                    "rate": 0,
+                    "total_rates": 0,
+                    "deleted_at": null,
+                    "created_at": "2025-04-30T17:03:12.000000Z",
+                    "updated_at": "2025-06-12T07:50:31.000000Z",
+                    "name": "Heart Formula",
+                    "description": "<p style=\"margin-left:0.0px;\">Heart Formula<\/p><p style=\"margin-left:0.0px;\">Supports heart health, improves circulation, and helps maintain normal blood pressure and cholesterol levels.<\/p><p>&nbsp;<\/p>",
+                    "slug": "heart-formula"
+                }
+            ]
+        },
+        "theme": "classic",
+        "accept_online_payment": true,
+        "blocks": [
+            {
+                "name": "classic_header",
+                "data": {
+                    "title": "اوليفر للملابس",
+                    "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
+                    "logo": "/images/logo.png"
+                }
+            },
+            {
+                "name": "classic_Image_Text_overlay",
+                "data": {
+                    "image": {
+                        "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop",
+                        "alt": "صورة المنتج الرئيسية"
+                    },
+                    "title": "معلومات عن المنتج",
+                    "icon": "fa-solid fa-images",
+                    "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
+                    "description": " زسشسش ين سشن ن يشسا شسا سشع سشيع شسل سشسش ي شسلي يسش يسش سشيلسشي اشيسايسشل ايسش ياسشل يشلاس اسشيل ايسش ليسش اي سشاشلي سشاشيسلايسش اليسشا يسشلا يسشاي سشا شيستاختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث"
+                }
+            },
+            {
+                "name": "classic_Image_Text_beside",
+                "data": {
+                    "image": {
+                        "src": "https://aor-images-prod.s3.amazonaws.com/udpnrny5bwodp2vt40zdo3d1vw1u",
+                        "alt": "صورة المنتج الرئيسية"
+                    },
+                    "title": "معلومات عن المنتج",
+                    "icon": "fa-solid fa-images",
+                    "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
+                    "description": " اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث"
+                }
+            },
+            {
+                "name": "classic_reviews",
+                "data": {
+                    "title": "لا تكتفي بكلامنا استمع لتجارب المشترين",
+                    "subtitle": "في الأسفل بعض من تجارب زبائننا الذين اعجبهم منتجنا و اردوا اخباركم بذلك.",
+                    "reviews": [
+                        {
+                            "description": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
+                            "name": "إليزابيت روز",
+                            "city": "القاهرة",
+                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
+                        },
+                        {
+                            "description": "منتج رائع! لاحظت فرق كبير من أول استخدام. أنصح به بشدة لكل من يعاني من مشاكل في الشعر.",
+                            "name": "ليلى أحمد",
+                            "city": "الرياض",
+                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
+                        },
+                        {
+                            "description": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
+                            "name": "سارة الجوهري",
+                            "city": "دبي",
+                            "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "classic_form_fields",
+                "data": {
+                    "full_name": "اكتب اسمك الكامل هنا",
+                    "phone": "مثال: 05XXXXXXXX",
+                    "address": "اكتب عنوان التوصيل بالتفصيل",
+                    "cities": [
+                        "Cairo",
+                        "Alex",
+                        "Port Said"
+                    ],
+                    "PaymentOptions": [
+                        {
+                            "id": "creditCard",
+                            "label": {
+                                "en": "Credit Card",
+                                "ar": "بطاقة ائتمان"
+                            },
+                            "description": {
+                                "en": "Pay securely using your credit card.",
+                                "ar": "ادفع بأمان باستخدام بطاقة الائتمان الخاصة بك."
+                            },
+                            "images": [
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png",
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png",
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png",
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png",
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png",
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png",
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png"
+                            ]
+                        },
+                        {
+                            "id": "cashOnDelivery",
+                            "label": {
+                                "en": "Cash on Delivery",
+                                "ar": "الدفع عند الاستلام"
+                            },
+                            "description": {
+                                "en": "Pay in cash upon delivery.",
+                                "ar": "ادفع نقدًا عند الاستلام."
+                            }
+                        }
+                    ],
+                    "DeliveryOptions": [
+                        {
+                            "id": "homeDelivery",
+                            "label": {
+                                "en": "Home Delivery",
+                                "ar": "توصيل إلى المنزل"
+                            },
+                            "description": {
+                                "en": "Your order will be delivered to your doorstep.",
+                                "ar": "سيتم توصيل طلبك إلى باب منزلك."
+                            }
+                        },
+                        {
+                            "id": "pickup",
+                            "label": {
+                                "en": "Receive from Store",
+                                "ar": "الاستلام من المتجر"
+                            },
+                            "description": {
+                                "en": "Pick up your order directly from the store.",
+                                "ar": "استلم طلبك مباشرة من المتجر."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "classic_text-bar",
+                "data": {
+                    "title": "متاح الآن في السعودية 🇸🇦"
+                }
+            },
+            {
+                "name": "classic_countdown",
+                "data": {
+                    "hours": 11,
+                    "minutes": 58,
+                    "seconds": 5
+                }
+            },
+            {
+                "name": "classic_today_orders",
+                "data": {
+                    "title": "طلبات اليوم",
+                    "count": 27
+                }
+            },
+            {
+                "name": "classic_before_&_after",
+                "title": "قبل وبعد",
+                "description": "اشهد التحول المذهل من خلال حلولنا المبتكرة. شاهد الفرق الهائل الذي يصنع كل الفرق.",
+                "data": {
+                    "title": "تحول رائع مع خدماتنا",
+                    "description": "نقارن بين الحالة الأصلية والنتيجة بعد استخدام حلولنا لتحسين الأداء والجودة.",
+                    "beforeImage": {
+                        "src": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=600&fit=crop",
+                        "alt": "الصورة قبل - الحالة الأصلية"
+                    },
+                    "afterImage": {
+                        "src": "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?w=800&h=600&fit=crop",
+                        "alt": "الصورة بعد - النتيجة المحولة"
+                    },
+                    "beforetitle": "الحالة الأصلية",
+                    "aftertitle": "النتيجة المحولة",
+                    "beforedescription": "نقطة البداية قبل أن تبدأ عملية التحويل الخاصة بنا.",
+                    "afterdescription": "النتيجة المذهلة بعد تطبيق حلنا المبتكر."
+                }
+            },
+            {
+                "name": "classic_rates",
+                "data": {
+                    "rate": 4.5,
+                    "count": 140
+                }
+            },
+            {
+                "name": "classic_product_funnel",
+                "data": {
+                    "product": "@bind:product",
+                    "purchase_options": [
+                        {
+                            "title": "شراء منتج واحد",
+                            "items": 1,
+                            "price_per_item": 2290,
+                            "original_price_per_item": 2290,
+                            "original_total": 2290,
+                            "total_price": 2290,
+                            "discount": 0,
+                            "discount_percent": "0%",
+                            "shipping_price": 50,
+                            "final_total": 2340
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "classic_footer",
+                "data": {
+                    "company_name": "Digital Creativity Company",
+                    "year": "2025",
+                    "policies": [
+                        "سياسة الشحن",
+                        "سياسة الخصوصية",
+                        "شروط الاستخدام",
+                        "شروط الإستبدال الإسترجاع"
+                    ],
+                    "social_icons": [
+                        "fab fa-whatsapp",
+                        "fab fa-instagram",
+                        "fab fa-facebook-messenger",
+                        "fab fa-facebook-f"
+                    ]
+                }
+            },
+            {
+                "name": "classic_order_confirmation_notice",
+                "data": {
+                    "title": "سيتم الاتصال بك لتأكيد الطلب قبل الشحن",
+                    "confirmationNotices": [
+                        {
+                            "title": "و،سرو،سور،",
+                            "icon": "fa-solid fa-truck-fast"
+                        },
+                        {
+                            "title": "ضمان لمدة عامين",
+                            "icon": "fa-solid fa-shield"
+                        },
+                        {
+                            "title": "استرجاع مجاني",
+                            "icon": "fa-solid fa-reply"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "classic_faq",
+                "data": {
+                    "title": "الأسئلة الشائعة",
+                    "icon": "fa-solid fa-circle-question",
+                    "faqs": [
+                        {
+                            "question": "ما هي مدة التوصيل؟",
+                            "answer": "مدة التوصيل تتراوح من 2-5 أيام عمل داخل المدن الرئيسية، و 5-7 أيام عمل للمناطق النائية. نحن نعمل مع أفضل شركات الشحن لضمان وصول طلبك في أسرع وقت ممكن."
+                        },
+                        {
+                            "question": "هل يمكنني الدفع عند الاستلام؟",
+                            "answer": "نعم، نوفر خدمة الدفع عند الاستلام لجميع المناطق المتاحة. كما يمكنك الدفع عبر البطاقات الائتمانية أو المحافظ الإلكترونية للحصول على خصومات إضافية."
+                        },
+                        {
+                            "question": "ما هي مدة الضمان؟",
+                            "answer": "نوفر ضمان لمدة سنة كاملة على جميع المنتجات، بالإضافة إلى إمكانية الإرجاع خلال 14 يوم من تاريخ الاستلام بدون أي شروط. خدمة العملاء متاحة على مدار الساعة لمساعدتك."
+                        }
+                    ],
+                    "moreQuestionsLabel": "المزيد من الأسئلة"
+                }
+            },
+            {
+                "name": "classic_product_preview",
+                "data": {
+                    "title": "عرض توضيحي للمنتج",
+                    "icon": "fa-solid fa-video",
+                    "productPreview": {
+                        "viewsText": "رقم مشاهدة 27682",
+                        "viewsIcon": "fa-solid fa-eye",
+                        "videoInfo": {
+                            "title": "سماعات رأس لاسلكية ممتازة - التجربة الشاملة",
+                            "link": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        },
+                        "featuresSectionTitle": "ماذا ستشاهد في هذا الفيديو",
+                        "features": [
+                            {
+                                "icon": "✔️",
+                                "title": "مبنا السماعات وخصائصها",
+                                "subtitle": "عرض للمميزات التقنية والصوتية"
+                            },
+                            {
+                                "icon": "✔️",
+                                "title": "تجربة الصوت وجودة الموسيقى",
+                                "subtitle": "اختبار عملي لجودة الصوت في بيئات مختلفة"
+                            },
+                            {
+                                "icon": "✔️",
+                                "title": "تجربة الراحة وحدة البطارية",
+                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
+                            },
+                            {
+                                "icon": "✔️",
+                                "title": "تجربة الراحة وحدة البطارية",
+                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
+                            },
+                            {
+                                "icon": "✔️",
+                                "title": "تجربة الراحة وحدة البطارية",
+                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
+                            },
+                            {
+                                "icon": "✔️",
+                                "title": "تجربة الراحة وحدة البطارية",
+                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "classic_product_usage",
+                "data": {
+                    "title": "شاهد كيفية الاستخدام",
+                    "icon": "fa-solid fa-circle-chevron-right",
+                    "productUsage": [
+                        {
+                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            "title": "طريقة استخدام المنتج الكلاسيكي",
+                            "subtitle": "شرح خطوة بخطوة لكيفية الاستفادة من المنتج"
+                        },
+                        {
+                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            "title": "نصائح مهمة للاستفادة القصوى",
+                            "subtitle": "أفضل الطرق لاستخدام المنتج بكفاءة"
+                        },
+                        {
+                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            "title": "نصائح مهمة للاستفادة القصوى",
+                            "subtitle": "أفضل الطرق لاستخدام المنتج بكفاءة"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "classic_delivery_features",
+                "data": {
+                    "title": "معلومات عن الشحن",
+                    "icon": "fa-solid fa-truck",
+                    "features": [
+                        {
+                            "icon": "fa-solid fa-credit-card",
+                            "title": "خيارات دفع متعددة",
+                            "subtitle": "الدفع عند الاستلام أو الدفع بالبطاقة"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "ضمان لمدة عامين",
+                            "subtitle": "ضمان شامل ضد عيوب التصنيع"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "ضمان الاسترداد",
+                            "subtitle": "14 يوم ضمان استرداد"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "ضمان الاسترداد",
+                            "subtitle": "14 يوم ضمان استرداد"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "شحن سريع",
+                            "subtitle": "توصيل خلال 3-2 أيام"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "classic_product_features",
+                "data": {
+                    "title": "معلومات عن المنتج",
+                    "icon": "fa-solid fa-cart-shopping",
+                    "features": [
+                        {
+                            "icon": "fa-solid fa-credit-card",
+                            "title": "خيارات دفع متعددة",
+                            "subtitle": "الدفع عند الاستلام أو الدفع بالبطاقة"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "ضمان لمدة عامين",
+                            "subtitle": "ضمان شامل ضد عيوب التصنيع"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "ضمان الاسترداد",
+                            "subtitle": "14 يوم ضمان استرداد"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "ضمان الاسترداد",
+                            "subtitle": "14 يوم ضمان استرداد"
+                        },
+                        {
+                            "icon": "fa-solid fa-shield",
+                            "title": "شحن سريع",
+                            "subtitle": "توصيل خلال 3-2 أيام"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "classic_Gallery",
+                "data": {
+                    "galleryimages": [
+                        {
+                            "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop",
+                            "alt": "صورة المنتج الرئيسية"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 2"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 3"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 4"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 5"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 5"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 5"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 5"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 5"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 5"
+                        },
+                        {
+                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
+                            "alt": "صورة المنتج 5"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

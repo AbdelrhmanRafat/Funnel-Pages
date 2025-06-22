@@ -1,22 +1,43 @@
 // This file is responsible for making the API call to fetch funnel data.
-
 import { baseUrl, headers } from "../../Enviroment/Local.enviroment";
 import type { FunnelRes } from "./types";
-// import classicData from "../../Mock Data/classic.json"; // Keep classic for now, or switch based on a flag
-import classicData from "../../Mock Data/classic.json"; // Import NASA data
+
+// Import all the mock data files
+import classicProductWithVariantsAndBundles from "../../Mock Data/classic_ProductWithVariantsAndBundles.json";
+import classicProductWithVariants from "../../Mock Data/classic_ProductWithVariants.json";
+import classicProductWithoutVariantsAndBundles from "../../Mock Data/classic_ProductWithoutVariantsAndBundles.json";
+import classicProductWithoutVariants from "../../Mock Data/classic_ProductWithoutVariants.json";
+
+// Exported enumeration for funnel data types
+export enum FunnelDataType {
+  PRODUCT_WITH_VARIANTS_AND_BUNDLES = 'classic_ProductWithVariantsAndBundles',
+  PRODUCT_WITH_VARIANTS = 'classic_ProductWithVariants',
+  PRODUCT_WITHOUT_VARIANTS_AND_BUNDLES = 'classic_ProductWithoutVariantsAndBundles',
+  PRODUCT_WITHOUT_VARIANTS = 'classic_ProductWithoutVariants'
+}
+
+// Map enum values to their corresponding data
+const mockDataMap = {
+  [FunnelDataType.PRODUCT_WITH_VARIANTS_AND_BUNDLES]: classicProductWithVariantsAndBundles,
+  [FunnelDataType.PRODUCT_WITH_VARIANTS]: classicProductWithVariants,
+  [FunnelDataType.PRODUCT_WITHOUT_VARIANTS_AND_BUNDLES]: classicProductWithoutVariantsAndBundles,
+  [FunnelDataType.PRODUCT_WITHOUT_VARIANTS]: classicProductWithoutVariants
+};
 
 /**
  * Fetches the funnel data.
+ * @param dataType - The type of funnel data to return (only used in development mode)
  * @returns The funnel page data.
  */
-export async function getFunnelPage(): Promise<FunnelRes> {
+export async function getFunnelPage(
+  dataType: FunnelDataType = FunnelDataType.PRODUCT_WITH_VARIANTS_AND_BUNDLES
+): Promise<FunnelRes> {
   // For local development, use mock data
   if (import.meta.env.DEV) {
-    // For testing NASA theme, directly return nasaData
-    return classicData as FunnelRes;
-    // return classicData as FunnelRes; // Original line for classic theme
+    const selectedData = mockDataMap[dataType];
+    return selectedData as FunnelRes;
   }
-  
+
   // For production, use the API
   const res = await fetch(`${baseUrl}`, {
     headers: headers,

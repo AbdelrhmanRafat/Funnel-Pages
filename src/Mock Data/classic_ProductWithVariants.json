@@ -4,7 +4,7 @@
     "errors": null,
     "message": "messages.success",
     "data": {
-    "product": {
+        "product": {
         "id": 57,
         "category_id": 24,
         "ware_house_id": 2,
@@ -702,11 +702,11 @@
             }
         ]
     },
-        "theme": "troy",
+        "theme": "classic",
         "accept_online_payment": true,
         "blocks": [
             {
-                "name": "troy_header",
+                "name": "classic_header",
                 "data": {
                     "title": "اوليفر للملابس",
                     "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
@@ -714,7 +714,7 @@
                 }
             },
             {
-                "name": "troy_Image_Text_overlay",
+                "name": "classic_Image_Text_overlay",
                 "data": {
                     "image": {
                         "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop",
@@ -727,7 +727,7 @@
                 }
             },
             {
-                "name": "troy_Image_Text_beside",
+                "name": "classic_Image_Text_beside",
                 "data": {
                     "image": {
                         "src": "https://aor-images-prod.s3.amazonaws.com/udpnrny5bwodp2vt40zdo3d1vw1u",
@@ -740,7 +740,7 @@
                 }
             },
             {
-                "name": "troy_reviews",
+                "name": "classic_reviews",
                 "data": {
                     "title": "لا تكتفي بكلامنا استمع لتجارب المشترين",
                     "subtitle": "في الأسفل بعض من تجارب زبائننا الذين اعجبهم منتجنا و اردوا اخباركم بذلك.",
@@ -767,7 +767,7 @@
                 }
             },
             {
-                "name": "troy_form_fields",
+                "name": "classic_form_fields",
                 "data": {
                     "full_name": "اكتب اسمك الكامل هنا",
                     "phone": "مثال: 05XXXXXXXX",
@@ -809,17 +809,41 @@
                                 "ar": "ادفع نقدًا عند الاستلام."
                             }
                         }
+                    ],
+                    "DeliveryOptions": [
+                        {
+                            "id": "homeDelivery",
+                            "label": {
+                                "en": "Home Delivery",
+                                "ar": "توصيل إلى المنزل"
+                            },
+                            "description": {
+                                "en": "Your order will be delivered to your doorstep.",
+                                "ar": "سيتم توصيل طلبك إلى باب منزلك."
+                            }
+                        },
+                        {
+                            "id": "pickup",
+                            "label": {
+                                "en": "Receive from Store",
+                                "ar": "الاستلام من المتجر"
+                            },
+                            "description": {
+                                "en": "Pick up your order directly from the store.",
+                                "ar": "استلم طلبك مباشرة من المتجر."
+                            }
+                        }
                     ]
                 }
             },
             {
-                "name": "troy_text-bar",
+                "name": "classic_text-bar",
                 "data": {
                     "title": "متاح الآن في السعودية 🇸🇦"
                 }
             },
             {
-                "name": "troy_countdown",
+                "name": "classic_countdown",
                 "data": {
                     "hours": 11,
                     "minutes": 58,
@@ -827,14 +851,14 @@
                 }
             },
             {
-                "name": "troy_today_orders",
+                "name": "classic_today_orders",
                 "data": {
                     "title": "طلبات اليوم",
                     "count": 27
                 }
             },
             {
-                "name": "troy_before_&_after",
+                "name": "classic_before_&_after",
                 "title": "قبل وبعد",
                 "description": "اشهد التحول المذهل من خلال حلولنا المبتكرة. شاهد الفرق الهائل الذي يصنع كل الفرق.",
                 "data": {
@@ -855,14 +879,14 @@
                 }
             },
             {
-                "name": "troy_rates",
+                "name": "classic_rates",
                 "data": {
                     "rate": 4.5,
                     "count": 140
                 }
             },
             {
-                "name": "troy_product_funnel",
+                "name": "classic_product_funnel",
                 "data": {
                     "product": "@bind:product",
                     "purchase_options": [
@@ -882,7 +906,7 @@
                 }
             },
             {
-                "name": "troy_footer",
+                "name": "classic_footer",
                 "data": {
                     "company_name": "Digital Creativity Company",
                     "year": "2025",
@@ -901,7 +925,7 @@
                 }
             },
             {
-                "name": "troy_order_confirmation_notice",
+                "name": "classic_order_confirmation_notice",
                 "data": {
                     "title": "سيتم الاتصال بك لتأكيد الطلب قبل الشحن",
                     "confirmationNotices": [
@@ -921,7 +945,7 @@
                 }
             },
             {
-                "name": "troy_faq",
+                "name": "classic_faq",
                 "data": {
                     "title": "الأسئلة الشائعة",
                     "icon": "fa-solid fa-circle-question",
@@ -943,7 +967,7 @@
                 }
             },
             {
-                "name": "troy_product_preview",
+                "name": "classic_product_preview",
                 "data": {
                     "title": "عرض توضيحي للمنتج",
                     "icon": "fa-solid fa-video",
@@ -991,7 +1015,7 @@
                 }
             },
             {
-                "name": "troy_product_usage",
+                "name": "classic_product_usage",
                 "data": {
                     "title": "شاهد كيفية الاستخدام",
                     "icon": "fa-solid fa-circle-chevron-right",
@@ -1015,7 +1039,7 @@
                 }
             },
             {
-                "name": "troy_delivery_features",
+                "name": "classic_delivery_features",
                 "data": {
                     "title": "معلومات عن الشحن",
                     "icon": "fa-solid fa-truck",
@@ -1049,7 +1073,7 @@
                 }
             },
             {
-                "name": "troy_product_features",
+                "name": "classic_product_features",
                 "data": {
                     "title": "معلومات عن المنتج",
                     "icon": "fa-solid fa-cart-shopping",
@@ -1083,7 +1107,7 @@
                 }
             },
             {
-                "name": "troy_Gallery",
+                "name": "classic_Gallery",
                 "data": {
                     "galleryimages": [
                         {

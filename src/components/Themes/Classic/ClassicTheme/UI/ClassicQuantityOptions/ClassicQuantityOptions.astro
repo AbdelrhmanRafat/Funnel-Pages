@@ -1,11 +1,11 @@
 ---
 import "./ClassicQuantityOptions.css";
-import type { BlockData, OptionOption } from "../../../../../../lib/api/types";
+import type { BlockData, OptionOption, Product } from "../../../../../../lib/api/types";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 import ClassicDynamicPannelContainer from "../ClassicDynamicPanelContainer/ClassicDynamicPannelContainer.astro";
 
 const data: BlockData[] = Astro.props.data;
-const colorSizeOptions: OptionOption[] = Astro.props.colorSizeOptions;
+const product : Product = Astro.props.product;
 const name = "qty";
 ---
 
@@ -111,8 +111,8 @@ const name = "qty";
               >
                 {[...Array(item.items)].map((_, panelIndex) => (
                 <ClassicDynamicPannelContainer
+                    product={product}
                     key={panelIndex}
-                    colorSizeOptions={colorSizeOptions}
                     panel-index={panelIndex + 1}
                   />
                 ))}

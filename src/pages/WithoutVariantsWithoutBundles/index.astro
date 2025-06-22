@@ -1,14 +1,14 @@
 ---
 // This file is the main page that fetches data, determines the theme, and renders the appropriate theme component.
-import "../styles/global.css"
-import Layout from "../layouts/Layout.astro";
-import ClassicComponent from "../components/Themes/Classic/ClassicComponent.astro";
-import { getThemeFromString } from "../lib/utils/ThemeSelect";
-import { FunnelDataType, getFunnelPage } from "../lib/api/funnel";
-import { Theme } from "../lib/constants/themes";
-import type { FunnelRes } from "../lib/api/types";
-import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
-import TroyComponent from "../components/Themes/Troy/TroyComponent.astro";
+import "../../styles/global.css"
+import Layout from "../../layouts/Layout.astro";
+import ClassicComponent from "../../components/Themes/Classic/ClassicComponent.astro";
+import { getThemeFromString } from "../../lib/utils/ThemeSelect";
+import { FunnelDataType, getFunnelPage } from "../../lib/api/funnel";
+import { Theme } from "../../lib/constants/themes";
+import type { FunnelRes } from "../../lib/api/types";
+import NasaComponent from "../../components/Themes/Nasa/NasaComponent.astro";
+import TroyComponent from "../../components/Themes/Troy/TroyComponent.astro";
 
 // Fetches the funnel page data from the API.
 const funnelPage: FunnelRes = await getFunnelPage(FunnelDataType.PRODUCT_WITHOUT_VARIANTS_AND_BUNDLES);

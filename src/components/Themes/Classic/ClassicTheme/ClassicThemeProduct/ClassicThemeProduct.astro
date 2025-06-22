@@ -165,8 +165,8 @@ function isComponentDataAvailable(componentType: ClassicProductInfoComponents): 
                     if (componentType === ClassicProductInfoComponents.PurchaseOptions) {
                         return (
                                 <ClassicThemeProductFunnel
+                                    product={product}
                                     data={componentCheck.componentData}
-                                    colorSizeOptions={colorSizeOptions}
                                 />
                         );
                     }

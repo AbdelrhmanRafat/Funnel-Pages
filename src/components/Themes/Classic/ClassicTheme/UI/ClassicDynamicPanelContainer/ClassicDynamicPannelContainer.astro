@@ -1,17 +1,28 @@
 ---
-import type { OptionOption } from "../../../../../../lib/api/types";
+import type { ColorOption, CustomOptions, OptionOption, Product, SizeOption } from "../../../../../../lib/api/types";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 import "./ClassicDynamicPannelContainer.css"
 
-const colorSizeOptions: OptionOption[] = Astro.props.colorSizeOptions;
+const product : Product = Astro.props.product;
 const panelIndex: number = Astro.props["panel-index"] || 1;
-const colors: OptionOption | undefined = colorSizeOptions.find(opt => opt.name === 'color');
-const sizes: OptionOption | undefined = colorSizeOptions.find(opt => opt.name === 'size');
-
+const colorSizeOptions: OptionOption[] = product.options[0].options;
+const isHaveVariant : Boolean = Boolean(product.is_have_variant);
+const customOptions : CustomOptions = product.custom_options;
+let colors: OptionOption | undefined  = colorSizeOptions.find(opt => opt.name === 'color');
+let sizes: OptionOption | undefined  = colorSizeOptions.find(opt => opt.name === 'size');
 // Component configuration
 const allowMultipleSelection = Astro.props.allowMultipleSelection ?? false;
 const showSelectionIndicators = Astro.props.showSelectionIndicators ?? true;
 const enableAutoSelect = Astro.props.enableAutoSelect ?? false; // Auto-select first option
+
+//  if(isHaveVariant === true)
+//  {
+//     colors = product.custom_options.color;
+//     sizes =  product.custom_options.size;
+//     console.log(colors);
+//     console.log(sizes);
+//  }
+
 ---
 <div id="classic-pannel-container" class="classic-pannel-container">
   <classic-select-options 
@@ -30,62 +41,70 @@ const enableAutoSelect = Astro.props.enableAutoSelect ?? false; // Auto-select f
         </div>
         {showSelectionIndicators && (
           <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-              <span data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</span>
-              <span data-options-selected-color></span>
+            {colors && (
+              <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
+                <span data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</span>
+                <span data-options-selected-color></span>
+              </div>
+            )}
+            {sizes && (
+              <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
+                <span data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</span>
+                <span data-options-selected-size></span>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      <div class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row">
+        <!-- Size Selection -->
+        {sizes && Array.isArray(sizes.value) && (
+          <div class="select-size-section space-y-2">
+            <p class="classic-selection-title text-base sm:text-lg font-semibold" data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</p>
+            <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
+              {
+                sizes.value.map((size, index) => (
+                  <div
+                    class="size-option classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                    data-options-size-option
+                    data-options-size-value={size.value}
+                    data-options-size-index={index}
+                  >
+                    {size.display}
+                  </div>
+                ))
+              }
             </div>
-            <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-              <span data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</span>
-              <span data-options-selected-size></span>
+          </div>
+        )}
+               
+        <!-- Color Selection -->
+        {colors && Array.isArray(colors.value) && (
+          <div class="select-color-section space-y-2">
+            <p class="classic-selection-title text-base sm:text-lg font-semibold" data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</p>
+            <div class="grid grid-cols-4 sm:flex gap-4 sm:gap-6 justify-items-center">
+              {
+                colors.value.map((color, index) => (
+                  <div
+                    class="color-option flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                    data-options-color-option
+                    data-options-color-name={color.name}
+                    data-options-color-hex={color.hex}
+                    data-options-color-index={index}
+                  >
+                    <div
+                      class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                      style={`background-color: ${color.hex}`}
+                    ></div>
+                    <span class="classic-color-name text-xs sm:text-sm text-center">{color.name}</span>
+                  </div>
+                ))
+              }
             </div>
           </div>
         )}
       </div>
       
-      <div class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row">
-        <!-- Size Selection -->
-        <div class="select-size-section space-y-2">
-          <p class="classic-selection-title text-base sm:text-lg font-semibold" data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</p>
-          <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
-            {
-              Array.isArray(sizes?.value) && sizes.value.map((size, index) => (
-                <div
-                  class="size-option classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
-                  data-options-size-option
-                  data-options-size-value={size.value}
-                  data-options-size-index={index}
-                >
-                  {size.display}
-                </div>
-              ))
-            }
-          </div>
-        </div>
-               
-        <!-- Color Selection -->
-        <div class="select-color-section space-y-2">
-          <p class="classic-selection-title text-base sm:text-lg font-semibold" data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</p>
-          <div class="grid grid-cols-4 sm:flex gap-4 sm:gap-6 justify-items-center">
-            {
-              Array.isArray(colors?.value) && colors.value.map((color, index) => (
-                <div
-                  class="color-option flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
-                  data-options-color-option
-                  data-options-color-name={color.name}
-                  data-options-color-hex={color.hex}
-                  data-options-color-index={index}
-                >
-                  <div
-                    class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                    style={`background-color: ${color.hex}`}
-                  ></div>
-                  <span class="classic-color-name text-xs sm:text-sm text-center">{color.name}</span>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-      </div>
     </div>
   </classic-select-options>
 </div>

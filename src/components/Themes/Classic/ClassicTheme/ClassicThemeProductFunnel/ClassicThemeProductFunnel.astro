@@ -1,9 +1,9 @@
 ---
 import "./ClassicThemeProductFunnel.css";
-import type { BlockData, OptionOption } from "../../../../../lib/api/types";
+import type { BlockData, OptionOption, Product } from "../../../../../lib/api/types";
 
 const data: BlockData[] = Astro.props.data;
-const colorSizeOptions = Astro.props.colorSizeOptions;
+const product : Product = Astro.props.product;
 
 const initialOffer = data[0];
 
@@ -18,7 +18,7 @@ const currency = Astro.props.currency ?? getTranslation('productFunnel.currency'
 ---
 
 <div id={FunnelClassicComponents.ClassicProductFunnel} class="w-full flex flex-col gap-2">
-  <ClassicQuantityOptions data={data} colorSizeOptions={colorSizeOptions} />
+  <ClassicQuantityOptions data={data} product={product} />
 
   <classic-product-funnel 
     data-funnel-auto-update={autoUpdate}

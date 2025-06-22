@@ -163,6 +163,7 @@ export interface Product {
     weight: null;
     weight_type: null;
     options: ProductOption[];
+    custom_options : CustomOptions;
     category: Category;
     skus: null;
     reviews : Review[];
@@ -171,6 +172,47 @@ export interface Product {
     meta: Meta;
     attachment: Attachment[];
     is_have_variant: string;
+}
+
+export interface CustomOptions {
+  size: SizeOption[];
+  color: ColorOption[];
+}
+
+export interface SizeOption {
+  value: string;
+  hex: string | null;
+  available_options: {
+    color: ColorVariant[];
+  };
+}
+
+export interface ColorOption {
+  value: string;
+  hex: string;
+  available_options: {
+    size: SizeVariant[];
+  };
+}
+
+export interface ColorVariant {
+  sku_id: number;
+  value: string;
+  hex: string;
+  price: number;
+  price_after_discount: number;
+  qty: number;
+  image: string;
+}
+
+export interface SizeVariant {
+  sku_id: number;
+  value: string;
+  hex: string | null;
+  price: number;
+  price_after_discount: number;
+  qty: number;
+  image: string;
 }
 
 export interface Review {
