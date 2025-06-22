@@ -41,11 +41,11 @@ const galleryData: BlockData = Astro.props.galleryData;
 const orderConfirmationNoticeData: BlockData = Astro.props.orderConfirmationNoticeData;
 
 // Extracts color and size options from the product data
-const colorSizeOptions: OptionOption[] = product.options[0].options;
-
+const isHaveVariant = product.is_have_variant;
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
 const isArabic = currentLang === "ar";
+
 
 // Helper function to check if component data is available
 interface ComponentCheckResult {
@@ -174,7 +174,7 @@ function isComponentDataAvailable(componentType: ClassicProductInfoComponents): 
                     // Form Fields Component
                     if (componentType === ClassicProductInfoComponents.FormFields) {
                         return (
-                                <ClassicThemeFormFields data={componentCheck.componentData} />
+                                <ClassicThemeFormFields data={componentCheck.componentData} isHaveVariant={isHaveVariant} />
                         );
                     }
 

@@ -2,6 +2,7 @@
 import "./ClassicSubmitOrderButton.css";
 import ClassicModalPurchaseInfo from "../../ClassicModalPurchaseInfo/ClassicModalPurchaseInfo.astro";
 
+const isHaveVariant : string = Astro.props.isHaveVariant;
 // Component configuration
 const validateOnSubmit =  true;
 const showValidationMessages =  true;
@@ -14,6 +15,7 @@ const enableColorSizeValidation =  true;
   data-submit-show-validation-messages={showValidationMessages}
   data-submit-auto-focus-first-error={autoFocusFirstError}
   data-submit-enable-color-size-validation={enableColorSizeValidation}
+  is-Have-Variant={isHaveVariant}
 >
   <div>
     <button

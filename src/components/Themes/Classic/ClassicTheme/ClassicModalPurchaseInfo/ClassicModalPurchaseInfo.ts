@@ -302,8 +302,8 @@ class ClassicPurchaseModal extends HTMLElement {
     container.innerHTML = colorSizeOptions.map(option => `
       <div class="classic-selection-item">
           <div class="classic-panel-info">القطعة ${option.panelIndex}</div>
-          <div class="classic-color-display"><span>${option.color}</span></div>
-          <div class="classic-size-display"><span>${option.size}</span></div>
+          <div class="classic-color-display"><span>${option.color ?? ""}</span></div>
+          <div class="classic-size-display"><span>${option.size ?? ""}</span></div>
       </div>
     `).join('');
   }

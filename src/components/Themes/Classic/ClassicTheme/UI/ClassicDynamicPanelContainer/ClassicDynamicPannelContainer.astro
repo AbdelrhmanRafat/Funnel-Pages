@@ -6,22 +6,23 @@ import "./ClassicDynamicPannelContainer.css"
 const product : Product = Astro.props.product;
 const panelIndex: number = Astro.props["panel-index"] || 1;
 const colorSizeOptions: OptionOption[] = product.options[0].options;
-const isHaveVariant : Boolean = Boolean(product.is_have_variant);
+const isHaveVariant  = product.is_have_variant;
 const customOptions : CustomOptions = product.custom_options;
-let colors: OptionOption | undefined  = colorSizeOptions.find(opt => opt.name === 'color');
-let sizes: OptionOption | undefined  = colorSizeOptions.find(opt => opt.name === 'size');
+
 // Component configuration
 const allowMultipleSelection = Astro.props.allowMultipleSelection ?? false;
 const showSelectionIndicators = Astro.props.showSelectionIndicators ?? true;
 const enableAutoSelect = Astro.props.enableAutoSelect ?? false; // Auto-select first option
 
-//  if(isHaveVariant === true)
-//  {
-//     colors = product.custom_options.color;
-//     sizes =  product.custom_options.size;
-//     console.log(colors);
-//     console.log(sizes);
-//  }
+let colors: OptionOption | undefined | ColorOption[] = undefined;
+let sizes: OptionOption | undefined | SizeOption[] = undefined;
+if (isHaveVariant === "true" && customOptions) {
+    colors = customOptions.color;
+    sizes = customOptions.size;
+} else {
+    colors = colorSizeOptions.find(opt => opt.name === 'color');
+    sizes = colorSizeOptions.find(opt => opt.name === 'size');
+}
 
 ---
 <div id="classic-pannel-container" class="classic-pannel-container">
@@ -56,49 +57,87 @@ const enableAutoSelect = Astro.props.enableAutoSelect ?? false; // Auto-select f
           </div>
         )}
       </div>
+      
       <div class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row">
         <!-- Size Selection -->
-        {sizes && Array.isArray(sizes.value) && (
+        {sizes && (
           <div class="select-size-section space-y-2">
             <p class="classic-selection-title text-base sm:text-lg font-semibold" data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</p>
             <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
               {
-                sizes.value.map((size, index) => (
-                  <div
-                    class="size-option classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
-                    data-options-size-option
-                    data-options-size-value={size.value}
-                    data-options-size-index={index}
-                  >
-                    {size.display}
-                  </div>
-                ))
+                /* Handle variant sizes (SizeOption[] - direct array) */
+                (isHaveVariant && Array.isArray(sizes)) ? 
+                  sizes.map((size, index) => (
+                    <div
+                      class="size-option classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                      data-options-size-option
+                      data-options-size-value={size.value}
+                      data-options-size-index={index}
+                      data-variant={true}
+                    >
+                      {size.value}
+                    </div>
+                  )) :
+                /* Handle non-variant sizes (OptionOption with Value[] array) */
+                (sizes && 'value' in sizes && Array.isArray(sizes.value)) ?
+                  sizes.value.map((size, index) => (
+                    <div
+                      class="size-option classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                      data-options-size-option
+                      data-options-size-value={size.value || size.name}
+                      data-options-size-index={index}
+                      data-variant={false}
+                    >
+                      {size.display || size.value || size.name}
+                    </div>
+                  )) : null
               }
             </div>
           </div>
         )}
                
         <!-- Color Selection -->
-        {colors && Array.isArray(colors.value) && (
+        {colors && (
           <div class="select-color-section space-y-2">
             <p class="classic-selection-title text-base sm:text-lg font-semibold" data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</p>
-            <div class="grid grid-cols-4 sm:flex gap-4 sm:gap-6 justify-items-center">
+            <div class="flex flex-wrap justify-start content-center gap-2">
               {
-                colors.value.map((color, index) => (
-                  <div
-                    class="color-option flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
-                    data-options-color-option
-                    data-options-color-name={color.name}
-                    data-options-color-hex={color.hex}
-                    data-options-color-index={index}
-                  >
+                /* Handle variant colors (ColorOption[] - direct array) */
+                (isHaveVariant && Array.isArray(colors)) ? 
+                  colors.map((color, index) => (
                     <div
-                      class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                      style={`background-color: ${color.hex}`}
-                    ></div>
-                    <span class="classic-color-name text-xs sm:text-sm text-center">{color.name}</span>
-                  </div>
-                ))
+                      class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                      data-options-color-option
+                      data-options-color-name={color.value}
+                      data-options-color-hex={color.hex}
+                      data-options-color-index={index}
+                      data-variant={true}
+                    >
+                      <div
+                        class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                        style={`background-color: ${color.hex}`}
+                      ></div>
+                      <span class="classic-color-name text-xs sm:text-sm text-center">{color.value}</span>
+                    </div>
+                  )) :
+                /* Handle non-variant colors (OptionOption with Value[] array) */
+                (colors && 'value' in colors && Array.isArray(colors.value)) ?
+                  colors.value.map((color, index) => (
+                    <div
+                      class="color-option flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                      data-options-color-option
+                      data-options-color-name={color.name || color.value}
+                      data-options-color-hex={color.hex}
+                      data-options-color-index={index}
+                      data-variant={false}
+                    >
+                      <div
+                        class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                        style={`background-color: ${color.hex}`}
+                      ></div>
+                      <span class="classic-color-name text-xs sm:text-sm text-center">{color.name || color.value}</span>
+                    </div>
+                  )) : null
               }
             </div>
           </div>

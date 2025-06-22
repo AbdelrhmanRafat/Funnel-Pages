@@ -26,6 +26,7 @@ class ClassicSubmitOrder extends HTMLElement {
   private showValidationMessages: boolean = true;
   private autoFocusFirstError: boolean = true;
   private enableColorSizeValidation: boolean = true;
+  private isHaveVariant: string | null = "true";
 
   constructor() {
     super();
@@ -46,13 +47,13 @@ class ClassicSubmitOrder extends HTMLElement {
     this.showValidationMessages = this.getAttribute('data-submit-show-validation-messages') !== 'false';
     this.autoFocusFirstError = this.getAttribute('data-submit-auto-focus-first-error') !== 'false';
     this.enableColorSizeValidation = this.getAttribute('data-submit-enable-color-size-validation') !== 'false';
+    this.isHaveVariant = this.getAttribute('is-Have-Variant');
   }
 
   private initializeElements(): void {
     this.elements = {
       submitButton: this.querySelector('[data-submit-order-button]') as HTMLButtonElement
     };
-
     if (!this.elements.submitButton) {
       console.warn('Submit Order: Submit button not found');
       return;
@@ -264,7 +265,7 @@ class ClassicSubmitOrder extends HTMLElement {
     const errorMessages: string[] = [];
 
     for (const option of colorSizeState.options) {
-      if (!option.color) {
+      if (!option.color && this.isHaveVariant === "true") {
         errorMessages.push(`من فضلك اختر اللون للخيار رقم ${option.panelIndex}`);
         isOptionsValid = false;
       }

@@ -9,6 +9,7 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 // DATA INITIALIZATION & PROCESSING
 const data: BlockData = Astro.props.data;
+const isHaveVariant: string = Astro.props.isHaveVariant;
 
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value ||
@@ -295,7 +296,7 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
         </div>
       </div>
       <!-- SUBMIT BUTTON SECTION -->
-      <ClassicSubmitOrderButton />
+      <ClassicSubmitOrderButton isHaveVariant={isHaveVariant}  />
     </form>
   </div>
 </section>
