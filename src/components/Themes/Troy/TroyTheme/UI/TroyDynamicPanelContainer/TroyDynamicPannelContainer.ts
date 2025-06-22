@@ -136,12 +136,12 @@ class troySelectOptions extends HTMLElement implements Observer<QuantityState>, 
     // Clear all selections first
     if (this.elements.sizeOptions) {
       this.elements.sizeOptions.forEach(option => {
-        option.classList.remove('selected-size-option');
+        option.classList.remove('troy-selected-size-option');
       });
     }
     if (this.elements.colorOptions) {
       this.elements.colorOptions.forEach(option => {
-        option.classList.remove('selected-color-option');
+        option.classList.remove('troy-selected-color-option');
       });
     }
 
@@ -151,7 +151,7 @@ class troySelectOptions extends HTMLElement implements Observer<QuantityState>, 
         option => option.textContent?.trim() === panelOption.size
       );
       if (sizeOption) {
-        sizeOption.classList.add('selected-size-option');
+        sizeOption.classList.add('troy-selected-size-option');
       }
     }
 
@@ -160,7 +160,7 @@ class troySelectOptions extends HTMLElement implements Observer<QuantityState>, 
         option => option.getAttribute('data-options-color-name') === panelOption.color
       );
       if (colorOption) {
-        colorOption.classList.add('selected-color-option');
+        colorOption.classList.add('troy-selected-color-option');
       }
     }
   }
@@ -198,7 +198,7 @@ class troySelectOptions extends HTMLElement implements Observer<QuantityState>, 
   }
 
   private handleSizeSelection(sizeOption: HTMLElement): void {
-    const selectedSizeClassName = "selected-size-option";
+    const selectedSizeClassName = "troy-selected-size-option";
     const sizeValue = sizeOption.getAttribute('data-options-size-value');
     const sizeDisplay = sizeOption.textContent?.trim() || null;
 
@@ -252,7 +252,7 @@ class troySelectOptions extends HTMLElement implements Observer<QuantityState>, 
   }
 
   private handleColorSelection(colorOption: HTMLElement): void {
-    const selectedColorClassName = "selected-color-option";
+    const selectedColorClassName = "troy-selected-color-option";
     const colorName = colorOption.getAttribute('data-options-color-name');
     const colorHex = colorOption.getAttribute('data-options-color-hex');
 
@@ -335,14 +335,14 @@ class troySelectOptions extends HTMLElement implements Observer<QuantityState>, 
     // Clear size selections
     if (this.elements.sizeOptions) {
       this.elements.sizeOptions.forEach(option => {
-        option.classList.remove('selected-size-option');
+        option.classList.remove('troy-selected-size-option');
       });
     }
 
     // Clear color selections
     if (this.elements.colorOptions) {
       this.elements.colorOptions.forEach(option => {
-        option.classList.remove('selected-color-option');
+        option.classList.remove('troy-selected-color-option');
       });
     }
 

@@ -22,10 +22,9 @@
 .classic-modal-header {
   background-color: var(--classic-color-surface-variant);
   border-bottom-color: var(--classic-color-outline);
-  
 }
 
-.celebration-header {
+.classic-celebration-header {
   background: linear-gradient(135deg, var(--classic-color-success-light) 0%, var(--classic-color-primary-light) 100%);
   color: var(--classic-color-on-primary);
 }
@@ -34,7 +33,7 @@
   color: var(--classic-color-on-surface);
 }
 
-.celebration-title {
+.classic-celebration-title {
   color: var(--classic-color-on-primary);
 }
 
@@ -46,11 +45,11 @@
   color: var(--classic-color-error);
 }
 
-.celebration-header .classic-modal-close {
+.classic-celebration-header .classic-modal-close {
   color: var(--classic-color-on-primary);
 }
 
-.celebration-header .classic-modal-close:hover {
+.classic-celebration-header .classic-modal-close:hover {
   color: var(--classic-color-error);
 }
 
@@ -73,7 +72,7 @@
 
 .classic-summary-item {
   border-bottom: 1px solid var(--classic-color-outline);
-    display: flex;
+  display: flex;
   justify-content: start;
   align-content: center;
   gap: 5px;
@@ -138,11 +137,11 @@
 }
 
 /* === Celebration Colors === */
-.celebration-view {
-  animation: celebrationEntrance 0.6s ease-out;
+.classic-celebration-view {
+  animation: classic-celebrationEntrance 0.6s ease-out;
 }
 
-@keyframes celebrationEntrance {
+@keyframes classic-celebrationEntrance {
   from {
     opacity: 0;
     transform: scale(0.9) translateY(-20px);
@@ -154,17 +153,17 @@
 }
 
 /* Success Checkmark Animation */
-.success-checkmark {
+.classic-success-checkmark {
   stroke: var(--classic-color-success);
   box-shadow: inset 0px 0px 0px var(--classic-color-success);
-  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+  animation: classic-fill 0.4s ease-in-out 0.4s forwards, classic-scale 0.3s ease-in-out 0.9s both;
 }
 
-.success-checkmark .check-icon {
+.classic-success-checkmark .classic-check-icon {
   background-color: var(--classic-color-success);
 }
 
-.check-icon::after {
+.classic-check-icon::after {
   content: '';
   width: 16px;
   height: 8px;
@@ -175,16 +174,16 @@
   border-top: none;
   border-right: none;
   transform: rotate(-45deg);
-  animation: checkmark 0.6s ease-in-out 0.9s both;
+  animation: classic-checkmark 0.6s ease-in-out 0.9s both;
 }
 
-@keyframes fill {
+@keyframes classic-fill {
   100% {
     box-shadow: inset 0px 0px 0px 30px var(--classic-color-success);
   }
 }
 
-@keyframes scale {
+@keyframes classic-scale {
   0%, 100% {
     transform: none;
   }
@@ -193,7 +192,7 @@
   }
 }
 
-@keyframes checkmark {
+@keyframes classic-checkmark {
   0% {
     opacity: 0;
     transform: rotate(-45deg) scale(0);
@@ -204,17 +203,17 @@
   }
 }
 
-.celebration-main-title {
+.classic-celebration-main-title {
   color: var(--classic-color-success);
-  animation: slideInUp 0.6s ease-out 0.3s both;
+  animation: classic-slideInUp 0.6s ease-out 0.3s both;
 }
 
-.celebration-subtitle {
+.classic-celebration-subtitle {
   color: var(--classic-color-on-surface-variant);
-  animation: slideInUp 0.6s ease-out 0.5s both;
+  animation: classic-slideInUp 0.6s ease-out 0.5s both;
 }
 
-@keyframes slideInUp {
+@keyframes classic-slideInUp {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -225,37 +224,37 @@
   }
 }
 
-.celebration-summary {
+.classic-celebration-summary {
   background-color: var(--classic-color-surface-variant);
   border-radius: var(--classic-section-radius);
-  animation: slideInUp 0.6s ease-out 0.7s both;
+  animation: classic-slideInUp 0.6s ease-out 0.7s both;
 }
 
-.celebration-summary-item {
+.classic-celebration-summary-item {
   border-bottom: 1px solid var(--classic-color-outline);
 }
 
-.celebration-summary-item:last-child {
+.classic-celebration-summary-item:last-child {
   border-bottom: none;
 }
 
-.celebration-icon {
+.classic-celebration-icon {
   color: var(--classic-color-primary);
 }
 
-.celebration-summary-text strong {
+.classic-celebration-summary-text strong {
   color: var(--classic-color-on-surface);
 }
 
-.celebration-summary-text span {
+.classic-celebration-summary-text span {
   color: var(--classic-color-on-surface-variant);
 }
 
-.celebration-actions {
-  animation: slideInUp 0.6s ease-out 0.9s both;
+.classic-celebration-actions {
+  animation: classic-slideInUp 0.6s ease-out 0.9s both;
 }
 
-.celebration-primary-button {
+.classic-celebration-primary-button {
   background: linear-gradient(135deg, var(--classic-color-primary) 0%, var(--classic-color-primary-dark) 100%);
   color: var(--classic-color-on-primary);
 }
@@ -266,7 +265,7 @@ html[lang="ar"] .classic-modal-container {
   text-align: right;
 }
 
-[dir="rtl"] .celebration-summary-text,
-html[lang="ar"] .celebration-summary-text {
+[dir="rtl"] .classic-celebration-summary-text,
+html[lang="ar"] .classic-celebration-summary-text {
   text-align: right;
 }

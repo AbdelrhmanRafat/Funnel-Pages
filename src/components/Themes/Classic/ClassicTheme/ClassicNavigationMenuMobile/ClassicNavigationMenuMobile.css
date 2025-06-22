@@ -40,8 +40,8 @@
 }
 
 .classic-menu-close:hover {
-    background-color: var(--classic-color-error);
-    border-color: var(--classic-color-error);
+    background-color: var(--classic-color-primary);
+    border-color: var(--classic-color-primary-dark);
     color: var(--classic-color-on-error);
     transform: scale(1.1);
 }
@@ -56,7 +56,7 @@
 .classic-menu-link:hover {
     background-color: var(--classic-color-primary);
     color: var(--classic-color-on-primary);
-    border-color: var(--classic-color-primary);
+    border-color: var(--classic-color-primary-dark);
     transform: translateX(-4px);
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
 }

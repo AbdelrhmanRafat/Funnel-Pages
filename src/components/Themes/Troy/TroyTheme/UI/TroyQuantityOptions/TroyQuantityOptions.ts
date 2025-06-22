@@ -171,8 +171,8 @@ class OfferSelector extends HTMLElement {
     }
   }
   private resetSelectionsManually(panelContainer: HTMLElement): void {
-    const selectedSizeClassName = "selected-size-option";
-    const selectedColorClassName = "selected-color-option";
+    const selectedSizeClassName = "troy-selected-size-option";
+    const selectedColorClassName = "troy-selected-color-option";
 
     // Reset size selections using new attributes
     const sizeOptions = panelContainer.querySelectorAll<HTMLElement>('[data-options-size-option]');

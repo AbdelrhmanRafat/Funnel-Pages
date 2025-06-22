@@ -22,10 +22,9 @@
 .troy-modal-header {
   background-color: var(--troy-color-surface-variant);
   border-bottom-color: var(--troy-color-outline);
-  
 }
 
-.celebration-header {
+.troy-celebration-header {
   background: linear-gradient(135deg, var(--troy-color-success-light) 0%, var(--troy-color-primary-light) 100%);
   color: var(--troy-color-on-primary);
 }
@@ -34,7 +33,7 @@
   color: var(--troy-color-on-surface);
 }
 
-.celebration-title {
+.troy-celebration-title {
   color: var(--troy-color-on-primary);
 }
 
@@ -46,11 +45,11 @@
   color: var(--troy-color-error);
 }
 
-.celebration-header .troy-modal-close {
+.troy-celebration-header .troy-modal-close {
   color: var(--troy-color-on-primary);
 }
 
-.celebration-header .troy-modal-close:hover {
+.troy-celebration-header .troy-modal-close:hover {
   color: var(--troy-color-error);
 }
 
@@ -73,7 +72,7 @@
 
 .troy-summary-item {
   border-bottom: 1px solid var(--troy-color-outline);
-    display: flex;
+  display: flex;
   justify-content: start;
   align-content: center;
   gap: 5px;
@@ -138,11 +137,11 @@
 }
 
 /* === Celebration Colors === */
-.celebration-view {
-  animation: celebrationEntrance 0.6s ease-out;
+.troy-celebration-view {
+  animation: troy-celebrationEntrance 0.6s ease-out;
 }
 
-@keyframes celebrationEntrance {
+@keyframes troy-celebrationEntrance {
   from {
     opacity: 0;
     transform: scale(0.9) translateY(-20px);
@@ -154,17 +153,17 @@
 }
 
 /* Success Checkmark Animation */
-.success-checkmark {
+.troy-success-checkmark {
   stroke: var(--troy-color-success);
   box-shadow: inset 0px 0px 0px var(--troy-color-success);
-  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+  animation: troy-fill 0.4s ease-in-out 0.4s forwards, troy-scale 0.3s ease-in-out 0.9s both;
 }
 
-.success-checkmark .check-icon {
+.troy-success-checkmark .troy-check-icon {
   background-color: var(--troy-color-success);
 }
 
-.check-icon::after {
+.troy-check-icon::after {
   content: '';
   width: 16px;
   height: 8px;
@@ -175,16 +174,16 @@
   border-top: none;
   border-right: none;
   transform: rotate(-45deg);
-  animation: checkmark 0.6s ease-in-out 0.9s both;
+  animation: troy-checkmark 0.6s ease-in-out 0.9s both;
 }
 
-@keyframes fill {
+@keyframes troy-fill {
   100% {
     box-shadow: inset 0px 0px 0px 30px var(--troy-color-success);
   }
 }
 
-@keyframes scale {
+@keyframes troy-scale {
   0%, 100% {
     transform: none;
   }
@@ -193,7 +192,7 @@
   }
 }
 
-@keyframes checkmark {
+@keyframes troy-checkmark {
   0% {
     opacity: 0;
     transform: rotate(-45deg) scale(0);
@@ -204,17 +203,17 @@
   }
 }
 
-.celebration-main-title {
+.troy-celebration-main-title {
   color: var(--troy-color-success);
-  animation: slideInUp 0.6s ease-out 0.3s both;
+  animation: troy-slideInUp 0.6s ease-out 0.3s both;
 }
 
-.celebration-subtitle {
+.troy-celebration-subtitle {
   color: var(--troy-color-on-surface-variant);
-  animation: slideInUp 0.6s ease-out 0.5s both;
+  animation: troy-slideInUp 0.6s ease-out 0.5s both;
 }
 
-@keyframes slideInUp {
+@keyframes troy-slideInUp {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -225,37 +224,37 @@
   }
 }
 
-.celebration-summary {
+.troy-celebration-summary {
   background-color: var(--troy-color-surface-variant);
   border-radius: var(--troy-section-radius);
-  animation: slideInUp 0.6s ease-out 0.7s both;
+  animation: troy-slideInUp 0.6s ease-out 0.7s both;
 }
 
-.celebration-summary-item {
+.troy-celebration-summary-item {
   border-bottom: 1px solid var(--troy-color-outline);
 }
 
-.celebration-summary-item:last-child {
+.troy-celebration-summary-item:last-child {
   border-bottom: none;
 }
 
-.celebration-icon {
+.troy-celebration-icon {
   color: var(--troy-color-primary);
 }
 
-.celebration-summary-text strong {
+.troy-celebration-summary-text strong {
   color: var(--troy-color-on-surface);
 }
 
-.celebration-summary-text span {
+.troy-celebration-summary-text span {
   color: var(--troy-color-on-surface-variant);
 }
 
-.celebration-actions {
-  animation: slideInUp 0.6s ease-out 0.9s both;
+.troy-celebration-actions {
+  animation: troy-slideInUp 0.6s ease-out 0.9s both;
 }
 
-.celebration-primary-button {
+.troy-celebration-primary-button {
   background: linear-gradient(135deg, var(--troy-color-primary) 0%, var(--troy-color-primary-dark) 100%);
   color: var(--troy-color-on-primary);
 }
@@ -266,7 +265,7 @@ html[lang="ar"] .troy-modal-container {
   text-align: right;
 }
 
-[dir="rtl"] .celebration-summary-text,
-html[lang="ar"] .celebration-summary-text {
+[dir="rtl"] .troy-celebration-summary-text,
+html[lang="ar"] .troy-celebration-summary-text {
   text-align: right;
 }

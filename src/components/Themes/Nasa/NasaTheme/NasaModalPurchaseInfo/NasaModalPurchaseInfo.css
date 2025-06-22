@@ -22,10 +22,9 @@
 .nasa-modal-header {
   background-color: var(--nasa-color-surface-variant);
   border-bottom-color: var(--nasa-color-outline);
-  
 }
 
-.celebration-header {
+.nasa-celebration-header {
   background: linear-gradient(135deg, var(--nasa-color-success-light) 0%, var(--nasa-color-primary-light) 100%);
   color: var(--nasa-color-on-primary);
 }
@@ -34,7 +33,7 @@
   color: var(--nasa-color-on-surface);
 }
 
-.celebration-title {
+.nasa-celebration-title {
   color: var(--nasa-color-on-primary);
 }
 
@@ -46,11 +45,11 @@
   color: var(--nasa-color-error);
 }
 
-.celebration-header .nasa-modal-close {
+.nasa-celebration-header .nasa-modal-close {
   color: var(--nasa-color-on-primary);
 }
 
-.celebration-header .nasa-modal-close:hover {
+.nasa-celebration-header .nasa-modal-close:hover {
   color: var(--nasa-color-error);
 }
 
@@ -73,7 +72,7 @@
 
 .nasa-summary-item {
   border-bottom: 1px solid var(--nasa-color-outline);
-    display: flex;
+  display: flex;
   justify-content: start;
   align-content: center;
   gap: 5px;
@@ -138,11 +137,11 @@
 }
 
 /* === Celebration Colors === */
-.celebration-view {
-  animation: celebrationEntrance 0.6s ease-out;
+.nasa-celebration-view {
+  animation: nasa-celebrationEntrance 0.6s ease-out;
 }
 
-@keyframes celebrationEntrance {
+@keyframes nasa-celebrationEntrance {
   from {
     opacity: 0;
     transform: scale(0.9) translateY(-20px);
@@ -154,17 +153,17 @@
 }
 
 /* Success Checkmark Animation */
-.success-checkmark {
+.nasa-success-checkmark {
   stroke: var(--nasa-color-success);
   box-shadow: inset 0px 0px 0px var(--nasa-color-success);
-  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+  animation: nasa-fill 0.4s ease-in-out 0.4s forwards, nasa-scale 0.3s ease-in-out 0.9s both;
 }
 
-.success-checkmark .check-icon {
+.nasa-success-checkmark .nasa-check-icon {
   background-color: var(--nasa-color-success);
 }
 
-.check-icon::after {
+.nasa-check-icon::after {
   content: '';
   width: 16px;
   height: 8px;
@@ -175,16 +174,16 @@
   border-top: none;
   border-right: none;
   transform: rotate(-45deg);
-  animation: checkmark 0.6s ease-in-out 0.9s both;
+  animation: nasa-checkmark 0.6s ease-in-out 0.9s both;
 }
 
-@keyframes fill {
+@keyframes nasa-fill {
   100% {
     box-shadow: inset 0px 0px 0px 30px var(--nasa-color-success);
   }
 }
 
-@keyframes scale {
+@keyframes nasa-scale {
   0%, 100% {
     transform: none;
   }
@@ -193,7 +192,7 @@
   }
 }
 
-@keyframes checkmark {
+@keyframes nasa-checkmark {
   0% {
     opacity: 0;
     transform: rotate(-45deg) scale(0);
@@ -204,17 +203,17 @@
   }
 }
 
-.celebration-main-title {
+.nasa-celebration-main-title {
   color: var(--nasa-color-success);
-  animation: slideInUp 0.6s ease-out 0.3s both;
+  animation: nasa-slideInUp 0.6s ease-out 0.3s both;
 }
 
-.celebration-subtitle {
+.nasa-celebration-subtitle {
   color: var(--nasa-color-on-surface-variant);
-  animation: slideInUp 0.6s ease-out 0.5s both;
+  animation: nasa-slideInUp 0.6s ease-out 0.5s both;
 }
 
-@keyframes slideInUp {
+@keyframes nasa-slideInUp {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -225,37 +224,37 @@
   }
 }
 
-.celebration-summary {
+.nasa-celebration-summary {
   background-color: var(--nasa-color-surface-variant);
   border-radius: var(--nasa-section-radius);
-  animation: slideInUp 0.6s ease-out 0.7s both;
+  animation: nasa-slideInUp 0.6s ease-out 0.7s both;
 }
 
-.celebration-summary-item {
+.nasa-celebration-summary-item {
   border-bottom: 1px solid var(--nasa-color-outline);
 }
 
-.celebration-summary-item:last-child {
+.nasa-celebration-summary-item:last-child {
   border-bottom: none;
 }
 
-.celebration-icon {
+.nasa-celebration-icon {
   color: var(--nasa-color-primary);
 }
 
-.celebration-summary-text strong {
+.nasa-celebration-summary-text strong {
   color: var(--nasa-color-on-surface);
 }
 
-.celebration-summary-text span {
+.nasa-celebration-summary-text span {
   color: var(--nasa-color-on-surface-variant);
 }
 
-.celebration-actions {
-  animation: slideInUp 0.6s ease-out 0.9s both;
+.nasa-celebration-actions {
+  animation: nasa-slideInUp 0.6s ease-out 0.9s both;
 }
 
-.celebration-primary-button {
+.nasa-celebration-primary-button {
   background: linear-gradient(135deg, var(--nasa-color-primary) 0%, var(--nasa-color-primary-dark) 100%);
   color: var(--nasa-color-on-primary);
 }
@@ -266,7 +265,7 @@ html[lang="ar"] .nasa-modal-container {
   text-align: right;
 }
 
-[dir="rtl"] .celebration-summary-text,
-html[lang="ar"] .celebration-summary-text {
+[dir="rtl"] .nasa-celebration-summary-text,
+html[lang="ar"] .nasa-celebration-summary-text {
   text-align: right;
 }

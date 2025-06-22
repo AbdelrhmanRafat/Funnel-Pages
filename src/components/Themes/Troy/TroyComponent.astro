@@ -3,25 +3,26 @@
 // It orchestrates the rendering of various sub-components based on the data received from the API.
 // Props:
 // - funnelPage: An object of type Data, containing all the information for the funnel page.
-import "./troyComponent.css";
-import troyThemeHeader from "./troyTheme/troy_Header/troyThemeHeader.astro";
-import troyThemeProduct from "./troyTheme/troyThemeProduct/troyThemeProduct.astro";
-import troyThemeCountDown from "./troyTheme/troyThemeCountdown/troyThemeCountDown.astro";
-import troyFaq from "./troyTheme/troy_Faq/troyFaq.astro";
-import troyProductPreviewComponent from "./troyTheme/troy_ProductPreview/troyProductPreviewComponent.astro";
-import { gettroyThemeComponent } from "../../../lib/utils/ThemeSelect";
+import "./TroyComponent.css";
+
+import { getTroyThemeComponent } from "../../../lib/utils/ThemeSelect";
 import type { BlockData, Data } from "../../../lib/api/types";
-import { FunneltroyComponents } from "../../../lib/constants/themes";
-import troyThemeFooter from "./troyTheme/troyThemeFooter/troyThemeFooter.astro";
-import troyThemeReviews from "./troyTheme/troy_Theme_Reviews/troyThemeReviews.astro";
-import troyProductUsage from "./troyTheme/troy_ProductUsage/troyProductUsage.astro";
-import troyDeliveryFeatures from "./troyTheme/troy_Delivery_Features/troyDeliveryFeatures.astro";
-import troyProductFeatures from "./troyTheme/troy_Product_Features/troyProductFeatures.astro";
-import troyThemeTextBar from "./troyTheme/troy_Text_Bar/troyThemeTextBar.astro";
-import troyThemeTodayOrders from "./troyTheme/troyThemeTodayOrders/troyThemeTodayOrders.astro";
-import troyBeforeAfter from "./troyTheme/troyBefore&AfterImage/troyBefore&After.astro";
-import troyImageTextOverlay from "./troyTheme/troy_Image_Text_Overlay/troyImageTextOverlay.astro";
-import troyImageTextBeside from "./troyTheme/troy_Image_Text_Beside/troyImageTextBeside.astro";
+import { FunnelTroyComponents } from "../../../lib/constants/themes";
+import TroyDeliveryFeatures from "./TroyTheme/Troy_Delivery_Features/TroyDeliveryFeatures.astro";
+import TroyFaq from "./TroyTheme/Troy_Faq/TroyFaq.astro";
+import TroyThemeHeader from "./TroyTheme/Troy_Header/TroyThemeHeader.astro";
+import TroyImageTextBeside from "./TroyTheme/Troy_Image_Text_Beside/TroyImageTextBeside.astro";
+import TroyImageTextOverlay from "./TroyTheme/Troy_Image_Text_Overlay/TroyImageTextOverlay.astro";
+import TroyProductFeatures from "./TroyTheme/Troy_Product_Features/TroyProductFeatures.astro";
+import TroyProductPreviewComponent from "./TroyTheme/Troy_ProductPreview/TroyProductPreviewComponent.astro";
+import TroyProductUsage from "./TroyTheme/Troy_ProductUsage/TroyProductUsage.astro";
+import TroyThemeTextBar from "./TroyTheme/Troy_Text_Bar/TroyThemeTextBar.astro";
+import TroyThemeReviews from "./TroyTheme/Troy_Theme_Reviews/TroyThemeReviews.astro";
+import TroyBeforeAfter from "./TroyTheme/TroyBefore&AfterImage/TroyBefore&After.astro";
+import TroyThemeCountDown from "./TroyTheme/TroyThemeCountdown/TroyThemeCountDown.astro";
+import TroyThemeFooter from "./TroyTheme/TroyThemeFooter/TroyThemeFooter.astro";
+import TroyThemeProduct from "./TroyTheme/TroyThemeProduct/TroyThemeProduct.astro";
+import TroyThemeTodayOrders from "./TroyTheme/TroyThemeTodayOrders/TroyThemeTodayOrders.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -31,20 +32,20 @@ interface ComponentCheckResult {
 const funnelPage: Data = Astro.props.funnelPage;
 
 // Maps the block names from the API response to their corresponding troy theme components and data.
-const troyComponentNames: [FunneltroyComponents, BlockData][] =
+const troyComponentNames: [FunnelTroyComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
-      const component = gettroyThemeComponent(block.name);
+      const component = getTroyThemeComponent(block.name);
       return component ? [component, block.data] : undefined;
     })
     .filter(
-      (tuple): tuple is [FunneltroyComponents, BlockData] =>
+      (tuple): tuple is [FunnelTroyComponents, BlockData] =>
         tuple !== undefined,
     );
 
 // Checks if a specific component is present in the API response and returns its data if found.
 function isComponentFound(
-  componentName: FunneltroyComponents,
+  componentName: FunnelTroyComponents,
 ): ComponentCheckResult {
   const found = troyComponentNames.find(([comp]) => comp === componentName);
   return {
@@ -55,36 +56,36 @@ function isComponentFound(
 
 // Define render order - just change this array to reorder components!
 const RENDER_ORDER = [
-  FunneltroyComponents.troyHeader,
-  FunneltroyComponents.troyProductFunnel, // Always render (required)
-  FunneltroyComponents.troyProductFeatures,
-  FunneltroyComponents.troyProductPreview,
-  FunneltroyComponents.troyProductUsage,
-  FunneltroyComponents.troyTodayOrders,
-  FunneltroyComponents.troy_Before_After,
-  FunneltroyComponents.troyReviews,
-  FunneltroyComponents.troyTextBar,
-  FunneltroyComponents.troyImageTextOverLay,
-  FunneltroyComponents.troyImageTextBeside,
-  FunneltroyComponents.troyFaq,
-  FunneltroyComponents.troyDeliveryFeatures,
-  FunneltroyComponents.troyCountdown,
-  FunneltroyComponents.troyFooter,
+  FunnelTroyComponents.TroyHeader,
+  FunnelTroyComponents.TroyProductFunnel, // Always render (required)
+  FunnelTroyComponents.TroyProductFeatures,
+  FunnelTroyComponents.TroyProductPreview,
+  FunnelTroyComponents.TroyProductUsage,
+  FunnelTroyComponents.TroyTodayOrders,
+  FunnelTroyComponents.Troy_Before_After,
+  FunnelTroyComponents.TroyReviews,
+  FunnelTroyComponents.TroyTextBar,
+  FunnelTroyComponents.TroyImageTextOverLay,
+  FunnelTroyComponents.TroyImageTextBeside,
+  FunnelTroyComponents.TroyFaq,
+  FunnelTroyComponents.TroyDeliveryFeatures,
+  FunnelTroyComponents.TroyCountdown,
+  FunnelTroyComponents.TroyFooter,
 ];
 
 // Extracts purchase options and other data
 const productFunnelData = isComponentFound(
-  FunneltroyComponents.troyProductFunnel,
+  FunnelTroyComponents.TroyProductFunnel,
 );
 const isFormFieldsDataFound = isComponentFound(
-  FunneltroyComponents.troyFormFields,
+  FunnelTroyComponents.TroyFormFields,
 );
 
 const isOrderConfirmationNoticeFound = isComponentFound(
-  FunneltroyComponents.troyOrderConfirmationNotice,
+  FunnelTroyComponents.TroyOrderConfirmationNotice,
 );
-const isRatingFound = isComponentFound(FunneltroyComponents.troyRates);
-const isGalleryFound = isComponentFound(FunneltroyComponents.troyGallery);
+const isRatingFound = isComponentFound(FunnelTroyComponents.TroyRates);
+const isGalleryFound = isComponentFound(FunnelTroyComponents.TroyGallery);
 
 const purchaseOptions = productFunnelData.isComponentFound
   ? productFunnelData.componentData?.purchase_options
@@ -111,18 +112,18 @@ const galleryData = isGalleryFound.isComponentFound
   <section class="lg:container w-11/12 mx-auto flex flex-col gap-7">
   {
     RENDER_ORDER.map((componentName) => {
-      if (componentName === FunneltroyComponents.troyHeader) {
+      if (componentName === FunnelTroyComponents.TroyHeader) {
         const headerData = isComponentFound(
-          FunneltroyComponents.troyHeader,
+          FunnelTroyComponents.TroyHeader,
         );
         return headerData.isComponentFound ? (
-          <troyThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
+          <TroyThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
         ) : null;
       }
       
-      if (componentName === FunneltroyComponents.troyProductFunnel) {
+      if (componentName === FunnelTroyComponents.TroyProductFunnel) {
         return (
-          <troyThemeProduct
+          <TroyThemeProduct
             galleryData={galleryData}
             formFieldsData={formFieldsData}
             ratingData={ratingData}
@@ -132,110 +133,110 @@ const galleryData = isGalleryFound.isComponentFound
           />
         );
       }
-      if (componentName === FunneltroyComponents.troyCountdown) {
+      if (componentName === FunnelTroyComponents.TroyCountdown) {
         const countdownData = isComponentFound(
-          FunneltroyComponents.troyCountdown,
+          FunnelTroyComponents.TroyCountdown,
         );
         return countdownData.isComponentFound ? (
-          <troyThemeCountDown data={countdownData.componentData} />
+          <TroyThemeCountDown data={countdownData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyFaq) {
-        const faqData = isComponentFound(FunneltroyComponents.troyFaq);
+      if (componentName === FunnelTroyComponents.TroyFaq) {
+        const faqData = isComponentFound(FunnelTroyComponents.TroyFaq);
         return faqData.isComponentFound ? (
-          <troyFaq data={faqData.componentData} />
+          <TroyFaq data={faqData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyProductPreview) {
+      if (componentName === FunnelTroyComponents.TroyProductPreview) {
         const productPreviewData = isComponentFound(
-          FunneltroyComponents.troyProductPreview,
+          FunnelTroyComponents.TroyProductPreview,
         );
         return productPreviewData.isComponentFound ? (
-          <troyProductPreviewComponent
+          <TroyProductPreviewComponent
             data={productPreviewData.componentData}
           />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyTodayOrders) {
+      if (componentName === FunnelTroyComponents.TroyTodayOrders) {
         const todayOrdersData = isComponentFound(
-          FunneltroyComponents.troyTodayOrders,
+          FunnelTroyComponents.TroyTodayOrders,
         );
         return todayOrdersData.isComponentFound ? (
-          <troyThemeTodayOrders
+          <TroyThemeTodayOrders
             data={todayOrdersData.componentData}
           />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyDeliveryFeatures) {
+      if (componentName === FunnelTroyComponents.TroyDeliveryFeatures) {
         const deliveryFeaturesData = isComponentFound(
-          FunneltroyComponents.troyDeliveryFeatures,
+          FunnelTroyComponents.TroyDeliveryFeatures,
         );
         return deliveryFeaturesData.isComponentFound ? (
-          <troyDeliveryFeatures data={deliveryFeaturesData.componentData} />
+          <TroyDeliveryFeatures data={deliveryFeaturesData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyProductFeatures) {
+      if (componentName === FunnelTroyComponents.TroyProductFeatures) {
         const ProductFeaturesData = isComponentFound(
-          FunneltroyComponents.troyProductFeatures,
+          FunnelTroyComponents.TroyProductFeatures,
         );
         return ProductFeaturesData.isComponentFound ? (
-          <troyProductFeatures data={ProductFeaturesData.componentData} />
+          <TroyProductFeatures data={ProductFeaturesData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyReviews) {
+      if (componentName === FunnelTroyComponents.TroyReviews) {
         const ReviewsData = isComponentFound(
-          FunneltroyComponents.troyReviews,
+          FunnelTroyComponents.TroyReviews,
         );
         return ReviewsData.isComponentFound ? (
-          <troyThemeReviews data={ReviewsData.componentData} />
+          <TroyThemeReviews data={ReviewsData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyTextBar) {
+      if (componentName === FunnelTroyComponents.TroyTextBar) {
         const TextBarData = isComponentFound(
-          FunneltroyComponents.troyTextBar,
+          FunnelTroyComponents.TroyTextBar,
         );
         return TextBarData.isComponentFound ? (
-          <troyThemeTextBar data={TextBarData.componentData} />
+          <TroyThemeTextBar data={TextBarData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyImageTextOverLay) {
+      if (componentName === FunnelTroyComponents.TroyImageTextOverLay) {
         const ImageTextData = isComponentFound(
-          FunneltroyComponents.troyImageTextOverLay,
+          FunnelTroyComponents.TroyImageTextOverLay,
         );
         return ImageTextData.isComponentFound ? (
-          <troyImageTextOverlay data={ImageTextData.componentData} />
+          <TroyImageTextOverlay data={ImageTextData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyImageTextBeside) {
+      if (componentName === FunnelTroyComponents.TroyImageTextBeside) {
         const ImageTextData = isComponentFound(
-          FunneltroyComponents.troyImageTextBeside,
+          FunnelTroyComponents.TroyImageTextBeside,
         );
         return ImageTextData.isComponentFound ? (
-          <troyImageTextBeside data={ImageTextData.componentData} />
+          <TroyImageTextBeside data={ImageTextData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyProductUsage) {
+      if (componentName === FunnelTroyComponents.TroyProductUsage) {
         const productUsageData = isComponentFound(
-          FunneltroyComponents.troyProductUsage,
+          FunnelTroyComponents.TroyProductUsage,
         );
         return productUsageData.isComponentFound ? (
-          <troyProductUsage data={productUsageData.componentData} />
+          <TroyProductUsage data={productUsageData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troy_Before_After) {
+      if (componentName === FunnelTroyComponents.Troy_Before_After) {
         const BeforeAfterData = isComponentFound(
-          FunneltroyComponents.troy_Before_After,
+          FunnelTroyComponents.Troy_Before_After,
         );
         return BeforeAfterData.isComponentFound ? (
-          <troyBeforeAfter data={BeforeAfterData.componentData} />
+          <TroyBeforeAfter data={BeforeAfterData.componentData} />
         ) : null;
       }
-      if (componentName === FunneltroyComponents.troyFooter) {
+      if (componentName === FunnelTroyComponents.TroyFooter) {
         const footerData = isComponentFound(
-          FunneltroyComponents.troyFooter,
+          FunnelTroyComponents.TroyFooter,
         );
         return footerData.isComponentFound ? (
-          <troyThemeFooter data={footerData.componentData} />
+          <TroyThemeFooter data={footerData.componentData} />
         ) : null;
       }
       return null;
@@ -247,5 +248,5 @@ const galleryData = isGalleryFound.isComponentFound
   </section>
 </main>
 <script>
-  import "./troyTheme.config"
+  import "./TroyTheme.config"
 </script>

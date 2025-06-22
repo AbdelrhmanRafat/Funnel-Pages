@@ -48,28 +48,28 @@
 }
 
 /* === Selection States (Updated) === */
-.selected-color-option {
-    transform: scale(1.1);
+.troy-selected-color-option {
+  transform: scale(1.1);
 }
 
-.selected-color-option .troy-color-swatch {
-    border: 3px solid var(--troy-color-primary);
-    box-shadow: 0 0 0 2px var(--troy-color-surface), 
-                0 0 0 4px var(--troy-color-primary), 
-                0 6px 16px rgba(0, 150, 136, 0.25);
+.troy-selected-color-option .troy-color-swatch {
+  border: 3px solid var(--troy-color-primary);
+  box-shadow: 0 0 0 2px var(--troy-color-surface),
+              0 0 0 4px var(--troy-color-primary),
+              0 6px 16px rgba(0, 150, 136, 0.25);
 }
 
-.selected-color-option .troy-color-name {
-    color: var(--troy-color-secondary);
-    font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.troy-selected-color-option .troy-color-name {
+  color: var(--troy-color-secondary);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.selected-size-option {
-    background-color: var(--troy-color-secondary);
-    color: var(--troy-color-on-secondary);
-    border-color: var(--troy-color-secondary-light);
-    box-shadow: var(--troy-section-shadow);
-    transform: translateY(-2px);
-    font-weight: 600;
+.troy-selected-size-option {
+  background-color: var(--troy-color-secondary);
+  color: var(--troy-color-on-secondary);
+  border-color: var(--troy-color-secondary-light);
+  box-shadow: var(--troy-section-shadow);
+  transform: translateY(-2px);
+  font-weight: 600;
 }

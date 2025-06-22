@@ -40,9 +40,9 @@
 }
 
 .troy-menu-close:hover {
-    background-color: var(--troy-color-error);
-    border-color: var(--troy-color-error);
-    color: var(--troy-color-on-error);
+    background-color: var(--troy-color-primary);
+    border-color: var(--troy-color-primary-dark);
+    color: var(--troy-color-on-primary);
     transform: scale(1.1);
 }
 
@@ -56,7 +56,7 @@
 .troy-menu-link:hover {
     background-color: var(--troy-color-primary);
     color: var(--troy-color-on-primary);
-    border-color: var(--troy-color-primary);
+    border-color: var(--troy-color-primary-dark);
     transform: translateX(-4px);
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
 }

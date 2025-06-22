@@ -40,9 +40,9 @@
 }
 
 .nasa-menu-close:hover {
-    background-color: var(--nasa-color-error);
-    border-color: var(--nasa-color-error);
-    color: var(--nasa-color-on-error);
+    background-color: var(--nasa-color-primary);
+    border-color: var(--nasa-color-primary-dark);
+    color: var(--nasa-color-on-primary);
     transform: scale(1.1);
 }
 
@@ -56,7 +56,7 @@
 .nasa-menu-link:hover {
     background-color: var(--nasa-color-primary);
     color: var(--nasa-color-on-primary);
-    border-color: var(--nasa-color-primary);
+    border-color: var(--nasa-color-primary-dark);
     transform: translateX(-4px);
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
 }

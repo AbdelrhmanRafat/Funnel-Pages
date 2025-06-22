@@ -8,6 +8,7 @@ import { getFunnelPage } from "../lib/api/funnel";
 import { Theme } from "../lib/constants/themes";
 import type { FunnelRes } from "../lib/api/types";
 import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
+import TroyComponent from "../components/Themes/Troy/TroyComponent.astro";
 
 // Fetches the funnel page data from the API.
 const funnelPage: FunnelRes = await getFunnelPage();
@@ -26,7 +27,8 @@ const meta = funnelPage.data.product.meta;
           return <ClassicComponent funnelPage={funnelPage.data} />;
           case Theme.Nasa: 
            return <NasaComponent funnelPage={funnelPage.data} />
-
+          case Theme.Troy: 
+           return <TroyComponent funnelPage={funnelPage.data} />
         default:
           return <p>Theme not found</p>;
       }
