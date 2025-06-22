@@ -47,7 +47,7 @@
     color: var(--classic-color-on-surface-variant);
 }
 
-/* === Selection States (Updated) === */
+/* === Selection States === */
 .classic-selected-color-option {
   transform: scale(1.1);
 }
@@ -72,4 +72,172 @@
   box-shadow: var(--classic-section-shadow);
   transform: translateY(-2px);
   font-weight: 600;
+}
+
+/* === Enhanced Variant Filtering States === */
+
+/* Available Options (explicitly enabled) */
+.classic-option-available {
+  opacity: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.classic-option-available:hover {
+  transform: scale(1.02);
+}
+
+/* Disabled Options (filtered out by variant logic) */
+.classic-option-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.classic-option-disabled::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* Disabled Size Options */
+.classic-size-option.classic-option-disabled {
+  background-color: var(--classic-color-surface-variant);
+  color: var(--classic-color-on-surface-disabled);
+  border-color: var(--classic-color-outline-variant);
+  box-shadow: none;
+}
+
+.classic-size-option.classic-option-disabled:hover {
+  background-color: var(--classic-color-surface-variant);
+  color: var(--classic-color-on-surface-disabled);
+  transform: none;
+}
+
+/* Disabled Color Options */
+.classic-color-option.classic-option-disabled {
+  filter: grayscale(70%) brightness(0.8);
+}
+
+.classic-color-option.classic-option-disabled:hover {
+  transform: none;
+  filter: grayscale(70%) brightness(0.8);
+}
+
+.classic-color-option.classic-option-disabled .classic-color-swatch {
+  border-color: var(--classic-color-outline-variant);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.classic-color-option.classic-option-disabled .classic-color-name {
+  color: var(--classic-color-on-surface-disabled);
+  text-decoration: line-through;
+}
+
+/* Variant-specific animations */
+.classic-option-panel[data-options-is-variant="true"] .classic-size-option,
+.classic-option-panel[data-options-is-variant="true"] .classic-color-option {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced hover states for available options */
+.classic-size-option.classic-option-available:hover {
+  background-color: var(--classic-color-secondary-container);
+  color: var(--classic-color-on-secondary-container);
+  border-color: var(--classic-color-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.classic-color-option.classic-option-available:hover {
+  transform: scale(1.08);
+}
+
+.classic-color-option.classic-option-available:hover .classic-color-swatch {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading/transition states */
+.classic-option-transitioning {
+  opacity: 0.7;
+  transform: scale(0.98);
+  transition: all 0.2s ease;
+}
+
+/* Accessibility improvements */
+.classic-option-disabled {
+  /* Screen readers should know this is disabled */
+  aria-disabled: true;
+}
+
+/* Focus states for keyboard navigation */
+.classic-size-option:focus,
+.classic-color-option:focus {
+  outline: 2px solid var(--classic-color-primary);
+  outline-offset: 2px;
+}
+
+.classic-size-option.classic-option-disabled:focus,
+.classic-color-option.classic-option-disabled:focus {
+  outline: 2px solid var(--classic-color-outline-variant);
+  outline-offset: 2px;
+}
+
+/* Mobile responsiveness for variant filtering */
+@media (max-width: 640px) {
+  .classic-option-disabled::before {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 0, 0, 0.15) 1px,
+      rgba(0, 0, 0, 0.15) 2px
+    );
+  }
+  
+  .classic-color-option.classic-option-disabled .classic-color-name {
+    font-size: 0.7rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .classic-option-disabled {
+    opacity: 0.5;
+    border: 2px dashed currentColor;
+  }
+  
+  .classic-option-disabled::before {
+    display: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .classic-size-option,
+  .classic-color-option,
+  .classic-option-available,
+  .classic-option-disabled {
+    transition: opacity 0.2s ease;
+  }
+  
+  .classic-size-option:hover,
+  .classic-color-option:hover,
+  .classic-option-available:hover {
+    transform: none;
+  }
 }

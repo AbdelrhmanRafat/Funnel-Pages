@@ -12,13 +12,45 @@ const customOptions : CustomOptions = product.custom_options;
 // Component configuration
 const allowMultipleSelection = Astro.props.allowMultipleSelection ?? false;
 const showSelectionIndicators = Astro.props.showSelectionIndicators ?? true;
-const enableAutoSelect = Astro.props.enableAutoSelect ?? false; // Auto-select first option
+const enableAutoSelect = Astro.props.enableAutoSelect ?? false;
 
 let colors: OptionOption | undefined | ColorOption[] = undefined;
 let sizes: OptionOption | undefined | SizeOption[] = undefined;
+
+// Build association maps for variants
+let colorToSizes: Map<string, string[]> = new Map();
+let sizeToColors: Map<string, string[]> = new Map();
+let variantAssociations: any = null;
+
 if (isHaveVariant === "true" && customOptions) {
     colors = customOptions.color;
     sizes = customOptions.size;
+    
+    // Build color -> sizes mapping
+    if (Array.isArray(colors)) {
+        colors.forEach(color => {
+            const availableSizes = color.available_options?.size?.map(s => s.value) || [];
+            colorToSizes.set(color.value, availableSizes);
+        });
+    }
+    
+    // Build size -> colors mapping
+    if (Array.isArray(sizes)) {
+        sizes.forEach(size => {
+            const availableColors = size.available_options?.color?.map(c => c.value) || [];
+            sizeToColors.set(size.value, availableColors);
+        });
+    }
+    
+    // Create variant associations object for the web component
+    variantAssociations = {
+        colorToSizes: Object.fromEntries(colorToSizes),
+        sizeToColors: Object.fromEntries(sizeToColors),
+        allColors: Array.isArray(colors) ? colors.map(c => c.value) : [],
+        allSizes: Array.isArray(sizes) ? sizes.map(s => s.value) : []
+    };
+    
+    console.log('Variant Associations:', variantAssociations);
 } else {
     colors = colorSizeOptions.find(opt => opt.name === 'color');
     sizes = colorSizeOptions.find(opt => opt.name === 'size');
@@ -31,6 +63,8 @@ if (isHaveVariant === "true" && customOptions) {
     data-options-allow-multiple={allowMultipleSelection}
     data-options-show-indicators={showSelectionIndicators}
     data-options-auto-select={enableAutoSelect}
+    data-options-is-variant={isHaveVariant}
+    data-variant-associations={variantAssociations ? JSON.stringify(variantAssociations) : ''}
   >
     <div class="option-panel classic-option-panel p-4 rounded-xl sm:rounded-3xl border">
       <!-- Updated Header with Selection Indicators -->
@@ -45,13 +79,13 @@ if (isHaveVariant === "true" && customOptions) {
             {colors && (
               <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
                 <span data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</span>
-                <span data-options-selected-color></span>
+                <span data-options-selected-color=""></span>
               </div>
             )}
             {sizes && (
               <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
                 <span data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</span>
-                <span data-options-selected-size></span>
+                <span data-options-selected-size=""></span>
               </div>
             )}
           </div>
@@ -66,7 +100,7 @@ if (isHaveVariant === "true" && customOptions) {
             <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
               {
                 /* Handle variant sizes (SizeOption[] - direct array) */
-                (isHaveVariant && Array.isArray(sizes)) ? 
+                (isHaveVariant === "true" && Array.isArray(sizes)) ? 
                   sizes.map((size, index) => (
                     <div
                       class="size-option classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
@@ -74,6 +108,7 @@ if (isHaveVariant === "true" && customOptions) {
                       data-options-size-value={size.value}
                       data-options-size-index={index}
                       data-variant={true}
+                      data-size-available-colors={JSON.stringify(size.available_options?.color?.map(c => c.value) || [])}
                     >
                       {size.value}
                     </div>
@@ -103,7 +138,7 @@ if (isHaveVariant === "true" && customOptions) {
             <div class="flex flex-wrap justify-start content-center gap-2">
               {
                 /* Handle variant colors (ColorOption[] - direct array) */
-                (isHaveVariant && Array.isArray(colors)) ? 
+                (isHaveVariant === "true" && Array.isArray(colors)) ? 
                   colors.map((color, index) => (
                     <div
                       class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
@@ -112,6 +147,7 @@ if (isHaveVariant === "true" && customOptions) {
                       data-options-color-hex={color.hex}
                       data-options-color-index={index}
                       data-variant={true}
+                      data-color-available-sizes={JSON.stringify(color.available_options?.size?.map(s => s.value) || [])}
                     >
                       <div
                         class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
