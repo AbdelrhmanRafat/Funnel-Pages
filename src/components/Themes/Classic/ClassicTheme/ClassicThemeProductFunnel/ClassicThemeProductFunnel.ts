@@ -1,11 +1,9 @@
 // ClassicThemeProductFunnel.ts - Web Component for Product Funnel
 
 import type { PurchaseOption } from "../../../../../lib/api/types";
-import {
-  DeliveryOptionsSubject,
-  QuantityOptionsSubject,
-  type Observer,
-} from "../../../../../lib/patterns/Observer";
+import { QuantityOptionsSubject } from "../../../../../lib/patterns/Observers/quantity-observer";
+import type { Observer } from "../../../../../lib/patterns/Observers/base-observer";
+import {  DeliveryOptionsSubject } from "../../../../../lib/patterns/Observers/delivery-observer";
 import { getTranslation } from '../../../../../lib/utils/i18n/translations';
 
 interface ProductFunnelElements {

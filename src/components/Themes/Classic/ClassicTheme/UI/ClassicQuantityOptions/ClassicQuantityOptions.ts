@@ -1,6 +1,7 @@
 // ClassicQuantityOptions.ts - Web Component for Offer Selection
 
-import { QuantityOptionsSubject, ColorSizeOptionsSubject } from '../../../../../../lib/patterns/Observer';
+import { QuantityOptionsSubject } from '../../../../../../lib/patterns/Observers/quantity-observer';
+import { ColorSizeOptionsSubject } from '../../../../../../lib/patterns/Observers/color-size-observer';
 
 interface OfferSelectorElements {
   radioButtons: NodeListOf<HTMLInputElement> | null;

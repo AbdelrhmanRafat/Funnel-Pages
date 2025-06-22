@@ -105,19 +105,17 @@
 .classic-selection-item {
   background-color: var(--classic-color-surface);
   border-color: var(--classic-color-outline);
+  color: var(--classic-color-on-surface);
   display: flex;
   justify-content: space-between;
   align-items: start;
   gap: 8px;
   width: 100%;
+  padding: 6px;
 }
 
 .classic-panel-info {
   color: var(--classic-color-primary);
-}
-
-.classic-size-display {
-  background-color: var(--classic-color-surface-variant);
 }
 
 /* Discount Info */

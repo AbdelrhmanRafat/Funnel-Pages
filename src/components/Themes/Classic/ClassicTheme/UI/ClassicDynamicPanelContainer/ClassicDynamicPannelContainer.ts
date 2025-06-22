@@ -1,7 +1,15 @@
 // ClassicDynamicPannelContainer.ts - Web Component for Select Options with Observer Integration
 
-import { QuantityOptionsSubject, type Observer, type Subject, type QuantityState } from "../../../../../../lib/patterns/Observer";
-import { ColorSizeOptionsSubject, type ColorSizeState } from "../../../../../../lib/patterns/Observer";
+// quantity-observer.ts
+import { QuantityOptionsSubject } from "../../../../../../lib/patterns/Observers/quantity-observer";
+import type { QuantityState } from "../../../../../../lib/patterns/Observers/quantity-observer";
+
+// color-size-observer.ts
+import { ColorSizeOptionsSubject } from "../../../../../../lib/patterns/Observers/color-size-observer";
+import type { ColorSizeState } from "../../../../../../lib/patterns/Observers/color-size-observer";
+
+import type { Observer, Subject } from "../../../../../../lib/patterns/Observers/base-observer";
+
 
 interface SelectOptionsElements {
   panelIndexDisplay: HTMLElement | null;

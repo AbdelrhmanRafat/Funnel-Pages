@@ -7,10 +7,10 @@ import {
   isValidAddress,
 } from '../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
-import { DeliveryOptionsSubject, PaymentOptionsSubject } from '../../../../../lib/patterns/Observer';
 import { FORM_FIELD_CONFIG } from '../../../../../lib/constants/formConfig';
 import type { FormField } from '../../../../../lib/Interfaces/FormField';
-
+import { PaymentOptionsSubject } from '../../../../../lib/patterns/Observers/payment-observer';
+import {DeliveryOptionsSubject} from '../../../../../lib/patterns/Observers/delivery-observer';
 
 class ClassicFormFieldsHandler {
   private form: HTMLFormElement | null;

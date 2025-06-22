@@ -1,11 +1,18 @@
-import { 
-  ColorSizeOptionsSubject, 
-  QuantityOptionsSubject, 
-  FormFieldsSubject, 
-  type ColorSizeOption, 
-  DeliveryOptionsSubject, 
-  PaymentOptionsSubject 
-} from '../../../../../lib/patterns/Observer';
+// color-size-observer.ts
+import { ColorSizeOptionsSubject, type ColorSizeOption } from '../../../../../lib/patterns/Observers/color-size-observer';
+
+// quantity-observer.ts
+import { QuantityOptionsSubject } from '../../../../../lib/patterns/Observers/quantity-observer';
+
+// form-fields-observer.ts
+import { FormFieldsSubject } from '../../../../../lib/patterns/Observers/form-fields-observer';
+
+// delivery-observer.ts
+import { DeliveryOptionsSubject } from '../../../../../lib/patterns/Observers/delivery-observer';
+
+// payment-observer.ts
+import { PaymentOptionsSubject } from '../../../../../lib/patterns/Observers/payment-observer';
+
 
 interface SelectedOffer {
   title: string;
@@ -294,11 +301,9 @@ class ClassicPurchaseModal extends HTMLElement {
 
     container.innerHTML = colorSizeOptions.map(option => `
       <div class="classic-selection-item">
-        <div class="classic-panel-info">القطعة ${option.panelIndex}</div>
-        <div class="classic-selection-details flex justify-center gap-3 items-center">
+          <div class="classic-panel-info">القطعة ${option.panelIndex}</div>
           <div class="classic-color-display"><span>${option.color}</span></div>
           <div class="classic-size-display"><span>${option.size}</span></div>
-        </div>
       </div>
     `).join('');
   }

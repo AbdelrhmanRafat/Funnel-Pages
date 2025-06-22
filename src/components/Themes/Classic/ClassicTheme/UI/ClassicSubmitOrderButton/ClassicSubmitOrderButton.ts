@@ -8,11 +8,10 @@ import {
   isValidAddress,
 } from '../../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../../lib/utils/i18n/translations';
-import { 
-  ColorSizeOptionsSubject,
-  FormFieldsSubject 
-} from '../../../../../../lib/patterns/Observer';
 import { FORM_FIELD_CONFIG } from '../../../../../../lib/constants/formConfig';
+import { ColorSizeOptionsSubject } from '../../../../../../lib/patterns/Observers/color-size-observer';
+import { FormFieldsSubject } from '../../../../../../lib/patterns/Observers/form-fields-observer';
+
 
 interface SubmitOrderElements {
   submitButton: HTMLButtonElement | null;
