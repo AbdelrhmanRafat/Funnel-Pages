@@ -243,30 +243,6 @@
                                 "ar": "ادفع نقدًا عند الاستلام."
                             }
                         }
-                    ],
-                    "DeliveryOptions": [
-                        {
-                            "id": "homeDelivery",
-                            "label": {
-                                "en": "Home Delivery",
-                                "ar": "توصيل إلى المنزل"
-                            },
-                            "description": {
-                                "en": "Your order will be delivered to your doorstep.",
-                                "ar": "سيتم توصيل طلبك إلى باب منزلك."
-                            }
-                        },
-                        {
-                            "id": "pickup",
-                            "label": {
-                                "en": "Receive from Store",
-                                "ar": "الاستلام من المتجر"
-                            },
-                            "description": {
-                                "en": "Pick up your order directly from the store.",
-                                "ar": "استلم طلبك مباشرة من المتجر."
-                            }
-                        }
                     ]
                 }
             },

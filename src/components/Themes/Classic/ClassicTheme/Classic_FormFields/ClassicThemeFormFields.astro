@@ -142,6 +142,7 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
             ></span>
           </div>
           <!-- PAYMENT OPTIONS SECTION -->
+          {paymentOptions.length > 0 &&
           <div>
             <label
               class="classic-form-label block mb-2"
@@ -213,7 +214,9 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
               style="display: none;"
             ></span>
           </div>
+          }
           <!-- DELIVERY OPTIONS SECTION -->
+         {deliveryOptions.length > 0 && 
           <div>
             <label
               class="classic-form-label block mb-2"
@@ -270,6 +273,7 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
               style="display: none;"
             ></span>
           </div>
+          }
           <!-- NOTES TEXTAREA FIELD -->
           <div>
             <label
