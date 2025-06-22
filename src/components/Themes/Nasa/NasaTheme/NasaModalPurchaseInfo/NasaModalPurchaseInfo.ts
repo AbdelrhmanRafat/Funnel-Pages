@@ -30,7 +30,8 @@ interface FormField {
 interface FormData {
   [key: string]: FormField;
 }
-class nasaPurchaseModal extends HTMLElement {
+
+class NasaPurchaseModal extends HTMLElement {
   // DOM elements cache
   private elements: { [key: string]: HTMLElement | null } = {};
   
@@ -47,11 +48,9 @@ class nasaPurchaseModal extends HTMLElement {
   private readonly selectors = {
     modal: '[data-modal-container]',
     overlay: '[data-modal-overlay]',
-    closeButton: '[data-modal-close-button]',
     cancelButton: '[data-modal-cancel-button]',
     purchaseInfoView: '[data-modal-purchase-info-view]',
     celebrationView: '[data-modal-celebration-view]',
-    celebrationCloseButton: '[data-modal-celebration-close-button]',
     celebrationContinueButton: '[data-modal-celebration-continue-button]',
     orderNumberElement: '[data-modal-order-number]',
     selectionItemsContainer: '[data-modal-selection-items]',
@@ -87,14 +86,15 @@ class nasaPurchaseModal extends HTMLElement {
 
   // Setup all event listeners
   private setupEventListeners(): void {
-    const { overlay, closeButton, cancelButton, celebrationCloseButton, celebrationContinueButton } = this.elements;
+    const { cancelButton, celebrationContinueButton } = this.elements;
     
-    // Modal close events
-    const closeElements = [closeButton, cancelButton, celebrationCloseButton, celebrationContinueButton];
-    closeElements.forEach(el => el?.addEventListener('click', () => this.closeModal()));
+    // Modal close events - removed overlay click listener
+    if (cancelButton) {
+      cancelButton.addEventListener('click', () => this.closeModal());
+    }
     
-    if (overlay) {
-      overlay.addEventListener('click', () => this.closeModal());
+    if (celebrationContinueButton) {
+      celebrationContinueButton.addEventListener('click', () => this.handleContinueButton());
     }
 
     // Custom events
@@ -131,6 +131,16 @@ class nasaPurchaseModal extends HTMLElement {
     this.dispatchCustomEvent('modal-closed');
   }
 
+  // Handle continue button click - reload whole page
+  private handleContinueButton(): void {
+    this.dispatchCustomEvent('continue-button-clicked');
+    
+    // Reload the whole page
+    window.location.reload();
+    
+    this.dispatchCustomEvent('page-reloaded');
+  }
+
   // View switching
   private showPurchaseInfoView(): void {
     this.switchView('purchaseInfoView', 'celebrationView', 'purchase-info');
@@ -142,7 +152,7 @@ class nasaPurchaseModal extends HTMLElement {
     this.switchView('celebrationView', 'purchaseInfoView', 'celebration');
     
     this.generateOrderNumber();
-   this.triggerConfettiEffect();
+    this.triggerConfettiEffect();
   }
 
   // Helper for view switching
@@ -324,19 +334,22 @@ class nasaPurchaseModal extends HTMLElement {
   public showCelebration = () => this.showCelebrationView();
   public loadData = () => this.loadModalData();
 }
+
 // Registration and initialization
 const initializeModal = () => {
   if (!customElements.get('nasa-purchase-modal')) {
-    customElements.define('nasa-purchase-modal', nasaPurchaseModal);
+    customElements.define('nasa-purchase-modal', NasaPurchaseModal);
   }
 };
+
 document.addEventListener('DOMContentLoaded', initializeModal);
 document.addEventListener('astro:page-load', () => {
   document.querySelectorAll('nasa-purchase-modal:not(:defined)')
     .forEach(modal => {
-      if (modal instanceof nasaPurchaseModal) {
+      if (modal instanceof NasaPurchaseModal) {
         modal.connectedCallback();
       }
     });
 });
-export { nasaPurchaseModal };
+
+export { NasaPurchaseModal };
