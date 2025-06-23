@@ -26,6 +26,7 @@ interface SelectedOption {
 interface VariantAssociations {
   colorToSizes: { [color: string]: string[] };
   sizeToColors: { [size: string]: string[] };
+  colorToSizeDetails: { [color: string]: Array<{value: string, sku_id: number}> }; // 🆕 Added
   allColors: string[];
   allSizes: string[];
 }
@@ -45,6 +46,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
   private selectedOptions: SelectedOption = {};
   private isVariant: boolean = false;
   private variantAssociations: VariantAssociations | null = null;
+  private skuNoVariant: string = ""; // 🆕 Added for non-variant products
   
   // Observer pattern integration
   private quantitySubject: QuantityOptionsSubject;
@@ -78,6 +80,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     this.showSelectionIndicators = this.getAttribute('data-options-show-indicators') !== 'false';
     this.enableAutoSelect = this.getAttribute('data-options-auto-select') === 'true';
     this.isVariant = this.getAttribute('data-options-is-variant') === 'true';
+    this.skuNoVariant = this.getAttribute('data-sku-no-variant') || ''; // 🆕 Added
     
     // Parse variant associations
     const associationsData = this.getAttribute('data-variant-associations');
@@ -88,6 +91,13 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
       } catch (e) {
         console.error('Failed to parse variant associations:', e);
       }
+    }
+    
+    // 🆕 Initialize sku_id for non-variant products
+    if (!this.isVariant && this.skuNoVariant) {
+      this.colorSizeSubject.updatePanelOption(this.panelIndex, { 
+        sku_id: parseInt(this.skuNoVariant) 
+      });
     }
   }
 
@@ -307,13 +317,24 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
       return; // Don't allow selection of disabled options
     }
 
+    // 🆕 Find sku_id for variant products
+    let sku_id: number | null = null;
+    if (this.isVariant && this.selectedOptions.color && sizeValue && this.variantAssociations?.colorToSizeDetails) {
+      const sizeDetails = this.variantAssociations.colorToSizeDetails[this.selectedOptions.color];
+      const sizeDetail = sizeDetails?.find(s => s.value === sizeValue);
+      sku_id = sizeDetail?.sku_id || null;
+    } else if (!this.isVariant && this.skuNoVariant) {
+      sku_id = parseInt(this.skuNoVariant);
+    }
+
     // Dispatch event before selection
     this.dispatchEvent(new CustomEvent('size-selection-start', {
       detail: { 
         panelIndex: this.panelIndex, 
         sizeValue, 
         sizeDisplay,
-        previousSize: this.selectedOptions.size 
+        previousSize: this.selectedOptions.size,
+        sku_id // 🆕 Include sku_id in event
       }
     }));
 
@@ -339,11 +360,13 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
       this.elements.selectedSizeDisplay.textContent = sizeDisplay;
     }
 
-    // Size selection doesn't affect color filtering - colors always stay available
-    // No need to call filterAvailableOptions here
+    // 🆕 Update observer subject with sku_id
+    this.colorSizeSubject.updatePanelOption(this.panelIndex, { 
+      size: sizeDisplay,
+      sku_id: sku_id
+    });
 
-    // Update observer subject
-    this.colorSizeSubject.updatePanelOption(this.panelIndex, { size: sizeDisplay });
+    console.log(`🆔 SKU ID set for panel ${this.panelIndex}:`, sku_id);
 
     // Dispatch events
     this.dispatchEvent(new CustomEvent('size-selected', {
@@ -351,7 +374,8 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
         panelIndex: this.panelIndex, 
         sizeValue, 
         sizeDisplay,
-        selectedOptions: { ...this.selectedOptions }
+        selectedOptions: { ...this.selectedOptions },
+        sku_id // 🆕 Include sku_id in event
       }
     }));
 
@@ -484,6 +508,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     // Update the observer to clear the size selection for this panel
     this.colorSizeSubject.updatePanelOption(this.panelIndex, { 
       size: null,
+      sku_id: null, // 🆕 Also reset sku_id when size is reset
       // Keep the color as is, only reset size
       color: this.selectedOptions.color 
     });

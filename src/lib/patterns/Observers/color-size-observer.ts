@@ -7,6 +7,7 @@ export interface ColorSizeOption {
   panelIndex: number;
   color: string | null;
   size: string | null;
+  sku_id : number | null;
 }
 
 export interface ColorSizeState extends State {
@@ -30,7 +31,7 @@ export class ColorSizeOptionsSubject extends GenericSubject<ColorSizeState> {
   public initializePanels(quantity: number): void {
     const options: ColorSizeOption[] = [];
     for (let i = 1; i <= quantity; i++) {
-      options.push({ panelIndex: i, color: null, size: null });
+      options.push({ panelIndex: i, color: null, size: null, sku_id : null });
     }
     this.setState({ options });
   }

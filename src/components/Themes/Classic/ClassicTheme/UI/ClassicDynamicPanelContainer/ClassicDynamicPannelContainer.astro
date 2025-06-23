@@ -20,17 +20,28 @@ let sizes: OptionOption | undefined | SizeOption[] = undefined;
 // Build association maps for variants
 let colorToSizes: Map<string, string[]> = new Map();
 let sizeToColors: Map<string, string[]> = new Map();
+let colorToSizeDetails: Map<string, Array<{value: string, sku_id: number}>> = new Map();
 let variantAssociations: any = null;
+const sku_ID_No_Variant = product.sku_code;
 
 if (isHaveVariant === "true" && customOptions) {
     colors = customOptions.color;
     sizes = customOptions.size;
     
-    // Build color -> sizes mapping
+    console.log("b555", colors[0].available_options);
+    
+    // Build color -> sizes mapping (simple values for existing logic)
     if (Array.isArray(colors)) {
         colors.forEach(color => {
             const availableSizes = color.available_options?.size?.map(s => s.value) || [];
             colorToSizes.set(color.value, availableSizes);
+            
+            // 🆕 Enhanced mapping: color -> size details with sku_id
+            const sizeDetails = color.available_options?.size?.map(s => ({
+                value: s.value,
+                sku_id: s.sku_id
+            })) || [];
+            colorToSizeDetails.set(color.value, sizeDetails);
         });
     }
     
@@ -46,11 +57,13 @@ if (isHaveVariant === "true" && customOptions) {
     variantAssociations = {
         colorToSizes: Object.fromEntries(colorToSizes),
         sizeToColors: Object.fromEntries(sizeToColors),
+        colorToSizeDetails: Object.fromEntries(colorToSizeDetails), // 🆕 Enhanced mapping
         allColors: Array.isArray(colors) ? colors.map(c => c.value) : [],
         allSizes: Array.isArray(sizes) ? sizes.map(s => s.value) : []
     };
     
     console.log('Variant Associations:', variantAssociations);
+    console.log('Enhanced Color to Size Details:', Object.fromEntries(colorToSizeDetails));
 } else {
     colors = colorSizeOptions.find(opt => opt.name === 'color');
     sizes = colorSizeOptions.find(opt => opt.name === 'size');
@@ -65,6 +78,7 @@ if (isHaveVariant === "true" && customOptions) {
     data-options-auto-select={enableAutoSelect}
     data-options-is-variant={isHaveVariant}
     data-variant-associations={variantAssociations ? JSON.stringify(variantAssociations) : ''}
+    data-sku-no-variant={sku_ID_No_Variant}
   >
     <div class="option-panel classic-option-panel p-4 rounded-xl sm:rounded-3xl border">
       <!-- Updated Header with Selection Indicators -->
@@ -73,6 +87,7 @@ if (isHaveVariant === "true" && customOptions) {
           <p class="inline" data-translate="dynamicPanel.selectOptionsForProduct">
           </p>
           <span data-options-panel-index-display>{panelIndex}</span>
+          {isHaveVariant === "true" && <span class="text-sm font-normal opacity-75">(Variant)</span>}
         </div>
         {showSelectionIndicators && (
           <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
