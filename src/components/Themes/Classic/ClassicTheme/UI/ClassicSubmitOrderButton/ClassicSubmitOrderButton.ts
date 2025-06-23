@@ -9,7 +9,7 @@ import {
 } from '../../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../../lib/utils/i18n/translations';
 import { FORM_FIELD_CONFIG } from '../../../../../../lib/constants/formConfig';
-import { ColorSizeOptionsSubject } from '../../../../../../lib/patterns/Observers/color-size-observer';
+import { CustomOptionSubject } from '../../../../../../lib/patterns/Observers/custom-option-observer';
 import { FormFieldsSubject } from '../../../../../../lib/patterns/Observers/form-fields-observer';
 
 
@@ -21,7 +21,7 @@ class ClassicSubmitOrder extends HTMLElement {
     submitButton: null
   };
   private formFieldsSubject: FormFieldsSubject;
-  private colorSizeSubject: ColorSizeOptionsSubject;
+  private customOptionSubject: CustomOptionSubject;
   private validateOnSubmit: boolean = true;
   private showValidationMessages: boolean = true;
   private autoFocusFirstError: boolean = true;
@@ -31,7 +31,7 @@ class ClassicSubmitOrder extends HTMLElement {
   constructor() {
     super();
     this.formFieldsSubject = FormFieldsSubject.getInstance();
-    this.colorSizeSubject = ColorSizeOptionsSubject.getInstance();
+    this.customOptionSubject = CustomOptionSubject.getInstance();
   }
 
   connectedCallback() {
@@ -259,19 +259,20 @@ class ClassicSubmitOrder extends HTMLElement {
       return true;
     }
 
-    const colorSizeState = this.colorSizeSubject.getState();
+    const custonOptionState = this.customOptionSubject.getState();
 
     
 
     let isOptionsValid = true;
     const errorMessages: string[] = [];
   
-    for (const option of colorSizeState.options) {
-      if (!option.color) {
+    for (const option of custonOptionState.options) {
+      console.log("test GETTTTTTTTTT",option);
+      if (!option.firstOption) {
         errorMessages.push(`من فضلك اختر اللون للخيار رقم ${option.panelIndex}`);
         isOptionsValid = false;
       }
-      if (!option.size) {
+      if (!option.secondOption) {
         errorMessages.push(`من فضلك اختر المقاس للخيار رقم ${option.panelIndex}`);
         isOptionsValid = false;
       }
@@ -368,7 +369,7 @@ class ClassicSubmitOrder extends HTMLElement {
   }
 
   public getColorSizeState(): any {
-    return this.colorSizeSubject.getState();
+    return this.customOptionSubject.getState();
   }
 
   public triggerSubmit(): void {
@@ -408,8 +409,8 @@ class ClassicSubmitOrder extends HTMLElement {
     return this.formFieldsSubject;
   }
 
-  public getColorSizeSubject(): ColorSizeOptionsSubject {
-    return this.colorSizeSubject;
+  public getColorSizeSubject(): CustomOptionSubject {
+    return this.customOptionSubject;
   }
 }
 // Register the custom element

@@ -1,60 +1,55 @@
-// ClassicDynamicPannelContainer.ts - Enhanced Web Component with Variant Filtering
+// ClassicDynamicPannelContainer.ts - Clean Generic Implementation
 
-// quantity-observer.ts
 import { QuantityOptionsSubject } from "../../../../../../lib/patterns/Observers/quantity-observer";
 import type { QuantityState } from "../../../../../../lib/patterns/Observers/quantity-observer";
 
-// color-size-observer.ts
-import { ColorSizeOptionsSubject } from "../../../../../../lib/patterns/Observers/color-size-observer";
-import type { ColorSizeState } from "../../../../../../lib/patterns/Observers/color-size-observer";
+import { CustomOptionSubject } from "../../../../../../lib/patterns/Observers/custom-option-observer";
+import type { CustomOptionState } from "../../../../../../lib/patterns/Observers/custom-option-observer";
 
 import type { Observer, Subject } from "../../../../../../lib/patterns/Observers/base-observer";
 
-interface SelectOptionsElements {
-  panelIndexDisplay: HTMLElement | null;
-  selectedDisplays: NodeListOf<HTMLElement> | null;
-  allOptions: NodeListOf<HTMLElement> | null;
-}
-
-interface SelectedOption {
-  [key: string]: string | null;
-}
-
-interface VariantAssociations {
-  optionGroups: Array<{
+interface OptionData {
+  firstOption?: {
     key: string;
-    label: string;
+    title: string;
+    values: any[];
     hasColors: boolean;
-    values: string[];
-    relatedKeys: string[];
-  }>;
-  associations: { [groupKey: string]: { [associationKey: string]: Array<{value: string, sku_id: number}> } };
+  };
+  secondOption?: {
+    key: string;
+    title: string;
+    values: any[];
+    hasColors: boolean;
+  };
+  associations: { [firstValue: string]: Array<{value: string, sku_id: number, hex?: string, image?: string}> };
 }
 
-class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState>, Observer<ColorSizeState> {
-  private elements: SelectOptionsElements = {
-    panelIndexDisplay: null,
-    selectedDisplays: null as any,
-    allOptions: null as any
-  };
+interface SelectedOptions {
+  first?: string;
+  second?: string;
+}
+
+class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState>, Observer<CustomOptionState> {
   private panelIndex: number = 1;
-  private allowMultipleSelection: boolean = false;
-  private showSelectionIndicators: boolean = true;
-  private enableAutoSelect: boolean = false;
-  private selectedOptions: SelectedOption = {};
   private isVariant: boolean = false;
-  private variantAssociations: VariantAssociations | null = null;
+  private optionData: OptionData | null = null;
   private skuNoVariant: string = "";
+  private selectedOptions: SelectedOptions = {};
   
-  // Observer pattern integration
+  // Observer integration
   private quantitySubject: QuantityOptionsSubject;
-  private colorSizeSubject: ColorSizeOptionsSubject;
-  private isVisible: boolean = false;
+  private customOptionSubject: CustomOptionSubject;
+  
+  // DOM elements
+  private firstOptionElements: NodeListOf<HTMLElement> | null = null;
+  private secondOptionElements: NodeListOf<HTMLElement> | null = null;
+  private firstOptionDisplay: HTMLElement | null = null;
+  private secondOptionDisplay: HTMLElement | null = null;
 
   constructor() {
     super();
     this.quantitySubject = QuantityOptionsSubject.getInstance();
-    this.colorSizeSubject = ColorSizeOptionsSubject.getInstance();
+    this.customOptionSubject = CustomOptionSubject.getInstance();
   }
 
   connectedCallback() {
@@ -62,10 +57,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     this.initializeElements();
     this.setupEventListeners();
     this.attachToObservers();
-    
-    if (this.enableAutoSelect) {
-      this.autoSelectFirstOptions();
-    }
+    this.initializeState();
   }
 
   disconnectedCallback() {
@@ -74,57 +66,76 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
 
   private initializeSettings(): void {
     this.panelIndex = parseInt(this.getAttribute('data-options-panel-index') || '1');
-    this.allowMultipleSelection = this.getAttribute('data-options-allow-multiple') === 'true';
-    this.showSelectionIndicators = this.getAttribute('data-options-show-indicators') !== 'false';
-    this.enableAutoSelect = this.getAttribute('data-options-auto-select') === 'true';
     this.isVariant = this.getAttribute('data-options-is-variant') === 'true';
-    this.skuNoVariant = this.getAttribute('data-sku-no-variant') || ''; // 🆕 Added
+    this.skuNoVariant = this.getAttribute('data-sku-no-variant') || '';
     
-    // Parse variant associations
-    const associationsData = this.getAttribute('data-variant-associations');
-    if (associationsData && this.isVariant) {
+    // Parse option data
+    const optionDataAttr = this.getAttribute('data-option-data');
+    if (optionDataAttr && this.isVariant) {
       try {
-        this.variantAssociations = JSON.parse(associationsData);
-        console.log('Parsed variant associations:', this.variantAssociations);
+        this.optionData = JSON.parse(optionDataAttr);
+        console.log('Parsed option data:', this.optionData);
       } catch (e) {
-        console.error('Failed to parse variant associations:', e);
+        console.error('Failed to parse option data:', e);
       }
-    }
-    
-    // 🆕 Initialize sku_id for non-variant products
-    if (!this.isVariant && this.skuNoVariant) {
-      this.colorSizeSubject.updatePanelOption(this.panelIndex, { 
-        sku_id: parseInt(this.skuNoVariant) 
-      });
     }
   }
 
   private initializeElements(): void {
-    this.elements = {
-      panelIndexDisplay: this.querySelector('[data-options-panel-index-display]') as HTMLElement,
-      selectedDisplays: this.querySelectorAll('[data-options-selected]') as NodeListOf<HTMLElement>,
-      allOptions: this.querySelectorAll('[data-options-option]') as NodeListOf<HTMLElement>
-    };
+    this.firstOptionElements = this.querySelectorAll('[data-option-type="first"]');
+    this.secondOptionElements = this.querySelectorAll('[data-option-type="second"]');
+    this.firstOptionDisplay = this.querySelector('[data-selected-first-option]');
+    this.secondOptionDisplay = this.querySelector('[data-selected-second-option]');
+    
+    console.log('🔍 Found elements:', {
+      firstOptions: this.firstOptionElements?.length || 0,
+      secondOptions: this.secondOptionElements?.length || 0,
+      firstDisplay: !!this.firstOptionDisplay,
+      secondDisplay: !!this.secondOptionDisplay
+    });
+  }
+
+  private setupEventListeners(): void {
+    // First option listeners
+    if (this.firstOptionElements) {
+      this.firstOptionElements.forEach(element => {
+        element.addEventListener('click', () => this.handleFirstOptionClick(element));
+      });
+    }
+    
+    // Second option listeners  
+    if (this.secondOptionElements) {
+      this.secondOptionElements.forEach(element => {
+        element.addEventListener('click', () => this.handleSecondOptionClick(element));
+      });
+    }
   }
 
   private attachToObservers(): void {
     this.quantitySubject.attach(this);
-    this.colorSizeSubject.attach(this);
+    this.customOptionSubject.attach(this);
   }
 
   private detachFromObservers(): void {
     this.quantitySubject.detach(this);
-    this.colorSizeSubject.detach(this);
+    this.customOptionSubject.detach(this);
   }
 
-  // Observer pattern implementation
-  public update(subject: Subject<QuantityState | ColorSizeState>): void {
+  private initializeState(): void {
+    if (!this.isVariant && this.skuNoVariant) {
+      // For non-variant products, set SKU immediately
+      this.customOptionSubject.updatePanelOption(this.panelIndex, {
+        sku_id: parseInt(this.skuNoVariant)
+      });
+    }
+  }
+
+  // Observer implementation
+  public update(subject: Subject<QuantityState | CustomOptionState>): void {
     if (subject instanceof QuantityOptionsSubject) {
-      const state = subject.getState();
-      this.handleQuantityUpdate(state);
-    } else if (subject instanceof ColorSizeOptionsSubject) {
-      const state = subject.getState();
-      this.handleColorSizeUpdate(state);
+      this.handleQuantityUpdate(subject.getState());
+    } else if (subject instanceof CustomOptionSubject) {
+      this.handleCustomOptionUpdate(subject.getState());
     }
   }
 
@@ -134,437 +145,295 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     }));
   }
 
-  private handleColorSizeUpdate(state: ColorSizeState): void {
-    const panelOption = this.colorSizeSubject.getPanelOption(this.panelIndex);
-    
+  private handleCustomOptionUpdate(state: CustomOptionState): void {
+    // Sync UI with observer state changes
+    const panelOption = this.customOptionSubject.getPanelOption(this.panelIndex);
     if (panelOption) {
-      this.selectedOptions = {
-        color: panelOption.color,
-        size: panelOption.size
-      };
-      this.syncUIWithObserverState(panelOption);
+      this.syncUIWithObserver(panelOption);
     }
   }
 
-  private syncUIWithObserverState(panelOption: any): void {
-    if (this.elements.selectedColorDisplay) {
-      this.elements.selectedColorDisplay.textContent = panelOption.color || '';
+  private handleFirstOptionClick(element: HTMLElement): void {
+    const value = element.getAttribute('data-option-value');
+    if (!value) return;
+
+    console.log('🎯 First option selected:', value);
+
+    // Clear previous first option selection
+    this.clearFirstOptionSelections();
+    
+    // Apply selection
+    this.applySelectionStyle(element);
+    
+    // Update state
+    this.selectedOptions.first = value;
+    
+    // Update display - with debug logging
+    if (this.firstOptionDisplay) {
+      this.firstOptionDisplay.textContent = value;
+      console.log('✅ Updated first option display:', value);
+    } else {
+      console.warn('❌ First option display element not found');
     }
-    if (this.elements.selectedSizeDisplay) {
-      this.elements.selectedSizeDisplay.textContent = panelOption.size || '';
+    
+    // 🆕 First option drives filtering - clear and filter second options
+    this.clearSecondOptionSelections();
+    this.filterSecondOptions(value);
+    
+    // Update observer
+    this.updateObserver();
+    
+    // Dispatch event
+    this.dispatchEvent(new CustomEvent('first-option-selected', {
+      detail: { 
+        panelIndex: this.panelIndex,
+        value,
+        selectedOptions: { ...this.selectedOptions }
+      }
+    }));
+  }
+
+  private handleSecondOptionClick(element: HTMLElement): void {
+    const value = element.getAttribute('data-option-value');
+    if (!value || element.classList.contains('classic-option-disabled')) return;
+
+    console.log('🎯 Second option selected:', value);
+
+    // Clear previous second option selection
+    this.clearSecondOptionSelections();
+    
+    // Apply selection
+    this.applySelectionStyle(element);
+    
+    // Update state
+    this.selectedOptions.second = value;
+    
+    // Update display - with debug logging
+    if (this.secondOptionDisplay) {
+      this.secondOptionDisplay.textContent = value;
+      console.log('✅ Updated second option display:', value);
+    } else {
+      console.warn('❌ Second option display element not found');
     }
+    
+    // Update observer with SKU
+    this.updateObserver();
+    
+    // Dispatch event
+    this.dispatchEvent(new CustomEvent('second-option-selected', {
+      detail: { 
+        panelIndex: this.panelIndex,
+        value,
+        selectedOptions: { ...this.selectedOptions }
+      }
+    }));
+  }
+
+  private clearFirstOptionSelections(): void {
+    if (this.firstOptionElements) {
+      this.firstOptionElements.forEach(el => {
+        el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
+      });
+    }
+  }
+
+  private clearSecondOptionSelections(): void {
+    if (this.secondOptionElements) {
+      this.secondOptionElements.forEach(el => {
+        el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
+      });
+    }
+    
+    this.selectedOptions.second = undefined;
+    
+    if (this.secondOptionDisplay) {
+      this.secondOptionDisplay.textContent = '';
+    }
+  }
+
+  private applySelectionStyle(element: HTMLElement): void {
+    // Apply appropriate selection class based on element type
+    if (element.classList.contains('classic-color-option')) {
+      element.classList.add('classic-selected-color-option');
+    } else {
+      element.classList.add('classic-selected-size-option');
+    }
+  }
+
+  private filterSecondOptions(firstValue: string): void {
+    if (!this.optionData?.associations || !this.secondOptionElements) return;
+
+    const availableSecondOptions = this.optionData.associations[firstValue] || [];
+    const availableValues = availableSecondOptions.map(opt => opt.value);
+
+    this.secondOptionElements.forEach(element => {
+      const value = element.getAttribute('data-option-value');
+      const isAvailable = availableValues.includes(value || '');
+      
+      if (isAvailable) {
+        element.classList.remove('classic-option-disabled');
+        element.style.pointerEvents = 'auto';
+        element.style.opacity = '1';
+      } else {
+        element.classList.add('classic-option-disabled');
+        element.style.pointerEvents = 'none';
+        element.style.opacity = '0.3';
+      }
+    });
+
+    console.log(`🔍 Filtered second options for "${firstValue}":`, availableValues);
+  }
+
+  private findSkuId(): number | null {
+    if (!this.selectedOptions.first || !this.selectedOptions.second || !this.optionData?.associations) {
+      return null;
+    }
+
+    const availableOptions = this.optionData.associations[this.selectedOptions.first];
+    const matchingOption = availableOptions?.find(opt => opt.value === this.selectedOptions.second);
+    
+    return matchingOption?.sku_id || null;
+  }
+
+  private updateObserver(): void {
+    const updateData: any = {};
+    
+    // Use the observer's expected field names
+    if (this.selectedOptions.first) {
+      updateData.firstOption = this.selectedOptions.first;
+    }
+    
+    if (this.selectedOptions.second) {
+      updateData.secondOption = this.selectedOptions.second;
+    }
+    
+    // Add SKU if both options are selected
+    const skuId = this.findSkuId();
+    if (skuId) {
+      updateData.sku_id = skuId;
+      console.log(`🆔 SKU ID found: ${skuId}`);
+    }
+    
+    // Find image from the matching option
+    const imageUrl = this.findImageUrl();
+    if (imageUrl) {
+      updateData.image = imageUrl;
+    }
+    
+    this.customOptionSubject.updatePanelOption(this.panelIndex, updateData);
+  }
+
+  private findImageUrl(): string | null {
+    if (!this.selectedOptions.first || !this.selectedOptions.second || !this.optionData?.associations) {
+      return null;
+    }
+
+    const availableOptions = this.optionData.associations[this.selectedOptions.first];
+    const matchingOption = availableOptions?.find(opt => opt.value === this.selectedOptions.second);
+    
+    return matchingOption?.image || null;
+  }
+
+  private syncUIWithObserver(panelOption: any): void {
+    // Sync selections from observer state
+    console.log('🔄 Syncing UI with observer:', panelOption);
+    
+    // Update internal state from observer
+    this.selectedOptions = {
+      first: panelOption.firstOption,
+      second: panelOption.secondOption
+    };
+    
+    // Update displays - with debug logging
+    if (this.firstOptionDisplay) {
+      this.firstOptionDisplay.textContent = panelOption.firstOption || '';
+      console.log('🔄 Synced first option display:', panelOption.firstOption);
+    }
+    if (this.secondOptionDisplay) {
+      this.secondOptionDisplay.textContent = panelOption.secondOption || '';
+      console.log('🔄 Synced second option display:', panelOption.secondOption);
+    }
+    
+    // Update visual selections
     this.updateVisualSelections(panelOption);
   }
 
   private updateVisualSelections(panelOption: any): void {
     // Clear all selections first
-    if (this.elements.sizeOptions) {
-      this.elements.sizeOptions.forEach(option => {
-        option.classList.remove('classic-selected-size-option');
-      });
-    }
-    if (this.elements.colorOptions) {
-      this.elements.colorOptions.forEach(option => {
-        option.classList.remove('classic-selected-color-option');
-      });
-    }
+    this.clearFirstOptionSelections();
+    this.clearSecondOptionSelections();
 
-    // Apply selections based on observer state
-    if (panelOption.size && this.elements.sizeOptions) {
-      const sizeOption = Array.from(this.elements.sizeOptions).find(
-        option => option.getAttribute('data-options-size-value') === panelOption.size
+    // Apply first option selection
+    if (panelOption.firstOption && this.firstOptionElements) {
+      const firstElement = Array.from(this.firstOptionElements).find(
+        element => element.getAttribute('data-option-value') === panelOption.firstOption
       );
-      if (sizeOption) {
-        sizeOption.classList.add('classic-selected-size-option');
+      if (firstElement) {
+        this.applySelectionStyle(firstElement);
+        // Filter second options based on first selection
+        this.filterSecondOptions(panelOption.firstOption);
       }
     }
 
-    if (panelOption.color && this.elements.colorOptions) {
-      const colorOption = Array.from(this.elements.colorOptions).find(
-        option => option.getAttribute('data-options-color-name') === panelOption.color
+    // Apply second option selection
+    if (panelOption.secondOption && this.secondOptionElements) {
+      const secondElement = Array.from(this.secondOptionElements).find(
+        element => element.getAttribute('data-option-value') === panelOption.secondOption
       );
-      if (colorOption) {
-        colorOption.classList.add('classic-selected-color-option');
+      if (secondElement) {
+        this.applySelectionStyle(secondElement);
       }
     }
   }
 
-  private setupEventListeners(): void {
-    // Generic option event listeners
-    if (this.elements.allOptions) {
-      this.elements.allOptions.forEach(option => {
-        option.addEventListener('click', () => {
-          this.handleOptionSelection(option);
-        });
-      });
-    }
-  }
-
-  // Simplified methods for generic options
-  public getPanelIndex(): number {
-    return this.panelIndex;
-  }
-
-  public enableMultipleSelection(enable: boolean): void {
-    this.allowMultipleSelection = enable;
-    this.setAttribute('data-options-allow-multiple', enable.toString());
-  }
-
-  public getVariantAssociations(): VariantAssociations | null {
-    return this.variantAssociations;
-  }
-
-  public getObserverState(): any {
-    return this.colorSizeSubject.getPanelOption(this.panelIndex);
-  }
-
-  public getQuantitySubject(): QuantityOptionsSubject {
-    return this.quantitySubject;
-  }
-
-  public getColorSizeSubject(): ColorSizeOptionsSubject {
-    return this.colorSizeSubject;
-  }ability(option: HTMLElement, isAvailable: boolean): void {
-    if (isAvailable) {
-      option.classList.remove('classic-option-disabled');
-      option.classList.add('classic-option-available');
-      option.style.pointerEvents = 'auto';
-      option.style.opacity = '1';
-    } else {
-      option.classList.add('classic-option-disabled');
-      option.classList.remove('classic-option-available');
-      option.style.pointerEvents = 'none';
-      option.style.opacity = '0.3';
-      
-      // Remove selection if it becomes unavailable
-      option.classList.remove('classic-selected-size-option', 'classic-selected-color-option');
-    }
-  }
-
-  private showAllOptions(): void {
-    const allOptions = [
-      ...(this.elements.sizeOptions ? Array.from(this.elements.sizeOptions) : []),
-      ...(this.elements.colorOptions ? Array.from(this.elements.colorOptions) : [])
-    ];
-    
-    allOptions.forEach(option => {
-      this.toggleOptionAvailability(option, true);
-    });
-  }
-
-  private handleOptionSelection(optionElement: HTMLElement): void {
-    const groupKey = optionElement.getAttribute('data-options-group-key');
-    const groupIndex = optionElement.getAttribute('data-options-group-index');
-    const optionValue = optionElement.getAttribute('data-options-option-value');
-    const optionHex = optionElement.getAttribute('data-options-option-hex');
-
-    if (!groupKey || !optionValue) return;
-
-    // Check if this option is currently available
-    if (optionElement.classList.contains('classic-option-disabled')) {
-      return;
-    }
-
-    console.log(`🎯 Option selected: ${groupKey} = ${optionValue}`);
-
-    // Find sku_id for this selection
-    let sku_id: number | null = null;
-    if (this.isVariant && this.variantAssociations) {
-      sku_id = this.findSkuForSelection(groupKey, optionValue);
-    } else if (!this.isVariant && this.skuNoVariant) {
-      sku_id = parseInt(this.skuNoVariant);
-    }
-
-    // Clear previous selection for this group if not allowing multiple
-    if (!this.allowMultipleSelection) {
-      this.clearGroupSelections(groupKey);
-    }
-
-    // Apply selection visual state
-    if (optionHex) {
-      optionElement.classList.add('classic-selected-color-option');
-    } else {
-      optionElement.classList.add('classic-selected-size-option');
-    }
-
-    // Update internal state
-    this.selectedOptions[groupKey] = optionValue;
-
-    // Update displays
-    this.updateSelectedDisplays();
-
-    // Update observer with current state
-    const observerUpdate: any = { sku_id };
-    Object.keys(this.selectedOptions).forEach(key => {
-      observerUpdate[key] = this.selectedOptions[key];
-    });
-    this.colorSizeSubject.updatePanelOption(this.panelIndex, observerUpdate);
-
-    console.log(`🆔 SKU ID set for panel ${this.panelIndex}:`, sku_id);
-    console.log(`📊 Current selections:`, this.selectedOptions);
-
-    // Dispatch events
-    this.dispatchEvent(new CustomEvent('option-selected', {
-      detail: { 
-        panelIndex: this.panelIndex,
-        groupKey,
-        optionValue,
-        optionHex,
-        selectedOptions: { ...this.selectedOptions },
-        sku_id
-      }
-    }));
-
-    this.dispatchSelectionChangeEvent();
-  }
-
-  private findSkuForSelection(groupKey: string, optionValue: string): number | null {
-    if (!this.variantAssociations || !this.selectedOptions) return null;
-
-    // Look for associations from this group to other groups
-    const groupAssociations = this.variantAssociations.associations[groupKey];
-    if (!groupAssociations) return null;
-
-    // Find other selected options
-    const otherSelections = Object.entries(this.selectedOptions)
-      .filter(([key]) => key !== groupKey);
-
-    // Try to find sku_id by looking at associations
-    for (const [otherKey, otherValue] of otherSelections) {
-      const associationKey = `${optionValue}::${otherKey}`;
-      const associatedOptions = groupAssociations[associationKey];
-      
-      if (associatedOptions) {
-        const matchingOption = associatedOptions.find(opt => opt.value === otherValue);
-        if (matchingOption) {
-          return matchingOption.sku_id;
-        }
-      }
-    }
-
-    return null;
-  }
-
-  private clearGroupSelections(groupKey: string): void {
-    if (this.elements.allOptions) {
-      this.elements.allOptions.forEach(option => {
-        const optionGroupKey = option.getAttribute('data-options-group-key');
-        if (optionGroupKey === groupKey) {
-          option.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
-        }
-      });
-    }
-  }
-
-  private updateSelectedDisplays(): void {
-    if (this.elements.selectedDisplays) {
-      this.elements.selectedDisplays.forEach((display, index) => {
-        const groupKey = this.variantAssociations?.optionGroups[index]?.key;
-        if (groupKey && this.selectedOptions[groupKey]) {
-          display.textContent = this.selectedOptions[groupKey];
-        } else {
-          display.textContent = '';
-        }
-      });
-    }
-  }
-
-  private dispatchSelectionChangeEvent(): void {
-    this.dispatchEvent(new CustomEvent('selection-changed', {
-      detail: {
-        panelIndex: this.panelIndex,
-        selectedOptions: { ...this.selectedOptions },
-        isComplete: this.isSelectionComplete(),
-        observerState: this.colorSizeSubject.getPanelOption(this.panelIndex),
-        isVariant: this.isVariant,
-        isValidCombination: this.selectedOptions.color && this.selectedOptions.size ? 
-          this.isValidCombination(this.selectedOptions.color, this.selectedOptions.size) : true
-      }
-    }));
-  }
-
-  // Enhanced public API methods
-  public getSelectedOptions(): SelectedOption {
+  // Public API
+  public getSelectedOptions(): SelectedOptions {
     return { ...this.selectedOptions };
   }
 
-  public getPanelIndex(): number {
-    return this.panelIndex;
-  }
-
   public isSelectionComplete(): boolean {
-    const hasSize = !this.elements.sizeOptions || this.elements.sizeOptions.length === 0 || this.selectedOptions.size !== undefined;
-    const hasColor = !this.elements.colorOptions || this.elements.colorOptions.length === 0 || this.selectedOptions.color !== undefined;
-    const isValid = !this.isVariant || !this.selectedOptions.color || !this.selectedOptions.size || 
-      this.isValidCombination(this.selectedOptions.color, this.selectedOptions.size);
+    if (!this.isVariant) return true;
     
-    return hasSize && hasColor && isValid;
+    const hasFirst = !this.optionData?.firstOption || this.selectedOptions.first !== undefined;
+    const hasSecond = !this.optionData?.secondOption || this.selectedOptions.second !== undefined;
+    
+    return hasFirst && hasSecond;
   }
 
   public clearSelections(): void {
-    // Clear all option selections
-    if (this.elements.allOptions) {
-      this.elements.allOptions.forEach(option => {
-        option.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
-      });
-    }
+    this.clearFirstOptionSelections();
+    this.clearSecondOptionSelections();
     
-    // Clear internal state
     this.selectedOptions = {};
     
     // Clear displays
-    this.updateSelectedDisplays();
-
-    this.colorSizeSubject.updatePanelOption(this.panelIndex, { sku_id: null });
-
-    this.dispatchEvent(new CustomEvent('selections-cleared', {
-      detail: { panelIndex: this.panelIndex }
-    }));
-  }
-
-  public selectSize(sizeValue: string): boolean {
-    if (!this.elements.sizeOptions) return false;
-    
-    const sizeOption = Array.from(this.elements.sizeOptions).find(
-      option => option.getAttribute('data-options-size-value') === sizeValue
-    );
-    
-    if (sizeOption && !sizeOption.classList.contains('classic-option-disabled')) {
-      this.handleSizeSelection(sizeOption);
-      return true;
+    if (this.firstOptionDisplay) {
+      this.firstOptionDisplay.textContent = '';
     }
-    return false;
-  }
-
-  public selectColor(colorName: string): boolean {
-    if (!this.elements.colorOptions) return false;
-    
-    const colorOption = Array.from(this.elements.colorOptions).find(
-      option => option.getAttribute('data-options-color-name') === colorName
-    );
-    
-    // In simplified logic, colors are always available, so no need to check disabled state
-    if (colorOption) {
-      this.handleColorSelection(colorOption);
-      return true;
-    }
-    return false;
-  }
-
-  public enableMultipleSelection(enable: boolean): void {
-    this.allowMultipleSelection = enable;
-    this.setAttribute('data-options-allow-multiple', enable.toString());
-  }
-
-  // Enhanced variant-specific methods (updated for simplified logic)
-  public getVariantAssociations(): VariantAssociations | null {
-    return this.variantAssociations;
-  }
-
-  public getAvailableColorsForSize(size: string): string[] {
-    // In simplified logic, all colors are always available regardless of size
-    if (!this.isVariant || !this.variantAssociations) {
-      return [];
-    }
-    return this.variantAssociations.allColors;
-  }
-
-  public getAvailableSizesForColor(color: string): string[] {
-    if (!this.isVariant || !this.variantAssociations) {
-      return this.variantAssociations?.allSizes || [];
-    }
-    return this.variantAssociations.colorToSizes[color] || [];
-  }
-
-  public isColorAvailable(color: string): boolean {
-    // In simplified logic, all colors are always available
-    return true;
-  }
-
-  public isSizeAvailable(size: string): boolean {
-    if (!this.isVariant) return true;
-    
-    if (!this.selectedOptions.color) {
-      return true; // All sizes available when no color is selected
+    if (this.secondOptionDisplay) {
+      this.secondOptionDisplay.textContent = '';
     }
     
-    return this.getAvailableSizesForColor(this.selectedOptions.color).includes(size);
-  }
-
-  public validateCurrentSelection(): boolean {
-    if (!this.selectedOptions.color || !this.selectedOptions.size) {
-      return true; // Partial selections are valid
+    // Show all second options as available
+    if (this.secondOptionElements) {
+      this.secondOptionElements.forEach(element => {
+        element.classList.remove('classic-option-disabled');
+        element.style.pointerEvents = 'auto';
+        element.style.opacity = '1';
+      });
     }
     
-    return this.isValidCombination(this.selectedOptions.color, this.selectedOptions.size);
+    // Clear observer state using the correct field names
+    this.customOptionSubject.updatePanelOption(this.panelIndex, {
+      firstOption: null,
+      secondOption: null,
+      sku_id: null,
+      image: null
+    });
   }
 
-  public getInvalidOptions(): { colors: string[], sizes: string[] } {
-    if (!this.isVariant || !this.variantAssociations) {
-      return { colors: [], sizes: [] };
-    }
-
-    // In simplified logic, colors are never invalid
-    const invalidColors: string[] = [];
-    const invalidSizes: string[] = [];
-
-    // Only sizes can be invalid based on selected color
-    if (this.selectedOptions.color) {
-      const availableSizes = this.getAvailableSizesForColor(this.selectedOptions.color);
-      invalidSizes.push(...this.variantAssociations.allSizes.filter(s => !availableSizes.includes(s)));
-    }
-
-    return { colors: invalidColors, sizes: invalidSizes };
-  }
-
-  // Observer integration public methods
-  public getObserverState(): any {
-    return this.colorSizeSubject.getPanelOption(this.panelIndex);
-  }
-
-  public syncWithObserver(): void {
-    const panelOption = this.colorSizeSubject.getPanelOption(this.panelIndex);
-    if (panelOption) {
-      this.syncUIWithObserverState(panelOption);
-      // Only filter sizes based on color in simplified logic
-      this.filterAvailableOptions(panelOption.color);
-    }
-  }
-
-  public getQuantitySubject(): QuantityOptionsSubject {
-    return this.quantitySubject;
-  }
-
-  public getColorSizeSubject(): ColorSizeOptionsSubject {
-    return this.colorSizeSubject;
-  }
-
-  // Debug methods (updated for simplified logic)
-  public logVariantState(): void {
-    if (!this.isVariant) {
-      console.log('This is not a variant product');
-      return;
-    }
-
-    console.group(`Panel ${this.panelIndex} Variant State (Simplified Logic)`);
-    console.log('Selected Options:', this.selectedOptions);
-    console.log('Variant Associations:', this.variantAssociations);
-    console.log('Is Valid Combination:', this.validateCurrentSelection());
-    
-    console.log('All colors (always available):', this.variantAssociations?.allColors);
-    
-    if (this.selectedOptions.color) {
-      console.log('Available sizes for selected color:', this.getAvailableSizesForColor(this.selectedOptions.color));
-    } else {
-      console.log('No color selected - all sizes available');
-    }
-    
-    const invalid = this.getInvalidOptions();
-    if (invalid.sizes.length) {
-      console.log('Invalid sizes (based on color):', invalid.sizes);
-    }
-    
-    console.groupEnd();
+  public getPanelIndex(): number {
+    return this.panelIndex;
   }
 }
 

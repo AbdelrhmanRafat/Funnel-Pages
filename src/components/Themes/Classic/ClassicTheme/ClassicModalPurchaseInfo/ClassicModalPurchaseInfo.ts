@@ -1,6 +1,3 @@
-// color-size-observer.ts
-import { ColorSizeOptionsSubject, type ColorSizeOption } from '../../../../../lib/patterns/Observers/color-size-observer';
-
 // quantity-observer.ts
 import { QuantityOptionsSubject } from '../../../../../lib/patterns/Observers/quantity-observer';
 
@@ -12,6 +9,7 @@ import { DeliveryOptionsSubject } from '../../../../../lib/patterns/Observers/de
 
 // payment-observer.ts
 import { PaymentOptionsSubject } from '../../../../../lib/patterns/Observers/payment-observer';
+import { CustomOptionSubject, type CustomOption } from '../../../../../lib/patterns/Observers/custom-option-observer';
 
 
 interface SelectedOffer {
@@ -43,7 +41,7 @@ class ClassicPurchaseModal extends HTMLElement {
   
   // Observer subjects - centralized access
   private subjects = {
-    colorSize: ColorSizeOptionsSubject.getInstance(),
+    colorSize: CustomOptionSubject.getInstance(),
     quantity: QuantityOptionsSubject.getInstance(),
     formFields: FormFieldsSubject.getInstance(),
     delivery: DeliveryOptionsSubject.getInstance(),
@@ -295,15 +293,15 @@ class ClassicPurchaseModal extends HTMLElement {
     }
   }
 
-  private populateColorSizeInfo(colorSizeOptions: ColorSizeOption[]): void {
+  private populateColorSizeInfo(colorSizeOptions: CustomOption[]): void {
     const container = this.elements.selectionItemsContainer;
     if (!container || !colorSizeOptions) return;
 
     container.innerHTML = colorSizeOptions.map(option => `
       <div class="classic-selection-item">
           <div class="classic-panel-info">القطعة ${option.panelIndex}</div>
-          <div class="classic-color-display"><span>${option.color ?? ""}</span></div>
-          <div class="classic-size-display"><span>${option.size ?? ""}</span></div>
+          <div class="classic-color-display"><span>${option.firstOption ?? ""}</span></div>
+          <div class="classic-size-display"><span>${option.secondOption ?? ""}</span></div>
       </div>
     `).join('');
   }

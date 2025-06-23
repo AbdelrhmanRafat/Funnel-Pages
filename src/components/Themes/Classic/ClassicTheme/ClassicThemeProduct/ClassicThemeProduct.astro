@@ -245,9 +245,8 @@ function isComponentDataAvailable(
     const hasPurchaseOptions = document.querySelector('offer-selector');
     
     if (true) {
-      // Import and initialize ColorSizeOptionsSubject
-      import('../../../../../lib/patterns/Observers/color-size-observer').then(({ ColorSizeOptionsSubject }) => {
-        const colorSizeSubject = ColorSizeOptionsSubject.getInstance();
+      import('../../../../../lib/patterns/Observers/custom-option-observer').then(({ CustomOptionSubject }) => {
+        const colorSizeSubject = CustomOptionSubject.getInstance();
         colorSizeSubject.initializePanels(1);
       });
     }

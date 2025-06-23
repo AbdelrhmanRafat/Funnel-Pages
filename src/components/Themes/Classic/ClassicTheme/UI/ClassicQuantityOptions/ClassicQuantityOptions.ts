@@ -1,7 +1,7 @@
 // ClassicQuantityOptions.ts - Web Component for Offer Selection
 
 import { QuantityOptionsSubject } from '../../../../../../lib/patterns/Observers/quantity-observer';
-import { ColorSizeOptionsSubject } from '../../../../../../lib/patterns/Observers/color-size-observer';
+import { CustomOptionSubject } from '../../../../../../lib/patterns/Observers/custom-option-observer';
 
 interface OfferSelectorElements {
   radioButtons: NodeListOf<HTMLInputElement> | null;
@@ -14,7 +14,7 @@ class OfferSelector extends HTMLElement {
     repeatedElements: null
   };
   private quantitySubject: QuantityOptionsSubject;
-  private colorSizeSubject: ColorSizeOptionsSubject;
+  private customOptionSubject: CustomOptionSubject;
   private offerName: string = 'qty';
   private autoSelectFirst: boolean = true;
   private enableStorage: boolean = true;
@@ -23,7 +23,7 @@ class OfferSelector extends HTMLElement {
   constructor() {
     super();
     this.quantitySubject = QuantityOptionsSubject.getInstance();
-    this.colorSizeSubject = ColorSizeOptionsSubject.getInstance();
+    this.customOptionSubject = CustomOptionSubject.getInstance();
   }
 
   connectedCallback() {
@@ -121,7 +121,7 @@ class OfferSelector extends HTMLElement {
     }
 
     // Initialize color/size panels for the selected quantity
-    this.colorSizeSubject.initializePanels(items);
+    this.customOptionSubject.initializePanels(items);
 
     // Update repeated elements visibility
     this.updateRepeatedElementsVisibility(selectedRadio);
@@ -237,8 +237,8 @@ class OfferSelector extends HTMLElement {
   public getQuantitySubject(): QuantityOptionsSubject {
     return this.quantitySubject;
   }
-  public getColorSizeSubject(): ColorSizeOptionsSubject {
-    return this.colorSizeSubject;
+  public getColorSizeSubject(): CustomOptionSubject {
+    return this.customOptionSubject;
   }
 }
 // Register the custom element
