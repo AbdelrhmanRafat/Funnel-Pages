@@ -165,13 +165,56 @@ export interface Product {
     options: ProductOption[];
     custom_options : CustomOptions;
     category: Category;
-    skus: null;
+    skus: Sku[];
     reviews : Review[];
     policies : string[];
     social_icons : string[];
     meta: Meta;
     attachment: Attachment[];
     is_have_variant: string;
+}
+
+export interface Sku {
+  id: number;
+  category_id: number;
+  product_id: number;
+  store_id: number;
+  ware_house_id: number;
+  SKU_code: string;
+  quantity: number;
+  price: number;
+  price_after_discount: number;
+  options: Option[];
+  weight: number;
+  weight_type: string;
+  image: string;
+  deleted_at: string | null;
+  created_at: string;
+  updated_at: string;
+  qty: number;
+  ware_house: Warehouse;
+}
+
+export interface Option {
+  name: string;
+  value: string;
+  hex: string | null;
+}
+
+export interface Warehouse {
+  id: number;
+  store_id: number;
+  name: string;
+  contact_person: string;
+  phone: string;
+  place_number: string;
+  area: string;
+  zip_code: string;
+  city: string;
+  region: string;
+  deleted_at: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface CustomOptions {

@@ -255,17 +255,19 @@ class ClassicSubmitOrder extends HTMLElement {
   }
 
   private validateColorSizeOptions(): boolean {
+    if(this.isHaveVariant == "false"){
+      return true;
+    }
+
     const colorSizeState = this.colorSizeSubject.getState();
 
-    if (!colorSizeState.options || colorSizeState.options.length === 0) {
-      return true; // No options to validate
-    }
+    
 
     let isOptionsValid = true;
     const errorMessages: string[] = [];
-
+  
     for (const option of colorSizeState.options) {
-      if (!option.color && this.isHaveVariant === "true") {
+      if (!option.color) {
         errorMessages.push(`من فضلك اختر اللون للخيار رقم ${option.panelIndex}`);
         isOptionsValid = false;
       }
@@ -285,7 +287,6 @@ class ClassicSubmitOrder extends HTMLElement {
       const existing = document.getElementById('options-error-container');
       if (existing) existing.remove();
     }
-
     return isOptionsValid;
   }
 

@@ -5,7 +5,6 @@ import "./ClassicDynamicPannelContainer.css"
 
 const product : Product = Astro.props.product;
 const panelIndex: number = Astro.props["panel-index"] || 1;
-const colorSizeOptions: OptionOption[] = product.options[0].options;
 const isHaveVariant  = product.is_have_variant;
 const customOptions : CustomOptions = product.custom_options;
 
@@ -14,8 +13,8 @@ const allowMultipleSelection = Astro.props.allowMultipleSelection ?? false;
 const showSelectionIndicators = Astro.props.showSelectionIndicators ?? true;
 const enableAutoSelect = Astro.props.enableAutoSelect ?? false;
 
-let colors: OptionOption | undefined | ColorOption[] = undefined;
-let sizes: OptionOption | undefined | SizeOption[] = undefined;
+let colors: undefined | ColorOption[] = undefined;
+let sizes:  undefined | SizeOption[] = undefined;
 
 // Build association maps for variants
 let colorToSizes: Map<string, string[]> = new Map();
@@ -27,9 +26,7 @@ const sku_ID_No_Variant = product.sku_code;
 if (isHaveVariant === "true" && customOptions) {
     colors = customOptions.color;
     sizes = customOptions.size;
-    
-    console.log("b555", colors[0].available_options);
-    
+
     // Build color -> sizes mapping (simple values for existing logic)
     if (Array.isArray(colors)) {
         colors.forEach(color => {
@@ -62,12 +59,7 @@ if (isHaveVariant === "true" && customOptions) {
         allSizes: Array.isArray(sizes) ? sizes.map(s => s.value) : []
     };
     
-    console.log('Variant Associations:', variantAssociations);
-    console.log('Enhanced Color to Size Details:', Object.fromEntries(colorToSizeDetails));
-} else {
-    colors = colorSizeOptions.find(opt => opt.name === 'color');
-    sizes = colorSizeOptions.find(opt => opt.name === 'size');
-}
+  }
 
 ---
 <div id="classic-pannel-container" class="classic-pannel-container">
@@ -87,7 +79,6 @@ if (isHaveVariant === "true" && customOptions) {
           <p class="inline" data-translate="dynamicPanel.selectOptionsForProduct">
           </p>
           <span data-options-panel-index-display>{panelIndex}</span>
-          {isHaveVariant === "true" && <span class="text-sm font-normal opacity-75">(Variant)</span>}
         </div>
         {showSelectionIndicators && (
           <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">

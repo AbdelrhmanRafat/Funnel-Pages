@@ -886,26 +886,6 @@
                 }
             },
             {
-                "name": "classic_product_funnel",
-                "data": {
-                    "product": "@bind:product",
-                    "purchase_options": [
-                        {
-                            "title": "شراء منتج واحد",
-                            "items": 1,
-                            "price_per_item": 2290,
-                            "original_price_per_item": 2290,
-                            "original_total": 2290,
-                            "total_price": 2290,
-                            "discount": 0,
-                            "discount_percent": "0%",
-                            "shipping_price": 50,
-                            "final_total": 2340
-                        }
-                    ]
-                }
-            },
-            {
                 "name": "classic_footer",
                 "data": {
                     "company_name": "Digital Creativity Company",

@@ -106,7 +106,7 @@
             "attachment": [
                 {
                     "id": 70,
-                    "path": "https:\/\/backend.dev.baseet.co\/uploads\/attachments\/EZkZ0o101m70el21Tt8euirte5B81wAlPcUWKQy7.png",
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/EZkZ0o101m70el21Tt8euirte5B81wAlPcUWKQy7.png",
                     "attachmentable_type": "App\\Models\\Product\\Product",
                     "attachmentable_id": 62,
                     "order": 0,
@@ -115,7 +115,7 @@
                 },
                 {
                     "id": 71,
-                    "path": "https:\/\/backend.dev.baseet.co\/uploads\/attachments\/0cXDOkz1ElIWlISELKjh9U6XoEIb7aJGgwH4Mb87.png",
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/0cXDOkz1ElIWlISELKjh9U6XoEIb7aJGgwH4Mb87.png",
                     "attachmentable_type": "App\\Models\\Product\\Product",
                     "attachmentable_id": 62,
                     "order": 0,
@@ -124,7 +124,7 @@
                 },
                 {
                     "id": 72,
-                    "path": "https:\/\/backend.dev.baseet.co\/uploads\/attachments\/VyK8J4KP2wofpK14LEyinLIiUMRwbGTY7c9EXwku.png",
+                    "path": "https://backend.dev.baseet.co/uploads/attachments/VyK8J4KP2wofpK14LEyinLIiUMRwbGTY7c9EXwku.png",
                     "attachmentable_type": "App\\Models\\Product\\Product",
                     "attachmentable_id": 62,
                     "order": 0,

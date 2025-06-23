@@ -6,6 +6,7 @@ import ClassicDynamicPannelContainer from "../ClassicDynamicPanelContainer/Class
 
 const data: BlockData[] = Astro.props.data;
 const product : Product = Astro.props.product;
+const isHaveVariant = product.is_have_variant;
 const name = "qty";
 ---
 
@@ -104,6 +105,7 @@ const name = "qty";
                   </div>
                 </div>
               </label>
+              {isHaveVariant == "true" &&
               <div
                 class={`flex flex-col gap-1 ${index === 0 ? "" : "hidden"}`}
                 data-offer-options-elements
@@ -117,6 +119,7 @@ const name = "qty";
                   />
                 ))}
               </div>
+              }
             </div>
           </div>
         ))

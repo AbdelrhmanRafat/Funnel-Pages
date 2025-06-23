@@ -1,15 +1,38 @@
 ---
 import "./ClassicGalleryComponent.css";
-import type { BlockData, Image } from "../../../../../../lib/api/types";
+import type { Attachment, BlockData, Image, Product, Sku } from "../../../../../../lib/api/types";
 
-const data: BlockData = Astro.props.data;
-const gallery: Image[] = data.galleryimages ?? [];
+const product: Product = Astro.props.product;
+
+const mainImage = product.image;
+const skus: Sku[] = product.skus;
+const attachments: Attachment[] = product.attachment;
+
+// Use Set to ensure uniqueness
+const gallerySet = new Set<string>();
+
+// Add main image
+gallerySet.add(mainImage);
+
+// Add images from skus
+for (const subImage of skus) {
+  gallerySet.add(subImage.image);
+}
+
+// Add images from attachments
+for (const subImage of attachments) {
+console.log(subImage.path);
+  gallerySet.add(subImage.path);
+}
+
+// Convert back to array if needed
+const gallery: string[] = Array.from(gallerySet);
 
 // Gallery options
-const autoPlay = data.autoPlay ?? false;
-const autoPlayDelay = data.autoPlayDelay ?? 5000;
-const enableKeyboard = data.enableKeyboard ?? true;
-const enableTouch = data.enableTouch ?? true;
+const autoPlay = false;
+const autoPlayDelay =  5000;
+const enableKeyboard =  true;
+const enableTouch =  true;
 ---
 
 <!-- Gallery Section - Enhanced -->
@@ -26,9 +49,9 @@ const enableTouch = data.enableTouch ?? true;
             <div class="classic-gallery-main relative overflow-hidden">
                 <img
                     data-gallery-main-image
-                    src={gallery[0]?.src}
-                    class="classic-main-image w-full h-96 lg:h-[500px] object-cover"
-                    alt={gallery[0]?.alt}
+                    src={gallery[0]}
+                    class="classic-main-image w-full object-fill"
+                    alt={product.name}
                 />
                 
                 <!-- Navigation Buttons -->
@@ -81,11 +104,11 @@ const enableTouch = data.enableTouch ?? true;
                 {
                   gallery.map((image, index) => (
                     <img
-                        src={image.src}
+                        src={image}
                         class={`classic-thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-xl cursor-pointer border-2 border-transparent ${index === 0 ? 'classic-thumbnail-active' : ''}`}
                         data-gallery-thumbnail
                         data-gallery-index={index}
-                        alt={image.alt}
+                        alt={product.name}
                     />
                   ))
                 }
