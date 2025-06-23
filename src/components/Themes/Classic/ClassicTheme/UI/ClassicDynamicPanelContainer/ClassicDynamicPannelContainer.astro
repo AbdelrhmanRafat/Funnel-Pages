@@ -1,5 +1,5 @@
 ---
-import type { ColorOption, CustomOptions, OptionOption, Product, SizeOption } from "../../../../../../lib/api/types";
+import type { CustomOptions, OptionOption, Product, VariantOption } from "../../../../../../lib/api/types";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 import "./ClassicDynamicPannelContainer.css"
 
@@ -13,53 +13,86 @@ const allowMultipleSelection = Astro.props.allowMultipleSelection ?? false;
 const showSelectionIndicators = Astro.props.showSelectionIndicators ?? true;
 const enableAutoSelect = Astro.props.enableAutoSelect ?? false;
 
-let colors: undefined | ColorOption[] = undefined;
-let sizes:  undefined | SizeOption[] = undefined;
-
-// Build association maps for variants
-let colorToSizes: Map<string, string[]> = new Map();
-let sizeToColors: Map<string, string[]> = new Map();
-let colorToSizeDetails: Map<string, Array<{value: string, sku_id: number}>> = new Map();
+// 🆕 Generic dynamic option handling
+let optionGroups: any[] = [];
+let optionAssociations: Map<string, Map<string, any[]>> = new Map();
 let variantAssociations: any = null;
 const sku_ID_No_Variant = product.sku_code;
 
 if (isHaveVariant === "true" && customOptions) {
-    colors = customOptions.color;
-    sizes = customOptions.size;
-
-    // Build color -> sizes mapping (simple values for existing logic)
-    if (Array.isArray(colors)) {
-        colors.forEach(color => {
-            const availableSizes = color.available_options?.size?.map(s => s.value) || [];
-            colorToSizes.set(color.value, availableSizes);
+    console.log("Processing dynamic options:", customOptions);
+    
+    // 🆕 Extract all option groups dynamically
+    Object.entries(customOptions).forEach(([key, options]) => {
+        if (Array.isArray(options)) {
+            // Check if options have color values
+            const hasColors = options.some(option => 
+                option.hex && option.hex.trim() !== '' && option.hex !== null
+            );
             
-            // 🆕 Enhanced mapping: color -> size details with sku_id
-            const sizeDetails = color.available_options?.size?.map(s => ({
-                value: s.value,
-                sku_id: s.sku_id
-            })) || [];
-            colorToSizeDetails.set(color.value, sizeDetails);
-        });
-    }
+            // Get all related option keys
+            const relatedKeys = new Set<string>();
+            options.forEach(option => {
+                if (option.available_options) {
+                    Object.keys(option.available_options).forEach(relatedKey => {
+                        relatedKeys.add(relatedKey);
+                    });
+                }
+            });
+            
+            optionGroups.push({
+                key,
+                label: key,
+                options,
+                hasColors,
+                relatedKeys: Array.from(relatedKeys)
+            });
+        }
+    });
     
-    // Build size -> colors mapping
-    if (Array.isArray(sizes)) {
-        sizes.forEach(size => {
-            const availableColors = size.available_options?.color?.map(c => c.value) || [];
-            sizeToColors.set(size.value, availableColors);
+    // 🆕 Build generic associations between any option types
+    optionGroups.forEach(group => {
+        const groupAssociations = new Map<string, any[]>();
+        
+        group.options.forEach(option => {
+            // For each related option type, collect available values with sku_ids
+            group.relatedKeys.forEach(relatedKey => {
+                const relatedOptions = option.available_options?.[relatedKey];
+                if (relatedOptions && Array.isArray(relatedOptions)) {
+                    const relatedDetails = relatedOptions.map(rel => ({
+                        value: rel.value,
+                        sku_id: rel.sku_id
+                    }));
+                    
+                    // Create association key: primaryValue -> relatedKey
+                    const associationKey = `${option.value}::${relatedKey}`;
+                    groupAssociations.set(associationKey, relatedDetails);
+                }
+            });
         });
-    }
+        
+        optionAssociations.set(group.key, groupAssociations);
+    });
     
-    // Create variant associations object for the web component
+    // 🆕 Create generic variant associations for web component
     variantAssociations = {
-        colorToSizes: Object.fromEntries(colorToSizes),
-        sizeToColors: Object.fromEntries(sizeToColors),
-        colorToSizeDetails: Object.fromEntries(colorToSizeDetails), // 🆕 Enhanced mapping
-        allColors: Array.isArray(colors) ? colors.map(c => c.value) : [],
-        allSizes: Array.isArray(sizes) ? sizes.map(s => s.value) : []
+        optionGroups: optionGroups.map(group => ({
+            key: group.key,
+            label: group.label,
+            hasColors: group.hasColors,
+            values: group.options.map(opt => opt.value),
+            relatedKeys: group.relatedKeys
+        })),
+        associations: Object.fromEntries(
+            Array.from(optionAssociations.entries()).map(([groupKey, associations]) => [
+                groupKey,
+                Object.fromEntries(associations)
+            ])
+        )
     };
     
-  }
+    console.log("Generic variant associations:", variantAssociations);
+}
 
 ---
 <div id="classic-pannel-container" class="classic-pannel-container">
@@ -77,110 +110,82 @@ if (isHaveVariant === "true" && customOptions) {
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
         <div class="classic-panel-header font-bold text-lg sm:text-xl">
           <p class="inline" data-translate="dynamicPanel.selectOptionsForProduct">
+            Select Options for Product
           </p>
           <span data-options-panel-index-display>{panelIndex}</span>
         </div>
-        {showSelectionIndicators && (
+        {showSelectionIndicators && optionGroups.length > 0 && (
           <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            {colors && (
+            {optionGroups.map((group, index) => (
               <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-                <span data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</span>
-                <span data-options-selected-color=""></span>
+                <span>{group.label}</span>
+                <span data-options-selected={`group-${index}`}></span>
               </div>
-            )}
-            {sizes && (
-              <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-                <span data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</span>
-                <span data-options-selected-size=""></span>
-              </div>
-            )}
+            ))}
           </div>
         )}
       </div>
       
-      <div class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row">
-        <!-- Size Selection -->
-        {sizes && (
-          <div class="select-size-section space-y-2">
-            <p class="classic-selection-title text-base sm:text-lg font-semibold" data-translate="dynamicPanel.size">{getTranslation('dynamicPanel.size')}</p>
-            <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
-              {
-                /* Handle variant sizes (SizeOption[] - direct array) */
-                (isHaveVariant === "true" && Array.isArray(sizes)) ? 
-                  sizes.map((size, index) => (
+      <div class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6">
+        {/* 🆕 Generic Dynamic Option Rendering */}
+        {optionGroups.map((group, groupIndex) => (
+          <div class="select-option-section space-y-2" key={group.key}>
+            <p class="classic-selection-title text-base sm:text-lg font-semibold">
+              {group.label}
+            </p>
+            
+            {/* 🆕 Conditional rendering based on hasColors */}
+            {group.hasColors ? (
+              /* Options with color swatches */
+              <div class="flex flex-wrap justify-start content-center gap-2">
+                {group.options.map((option, index) => (
+                  <div
+                    class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                    data-options-option
+                    data-options-option-value={option.value}
+                    data-options-option-hex={option.hex}
+                    data-options-option-index={index}
+                    data-options-group-key={group.key}
+                    data-options-group-index={groupIndex}
+                    data-variant={true}
+                  >
                     <div
-                      class="size-option classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
-                      data-options-size-option
-                      data-options-size-value={size.value}
-                      data-options-size-index={index}
-                      data-variant={true}
-                      data-size-available-colors={JSON.stringify(size.available_options?.color?.map(c => c.value) || [])}
-                    >
-                      {size.value}
-                    </div>
-                  )) :
-                /* Handle non-variant sizes (OptionOption with Value[] array) */
-                (sizes && 'value' in sizes && Array.isArray(sizes.value)) ?
-                  sizes.value.map((size, index) => (
-                    <div
-                      class="size-option classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
-                      data-options-size-option
-                      data-options-size-value={size.value || size.name}
-                      data-options-size-index={index}
-                      data-variant={false}
-                    >
-                      {size.display || size.value || size.name}
-                    </div>
-                  )) : null
-              }
-            </div>
+                      class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                      style={`background-color: ${option.hex}`}
+                    ></div>
+                    <span class="classic-color-name text-xs sm:text-sm text-center">{option.value}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Text-only options */
+              <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
+                {group.options.map((option, index) => (
+                  <div
+                    class="size-option classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                    data-options-option
+                    data-options-option-value={option.value}
+                    data-options-option-index={index}
+                    data-options-group-key={group.key}
+                    data-options-group-index={groupIndex}
+                    data-variant={true}
+                  >
+                    {option.value}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        )}
-               
-        <!-- Color Selection -->
-        {colors && (
-          <div class="select-color-section space-y-2">
-            <p class="classic-selection-title text-base sm:text-lg font-semibold" data-translate="dynamicPanel.color">{getTranslation('dynamicPanel.color')}</p>
-            <div class="flex flex-wrap justify-start content-center gap-2">
-              {
-                /* Handle variant colors (ColorOption[] - direct array) */
-                (isHaveVariant === "true" && Array.isArray(colors)) ? 
-                  colors.map((color, index) => (
-                    <div
-                      class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
-                      data-options-color-option
-                      data-options-color-name={color.value}
-                      data-options-color-hex={color.hex}
-                      data-options-color-index={index}
-                      data-variant={true}
-                      data-color-available-sizes={JSON.stringify(color.available_options?.size?.map(s => s.value) || [])}
-                    >
-                      <div
-                        class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                        style={`background-color: ${color.hex}`}
-                      ></div>
-                      <span class="classic-color-name text-xs sm:text-sm text-center">{color.value}</span>
-                    </div>
-                  )) :
-                /* Handle non-variant colors (OptionOption with Value[] array) */
-                (colors && 'value' in colors && Array.isArray(colors.value)) ?
-                  colors.value.map((color, index) => (
-                    <div
-                      class="color-option flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
-                      data-options-color-option
-                      data-options-color-name={color.name || color.value}
-                      data-options-color-hex={color.hex}
-                      data-options-color-index={index}
-                      data-variant={false}
-                    >
-                      <div
-                        class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                        style={`background-color: ${color.hex}`}
-                      ></div>
-                      <span class="classic-color-name text-xs sm:text-sm text-center">{color.name || color.value}</span>
-                    </div>
-                  )) : null
-              }
+        ))}
+        
+        {/* Fallback for non-variant products */}
+        {!isHaveVariant && (
+          <div class="select-option-section space-y-2">
+            <p class="classic-selection-title text-base sm:text-lg font-semibold">
+              Single Product
+            </p>
+            <div class="py-2 px-4 border rounded-lg bg-gray-50">
+              <span class="text-sm">SKU: {sku_ID_No_Variant}</span>
             </div>
           </div>
         )}
