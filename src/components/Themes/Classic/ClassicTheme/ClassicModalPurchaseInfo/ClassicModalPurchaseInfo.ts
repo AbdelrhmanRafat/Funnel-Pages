@@ -265,7 +265,6 @@ class ClassicPurchaseModal extends HTMLElement {
         customOptionNonBundle: this.subjects.customOptionNonBundle.getState()
       };
       
-      console.log("zewwwwww", states.customOptionNonBundle.option);
       
       this.populateQuantityInfo(states.quantity.selectedItem);
       this.populateCustomOptions(states.customOptions.options);

@@ -4,6 +4,7 @@ import type { PurchaseOption } from "../../../../../../lib/api/types";
 import { QuantityOptionsSubject } from "../../../../../../lib/patterns/Observers/quantity-observer";
 import type { Observer } from "../../../../../../lib/patterns/Observers/base-observer";
 import { DeliveryOptionsSubject } from "../../../../../../lib/patterns/Observers/delivery-observer";
+import { CustomOptionsNonBundleSubject } from '../../../../../../lib/patterns/Observers/custom-options-non-bundle';
 import { getTranslation } from '../../../../../../lib/utils/i18n/translations';
 
 interface ProductFunnelElements {
@@ -27,6 +28,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     totalElement: null
   };
   private quantitySubject: QuantityOptionsSubject;
+  private customOptionsNonBundleSubject: CustomOptionsNonBundleSubject;
   private deliverySubject: DeliveryOptionsSubject;
   private autoUpdate: boolean = true;
   private showDiscountWhenZero: boolean = false;
@@ -38,6 +40,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     super();
     this.quantitySubject = QuantityOptionsSubject.getInstance();
     this.deliverySubject = DeliveryOptionsSubject.getInstance();
+    this.customOptionsNonBundleSubject = CustomOptionsNonBundleSubject.getInstance();
   }
 
   connectedCallback() {
@@ -85,7 +88,6 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
       this.currentOffer = state.items[0] as PurchaseOption;
       
       // Optionally, set this as the selected item in the subject
-      this.quantitySubject.selectItem(this.currentOffer);
     } else {
       // Create a fallback empty offer if no data is available
       this.currentOffer = this.createFallbackOffer();
@@ -94,20 +96,17 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
   }
 
   private loadNonBundleData(state: any): void {
-    // TODO: Implement logic for non-bundle products
-    // For now, using the same logic as bundles but you can customize this
-    if (state.selectedItem) {
-      this.currentOffer = state.selectedItem as PurchaseOption;
-    } else if (state.items && state.items.length > 0) {
-      // If no selection, use the first available option as default
-      this.currentOffer = state.items[0] as PurchaseOption;
-      
-      // Optionally, set this as the selected item in the subject
-      this.quantitySubject.selectItem(this.currentOffer);
+    // For non-bundle products, get initial data from CustomOptionsNonBundleSubject
+    const customOptionsState = this.customOptionsNonBundleSubject.getState();
+    console.log('Loading non-bundle data from CustomOptionsNonBundleSubject:', customOptionsState);
+    
+    // Create offer based on custom options state
+    if (customOptionsState && customOptionsState.option) {
+      this.currentOffer = this.createOfferFromCustomOptions(customOptionsState);
     } else {
-      // Create a fallback empty offer if no data is available
+      // Fallback to base product data if no custom options
       this.currentOffer = this.createFallbackOffer();
-      console.warn('Product Funnel: No non-bundle data available in QuantityOptionsSubject, using fallback values');
+      console.warn('Product Funnel: No custom options data available, using fallback values');
     }
   }
 
@@ -142,15 +141,51 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
   private attachToSubjects(): void {
     this.quantitySubject.attach(this);
     this.deliverySubject.attach(this);
+    this.customOptionsNonBundleSubject.attach(this);
   }
 
   private detachFromSubjects(): void {
     this.quantitySubject.detach(this);
     this.deliverySubject.detach(this);
+    this.customOptionsNonBundleSubject.detach(this);
   }
 
   // Observer pattern implementation
   public update(subject?: any): void {
+    // Check if the update is from CustomOptionsNonBundleSubject and log its state
+    if (subject === this.customOptionsNonBundleSubject) {
+      const customOptionsState = this.customOptionsNonBundleSubject.getState();
+      console.log('CustomOptionsNonBundleSubject state updated:', customOptionsState);
+      
+      // Log specific qty information for easier tracking
+      if (customOptionsState && customOptionsState.option && customOptionsState.option.qty !== undefined) {
+        console.log('Updated qty:', customOptionsState.option.qty);
+      }
+      
+      // If this is a non-bundle product, update the offer based on custom options
+      if (!this.hasBundles) {
+        const quantityState = this.quantitySubject.getState();
+        this.updateNonBundleOffer(quantityState);
+        
+        if (this.currentOffer) {
+          const deliveryState = this.deliverySubject.getState();
+          this.updateUI(this.currentOffer, deliveryState);
+          
+          // Dispatch custom event for non-bundle updates
+          this.dispatchEvent(new CustomEvent('funnel-updated', {
+            detail: {
+              offer: this.currentOffer,
+              deliveryState,
+              calculatedValues: this.calculateValues(this.currentOffer, deliveryState),
+              hasBundles: this.hasBundles,
+              customOptionsState: customOptionsState
+            }
+          }));
+        }
+      }
+      return;
+    }
+
     // Always get the latest state from both subjects
     const quantityState = this.quantitySubject.getState();
     const deliveryState = this.deliverySubject.getState();
@@ -188,10 +223,49 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
   }
 
   private updateNonBundleOffer(quantityState: any): void {
-    if (quantityState.selectedItem) {
+    // For non-bundle products, sync with CustomOptionsNonBundleSubject
+    const customOptionsState = this.customOptionsNonBundleSubject.getState();
+    
+    if (customOptionsState && customOptionsState.option) {
+      // Update offer based on custom options selection
+      this.currentOffer = this.createOfferFromCustomOptions(customOptionsState, quantityState.selectedQuantity);
+      console.log('Updated non-bundle offer from custom options:', this.currentOffer);
+    } else if (quantityState.selectedItem) {
+      // Fallback to quantity subject if custom options not available
       this.currentOffer = quantityState.selectedItem as PurchaseOption;
     }
-    // Add any additional non-bundle-specific logic here
+  }
+
+  private createOfferFromCustomOptions(customOptionsState: any, quantity?: number): PurchaseOption {
+    const option = customOptionsState.option;
+    // Use qty from custom options state, fallback to quantity parameter, then default to 1
+    const selectedQuantity = option.qty || quantity || customOptionsState.selectedQuantity || 1;
+    
+    // Calculate prices based on custom options selection
+    const unitPrice = option.price_after_discount || option.price || 0;
+    const totalPrice = unitPrice * selectedQuantity;
+    const discount = option.price && option.price_after_discount ? 
+      (option.price - option.price_after_discount) * selectedQuantity : 0;
+    
+    return {
+      id: option.sku_id || 'custom-option',
+      items: selectedQuantity,
+      price_per_item: unitPrice,
+      total_price: totalPrice,
+      shipping_price: 0, // Will be handled by delivery options
+      discount: discount,
+      final_total: totalPrice,
+      // Add custom option specific data
+      custom_option_data: {
+        sku_id: option.sku_id,
+        original_price: option.price,
+        discounted_price: option.price_after_discount,
+        selection_complete: customOptionsState.isSelectionComplete,
+        first_option: customOptionsState.firstOption,
+        second_option: customOptionsState.secondOption,
+        qty: selectedQuantity
+      }
+    } as PurchaseOption;
   }
 
   private updateUI(offer: PurchaseOption, deliveryState: any): void {
@@ -230,12 +304,15 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     let actualShipping: string;
     let actualFinalTotal: number;
 
+    // Calculate final total with quantity multiplied
+    const baseTotal = offer.total_price; // This already includes quantity multiplication from createOfferFromCustomOptions
+
     if (deliveryState.selectedDeliveryOptionId === "delivery-pickup") {
-      actualFinalTotal = Number(offer.final_total) - Number(offer.shipping_price);
+      actualFinalTotal = baseTotal - Number(offer.shipping_price);
       actualShipping = "0";
     } else {
       actualShipping = offer.shipping_price.toLocaleString();
-      actualFinalTotal = offer.final_total;
+      actualFinalTotal = baseTotal;
     }
 
     return {
@@ -320,6 +397,14 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     this.hasBundles = hasBundles;
     this.setAttribute('data-funnel-has-bundles', hasBundles.toString());
     this.refreshFromSubject(); // Reload with new bundle logic
+  }
+
+  public getCurrentCustomOptionsState(): any {
+    return this.customOptionsNonBundleSubject.getState();
+  }
+
+  public getCustomOptionsNonBundleSubject(): CustomOptionsNonBundleSubject {
+    return this.customOptionsNonBundleSubject;
   }
 
   public getQuantitySubject(): QuantityOptionsSubject {
