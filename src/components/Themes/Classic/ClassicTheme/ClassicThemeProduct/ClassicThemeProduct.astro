@@ -12,7 +12,7 @@ import ClassicThemeRates from "../ClassicThemeRates/ClassicThemeRates.astro";
 import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
 import ClassicGalleryComponent from "../UI/ClassicGallery/ClassicGalleryComponent.astro";
 import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
-import ClassicSectionOptionsWithoutBundles from "../UI/ClassicSectionOptionsVariantWithoutBundles/classicSectionOptionsWithoutBundles.astro";
+import ClassicSelectionOptionsWithoutBundles from "../UI/ClassicSelectionOptionsVariantWithoutBundles/classicSelectionOptionsWithoutBundles.astro";
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
@@ -181,7 +181,7 @@ function isComponentDataAvailable(
                 </div>
                 {isHaveVariant == "true" && !purchaseOptions && (
                   <div class="w-full">
-                    <ClassicSectionOptionsWithoutBundles
+                    <ClassicSelectionOptionsWithoutBundles
                       product={product}
                     />
                   </div>

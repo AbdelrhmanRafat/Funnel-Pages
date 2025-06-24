@@ -1,8 +1,10 @@
 ---
+import "./classicSelectionOptionsWithoutBundles.css";
 import type { CustomOptions, Product } from "../../../../../../lib/api/types";
 import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
-import "./classicSectionOptionsWithoutBundles.css";
+import ClassicColorOptionsWithoutBundles from "./Color Options/ClassicColorOptionsWithoutBundles.astro";
+import ClassicTextOptionsWithoutBundles from "./Text Options/ClassicTextOptionsWithoutBundles.astro";
 const product: Product = Astro.props.product;
 const panelIndex: number = 1;
 const isHaveVariant = product.is_have_variant;
@@ -87,31 +89,22 @@ if (isHaveVariant === "true" && customOptions) {
               /* Color options with swatches */
               <div class="flex flex-wrap justify-start content-start gap-7">
                 {optionData.firstOption.values.map((option, index) => (
-                  <div
-                    class="classic-color-option cursor-pointer hover:scale-105 transition-transform"
-                    data-option-type="first"
-                    data-option-value={option.value}
-                    data-option-index={index}
-                  >
-                    <div
-                      class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                      style={`background-color: ${option.hex || '#ccc'}`}
-                    ></div>
-                  </div>
+                  <ClassicColorOptionsWithoutBundles 
+                  option={option}
+                  index={index}
+                  optionType="first"
+                  />
                 ))}
               </div>
             ) : (
               /* Text-only options */
               <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
                 {optionData.firstOption.values.map((option, index) => (
-                  <div
-                    class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
-                    data-option-type="first"
-                    data-option-value={option.value}
-                    data-option-index={index}
-                  >
-                    {option.value}
-                  </div>
+                 <ClassicTextOptionsWithoutBundles 
+                  option={option},
+                  index={index},
+                  optionType = "first"
+                 />
                 ))}
               </div>
             )}
@@ -125,32 +118,22 @@ if (isHaveVariant === "true" && customOptions) {
               /* Color options with swatches */
               <div class="flex flex-wrap justify-start content-center gap-2">
                 {optionData.secondOption.values.map((option, index) => (
-                  <div
-                    class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
-                    data-option-type="second"
-                    data-option-value={option.value}
-                    data-option-index={index}
-                  >
-                    <div
-                      class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                      style={`background-color: ${option.hex || '#ccc'}`}
-                    ></div>
-                    <span class="classic-color-name text-xs sm:text-sm text-center">{option.value}</span>
-                  </div>
+              <ClassicColorOptionsWithoutBundles 
+                  option={option}
+                  index={index}
+                  optionType="first"
+                  />
                 ))}
               </div>
             ) : (
               /* Text-only options */
               <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
                 {optionData.secondOption.values.map((option, index) => (
-                  <div
-                    class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
-                    data-option-type="second"
-                    data-option-value={option.value}
-                    data-option-index={index}
-                  >
-                    {option.value}
-                  </div>
+                  <ClassicTextOptionsWithoutBundles 
+                  option={option}
+                  index={index}
+                  optionType="second"
+                  />
                 ))}
               </div>
             )}
@@ -175,5 +158,5 @@ if (isHaveVariant === "true" && customOptions) {
 </div>
 
 <script>
-  import "./classicSectionOptionsWithoutBundles";
+  import "./classicSelectionOptionsWithoutBundles";
 </script>

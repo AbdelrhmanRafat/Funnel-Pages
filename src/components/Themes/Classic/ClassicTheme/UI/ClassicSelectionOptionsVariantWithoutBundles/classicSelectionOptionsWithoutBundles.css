@@ -1,5 +1,5 @@
 /* === Dynamic Panel Container === */
-.classic-option-panel {
+.classic-single-option-panel {
     background-color: var(--classic-color-surface);
     border-radius: var(--classic-section-radius);
     border-color: var(--classic-color-primary-light);
