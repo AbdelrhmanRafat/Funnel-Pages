@@ -12,7 +12,6 @@ import { FORM_FIELD_CONFIG } from '../../../../../../lib/constants/formConfig';
 import { CustomOptionSubject } from '../../../../../../lib/patterns/Observers/custom-option-observer';
 import { FormFieldsSubject } from '../../../../../../lib/patterns/Observers/form-fields-observer';
 
-
 interface SubmitOrderElements {
   submitButton: HTMLButtonElement | null;
 }
@@ -27,9 +26,11 @@ class ClassicSubmitOrder extends HTMLElement {
   private autoFocusFirstError: boolean = true;
   private enableColorSizeValidation: boolean = true;
   private isHaveVariant: string | null = "true";
+  private currentLang: Language;
 
   constructor() {
     super();
+    this.currentLang = this.detectLanguage();
     this.formFieldsSubject = FormFieldsSubject.getInstance();
     this.customOptionSubject = CustomOptionSubject.getInstance();
   }
@@ -71,20 +72,20 @@ class ClassicSubmitOrder extends HTMLElement {
       if (input) {
         // Set initial value in the observer without showing validation messages
         this.updateFieldState(fieldId, input.value, false);
-        
+
         // Add input event listener
         input.addEventListener('input', () => {
           this.updateFieldState(fieldId, input.value, true);
         });
-        
+
         // Also mark as touched on blur (when user leaves the field)
         input.addEventListener('blur', () => {
           this.updateFieldState(fieldId, input.value, true);
         });
       }
     });
-    
-    
+
+
   }
 
   private setupSubmitButton(): void {
@@ -100,9 +101,9 @@ class ClassicSubmitOrder extends HTMLElement {
 
     // Dispatch event before validation
     this.dispatchEvent(new CustomEvent('submit-validation-start', {
-      detail: { 
+      detail: {
         validateOnSubmit: this.validateOnSubmit,
-        enableColorSizeValidation: this.enableColorSizeValidation 
+        enableColorSizeValidation: this.enableColorSizeValidation
       }
     }));
 
@@ -115,7 +116,7 @@ class ClassicSubmitOrder extends HTMLElement {
 
     // Dispatch validation result event
     this.dispatchEvent(new CustomEvent('submit-validation-complete', {
-      detail: { 
+      detail: {
         isValid: isFormValid,
         formState: this.getFormState(),
         colorSizeState: this.getColorSizeState()
@@ -139,7 +140,7 @@ class ClassicSubmitOrder extends HTMLElement {
   private updateFieldState(fieldId: string, value: string, touched: boolean = false): void {
     const isValid = this.validateField(fieldId, value);
     const errorMessage = this.getErrorMessage(fieldId, isValid);
-    
+
     // Update state in observer
     this.formFieldsSubject.updateField(fieldId, {
       value,
@@ -147,7 +148,7 @@ class ClassicSubmitOrder extends HTMLElement {
       errorMessage,
       touched
     });
-    
+
     // Only update UI if the field has been touched and validation messages are enabled
     if (touched && this.showValidationMessages) {
       this.displayValidationMessage(fieldId, errorMessage, isValid);
@@ -179,7 +180,7 @@ class ClassicSubmitOrder extends HTMLElement {
 
   private getErrorMessage(fieldId: string, isValid: boolean): string {
     const currentLang = this.detectLanguage();
-    
+
     if (isValid) {
       return getTranslation('form.validation.valid', currentLang);
     }
@@ -206,7 +207,7 @@ class ClassicSubmitOrder extends HTMLElement {
       if (input) {
         const isValid = this.validateField(fieldId, input.value);
         const message = this.getErrorMessage(fieldId, isValid);
-        
+
         // Force display validation messages when validating all fields (on submit)
         if (this.showValidationMessages) {
           this.displayValidationMessage(fieldId, message, isValid);
@@ -255,28 +256,40 @@ class ClassicSubmitOrder extends HTMLElement {
   }
 
   private validateColorSizeOptions(): boolean {
-    if(this.isHaveVariant == "false"){
+    if (this.isHaveVariant == "false") {
       return true;
     }
 
     const custonOptionState = this.customOptionSubject.getState();
 
-    
+
 
     let isOptionsValid = true;
     const errorMessages: string[] = [];
-  
+
     for (const option of custonOptionState.options) {
-      console.log("test GETTTTTTTTTT",option);
+      let lang = this.currentLang;
+      console.log("Current language:", lang);
+
       if (!option.firstOption) {
-        errorMessages.push(`من فضلك اختر اللون للخيار رقم ${option.panelIndex}`);
+        errorMessages.push(
+          lang === 'ar'
+            ? `برجاء اختيار الخيار الأول للخيار رقم ${option.panelIndex}`
+            : `Please select the first option for item ${option.panelIndex}`
+        );
         isOptionsValid = false;
       }
+
       if (!option.secondOption) {
-        errorMessages.push(`من فضلك اختر المقاس للخيار رقم ${option.panelIndex}`);
+        errorMessages.push(
+          lang === 'ar'
+            ? `برجاء اختيار الخيار الثاني للخيار رقم ${option.panelIndex}`
+            : `Please select the second option for item ${option.panelIndex}`
+        );
         isOptionsValid = false;
       }
     }
+
 
     // Only create container if there are actual errors
     if (!isOptionsValid && this.showValidationMessages) {
@@ -333,7 +346,7 @@ class ClassicSubmitOrder extends HTMLElement {
   private openPurchaseModal(): void {
     // Dispatch event before opening modal
     this.dispatchEvent(new CustomEvent('submit-modal-opening', {
-      detail: { 
+      detail: {
         formState: this.getFormState(),
         colorSizeState: this.getColorSizeState()
       }

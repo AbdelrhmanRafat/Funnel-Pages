@@ -1,13 +1,17 @@
 ---
 import "./ClassicSubmitOrderButton.css";
 import ClassicModalPurchaseInfo from "../../ClassicModalPurchaseInfo/ClassicModalPurchaseInfo.astro";
+import type { BlockData } from "../../../../../../lib/api/types";
 
 const isHaveVariant : string = Astro.props.isHaveVariant;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+
 // Component configuration
 const validateOnSubmit =  true;
 const showValidationMessages =  true;
 const autoFocusFirstError =  true;
 const enableColorSizeValidation =  true;
+
 ---
 
 <classic-submit-order 
@@ -29,7 +33,7 @@ const enableColorSizeValidation =  true;
 </classic-submit-order>
 
 <!-- Include the modal component -->
-<ClassicModalPurchaseInfo />
+<ClassicModalPurchaseInfo  is-Have-Variant={isHaveVariant} purchaseOptions={purchaseOptions} />
 
 <script>
   import "./ClassicSubmitOrderButton";

@@ -9,6 +9,7 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 // DATA INITIALIZATION & PROCESSING
 const data: BlockData = Astro.props.data;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const isHaveVariant: string = Astro.props.isHaveVariant;
 
 // Get initial language from cookie during SSR
@@ -296,7 +297,7 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
         </div>
       </div>
       <!-- SUBMIT BUTTON SECTION -->
-      <ClassicSubmitOrderButton isHaveVariant={isHaveVariant}  />
+      <ClassicSubmitOrderButton purchaseOptions={purchaseOptions} isHaveVariant={isHaveVariant}  />
     </form>
   </div>
 </section>
