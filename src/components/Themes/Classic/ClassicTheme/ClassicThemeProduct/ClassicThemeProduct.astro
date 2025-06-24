@@ -13,6 +13,7 @@ import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields
 import ClassicGalleryComponent from "../UI/ClassicGallery/ClassicGalleryComponent.astro";
 import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
 import ClassicSelectionOptionsWithoutBundles from "../UI/ClassicSelectionOptionsVariantWithoutBundles/classicSelectionOptionsWithoutBundles.astro";
+import ClassicProductCosts from "../UI/ClassicProductCosts/classicProductCosts.astro";
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
@@ -185,6 +186,9 @@ function isComponentDataAvailable(
                       product={product}
                     />
                   </div>
+                  <div class="w-full">
+                    <ClassicProductCosts hasBundles="false" />
+                  </div>
                 )}
               </>
             );
@@ -230,5 +234,4 @@ function isComponentDataAvailable(
 
 <script>
   import "./ClassicThemeProduct";
-
 </script>

@@ -1,0 +1,50 @@
+/* === Purchase Options === */
+.classic-purchase-options {
+    background-color: var(--classic-color-surface);
+    padding: var(--classic-section-padding);
+    border-radius: var(--classic-section-radius);
+    overflow: hidden;
+}
+
+.classic-purchase-options-body {
+    border-bottom: 1px solid var(--classic-color-outline);
+}
+
+.classic-purchase-row {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--classic-color-outline-variant);
+}
+
+.classic-purchase-label {
+    color: var(--classic-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.classic-purchase-value {
+    color: var(--classic-color-on-surface);
+    font-weight: 600;
+}
+
+.classic-purchase-discount {
+    color: var(--classic-color-success);
+    font-weight: 600;
+}
+
+.classic-purchase-total-section {
+    background-color: var(--classic-color-info-light);
+    padding: 1rem 1.5rem;
+    border-top: 2px solid var(--classic-color-info);
+    margin-bottom: 0.75rem;
+}
+
+.classic-purchase-total-label {
+    color: var(--classic-color-on-info);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.classic-purchase-total-value {
+    color: var(--classic-color-on-info);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
