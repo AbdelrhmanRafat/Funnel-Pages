@@ -41,7 +41,7 @@ class ClassicPurchaseModal extends HTMLElement {
   
   // Observer subjects - centralized access
   private subjects = {
-    colorSize: CustomOptionSubject.getInstance(),
+    customOptions: CustomOptionSubject.getInstance(),
     quantity: QuantityOptionsSubject.getInstance(),
     formFields: FormFieldsSubject.getInstance(),
     delivery: DeliveryOptionsSubject.getInstance(),
@@ -242,7 +242,7 @@ class ClassicPurchaseModal extends HTMLElement {
       this.dispatchCustomEvent('data-loading-start');
 
       const states = {
-        colorSize: this.subjects.colorSize.getState(),
+        customOptions: this.subjects.customOptions.getState(),
         quantity: this.subjects.quantity.getState(),
         formFields: this.subjects.formFields.getState(),
         payment: this.subjects.payment.getState(),
@@ -250,7 +250,7 @@ class ClassicPurchaseModal extends HTMLElement {
       };
       
       this.populateQuantityInfo(states.quantity.selectedItem);
-      this.populateColorSizeInfo(states.colorSize.options);
+      this.populateCustomOptions(states.customOptions.options);
       this.populateCustomerInfo(states.formFields.formData, states.payment.selectedPaymentOptionValue ?? "");
       
       this.dispatchCustomEvent('data-loaded', states);
@@ -293,11 +293,11 @@ class ClassicPurchaseModal extends HTMLElement {
     }
   }
 
-  private populateColorSizeInfo(colorSizeOptions: CustomOption[]): void {
+  private populateCustomOptions(customOptions: CustomOption[]): void {
     const container = this.elements.selectionItemsContainer;
-    if (!container || !colorSizeOptions) return;
+    if (!container || !customOptions) return;
 
-    container.innerHTML = colorSizeOptions.map(option => `
+    container.innerHTML = customOptions.map(option => `
       <div class="classic-selection-item">
           <div class="classic-panel-info">القطعة ${option.panelIndex}</div>
           <div class="classic-color-display"><span>${option.firstOption ?? ""}</span></div>

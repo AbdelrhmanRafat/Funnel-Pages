@@ -1,25 +1,18 @@
 ---
-// This component displays the main product details page for the Classic theme.
-// It includes a gallery, product information (name, price, description), and purchase options.
-// Props:
-// - product: An object of type Product, containing all details about the product.
-// - purchaseOptions: An object of type BlockData, containing data for the purchase options/funnel.
 import "./ClassicThemeProduct.css";
 import type {
   BlockData,
-  OptionOption,
   Product,
 } from "../../../../../lib/api/types";
 import ClassicThemeProductFunnel from "../ClassicThemeProductFunnel/ClassicThemeProductFunnel.astro";
-import "./ClassicThemeProduct.css";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
-import { ClassicProductInfoComponents } from "../../../../../lib/constants/themes";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { ClassicProductInfoComponents } from "../../../../../lib/constants/themes";
 import ClassicThemeRates from "../ClassicThemeRates/ClassicThemeRates.astro";
 import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
 import ClassicGalleryComponent from "../UI/ClassicGallery/ClassicGalleryComponent.astro";
 import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
-import ClassicDynamicPannelContainer from "../UI/ClassicDynamicPanelContainer/ClassicDynamicPannelContainer.astro";
+import ClassicSectionOptionsWithoutBundles from "../UI/ClassicSectionOptionsVariantWithoutBundles/classicSectionOptionsWithoutBundles.astro";
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
@@ -188,10 +181,8 @@ function isComponentDataAvailable(
                 </div>
                 {isHaveVariant == "true" && !purchaseOptions && (
                   <div class="w-full">
-                    <ClassicDynamicPannelContainer
+                    <ClassicSectionOptionsWithoutBundles
                       product={product}
-                      key={0}
-                      panel-index={1}
                     />
                   </div>
                 )}
@@ -238,17 +229,4 @@ function isComponentDataAvailable(
 
 <script>
   import "./ClassicThemeProduct";
-  
-  // Initialize ColorSizeOptionsSubject when variants exist but no purchase options
-  document.addEventListener('DOMContentLoaded', () => {
-    const isHaveVariant = document.querySelector('[data-has-variants="true"]');
-    const hasPurchaseOptions = document.querySelector('offer-selector');
-    
-    if (true) {
-      import('../../../../../lib/patterns/Observers/custom-option-observer').then(({ CustomOptionSubject }) => {
-        const colorSizeSubject = CustomOptionSubject.getInstance();
-        colorSizeSubject.initializePanels(1);
-      });
-    }
-  });
 </script>

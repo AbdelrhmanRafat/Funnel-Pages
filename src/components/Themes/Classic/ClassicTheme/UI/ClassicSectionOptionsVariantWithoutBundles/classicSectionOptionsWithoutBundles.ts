@@ -86,7 +86,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     this.secondOptionElements = this.querySelectorAll('[data-option-type="second"]');
     this.firstOptionDisplay = this.querySelector('[data-selected-first-option]');
     this.secondOptionDisplay = this.querySelector('[data-selected-second-option]');
-    
+    this.customOptionSubject.initializePanels(1);
     console.log('🔍 Found elements:', {
       firstOptions: this.firstOptionElements?.length || 0,
       secondOptions: this.secondOptionElements?.length || 0,

@@ -145,6 +145,9 @@ export const translations = {
     ConfirmOrder : {
       button : "Confirm Order",
     },
+    Headers : {
+      more : "more"
+    },
     celebration: {
       orderConfirmed: "🎉 Order Confirmed Successfully!",
       thankYou: "Thank You for Your Purchase!",
@@ -167,6 +170,9 @@ export const translations = {
     },
     CTA : {
      button : "شراء المنتج الآن",
+    },
+     Headers : {
+      more : "المزيد"
     },
      ConfirmOrder : {
       button : "تأكيد الطلب",
