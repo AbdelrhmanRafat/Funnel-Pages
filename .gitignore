@@ -1,8 +1,8 @@
 # build output
 dist/
 
-#Enviroment file
-src/Enviroment
+# Enviroment folder
+src/Enviroment/
 
 # generated types
 .astro/

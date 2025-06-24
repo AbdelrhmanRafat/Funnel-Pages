@@ -32,13 +32,19 @@ const mockDataMap = {
 export async function getFunnelPage(
   dataType: FunnelDataType = FunnelDataType.PRODUCT_WITH_VARIANTS_AND_BUNDLES
 ): Promise<FunnelRes> {
-  // For local development, use mock data
-  if (import.meta.env.DEV) {
+  // Check multiple ways the environment variable might be set
+  const shouldUseMockData = 
+    import.meta.env.DEV || 
+    import.meta.env.USE_MOCK_DATA === 'true' ||
+    import.meta.env.VITE_USE_MOCK_DATA === 'true';
+  
+  if (shouldUseMockData) {
+    console.log('Using mock data:', dataType);
     const selectedData = mockDataMap[dataType];
     return selectedData as FunnelRes;
   }
-
-  // For production, use the API
+  
+  console.log('Using API call');
   const res = await fetch(`${baseUrl}`, {
     headers: headers,
   });
