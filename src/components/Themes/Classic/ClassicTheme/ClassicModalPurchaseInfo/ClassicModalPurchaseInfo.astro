@@ -60,33 +60,75 @@ const hasBundles = purchaseOptions !== undefined;
               </div>
 
               <!-- Enhanced Quantity Information -->
-              <div
-                data-modal-quantity-info
-                class="classic-summary-section"
-              >
-                <div class="classic-summary-grid">
-                  <div class="classic-summary-column">
-                    <div class="classic-summary-item">
-                      <span class="classic-summary-label" data-translate="modal.orderType"></span>
-                      <span class="classic-summary-value" data-modal-order-title></span>
+              {hasBundles ? (
+                <!-- Bundle-based Quantity Information -->
+                <div
+                  data-modal-quantity-info
+                  class="classic-summary-section"
+                >
+                  <div class="classic-summary-grid">
+                    <div class="classic-summary-column">
+                      <div class="classic-summary-item">
+                        <span class="classic-summary-label" data-translate="modal.orderType"></span>
+                        <span class="classic-summary-value" data-modal-order-title></span>
+                      </div>
+                      <div class="classic-summary-item">
+                        <span class="classic-summary-label" data-translate="modal.itemsCount"></span>
+                        <span class="classic-summary-value" data-modal-items-count></span>
+                      </div>
                     </div>
-                    <div class="classic-summary-item">
-                      <span class="classic-summary-label" data-translate="modal.itemsCount"></span>
-                      <span class="classic-summary-value" data-modal-items-count></span>
-                    </div>
-                  </div>
-                  <div class="classic-summary-column">
-                    <div class="classic-summary-item">
-                      <span class="classic-summary-label" data-translate="modal.pricePerItem"></span>
-                      <span class="classic-summary-value" data-modal-price-per-item></span>
-                    </div>
-                    <div class="classic-summary-item">
-                      <span class="classic-summary-label" data-translate="modal.discount"></span>
-                      <span class="classic-summary-value classic-discount-info" data-modal-discount-info></span>
+                    <div class="classic-summary-column">
+                      <div class="classic-summary-item">
+                        <span class="classic-summary-label" data-translate="modal.pricePerItem"></span>
+                        <span class="classic-summary-value" data-modal-price-per-item></span>
+                      </div>
+                      <div class="classic-summary-item">
+                        <span class="classic-summary-label" data-translate="modal.discount"></span>
+                        <span class="classic-summary-value classic-discount-info" data-modal-discount-info></span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <!-- Non-Bundle Direct Purchase Information -->
+                <div
+                  data-modal-direct-purchase-info
+                  class="classic-summary-section classic-direct-purchase-section"
+                >
+                  <div class="classic-section-header">
+                    <div class="classic-section-icon classic-icon-direct">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                      </svg>
+                    </div>
+                    <h5 class="classic-subsection-title" data-translate="modal.directPurchaseDetails"></h5>
+                  </div>
+
+                  <!-- Direct Purchase Items List -->
+                  <div
+                    data-modal-direct-items-container
+                    class="classic-direct-items-list"
+                  >
+                    <!-- Dynamic content populated by JavaScript -->
+                  </div>
+
+                  <!-- Direct Purchase Summary -->
+                  <div class="classic-direct-summary">
+                    <div class="classic-direct-summary-item">
+                      <span class="classic-summary-label" data-translate="modal.totalQuantity"></span>
+                      <span class="classic-summary-value" data-modal-total-quantity></span>
+                    </div>
+                    <div class="classic-direct-summary-item">
+                      <span class="classic-summary-label" data-translate="modal.subtotal"></span>
+                      <span class="classic-summary-value" data-modal-subtotal></span>
+                    </div>
+                    <div class="classic-direct-summary-item">
+                      <span class="classic-summary-label" data-translate="modal.totalDiscount"></span>
+                      <span class="classic-summary-value classic-discount-info" data-modal-total-discount></span>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <!-- Enhanced Product Options Section -->
               <!-- Show only when product has variants (scenarios 1 & 2) -->

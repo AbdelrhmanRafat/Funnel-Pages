@@ -1,4 +1,5 @@
 ---
+// ClassicSelectionOptionsWithoutBundles.astro - Enhanced with new observer
 import "./classicSelectionOptionsWithoutBundles.css";
 import type { CustomOptions, Product } from "../../../../../../lib/api/types";
 import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
@@ -17,9 +18,11 @@ const allowMultipleSelection = false;
 const showSelectionIndicators = true;
 const enableAutoSelect = false;
 
-// Clean data extraction with enhanced properties
+// Clean data extraction with enhanced properties (keeping your existing structure)
 let optionData: any = null;
 const skuNoVariant = product.sku_code;
+const priceNoVariant = product.price;
+const priceAfterDiscountNoVariant = product.price_after_discount;
 
 if (isHaveVariant === "true" && customOptions) {
     // Extract options in original JSON order
@@ -40,7 +43,7 @@ if (isHaveVariant === "true" && customOptions) {
     // Detect which option should show colors
     const colorDetection = detectColorOption(firstOption, secondOption);
     
-    // Build associations for filtering with enhanced data (first → second only)
+    // Build associations for filtering with enhanced data (keeping your structure)
     const associations: any = {};
     if (firstOption && secondOption) {
         firstOption.values.forEach(firstValue => {
@@ -60,7 +63,7 @@ if (isHaveVariant === "true" && customOptions) {
         });
     }
     
-    // Create enhanced option metadata maps for quick lookups
+    // Create enhanced option metadata maps for quick lookups (keeping your structure)
     const firstOptionMetadata: any = {};
     const secondOptionMetadata: any = {};
     
@@ -88,7 +91,7 @@ if (isHaveVariant === "true" && customOptions) {
         });
     }
     
-    // Create clean data structure with enhanced metadata
+    // Create clean data structure with enhanced metadata (keeping your structure)
     optionData = {
         firstOption: firstOption ? {
             ...firstOption,
@@ -117,8 +120,8 @@ if (isHaveVariant === "true" && customOptions) {
     data-options-is-variant={isHaveVariant}
     data-option-data={optionData ? JSON.stringify(optionData) : ''}
     data-sku-no-variant={skuNoVariant}
-    data-base-price={product.price || ''}
-    data-base-price-discount={product.price_after_discount || ''}
+    data-base-price={priceNoVariant || ''}
+    data-base-price-discount={priceAfterDiscountNoVariant || ''}
     data-base-image={product.image || ''}
     data-qty-non-variant={qty_NonVariant || 1}
   >
@@ -223,7 +226,7 @@ if (isHaveVariant === "true" && customOptions) {
                 </button>
               </div>
               
-              <!-- Max quantity indicator for variants -->
+              <!-- 🆕 Enhanced max quantity indicator with automatic updates -->
               {isHaveVariant === "true" && (
                 <div class="classic-max-qty-indicator mt-2 text-sm text-gray-500" data-max-qty-display style="display: none;">
                   <span>Max available: <span data-max-qty-value class="font-medium">0</span></span>
@@ -231,7 +234,7 @@ if (isHaveVariant === "true" && customOptions) {
               )}
             </div>
             
-            <!-- Selection Status for Variants -->
+            <!-- 🆕 Enhanced Selection Status with automatic updates -->
             {isHaveVariant === "true" && (
               <div class="classic-selection-status">
                 <h4 class="text-sm font-medium text-gray-800 mb-2">Current Selection</h4>
@@ -249,6 +252,27 @@ if (isHaveVariant === "true" && customOptions) {
                     </div>
                   )}
                 </div>
+                
+                <!-- 🆕 Price display that updates automatically -->
+                <div class="classic-price-display mt-3 pt-3 border-t border-gray-200" data-price-display style="display: none;">
+                  <div class="text-sm space-y-1">
+                    <div class="flex justify-between" data-original-price-row style="display: none;">
+                      <span class="text-gray-600">Price:</span>
+                      <span class="font-medium line-through text-gray-500" data-original-price></span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Final Price:</span>
+                      <span class="font-bold text-green-600" data-final-price></span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 🆕 SKU display that updates automatically -->
+                <div class="classic-sku-display mt-2" data-sku-display style="display: none;">
+                  <div class="text-xs text-gray-500">
+                    SKU: <span data-current-sku class="font-mono"></span>
+                  </div>
+                </div>
               </div>
             )}
             
@@ -265,8 +289,25 @@ if (isHaveVariant === "true" && customOptions) {
                     <span class="text-gray-600">Available:</span>
                     <span class="font-medium text-green-600">{qty_NonVariant || 1} units</span>
                   </div>
+                  {priceNoVariant && (
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">Price:</span>
+                      <span class="font-bold text-green-600">${priceAfterDiscountNoVariant || priceNoVariant}</span>
+                    </div>
+                  )}
                 </div>
               </div>
+            )}
+            
+            <!-- 🆕 Clear selections button for variants -->
+            {isHaveVariant === "true" && (
+              <button 
+                type="button" 
+                class="classic-clear-btn w-full py-2 px-4 text-sm border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                data-clear-selections
+              >
+                Clear Selections
+              </button>
             )}
             
           </div>
@@ -279,4 +320,81 @@ if (isHaveVariant === "true" && customOptions) {
 
 <script>
   import "./classicSelectionOptionsWithoutBundles";
+  
+  // 🆕 Enhanced script for automatic price/sku updates
+  document.addEventListener('DOMContentLoaded', () => {
+    const selectOptions = document.querySelector('classic-select-options');
+    
+    if (selectOptions) {
+      // Listen for observer state changes to update price/sku displays
+      selectOptions.addEventListener('first-option-selected', (event) => {
+        updatePriceAndSkuDisplay(event.detail.observerState);
+      });
+      
+      selectOptions.addEventListener('second-option-selected', (event) => {
+        updatePriceAndSkuDisplay(event.detail.observerState);
+      });
+      
+      // Clear selections button
+      const clearBtn = document.querySelector('[data-clear-selections]');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          if (selectOptions.clearSelections) {
+            selectOptions.clearSelections();
+          }
+        });
+      }
+      
+      selectOptions.addEventListener('selections-cleared', () => {
+        hidePriceAndSkuDisplay();
+      });
+    }
+  });
+  
+  function updatePriceAndSkuDisplay(observerState) {
+    const option = observerState.option;
+    const isComplete = observerState.isSelectionComplete;
+    
+    // Update price display
+    const priceDisplay = document.querySelector('[data-price-display]');
+    const originalPriceRow = document.querySelector('[data-original-price-row]');
+    const originalPrice = document.querySelector('[data-original-price]');
+    const finalPrice = document.querySelector('[data-final-price]');
+    
+    if (priceDisplay && finalPrice) {
+      if (option.price || option.price_after_discount) {
+        priceDisplay.style.display = 'block';
+        
+        const hasDiscount = option.price && option.price_after_discount && option.price > option.price_after_discount;
+        
+        if (hasDiscount && originalPriceRow && originalPrice) {
+          originalPriceRow.style.display = 'flex';
+          originalPrice.textContent = `$${option.price}`;
+          finalPrice.textContent = `$${option.price_after_discount}`;
+        } else {
+          if (originalPriceRow) originalPriceRow.style.display = 'none';
+          finalPrice.textContent = `$${option.price_after_discount || option.price}`;
+        }
+      }
+    }
+    
+    // Update SKU display
+    const skuDisplay = document.querySelector('[data-sku-display]');
+    const currentSku = document.querySelector('[data-current-sku]');
+    
+    if (skuDisplay && currentSku && option.sku_id && isComplete) {
+      skuDisplay.style.display = 'block';
+      currentSku.textContent = option.sku_id.toString();
+    } else if (skuDisplay) {
+      skuDisplay.style.display = 'none';
+    }
+  }
+  
+  function hidePriceAndSkuDisplay() {
+    const priceDisplay = document.querySelector('[data-price-display]');
+    const skuDisplay = document.querySelector('[data-sku-display]');
+    
+    if (priceDisplay) priceDisplay.style.display = 'none';
+    if (skuDisplay) skuDisplay.style.display = 'none';
+  }
 </script>

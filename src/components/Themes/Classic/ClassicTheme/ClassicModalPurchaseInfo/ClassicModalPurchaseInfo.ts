@@ -10,6 +10,7 @@ import { DeliveryOptionsSubject } from '../../../../../lib/patterns/Observers/de
 // payment-observer.ts
 import { PaymentOptionsSubject } from '../../../../../lib/patterns/Observers/payment-observer';
 import { CustomOptionSubject, type CustomOption } from '../../../../../lib/patterns/Observers/custom-option-observer';
+import { CustomOptionsNonBundleSubject } from '../../../../../lib/patterns/Observers/custom-options-non-bundle';
 
 
 interface SelectedOffer {
@@ -35,6 +36,18 @@ interface FormField {
 interface FormData {
   [key: string]: FormField;
 }
+
+interface DirectPurchaseOption {
+  firstOption: string | null;
+  secondOption: string | null;
+  sku_id: number;
+  hex: string | null;
+  price: number;
+  price_after_discount: number;
+  qty: number;
+  image?: string | null;
+}
+
 class ClassicPurchaseModal extends HTMLElement {
   // DOM elements cache
   private elements: { [key: string]: HTMLElement | null } = {};
@@ -45,7 +58,8 @@ class ClassicPurchaseModal extends HTMLElement {
     quantity: QuantityOptionsSubject.getInstance(),
     formFields: FormFieldsSubject.getInstance(),
     delivery: DeliveryOptionsSubject.getInstance(),
-    payment: PaymentOptionsSubject.getInstance()
+    payment: PaymentOptionsSubject.getInstance(),
+    customOptionNonBundle: CustomOptionsNonBundleSubject.getInstance(),
   };
 
   // Element selectors mapping
@@ -58,6 +72,7 @@ class ClassicPurchaseModal extends HTMLElement {
     celebrationContinueButton: '[data-modal-celebration-continue-button]',
     orderNumberElement: '[data-modal-order-number]',
     selectionItemsContainer: '[data-modal-selection-items]',
+    directItemsContainer: '[data-modal-direct-items-container]',
     notesSection: '[data-modal-notes-section]'
   };
 
@@ -246,11 +261,15 @@ class ClassicPurchaseModal extends HTMLElement {
         quantity: this.subjects.quantity.getState(),
         formFields: this.subjects.formFields.getState(),
         payment: this.subjects.payment.getState(),
-        delivery: this.subjects.delivery.getState()
+        delivery: this.subjects.delivery.getState(),
+        customOptionNonBundle: this.subjects.customOptionNonBundle.getState()
       };
+      
+      console.log("zewwwwww", states.customOptionNonBundle.option);
       
       this.populateQuantityInfo(states.quantity.selectedItem);
       this.populateCustomOptions(states.customOptions.options);
+      this.populateDirectPurchaseInfo(states.customOptionNonBundle.option);
       this.populateCustomerInfo(states.formFields.formData, states.payment.selectedPaymentOptionValue ?? "");
       
       this.dispatchCustomEvent('data-loaded', states);
@@ -291,6 +310,68 @@ class ClassicPurchaseModal extends HTMLElement {
     if (quantityData.discount > 0) {
       this.querySelector('[data-modal-discount-info]')?.classList.add('classic-discount-info');
     }
+  }
+
+  private populateDirectPurchaseInfo(directOptions: any): void {
+    const container = this.elements.directItemsContainer;
+    const hasBundles = this.getAttribute('data-has-bundles') === 'true';
+    
+    if (!container || !directOptions || hasBundles) return;
+
+    console.log('Populating direct purchase info:', directOptions);
+
+    // Since directOptions is an object, not an array, we need to handle it differently
+    // Assuming directOptions has properties we can access directly
+    const quantity = directOptions.qty || 1;
+    const price = directOptions.price || 0;
+    const discountedPrice = directOptions.price_after_discount || price;
+    const itemDiscount = (price - discountedPrice) * quantity;
+    
+    const totalQuantity = quantity;
+    const totalSubtotal = price * quantity;
+    const totalDiscount = itemDiscount;
+
+    // Build options display
+    const optionsDisplay = [];
+    if (directOptions.firstOption) {
+      optionsDisplay.push(`<span class="classic-direct-option-tag">${directOptions.firstOption}</span>`);
+    }
+    if (directOptions.secondOption) {
+      optionsDisplay.push(`<span class="classic-direct-option-tag">${directOptions.secondOption}</span>`);
+    }
+    
+    const hasDiscount = price > discountedPrice;
+    
+    container.innerHTML = `
+      <div class="classic-direct-item">
+        <div class="classic-direct-item-info">
+          <div class="classic-direct-item-title">المنتج المحدد</div>
+          ${optionsDisplay.length > 0 ? `<div class="classic-direct-item-options">${optionsDisplay.join('')}</div>` : ''}
+        </div>
+        <div class="classic-direct-item-pricing">
+          <div class="classic-direct-item-price">${discountedPrice} جنيه</div>
+          ${hasDiscount ? `<div class="classic-direct-item-original-price">${price} جنيه</div>` : ''}
+          ${hasDiscount ? `<div class="classic-direct-item-discount">وفر ${price - discountedPrice} جنيه</div>` : ''}
+        </div>
+        <div class="classic-direct-item-quantity">${quantity}</div>
+      </div>
+    `;
+
+    // Update summary totals
+    this.updateElementText('[data-modal-total-quantity]', totalQuantity.toString());
+    this.updateElementText('[data-modal-subtotal]', `${totalSubtotal} جنيه`);
+    this.updateElementText('[data-modal-total-discount]', totalDiscount > 0 ? `${totalDiscount} جنيه` : 'لا يوجد خصم');
+    
+    // Update final total in the main total section
+    const finalTotal = totalSubtotal - totalDiscount;
+    this.updateElementText('[data-modal-final-total]', `${finalTotal} جنيه`);
+    
+    console.log('Direct purchase totals:', {
+      totalQuantity,
+      totalSubtotal,
+      totalDiscount,
+      finalTotal
+    });
   }
 
   private populateCustomOptions(customOptions: CustomOption[]): void {

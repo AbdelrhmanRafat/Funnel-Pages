@@ -120,7 +120,7 @@ export const translations = {
         cancelled: "Cancelled"
       }
     },
-    modal: {
+  modal: {
     "purchaseInfo": "Purchase Confirmation",
     "secureEncrypted": "Secure & Encrypted",
     "orderSummary": "Order Summary",
@@ -128,6 +128,10 @@ export const translations = {
     "itemsCount": "Items Count",
     "pricePerItem": "Price per Item",
     "discount": "Discount",
+    "directPurchaseDetails": "Direct Purchase Details",
+    "totalQuantity": "Total Quantity",
+    "subtotal": "Subtotal",
+    "totalDiscount": "Total Discount",
     "bundleOptions": "Bundle Options",
     "productOptions": "Product Options",
     "directPurchaseSelected": "✨ Selected specifications for direct purchase",
@@ -321,7 +325,7 @@ export const translations = {
         cancelled: "ملغي"
       }
     },
-    modal: {
+  modal: {
     "purchaseInfo": "تأكيد الطلب",
     "secureEncrypted": "آمن ومشفر",
     "orderSummary": "ملخص الطلب",
@@ -329,6 +333,10 @@ export const translations = {
     "itemsCount": "عدد القطع",
     "pricePerItem": "سعر القطعة",
     "discount": "الخصم",
+    "directPurchaseDetails": "تفاصيل الشراء المباشر",
+    "totalQuantity": "إجمالي الكمية",
+    "subtotal": "المجموع الفرعي",
+    "totalDiscount": "إجمالي الخصم",
     "bundleOptions": "اختيارات الباقة",
     "productOptions": "اختيارات المنتج",
     "directPurchaseSelected": "✨ تم اختيار المواصفات المطلوبة للشراء المباشر",

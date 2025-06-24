@@ -1,47 +1,10 @@
-// ClassicDynamicPannelContainer.ts - Using New CustomOptionsNonBundle Observer
+// ClassicDynamicPannelContainer.ts - Refactored with Enhanced Observer
 import type { Observer, Subject } from "../../../../../../lib/patterns/Observers/base-observer";
-import { CustomOptionsNonBundleSubject, type CustomOptionsNonBundleState } from "../../../../../../lib/patterns/Observers/custom-options-non-bundle";
-
-interface OptionData {
-  firstOption?: {
-    key: string;
-    title: string;
-    values: any[];
-    hasColors: boolean;
-  };
-  secondOption?: {
-    key: string;
-    title: string;
-    values: any[];
-    hasColors: boolean;
-  };
-  associations: { [firstValue: string]: Array<{
-    value: string, 
-    sku_id: number, 
-    hex?: string, 
-    image?: string,
-    price?: number,
-    price_after_discount?: number,
-    qty?: number
-  }> };
-  firstOptionMetadata: { [value: string]: {
-    hex?: string,
-    price?: number,
-    price_after_discount?: number,
-    image?: string,
-    qty?: number
-  } };
-  secondOptionMetadata: { [value: string]: {
-    hex?: string,
-    price?: number,
-    price_after_discount?: number,
-    image?: string,
-    qty?: number
-  } };
-  basePrice?: number;
-  basePriceAfterDiscount?: number;
-  baseImage?: string;
-}
+import { 
+  CustomOptionsNonBundleSubject, 
+  type CustomOptionsNonBundleState,
+  type YourOptionData 
+} from "../../../../../../lib/patterns/Observers/custom-options-non-bundle";
 
 interface SelectedOptions {
   first?: string;
@@ -51,9 +14,8 @@ interface SelectedOptions {
 class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptionsNonBundleState> {
   private panelIndex: number = 1;
   private isVariant: boolean = false;
-  private optionData: OptionData | null = null;
+  private optionData: YourOptionData | null = null;
   private skuNoVariant: string = "";
-  private selectedOptions: SelectedOptions = {};
   
   // Enhanced base properties
   private basePrice: number | null = null;
@@ -61,11 +23,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   private baseImage: string | null = null;
   private qtyNonVariant: number = 1;
   
-  // Quantity management
-  private currentQuantity: number = 1;
-  private maxQuantity: number = 1;
-  
-  // 🆕 NEW: Simple observer integration
+  // 🆕 Enhanced observer integration
   private customOptionsSubject: CustomOptionsNonBundleSubject;
   
   // DOM elements
@@ -109,23 +67,35 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.baseImage = this.getAttribute('data-base-image') || null;
     this.qtyNonVariant = parseInt(this.getAttribute('data-qty-non-variant') || '1') || 1;
     
-    // Set initial quantity limits based on variant status
-    if (this.isVariant) {
-      this.maxQuantity = 1; // Will be updated when options are selected
-    } else {
-      this.maxQuantity = this.qtyNonVariant;
-    }
-    
     // Parse option data
     const optionDataAttr = this.getAttribute('data-option-data');
     if (optionDataAttr && this.isVariant) {
       try {
         this.optionData = JSON.parse(optionDataAttr);
-        console.log('Parsed enhanced option data:', this.optionData);
+        
+        // Add base values to option data for the observer (for variants)
+        if (this.optionData) {
+          this.optionData.basePrice = this.basePrice;
+          this.optionData.basePriceAfterDiscount = this.basePriceAfterDiscount;
+          this.optionData.baseImage = this.baseImage;
+        }
+        
+        console.log('🔍 Parsed option data for observer:', this.optionData);
       } catch (e) {
-        console.error('Failed to parse option data:', e);
+        console.error('❌ Failed to parse option data:', e);
       }
     }
+    
+    console.log('⚙️ Settings initialized:', {
+      isVariant: this.isVariant,
+      hasOptionData: !!this.optionData,
+      nonVariantData: !this.isVariant ? {
+        sku: this.skuNoVariant,
+        price: this.basePrice,
+        priceAfterDiscount: this.basePriceAfterDiscount,
+        qty: this.qtyNonVariant
+      } : null
+    });
   }
 
   private initializeElements(): void {
@@ -141,14 +111,10 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.maxQtyDisplay = this.querySelector('[data-max-qty-display]');
     this.maxQtyValue = this.querySelector('[data-max-qty-value]');
     
-    // 🆕 Simple initialization - no panel index complexity
-    console.log('🔍 Found elements:', {
+    console.log('🔍 Elements found:', {
       firstOptions: this.firstOptionElements?.length || 0,
       secondOptions: this.secondOptionElements?.length || 0,
-      firstDisplay: !!this.firstOptionDisplay,
-      secondDisplay: !!this.secondOptionDisplay,
-      qtyInput: !!this.qtyInput,
-      qtyButtons: !!(this.qtyDecreaseBtn && this.qtyIncreaseBtn)
+      quantityControls: !!(this.qtyInput && this.qtyDecreaseBtn && this.qtyIncreaseBtn)
     });
   }
 
@@ -191,431 +157,70 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 
   private initializeState(): void {
-    // 🆕 Initialize the simple observer
-    this.customOptionsSubject.initialize();
+    // 🆕 Initialize the enhanced observer with our data structure
+    // Pass non-variant prices separately for proper handling
+    this.customOptionsSubject.initialize(
+      this.optionData,
+      this.isVariant,
+      this.qtyNonVariant,
+      this.skuNoVariant,
+      this.basePrice, // priceNoVariant
+      this.basePriceAfterDiscount // priceAfterDiscountNoVariant
+    );
     
-    if (!this.isVariant && this.skuNoVariant) {
-      // For non-variant products, set all available properties
-      this.customOptionsSubject.updateOption({
-        sku_id: parseInt(this.skuNoVariant),
+    console.log('🚀 Observer initialized with:', {
+      isVariant: this.isVariant,
+      hasOptionData: !!this.optionData,
+      baseQty: this.qtyNonVariant,
+      nonVariantPricing: !this.isVariant ? {
         price: this.basePrice,
-        price_after_discount: this.basePriceAfterDiscount,
-        image: this.baseImage,
-        qty: this.currentQuantity
-      });
-      console.log('🔧 Initialized non-variant state');
-    }
-    
-    // Initialize quantity display
-    this.updateQuantityDisplay();
-  }
-
-  // Observer implementation
-  public update(subject: Subject<CustomOptionsNonBundleState>): void {
-    console.log(subject.getState());
-      this.handleCustomOptionUpdate(subject.getState());
-    
-  }
-
-
-
-  private handleCustomOptionUpdate(state: CustomOptionsNonBundleState): void {
-    // Sync UI with observer state changes
-    const option = this.customOptionsSubject.getOption();
-    if (option) {
-      this.syncUIWithObserver(option);
-    }
-  }
-
-  private handleFirstOptionClick(element: HTMLElement): void {
-    const value = element.getAttribute('data-option-value');
-    if (!value) return;
-
-    console.log('🎯 First option selected:', value);
-
-    // Clear previous first option selection
-    this.clearFirstOptionSelections();
-    
-    // Apply selection
-    this.applySelectionStyle(element);
-    
-    // Update state
-    this.selectedOptions.first = value;
-    
-    // Update display
-    if (this.firstOptionDisplay) {
-      this.firstOptionDisplay.textContent = value;
-      console.log('✅ Updated first option display:', value);
-    }
-    
-    // Clear second options first
-    this.clearSecondOptionSelections();
-    
-    // Build comprehensive update object for first option only
-    const updateData = this.buildFirstOptionUpdate(value);
-    
-    // Update observer
-    this.customOptionsSubject.updateOption(updateData);
-    
-    // Then filter second options
-    this.filterSecondOptions(value);
-    
-    // Update quantity limits and display
-    this.updateMaxQuantityFromSelection();
-    this.updateQuantityDisplay();
-    
-    console.log('🔄 First option updated with complete data:', updateData);
-    
-    // Dispatch event
-    this.dispatchEvent(new CustomEvent('first-option-selected', {
-      detail: { 
-        panelIndex: this.panelIndex,
-        value,
-        selectedOptions: { ...this.selectedOptions },
-        updateData
-      }
-    }));
-  }
-
-  private handleSecondOptionClick(element: HTMLElement): void {
-    const value = element.getAttribute('data-option-value');
-    if (!value || element.classList.contains('classic-option-disabled')) return;
-
-    console.log('🎯 Second option selected:', value);
-
-    // Clear previous second option selection
-    this.clearSecondOptionSelections();
-    
-    // Apply selection
-    this.applySelectionStyle(element);
-    
-    // Update state
-    this.selectedOptions.second = value;
-    
-    // Update display
-    if (this.secondOptionDisplay) {
-      this.secondOptionDisplay.textContent = value;
-      console.log('✅ Updated second option display:', value);
-    }
-    
-    // Build comprehensive update object for both options
-    const updateData = this.buildCompleteUpdate();
-    
-    // Update observer
-    this.customOptionsSubject.updateOption(updateData);
-    
-    // Update quantity limits and display
-    this.updateMaxQuantityFromSelection();
-    this.updateQuantityDisplay();
-    
-    console.log('🔄 Complete selection updated with all data:', updateData);
-    
-    // Dispatch event
-    this.dispatchEvent(new CustomEvent('second-option-selected', {
-      detail: { 
-        panelIndex: this.panelIndex,
-        value,
-        selectedOptions: { ...this.selectedOptions },
-        updateData
-      }
-    }));
-  }
-
-  // Quantity Management Methods
-  private handleQuantityDecrease(): void {
-    if (this.currentQuantity > 1) {
-      this.currentQuantity--;
-      this.updateQuantityDisplay();
-      this.updateQuantityInObserver();
-    }
-  }
-
-  private handleQuantityIncrease(): void {
-    if (this.currentQuantity < this.maxQuantity) {
-      this.currentQuantity++;
-      this.updateQuantityDisplay();
-      this.updateQuantityInObserver();
-    }
-  }
-
-  private handleQuantityInput(): void {
-    if (!this.qtyInput) return;
-    
-    const value = parseInt(this.qtyInput.value) || 1;
-    this.currentQuantity = Math.max(1, Math.min(value, this.maxQuantity));
-    this.updateQuantityInObserver();
-  }
-
-  private validateQuantityInput(): void {
-    if (!this.qtyInput) return;
-    
-    // Ensure the input shows the corrected value
-    this.qtyInput.value = this.currentQuantity.toString();
-  }
-
-  private updateQuantityDisplay(): void {
-    if (this.qtyInput) {
-      this.qtyInput.value = this.currentQuantity.toString();
-      this.qtyInput.setAttribute('max', this.maxQuantity.toString());
-    }
-    
-    // Update button states
-    if (this.qtyDecreaseBtn) {
-      this.qtyDecreaseBtn.style.opacity = this.currentQuantity <= 1 ? '0.5' : '1';
-      this.qtyDecreaseBtn.style.pointerEvents = this.currentQuantity <= 1 ? 'none' : 'auto';
-    }
-    
-    if (this.qtyIncreaseBtn) {
-      this.qtyIncreaseBtn.style.opacity = this.currentQuantity >= this.maxQuantity ? '0.5' : '1';
-      this.qtyIncreaseBtn.style.pointerEvents = this.currentQuantity >= this.maxQuantity ? 'none' : 'auto';
-    }
-    
-    // Update max quantity display for variants
-    if (this.isVariant && this.maxQtyDisplay && this.maxQtyValue) {
-      if (this.selectedOptions.first || this.selectedOptions.second) {
-        this.maxQtyDisplay.style.display = 'block';
-        this.maxQtyValue.textContent = this.maxQuantity.toString();
-      } else {
-        this.maxQtyDisplay.style.display = 'none';
-      }
-    }
-    
-    console.log(`📊 Quantity updated: ${this.currentQuantity}/${this.maxQuantity}`);
-  }
-
-  private updateQuantityInObserver(): void {
-    this.customOptionsSubject.updateQuantity(this.currentQuantity);
-    console.log('📊 Updated quantity in observer:', this.currentQuantity);
-  }
-
-  private updateMaxQuantityFromSelection(): void {
-    if (!this.isVariant) {
-      // For non-variants, max quantity is always the product quantity
-      this.maxQuantity = this.qtyNonVariant;
-      return;
-    }
-
-    // For variants, get quantity from selected combination
-    const combinationData = this.findCombinationData();
-    if (combinationData && combinationData.qty !== undefined) {
-      this.maxQuantity = combinationData.qty;
-    } else {
-      // Fallback to checking individual option quantities
-      let maxFromOptions = 1;
-      
-      if (this.selectedOptions.second && this.optionData?.secondOptionMetadata?.[this.selectedOptions.second]) {
-        const secondMetadata = this.optionData.secondOptionMetadata[this.selectedOptions.second];
-        if (secondMetadata.qty !== undefined) {
-          maxFromOptions = secondMetadata.qty;
-        }
-      } else if (this.selectedOptions.first && this.optionData?.firstOptionMetadata?.[this.selectedOptions.first]) {
-        const firstMetadata = this.optionData.firstOptionMetadata[this.selectedOptions.first];
-        if (firstMetadata.qty !== undefined) {
-          maxFromOptions = firstMetadata.qty;
-        }
-      }
-      
-      this.maxQuantity = maxFromOptions;
-    }
-    
-    // Ensure current quantity doesn't exceed new max
-    if (this.currentQuantity > this.maxQuantity) {
-      this.currentQuantity = this.maxQuantity;
-    }
-    
-    console.log(`📈 Max quantity updated to: ${this.maxQuantity}`);
-  }
-
-  // Build update data for first option selection only
-  private buildFirstOptionUpdate(firstValue: string): any {
-    const updateData: any = {
-      firstOption: firstValue,
-      secondOption: null,
-      sku_id: null,
-      image: null,
-      hex: null,
-      price: null,
-      price_after_discount: null,
-      qty: this.currentQuantity
-    };
-
-    // Get first option metadata if available
-    if (this.optionData?.firstOptionMetadata?.[firstValue]) {
-      const metadata = this.optionData.firstOptionMetadata[firstValue];
-      
-      // Only set properties from first option if they exist
-      if (metadata.hex !== undefined) updateData.hex = metadata.hex;
-      if (metadata.price !== undefined) updateData.price = metadata.price;
-      if (metadata.price_after_discount !== undefined) updateData.price_after_discount = metadata.price_after_discount;
-      if (metadata.image !== undefined) updateData.image = metadata.image;
-      if (metadata.qty !== undefined) updateData.qty = metadata.qty;
-    }
-
-    // Fallback to base values if not set by first option
-    if (updateData.price === null) updateData.price = this.basePrice;
-    if (updateData.price_after_discount === null) updateData.price_after_discount = this.basePriceAfterDiscount;
-    if (updateData.image === null) updateData.image = this.baseImage;
-    if (updateData.qty === null) updateData.qty = this.currentQuantity;
-
-    return updateData;
-  }
-
-  // Build complete update data when both options are selected
-  private buildCompleteUpdate(): any {
-    if (!this.selectedOptions.first || !this.selectedOptions.second) {
-      return this.buildFirstOptionUpdate(this.selectedOptions.first || '');
-    }
-
-    const updateData: any = {
-      firstOption: this.selectedOptions.first,
-      secondOption: this.selectedOptions.second,
-      sku_id: null,
-      image: null,
-      hex: null,
-      price: null,
-      price_after_discount: null,
-      qty: this.currentQuantity
-    };
-
-    // Find the matching combination data
-    const combinationData = this.findCombinationData();
-    if (combinationData) {
-      updateData.sku_id = combinationData.sku_id;
-      if (combinationData.hex !== undefined) updateData.hex = combinationData.hex;
-      if (combinationData.price !== undefined) updateData.price = combinationData.price;
-      if (combinationData.price_after_discount !== undefined) updateData.price_after_discount = combinationData.price_after_discount;
-      if (combinationData.image !== undefined) updateData.image = combinationData.image;
-      if (combinationData.qty !== undefined) updateData.qty = combinationData.qty;
-    }
-
-    // Fallback to second option metadata if combination doesn't have the data
-    if (this.optionData?.secondOptionMetadata?.[this.selectedOptions.second]) {
-      const secondMetadata = this.optionData.secondOptionMetadata[this.selectedOptions.second];
-      
-      if (updateData.hex === null && secondMetadata.hex !== undefined) updateData.hex = secondMetadata.hex;
-      if (updateData.price === null && secondMetadata.price !== undefined) updateData.price = secondMetadata.price;
-      if (updateData.price_after_discount === null && secondMetadata.price_after_discount !== undefined) updateData.price_after_discount = secondMetadata.price_after_discount;
-      if (updateData.image === null && secondMetadata.image !== undefined) updateData.image = secondMetadata.image;
-      if (updateData.qty === null && secondMetadata.qty !== undefined) updateData.qty = secondMetadata.qty;
-    }
-
-    // Fallback to first option metadata
-    if (this.optionData?.firstOptionMetadata?.[this.selectedOptions.first]) {
-      const firstMetadata = this.optionData.firstOptionMetadata[this.selectedOptions.first];
-      
-      if (updateData.hex === null && firstMetadata.hex !== undefined) updateData.hex = firstMetadata.hex;
-      if (updateData.price === null && firstMetadata.price !== undefined) updateData.price = firstMetadata.price;
-      if (updateData.price_after_discount === null && firstMetadata.price_after_discount !== undefined) updateData.price_after_discount = firstMetadata.price_after_discount;
-      if (updateData.image === null && firstMetadata.image !== undefined) updateData.image = firstMetadata.image;
-      if (updateData.qty === null && firstMetadata.qty !== undefined) updateData.qty = firstMetadata.qty;
-    }
-
-    // Final fallback to base values
-    if (updateData.price === null) updateData.price = this.basePrice;
-    if (updateData.price_after_discount === null) updateData.price_after_discount = this.basePriceAfterDiscount;
-    if (updateData.image === null) updateData.image = this.baseImage;
-    if (updateData.qty === null) updateData.qty = this.currentQuantity;
-
-    return updateData;
-  }
-
-  // Find combination data from associations
-  private findCombinationData(): any {
-    if (!this.selectedOptions.first || !this.selectedOptions.second || !this.optionData?.associations) {
-      return null;
-    }
-
-    const availableOptions = this.optionData.associations[this.selectedOptions.first];
-    return availableOptions?.find(opt => opt.value === this.selectedOptions.second) || null;
-  }
-
-  private clearFirstOptionSelections(): void {
-    if (this.firstOptionElements) {
-      this.firstOptionElements.forEach(el => {
-        el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
-      });
-    }
-  }
-
-  private clearSecondOptionSelections(): void {
-    if (this.secondOptionElements) {
-      this.secondOptionElements.forEach(el => {
-        el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
-      });
-    }
-    
-    // Clear internal state
-    this.selectedOptions.second = undefined;
-    
-    // Clear display
-    if (this.secondOptionDisplay) {
-      this.secondOptionDisplay.textContent = '';
-    }
-    
-    console.log('🧹 Cleared second option UI and internal state');
-  }
-
-  private applySelectionStyle(element: HTMLElement): void {
-    // Apply appropriate selection class based on element type
-    if (element.classList.contains('classic-color-option')) {
-      element.classList.add('classic-selected-color-option');
-    } else {
-      element.classList.add('classic-selected-size-option');
-    }
-  }
-
-  private filterSecondOptions(firstValue: string): void {
-    if (!this.optionData?.associations || !this.secondOptionElements) return;
-
-    const availableSecondOptions = this.optionData.associations[firstValue] || [];
-    const availableValues = availableSecondOptions.map(opt => opt.value);
-
-    this.secondOptionElements.forEach(element => {
-      const value = element.getAttribute('data-option-value');
-      const isAvailable = availableValues.includes(value || '');
-      
-      if (isAvailable) {
-        element.classList.remove('classic-option-disabled');
-        element.style.pointerEvents = 'auto';
-        element.style.opacity = '1';
-      } else {
-        element.classList.add('classic-option-disabled');
-        element.style.pointerEvents = 'none';
-        element.style.opacity = '0.3';
-      }
+        priceAfterDiscount: this.basePriceAfterDiscount
+      } : null
     });
-
-    console.log(`🔍 Filtered second options for "${firstValue}":`, availableValues);
   }
 
-  private syncUIWithObserver(option: any): void {
-    // Sync selections from observer state
-    console.log('🔄 Syncing UI with observer:', option);
+  // 🆕 Observer implementation - automatically handles state updates
+  public update(subject: Subject<CustomOptionsNonBundleState>): void {
+    const state = subject.getState();
+    console.log('🔄 Observer state updated:', state);
     
-    // Update internal state from observer
-    this.selectedOptions = {
-      first: option.firstOption,
-      second: option.secondOption
-    };
+    // Automatically sync UI with observer state
+    this.syncUIWithObserverState(state);
+  }
+
+  private syncUIWithObserverState(state: CustomOptionsNonBundleState): void {
+    const { option, availableSecondOptions, maxQuantity, isSelectionComplete } = state;
     
-    // Update displays
-    if (this.firstOptionDisplay) {
-      this.firstOptionDisplay.textContent = option.firstOption || '';
-      console.log('🔄 Synced first option display:', option.firstOption);
-    }
-    if (this.secondOptionDisplay) {
-      this.secondOptionDisplay.textContent = option.secondOption || '';
-      console.log('🔄 Synced second option display:', option.secondOption);
-    }
+    // Update selection displays
+    this.updateSelectionDisplays(option);
     
     // Update visual selections
     this.updateVisualSelections(option);
+    
+    // Update available options (automatic filtering)
+    this.updateAvailableOptions(state);
+    
+    // Update quantity controls
+    this.updateQuantityControls(option.qty || 1, maxQuantity);
+    
+    // Update max quantity display
+    this.updateMaxQuantityDisplay(maxQuantity, isSelectionComplete);
+    
+    console.log('✅ UI synced with observer state');
   }
 
-  private updateVisualSelections(option: any): void {
+  private updateSelectionDisplays(option: CustomOptionsNonBundle): void {
+    if (this.firstOptionDisplay) {
+      this.firstOptionDisplay.textContent = option.firstOption || 'Not selected';
+    }
+    if (this.secondOptionDisplay) {
+      this.secondOptionDisplay.textContent = option.secondOption || 'Not selected';
+    }
+  }
+
+  private updateVisualSelections(option: CustomOptionsNonBundle): void {
     // Clear all selections first
-    this.clearFirstOptionSelections();
-    this.clearSecondOptionSelections();
+    this.clearAllSelections();
 
     // Apply first option selection
     if (option.firstOption && this.firstOptionElements) {
@@ -624,8 +229,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
       );
       if (firstElement) {
         this.applySelectionStyle(firstElement);
-        // Filter second options based on first selection
-        this.filterSecondOptions(option.firstOption);
       }
     }
 
@@ -640,69 +243,257 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     }
   }
 
-  // Public API
-  public getSelectedOptions(): SelectedOptions {
-    return { ...this.selectedOptions };
-  }
+  private updateAvailableOptions(state: CustomOptionsNonBundleState): void {
+    const { availableSecondOptions } = state;
+    
+    if (!this.secondOptionElements) return;
 
-  public isSelectionComplete(): boolean {
-    if (!this.isVariant) return true;
-    
-    const hasFirst = !this.optionData?.firstOption || this.selectedOptions.first !== undefined;
-    const hasSecond = !this.optionData?.secondOption || this.selectedOptions.second !== undefined;
-    
-    return hasFirst && hasSecond;
-  }
-
-  public clearSelections(): void {
-    this.clearFirstOptionSelections();
-    this.clearSecondOptionSelections();
-    
-    this.selectedOptions = {};
-    
-    // Clear displays
-    if (this.firstOptionDisplay) {
-      this.firstOptionDisplay.textContent = '';
-    }
-    if (this.secondOptionDisplay) {
-      this.secondOptionDisplay.textContent = '';
-    }
-    
-    // Show all second options as available
-    if (this.secondOptionElements) {
-      this.secondOptionElements.forEach(element => {
+    // Update second options availability based on observer state
+    this.secondOptionElements.forEach(element => {
+      const value = element.getAttribute('data-option-value');
+      const isAvailable = availableSecondOptions.some(opt => opt.value === value && !opt.disabled);
+      
+      if (isAvailable) {
         element.classList.remove('classic-option-disabled');
+        element.classList.add('classic-option-available');
         element.style.pointerEvents = 'auto';
-        element.style.opacity = '1';
+      } else {
+        element.classList.add('classic-option-disabled');
+        element.classList.remove('classic-option-available');
+        element.style.pointerEvents = 'none';
+      }
+    });
+
+    console.log('🔄 Updated available options:', {
+      secondOptionsAvailable: availableSecondOptions.filter(opt => !opt.disabled).length
+    });
+  }
+
+  private updateQuantityControls(currentQty: number, maxQty: number): void {
+    if (this.qtyInput) {
+      this.qtyInput.value = currentQty.toString();
+      this.qtyInput.setAttribute('max', maxQty.toString());
+    }
+    
+    // Update button states
+    if (this.qtyDecreaseBtn) {
+      const isDisabled = currentQty <= 1;
+      this.qtyDecreaseBtn.style.opacity = isDisabled ? '0.5' : '1';
+      this.qtyDecreaseBtn.style.pointerEvents = isDisabled ? 'none' : 'auto';
+    }
+    
+    if (this.qtyIncreaseBtn) {
+      const isDisabled = currentQty >= maxQty;
+      this.qtyIncreaseBtn.style.opacity = isDisabled ? '0.5' : '1';
+      this.qtyIncreaseBtn.style.pointerEvents = isDisabled ? 'none' : 'auto';
+    }
+  }
+
+  private updateMaxQuantityDisplay(maxQty: number, isSelectionComplete: boolean): void {
+    if (this.isVariant && this.maxQtyDisplay && this.maxQtyValue) {
+      if (isSelectionComplete) {
+        this.maxQtyDisplay.style.display = 'block';
+        this.maxQtyValue.textContent = maxQty.toString();
+      } else {
+        this.maxQtyDisplay.style.display = 'none';
+      }
+    }
+  }
+
+  // 🆕 Simplified event handlers - observer does the heavy lifting
+  private handleFirstOptionClick(element: HTMLElement): void {
+    const value = element.getAttribute('data-option-value');
+    if (!value) return;
+
+    console.log('🎯 First option clicked:', value);
+
+    // Simply update the observer - it will handle all the logic
+    this.customOptionsSubject.updateFirstOption(value);
+    
+    // Dispatch event for external components
+    this.dispatchEvent(new CustomEvent('first-option-selected', {
+      detail: { 
+        panelIndex: this.panelIndex,
+        value,
+        observerState: this.customOptionsSubject.getState()
+      }
+    }));
+  }
+
+  private handleSecondOptionClick(element: HTMLElement): void {
+    const value = element.getAttribute('data-option-value');
+    if (!value || element.classList.contains('classic-option-disabled')) return;
+
+    console.log('🎯 Second option clicked:', value);
+
+    // Simply update the observer - it will handle all the logic
+    this.customOptionsSubject.updateSecondOption(value);
+    
+    // Dispatch event for external components
+    this.dispatchEvent(new CustomEvent('second-option-selected', {
+      detail: { 
+        panelIndex: this.panelIndex,
+        value,
+        observerState: this.customOptionsSubject.getState()
+      }
+    }));
+  }
+
+  // 🆕 Simplified quantity handlers
+  private handleQuantityDecrease(): void {
+    const currentState = this.customOptionsSubject.getState();
+    const currentQty = currentState.option.qty || 1;
+    
+    if (currentQty > 1) {
+      this.customOptionsSubject.updateQuantity(currentQty - 1);
+    }
+  }
+
+  private handleQuantityIncrease(): void {
+    const currentState = this.customOptionsSubject.getState();
+    const currentQty = currentState.option.qty || 1;
+    const maxQty = currentState.maxQuantity;
+    
+    if (currentQty < maxQty) {
+      this.customOptionsSubject.updateQuantity(currentQty + 1);
+    }
+  }
+
+  private handleQuantityInput(): void {
+    if (!this.qtyInput) return;
+    
+    const value = parseInt(this.qtyInput.value) || 1;
+    this.customOptionsSubject.updateQuantity(value);
+  }
+
+  private validateQuantityInput(): void {
+    if (!this.qtyInput) return;
+    
+    const currentState = this.customOptionsSubject.getState();
+    const currentQty = currentState.option.qty || 1;
+    
+    // Ensure the input shows the corrected value
+    this.qtyInput.value = currentQty.toString();
+  }
+
+  // UI helper methods
+  private clearAllSelections(): void {
+    // Clear first option selections
+    if (this.firstOptionElements) {
+      this.firstOptionElements.forEach(el => {
+        el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
       });
     }
     
-    // Reset quantity to 1
-    this.currentQuantity = 1;
-    this.updateQuantityDisplay();
+    // Clear second option selections
+    if (this.secondOptionElements) {
+      this.secondOptionElements.forEach(el => {
+        el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
+      });
+    }
+  }
+
+  private applySelectionStyle(element: HTMLElement): void {
+    // Apply appropriate selection class based on element type
+    if (element.classList.contains('classic-color-option')) {
+      element.classList.add('classic-selected-color-option');
+    } else {
+      element.classList.add('classic-selected-size-option');
+    }
+  }
+
+  // 🆕 Public API - much simpler now
+  public getSelectedOptions(): { first: string | null; second: string | null } {
+    const option = this.customOptionsSubject.getOption();
+    return {
+      first: option.firstOption,
+      second: option.secondOption
+    };
+  }
+
+  public isSelectionComplete(): boolean {
+    return this.customOptionsSubject.isSelectionComplete();
+  }
+
+  public clearSelections(): void {
+    this.customOptionsSubject.clearOptions();
     
-    // Clear observer state with all properties reset
-    this.customOptionsSubject.clearOption();
+    // Dispatch clear event
+    this.dispatchEvent(new CustomEvent('selections-cleared', {
+      detail: { 
+        panelIndex: this.panelIndex
+      }
+    }));
   }
 
   public getPanelIndex(): number {
     return this.panelIndex;
   }
 
-  // Additional public methods for getting current state
-  public getCurrentObserverState(): any {
-    return this.customOptionsSubject.getOption();
+  public getCurrentObserverState(): CustomOptionsNonBundleState {
+    return this.customOptionsSubject.getState();
   }
 
   public getCompleteState(): any {
     const observerState = this.getCurrentObserverState();
     return {
       panelIndex: this.panelIndex,
-      selectedOptions: this.selectedOptions,
+      selectedOptions: this.getSelectedOptions(),
       isComplete: this.isSelectionComplete(),
-      currentQuantity: this.currentQuantity,
-      maxQuantity: this.maxQuantity,
+      currentQuantity: observerState.option.qty || 1,
+      maxQuantity: observerState.maxQuantity,
       observerState
+    };
+  }
+
+  // 🆕 New method to get option data for child components
+  public getOptionDataForChildren(): {
+    firstOptions: Array<{ value: string; hex?: string; disabled: boolean }>;
+    secondOptions: Array<{ value: string; hex?: string; disabled: boolean }>;
+  } {
+    return this.customOptionsSubject.getOptionValuesForUI();
+  }
+
+  // 🆕 Method to check if specific option is available
+  public isOptionAvailable(optionType: 'first' | 'second', value: string): boolean {
+    const availableOptions = this.customOptionsSubject.getAvailableOptions();
+    
+    if (optionType === 'first') {
+      return availableOptions.firstOptions.some(opt => opt.value === value && !opt.disabled);
+    } else {
+      return availableOptions.secondOptions.some(opt => opt.value === value && !opt.disabled);
+    }
+  }
+
+  // 🆕 Method to get current price info
+  public getCurrentPriceInfo(): {
+    price: number | null;
+    priceAfterDiscount: number | null;
+    hasDiscount: boolean;
+  } {
+    const option = this.customOptionsSubject.getOption();
+    return {
+      price: option.price,
+      priceAfterDiscount: option.price_after_discount,
+      hasDiscount: !!(option.price && option.price_after_discount && option.price > option.price_after_discount)
+    };
+  }
+
+  // 🆕 Method to get current product info
+  public getCurrentProductInfo(): {
+    skuId: number | null;
+    image: string | null;
+    hex: string | null;
+    maxQuantity: number;
+  } {
+    const state = this.customOptionsSubject.getState();
+    const option = state.option;
+    
+    return {
+      skuId: option.sku_id,
+      image: option.image,
+      hex: option.hex,
+      maxQuantity: state.maxQuantity
     };
   }
 }

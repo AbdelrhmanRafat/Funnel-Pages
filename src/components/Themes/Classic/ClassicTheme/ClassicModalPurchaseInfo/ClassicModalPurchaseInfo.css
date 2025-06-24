@@ -161,8 +161,125 @@
   border-left-color: var(--classic-color-tertiary);
 }
 
-.classic-customer-section {
-  border-left-color: var(--classic-color-primary);
+.classic-direct-purchase-section {
+  border-left-color: var(--classic-color-warning);
+}
+
+.classic-icon-direct {
+  background: var(--classic-color-warning-light);
+  color: var(--classic-color-on-warning);
+}
+
+/* Direct Purchase Items List */
+.classic-direct-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.classic-direct-item {
+  background: var(--classic-color-background);
+  border: 1px solid var(--classic-color-outline);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1rem;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.classic-direct-item:hover {
+  border-color: var(--classic-color-warning);
+  box-shadow: 0 4px 12px -4px rgba(217, 119, 6, 0.2);
+}
+
+.classic-direct-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.classic-direct-item-title {
+  font-weight: 700;
+  color: var(--classic-color-on-surface);
+  font-size: 0.875rem;
+}
+
+.classic-direct-item-options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.classic-direct-option-tag {
+  padding: 0.125rem 0.5rem;
+  background: var(--classic-color-surface-container);
+  color: var(--classic-color-on-surface);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.classic-direct-item-pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0.25rem;
+}
+
+.classic-direct-item-price {
+  font-weight: 700;
+  color: var(--classic-color-on-surface);
+  font-size: 0.875rem;
+}
+
+.classic-direct-item-original-price {
+  font-size: 0.75rem;
+  color: var(--classic-color-on-surface-variant);
+  text-decoration: line-through;
+}
+
+.classic-direct-item-discount {
+  font-size: 0.75rem;
+  color: var(--classic-color-success);
+  font-weight: 600;
+}
+
+.classic-direct-item-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+  height: 2rem;
+  background: var(--classic-color-warning-light);
+  color: var(--classic-color-on-warning);
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+/* Direct Purchase Summary */
+.classic-direct-summary {
+  background: var(--classic-color-surface-variant);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--classic-color-outline);
+}
+
+.classic-direct-summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--classic-color-outline);
+}
+
+.classic-direct-summary-item:last-child {
+  border-bottom: none;
+  font-weight: 700;
+  font-size: 1.125rem;
 }
 
 /* Summary Grid */
