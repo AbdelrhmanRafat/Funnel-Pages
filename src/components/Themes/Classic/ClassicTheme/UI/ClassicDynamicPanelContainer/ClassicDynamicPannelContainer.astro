@@ -1,7 +1,7 @@
 ---
 import type { CustomOptions, Product } from "../../../../../../lib/api/types";
-import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 import "./ClassicDynamicPannelContainer.css";
+import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
 
 const product: Product = Astro.props.product;
 const panelIndex: number = Astro.props["panel-index"] || 1;
@@ -10,7 +10,7 @@ const customOptions: CustomOptions = product.custom_options;
 const nOfOptions: number = Object.keys(customOptions).length;
 // Component configuration
 const allowMultipleSelection = Astro.props.allowMultipleSelection ?? false;
-const showSelectionIndicators = Astro.props.showSelectionIndicators ?? true;
+const showSelectionIndicators = true;
 const enableAutoSelect = Astro.props.enableAutoSelect ?? false;
 
 // 🆕 Clean data extraction
@@ -37,38 +37,13 @@ if (isHaveVariant === "true" && customOptions) {
       }
     : null;
 
-  // 🆕 Updated helper function to detect if either option has colors based on direct hex presence
-  function detectColorOption(
-    firstOption: any,
-    secondOption: any,
-  ): { firstHasColors: boolean; secondHasColors: boolean } {
-    let firstHasColors = false;
-    let secondHasColors = false;
 
-    // Check if firstOption has any value with hex
-    if (firstOption?.values?.length) {
-      firstHasColors = firstOption.values.some(
-        (option: any) => option.hex && option.hex !== null,
-      );
-    }
-
-    // Check if secondOption has any value with hex
-    if (secondOption?.values?.length) {
-      secondHasColors = secondOption.values.some(
-        (option: any) => option.hex && option.hex !== null,
-      );
-    }
-
-    return { firstHasColors, secondHasColors };
-  }
-
-  // 🆕 Detect which option should show colors
   const colorDetection = detectColorOption(firstOption, secondOption);
 
   // 🆕 Build associations for filtering (first → second only)
   const associations: any = {};
   if (firstOption && secondOption) {
-    firstOption.values.forEach((firstValue) => {
+    firstOption.values.forEach((firstValue : any) => {
       const availableSecondOptions =
         firstValue.available_options?.[secondOption.key];
       if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
@@ -98,6 +73,7 @@ if (isHaveVariant === "true" && customOptions) {
     associations, // firstOption.value → secondOption items with sku_id
   };
 }
+
 ---
 
 <div id="classic-pannel-container" class="classic-pannel-container">
@@ -112,18 +88,17 @@ if (isHaveVariant === "true" && customOptions) {
     data-no-of-options={nOfOptions}
   >
     <div
-      class="option-panel classic-option-panel p-4 rounded-xl sm:rounded-3xl border"
+      class="option-panel classic-option-panel p-4 border"
     >
       <!-- Header with Selection Indicators -->
       <div
-        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0"
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 pb-3"
       >
         <div class="classic-panel-header font-bold text-lg sm:text-xl">
           <p
             class="inline"
             data-translate="dynamicPanel.selectOptionsForProduct"
           >
-            Select Options for Product
           </p>
           <span data-options-panel-index-display>{panelIndex}</span>
         </div>
@@ -149,12 +124,11 @@ if (isHaveVariant === "true" && customOptions) {
       </div>
 
       <div
-        class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6"
+        class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6 md:gap-0"
       >
-        {/* First Option Rendering */}
         {
           optionData?.firstOption && (
-            <div class="select-option-section space-y-2">
+            <div class="select-option-section md:w-1/2 space-y-2">
               <p class="classic-selection-title text-base sm:text-lg font-semibold">
                 {optionData.firstOption.title}
               </p>
@@ -162,7 +136,7 @@ if (isHaveVariant === "true" && customOptions) {
               {optionData.firstOption.hasColors ? (
                 /* Color options with swatches */
                 <div class="flex flex-wrap justify-start content-center gap-2">
-                  {optionData.firstOption.values.map((option, index) => (
+                  {optionData.firstOption.values.map((option : any, index : number) => (
                     <div
                       class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
                       data-option-type="first"
@@ -181,8 +155,8 @@ if (isHaveVariant === "true" && customOptions) {
                 </div>
               ) : (
                 /* Text-only options */
-                <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
-                  {optionData.firstOption.values.map((option, index) => (
+                <div class="md:w-full  grid grid-cols-3 gap-2 sm:gap-4 p-1">
+                  {optionData.firstOption.values.map((option : any, index : number) => (
                     <div
                       class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
                       data-option-type="first"
@@ -201,7 +175,7 @@ if (isHaveVariant === "true" && customOptions) {
         {/* Second Option Rendering */}
         {
           optionData?.secondOption && (
-            <div class="select-option-section space-y-2">
+            <div class="md:w-1/2 select-option-section space-y-2">
               <p class="classic-selection-title text-base sm:text-lg font-semibold">
                 {optionData.secondOption.title}
               </p>
@@ -209,7 +183,7 @@ if (isHaveVariant === "true" && customOptions) {
               {optionData.secondOption.hasColors ? (
                 /* Color options with swatches */
                 <div class="flex flex-wrap justify-start content-center gap-2">
-                  {optionData.secondOption.values.map((option, index) => (
+                  {optionData.secondOption.values.map((option : any, index : number) => (
                     <div
                       class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
                       data-option-type="second"
@@ -228,8 +202,8 @@ if (isHaveVariant === "true" && customOptions) {
                 </div>
               ) : (
                 /* Text-only options */
-                <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
-                  {optionData.secondOption.values.map((option, index) => (
+                <div class="w-full grid grid-cols-3 gap-2  p-1">
+                  {optionData.secondOption.values.map((option : any, index : number) => (
                     <div
                       class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
                       data-option-type="second"

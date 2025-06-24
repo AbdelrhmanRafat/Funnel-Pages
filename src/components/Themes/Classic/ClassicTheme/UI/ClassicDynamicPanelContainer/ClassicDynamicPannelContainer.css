@@ -178,12 +178,6 @@
   transition: all 0.2s ease;
 }
 
-/* Accessibility improvements */
-.classic-option-disabled {
-  /* Screen readers should know this is disabled */
-  aria-disabled: true;
-}
-
 /* Focus states for keyboard navigation */
 .classic-size-option:focus,
 .classic-color-option:focus {
