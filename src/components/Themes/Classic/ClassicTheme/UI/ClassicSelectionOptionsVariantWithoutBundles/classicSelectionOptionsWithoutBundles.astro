@@ -5,17 +5,19 @@ import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-ut
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 import ClassicColorOptionsWithoutBundles from "./Color Options/ClassicColorOptionsWithoutBundles.astro";
 import ClassicTextOptionsWithoutBundles from "./Text Options/ClassicTextOptionsWithoutBundles.astro";
+
 const product: Product = Astro.props.product;
 const panelIndex: number = 1;
+const qty_NonVariant = product.qty;
 const isHaveVariant = product.is_have_variant;
 const customOptions: CustomOptions[] = product.custom_options;
 
 // Component configuration
 const allowMultipleSelection = false;
-const showSelectionIndicators =  true;
-const enableAutoSelect =  false;
+const showSelectionIndicators = true;
+const enableAutoSelect = false;
 
-// 🆕 Clean data extraction
+// Clean data extraction with enhanced properties
 let optionData: any = null;
 const skuNoVariant = product.sku_code;
 
@@ -35,10 +37,10 @@ if (isHaveVariant === "true" && customOptions) {
         values: optionEntries[1][1]
     } : null;
     
-    // 🆕 Detect which option should show colors
+    // Detect which option should show colors
     const colorDetection = detectColorOption(firstOption, secondOption);
     
-    // 🆕 Build associations for filtering (first → second only)
+    // Build associations for filtering with enhanced data (first → second only)
     const associations: any = {};
     if (firstOption && secondOption) {
         firstOption.values.forEach(firstValue => {
@@ -46,13 +48,47 @@ if (isHaveVariant === "true" && customOptions) {
             if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
                 associations[firstValue.value] = availableSecondOptions.map(item => ({
                     value: item.value,
+                    sku_id: item.sku_id,
+                    hex: item.hex || null,
+                    price: item.price || null,
+                    price_after_discount: item.price_after_discount || null,
+                    image: item.image || null,
+                    qty: item.qty || 1,
                     ...item
                 }));
             }
         });
     }
     
-    // 🆕 Create clean data structure
+    // Create enhanced option metadata maps for quick lookups
+    const firstOptionMetadata: any = {};
+    const secondOptionMetadata: any = {};
+    
+    if (firstOption) {
+        firstOption.values.forEach(value => {
+            firstOptionMetadata[value.value] = {
+                hex: value.hex || null,
+                price: value.price || null,
+                price_after_discount: value.price_after_discount || null,
+                image: value.image || null,
+                qty: value.qty || 1
+            };
+        });
+    }
+    
+    if (secondOption) {
+        secondOption.values.forEach(value => {
+            secondOptionMetadata[value.value] = {
+                hex: value.hex || null,
+                price: value.price || null,
+                price_after_discount: value.price_after_discount || null,
+                image: value.image || null,
+                qty: value.qty || 1
+            };
+        });
+    }
+    
+    // Create clean data structure with enhanced metadata
     optionData = {
         firstOption: firstOption ? {
             ...firstOption,
@@ -62,11 +98,16 @@ if (isHaveVariant === "true" && customOptions) {
             ...secondOption, 
             hasColors: colorDetection.secondHasColors
         } : null,
-        associations // firstOption.value → secondOption items with sku_id
+        associations,
+        firstOptionMetadata,
+        secondOptionMetadata,
+        basePrice: product.price || null,
+        basePriceAfterDiscount: product.price_after_discount || null,
+        baseImage: product.image || null
     };
-    
 }
 ---
+
 <div id="classic-pannel-container" class="classic-pannel-container">
   <classic-select-options 
     data-options-panel-index={panelIndex}
@@ -76,81 +117,161 @@ if (isHaveVariant === "true" && customOptions) {
     data-options-is-variant={isHaveVariant}
     data-option-data={optionData ? JSON.stringify(optionData) : ''}
     data-sku-no-variant={skuNoVariant}
+    data-base-price={product.price || ''}
+    data-base-price-discount={product.price_after_discount || ''}
+    data-base-image={product.image || ''}
+    data-qty-non-variant={qty_NonVariant || 1}
   >
     <div class="classic-single-option-panel p-7">
-      
-      <div class="py-2 md:py-1 flex flex-col justify-start items-start gap-8">
+      <div class="flex flex-col gap-6 lg:flex-row lg:gap-8">
         
-        {/* First Option Rendering */}
-        {optionData?.firstOption && (
-          <div class="classic-select-option-section">
-            {optionData.firstOption.hasColors ? (
-              /* Color options with swatches */
-              <div class="flex flex-wrap justify-start content-start gap-7">
-                {optionData.firstOption.values.map((option, index) => (
-                  <ClassicColorOptionsWithoutBundles 
-                  option={option}
-                  index={index}
-                  optionType="first"
-                  />
-                ))}
-              </div>
-            ) : (
-              /* Text-only options */
-              <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
-                {optionData.firstOption.values.map((option, index) => (
-                 <ClassicTextOptionsWithoutBundles 
-                  option={option},
-                  index={index},
-                  optionType = "first"
-                 />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-        
-        {/* Second Option Rendering */}
-        {optionData?.secondOption && (
-          <div class="classic-select-option-section space-y-2">            
-            {optionData.secondOption.hasColors ? (
-              /* Color options with swatches */
-              <div class="flex flex-wrap justify-start content-center gap-2">
-                {optionData.secondOption.values.map((option, index) => (
-              <ClassicColorOptionsWithoutBundles 
-                  option={option}
-                  index={index}
-                  optionType="first"
-                  />
-                ))}
-              </div>
-            ) : (
-              /* Text-only options */
-              <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
-                {optionData.secondOption.values.map((option, index) => (
-                  <ClassicTextOptionsWithoutBundles 
-                  option={option}
-                  index={index}
-                  optionType="second"
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-
-        {/* Non-variant fallback */}
-        {!isHaveVariant && (
-          <div class="select-option-section space-y-2">
-            <p class="classic-selection-title text-base sm:text-lg font-semibold">
-              Single Product
-            </p>
-            <div class="py-2 px-4 border rounded-lg bg-gray-50">
-              <span class="text-sm">SKU: {skuNoVariant}</span>
+        <!-- OPTIONS SECTION -->
+        {isHaveVariant === "true" ? (
+          <div class="flex-1">
+            <div class="space-y-6">
+              <!-- First Option -->
+              {optionData?.firstOption && (
+                <div class="classic-select-option-section">
+                  <h3 class="text-sm font-medium text-gray-700 mb-3">{optionData.firstOption.title}</h3>
+                  {optionData.firstOption.hasColors ? (
+                    <div class="flex flex-wrap gap-3">
+                      {optionData.firstOption.values.map((option, index) => (
+                        <ClassicColorOptionsWithoutBundles 
+                          option={option}
+                          index={index}
+                          optionType="first"
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {optionData.firstOption.values.map((option, index) => (
+                        <ClassicTextOptionsWithoutBundles 
+                          option={option}
+                          index={index}
+                          optionType="first"
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+              
+              <!-- Second Option -->
+              {optionData?.secondOption && (
+                <div class="classic-select-option-section">
+                  <h3 class="text-sm font-medium text-gray-700 mb-3">{optionData.secondOption.title}</h3>
+                  {optionData.secondOption.hasColors ? (
+                    <div class="flex flex-wrap gap-3">
+                      {optionData.secondOption.values.map((option, index) => (
+                        <ClassicColorOptionsWithoutBundles 
+                          option={option}
+                          index={index}
+                          optionType="second"
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {optionData.secondOption.values.map((option, index) => (
+                        <ClassicTextOptionsWithoutBundles 
+                          option={option}
+                          index={index}
+                          optionType="second"
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
-        )}
+        ) : null}
+        
+        <!-- QUANTITY SECTION -->
+        <div class="flex-1 lg:max-w-xs">
+          <div class="space-y-4">
+            
+            <!-- Quantity Controls -->
+            <div class="classic-qty-section">
+              <label class="block text-sm font-medium text-gray-700 mb-3">
+                Quantity
+              </label>
+              <div class="flex items-center gap-3">
+                <button 
+                  type="button" 
+                  class="classic-qty-btn classic-qty-decrease w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  data-qty-action="decrease"
+                >
+                  <span class="text-lg font-medium select-none">−</span>
+                </button>
+                
+                <input 
+                  type="number" 
+                  class="classic-qty-input w-20 h-10 text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
+                  value="1" 
+                  min="1" 
+                  data-qty-input
+                />
+                
+                <button 
+                  type="button" 
+                  class="classic-qty-btn classic-qty-increase w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  data-qty-action="increase"
+                >
+                  <span class="text-lg font-medium select-none">+</span>
+                </button>
+              </div>
+              
+              <!-- Max quantity indicator for variants -->
+              {isHaveVariant === "true" && (
+                <div class="classic-max-qty-indicator mt-2 text-sm text-gray-500" data-max-qty-display style="display: none;">
+                  <span>Max available: <span data-max-qty-value class="font-medium">0</span></span>
+                </div>
+              )}
+            </div>
+            
+            <!-- Selection Status for Variants -->
+            {isHaveVariant === "true" && (
+              <div class="classic-selection-status">
+                <h4 class="text-sm font-medium text-gray-800 mb-2">Current Selection</h4>
+                <div class="space-y-2 text-sm">
+                  {optionData?.firstOption && (
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">{optionData.firstOption.title}:</span>
+                      <span class="font-medium" data-selected-first-option>Not selected</span>
+                    </div>
+                  )}
+                  {optionData?.secondOption && (
+                    <div class="flex justify-between">
+                      <span class="text-gray-600">{optionData.secondOption.title}:</span>
+                      <span class="font-medium" data-selected-second-option>Not selected</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            <!-- Product Info for Non-Variants -->
+            {isHaveVariant !== "true" && (
+              <div class="classic-product-info">
+                <h4 class="text-sm font-medium text-gray-800 mb-2">Product Details</h4>
+                <div class="space-y-2 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">SKU:</span>
+                    <span class="font-medium">{skuNoVariant}</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">Available:</span>
+                    <span class="font-medium text-green-600">{qty_NonVariant || 1} units</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+          </div>
+        </div>
+        
       </div>
     </div>
   </classic-select-options>

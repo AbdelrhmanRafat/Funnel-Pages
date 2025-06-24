@@ -179,7 +179,7 @@ function isComponentDataAvailable(
                     }
                   />
                 </div>
-                {isHaveVariant == "true" && !purchaseOptions && (
+                {!purchaseOptions && (
                   <div class="w-full">
                     <ClassicSelectionOptionsWithoutBundles
                       product={product}
@@ -230,4 +230,5 @@ function isComponentDataAvailable(
 
 <script>
   import "./ClassicThemeProduct";
+
 </script>
