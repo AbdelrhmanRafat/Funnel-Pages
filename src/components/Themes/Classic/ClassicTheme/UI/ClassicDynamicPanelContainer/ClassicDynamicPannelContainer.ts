@@ -1,4 +1,4 @@
-// ClassicSelectOptions.ts - Simplified and Organized
+// ClassicSelectOptions.ts - Clean Production Version
 
 import { QuantityOptionsSubject } from "../../../../../../lib/patterns/Observers/quantity-observer";
 import type { QuantityState } from "../../../../../../lib/patterns/Observers/quantity-observer";
@@ -28,21 +28,21 @@ interface SelectedOptions {
 }
 
 class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState>, Observer<CustomOptionState> {
-  // Configuration
+  // === Configuration Properties ===
   private panelIndex: number = 1;
   private isVariant: boolean = false;
   private optionData: OptionData | null = null;
   private skuNoVariant: string = "";
   private nOfOptions: number = 0;
   
-  // State
+  // === State Management ===
   private selectedOptions: SelectedOptions = {};
   
-  // Observers
+  // === Observer Instances ===
   private quantitySubject: QuantityOptionsSubject;
   private customOptionSubject: CustomOptionSubject;
   
-  // DOM Elements
+  // === DOM Element References ===
   private firstOptionElements: NodeListOf<HTMLElement> | null = null;
   private secondOptionElements: NodeListOf<HTMLElement> | null = null;
   private firstOptionDisplay: HTMLElement | null = null;
@@ -54,20 +54,23 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     this.customOptionSubject = CustomOptionSubject.getInstance();
   }
 
-  // Lifecycle Methods
+  // === Lifecycle Methods ===
+  
   connectedCallback() {
     this.initializeSettings();
     this.initializeElements();
     this.setupEventListeners();
     this.attachToObservers();
     this.initializeState();
+    this.initializeSecondOptionsState();
   }
 
   disconnectedCallback() {
     this.detachFromObservers();
   }
 
-  // Initialization Methods
+  // === Initialization Methods ===
+  
   private initializeSettings(): void {
     this.panelIndex = parseInt(this.getAttribute('data-options-panel-index') || '1');
     this.isVariant = this.getAttribute('data-options-is-variant') === 'true';
@@ -112,12 +115,10 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
   }
 
   private initializeState(): void {
-    // Always set the number of options for this panel
     this.customOptionSubject.updatePanelOption(this.panelIndex, {
       numberOfOptions: this.nOfOptions
     });
 
-    // For non-variant products, also set the SKU
     if (!this.isVariant && this.skuNoVariant) {
       this.customOptionSubject.updatePanelOption(this.panelIndex, {
         sku_id: parseInt(this.skuNoVariant),
@@ -126,7 +127,16 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     }
   }
 
-  // Observer Implementation
+  private initializeSecondOptionsState(): void {
+    if (this.isVariant && this.optionData?.firstOption && this.optionData?.secondOption && this.secondOptionElements) {
+      this.secondOptionElements.forEach(element => {
+        this.toggleElementAvailability(element, false);
+      });
+    }
+  }
+
+  // === Observer Implementation ===
+  
   public update(subject: Subject<QuantityState | CustomOptionState>): void {
     if (subject instanceof QuantityOptionsSubject) {
       this.handleQuantityUpdate(subject.getState());
@@ -148,7 +158,8 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     }
   }
 
-  // Event Handlers
+  // === Event Handlers ===
+  
   private handleFirstOptionClick(element: HTMLElement): void {
     const value = element.getAttribute('data-option-value');
     if (!value) return;
@@ -158,16 +169,8 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     this.selectedOptions.first = value;
     this.updateOptionDisplay(this.firstOptionDisplay, value);
     
-    // Reset second option when first option changes
     this.clearSecondOptionSelections();
-    this.customOptionSubject.updatePanelOption(this.panelIndex, {
-      firstOption: value,
-      secondOption: null,
-      sku_id: null,
-      image: null,
-      numberOfOptions: this.nOfOptions
-    });
-    
+    this.updateObserverForFirstOption(value);
     this.filterSecondOptions(value);
     this.dispatchSelectionEvent('first-option-selected', value);
   }
@@ -180,11 +183,12 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     this.applySelectionStyle(element);
     this.selectedOptions.second = value;
     this.updateOptionDisplay(this.secondOptionDisplay, value);
-    this.updateObserver();
+    this.updateObserverForSecondOption();
     this.dispatchSelectionEvent('second-option-selected', value);
   }
 
-  // UI Update Methods
+  // === UI State Management ===
+  
   private clearFirstOptionSelections(): void {
     this.firstOptionElements?.forEach(el => {
       el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
@@ -222,7 +226,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     this.secondOptionElements.forEach(element => {
       const value = element.getAttribute('data-option-value');
       const isAvailable = availableValues.includes(value || '');
-      
       this.toggleElementAvailability(element, isAvailable);
     });
   }
@@ -230,10 +233,12 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
   private toggleElementAvailability(element: HTMLElement, isAvailable: boolean): void {
     if (isAvailable) {
       element.classList.remove('classic-option-disabled');
+      element.classList.add('classic-option-available');
       element.style.pointerEvents = 'auto';
       element.style.opacity = '1';
     } else {
       element.classList.add('classic-option-disabled');
+      element.classList.remove('classic-option-available');
       element.style.pointerEvents = 'none';
       element.style.opacity = '0.3';
     }
@@ -266,11 +271,47 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
       const secondElement = this.findElementByValue(this.secondOptionElements, panelOption.secondOption);
       if (secondElement) {
         this.applySelectionStyle(secondElement);
+        this.updateOptionDisplay(this.secondOptionDisplay, panelOption.secondOption);
       }
     }
   }
 
-  // Utility Methods
+  // === Observer Update Methods ===
+  
+  private updateObserverForFirstOption(value: string): void {
+    this.customOptionSubject.updatePanelOption(this.panelIndex, {
+      panelIndex: this.panelIndex,
+      firstOption: value,
+      secondOption: null,
+      sku_id: null,
+      image: null,
+      numberOfOptions: this.nOfOptions
+    });
+  }
+
+  private updateObserverForSecondOption(): void {
+    const updateData: any = {
+      panelIndex: this.panelIndex,
+      firstOption: this.selectedOptions.first || null,
+      secondOption: this.selectedOptions.second || null,
+      numberOfOptions: this.nOfOptions,
+      sku_id: null,
+      image: null
+    };
+    
+    if (this.selectedOptions.second) {
+      const skuId = this.findSkuId();
+      const imageUrl = this.findImageUrl();
+      
+      if (skuId) updateData.sku_id = skuId;
+      if (imageUrl) updateData.image = imageUrl;
+    }
+    
+    this.customOptionSubject.updatePanelOption(this.panelIndex, updateData);
+  }
+
+  // === Utility Methods ===
+  
   private findElementByValue(elements: NodeListOf<HTMLElement>, value: string): HTMLElement | undefined {
     return Array.from(elements).find(element => 
       element.getAttribute('data-option-value') === value
@@ -297,26 +338,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     return matchingOption?.image || null;
   }
 
-  private updateObserver(): void {
-    const updateData: any = {
-      firstOption: this.selectedOptions.first || null,
-      secondOption: this.selectedOptions.second || null,
-      numberOfOptions: this.nOfOptions,
-      sku_id: null,
-      image: null
-    };
-    
-    if (this.selectedOptions.second) {
-      const skuId = this.findSkuId();
-      const imageUrl = this.findImageUrl();
-      
-      if (skuId) updateData.sku_id = skuId;
-      if (imageUrl) updateData.image = imageUrl;
-    }
-    
-    this.customOptionSubject.updatePanelOption(this.panelIndex, updateData);
-  }
-
   private dispatchSelectionEvent(eventName: string, value: string): void {
     this.dispatchEvent(new CustomEvent(eventName, {
       detail: { 
@@ -327,7 +348,8 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     }));
   }
 
-  // Public API
+  // === Public API ===
+  
   public getSelectedOptions(): SelectedOptions {
     return { ...this.selectedOptions };
   }
@@ -349,11 +371,31 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     this.updateOptionDisplay(this.firstOptionDisplay, '');
     this.updateOptionDisplay(this.secondOptionDisplay, '');
     
-    this.secondOptionElements?.forEach(element => {
-      this.toggleElementAvailability(element, true);
-    });
-    
+    this.resetSecondOptionsState();
+    this.updateObserverForClear();
+  }
+
+  public getPanelIndex(): number {
+    return this.panelIndex;
+  }
+
+  // === Private Helper Methods for Clear ===
+  
+  private resetSecondOptionsState(): void {
+    if (this.isVariant && this.optionData?.firstOption && this.optionData?.secondOption) {
+      this.secondOptionElements?.forEach(element => {
+        this.toggleElementAvailability(element, false);
+      });
+    } else {
+      this.secondOptionElements?.forEach(element => {
+        this.toggleElementAvailability(element, true);
+      });
+    }
+  }
+
+  private updateObserverForClear(): void {
     this.customOptionSubject.updatePanelOption(this.panelIndex, {
+      panelIndex: this.panelIndex,
       firstOption: null,
       secondOption: null,
       numberOfOptions: this.nOfOptions,
@@ -361,13 +403,10 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
       image: null
     });
   }
-
-  public getPanelIndex(): number {
-    return this.panelIndex;
-  }
 }
 
-// Registration
+// === Component Registration ===
+
 document.addEventListener('DOMContentLoaded', () => {
   if (!customElements.get('classic-select-options')) {
     customElements.define('classic-select-options', ClassicSelectOptions);
