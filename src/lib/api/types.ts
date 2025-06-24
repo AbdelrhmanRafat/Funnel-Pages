@@ -163,7 +163,7 @@ export interface Product {
     weight: null;
     weight_type: null;
     options: ProductOption[];
-    custom_options : CustomOptions[];
+    custom_options : CustomOptions;
     category: Category;
     skus: Sku[];
     reviews : Review[];

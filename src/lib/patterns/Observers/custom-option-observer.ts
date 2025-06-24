@@ -7,6 +7,7 @@ export interface CustomOption {
   panelIndex: number;
   firstOption: string | null;
   secondOption: string | null;
+  numberOfOptions : number | null;
   sku_id: number | null;
   image: string | null;
 }
@@ -35,6 +36,7 @@ export class CustomOptionSubject extends GenericSubject<CustomOptionState> {
       options.push({
         panelIndex: i,
         firstOption: null,
+        numberOfOptions: null,
         secondOption: null,
         sku_id: null,
         image: null

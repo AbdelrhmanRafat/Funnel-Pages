@@ -1,13 +1,13 @@
 ---
 import type { CustomOptions, Product } from "../../../../../../lib/api/types";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
-import "./ClassicDynamicPannelContainer.css"
+import "./ClassicDynamicPannelContainer.css";
 
 const product: Product = Astro.props.product;
 const panelIndex: number = Astro.props["panel-index"] || 1;
 const isHaveVariant = product.is_have_variant;
 const customOptions: CustomOptions = product.custom_options;
-
+const nOfOptions: number = Object.keys(customOptions).length;
 // Component configuration
 const allowMultipleSelection = Astro.props.allowMultipleSelection ?? false;
 const showSelectionIndicators = Astro.props.showSelectionIndicators ?? true;
@@ -18,226 +18,246 @@ let optionData: any = null;
 const skuNoVariant = product.sku_code;
 
 if (isHaveVariant === "true" && customOptions) {
-    // Extract options in original JSON order
-    const optionEntries = Object.entries(customOptions);
-    
-    const firstOption = optionEntries[0] ? {
+  // Extract options in original JSON order
+  const optionEntries = Object.entries(customOptions);
+
+  const firstOption = optionEntries[0]
+    ? {
         key: optionEntries[0][0],
         title: optionEntries[0][0],
-        values: optionEntries[0][1]
-    } : null;
-    
-    const secondOption = optionEntries[1] ? {
-        key: optionEntries[1][0], 
-        title: optionEntries[1][0],
-        values: optionEntries[1][1]
-    } : null;
-    
-    // 🆕 Helper function to detect if the OTHER option has colors
-    function detectColorOption(firstOption: any, secondOption: any): { firstHasColors: boolean, secondHasColors: boolean } {
-        let firstHasColors = false;
-        let secondHasColors = false;
-        
-        // Check if first option's available_options contain hex values
-        // This means the SECOND option should show colors
-        if (firstOption && secondOption) {
-            const firstAvailableOptionsHaveHex = firstOption.values.some(option => {
-                if (!option.available_options || !option.available_options[secondOption.key]) return false;
-                return option.available_options[secondOption.key].some(item => item.hex && item.hex !== null);
-            });
-            
-            // If first option's available_options have hex, then SECOND option shows colors
-            if (firstAvailableOptionsHaveHex) {
-                secondHasColors = true;
-            }
-            
-            // Check if second option's available_options contain hex values  
-            // This means the FIRST option should show colors
-            const secondAvailableOptionsHaveHex = secondOption.values.some(option => {
-                if (!option.available_options || !option.available_options[firstOption.key]) return false;
-                return option.available_options[firstOption.key].some(item => item.hex && item.hex !== null);
-            });
-            
-            // If second option's available_options have hex, then FIRST option shows colors
-            if (secondAvailableOptionsHaveHex) {
-                firstHasColors = true;
-            }
-        }
-        
-        return { firstHasColors, secondHasColors };
-    }
-    
-    // 🆕 Detect which option should show colors
-    const colorDetection = detectColorOption(firstOption, secondOption);
-    
-    // 🆕 Build associations for filtering (first → second only)
-    const associations: any = {};
-    if (firstOption && secondOption) {
-        firstOption.values.forEach(firstValue => {
-            const availableSecondOptions = firstValue.available_options?.[secondOption.key];
-            if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
-                associations[firstValue.value] = availableSecondOptions.map(item => ({
-                    value: item.value,
-                    sku_id: item.sku_id,
-                    hex: item.hex
-                }));
-            }
-        });
-    }
-    
-    // 🆕 Create clean data structure
-    optionData = {
-        firstOption: firstOption ? {
-            ...firstOption,
-            hasColors: colorDetection.firstHasColors
-        } : null,
-        secondOption: secondOption ? {
-            ...secondOption, 
-            hasColors: colorDetection.secondHasColors
-        } : null,
-        associations // firstOption.value → secondOption items with sku_id
-    };
-    
-}
+        values: optionEntries[0][1],
+      }
+    : null;
 
+  const secondOption = optionEntries[1]
+    ? {
+        key: optionEntries[1][0],
+        title: optionEntries[1][0],
+        values: optionEntries[1][1],
+      }
+    : null;
+
+  // 🆕 Updated helper function to detect if either option has colors based on direct hex presence
+  function detectColorOption(
+    firstOption: any,
+    secondOption: any,
+  ): { firstHasColors: boolean; secondHasColors: boolean } {
+    let firstHasColors = false;
+    let secondHasColors = false;
+
+    // Check if firstOption has any value with hex
+    if (firstOption?.values?.length) {
+      firstHasColors = firstOption.values.some(
+        (option: any) => option.hex && option.hex !== null,
+      );
+    }
+
+    // Check if secondOption has any value with hex
+    if (secondOption?.values?.length) {
+      secondHasColors = secondOption.values.some(
+        (option: any) => option.hex && option.hex !== null,
+      );
+    }
+
+    return { firstHasColors, secondHasColors };
+  }
+
+  // 🆕 Detect which option should show colors
+  const colorDetection = detectColorOption(firstOption, secondOption);
+
+  // 🆕 Build associations for filtering (first → second only)
+  const associations: any = {};
+  if (firstOption && secondOption) {
+    firstOption.values.forEach((firstValue) => {
+      const availableSecondOptions =
+        firstValue.available_options?.[secondOption.key];
+      if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
+        associations[firstValue.value] = availableSecondOptions.map((item) => ({
+          value: item.value,
+          sku_id: item.sku_id,
+          hex: item.hex,
+        }));
+      }
+    });
+  }
+
+  // 🆕 Create clean data structure
+  optionData = {
+    firstOption: firstOption
+      ? {
+          ...firstOption,
+          hasColors: colorDetection.firstHasColors,
+        }
+      : null,
+    secondOption: secondOption
+      ? {
+          ...secondOption,
+          hasColors: colorDetection.secondHasColors,
+        }
+      : null,
+    associations, // firstOption.value → secondOption items with sku_id
+  };
+}
 ---
+
 <div id="classic-pannel-container" class="classic-pannel-container">
-  <classic-select-options 
+  <classic-select-options
     data-options-panel-index={panelIndex}
     data-options-allow-multiple={allowMultipleSelection}
     data-options-show-indicators={showSelectionIndicators}
     data-options-auto-select={enableAutoSelect}
     data-options-is-variant={isHaveVariant}
-    data-option-data={optionData ? JSON.stringify(optionData) : ''}
+    data-option-data={optionData ? JSON.stringify(optionData) : ""}
     data-sku-no-variant={skuNoVariant}
+    data-no-of-options={nOfOptions}
   >
-    <div class="option-panel classic-option-panel p-4 rounded-xl sm:rounded-3xl border">
+    <div
+      class="option-panel classic-option-panel p-4 rounded-xl sm:rounded-3xl border"
+    >
       <!-- Header with Selection Indicators -->
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
+      <div
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0"
+      >
         <div class="classic-panel-header font-bold text-lg sm:text-xl">
-          <p class="inline" data-translate="dynamicPanel.selectOptionsForProduct">
+          <p
+            class="inline"
+            data-translate="dynamicPanel.selectOptionsForProduct"
+          >
             Select Options for Product
           </p>
           <span data-options-panel-index-display>{panelIndex}</span>
         </div>
-        
-        {showSelectionIndicators && optionData && (
-          <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            {optionData.firstOption && (
-              <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-                <span>{optionData.firstOption.title}</span>
-                <span data-selected-first-option=""></span>
-              </div>
-            )}
-            {optionData.secondOption && (
-              <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-                <span>{optionData.secondOption.title}</span>
-                <span data-selected-second-option=""></span>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-      
-      <div class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6">
-        
-        {/* First Option Rendering */}
-        {optionData?.firstOption && (
-          <div class="select-option-section space-y-2">
-            <p class="classic-selection-title text-base sm:text-lg font-semibold">
-              {optionData.firstOption.title}
-            </p>
-            
-            {optionData.firstOption.hasColors ? (
-              /* Color options with swatches */
-              <div class="flex flex-wrap justify-start content-center gap-2">
-                {optionData.firstOption.values.map((option, index) => (
-                  <div
-                    class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
-                    data-option-type="first"
-                    data-option-value={option.value}
-                    data-option-index={index}
-                  >
-                    <div
-                      class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                      style={`background-color: ${option.hex || '#ccc'}`}
-                    ></div>
-                    <span class="classic-color-name text-xs sm:text-sm text-center">{option.value}</span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              /* Text-only options */
-              <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
-                {optionData.firstOption.values.map((option, index) => (
-                  <div
-                    class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
-                    data-option-type="first"
-                    data-option-value={option.value}
-                    data-option-index={index}
-                  >
-                    {option.value}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-        
-        {/* Second Option Rendering */}
-        {optionData?.secondOption && (
-          <div class="select-option-section space-y-2">
-            <p class="classic-selection-title text-base sm:text-lg font-semibold">
-              {optionData.secondOption.title}
-            </p>
-            
-            {optionData.secondOption.hasColors ? (
-              /* Color options with swatches */
-              <div class="flex flex-wrap justify-start content-center gap-2">
-                {optionData.secondOption.values.map((option, index) => (
-                  <div
-                    class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
-                    data-option-type="second"
-                    data-option-value={option.value}
-                    data-option-index={index}
-                  >
-                    <div
-                      class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                      style={`background-color: ${option.hex || '#ccc'}`}
-                    ></div>
-                    <span class="classic-color-name text-xs sm:text-sm text-center">{option.value}</span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              /* Text-only options */
-              <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
-                {optionData.secondOption.values.map((option, index) => (
-                  <div
-                    class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
-                    data-option-type="second"
-                    data-option-value={option.value}
-                    data-option-index={index}
-                  >
-                    {option.value}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-        
-        {/* Non-variant fallback */}
-        {!isHaveVariant && (
-          <div class="select-option-section space-y-2">
-            <p class="classic-selection-title text-base sm:text-lg font-semibold">
-              Single Product
-            </p>
-            <div class="py-2 px-4 border rounded-lg bg-gray-50">
-              <span class="text-sm">SKU: {skuNoVariant}</span>
+
+        {
+          showSelectionIndicators && optionData && (
+            <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              {optionData.firstOption && (
+                <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
+                  <span>{optionData.firstOption.title}</span>
+                  <span data-selected-first-option="" />
+                </div>
+              )}
+              {optionData.secondOption && (
+                <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
+                  <span>{optionData.secondOption.title}</span>
+                  <span data-selected-second-option="" />
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          )
+        }
+      </div>
+
+      <div
+        class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6"
+      >
+        {/* First Option Rendering */}
+        {
+          optionData?.firstOption && (
+            <div class="select-option-section space-y-2">
+              <p class="classic-selection-title text-base sm:text-lg font-semibold">
+                {optionData.firstOption.title}
+              </p>
+
+              {optionData.firstOption.hasColors ? (
+                /* Color options with swatches */
+                <div class="flex flex-wrap justify-start content-center gap-2">
+                  {optionData.firstOption.values.map((option, index) => (
+                    <div
+                      class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                      data-option-type="first"
+                      data-option-value={option.value}
+                      data-option-index={index}
+                    >
+                      <div
+                        class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                        style={`background-color: ${option.hex || "#ccc"}`}
+                      />
+                      <span class="classic-color-name text-xs sm:text-sm text-center">
+                        {option.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                /* Text-only options */
+                <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
+                  {optionData.firstOption.values.map((option, index) => (
+                    <div
+                      class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                      data-option-type="first"
+                      data-option-value={option.value}
+                      data-option-index={index}
+                    >
+                      {option.value}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )
+        }
+
+        {/* Second Option Rendering */}
+        {
+          optionData?.secondOption && (
+            <div class="select-option-section space-y-2">
+              <p class="classic-selection-title text-base sm:text-lg font-semibold">
+                {optionData.secondOption.title}
+              </p>
+
+              {optionData.secondOption.hasColors ? (
+                /* Color options with swatches */
+                <div class="flex flex-wrap justify-start content-center gap-2">
+                  {optionData.secondOption.values.map((option, index) => (
+                    <div
+                      class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                      data-option-type="second"
+                      data-option-value={option.value}
+                      data-option-index={index}
+                    >
+                      <div
+                        class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                        style={`background-color: ${option.hex || "#ccc"}`}
+                      />
+                      <span class="classic-color-name text-xs sm:text-sm text-center">
+                        {option.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                /* Text-only options */
+                <div class="grid grid-cols-3 sm:flex gap-2 sm:gap-4">
+                  {optionData.secondOption.values.map((option, index) => (
+                    <div
+                      class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                      data-option-type="second"
+                      data-option-value={option.value}
+                      data-option-index={index}
+                    >
+                      {option.value}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )
+        }
+
+        {/* Non-variant fallback */}
+        {
+          !isHaveVariant && (
+            <div class="select-option-section space-y-2">
+              <p class="classic-selection-title text-base sm:text-lg font-semibold">
+                Single Product
+              </p>
+              <div class="py-2 px-4 border rounded-lg bg-gray-50">
+                <span class="text-sm">SKU: {skuNoVariant}</span>
+              </div>
+            </div>
+          )
+        }
       </div>
     </div>
   </classic-select-options>

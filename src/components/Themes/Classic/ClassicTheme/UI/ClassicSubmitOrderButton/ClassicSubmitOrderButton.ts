@@ -266,29 +266,41 @@ class ClassicSubmitOrder extends HTMLElement {
 
     let isOptionsValid = true;
     const errorMessages: string[] = [];
+    const numberOfOptions = custonOptionState.options[0]?.numberOfOptions;
+    const lang = this.currentLang;
+
 
     for (const option of custonOptionState.options) {
-      let lang = this.currentLang;
-      console.log("Current language:", lang);
+      if (numberOfOptions === 1) {
+        if (!option.firstOption) {
+          errorMessages.push(
+            lang === 'ar'
+              ? `برجاء اختيار الخيار الأول للخيار رقم ${option.panelIndex}`
+              : `Please select the first option for item ${option.panelIndex}`
+          );
+          isOptionsValid = false;
+        }
+      } else {
+        if (!option.firstOption) {
+          errorMessages.push(
+            lang === 'ar'
+              ? `برجاء اختيار الخيار الأول للخيار رقم ${option.panelIndex}`
+              : `Please select the first option for item ${option.panelIndex}`
+          );
+          isOptionsValid = false;
+        }
 
-      if (!option.firstOption) {
-        errorMessages.push(
-          lang === 'ar'
-            ? `برجاء اختيار الخيار الأول للخيار رقم ${option.panelIndex}`
-            : `Please select the first option for item ${option.panelIndex}`
-        );
-        isOptionsValid = false;
-      }
-
-      if (!option.secondOption) {
-        errorMessages.push(
-          lang === 'ar'
-            ? `برجاء اختيار الخيار الثاني للخيار رقم ${option.panelIndex}`
-            : `Please select the second option for item ${option.panelIndex}`
-        );
-        isOptionsValid = false;
+        if (!option.secondOption) {
+          errorMessages.push(
+            lang === 'ar'
+              ? `برجاء اختيار الخيار الثاني للخيار رقم ${option.panelIndex}`
+              : `Please select the second option for item ${option.panelIndex}`
+          );
+          isOptionsValid = false;
+        }
       }
     }
+
 
 
     // Only create container if there are actual errors

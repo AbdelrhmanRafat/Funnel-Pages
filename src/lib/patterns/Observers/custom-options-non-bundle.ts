@@ -160,12 +160,6 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
         isSelectionComplete: false,
       });
     }
-
-    console.log('🆕 CustomOptionsNonBundle initialized:', { 
-      isVariant, 
-      hasData: !!optionData,
-      nonVariantPrices: !isVariant ? { priceNoVariant, priceAfterDiscountNoVariant } : null
-    });
   }
 
   private getAllFirstOptions(): AvailableOption[] {
@@ -318,14 +312,7 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
       maxQuantity,
       isSelectionComplete: isComplete,
     });
-
-    console.log('🎨 First option updated:', { 
-      value, 
-      secondOptionsCount: availableSecondOptions.length,
-      maxQuantity,
-      startingQty: currentQuantity,
-      isComplete 
-    });
+    
   }
 
   public updateSecondOption(value: string | null): void {
@@ -351,13 +338,6 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
       },
       maxQuantity,
       isSelectionComplete: isComplete,
-    });
-
-    console.log('📏 Second option updated:', { 
-      value, 
-      maxQuantity,
-      startingQty: currentQuantity,
-      isComplete 
     });
   }
 
@@ -450,7 +430,6 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
       }
     });
 
-    console.log('📊 Quantity updated:', { requested: qty, actual: validQty, max: maxQuantity });
   }
 
   public clearOptions(): void {
@@ -495,8 +474,6 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
         isSelectionComplete: false,
       });
     }
-
-    console.log('🧹 Options cleared');
   }
 
   // Convenience getters
