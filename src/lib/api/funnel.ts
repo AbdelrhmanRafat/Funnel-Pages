@@ -39,7 +39,6 @@ export async function getFunnelPage(
     import.meta.env.VITE_USE_MOCK_DATA === 'true';
   
   if (shouldUseMockData) {
-    console.log('Using mock data:', dataType);
     const selectedData = mockDataMap[dataType];
     return selectedData as FunnelRes;
   }

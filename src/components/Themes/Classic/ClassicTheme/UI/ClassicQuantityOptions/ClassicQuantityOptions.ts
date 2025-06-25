@@ -216,7 +216,7 @@ class OfferSelector extends HTMLElement {
   }
 
   private resetSelectionsInTarget(targetElements: HTMLElement): void {
-    const dynamicPanels = targetElements.querySelectorAll('classic-select-options');
+    const dynamicPanels = targetElements.querySelectorAll('classic-select-options-bundles');
     dynamicPanels.forEach(panel => {
       this.resetPanelSelections(panel as HTMLElement);
     });

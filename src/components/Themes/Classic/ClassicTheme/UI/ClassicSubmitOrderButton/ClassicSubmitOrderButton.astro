@@ -11,7 +11,7 @@ const validateOnSubmit =  true;
 const showValidationMessages =  true;
 const autoFocusFirstError =  true;
 const enableColorSizeValidation =  true;
-
+const isHaveBundles = !(purchaseOptions === undefined);
 ---
 
 <classic-submit-order 
@@ -20,6 +20,7 @@ const enableColorSizeValidation =  true;
   data-submit-auto-focus-first-error={autoFocusFirstError}
   data-submit-enable-color-size-validation={enableColorSizeValidation}
   is-Have-Variant={isHaveVariant}
+  is-Have-Bundles={isHaveBundles}
 >
   <div>
     <button

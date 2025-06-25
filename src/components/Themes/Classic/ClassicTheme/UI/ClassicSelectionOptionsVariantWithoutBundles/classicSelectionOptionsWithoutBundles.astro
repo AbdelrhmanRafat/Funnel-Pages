@@ -21,6 +21,7 @@ let optionData: any = null;
 const skuNoVariant = product.sku_code;
 const priceNoVariant = product.price;
 const priceAfterDiscountNoVariant = product.price_after_discount;
+const skus = product.skus;
 
 if (isHaveVariant === "true" && customOptions) {
     // Extract options in original JSON order
@@ -31,7 +32,6 @@ if (isHaveVariant === "true" && customOptions) {
         title: optionEntries[0][0],
         values: optionEntries[0][1]
     } : null;
-    
     const secondOption = optionEntries[1] ? {
         key: optionEntries[1][0], 
         title: optionEntries[1][0],
@@ -41,22 +41,41 @@ if (isHaveVariant === "true" && customOptions) {
     // Detect which option should show colors
     const colorDetection = detectColorOption(firstOption, secondOption);
     
-    // Build associations for filtering with enhanced data (keeping your structure)
+    // Build associations for filtering with enhanced data - FIXED to handle single option
     const associations: any = {};
-    if (firstOption && secondOption) {
+    if (firstOption) {
         firstOption.values.forEach(firstValue => {
-            const availableSecondOptions = firstValue.available_options?.[secondOption.key];
-            if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
-                associations[firstValue.value] = availableSecondOptions.map(item => ({
-                    value: item.value,
-                    sku_id: item.sku_id,
-                    hex: item.hex || null,
-                    price: item.price || null,
-                    price_after_discount: item.price_after_discount || null,
-                    image: item.image || null,
-                    qty: item.qty || 1,
-                    ...item
-                }));
+            if (secondOption) {
+                // Case 1: Both options exist - use available_options
+                const availableSecondOptions = firstValue.available_options?.[secondOption.key];
+                if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
+                    associations[firstValue.value] = availableSecondOptions.map(item => ({
+                        value: item.value,
+                        sku_id: item.sku_id,
+                        hex: item.hex || null,
+                        price: item.price || null,
+                        price_after_discount: item.price_after_discount || null,
+                        image: item.image || null,
+                        qty: item.qty || 1,
+                        ...item
+                    }));
+                }
+            } else {
+                // Case 2: Only first option exists - use SKU data or first option data
+                // Find matching SKU for this first option value
+                const matchingSku = skus.find(sku => {
+                    // Check if any option in the SKU matches the first option value
+                    return sku.options?.some(option => option.value === firstValue.value);
+                });
+                associations[firstValue.value] = [{
+                    value: firstValue.value,
+                    sku_id: matchingSku?.id || firstValue.sku_id || null,
+                    hex: matchingSku?.options?.find(opt => opt.value === firstValue.value)?.hex || firstValue.hex || null,
+                    price: matchingSku?.price || firstValue.price || null,
+                    price_after_discount: matchingSku?.price_after_discount || firstValue.price_after_discount || null,
+                    image: matchingSku?.image || firstValue.image || null,
+                    qty: matchingSku?.qty || firstValue.qty || 1
+                }];
             }
         });
     }
@@ -66,15 +85,35 @@ if (isHaveVariant === "true" && customOptions) {
     const secondOptionMetadata: any = {};
     
     if (firstOption) {
-        firstOption.values.forEach(value => {
-            firstOptionMetadata[value.value] = {
-                hex: value.hex || null,
-                price: value.price || null,
-                price_after_discount: value.price_after_discount || null,
-                image: value.image || null,
-                qty: value.qty || 1
-            };
-        });
+        if (secondOption === null) {
+            // If secondOption is null, populate firstOptionMetadata using skus data
+            firstOption.values.forEach(firstValue => {
+                // Find matching SKU for this first option value
+                const matchingSku = skus.find(sku => {
+                    // Check if any option in the SKU matches the first option value
+                    return sku.options?.some(option => option.value === firstValue.value);
+                });
+                
+                firstOptionMetadata[firstValue.value] = {
+                    hex: matchingSku?.options?.find(opt => opt.value === firstValue.value)?.hex || firstValue.hex || null,
+                    price: matchingSku?.price || firstValue.price || null,
+                    price_after_discount: matchingSku?.price_after_discount || firstValue.price_after_discount || null,
+                    image: matchingSku?.image || firstValue.image || null,
+                    qty: matchingSku?.qty || firstValue.qty || 1
+                };
+            });
+        } else {
+            // If secondOption exists, keep the current behavior
+            firstOption.values.forEach(value => {
+                firstOptionMetadata[value.value] = {
+                    hex: value.hex || null,
+                    price: value.price || null,
+                    price_after_discount: value.price_after_discount || null,
+                    image: value.image || null,
+                    qty: value.qty || 1
+                };
+            });
+        }
     }
     
     if (secondOption) {
@@ -134,7 +173,7 @@ if (isHaveVariant === "true" && customOptions) {
                   <h3 class="classic-option-title text-3xl font-medium block mb-6">{optionData.firstOption.title}</h3>
                   {optionData.firstOption.hasColors ? (
                     <div class="classic-color-grid flex flex-wrap gap-3">
-                      {optionData.firstOption.values.map((option, index) => (
+                      {optionData.firstOption.values.map((option : any, index : number) => (
                         <ClassicColorOptionsWithoutBundles 
                           option={option}
                           index={index}
@@ -144,7 +183,7 @@ if (isHaveVariant === "true" && customOptions) {
                     </div>
                   ) : (
                     <div class="classic-text-grid grid grid-cols-2 sm:grid-cols-3 gap-3">
-                      {optionData.firstOption.values.map((option, index) => (
+                      {optionData.firstOption.values.map((option : any, index : number) => (
                         <ClassicTextOptionsWithoutBundles 
                           option={option}
                           index={index}
@@ -162,7 +201,7 @@ if (isHaveVariant === "true" && customOptions) {
                   <h3 class="classic-option-title text-3xl font-medium block mb-6">{optionData.secondOption.title}</h3>
                   {optionData.secondOption.hasColors ? (
                     <div class="classic-color-grid flex flex-wrap gap-3">
-                      {optionData.secondOption.values.map((option, index) => (
+                      {optionData.secondOption.values.map((option : any, index : number) => (
                         <ClassicColorOptionsWithoutBundles 
                           option={option}
                           index={index}
@@ -172,7 +211,7 @@ if (isHaveVariant === "true" && customOptions) {
                     </div>
                   ) : (
                     <div class="classic-text-grid grid grid-cols-2 sm:grid-cols-3 gap-3">
-                      {optionData.secondOption.values.map((option, index) => (
+                      {optionData.secondOption.values.map((option : any, index : number) => (
                         <ClassicTextOptionsWithoutBundles 
                           option={option}
                           index={index}

@@ -16,12 +16,16 @@ gallerySet.add(mainImage);
 
 // Add images from skus
 for (const subImage of skus) {
-  gallerySet.add(subImage.image);
+  if (subImage.image && !subImage.image.includes('null')) {
+    gallerySet.add(subImage.image);
+  }
 }
 
 // Add images from attachments
 for (const subImage of attachments) {
-  gallerySet.add(subImage.path);
+  if (subImage.path && !subImage.path.includes('null')) {
+    gallerySet.add(subImage.path);
+  }
 }
 
 // Convert back to array if needed
