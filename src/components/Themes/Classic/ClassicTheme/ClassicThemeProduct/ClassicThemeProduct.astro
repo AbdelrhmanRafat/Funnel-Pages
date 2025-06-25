@@ -115,49 +115,57 @@ function isComponentDataAvailable(
             );
           }
 
-          // Product Header Component
+          // Product Header Component with Observer Web Component
           if (componentType === ClassicProductInfoComponents.ProductHeader) {
             return (
-              <div class="w-full flex flex-col justify-start items-start gap-2 mb-8">
-                <div class="flex items-center gap-2">
-                  <span
-                    class={
-                      product.is_active
-                        ? "classic-badge-success text-xs py-1 px-3 rounded-full font-medium"
-                        : "classic-badge-error text-xs py-1 px-3 rounded-full font-medium"
-                    }
-                    data-translate={
-                      product.is_active
-                        ? "product.available"
-                        : "product.notAvailable"
-                    }
-                  >
-                    {product.is_active
-                      ? getTranslation("product.available", currentLang)
-                      : getTranslation("product.notAvailable", currentLang)}
-                  </span>
-                  <div class="classic-product-sku text-sm">
-                    <span data-translate="product.productCode">
-                      {getTranslation("product.productCode", currentLang)}
+              <classic-product-header class="w-full"
+                data-purchase-options={!purchaseOptions}
+                data-is-have-variant={isHaveVariant}
+                data-initial-price={product.price}
+                data-initial-price-discount={product.price_after_discount}
+                data-initial-sku={product.sku_code}
+                data-current-lang={currentLang}
+              >
+                <div class="flex flex-col justify-start items-start gap-2 mb-8">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class={
+                        product.is_active
+                          ? "classic-badge-success text-xs py-1 px-3 rounded-full font-medium"
+                          : "classic-badge-error text-xs py-1 px-3 rounded-full font-medium"
+                      }
+                      data-translate={
+                        product.is_active
+                          ? "product.available"
+                          : "product.notAvailable"
+                      }
+                    >
+                      {product.is_active
+                        ? getTranslation("product.available", currentLang)
+                        : getTranslation("product.notAvailable", currentLang)}
                     </span>
-                    <span>: {product.sku_code}</span>
+                    <div class="classic-product-sku text-sm">
+                      <span data-translate="product.productCode">
+                        {getTranslation("product.productCode", currentLang)}
+                      </span>
+                      <span>: <span data-product-sku>{product.sku_code}</span></span>
+                    </div>
+                  </div>
+                  <h2 class="classic-product-title text-3xl lg:text-4xl font-bold leading-tight">
+                    {isArabic ? product.name_ar : product.name_en}
+                  </h2>
+                  <div class="flex justify-start items-center gap-4">
+                    <div class="classic-product-price flex justify-center line-through items-center gap-2 text-4xl font-bold">
+                      <span data-product-price>{product.price}</span>
+                    </div>
+                    <div class="classic-product-price flex justify-center items-center gap-2 text-4xl font-bold">
+                      <span data-product-price-discount>{product.price_after_discount}</span>
+                      <span data-translate="productFunnel.currency" />
+                    </div>
                   </div>
                 </div>
-                <h2 class="classic-product-title text-3xl lg:text-4xl font-bold leading-tight">
-                  {isArabic ? product.name_ar : product.name_en}
-                </h2>
-                <div class="flex justify-start items-center gap-4">
-                  <div class="classic-product-price flex justify-center line-through items-center gap-2 text-4xl font-bold">
-                    <span>{product.price}</span>
-                  </div>
-                  <div class="classic-product-price flex justify-center items-center gap-2 text-4xl font-bold">
-                    <span>{product.price_after_discount}</span>
-                    <span data-translate="productFunnel.currency" />
-                  </div>
-                </div>
-              </div>
+              </classic-product-header>
             );
-            
           }
           
           // Product Description Component
