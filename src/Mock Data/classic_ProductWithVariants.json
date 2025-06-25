@@ -44,7 +44,7 @@
                 "SKU_code": "6333",
                 "quantity": 4,
                 "price": 500,
-                "price_after_discount": 6,
+                "price_after_discount": 0,
                 "options": [
                     {
                         "name": "size",
@@ -84,7 +84,7 @@
                 "SKU_code": "334",
                 "quantity": 3,
                 "price": 400,
-                "price_after_discount": 8,
+                "price_after_discount": 0,
                 "options": [
                     {
                         "name": "size",
@@ -124,7 +124,7 @@
                 "SKU_code": "335",
                 "quantity": 3,
                 "price": 300,
-                "price_after_discount": 9,
+                "price_after_discount": 0,
                 "options": [
                     {
                         "name": "size",
