@@ -64,3 +64,10 @@
 .classic-scrollToTopBtn:active {
     transform: translateY(0) scale(0.95);
 }
+
+/* Remove padding on small screens (mobile) */
+@media (max-width: 640px) {
+  .classic-section {
+    padding: 8px;
+  }
+}
