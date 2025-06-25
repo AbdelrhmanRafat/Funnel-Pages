@@ -1,4 +1,5 @@
-// ClassicDynamicPanelContainer.ts - Simplified and Organized
+// ClassicSelectionOptionsWithoutBundles.ts - Enhanced with Selection Logic
+
 import type { Observer, Subject } from "../../../../../../lib/patterns/Observers/base-observer";
 import { 
   CustomOptionsNonBundleSubject, 
@@ -12,28 +13,31 @@ interface SelectedOptions {
 }
 
 class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptionsNonBundleState> {
-  // Configuration properties
+  // === Configuration Properties ===
   private panelIndex: number = 1;
   private isVariant: boolean = false;
   private optionData: YourOptionData | null = null;
   private skuNoVariant: string = "";
   
-  // Base properties
+  // === Base Properties ===
   private basePrice: number | null = null;
   private basePriceAfterDiscount: number | null = null;
   private baseImage: string | null = null;
   private qtyNonVariant: number = 1;
   
-  // Observer integration
+  // === State Management ===
+  private selectedOptions: SelectedOptions = {};
+  
+  // === Observer Integration ===
   private customOptionsSubject: CustomOptionsNonBundleSubject;
   
-  // DOM elements - Options
+  // === DOM Elements - Options ===
   private firstOptionElements: NodeListOf<HTMLElement> | null = null;
   private secondOptionElements: NodeListOf<HTMLElement> | null = null;
   private firstOptionDisplay: HTMLElement | null = null;
   private secondOptionDisplay: HTMLElement | null = null;
   
-  // DOM elements - Quantity
+  // === DOM Elements - Quantity ===
   private qtyInput: HTMLInputElement | null = null;
   private qtyDecreaseBtn: HTMLElement | null = null;
   private qtyIncreaseBtn: HTMLElement | null = null;
@@ -45,20 +49,23 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.customOptionsSubject = CustomOptionsNonBundleSubject.getInstance();
   }
 
-  // Lifecycle methods
+  // === Lifecycle Methods ===
+  
   connectedCallback() {
     this.initializeSettings();
     this.initializeElements();
     this.setupEventListeners();
     this.attachToObservers();
     this.initializeState();
+    this.initializeSecondOptionsState();
   }
 
   disconnectedCallback() {
     this.detachFromObservers();
   }
 
-  // Initialization methods
+  // === Initialization Methods ===
+  
   private initializeSettings(): void {
     this.panelIndex = parseInt(this.getAttribute('data-options-panel-index') || '1');
     this.isVariant = this.getAttribute('data-options-is-variant') === 'true';
@@ -139,7 +146,17 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     );
   }
 
-  // Observer implementation
+  private initializeSecondOptionsState(): void {
+    // Initially disable all second options if we have variant products with both options
+    if (this.isVariant && this.optionData?.firstOption && this.optionData?.secondOption && this.secondOptionElements) {
+      this.secondOptionElements.forEach(element => {
+        this.toggleElementAvailability(element, false);
+      });
+    }
+  }
+
+  // === Observer Implementation ===
+  
   public update(subject: Subject<CustomOptionsNonBundleState>): void {
     const state = subject.getState();
     this.syncUIWithObserverState(state);
@@ -148,6 +165,12 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   private syncUIWithObserverState(state: CustomOptionsNonBundleState): void {
     const { option, maxQuantity, isSelectionComplete } = state;
     
+    // Update local state
+    this.selectedOptions = {
+      first: option.firstOption || undefined,
+      second: option.secondOption || undefined
+    };
+    
     this.updateSelectionDisplays(option);
     this.updateVisualSelections(option);
     this.updateAvailableOptions(state);
@@ -155,96 +178,27 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.updateMaxQuantityDisplay(maxQuantity, isSelectionComplete);
   }
 
-  // UI Update methods
-  private updateSelectionDisplays(option: CustomOptionsNonBundle): void {
-    if (this.firstOptionDisplay) {
-      this.firstOptionDisplay.textContent = option.firstOption || 'Not selected';
-    }
-    if (this.secondOptionDisplay) {
-      this.secondOptionDisplay.textContent = option.secondOption || 'Not selected';
-    }
-  }
-
-  private updateVisualSelections(option: CustomOptionsNonBundle): void {
-    this.clearAllSelections();
-
-    if (option.firstOption && this.firstOptionElements) {
-      const firstElement = Array.from(this.firstOptionElements).find(
-        element => element.getAttribute('data-option-value') === option.firstOption
-      );
-      if (firstElement) this.applySelectionStyle(firstElement);
-    }
-
-    if (option.secondOption && this.secondOptionElements) {
-      const secondElement = Array.from(this.secondOptionElements).find(
-        element => element.getAttribute('data-option-value') === option.secondOption
-      );
-      if (secondElement) this.applySelectionStyle(secondElement);
-    }
-  }
-
-  private updateAvailableOptions(state: CustomOptionsNonBundleState): void {
-    const { availableSecondOptions } = state;
-    
-    if (!this.secondOptionElements) return;
-
-    this.secondOptionElements.forEach(element => {
-      const value = element.getAttribute('data-option-value');
-      const isAvailable = availableSecondOptions.some(opt => opt.value === value && !opt.disabled);
-      
-      if (isAvailable) {
-        element.classList.remove('classic-option-disabled');
-        element.classList.add('classic-option-available');
-        element.style.pointerEvents = 'auto';
-      } else {
-        element.classList.add('classic-option-disabled');
-        element.classList.remove('classic-option-available');
-        element.style.pointerEvents = 'none';
-      }
-    });
-  }
-
-  private updateQuantityControls(currentQty: number, maxQty: number): void {
-    if (this.qtyInput) {
-      this.qtyInput.value = currentQty.toString();
-      this.qtyInput.setAttribute('max', maxQty.toString());
-    }
-    
-    if (this.qtyDecreaseBtn) {
-      const isDisabled = currentQty <= 1;
-      this.qtyDecreaseBtn.style.opacity = isDisabled ? '0.5' : '1';
-      this.qtyDecreaseBtn.style.pointerEvents = isDisabled ? 'none' : 'auto';
-    }
-    
-    if (this.qtyIncreaseBtn) {
-      const isDisabled = currentQty >= maxQty;
-      this.qtyIncreaseBtn.style.opacity = isDisabled ? '0.5' : '1';
-      this.qtyIncreaseBtn.style.pointerEvents = isDisabled ? 'none' : 'auto';
-    }
-  }
-
-  private updateMaxQuantityDisplay(maxQty: number, isSelectionComplete: boolean): void {
-    if (this.isVariant && this.maxQtyDisplay && this.maxQtyValue) {
-      if (isSelectionComplete) {
-        this.maxQtyDisplay.style.display = 'block';
-        this.maxQtyValue.textContent = maxQty.toString();
-      } else {
-        this.maxQtyDisplay.style.display = 'none';
-      }
-    }
-  }
-
-  // Event handlers
+  // === Event Handlers ===
+  
   private handleFirstOptionClick(element: HTMLElement): void {
     const value = element.getAttribute('data-option-value');
     if (!value) return;
 
+    this.clearFirstOptionSelections();
+    this.applySelectionStyle(element);
+    this.selectedOptions.first = value;
+    this.updateOptionDisplay(this.firstOptionDisplay, value);
+    
+    // Reset second option when first option changes
+    this.clearSecondOptionSelections();
     this.customOptionsSubject.updateFirstOption(value);
+    this.filterSecondOptions(value);
     
     this.dispatchEvent(new CustomEvent('first-option-selected', {
       detail: { 
         panelIndex: this.panelIndex,
         value,
+        selectedOptions: { ...this.selectedOptions },
         observerState: this.customOptionsSubject.getState()
       }
     }));
@@ -254,12 +208,18 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     const value = element.getAttribute('data-option-value');
     if (!value || element.classList.contains('classic-option-disabled')) return;
 
+    this.clearSecondOptionSelections();
+    this.applySelectionStyle(element);
+    this.selectedOptions.second = value;
+    this.updateOptionDisplay(this.secondOptionDisplay, value);
+    
     this.customOptionsSubject.updateSecondOption(value);
     
     this.dispatchEvent(new CustomEvent('second-option-selected', {
       detail: { 
         panelIndex: this.panelIndex,
         value,
+        selectedOptions: { ...this.selectedOptions },
         observerState: this.customOptionsSubject.getState()
       }
     }));
@@ -300,15 +260,21 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.qtyInput.value = currentQty.toString();
   }
 
-  // UI Helper methods
-  private clearAllSelections(): void {
+  // === UI State Management ===
+  
+  private clearFirstOptionSelections(): void {
     this.firstOptionElements?.forEach(el => {
-      el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
+      el.classList.remove('classic-selected-color-option', 'classic-selected-size-option', 'classic-selected');
+    });
+  }
+
+  private clearSecondOptionSelections(): void {
+    this.secondOptionElements?.forEach(el => {
+      el.classList.remove('classic-selected-color-option', 'classic-selected-size-option', 'classic-selected');
     });
     
-    this.secondOptionElements?.forEach(el => {
-      el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
-    });
+    this.selectedOptions.second = undefined;
+    this.updateOptionDisplay(this.secondOptionDisplay, '');
   }
 
   private applySelectionStyle(element: HTMLElement): void {
@@ -317,9 +283,129 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     } else {
       element.classList.add('classic-selected-size-option');
     }
+    
+    // Also add the generic selected class for this component
+    element.classList.add('classic-selected');
   }
 
-  // Public API methods
+  private updateOptionDisplay(displayElement: HTMLElement | null, value: string): void {
+    if (displayElement) {
+      displayElement.textContent = value;
+    }
+  }
+
+  private filterSecondOptions(firstValue: string): void {
+    if (!this.optionData?.associations || !this.secondOptionElements) return;
+
+    const availableSecondOptions = this.optionData.associations[firstValue] || [];
+    const availableValues = availableSecondOptions.map(opt => opt.value);
+
+    this.secondOptionElements.forEach(element => {
+      const value = element.getAttribute('data-option-value');
+      const isAvailable = availableValues.includes(value || '');
+      this.toggleElementAvailability(element, isAvailable);
+    });
+  }
+
+  private toggleElementAvailability(element: HTMLElement, isAvailable: boolean): void {
+    if (isAvailable) {
+      element.classList.remove('classic-option-disabled');
+      element.classList.add('classic-option-available');
+      element.style.pointerEvents = 'auto';
+      element.style.opacity = '1';
+    } else {
+      element.classList.add('classic-option-disabled');
+      element.classList.remove('classic-option-available');
+      element.style.pointerEvents = 'none';
+      element.style.opacity = '0.3';
+    }
+  }
+
+  // === UI Update Methods ===
+  
+  private updateSelectionDisplays(option: any): void {
+    this.updateOptionDisplay(this.firstOptionDisplay, option.firstOption || '');
+    this.updateOptionDisplay(this.secondOptionDisplay, option.secondOption || '');
+  }
+
+  private updateVisualSelections(option: any): void {
+    this.clearAllSelections();
+
+    if (option.firstOption && this.firstOptionElements) {
+      const firstElement = this.findElementByValue(this.firstOptionElements, option.firstOption);
+      if (firstElement) {
+        this.applySelectionStyle(firstElement);
+        this.filterSecondOptions(option.firstOption);
+      }
+    }
+
+    if (option.secondOption && this.secondOptionElements) {
+      const secondElement = this.findElementByValue(this.secondOptionElements, option.secondOption);
+      if (secondElement) {
+        this.applySelectionStyle(secondElement);
+        this.updateOptionDisplay(this.secondOptionDisplay, option.secondOption);
+      }
+    }
+  }
+
+  private updateAvailableOptions(state: CustomOptionsNonBundleState): void {
+    const { availableSecondOptions } = state;
+    
+    if (!this.secondOptionElements) return;
+
+    this.secondOptionElements.forEach(element => {
+      const value = element.getAttribute('data-option-value');
+      const isAvailable = availableSecondOptions.some(opt => opt.value === value && !opt.disabled);
+      
+      this.toggleElementAvailability(element, isAvailable);
+    });
+  }
+
+  private updateQuantityControls(currentQty: number, maxQty: number): void {
+    if (this.qtyInput) {
+      this.qtyInput.value = currentQty.toString();
+      this.qtyInput.setAttribute('max', maxQty.toString());
+    }
+    
+    if (this.qtyDecreaseBtn) {
+      const isDisabled = currentQty <= 1;
+      this.qtyDecreaseBtn.style.opacity = isDisabled ? '0.5' : '1';
+      this.qtyDecreaseBtn.style.pointerEvents = isDisabled ? 'none' : 'auto';
+    }
+    
+    if (this.qtyIncreaseBtn) {
+      const isDisabled = currentQty >= maxQty;
+      this.qtyIncreaseBtn.style.opacity = isDisabled ? '0.5' : '1';
+      this.qtyIncreaseBtn.style.pointerEvents = isDisabled ? 'none' : 'auto';
+    }
+  }
+
+  private updateMaxQuantityDisplay(maxQty: number, isSelectionComplete: boolean): void {
+    if (this.isVariant && this.maxQtyDisplay && this.maxQtyValue) {
+      if (isSelectionComplete) {
+        this.maxQtyDisplay.style.display = 'block';
+        this.maxQtyValue.textContent = maxQty.toString();
+      } else {
+        this.maxQtyDisplay.style.display = 'none';
+      }
+    }
+  }
+
+  // === Utility Methods ===
+  
+  private findElementByValue(elements: NodeListOf<HTMLElement>, value: string): HTMLElement | undefined {
+    return Array.from(elements).find(element => 
+      element.getAttribute('data-option-value') === value
+    );
+  }
+
+  private clearAllSelections(): void {
+    this.clearFirstOptionSelections();
+    this.clearSecondOptionSelections();
+  }
+
+  // === Public API Methods ===
+  
   public getSelectedOptions(): { first: string | null; second: string | null } {
     const option = this.customOptionsSubject.getOption();
     return {
@@ -333,6 +419,13 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 
   public clearSelections(): void {
+    this.clearAllSelections();
+    this.selectedOptions = {};
+    
+    this.updateOptionDisplay(this.firstOptionDisplay, '');
+    this.updateOptionDisplay(this.secondOptionDisplay, '');
+    
+    this.resetSecondOptionsState();
     this.customOptionsSubject.clearOptions();
     
     this.dispatchEvent(new CustomEvent('selections-cleared', {
@@ -406,16 +499,30 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
       maxQuantity: state.maxQuantity
     };
   }
+
+  // === Private Helper Methods ===
+  
+  private resetSecondOptionsState(): void {
+    if (this.isVariant && this.optionData?.firstOption && this.optionData?.secondOption) {
+      this.secondOptionElements?.forEach(element => {
+        this.toggleElementAvailability(element, false);
+      });
+    } else {
+      this.secondOptionElements?.forEach(element => {
+        this.toggleElementAvailability(element, true);
+      });
+    }
+  }
 }
 
-// Custom element registration
+// === Component Registration ===
+
 document.addEventListener('DOMContentLoaded', () => {
   if (!customElements.get('classic-select-options')) {
     customElements.define('classic-select-options', ClassicSelectOptions);
   }
 });
 
-// Astro page transition support
 document.addEventListener('astro:page-load', () => {
   const selectOptions = document.querySelectorAll('classic-select-options:not(:defined)');
   selectOptions.forEach(option => {
