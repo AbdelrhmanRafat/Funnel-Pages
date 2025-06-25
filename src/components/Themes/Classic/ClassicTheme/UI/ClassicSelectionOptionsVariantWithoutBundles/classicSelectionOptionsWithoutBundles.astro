@@ -160,8 +160,8 @@ if (isHaveVariant === "true" && customOptions) {
     data-base-image={product.image || ''}
     data-qty-non-variant={qty_NonVariant || 1}
   >
-    <div class="classic-option-panel p-7 rounded-2xl shadow-2xl transition-all duration-300">
-      <div class="flex flex-col gap-6 lg:flex-row lg:gap-8">
+    <section id="classic-select-option-no-bundles">
+      <div class="flex  gap-6 flex-col-reverse">
         
         <!-- OPTIONS SECTION -->
         {isHaveVariant === "true" ? (
@@ -170,7 +170,7 @@ if (isHaveVariant === "true" && customOptions) {
               <!-- First Option -->
               {optionData?.firstOption && (
                 <div class="classic-option-group">
-                  <h3 class="classic-option-title text-3xl font-medium block mb-6">{optionData.firstOption.title}</h3>
+                  {/* <h3 class="classic-option-title text-2xl font-bold block mb-6">{optionData.firstOption.title}</h3> */}
                   {optionData.firstOption.hasColors ? (
                     <div class="classic-color-grid flex flex-wrap gap-3">
                       {optionData.firstOption.values.map((option : any, index : number) => (
@@ -198,7 +198,7 @@ if (isHaveVariant === "true" && customOptions) {
               <!-- Second Option -->
               {optionData?.secondOption && (
                 <div class="classic-option-group">
-                  <h3 class="classic-option-title text-3xl font-medium block mb-6">{optionData.secondOption.title}</h3>
+                  {/* <h3 class="classic-option-title text-2xl font-bold block mb-6">{optionData.secondOption.title}</h3> */}
                   {optionData.secondOption.hasColors ? (
                     <div class="classic-color-grid flex flex-wrap gap-3">
                       {optionData.secondOption.values.map((option : any, index : number) => (
@@ -210,7 +210,7 @@ if (isHaveVariant === "true" && customOptions) {
                       ))}
                     </div>
                   ) : (
-                    <div class="classic-text-grid grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div class="classic-text-grid flex flex-wrap justify-start content-start gap-3">
                       {optionData.secondOption.values.map((option : any, index : number) => (
                         <ClassicTextOptionsWithoutBundles 
                           option={option}
@@ -231,10 +231,30 @@ if (isHaveVariant === "true" && customOptions) {
           <div class="space-y-4">
             
             <!-- Quantity Controls -->
-            <div class="classic-qty-wrapper">
-              <label class="classic-qty-label text-3xl font-medium block mb-6" data-translate="productFunnel.quantity">
-                Quantity
+            <div>
+              <div class="flex justify-start items-center gap-1 pb-4">
+             <div>
+              <label class="classic-qty-label text-2xl font-bold" data-translate="productFunnel.maxAvailable">
               </label>
+              </div>
+                 {isHaveVariant === "true" && (
+  <div class="classic-max-qty-display classic-max-qty-indicator hidden" data-max-qty-display style="display: none;">
+    {/* <span class="classic-max-qty-text inline-block" data-translate="productFunnel.maxAvailable"></span> */}
+    <span class="inline-block ms-1">
+      <span data-max-qty-value class="classic-max-qty-value text-2xl  font-bold">0</span>
+    </span>
+  </div>
+)}
+
+{isHaveVariant === "false" && (
+  <div class="classic-max-qty-display text-2xl font-bold">
+    {/* <span class="classic-max-qty-text inline-block" data-translate="productFunnel.maxAvailable"></span> */}
+    <span class="inline-block ms-1">
+      <span data-max-qty-value class="classic-max-qty-value font-medium">{qty_NonVariant}</span>
+    </span>
+  </div>
+)}
+              </div>
               <div class="classic-qty-controls flex items-center gap-3">
                 <button 
                   type="button" 
@@ -260,24 +280,6 @@ if (isHaveVariant === "true" && customOptions) {
                   <span class="text-lg font-medium select-none">+</span>
                 </button>
               </div>
-              
-             {isHaveVariant === "true" && (
-  <div class="classic-max-qty-display classic-max-qty-indicator text-sm mt-2 hidden" data-max-qty-display style="display: none;">
-    <span class="classic-max-qty-text inline-block" data-translate="productFunnel.maxAvailable"></span>
-    <span class="inline-block ms-1">
-      <span data-max-qty-value class="classic-max-qty-value font-medium">0</span>
-    </span>
-  </div>
-)}
-
-{isHaveVariant === "false" && (
-  <div class="classic-max-qty-display text-sm mt-2">
-    <span class="classic-max-qty-text inline-block" data-translate="productFunnel.maxAvailable"></span>
-    <span class="inline-block ms-1">
-      <span data-max-qty-value class="classic-max-qty-value font-medium">{qty_NonVariant}</span>
-    </span>
-  </div>
-)}
 
             </div>
             
@@ -287,7 +289,7 @@ if (isHaveVariant === "true" && customOptions) {
       </div>
     </div>
   </classic-select-options>
-</div>
+</section>
 
 <script>
   import "./classicSelectionOptionsWithoutBundles";

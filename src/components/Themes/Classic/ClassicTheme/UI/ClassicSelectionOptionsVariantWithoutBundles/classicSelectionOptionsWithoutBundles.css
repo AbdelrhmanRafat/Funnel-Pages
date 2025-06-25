@@ -1,20 +1,8 @@
 /* === Classic Panel Container Color Styles === */
 
-/* Main Panel Wrapper */
-.classic-panel-wrapper {
-    /* No color styles - uses Tailwind classes only */
-}
-
-/* Option Panel - Main Container Colors */
-.classic-option-panel {
-    background-color: var(--classic-color-surface);
-    border: 1px solid var(--classic-color-outline-variant);
-    box-shadow: var(--classic-section-shadow);
-}
-
 /* === Option Groups === */
 .classic-option-title {
-    color: var(--classic-color-on-surface-variant);
+    color: var(--classic-color-on-surface);
 }
 
 /* === Size/Text Options === */
@@ -81,7 +69,8 @@
 
 /* === Quantity Section === */
 .classic-qty-label {
-    color: var(--classic-color-on-surface-variant);
+color: var(--classic-color-on-surface);
+
 }
 
 .classic-qty-btn {
