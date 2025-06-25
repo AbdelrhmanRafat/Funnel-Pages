@@ -1222,6 +1222,7 @@
             {
                 "name": "classic_Gallery",
                 "data": {
+                    "title" : "معرض الصور",
                     "galleryimages": [
                         {
                             "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop",
@@ -1238,34 +1239,6 @@
                         {
                             "src": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop",
                             "alt": "صورة المنتج 4"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
                         }
                     ]
                 }

@@ -10,14 +10,13 @@ import type { Language } from "../../../../../lib/utils/i18n/translations";
 import { ClassicProductInfoComponents } from "../../../../../lib/constants/themes";
 import ClassicThemeRates from "../ClassicThemeRates/ClassicThemeRates.astro";
 import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
-import ClassicGalleryComponent from "../UI/ClassicGallery/ClassicGalleryComponent.astro";
 import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
 import ClassicSelectionOptionsWithoutBundles from "../UI/ClassicSelectionOptionsVariantWithoutBundles/classicSelectionOptionsWithoutBundles.astro";
 import ClassicProductCosts from "../UI/ClassicProductCosts/classicProductCosts.astro";
+import ClassicProductGalleryComponent from "../UI/ClassicProductGallery/ClassicProductGalleryComponent.astro";
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
-  ClassicProductInfoComponents.Rating,
   ClassicProductInfoComponents.ProductHeader,
   ClassicProductInfoComponents.ProductDescription,
   ClassicProductInfoComponents.PurchaseOptions,
@@ -30,7 +29,6 @@ const product: Product = Astro.props.product;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const formFieldsData: BlockData = Astro.props.formFieldsData;
 const ratingData: BlockData = Astro.props.ratingData;
-const galleryData: BlockData = Astro.props.galleryData;
 const orderConfirmationNoticeData: BlockData =
   Astro.props.orderConfirmationNoticeData;
 
@@ -51,11 +49,6 @@ function isComponentDataAvailable(
   componentType: ClassicProductInfoComponents,
 ): ComponentCheckResult {
   switch (componentType) {
-    case ClassicProductInfoComponents.Rating:
-      return {
-        isComponentFound: !!ratingData,
-        componentData: ratingData,
-      };
     case ClassicProductInfoComponents.ProductHeader:
       return {
         isComponentFound: !!product,
@@ -94,7 +87,7 @@ function isComponentDataAvailable(
 <section id="classic-product-details" class="classic-section">
   <div class="flex flex-col lg:flex-row gap-5">
     <!-- Gallery Section -->
-    {galleryData && <ClassicGalleryComponent product={product} />}
+    {<ClassicProductGalleryComponent product={product} />}
 
     <!-- Product Info Section with Array-Based Rendering -->
     <div
@@ -106,13 +99,6 @@ function isComponentDataAvailable(
 
           if (!componentCheck.isComponentFound) {
             return null;
-          }
-
-          // Rating Component
-          if (componentType === ClassicProductInfoComponents.Rating) {
-            return (
-              <ClassicThemeRates ratingData={componentCheck.componentData} />
-            );
           }
 
           // Product Header Component with Observer Web Component
@@ -151,9 +137,12 @@ function isComponentDataAvailable(
                       <span>: <span data-product-sku>{product.sku_code}</span></span>
                     </div>
                   </div>
+                  <div class="w-full flex justify-start items-center gap-8">
                   <h2 class="classic-product-title text-3xl lg:text-4xl font-bold leading-tight">
                     {isArabic ? product.name_ar : product.name_en}
                   </h2>
+                    <ClassicThemeRates ratingData={componentCheck.componentData} />
+                  </div>
                   <div class="flex justify-start items-center gap-4">
                     <div class="classic-product-price flex justify-center line-through items-center gap-2 text-4xl font-bold">
                       <span data-product-price>{product.price}</span>

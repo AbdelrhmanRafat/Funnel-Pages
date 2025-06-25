@@ -22,6 +22,7 @@ import ClassicBeforeAfter from "./ClassicTheme/ClassicBefore&AfterImage/classicB
 import ClassicImageTextOverlay from "./ClassicTheme/Classic_Image_Text_Overlay/classicImageTextOverlay.astro";
 import ClassicImageTextBeside from "./ClassicTheme/Classic_Image_Text_Beside/classicImageTextBeside.astro";
 import ClassicThemeTodayStatistics from "./ClassicTheme/ClassicThemeTodayStatistics/ClassicThemeTodayStatistics.astro";
+import ClassicGridImages from "./ClassicTheme/ClassicGridImagesComponent/classicGridImages.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -61,6 +62,7 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicProductPreview,
   FunnelClassicComponents.ClassicProductUsage,
   FunnelClassicComponents.classicTodayStatistics,
+  FunnelClassicComponents.ClassicGallery,
   FunnelClassicComponents.Classic_Before_After,
   FunnelClassicComponents.ClassicReviews,
   FunnelClassicComponents.ClassicTextBar,
@@ -84,7 +86,6 @@ const isOrderConfirmationNoticeFound = isComponentFound(
   FunnelClassicComponents.ClassicOrderConfirmationNotice,
 );
 const isRatingFound = isComponentFound(FunnelClassicComponents.ClassicRates);
-const isGalleryFound = isComponentFound(FunnelClassicComponents.ClassicGallery);
 
 const purchaseOptions = productFunnelData.isComponentFound
   ? productFunnelData.componentData?.purchase_options
@@ -101,9 +102,6 @@ const orderConfirmationNoticeData =
     ? isOrderConfirmationNoticeFound.componentData
     : undefined;
 
-const galleryData = isGalleryFound.isComponentFound
-  ? isGalleryFound.componentData
-  : undefined;
 
 ---
 
@@ -123,7 +121,6 @@ const galleryData = isGalleryFound.isComponentFound
       if (componentName === FunnelClassicComponents.ClassicProductFunnel) {
         return (
           <ClassicThemeProduct
-            galleryData={galleryData}
             formFieldsData={formFieldsData}
             ratingData={ratingData}
             orderConfirmationNoticeData={orderConfirmationNoticeData}
@@ -153,6 +150,16 @@ const galleryData = isGalleryFound.isComponentFound
         return productPreviewData.isComponentFound ? (
           <ClassicProductPreviewComponent
             data={productPreviewData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelClassicComponents.ClassicGallery) {
+        const galleryData = isComponentFound(
+          FunnelClassicComponents.ClassicGallery,
+        );
+        return galleryData.isComponentFound ? (
+          <ClassicGridImages
+            data={galleryData.componentData}
           />
         ) : null;
       }
