@@ -1,4 +1,4 @@
-// ClassicSelectOptions.ts - Clean Production Version
+// ClassicSelectOptions.ts - Enhanced with Fixed Selection States
 
 import { QuantityOptionsSubject } from "../../../../../../lib/patterns/Observers/quantity-observer";
 import type { QuantityState } from "../../../../../../lib/patterns/Observers/quantity-observer";
@@ -27,7 +27,7 @@ interface SelectedOptions {
   second?: string;
 }
 
-class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState>, Observer<CustomOptionState> {
+class ClassicSelectOptionsBundles extends HTMLElement implements Observer<QuantityState>, Observer<CustomOptionState> {
   // === Configuration Properties ===
   private panelIndex: number = 1;
   private isVariant: boolean = false;
@@ -164,14 +164,26 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     const value = element.getAttribute('data-option-value');
     if (!value) return;
 
+    // Clear all first option selections first
     this.clearFirstOptionSelections();
+    
+    // Apply selection style immediately
     this.applySelectionStyle(element);
+    
+    // Update internal state
     this.selectedOptions.first = value;
     this.updateOptionDisplay(this.firstOptionDisplay, value);
     
+    // Clear second options and reset their state
     this.clearSecondOptionSelections();
+    
+    // Update observer state
     this.updateObserverForFirstOption(value);
+    
+    // Filter and enable available second options
     this.filterSecondOptions(value);
+    
+    // Dispatch event
     this.dispatchSelectionEvent('first-option-selected', value);
   }
 
@@ -179,36 +191,68 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     const value = element.getAttribute('data-option-value');
     if (!value || element.classList.contains('classic-option-disabled')) return;
 
+    // Clear all second option selections first
     this.clearSecondOptionSelections();
+    
+    // Apply selection style immediately
     this.applySelectionStyle(element);
+    
+    // Update internal state
     this.selectedOptions.second = value;
     this.updateOptionDisplay(this.secondOptionDisplay, value);
+    
+    // Update observer state
     this.updateObserverForSecondOption();
+    
+    // Dispatch event
     this.dispatchSelectionEvent('second-option-selected', value);
   }
 
   // === UI State Management ===
   
   private clearFirstOptionSelections(): void {
-    this.firstOptionElements?.forEach(el => {
-      el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
+    if (!this.firstOptionElements) return;
+    
+    this.firstOptionElements.forEach(el => {
+      // Remove all possible selection classes
+      el.classList.remove(
+        'classic-selected-color-option', 
+        'classic-selected-size-option',
+        'classic-selected'
+      );
     });
   }
 
   private clearSecondOptionSelections(): void {
-    this.secondOptionElements?.forEach(el => {
-      el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
+    if (!this.secondOptionElements) return;
+    
+    this.secondOptionElements.forEach(el => {
+      // Remove all possible selection classes
+      el.classList.remove(
+        'classic-selected-color-option', 
+        'classic-selected-size-option',
+        'classic-selected'
+      );
     });
     
+    // Clear internal state
     this.selectedOptions.second = undefined;
     this.updateOptionDisplay(this.secondOptionDisplay, '');
   }
 
   private applySelectionStyle(element: HTMLElement): void {
-    const styleClass = element.classList.contains('classic-color-option') 
-      ? 'classic-selected-color-option' 
-      : 'classic-selected-size-option';
-    element.classList.add(styleClass);
+    // Determine the correct selection class based on element type
+    if (element.classList.contains('classic-color-option')) {
+      element.classList.add('classic-selected-color-option');
+    } else if (element.classList.contains('classic-size-option')) {
+      element.classList.add('classic-selected-size-option');
+    }
+    
+    // Also add a generic selected class for additional styling if needed
+    element.classList.add('classic-selected');
+    
+    // Force a reflow to ensure the class is applied immediately
+    element.offsetHeight;
   }
 
   private updateOptionDisplay(displayElement: HTMLElement | null, value: string): void {
@@ -245,32 +289,40 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
   }
 
   private syncUIWithObserver(panelOption: any): void {
+    // Update internal state from observer
     this.selectedOptions = {
       first: panelOption.firstOption,
       second: panelOption.secondOption
     };
     
+    // Update display elements
     this.updateOptionDisplay(this.firstOptionDisplay, panelOption.firstOption || '');
     this.updateOptionDisplay(this.secondOptionDisplay, panelOption.secondOption || '');
+    
+    // Update visual selections
     this.updateVisualSelections(panelOption);
   }
 
   private updateVisualSelections(panelOption: any): void {
-    this.clearFirstOptionSelections();
-    this.clearSecondOptionSelections();
+    // Clear all current selections
+    this.clearAllSelections();
 
+    // Apply first option selection if exists
     if (panelOption.firstOption && this.firstOptionElements) {
       const firstElement = this.findElementByValue(this.firstOptionElements, panelOption.firstOption);
       if (firstElement) {
         this.applySelectionStyle(firstElement);
+        // Filter second options based on first selection
         this.filterSecondOptions(panelOption.firstOption);
       }
     }
 
+    // Apply second option selection if exists
     if (panelOption.secondOption && this.secondOptionElements) {
       const secondElement = this.findElementByValue(this.secondOptionElements, panelOption.secondOption);
-      if (secondElement) {
+      if (secondElement && !secondElement.classList.contains('classic-option-disabled')) {
         this.applySelectionStyle(secondElement);
+        // Ensure display is updated
         this.updateOptionDisplay(this.secondOptionDisplay, panelOption.secondOption);
       }
     }
@@ -348,6 +400,11 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
     }));
   }
 
+  private clearAllSelections(): void {
+    this.clearFirstOptionSelections();
+    this.clearSecondOptionSelections();
+  }
+
   // === Public API ===
   
   public getSelectedOptions(): SelectedOptions {
@@ -364,8 +421,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
   }
 
   public clearSelections(): void {
-    this.clearFirstOptionSelections();
-    this.clearSecondOptionSelections();
+    this.clearAllSelections();
     this.selectedOptions = {};
     
     this.updateOptionDisplay(this.firstOptionDisplay, '');
@@ -377,6 +433,46 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
 
   public getPanelIndex(): number {
     return this.panelIndex;
+  }
+
+  // === Enhanced Selection Methods ===
+  
+  public forceRefreshSelections(): void {
+    // Force refresh all visual selections based on current state
+    const panelOption = this.customOptionSubject.getPanelOption(this.panelIndex);
+    if (panelOption) {
+      this.updateVisualSelections(panelOption);
+    }
+  }
+
+  public validateSelectionStates(): boolean {
+    // Validate that UI state matches internal state
+    let isValid = true;
+    
+    if (this.selectedOptions.first && this.firstOptionElements) {
+      const firstElement = this.findElementByValue(this.firstOptionElements, this.selectedOptions.first);
+      if (firstElement && !firstElement.classList.contains('classic-selected-size-option') && 
+          !firstElement.classList.contains('classic-selected-color-option')) {
+        isValid = false;
+      }
+    }
+    
+    if (this.selectedOptions.second && this.secondOptionElements) {
+      const secondElement = this.findElementByValue(this.secondOptionElements, this.selectedOptions.second);
+      if (secondElement && !secondElement.classList.contains('classic-selected-size-option') && 
+          !secondElement.classList.contains('classic-selected-color-option')) {
+        isValid = false;
+      }
+    }
+    
+    return isValid;
+  }
+
+  public repairSelections(): void {
+    // Repair any broken selection states
+    if (!this.validateSelectionStates()) {
+      this.forceRefreshSelections();
+    }
   }
 
   // === Private Helper Methods for Clear ===
@@ -408,18 +504,18 @@ class ClassicSelectOptions extends HTMLElement implements Observer<QuantityState
 // === Component Registration ===
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (!customElements.get('classic-select-options')) {
-    customElements.define('classic-select-options', ClassicSelectOptions);
+  if (!customElements.get('classic-select-options-bundles')) {
+    customElements.define('classic-select-options-bundles', ClassicSelectOptionsBundles);
   }
 });
 
 document.addEventListener('astro:page-load', () => {
-  const selectOptions = document.querySelectorAll('classic-select-options:not(:defined)');
+  const selectOptions = document.querySelectorAll('classic-select-options-bundles:not(:defined)');
   selectOptions.forEach(option => {
-    if (option instanceof ClassicSelectOptions) {
+    if (option instanceof ClassicSelectOptionsBundles) {
       option.connectedCallback();
     }
   });
 });
 
-export { ClassicSelectOptions };
+export { ClassicSelectOptionsBundles };
