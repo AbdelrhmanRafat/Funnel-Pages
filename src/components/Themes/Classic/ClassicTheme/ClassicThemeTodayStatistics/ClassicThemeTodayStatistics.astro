@@ -1,0 +1,36 @@
+---
+// This component displays the number of orders placed "today" for the Classic theme.
+// It features an animated counter that counts up to the provided order number.
+// Props:
+// - data: An object of type BlockData, expected to contain `counters` array.
+import "./ClassicThemeTodayStatistics.css";
+import type { BlockData, Counter, Image } from "../../../../../lib/api/types";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+const counters: Counter[] = data.counters ?? [];
+console.log(data);
+---
+
+<classic-statistics-counter>
+    <section id={FunnelClassicComponents.classicTodayStatistics} class="classic-section">
+        <div class="classic-middle-title">
+            <h5>{data.title}</h5>
+        </div>
+        <div class="md:w-11/12 mx-auto flex justify-between items-center md:justify-center md:gap-5">
+        <!-- <div class="w-11/12 mx-auto flex flex-col justify-center items-center gap-3 md:flex-row md:justify-between md:items-center"> -->
+            {counters.map((counter) => (
+                    <div class="flex flex-col items-center justify-center gap-4">
+                        <div class="text-2xl font-bold">{counter.label}</div>
+                        <div class="classic-theme-today-order-count py-4 px-6 text-3xl font-bold text-center">
+                            <h5 class="classic-order-counter" data-target={counter.count}>0</h5>
+                        </div>
+                    </div>
+            ))}
+        </div>
+    </section>
+</classic-statistics-counter>
+
+<script>
+    import "./ClassicThemeTodayStatistics";
+</script>

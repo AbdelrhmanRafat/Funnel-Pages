@@ -50,6 +50,7 @@ export interface BlockData {
   confirmationNotices?: Features[];
   faqs?: Faqs[];
   features?: Features[];
+  counters? : Counter[];
   company_name?: string;
   year?: string;
   galleryimages?: Image[];
@@ -172,6 +173,10 @@ export interface Product {
     meta: Meta;
     attachment: Attachment[];
     is_have_variant: string;
+}
+export interface Counter {
+  label : string;
+  count : number;
 }
 
 export interface Sku {

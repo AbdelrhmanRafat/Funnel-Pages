@@ -1,0 +1,15 @@
+.classic-theme-today-order-count {
+    background-color: var(--classic-color-primary-light);
+    color: var(--classic-color-on-primary);
+    box-shadow: var(--classic-section-shadow);
+    border-radius: var(--classic-section-radius);
+    transition: transform 0.3s ease;
+}
+
+.classic-theme-today-order-count:hover {
+    transform: translateY(-2px);
+}
+
+.classic-order-counter {
+    transition: all 0.1s ease;
+}

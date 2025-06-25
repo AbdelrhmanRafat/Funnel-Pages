@@ -357,10 +357,23 @@
                 }
             },
             {
-                "name": "classic_today_orders",
+                "name": "classic_today_statistics",
                 "data": {
-                    "title": "طلبات اليوم",
-                    "count": 27
+                    "title": "إحصائيات اليوم",
+                    "counters": [
+                        {
+                            "label": "طلبات",
+                            "count": 100
+                        },
+                        {
+                            "label": "عميل",
+                            "count": 100
+                        },
+                        {
+                            "label": "زيارة",
+                            "count": 350
+                        }
+                    ]
                 }
             },
             {

@@ -28,8 +28,8 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.ClassicFormFields;
     case "classic_countdown":
       return FunnelClassicComponents.ClassicCountdown;
-    case "classic_today_orders":
-      return FunnelClassicComponents.ClassicTodayOrders;
+    case "classic_today_statistics":
+      return FunnelClassicComponents.classicTodayStatistics;
     case "classic_rates":
       return FunnelClassicComponents.ClassicRates;
     case "classic_product_funnel":
