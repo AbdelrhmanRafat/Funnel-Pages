@@ -30,6 +30,8 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.ClassicCountdown;
     case "classic_today_statistics":
       return FunnelClassicComponents.classicTodayStatistics;
+    case "classic_logos_carousel" : 
+        return FunnelClassicComponents.classicLogosCarousel;
     case "classic_rates":
       return FunnelClassicComponents.ClassicRates;
     case "classic_product_funnel":

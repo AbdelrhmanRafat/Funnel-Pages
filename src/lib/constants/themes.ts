@@ -15,6 +15,7 @@ export enum FunnelClassicComponents {
   ClassicFormFields = "classic_form_fields",
   ClassicCountdown = "classic_countdown",
   classicTodayStatistics = "classic_today_statistics",
+  classicLogosCarousel = "classic_logos_carousel",
   ClassicRates = "classic_rates",
   ClassicProductFunnel = "classic_product_funnel",
   ClassicFooter = "classic_footer",

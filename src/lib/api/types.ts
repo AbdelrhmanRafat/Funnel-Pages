@@ -50,6 +50,7 @@ export interface BlockData {
   confirmationNotices?: Features[];
   faqs?: Faqs[];
   features?: Features[];
+  logos? : Image[];
   counters? : Counter[];
   company_name?: string;
   year?: string;

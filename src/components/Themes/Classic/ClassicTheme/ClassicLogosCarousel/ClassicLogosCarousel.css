@@ -1,0 +1,50 @@
+/* Classic Logos Carousel Simple Design - Colors only, layout handled by Tailwind */
+
+/* Section Divider */
+.classic-section-divider {
+    background: linear-gradient(90deg, 
+        var(--classic-color-primary) 0%,
+        var(--classic-color-secondary) 50%,
+        var(--classic-color-primary) 100%
+    );
+}
+
+/* Simple Logo Cards */
+.classic-logo-card {
+    background-color: var(--classic-color-surface);
+    border: 1px solid var(--classic-color-outline-variant);
+}
+
+/* Carousel Navigation Arrows */
+.classic-carousel-left,
+.classic-carousel-right {
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface);
+    border: 1px solid var(--classic-color-outline-variant);
+}
+
+/* Simple Page Indicators */
+.classic-page-indicator {
+    background-color: var(--classic-color-outline);
+}
+
+.classic-page-indicator.active {
+    background-color: var(--classic-color-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .classic-carousel-left,
+    .classic-carousel-right {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .classic-carousel-left {
+        transform: translateY(-50%) translateX(-2px);
+    }
+    
+    .classic-carousel-right {
+        transform: translateY(-50%) translateX(2px);
+    }
+}

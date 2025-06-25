@@ -1258,7 +1258,63 @@
                         }
                     ]
                 }
-            }
+            },
+            {
+  "name": "classic_logos_carousel",
+  "data": {
+    "title": "شركائنا",
+    "logos": [
+      {
+        "src": "https://logo.clearbit.com/apple.com",
+        "alt": "Apple Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/microsoft.com",
+        "alt": "Microsoft Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/google.com",
+        "alt": "Google Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/amazon.com",
+        "alt": "Amazon Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/facebook.com",
+        "alt": "Meta Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/netflix.com",
+        "alt": "Netflix Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/tesla.com",
+        "alt": "Tesla Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/spotify.com",
+        "alt": "Spotify Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/adobe.com",
+        "alt": "Adobe Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/salesforce.com",
+        "alt": "Salesforce Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/uber.com",
+        "alt": "Uber Logo"
+      },
+      {
+        "src": "https://logo.clearbit.com/airbnb.com",
+        "alt": "Airbnb Logo"
+      }
+    ]
+  }
+}
         ]
     }
 }

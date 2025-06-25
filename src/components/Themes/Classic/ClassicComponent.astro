@@ -23,6 +23,7 @@ import ClassicImageTextOverlay from "./ClassicTheme/Classic_Image_Text_Overlay/c
 import ClassicImageTextBeside from "./ClassicTheme/Classic_Image_Text_Beside/classicImageTextBeside.astro";
 import ClassicThemeTodayStatistics from "./ClassicTheme/ClassicThemeTodayStatistics/ClassicThemeTodayStatistics.astro";
 import ClassicGridImages from "./ClassicTheme/ClassicGridImagesComponent/classicGridImages.astro";
+import ClassicLogosCarousel from "./ClassicTheme/ClassicLogosCarousel/ClassicLogosCarousel.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -61,6 +62,7 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicProductFeatures,
   FunnelClassicComponents.ClassicProductPreview,
   FunnelClassicComponents.ClassicProductUsage,
+  FunnelClassicComponents.classicLogosCarousel,
   FunnelClassicComponents.classicTodayStatistics,
   FunnelClassicComponents.ClassicGallery,
   FunnelClassicComponents.Classic_Before_After,
@@ -141,6 +143,12 @@ const orderConfirmationNoticeData =
         const faqData = isComponentFound(FunnelClassicComponents.ClassicFaq);
         return faqData.isComponentFound ? (
           <ClassicFaq data={faqData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelClassicComponents.classicLogosCarousel) {
+        const logoscarouselData = isComponentFound(FunnelClassicComponents.classicLogosCarousel);
+        return logoscarouselData.isComponentFound ? (
+          <ClassicLogosCarousel data={logoscarouselData.componentData} />
         ) : null;
       }
       if (componentName === FunnelClassicComponents.ClassicProductPreview) {

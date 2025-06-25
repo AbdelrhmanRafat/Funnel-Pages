@@ -13,20 +13,36 @@ const counters: Counter[] = data.counters ?? [];
 
 <classic-statistics-counter>
     <section id={FunnelClassicComponents.classicTodayStatistics} class="classic-section">
-        <div class="classic-middle-title">
-            <h5>{data.title}</h5>
+  <div class="classic-middle-title flex flex-col justify-center items-center gap-3">
+    <h3>
+      {data.title}
+    </h3>
+    <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
+  </div>
+
+  <div class="classic-statistics-minimal-container py-12">
+    <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 lg:gap-20">
+      {counters.map((counter, index) => (
+        <div class="classic-counter-minimal-item flex-1 max-w-xs text-center relative">
+          {/* Large animated number */}
+          <div class="classic-theme-today-order-count p-0 flex justify-center items-center gap-4 text-6xl md:text-7xl lg:text-8xl font-black leading-none">
+            <span>+</span>
+            <h5 class="classic-order-counter" data-target={counter.count}>0</h5>
+          </div>
+
+          {/* Green label text */}
+          <div class="classic-counter-minimal-label text-2xl font-bold mt-4 leading-relaxed">
+            {counter.label}
+          </div>
+
+          {/* Divider line – only if not the last item */}
+          {/* {index !== counters.length - 1 && (
+            <div class="hidden md:block absolute top-1/2 right-[-2.5rem] -translate-y-1/2 h-20 w-[3px] rounded-full" style={{ backgroundColor: "var(--classic-color-primary)", opacity: 0.7 }}></div>
+          )} */}
         </div>
-        <div class="md:w-11/12 mx-auto flex justify-between items-center md:justify-center md:gap-5">
-        <!-- <div class="w-11/12 mx-auto flex flex-col justify-center items-center gap-3 md:flex-row md:justify-between md:items-center"> -->
-            {counters.map((counter) => (
-                    <div class="flex flex-col items-center justify-center gap-4">
-                        <div class="text-2xl font-bold">{counter.label}</div>
-                        <div class="classic-theme-today-order-count py-4 px-6 text-3xl font-bold text-center">
-                            <h5 class="classic-order-counter" data-target={counter.count}>0</h5>
-                        </div>
-                    </div>
-            ))}
-        </div>
+      ))}
+    </div>
+  </div>
     </section>
 </classic-statistics-counter>
 
