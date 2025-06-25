@@ -220,12 +220,12 @@ class ClassicSubmitOrder extends HTMLElement {
     const state = this.customOptionsNonBundleSubject.getState();
     const option = state?.option;
     const errors: string[] = [];
-
+    console.log("sijasioasas",state);
     if (!option) {
       errors.push(this.getTranslatedMessage('optionNotFound'));
       return { isValid: false, errors };
     }
-
+    
     if (!option.firstOption) {
       errors.push(this.getTranslatedMessage('selectFirstOption'));
     }

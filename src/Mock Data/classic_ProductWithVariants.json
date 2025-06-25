@@ -4,61 +4,141 @@
     "errors": null,
     "message": "messages.success",
     "data": {
-        "product": {
-        "id": 73,
-        "category_id": 32,
+    "product": {
+        "id": 37,
+        "category_id": 13,
         "ware_house_id": 2,
-        "image": "https://backend.dev.baseet.co/uploads/Product/LVuBQq6Ax2QOzGXKfr5aCZkVkGyAk56cNU4XL2lt.jpg",
-        "name": "Pyjama2",
-        "name_ar": "بيجامة2",
-        "name_en": "Pyjama2",
-        "slug": "pyjama2",
-        "slug_ar": "بيجامة2",
-        "slug_en": "pyjama2",
-        "description": "<p>Pyjama2</p>",
-        "description_ar": "<p>بيجامة2</p>",
-        "description_en": "<p>Pyjama2</p>",
+        "image": "https://backend.dev.baseet.co/uploads/Product/DNQLgzvMFVhc5tWZ41PNkfjUeZuoopte6nh1fg83.webp",
+        "name": "Red tishert",
+        "name_ar": "تيشيرت أحمر",
+        "name_en": "Red tishert",
+        "slug": "Red Tishert",
+        "slug_ar": "تيشيرت أحمر",
+        "slug_en": "Red Tishert",
+        "description": "<p>Red Basic T-Shirt – Simplicity &amp; Style for a Perfect Everyday Look!</p>",
+        "description_ar": "<p>تيشيرت بيزك أحمر – بساطة وأناقة لإطلالة يومية مثالية</p>",
+        "description_en": "<p>Red Basic T-Shirt – Simplicity &amp; Style for a Perfect Everyday Look!</p>",
         "is_active": 1,
         "qty": 10,
         "sku_code": null,
-        "price": 400,
-        "price_after_discount": 400,
-        "weight": "1",
-        "weight_type": "kilogram",
+        "price": 500,
+        "price_after_discount": 0,
+        "weight": null,
+        "weight_type": null,
         "category": {
-            "id": 32,
+            "id": 13,
             "parent_id": 0,
-            "name_ar": "كم طويل",
-            "name_en": "Long Sleeve",
+            "name_ar": "تيشيرت",
+            "name_en": "tishert",
             "is_active": 1,
-            "slug_en": "long-sleeve",
-            "slug_ar": "كم-طويل"
+            "slug_en": "tishert",
+            "slug_ar": "تيشيرت"
         },
         "skus": [
             {
-                "id": 215,
-                "category_id": 32,
-                "product_id": 73,
+                "id": 126,
+                "category_id": 13,
+                "product_id": 37,
                 "store_id": 9,
                 "ware_house_id": 2,
-                "SKU_code": "12012016929",
-                "quantity": 10,
-                "price": 400,
-                "price_after_discount": 400,
+                "SKU_code": "6333",
+                "quantity": 4,
+                "price": 500,
+                "price_after_discount": 6,
                 "options": [
                     {
-                        "name": "الوسط",
-                        "value": "٤٠ سم",
+                        "name": "size",
+                        "value": "S",
                         "hex": null
                     }
                 ],
                 "weight": 0,
-                "weight_type": "kilogram",
-                "image": "https://backend.dev.baseet.co/uploads/null",
+                "weight_type": "gram",
+                "image": "https://backend.dev.baseet.co/uploads/Product/fr3DjDncccNc63VRh4hFx5aW7FLucyKS063Dy3Dr.webp",
                 "deleted_at": null,
-                "created_at": "2025-06-24T13:53:09.000000Z",
-                "updated_at": "2025-06-24T13:54:05.000000Z",
-                "qty": 10,
+                "created_at": "2025-05-12T08:23:53.000000Z",
+                "updated_at": "2025-06-09T13:56:07.000000Z",
+                "qty": 4,
+                "ware_house": {
+                    "id": 2,
+                    "store_id": 2,
+                    "name": "Elnozha",
+                    "contact_person": "developer",
+                    "phone": "501669804",
+                    "place_number": "5555",
+                    "area": "elnozha",
+                    "zip_code": "11604",
+                    "city": "cairo",
+                    "region": "Egypt",
+                    "deleted_at": null,
+                    "created_at": "2024-12-08T19:25:43.000000Z",
+                    "updated_at": "2024-12-08T19:28:29.000000Z"
+                }
+            },
+            {
+                "id": 127,
+                "category_id": 13,
+                "product_id": 37,
+                "store_id": 9,
+                "ware_house_id": 2,
+                "SKU_code": "334",
+                "quantity": 3,
+                "price": 400,
+                "price_after_discount": 8,
+                "options": [
+                    {
+                        "name": "size",
+                        "value": "M",
+                        "hex": null
+                    }
+                ],
+                "weight": 0,
+                "weight_type": "gram",
+                "image": "https://backend.dev.baseet.co/uploads/Product/rFFLIVzJhQqlYNTqKtVouQsslj1DvQ9oTcqQ5FlB.webp",
+                "deleted_at": null,
+                "created_at": "2025-05-12T08:23:53.000000Z",
+                "updated_at": "2025-06-09T13:56:07.000000Z",
+                "qty": 3,
+                "ware_house": {
+                    "id": 2,
+                    "store_id": 2,
+                    "name": "Elnozha",
+                    "contact_person": "developer",
+                    "phone": "501669804",
+                    "place_number": "5555",
+                    "area": "elnozha",
+                    "zip_code": "11604",
+                    "city": "cairo",
+                    "region": "Egypt",
+                    "deleted_at": null,
+                    "created_at": "2024-12-08T19:25:43.000000Z",
+                    "updated_at": "2024-12-08T19:28:29.000000Z"
+                }
+            },
+            {
+                "id": 128,
+                "category_id": 13,
+                "product_id": 37,
+                "store_id": 9,
+                "ware_house_id": 2,
+                "SKU_code": "335",
+                "quantity": 3,
+                "price": 300,
+                "price_after_discount": 9,
+                "options": [
+                    {
+                        "name": "size",
+                        "value": "L",
+                        "hex": null
+                    }
+                ],
+                "weight": 0,
+                "weight_type": "gram",
+                "image": "https://backend.dev.baseet.co/uploads/Product/HuauNXy3TJakyU5TgEX2KghyiUaA2dVBsEk8DK7C.webp",
+                "deleted_at": null,
+                "created_at": "2025-05-12T08:23:53.000000Z",
+                "updated_at": "2025-06-09T13:56:07.000000Z",
+                "qty": 3,
                 "ware_house": {
                     "id": 2,
                     "store_id": 2,
@@ -77,72 +157,164 @@
             }
         ],
         "meta": {
-            "id": 84,
-            "title": "بيجامة2",
-            "description": "pyjama2",
-            "image": "https://backend.dev.baseet.co/uploads/Meta/MWxefJSP8ZkhnU4h3dJJgDWlMkXxq1fYb9mA46Xr.jpg",
+            "id": 34,
+            "title": "تيشيرت أحمر",
+            "description": "تيشيرت بيزك أحمر – بساطة وأناقة لإطلالة يومية مثالية",
+            "image": "https://backend.dev.baseet.co/uploads/Meta/Grh9eyt666xh0huTsxtgo6pbsRPtGiqSwYxPAADd.webp",
             "metaable_type": "App\\Models\\Product\\Product",
-            "metaable_id": 73,
-            "created_at": "2025-06-24T12:12:56.000000Z",
-            "updated_at": "2025-06-24T12:12:56.000000Z"
+            "metaable_id": 37,
+            "created_at": "2025-03-12T13:33:20.000000Z",
+            "updated_at": "2025-03-12T13:33:20.000000Z"
         },
-        "attachment": [],
+        "attachment": [
+            {
+                "id": 58,
+                "path": "https://backend.dev.baseet.co/uploads/attachments/ywewQd9GEq5dN1ZCWVMTSArfAaQ7bvnkZpimYFuz.webp",
+                "attachmentable_type": "App\\Models\\Product\\Product",
+                "attachmentable_id": 37,
+                "order": 0,
+                "created_at": "2025-03-12T13:33:17.000000Z",
+                "updated_at": "2025-03-12T13:33:17.000000Z"
+            }
+        ],
         "reviews": [
             {
-                "id": 27,
+                "id": 15,
                 "store_id": 9,
-                "product_id": 73,
+                "product_id": 37,
                 "rate": 4,
-                "title": "NearMe Update is avaliable Now",
-                "description": "gssfsa",
+                "title": "wow",
+                "description": "good material",
                 "deleted_at": null,
-                "created_at": "2025-06-24T13:41:37.000000Z",
-                "updated_at": "2025-06-24T13:41:37.000000Z"
+                "created_at": "2025-06-09T11:25:22.000000Z",
+                "updated_at": "2025-06-09T11:25:22.000000Z"
             },
             {
-                "id": 28,
+                "id": 16,
                 "store_id": 9,
-                "product_id": 73,
+                "product_id": 37,
                 "rate": 5,
-                "title": "NearMe Update is avaliable Now",
-                "description": "efewrewdf",
+                "title": "ahmed",
+                "description": "good quality",
                 "deleted_at": null,
-                "created_at": "2025-06-24T13:42:34.000000Z",
-                "updated_at": "2025-06-24T13:42:34.000000Z"
+                "created_at": "2025-06-09T11:26:19.000000Z",
+                "updated_at": "2025-06-09T11:26:19.000000Z"
+            },
+            {
+                "id": 17,
+                "store_id": 9,
+                "product_id": 37,
+                "rate": 5,
+                "title": "ahmed",
+                "description": "good quality",
+                "deleted_at": null,
+                "created_at": "2025-06-09T11:32:44.000000Z",
+                "updated_at": "2025-06-09T11:32:44.000000Z"
             }
         ],
         "reviews_count": [
             {
-                "product_id": 73,
+                "product_id": 37,
                 "rate": 4,
                 "total": 1
             },
             {
-                "product_id": 73,
+                "product_id": 37,
                 "rate": 5,
-                "total": 1
+                "total": 2
             }
         ],
         "is_have_variant": "true",
         "is_featured": 0,
-        "is_best_sales": 0,
-        "rate": 4.5,
-        "total_rates": 2,
+        "is_best_sales": 1,
+        "rate": 4.67,
+        "total_rates": 3,
         "shipping": "\n\"سيتم شحن طلبك خلال 2 إلى 4 أيام عمل باستخدام شركة الشحن المعتمدة.\"\n\n\"الشحن مجاني للطلبات التي تتجاوز 500 جنيه.\"\n\n\"رقم التتبع الخاص بطلبك سيكون متاحًا بمجرد تجهيز الطلب للشحن.\"\n\n\"خدمة التوصيل متوفرة في جميع محافظات مصر.\"\n\n\"تأكد من كتابة عنوانك بدقة لضمان وصول الطلب بأسرع وقت.\"\n\n\"رسوم الشحن ثابتة بقيمة 50 جنيه لأي مكان داخل الجمهورية.\"\n\n\"مدة التوصيل المتوقعة: من 3 إلى 5 أيام عمل.\"\n\n\"توصيل سريع خلال 24 ساعة داخل القاهرة والجيزة.\"",
         "return_policies": "\n\"يُسمح بإرجاع المنتجات خلال 14 يوم من تاريخ الاستلام بشرط أن تكون بحالتها الأصلية ولم تُستخدم.\"\n\n\"لا يمكن استرجاع المنتجات التالفة أو التي تم استخدامها إلا إذا كانت بها عيوب تصنيع.\"\n\n\"يتم استرداد المبلغ بنفس وسيلة الدفع المستخدمة في الطلب خلال 7 أيام عمل.\"\n\n\"يجب إرفاق فاتورة الشراء الأصلية عند طلب الاسترجاع.\"\n\n\"بعض المنتجات غير قابلة للإرجاع مثل الملابس الداخلية أو المنتجات الشخصية.\"\n            ",
         "estimated_delivery_times": "2-4 days",
         "return_within": "7 days",
         "custom_options": {
-            "الوسط": [
+            "size": [
                 {
-                    "value": "٤٠ سم",
+                    "value": "S",
+                    "hex": null,
+                    "available_options": []
+                },
+                {
+                    "value": "M",
+                    "hex": null,
+                    "available_options": []
+                },
+                {
+                    "value": "L",
                     "hex": null,
                     "available_options": []
                 }
             ]
         },
-        "related_products": []
-    },
+        "related_products": [
+            {
+                "id": 41,
+                "store_id": 9,
+                "category_id": 13,
+                "ware_house_id": 2,
+                "image": "https://backend.dev.baseet.co/uploads/Product/xF1aF8c1nK9T3gskY2gOcvMktNSjHqIIxkeINRye.webp",
+                "name_ar": "تيشرت ابيض",
+                "name_en": "white Tishert",
+                "slug_ar": "تيشيرت ابيض",
+                "slug_en": "White Tishert",
+                "description_ar": "<p>تيشيرت ابيض بيزك راوند قطن</p>",
+                "description_en": "<p>White Tishert basic</p>",
+                "is_active": 1,
+                "qty": 4,
+                "sku_code": "316497",
+                "price": 400,
+                "price_after_discount": 200,
+                "weight": null,
+                "weight_type": null,
+                "options": [
+                    {
+                        "options": [
+                            {
+                                "name": "color",
+                                "value": [
+                                    {
+                                        "name": "White",
+                                        "hex": "#ffffff"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "size",
+                                "value": [
+                                    {
+                                        "display": "m",
+                                        "value": "m"
+                                    },
+                                    {
+                                        "display": "l",
+                                        "value": "l"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "is_have_variant": 0,
+                "is_featured": 0,
+                "is_best_sales": 1,
+                "rate": 5,
+                "total_rates": 2,
+                "deleted_at": null,
+                "created_at": "2025-03-13T12:04:22.000000Z",
+                "updated_at": "2025-06-24T08:13:53.000000Z",
+                "name": "white Tishert",
+                "description": "<p>White Tishert basic</p>",
+                "slug": "White Tishert"
+            }
+        ]
+    }
+,
         "theme": "classic",
         "accept_online_payment": true,
         "blocks": [

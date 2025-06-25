@@ -1,4 +1,4 @@
-// observers/custom-options-non-bundle-observer.ts
+// observers/custom-options-non-bundle-observer.ts - Complete Fixed Version
 import { GenericSubject } from './base-observer';
 import type { State } from './base-observer';
 
@@ -82,6 +82,7 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
   private static instance: CustomOptionsNonBundleSubject;
   private optionData: YourOptionData | null = null;
   private baseQuantityNonVariant: number = 1;
+  private hasSecondOption: boolean = false;
 
   private constructor() {
     super({
@@ -117,8 +118,20 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
     priceNoVariant?: number,
     priceAfterDiscountNoVariant?: number
   ): void {
+    console.log('🔵 Observer initializing with:', {
+      isVariant,
+      hasOptionData: !!optionData,
+      hasFirstOption: !!optionData?.firstOption,
+      hasSecondOption: !!optionData?.secondOption
+    });
+
     this.optionData = optionData;
     this.baseQuantityNonVariant = baseQtyNonVariant;
+    
+    // Determine if we have a second option
+    this.hasSecondOption = !!(optionData?.secondOption && optionData.secondOption.values && optionData.secondOption.values.length > 0);
+    
+    console.log('🔧 Observer detected second option:', this.hasSecondOption);
 
     if (!isVariant) {
       // Non-variant initialization - use dedicated non-variant values
@@ -141,7 +154,7 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
     } else {
       // Variant initialization
       const availableFirstOptions = this.getAllFirstOptions();
-      const availableSecondOptions = this.getAllSecondOptions();
+      const availableSecondOptions = this.hasSecondOption ? this.getAllSecondOptions() : [];
 
       this.setState({
         option: {
@@ -176,7 +189,7 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
   }
 
   private getAllSecondOptions(): AvailableOption[] {
-    if (!this.optionData?.secondOption) return [];
+    if (!this.hasSecondOption || !this.optionData?.secondOption) return [];
 
     return this.optionData.secondOption.values.map(option => ({
       value: option.value,
@@ -189,7 +202,7 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
   }
 
   private getAvailableSecondOptions(firstOptionValue: string): AvailableOption[] {
-    if (!this.optionData?.associations || !firstOptionValue) {
+    if (!this.hasSecondOption || !this.optionData?.associations || !firstOptionValue) {
       return this.getAllSecondOptions();
     }
 
@@ -226,11 +239,14 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
       }
     });
 
-    Object.values(this.optionData.secondOptionMetadata || {}).forEach(metadata => {
-      if (metadata.qty !== undefined) {
-        maxQty = Math.max(maxQty, metadata.qty);
-      }
-    });
+    // Only check second option metadata if we have second options
+    if (this.hasSecondOption) {
+      Object.values(this.optionData.secondOptionMetadata || {}).forEach(metadata => {
+        if (metadata.qty !== undefined) {
+          maxQty = Math.max(maxQty, metadata.qty);
+        }
+      });
+    }
 
     return maxQty || this.baseQuantityNonVariant;
   }
@@ -241,8 +257,8 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
 
     if (!this.optionData) return this.baseQuantityNonVariant;
 
-    // If both options selected, get from combination
-    if (firstOption && secondOption && this.optionData.associations) {
+    // If both options selected and we have second options, get from combination
+    if (firstOption && secondOption && this.hasSecondOption && this.optionData.associations) {
       const combination = this.optionData.associations[firstOption]?.find(
         opt => opt.value === secondOption
       );
@@ -251,8 +267,8 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
       }
     }
 
-    // If only second option selected, get from second option metadata
-    if (secondOption && this.optionData.secondOptionMetadata?.[secondOption]) {
+    // If only second option selected and we have second options, get from second option metadata
+    if (secondOption && this.hasSecondOption && this.optionData.secondOptionMetadata?.[secondOption]) {
       const metadata = this.optionData.secondOptionMetadata[secondOption];
       if (metadata.qty !== undefined) {
         return metadata.qty;
@@ -267,11 +283,25 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
       }
     }
 
+    // If first option is selected but no second options exist, try to get from associations
+    if (firstOption && !this.hasSecondOption && this.optionData.associations) {
+      const firstOptionAssociations = this.optionData.associations[firstOption];
+      if (firstOptionAssociations && firstOptionAssociations.length > 0) {
+        const firstAssociation = firstOptionAssociations[0];
+        if (firstAssociation.qty !== undefined) {
+          return firstAssociation.qty;
+        }
+      }
+    }
+
     // Fallback to max from all options
     return this.calculateMaxQuantityFromAllOptions();
   }
 
   public updateFirstOption(value: string | null): void {
+    console.log('🔥 updateFirstOption called with:', value);
+    console.log('🔥 Has second option:', this.hasSecondOption);
+    
     const currentState = this.getState();
     const { secondOption } = currentState.option;
 
@@ -279,16 +309,18 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
     let availableSecondOptions: AvailableOption[] = [];
     let newSecondOption = secondOption;
 
-    if (value) {
-      availableSecondOptions = this.getAvailableSecondOptions(value);
-      
-      // Check if current second option is still available
-      const isSecondStillValid = availableSecondOptions.some(opt => opt.value === secondOption);
-      if (secondOption && !isSecondStillValid) {
-        newSecondOption = null;
+    if (this.hasSecondOption) {
+      if (value) {
+        availableSecondOptions = this.getAvailableSecondOptions(value);
+        
+        // Check if current second option is still available
+        const isSecondStillValid = availableSecondOptions.some(opt => opt.value === secondOption);
+        if (secondOption && !isSecondStillValid) {
+          newSecondOption = null;
+        }
+      } else {
+        availableSecondOptions = this.getAllSecondOptions();
       }
-    } else {
-      availableSecondOptions = this.getAllSecondOptions();
     }
 
     // Build complete option data
@@ -303,6 +335,13 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
     // Check if selection is complete
     const isComplete = this.checkSelectionComplete(value, newSecondOption);
 
+    console.log('🔥 Setting state with:', {
+      firstOption: value,
+      secondOption: newSecondOption,
+      isComplete,
+      hasSecondOption: this.hasSecondOption
+    });
+
     this.setState({
       option: {
         ...completeOptionData,
@@ -312,10 +351,16 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
       maxQuantity,
       isSelectionComplete: isComplete,
     });
-    
   }
 
   public updateSecondOption(value: string | null): void {
+    if (!this.hasSecondOption) {
+      console.log('🛑 updateSecondOption called but no second options exist');
+      return;
+    }
+
+    console.log('🔥 updateSecondOption called with:', value);
+    
     const currentState = this.getState();
     const { firstOption } = currentState.option;
 
@@ -355,8 +400,8 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
 
     if (!this.optionData) return baseData;
 
-    // If both options selected, get data from combination
-    if (firstOption && secondOption && this.optionData.associations) {
+    // If both options selected and we have second options, get data from combination
+    if (firstOption && secondOption && this.hasSecondOption && this.optionData.associations) {
       const combination = this.optionData.associations[firstOption]?.find(
         opt => opt.value === secondOption
       );
@@ -375,8 +420,26 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
       }
     }
 
-    // If only second option selected, get data from second option metadata
-    if (secondOption && this.optionData.secondOptionMetadata?.[secondOption]) {
+    // If only first option selected and no second options exist, try to get from associations
+    if (firstOption && !this.hasSecondOption && this.optionData.associations) {
+      const firstOptionAssociations = this.optionData.associations[firstOption];
+      if (firstOptionAssociations && firstOptionAssociations.length > 0) {
+        const association = firstOptionAssociations[0]; // Take the first (and likely only) association
+        return {
+          firstOption,
+          secondOption: null,
+          sku_id: association.sku_id,
+          hex: association.hex || null,
+          price: association.price || this.optionData.basePrice || null,
+          price_after_discount: association.price_after_discount || this.optionData.basePriceAfterDiscount || null,
+          qty: 1, // Always start with quantity 1, not from data
+          image: association.image || this.optionData.baseImage || null,
+        };
+      }
+    }
+
+    // If only second option selected and we have second options, get data from second option metadata
+    if (secondOption && this.hasSecondOption && this.optionData.secondOptionMetadata?.[secondOption]) {
       const metadata = this.optionData.secondOptionMetadata[secondOption];
       return {
         ...baseData,
@@ -408,10 +471,19 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
     if (!this.optionData) return true; // Non-variant is always complete
 
     const needsFirst = !!this.optionData.firstOption;
-    const needsSecond = !!this.optionData.secondOption;
+    const needsSecond = this.hasSecondOption && !!this.optionData.secondOption;
 
     const hasFirst = !needsFirst || !!firstOption;
     const hasSecond = !needsSecond || !!secondOption;
+
+    console.log('🔍 Selection completeness check:', {
+      needsFirst,
+      needsSecond,
+      hasFirst,
+      hasSecond,
+      hasSecondOption: this.hasSecondOption,
+      result: hasFirst && hasSecond
+    });
 
     return hasFirst && hasSecond;
   }
@@ -429,7 +501,6 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
         qty: validQty,
       }
     });
-
   }
 
   public clearOptions(): void {
@@ -455,7 +526,7 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
     } else {
       // Variant clear
       const availableFirstOptions = this.getAllFirstOptions();
-      const availableSecondOptions = this.getAllSecondOptions();
+      const availableSecondOptions = this.hasSecondOption ? this.getAllSecondOptions() : [];
 
       this.setState({
         option: {
@@ -505,6 +576,10 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
       first: this.optionData?.firstOption?.key || '',
       second: this.optionData?.secondOption?.key || '',
     };
+  }
+
+  public hasSecondOptions(): boolean {
+    return this.hasSecondOption;
   }
 
   // New method to get all available option values for UI components

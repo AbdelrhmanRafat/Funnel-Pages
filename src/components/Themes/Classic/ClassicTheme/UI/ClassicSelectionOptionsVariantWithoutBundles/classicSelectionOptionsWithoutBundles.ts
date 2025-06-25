@@ -1,4 +1,4 @@
-// ClassicSelectionOptionsWithoutBundles.ts - Enhanced with Selection Logic
+// ClassicSelectionOptionsWithoutBundles.ts - Complete Fixed Version
 
 import type { Observer, Subject } from "../../../../../../lib/patterns/Observers/base-observer";
 import { 
@@ -27,6 +27,8 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   
   // === State Management ===
   private selectedOptions: SelectedOptions = {};
+  private isUpdatingFromObserver: boolean = false;
+  private hasSecondOption: boolean = false;
   
   // === Observer Integration ===
   private customOptionsSubject: CustomOptionsNonBundleSubject;
@@ -52,12 +54,22 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   // === Lifecycle Methods ===
   
   connectedCallback() {
+    console.log('🔵 ClassicSelectOptions connecting...');
+    
     this.initializeSettings();
     this.initializeElements();
     this.setupEventListeners();
     this.attachToObservers();
     this.initializeState();
     this.initializeSecondOptionsState();
+    
+    // Debug: Check for auto-selection after initialization
+    setTimeout(() => {
+      const state = this.customOptionsSubject.getState();
+      if (state.option.firstOption) {
+        console.log('🚨 AUTO-SELECTION DETECTED AFTER INIT:', state.option.firstOption);
+      }
+    }, 0);
   }
 
   disconnectedCallback() {
@@ -85,6 +97,16 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
           this.optionData.basePrice = this.basePrice;
           this.optionData.basePriceAfterDiscount = this.basePriceAfterDiscount;
           this.optionData.baseImage = this.baseImage;
+          
+          // Determine if we have a second option
+          this.hasSecondOption = !!(this.optionData.secondOption && this.optionData.secondOption.values && this.optionData.secondOption.values.length > 0);
+          
+          console.log('🔧 Option structure detected:', {
+            hasFirstOption: !!this.optionData.firstOption,
+            hasSecondOption: this.hasSecondOption,
+            firstOptionValues: this.optionData.firstOption?.values?.length || 0,
+            secondOptionValues: this.optionData.secondOption?.values?.length || 0
+          });
         }
       } catch (e) {
         console.error('Failed to parse option data:', e);
@@ -105,17 +127,27 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.qtyIncreaseBtn = this.querySelector('[data-qty-action="increase"]');
     this.maxQtyDisplay = this.querySelector('[data-max-qty-display]');
     this.maxQtyValue = this.querySelector('[data-max-qty-value]');
+    
+    console.log('🔧 DOM elements found:', {
+      firstOptionElements: this.firstOptionElements?.length || 0,
+      secondOptionElements: this.secondOptionElements?.length || 0,
+      hasFirstDisplay: !!this.firstOptionDisplay,
+      hasSecondDisplay: !!this.secondOptionDisplay
+    });
   }
 
   private setupEventListeners(): void {
-    // Option listeners
+    // First option listeners
     this.firstOptionElements?.forEach(element => {
       element.addEventListener('click', () => this.handleFirstOptionClick(element));
     });
     
-    this.secondOptionElements?.forEach(element => {
-      element.addEventListener('click', () => this.handleSecondOptionClick(element));
-    });
+    // Second option listeners (only if second options exist)
+    if (this.hasSecondOption && this.secondOptionElements) {
+      this.secondOptionElements.forEach(element => {
+        element.addEventListener('click', () => this.handleSecondOptionClick(element));
+      });
+    }
     
     // Quantity listeners
     this.qtyDecreaseBtn?.addEventListener('click', () => this.handleQuantityDecrease());
@@ -136,6 +168,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 
   private initializeState(): void {
+    console.log('🔵 Initializing observer state...');
     this.customOptionsSubject.initialize(
       this.optionData,
       this.isVariant,
@@ -147,11 +180,18 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 
   private initializeSecondOptionsState(): void {
-    // Initially disable all second options if we have variant products with both options
-    if (this.isVariant && this.optionData?.firstOption && this.optionData?.secondOption && this.secondOptionElements) {
-      this.secondOptionElements.forEach(element => {
-        this.toggleElementAvailability(element, false);
-      });
+    // Only process second options if they exist
+    if (this.hasSecondOption && this.secondOptionElements) {
+      console.log('🔧 Initializing second options state...');
+      
+      // Initially disable all second options if we have variant products with both options
+      if (this.isVariant && this.optionData?.firstOption) {
+        this.secondOptionElements.forEach(element => {
+          this.toggleElementAvailability(element, false);
+        });
+      }
+    } else {
+      console.log('🔧 No second options to initialize');
     }
   }
 
@@ -159,11 +199,23 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   
   public update(subject: Subject<CustomOptionsNonBundleState>): void {
     const state = subject.getState();
+    console.log("📡 Observer state received:", state);
+    
+    // Prevent recursive calls during observer updates
+    this.isUpdatingFromObserver = true;
     this.syncUIWithObserverState(state);
+    this.isUpdatingFromObserver = false;
   }
 
   private syncUIWithObserverState(state: CustomOptionsNonBundleState): void {
     const { option, maxQuantity, isSelectionComplete } = state;
+    
+    console.log('🔄 Syncing UI with observer state:', {
+      firstOption: option.firstOption,
+      secondOption: option.secondOption,
+      hasSecondOption: this.hasSecondOption,
+      isComplete: isSelectionComplete
+    });
     
     // Update local state
     this.selectedOptions = {
@@ -181,6 +233,14 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   // === Event Handlers ===
   
   private handleFirstOptionClick(element: HTMLElement): void {
+    // Prevent calls during observer updates
+    if (this.isUpdatingFromObserver) {
+      console.log('🛑 Prevented auto-selection during observer update');
+      return;
+    }
+
+    console.log('👆 User clicked first option');
+    
     const value = element.getAttribute('data-option-value');
     if (!value) return;
 
@@ -189,10 +249,14 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.selectedOptions.first = value;
     this.updateOptionDisplay(this.firstOptionDisplay, value);
     
-    // Reset second option when first option changes
-    this.clearSecondOptionSelections();
+    // Reset second option when first option changes (only if second options exist)
+    if (this.hasSecondOption) {
+      this.clearSecondOptionSelections();
+      this.safeFilterSecondOptions(value);
+    }
+    
+    // Update observer
     this.customOptionsSubject.updateFirstOption(value);
-    this.filterSecondOptions(value);
     
     this.dispatchEvent(new CustomEvent('first-option-selected', {
       detail: { 
@@ -205,6 +269,20 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 
   private handleSecondOptionClick(element: HTMLElement): void {
+    // Prevent calls during observer updates
+    if (this.isUpdatingFromObserver) {
+      console.log('🛑 Prevented auto-selection during observer update');
+      return;
+    }
+
+    // Only allow if we actually have second options
+    if (!this.hasSecondOption) {
+      console.log('🛑 Second option click ignored - no second options configured');
+      return;
+    }
+
+    console.log('👆 User clicked second option');
+
     const value = element.getAttribute('data-option-value');
     if (!value || element.classList.contains('classic-option-disabled')) return;
 
@@ -269,9 +347,12 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 
   private clearSecondOptionSelections(): void {
-    this.secondOptionElements?.forEach(el => {
-      el.classList.remove('classic-selected-color-option', 'classic-selected-size-option', 'classic-selected');
-    });
+    // Only clear if second options exist
+    if (this.hasSecondOption && this.secondOptionElements) {
+      this.secondOptionElements.forEach(el => {
+        el.classList.remove('classic-selected-color-option', 'classic-selected-size-option', 'classic-selected');
+      });
+    }
     
     this.selectedOptions.second = undefined;
     this.updateOptionDisplay(this.secondOptionDisplay, '');
@@ -294,8 +375,13 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     }
   }
 
-  private filterSecondOptions(firstValue: string): void {
-    if (!this.optionData?.associations || !this.secondOptionElements) return;
+  // Safe filtering for UI updates (doesn't trigger observer)
+  private safeFilterSecondOptions(firstValue: string): void {
+    if (!this.hasSecondOption || !this.optionData?.associations || !this.secondOptionElements) {
+      return;
+    }
+
+    console.log('🔄 Safe filtering second options for:', firstValue);
 
     const availableSecondOptions = this.optionData.associations[firstValue] || [];
     const availableValues = availableSecondOptions.map(opt => opt.value);
@@ -305,6 +391,12 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
       const isAvailable = availableValues.includes(value || '');
       this.toggleElementAvailability(element, isAvailable);
     });
+  }
+
+  // User-triggered filtering (for backward compatibility)
+  private filterSecondOptions(firstValue: string): void {
+    console.log('🔄 User-triggered filtering for:', firstValue);
+    this.safeFilterSecondOptions(firstValue);
   }
 
   private toggleElementAvailability(element: HTMLElement, isAvailable: boolean): void {
@@ -325,21 +417,37 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   
   private updateSelectionDisplays(option: any): void {
     this.updateOptionDisplay(this.firstOptionDisplay, option.firstOption || '');
-    this.updateOptionDisplay(this.secondOptionDisplay, option.secondOption || '');
+    
+    // Only update second option display if second options exist
+    if (this.hasSecondOption) {
+      this.updateOptionDisplay(this.secondOptionDisplay, option.secondOption || '');
+    }
   }
 
   private updateVisualSelections(option: any): void {
+    console.log('🎨 Updating visual selections for:', {
+      firstOption: option.firstOption,
+      secondOption: option.secondOption,
+      hasSecondOption: this.hasSecondOption
+    });
+    
     this.clearAllSelections();
 
+    // Handle first option selection
     if (option.firstOption && this.firstOptionElements) {
       const firstElement = this.findElementByValue(this.firstOptionElements, option.firstOption);
       if (firstElement) {
         this.applySelectionStyle(firstElement);
-        this.filterSecondOptions(option.firstOption);
+        
+        // Only filter second options if they exist
+        if (this.hasSecondOption) {
+          this.safeFilterSecondOptions(option.firstOption);
+        }
       }
     }
 
-    if (option.secondOption && this.secondOptionElements) {
+    // Handle second option selection (only if second options exist)
+    if (this.hasSecondOption && option.secondOption && this.secondOptionElements) {
       const secondElement = this.findElementByValue(this.secondOptionElements, option.secondOption);
       if (secondElement) {
         this.applySelectionStyle(secondElement);
@@ -351,7 +459,8 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   private updateAvailableOptions(state: CustomOptionsNonBundleState): void {
     const { availableSecondOptions } = state;
     
-    if (!this.secondOptionElements) return;
+    // Only update second options if they exist
+    if (!this.hasSecondOption || !this.secondOptionElements) return;
 
     this.secondOptionElements.forEach(element => {
       const value = element.getAttribute('data-option-value');
@@ -423,7 +532,9 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.selectedOptions = {};
     
     this.updateOptionDisplay(this.firstOptionDisplay, '');
-    this.updateOptionDisplay(this.secondOptionDisplay, '');
+    if (this.hasSecondOption) {
+      this.updateOptionDisplay(this.secondOptionDisplay, '');
+    }
     
     this.resetSecondOptionsState();
     this.customOptionsSubject.clearOptions();
@@ -449,6 +560,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
       isComplete: this.isSelectionComplete(),
       currentQuantity: observerState.option.qty || 1,
       maxQuantity: observerState.maxQuantity,
+      hasSecondOption: this.hasSecondOption,
       observerState
     };
   }
@@ -461,6 +573,11 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 
   public isOptionAvailable(optionType: 'first' | 'second', value: string): boolean {
+    // Return false immediately if checking second option but no second options exist
+    if (optionType === 'second' && !this.hasSecondOption) {
+      return false;
+    }
+    
     const availableOptions = this.customOptionsSubject.getAvailableOptions();
     
     if (optionType === 'first') {
@@ -500,15 +617,23 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     };
   }
 
+  // New method to check if second options are available
+  public hasSecondOptions(): boolean {
+    return this.hasSecondOption;
+  }
+
   // === Private Helper Methods ===
   
   private resetSecondOptionsState(): void {
-    if (this.isVariant && this.optionData?.firstOption && this.optionData?.secondOption) {
-      this.secondOptionElements?.forEach(element => {
+    // Only reset if second options exist
+    if (!this.hasSecondOption || !this.secondOptionElements) return;
+    
+    if (this.isVariant && this.optionData?.firstOption) {
+      this.secondOptionElements.forEach(element => {
         this.toggleElementAvailability(element, false);
       });
     } else {
-      this.secondOptionElements?.forEach(element => {
+      this.secondOptionElements.forEach(element => {
         this.toggleElementAvailability(element, true);
       });
     }
