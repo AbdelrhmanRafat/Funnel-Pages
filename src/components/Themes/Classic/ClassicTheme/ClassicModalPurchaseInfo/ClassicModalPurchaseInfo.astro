@@ -1,10 +1,16 @@
 ---
 import "./ClassicModalPurchaseInfo.css";
 import ClassicConfirmPurchaseButton from "../UI/ClassicConfirmPurchaseButton/ClassicConfirmPurchaseButton.astro";
-import type { BlockData } from "../../../../../lib/api/types";
+import type { BlockData, Product } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 
 const isHaveVariant: string = Astro.props.isHaveVariant;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const product : Product = Astro.props.product;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
 
 // Determine product option scenarios
 const hasVariants = isHaveVariant === "true";
@@ -27,8 +33,8 @@ const hasBundles = purchaseOptions !== undefined;
       <!-- Purchase Info View (Default) -->
       <div data-modal-purchase-info-view class="modal-view w-full">
         <!-- Enhanced Header -->
-        <div class="classic-modal-header">
-          <div class="classic-header-content">
+        <div class="classic-modal-header flex justify-between items-center">
+          <div class="classic-header-content flex justify-start items-center gap-2">
             <div class="classic-header-accent"></div>
             <h3
               class="classic-modal-title"
@@ -36,13 +42,10 @@ const hasBundles = purchaseOptions !== undefined;
             >
             </h3>
           </div>
-          <div class="classic-security-badge">
-            <div class="classic-security-indicator"></div>
-            <span data-translate="modal.secureEncrypted"></span>
-          </div>
         </div>
 
         <div class="classic-modal-body">
+        </div>
           <div class="classic-modal-content">
             <!-- Enhanced Order Summary Section -->
             <div class="classic-purchase-summary">
@@ -160,24 +163,6 @@ const hasBundles = purchaseOptions !== undefined;
                       <span data-translate="modal.directPurchaseSelected"></span>
                     </div>
                   )}
-                </div>
-              )}
-
-              <!-- Bundle Information Section -->
-              <!-- Show only when product has bundles (scenario 1) -->
-              {hasBundles && (
-                <div class="classic-summary-section classic-bundle-section">
-                  <div class="classic-section-header">
-                    <div class="classic-section-icon classic-icon-bundle">
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                      </svg>
-                    </div>
-                    <h5 class="classic-subsection-title" data-translate="modal.bundleInfo"></h5>
-                  </div>
-                  <div class="classic-info-notice classic-notice-bundle">
-                    <span data-translate="modal.bundleDescription"></span>
-                  </div>
                 </div>
               )}
 

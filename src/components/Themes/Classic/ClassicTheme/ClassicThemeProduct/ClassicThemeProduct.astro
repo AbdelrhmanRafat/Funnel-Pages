@@ -215,6 +215,7 @@ function isComponentDataAvailable(
           if (componentType === ClassicProductInfoComponents.FormFields) {
             return (
               <ClassicThemeFormFields
+                product={product}
                 data={componentCheck.componentData}
                 purchaseOptions={purchaseOptions}
                 isHaveVariant={isHaveVariant}

@@ -1,11 +1,11 @@
 ---
 import "./ClassicSubmitOrderButton.css";
 import ClassicModalPurchaseInfo from "../../ClassicModalPurchaseInfo/ClassicModalPurchaseInfo.astro";
-import type { BlockData } from "../../../../../../lib/api/types";
+import type { BlockData, Product } from "../../../../../../lib/api/types";
 
 const isHaveVariant : string = Astro.props.isHaveVariant;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
-
+const product : Product = Astro.props.product;
 // Component configuration
 const validateOnSubmit =  true;
 const showValidationMessages =  true;
@@ -34,7 +34,7 @@ const isHaveBundles = !(purchaseOptions === undefined);
 </classic-submit-order>
 
 <!-- Include the modal component -->
-<ClassicModalPurchaseInfo  isHaveVariant={isHaveVariant} purchaseOptions={purchaseOptions} />
+<ClassicModalPurchaseInfo  isHaveVariant={isHaveVariant} purchaseOptions={purchaseOptions} product={product} />
 
 <script>
   import "./ClassicSubmitOrderButton";

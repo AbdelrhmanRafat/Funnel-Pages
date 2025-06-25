@@ -3,7 +3,7 @@ import "./ClassicThemeFormFields.css";
 import {
   type Language,
 } from "../../../../../lib/utils/i18n/translations";
-import type { BlockData, PaymentOption, DeliveryOption } from "../../../../../lib/api/types";
+import type { BlockData, PaymentOption, DeliveryOption, Product } from "../../../../../lib/api/types";
 import ClassicSubmitOrderButton from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
@@ -11,6 +11,7 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 const data: BlockData = Astro.props.data;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const isHaveVariant: string = Astro.props.isHaveVariant;
+const product : Product = Astro.props.product;
 
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value ||
@@ -297,7 +298,7 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
         </div>
       </div>
       <!-- SUBMIT BUTTON SECTION -->
-      <ClassicSubmitOrderButton purchaseOptions={purchaseOptions} isHaveVariant={isHaveVariant}  />
+      <ClassicSubmitOrderButton purchaseOptions={purchaseOptions} isHaveVariant={isHaveVariant} product={product} />
     </form>
   </div>
 </section>

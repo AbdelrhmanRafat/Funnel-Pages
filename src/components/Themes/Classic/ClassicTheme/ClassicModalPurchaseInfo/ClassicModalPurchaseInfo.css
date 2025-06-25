@@ -25,15 +25,6 @@
   border-bottom: 1px solid var(--classic-color-outline);
   border-radius: var(--classic-section-radius) var(--classic-section-radius) 0 0;
   padding: var(--classic-section-padding);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.classic-header-content {
-  display: flex;
-  align-items: center;
-  gap: var(--classic-header-gap);
 }
 
 .classic-header-accent {
@@ -50,21 +41,9 @@
   color: var(--classic-color-on-surface);
 }
 
-.classic-security-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--classic-color-on-surface-variant);
-}
 
-.classic-security-indicator {
-  width: 0.5rem;
-  height: 0.5rem;
-  background: var(--classic-color-success);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
+
+
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
