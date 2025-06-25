@@ -31,10 +31,13 @@ const availableAnchors = funnelPage?.blocks
 
 // Order anchors based on render order
 const RENDER_ORDER = [
+  FunnelClassicComponents.ClassicHeader,
+  FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
   FunnelClassicComponents.ClassicProductFeatures,
   FunnelClassicComponents.ClassicProductPreview,
   FunnelClassicComponents.ClassicProductUsage,
   FunnelClassicComponents.classicTodayStatistics,
+  FunnelClassicComponents.ClassicGallery,
   FunnelClassicComponents.Classic_Before_After,
   FunnelClassicComponents.ClassicReviews,
   FunnelClassicComponents.ClassicTextBar,
@@ -42,6 +45,8 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicImageTextBeside,
   FunnelClassicComponents.ClassicFaq,
   FunnelClassicComponents.ClassicDeliveryFeatures,
+  FunnelClassicComponents.ClassicCountdown,
+  FunnelClassicComponents.ClassicFooter,
 ];
 
 // Safe filtering with additional null checks
