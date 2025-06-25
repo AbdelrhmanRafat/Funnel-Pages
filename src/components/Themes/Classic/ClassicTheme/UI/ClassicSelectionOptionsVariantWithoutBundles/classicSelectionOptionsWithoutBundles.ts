@@ -1,4 +1,4 @@
-// ClassicDynamicPannelContainer.ts - Refactored with Enhanced Observer
+// ClassicDynamicPanelContainer.ts - Simplified and Organized
 import type { Observer, Subject } from "../../../../../../lib/patterns/Observers/base-observer";
 import { 
   CustomOptionsNonBundleSubject, 
@@ -12,27 +12,28 @@ interface SelectedOptions {
 }
 
 class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptionsNonBundleState> {
+  // Configuration properties
   private panelIndex: number = 1;
   private isVariant: boolean = false;
   private optionData: YourOptionData | null = null;
   private skuNoVariant: string = "";
   
-  // Enhanced base properties
+  // Base properties
   private basePrice: number | null = null;
   private basePriceAfterDiscount: number | null = null;
   private baseImage: string | null = null;
   private qtyNonVariant: number = 1;
   
-  // 🆕 Enhanced observer integration
+  // Observer integration
   private customOptionsSubject: CustomOptionsNonBundleSubject;
   
-  // DOM elements
+  // DOM elements - Options
   private firstOptionElements: NodeListOf<HTMLElement> | null = null;
   private secondOptionElements: NodeListOf<HTMLElement> | null = null;
   private firstOptionDisplay: HTMLElement | null = null;
   private secondOptionDisplay: HTMLElement | null = null;
   
-  // Quantity DOM elements
+  // DOM elements - Quantity
   private qtyInput: HTMLInputElement | null = null;
   private qtyDecreaseBtn: HTMLElement | null = null;
   private qtyIncreaseBtn: HTMLElement | null = null;
@@ -44,6 +45,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.customOptionsSubject = CustomOptionsNonBundleSubject.getInstance();
   }
 
+  // Lifecycle methods
   connectedCallback() {
     this.initializeSettings();
     this.initializeElements();
@@ -56,91 +58,61 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     this.detachFromObservers();
   }
 
+  // Initialization methods
   private initializeSettings(): void {
     this.panelIndex = parseInt(this.getAttribute('data-options-panel-index') || '1');
     this.isVariant = this.getAttribute('data-options-is-variant') === 'true';
     this.skuNoVariant = this.getAttribute('data-sku-no-variant') || '';
     
-    // Initialize base properties from attributes
     this.basePrice = parseFloat(this.getAttribute('data-base-price') || '0') || null;
     this.basePriceAfterDiscount = parseFloat(this.getAttribute('data-base-price-discount') || '0') || null;
     this.baseImage = this.getAttribute('data-base-image') || null;
     this.qtyNonVariant = parseInt(this.getAttribute('data-qty-non-variant') || '1') || 1;
     
-    // Parse option data
     const optionDataAttr = this.getAttribute('data-option-data');
     if (optionDataAttr && this.isVariant) {
       try {
         this.optionData = JSON.parse(optionDataAttr);
         
-        // Add base values to option data for the observer (for variants)
         if (this.optionData) {
           this.optionData.basePrice = this.basePrice;
           this.optionData.basePriceAfterDiscount = this.basePriceAfterDiscount;
           this.optionData.baseImage = this.baseImage;
         }
-        
-        console.log('🔍 Parsed option data for observer:', this.optionData);
       } catch (e) {
-        console.error('❌ Failed to parse option data:', e);
+        console.error('Failed to parse option data:', e);
       }
     }
-    
-    console.log('⚙️ Settings initialized:', {
-      isVariant: this.isVariant,
-      hasOptionData: !!this.optionData,
-      nonVariantData: !this.isVariant ? {
-        sku: this.skuNoVariant,
-        price: this.basePrice,
-        priceAfterDiscount: this.basePriceAfterDiscount,
-        qty: this.qtyNonVariant
-      } : null
-    });
   }
 
   private initializeElements(): void {
+    // Option elements
     this.firstOptionElements = this.querySelectorAll('[data-option-type="first"]');
     this.secondOptionElements = this.querySelectorAll('[data-option-type="second"]');
     this.firstOptionDisplay = this.querySelector('[data-selected-first-option]');
     this.secondOptionDisplay = this.querySelector('[data-selected-second-option]');
     
-    // Initialize quantity elements
+    // Quantity elements
     this.qtyInput = this.querySelector('[data-qty-input]');
     this.qtyDecreaseBtn = this.querySelector('[data-qty-action="decrease"]');
     this.qtyIncreaseBtn = this.querySelector('[data-qty-action="increase"]');
     this.maxQtyDisplay = this.querySelector('[data-max-qty-display]');
     this.maxQtyValue = this.querySelector('[data-max-qty-value]');
-    
-    console.log('🔍 Elements found:', {
-      firstOptions: this.firstOptionElements?.length || 0,
-      secondOptions: this.secondOptionElements?.length || 0,
-      quantityControls: !!(this.qtyInput && this.qtyDecreaseBtn && this.qtyIncreaseBtn)
-    });
   }
 
   private setupEventListeners(): void {
-    // First option listeners
-    if (this.firstOptionElements) {
-      this.firstOptionElements.forEach(element => {
-        element.addEventListener('click', () => this.handleFirstOptionClick(element));
-      });
-    }
+    // Option listeners
+    this.firstOptionElements?.forEach(element => {
+      element.addEventListener('click', () => this.handleFirstOptionClick(element));
+    });
     
-    // Second option listeners  
-    if (this.secondOptionElements) {
-      this.secondOptionElements.forEach(element => {
-        element.addEventListener('click', () => this.handleSecondOptionClick(element));
-      });
-    }
+    this.secondOptionElements?.forEach(element => {
+      element.addEventListener('click', () => this.handleSecondOptionClick(element));
+    });
     
-    // Quantity control listeners
-    if (this.qtyDecreaseBtn) {
-      this.qtyDecreaseBtn.addEventListener('click', () => this.handleQuantityDecrease());
-    }
-    
-    if (this.qtyIncreaseBtn) {
-      this.qtyIncreaseBtn.addEventListener('click', () => this.handleQuantityIncrease());
-    }
+    // Quantity listeners
+    this.qtyDecreaseBtn?.addEventListener('click', () => this.handleQuantityDecrease());
+    this.qtyIncreaseBtn?.addEventListener('click', () => this.handleQuantityIncrease());
     
     if (this.qtyInput) {
       this.qtyInput.addEventListener('input', () => this.handleQuantityInput());
@@ -157,58 +129,33 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 
   private initializeState(): void {
-    // 🆕 Initialize the enhanced observer with our data structure
-    // Pass non-variant prices separately for proper handling
     this.customOptionsSubject.initialize(
       this.optionData,
       this.isVariant,
       this.qtyNonVariant,
       this.skuNoVariant,
-      this.basePrice, // priceNoVariant
-      this.basePriceAfterDiscount // priceAfterDiscountNoVariant
+      this.basePrice,
+      this.basePriceAfterDiscount
     );
-    
-    console.log('🚀 Observer initialized with:', {
-      isVariant: this.isVariant,
-      hasOptionData: !!this.optionData,
-      baseQty: this.qtyNonVariant,
-      nonVariantPricing: !this.isVariant ? {
-        price: this.basePrice,
-        priceAfterDiscount: this.basePriceAfterDiscount
-      } : null
-    });
   }
 
-  // 🆕 Observer implementation - automatically handles state updates
+  // Observer implementation
   public update(subject: Subject<CustomOptionsNonBundleState>): void {
     const state = subject.getState();
-    console.log('🔄 Observer state updated:', state);
-    
-    // Automatically sync UI with observer state
     this.syncUIWithObserverState(state);
   }
 
   private syncUIWithObserverState(state: CustomOptionsNonBundleState): void {
-    const { option, availableSecondOptions, maxQuantity, isSelectionComplete } = state;
+    const { option, maxQuantity, isSelectionComplete } = state;
     
-    // Update selection displays
     this.updateSelectionDisplays(option);
-    
-    // Update visual selections
     this.updateVisualSelections(option);
-    
-    // Update available options (automatic filtering)
     this.updateAvailableOptions(state);
-    
-    // Update quantity controls
     this.updateQuantityControls(option.qty || 1, maxQuantity);
-    
-    // Update max quantity display
     this.updateMaxQuantityDisplay(maxQuantity, isSelectionComplete);
-    
-    console.log('✅ UI synced with observer state');
   }
 
+  // UI Update methods
   private updateSelectionDisplays(option: CustomOptionsNonBundle): void {
     if (this.firstOptionDisplay) {
       this.firstOptionDisplay.textContent = option.firstOption || 'Not selected';
@@ -219,27 +166,20 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 
   private updateVisualSelections(option: CustomOptionsNonBundle): void {
-    // Clear all selections first
     this.clearAllSelections();
 
-    // Apply first option selection
     if (option.firstOption && this.firstOptionElements) {
       const firstElement = Array.from(this.firstOptionElements).find(
         element => element.getAttribute('data-option-value') === option.firstOption
       );
-      if (firstElement) {
-        this.applySelectionStyle(firstElement);
-      }
+      if (firstElement) this.applySelectionStyle(firstElement);
     }
 
-    // Apply second option selection
     if (option.secondOption && this.secondOptionElements) {
       const secondElement = Array.from(this.secondOptionElements).find(
         element => element.getAttribute('data-option-value') === option.secondOption
       );
-      if (secondElement) {
-        this.applySelectionStyle(secondElement);
-      }
+      if (secondElement) this.applySelectionStyle(secondElement);
     }
   }
 
@@ -248,7 +188,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     
     if (!this.secondOptionElements) return;
 
-    // Update second options availability based on observer state
     this.secondOptionElements.forEach(element => {
       const value = element.getAttribute('data-option-value');
       const isAvailable = availableSecondOptions.some(opt => opt.value === value && !opt.disabled);
@@ -263,10 +202,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
         element.style.pointerEvents = 'none';
       }
     });
-
-    console.log('🔄 Updated available options:', {
-      secondOptionsAvailable: availableSecondOptions.filter(opt => !opt.disabled).length
-    });
   }
 
   private updateQuantityControls(currentQty: number, maxQty: number): void {
@@ -275,7 +210,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
       this.qtyInput.setAttribute('max', maxQty.toString());
     }
     
-    // Update button states
     if (this.qtyDecreaseBtn) {
       const isDisabled = currentQty <= 1;
       this.qtyDecreaseBtn.style.opacity = isDisabled ? '0.5' : '1';
@@ -300,17 +234,13 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     }
   }
 
-  // 🆕 Simplified event handlers - observer does the heavy lifting
+  // Event handlers
   private handleFirstOptionClick(element: HTMLElement): void {
     const value = element.getAttribute('data-option-value');
     if (!value) return;
 
-    console.log('🎯 First option clicked:', value);
-
-    // Simply update the observer - it will handle all the logic
     this.customOptionsSubject.updateFirstOption(value);
     
-    // Dispatch event for external components
     this.dispatchEvent(new CustomEvent('first-option-selected', {
       detail: { 
         panelIndex: this.panelIndex,
@@ -324,12 +254,8 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     const value = element.getAttribute('data-option-value');
     if (!value || element.classList.contains('classic-option-disabled')) return;
 
-    console.log('🎯 Second option clicked:', value);
-
-    // Simply update the observer - it will handle all the logic
     this.customOptionsSubject.updateSecondOption(value);
     
-    // Dispatch event for external components
     this.dispatchEvent(new CustomEvent('second-option-selected', {
       detail: { 
         panelIndex: this.panelIndex,
@@ -339,7 +265,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     }));
   }
 
-  // 🆕 Simplified quantity handlers
   private handleQuantityDecrease(): void {
     const currentState = this.customOptionsSubject.getState();
     const currentQty = currentState.option.qty || 1;
@@ -372,29 +297,21 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     const currentState = this.customOptionsSubject.getState();
     const currentQty = currentState.option.qty || 1;
     
-    // Ensure the input shows the corrected value
     this.qtyInput.value = currentQty.toString();
   }
 
-  // UI helper methods
+  // UI Helper methods
   private clearAllSelections(): void {
-    // Clear first option selections
-    if (this.firstOptionElements) {
-      this.firstOptionElements.forEach(el => {
-        el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
-      });
-    }
+    this.firstOptionElements?.forEach(el => {
+      el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
+    });
     
-    // Clear second option selections
-    if (this.secondOptionElements) {
-      this.secondOptionElements.forEach(el => {
-        el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
-      });
-    }
+    this.secondOptionElements?.forEach(el => {
+      el.classList.remove('classic-selected-color-option', 'classic-selected-size-option');
+    });
   }
 
   private applySelectionStyle(element: HTMLElement): void {
-    // Apply appropriate selection class based on element type
     if (element.classList.contains('classic-color-option')) {
       element.classList.add('classic-selected-color-option');
     } else {
@@ -402,7 +319,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     }
   }
 
-  // 🆕 Public API - much simpler now
+  // Public API methods
   public getSelectedOptions(): { first: string | null; second: string | null } {
     const option = this.customOptionsSubject.getOption();
     return {
@@ -418,11 +335,8 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   public clearSelections(): void {
     this.customOptionsSubject.clearOptions();
     
-    // Dispatch clear event
     this.dispatchEvent(new CustomEvent('selections-cleared', {
-      detail: { 
-        panelIndex: this.panelIndex
-      }
+      detail: { panelIndex: this.panelIndex }
     }));
   }
 
@@ -446,7 +360,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     };
   }
 
-  // 🆕 New method to get option data for child components
   public getOptionDataForChildren(): {
     firstOptions: Array<{ value: string; hex?: string; disabled: boolean }>;
     secondOptions: Array<{ value: string; hex?: string; disabled: boolean }>;
@@ -454,7 +367,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     return this.customOptionsSubject.getOptionValuesForUI();
   }
 
-  // 🆕 Method to check if specific option is available
   public isOptionAvailable(optionType: 'first' | 'second', value: string): boolean {
     const availableOptions = this.customOptionsSubject.getAvailableOptions();
     
@@ -465,7 +377,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     }
   }
 
-  // 🆕 Method to get current price info
   public getCurrentPriceInfo(): {
     price: number | null;
     priceAfterDiscount: number | null;
@@ -479,7 +390,6 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
     };
   }
 
-  // 🆕 Method to get current product info
   public getCurrentProductInfo(): {
     skuId: number | null;
     image: string | null;
@@ -498,14 +408,14 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   }
 }
 
-// Register the custom element
+// Custom element registration
 document.addEventListener('DOMContentLoaded', () => {
   if (!customElements.get('classic-select-options')) {
     customElements.define('classic-select-options', ClassicSelectOptions);
   }
 });
 
-// Handle Astro page transitions
+// Astro page transition support
 document.addEventListener('astro:page-load', () => {
   const selectOptions = document.querySelectorAll('classic-select-options:not(:defined)');
   selectOptions.forEach(option => {

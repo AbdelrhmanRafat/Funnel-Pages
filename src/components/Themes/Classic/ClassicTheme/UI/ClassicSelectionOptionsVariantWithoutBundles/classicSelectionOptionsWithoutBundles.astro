@@ -3,15 +3,13 @@
 import "./classicSelectionOptionsWithoutBundles.css";
 import type { CustomOptions, Product } from "../../../../../../lib/api/types";
 import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
-import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 import ClassicColorOptionsWithoutBundles from "./Color Options/ClassicColorOptionsWithoutBundles.astro";
 import ClassicTextOptionsWithoutBundles from "./Text Options/ClassicTextOptionsWithoutBundles.astro";
 
 const product: Product = Astro.props.product;
-const panelIndex: number = 1;
 const qty_NonVariant = product.qty;
 const isHaveVariant = product.is_have_variant;
-const customOptions: CustomOptions[] = product.custom_options;
+const customOptions: CustomOptions = product.custom_options;
 
 // Component configuration
 const allowMultipleSelection = false;
@@ -110,10 +108,8 @@ if (isHaveVariant === "true" && customOptions) {
     };
 }
 ---
-
-<div id="classic-pannel-container" class="classic-pannel-container">
+<div id="classic-pannel-container" class="classic-panel-wrapper w-full">
   <classic-select-options 
-    data-options-panel-index={panelIndex}
     data-options-allow-multiple={allowMultipleSelection}
     data-options-show-indicators={showSelectionIndicators}
     data-options-auto-select={enableAutoSelect}
@@ -125,7 +121,7 @@ if (isHaveVariant === "true" && customOptions) {
     data-base-image={product.image || ''}
     data-qty-non-variant={qty_NonVariant || 1}
   >
-    <div class="classic-single-option-panel p-7">
+    <div class="classic-option-panel p-7 rounded-2xl shadow-2xl transition-all duration-300">
       <div class="flex flex-col gap-6 lg:flex-row lg:gap-8">
         
         <!-- OPTIONS SECTION -->
@@ -134,10 +130,10 @@ if (isHaveVariant === "true" && customOptions) {
             <div class="space-y-6">
               <!-- First Option -->
               {optionData?.firstOption && (
-                <div class="classic-select-option-section">
-                  <h3 class="text-sm font-medium text-gray-700 mb-3">{optionData.firstOption.title}</h3>
+                <div class="classic-option-group">
+                  <h3 class="classic-option-title text-3xl font-medium block mb-6">{optionData.firstOption.title}</h3>
                   {optionData.firstOption.hasColors ? (
-                    <div class="flex flex-wrap gap-3">
+                    <div class="classic-color-grid flex flex-wrap gap-3">
                       {optionData.firstOption.values.map((option, index) => (
                         <ClassicColorOptionsWithoutBundles 
                           option={option}
@@ -147,7 +143,7 @@ if (isHaveVariant === "true" && customOptions) {
                       ))}
                     </div>
                   ) : (
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div class="classic-text-grid grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {optionData.firstOption.values.map((option, index) => (
                         <ClassicTextOptionsWithoutBundles 
                           option={option}
@@ -162,10 +158,10 @@ if (isHaveVariant === "true" && customOptions) {
               
               <!-- Second Option -->
               {optionData?.secondOption && (
-                <div class="classic-select-option-section">
-                  <h3 class="text-sm font-medium text-gray-700 mb-3">{optionData.secondOption.title}</h3>
+                <div class="classic-option-group">
+                  <h3 class="classic-option-title text-3xl font-medium block mb-6">{optionData.secondOption.title}</h3>
                   {optionData.secondOption.hasColors ? (
-                    <div class="flex flex-wrap gap-3">
+                    <div class="classic-color-grid flex flex-wrap gap-3">
                       {optionData.secondOption.values.map((option, index) => (
                         <ClassicColorOptionsWithoutBundles 
                           option={option}
@@ -175,7 +171,7 @@ if (isHaveVariant === "true" && customOptions) {
                       ))}
                     </div>
                   ) : (
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div class="classic-text-grid grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {optionData.secondOption.values.map((option, index) => (
                         <ClassicTextOptionsWithoutBundles 
                           option={option}
@@ -196,14 +192,14 @@ if (isHaveVariant === "true" && customOptions) {
           <div class="space-y-4">
             
             <!-- Quantity Controls -->
-            <div class="classic-qty-section">
-              <label class="block text-sm font-medium text-gray-700 mb-3">
+            <div class="classic-qty-wrapper">
+              <label class="classic-qty-label text-3xl font-medium block mb-6" data-translate="productFunnel.quantity">
                 Quantity
               </label>
-              <div class="flex items-center gap-3">
+              <div class="classic-qty-controls flex items-center gap-3">
                 <button 
                   type="button" 
-                  class="classic-qty-btn classic-qty-decrease w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="classic-qty-btn classic-qty-decrease w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   data-qty-action="decrease"
                 >
                   <span class="text-lg font-medium select-none">−</span>
@@ -211,7 +207,7 @@ if (isHaveVariant === "true" && customOptions) {
                 
                 <input 
                   type="number" 
-                  class="classic-qty-input w-20 h-10 text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
+                  class="classic-qty-input w-20 h-10 text-center rounded-2xl focus:outline-none focus:ring-2 transition-all duration-200" 
                   value="1" 
                   min="1" 
                   data-qty-input
@@ -219,96 +215,32 @@ if (isHaveVariant === "true" && customOptions) {
                 
                 <button 
                   type="button" 
-                  class="classic-qty-btn classic-qty-increase w-10 h-10 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="classic-qty-btn classic-qty-increase w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   data-qty-action="increase"
                 >
                   <span class="text-lg font-medium select-none">+</span>
                 </button>
               </div>
               
-              <!-- 🆕 Enhanced max quantity indicator with automatic updates -->
-              {isHaveVariant === "true" && (
-                <div class="classic-max-qty-indicator mt-2 text-sm text-gray-500" data-max-qty-display style="display: none;">
-                  <span>Max available: <span data-max-qty-value class="font-medium">0</span></span>
-                </div>
-              )}
+             {isHaveVariant === "true" && (
+  <div class="classic-max-qty-display classic-max-qty-indicator text-sm mt-2 hidden" data-max-qty-display style="display: none;">
+    <span class="classic-max-qty-text inline-block" data-translate="productFunnel.maxAvailable"></span>
+    <span class="inline-block ms-1">
+      <span data-max-qty-value class="classic-max-qty-value font-medium">0</span>
+    </span>
+  </div>
+)}
+
+{isHaveVariant === "false" && (
+  <div class="classic-max-qty-display text-sm mt-2">
+    <span class="classic-max-qty-text inline-block" data-translate="productFunnel.maxAvailable"></span>
+    <span class="inline-block ms-1">
+      <span data-max-qty-value class="classic-max-qty-value font-medium">{qty_NonVariant}</span>
+    </span>
+  </div>
+)}
+
             </div>
-            
-            <!-- 🆕 Enhanced Selection Status with automatic updates -->
-            {isHaveVariant === "true" && (
-              <div class="classic-selection-status">
-                <h4 class="text-sm font-medium text-gray-800 mb-2">Current Selection</h4>
-                <div class="space-y-2 text-sm">
-                  {optionData?.firstOption && (
-                    <div class="flex justify-between">
-                      <span class="text-gray-600">{optionData.firstOption.title}:</span>
-                      <span class="font-medium" data-selected-first-option>Not selected</span>
-                    </div>
-                  )}
-                  {optionData?.secondOption && (
-                    <div class="flex justify-between">
-                      <span class="text-gray-600">{optionData.secondOption.title}:</span>
-                      <span class="font-medium" data-selected-second-option>Not selected</span>
-                    </div>
-                  )}
-                </div>
-                
-                <!-- 🆕 Price display that updates automatically -->
-                <div class="classic-price-display mt-3 pt-3 border-t border-gray-200" data-price-display style="display: none;">
-                  <div class="text-sm space-y-1">
-                    <div class="flex justify-between" data-original-price-row style="display: none;">
-                      <span class="text-gray-600">Price:</span>
-                      <span class="font-medium line-through text-gray-500" data-original-price></span>
-                    </div>
-                    <div class="flex justify-between">
-                      <span class="text-gray-600">Final Price:</span>
-                      <span class="font-bold text-green-600" data-final-price></span>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- 🆕 SKU display that updates automatically -->
-                <div class="classic-sku-display mt-2" data-sku-display style="display: none;">
-                  <div class="text-xs text-gray-500">
-                    SKU: <span data-current-sku class="font-mono"></span>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            <!-- Product Info for Non-Variants -->
-            {isHaveVariant !== "true" && (
-              <div class="classic-product-info">
-                <h4 class="text-sm font-medium text-gray-800 mb-2">Product Details</h4>
-                <div class="space-y-2 text-sm">
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">SKU:</span>
-                    <span class="font-medium">{skuNoVariant}</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Available:</span>
-                    <span class="font-medium text-green-600">{qty_NonVariant || 1} units</span>
-                  </div>
-                  {priceNoVariant && (
-                    <div class="flex justify-between">
-                      <span class="text-gray-600">Price:</span>
-                      <span class="font-bold text-green-600">${priceAfterDiscountNoVariant || priceNoVariant}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-            
-            <!-- 🆕 Clear selections button for variants -->
-            {isHaveVariant === "true" && (
-              <button 
-                type="button" 
-                class="classic-clear-btn w-full py-2 px-4 text-sm border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-                data-clear-selections
-              >
-                Clear Selections
-              </button>
-            )}
             
           </div>
         </div>
@@ -320,81 +252,5 @@ if (isHaveVariant === "true" && customOptions) {
 
 <script>
   import "./classicSelectionOptionsWithoutBundles";
-  
-  // 🆕 Enhanced script for automatic price/sku updates
-  document.addEventListener('DOMContentLoaded', () => {
-    const selectOptions = document.querySelector('classic-select-options');
-    
-    if (selectOptions) {
-      // Listen for observer state changes to update price/sku displays
-      selectOptions.addEventListener('first-option-selected', (event) => {
-        updatePriceAndSkuDisplay(event.detail.observerState);
-      });
-      
-      selectOptions.addEventListener('second-option-selected', (event) => {
-        updatePriceAndSkuDisplay(event.detail.observerState);
-      });
-      
-      // Clear selections button
-      const clearBtn = document.querySelector('[data-clear-selections]');
-      if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-          if (selectOptions.clearSelections) {
-            selectOptions.clearSelections();
-          }
-        });
-      }
-      
-      selectOptions.addEventListener('selections-cleared', () => {
-        hidePriceAndSkuDisplay();
-      });
-    }
-  });
-  
-  function updatePriceAndSkuDisplay(observerState) {
-    const option = observerState.option;
-    const isComplete = observerState.isSelectionComplete;
-    
-    // Update price display
-    const priceDisplay = document.querySelector('[data-price-display]');
-    const originalPriceRow = document.querySelector('[data-original-price-row]');
-    const originalPrice = document.querySelector('[data-original-price]');
-    const finalPrice = document.querySelector('[data-final-price]');
-    
-    if (priceDisplay && finalPrice) {
-      if (option.price || option.price_after_discount) {
-        priceDisplay.style.display = 'block';
-        
-        const hasDiscount = option.price && option.price_after_discount && option.price > option.price_after_discount;
-        
-        if (hasDiscount && originalPriceRow && originalPrice) {
-          originalPriceRow.style.display = 'flex';
-          originalPrice.textContent = `$${option.price}`;
-          finalPrice.textContent = `$${option.price_after_discount}`;
-        } else {
-          if (originalPriceRow) originalPriceRow.style.display = 'none';
-          finalPrice.textContent = `$${option.price_after_discount || option.price}`;
-        }
-      }
-    }
-    
-    // Update SKU display
-    const skuDisplay = document.querySelector('[data-sku-display]');
-    const currentSku = document.querySelector('[data-current-sku]');
-    
-    if (skuDisplay && currentSku && option.sku_id && isComplete) {
-      skuDisplay.style.display = 'block';
-      currentSku.textContent = option.sku_id.toString();
-    } else if (skuDisplay) {
-      skuDisplay.style.display = 'none';
-    }
-  }
-  
-  function hidePriceAndSkuDisplay() {
-    const priceDisplay = document.querySelector('[data-price-display]');
-    const skuDisplay = document.querySelector('[data-sku-display]');
-    
-    if (priceDisplay) priceDisplay.style.display = 'none';
-    if (skuDisplay) skuDisplay.style.display = 'none';
-  }
+
 </script>

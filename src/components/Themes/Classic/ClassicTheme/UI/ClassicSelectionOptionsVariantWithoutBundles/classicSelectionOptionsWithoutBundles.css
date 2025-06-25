@@ -1,36 +1,50 @@
-/* === Dynamic Panel Container === */
-.classic-single-option-panel {
+/* === Classic Panel Container Color Styles === */
+
+/* Main Panel Wrapper */
+.classic-panel-wrapper {
+    /* No color styles - uses Tailwind classes only */
+}
+
+/* Option Panel - Main Container Colors */
+.classic-option-panel {
     background-color: var(--classic-color-surface);
-    border-radius: var(--classic-section-radius);
-    border-color: var(--classic-color-primary-light);
-}
-
-.classic-panel-header {
-    color: var(--classic-color-primary-dark);
-}
-
-.classic-selection-indicator {
-    background-color: var(--classic-color-secondary);
-    color: var(--classic-color-on-secondary);
-}
-
-.classic-selection-title {
-    color: var(--classic-color-on-surface-variant);
-}
-
-.classic-size-option {
-    border-color: var(--classic-color-outline);
-    transition: all 0.2s ease;
+    border: 1px solid var(--classic-color-outline-variant);
     box-shadow: var(--classic-section-shadow);
+}
+
+/* === Option Groups === */
+.classic-option-title {
     color: var(--classic-color-on-surface-variant);
+}
+
+/* === Size/Text Options === */
+.classic-size-option {
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface-variant);
+    border: 1px solid var(--classic-color-outline);
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .classic-size-option:hover {
     background-color: var(--classic-color-secondary);
     color: var(--classic-color-on-secondary);
+    border-color: var(--classic-color-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--classic-section-shadow);
 }
 
+.classic-size-option.classic-selected {
+    background-color: var(--classic-color-secondary);
+    color: var(--classic-color-on-secondary);
+    border-color: var(--classic-color-secondary-dark);
+    transform: translateY(-4px);
+    box-shadow: var(--classic-section-shadow);
+}
+
+/* === Color Options === */
 .classic-color-option {
+    cursor: pointer;
     transition: transform 0.2s ease;
 }
 
@@ -39,205 +53,224 @@
 }
 
 .classic-color-swatch {
-    border-color: var(--classic-color-surface);
+    background-color: var(--classic-color-surface);
+    border: 2px solid var(--classic-color-outline-variant);
     box-shadow: var(--classic-section-shadow);
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .classic-color-name {
     color: var(--classic-color-on-surface-variant);
 }
 
-/* === Selection States === */
-.classic-selected-color-option {
-  transform: scale(1.1);
+.classic-color-option.classic-selected {
+    transform: scale(1.1);
 }
 
-.classic-selected-color-option .classic-color-swatch {
-  border: 3px solid var(--classic-color-primary);
-  box-shadow: 0 0 0 2px var(--classic-color-surface),
-              0 0 0 4px var(--classic-color-primary),
-              0 6px 16px rgba(0, 150, 136, 0.25);
+.classic-color-option.classic-selected .classic-color-swatch {
+    border: 3px solid var(--classic-color-primary);
+    box-shadow: 0 0 0 2px var(--classic-color-surface),
+                0 0 0 4px var(--classic-color-primary),
+                0 6px 16px rgba(0, 150, 136, 0.25);
 }
 
-.classic-selected-color-option .classic-color-name {
-  color: var(--classic-color-secondary);
-  font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.classic-color-option.classic-selected .classic-color-name {
+    color: var(--classic-color-secondary);
 }
 
-.classic-selected-size-option {
-  background-color: var(--classic-color-secondary);
-  color: var(--classic-color-on-secondary);
-  border-color: var(--classic-color-secondary-light);
-  box-shadow: var(--classic-section-shadow);
-  transform: translateY(-2px);
-  font-weight: 600;
+/* === Quantity Section === */
+.classic-qty-label {
+    color: var(--classic-color-on-surface-variant);
 }
 
-/* === Enhanced Variant Filtering States === */
+.classic-qty-btn {
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface);
+    border: 1px solid var(--classic-color-outline);
+}
 
-/* Available Options (explicitly enabled) */
+.classic-qty-btn:hover:not(:disabled) {
+    background-color: var(--classic-color-surface-variant);
+}
+
+.classic-qty-btn:focus {
+    ring-color: var(--classic-color-primary);
+}
+
+.classic-qty-btn:disabled {
+    background-color: var(--classic-color-surface-container);
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-qty-input {
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface);
+    border: 1px solid var(--classic-color-outline);
+}
+
+.classic-qty-input:focus {
+    border-color: var(--classic-color-primary);
+    ring-color: var(--classic-color-primary);
+}
+
+/* Max Quantity Indicator */
+.classic-max-qty-text {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-max-qty-value {
+    color: var(--classic-color-secondary);
+}
+
+/* === Option States === */
+
+/* Available Options */
 .classic-option-available {
-  opacity: 1;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    opacity: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .classic-option-available:hover {
-  transform: scale(1.02);
+    transform: scale(1.02);
 }
 
-/* Disabled Options (filtered out by variant logic) */
+/* Disabled Options */
 .classic-option-disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  position: relative;
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
 .classic-option-disabled::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.1) 2px,
-    rgba(0, 0, 0, 0.1) 4px
-  );
-  border-radius: inherit;
-  z-index: 1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 2px,
+        rgba(0, 0, 0, 0.1) 4px
+    );
+    border-radius: inherit;
+    z-index: 1;
 }
 
 /* Disabled Size Options */
 .classic-size-option.classic-option-disabled {
-  background-color: var(--classic-color-surface-variant);
-  color: var(--classic-color-on-surface-disabled);
-  border-color: var(--classic-color-outline-variant);
-  box-shadow: none;
+    background-color: var(--classic-color-surface-variant);
+    color: var(--classic-color-on-surface-variant);
+    border-color: var(--classic-color-outline-variant);
+    box-shadow: none;
 }
 
 .classic-size-option.classic-option-disabled:hover {
-  background-color: var(--classic-color-surface-variant);
-  color: var(--classic-color-on-surface-disabled);
-  transform: none;
+    background-color: var(--classic-color-surface-variant);
+    color: var(--classic-color-on-surface-variant);
+    transform: none;
 }
 
 /* Disabled Color Options */
 .classic-color-option.classic-option-disabled {
-  filter: grayscale(70%) brightness(0.8);
+    filter: grayscale(70%) brightness(0.8);
 }
 
 .classic-color-option.classic-option-disabled:hover {
-  transform: none;
-  filter: grayscale(70%) brightness(0.8);
+    transform: none;
+    filter: grayscale(70%) brightness(0.8);
 }
 
 .classic-color-option.classic-option-disabled .classic-color-swatch {
-  border-color: var(--classic-color-outline-variant);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    border-color: var(--classic-color-outline-variant);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .classic-color-option.classic-option-disabled .classic-color-name {
-  color: var(--classic-color-on-surface-disabled);
-  text-decoration: line-through;
+    color: var(--classic-color-on-surface-variant);
+    text-decoration: line-through;
 }
 
-/* Variant-specific animations */
-.classic-option-panel[data-options-is-variant="true"] .classic-size-option,
-.classic-option-panel[data-options-is-variant="true"] .classic-color-option {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Enhanced hover states for available options */
+/* === Enhanced Hover States === */
 .classic-size-option.classic-option-available:hover {
-  background-color: var(--classic-color-secondary-container);
-  color: var(--classic-color-on-secondary-container);
-  border-color: var(--classic-color-secondary);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: var(--classic-color-secondary-light);
+    color: var(--classic-color-on-secondary);
+    border-color: var(--classic-color-secondary);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .classic-color-option.classic-option-available:hover {
-  transform: scale(1.08);
+    transform: scale(1.08);
 }
 
 .classic-color-option.classic-option-available:hover .classic-color-swatch {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Loading/transition states */
+/* === Loading/Transition States === */
 .classic-option-transitioning {
-  opacity: 0.7;
-  transform: scale(0.98);
-  transition: all 0.2s ease;
+    opacity: 0.7;
+    transform: scale(0.98);
+    transition: all 0.2s ease;
 }
 
-/* Accessibility improvements */
-.classic-option-disabled {
-  /* Screen readers should know this is disabled */
-  aria-disabled: true;
-}
-
-/* Focus states for keyboard navigation */
+/* === Focus States for Accessibility === */
 .classic-size-option:focus,
 .classic-color-option:focus {
-  outline: 2px solid var(--classic-color-primary);
-  outline-offset: 2px;
+    outline: 2px solid var(--classic-color-primary);
+    outline-offset: 2px;
 }
 
 .classic-size-option.classic-option-disabled:focus,
 .classic-color-option.classic-option-disabled:focus {
-  outline: 2px solid var(--classic-color-outline-variant);
-  outline-offset: 2px;
+    outline: 2px solid var(--classic-color-outline-variant);
+    outline-offset: 2px;
 }
 
-/* Mobile responsiveness for variant filtering */
+/* === Responsive Design === */
 @media (max-width: 640px) {
-  .classic-option-disabled::before {
-    background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 1px,
-      rgba(0, 0, 0, 0.15) 1px,
-      rgba(0, 0, 0, 0.15) 2px
-    );
-  }
-  
-  .classic-color-option.classic-option-disabled .classic-color-name {
-    font-size: 0.7rem;
-  }
+    .classic-option-disabled::before {
+        background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 0, 0, 0.15) 1px,
+            rgba(0, 0, 0, 0.15) 2px
+        );
+    }
 }
 
-/* High contrast mode support */
+/* === High Contrast Mode === */
 @media (prefers-contrast: high) {
-  .classic-option-disabled {
-    opacity: 0.5;
-    border: 2px dashed currentColor;
-  }
-  
-  .classic-option-disabled::before {
-    display: none;
-  }
+    .classic-option-disabled {
+        border: 2px dashed currentColor;
+        opacity: 0.5;
+    }
+    
+    .classic-option-disabled::before {
+        display: none;
+    }
 }
 
-/* Reduced motion support */
+/* === Reduced Motion === */
 @media (prefers-reduced-motion: reduce) {
-  .classic-size-option,
-  .classic-color-option,
-  .classic-option-available,
-  .classic-option-disabled {
-    transition: opacity 0.2s ease;
-  }
-  
-  .classic-size-option:hover,
-  .classic-color-option:hover,
-  .classic-option-available:hover {
-    transform: none;
-  }
+    .classic-size-option,
+    .classic-color-option,
+    .classic-option-available,
+    .classic-option-disabled {
+        transition: opacity 0.2s ease;
+    }
+    
+    .classic-size-option:hover,
+    .classic-color-option:hover,
+    .classic-option-available:hover {
+        transform: none;
+    }
 }
