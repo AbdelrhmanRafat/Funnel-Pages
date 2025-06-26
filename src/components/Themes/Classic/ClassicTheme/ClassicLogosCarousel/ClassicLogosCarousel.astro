@@ -2,9 +2,10 @@
 import "./ClassicLogosCarousel.css";
 import type { BlockData } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import LogosCarousel from "./LogosCarousel";
 
 const data: BlockData = Astro.props.data;
-const logos = data.logos ?? [];
+const logos = data.logos ?? []
 
 ---
 
@@ -18,42 +19,7 @@ const logos = data.logos ?? [];
             <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
         </div>
 
-        <!-- Carousel Container -->
-        <div class="relative max-w-7xl mx-auto">
-            <!-- Left Arrow -->
-            <button class="classic-carousel-left absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 z-20 w-10 h-10 flex items-center justify-center rounded-full">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </button>
-
-            <!-- Right Arrow -->
-            <button class="classic-carousel-right absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-6 z-20 w-10 h-10 flex items-center justify-center rounded-full">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-            </button>
-
-            <!-- Carousel Viewport -->
-            <div class="overflow-hidden">
-                <!-- Logos Row -->
-                <div class="classic-logos-grid flex justify-center gap-8 py-8 transition-transform duration-500 ease-in-out">
-                    {logos.map((logo, index) => (
-                        <div  class="classic-logo-card flex-shrink-0 flex items-center justify-center p-6 w-32 h-24 rounded-lg">
-                            <img 
-                                src={logo.src} 
-                                alt={logo.alt}
-                                class="w-20 h-16 object-contain"
-                                loading="lazy"
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
+        <!-- React Carousel Component -->
+        <LogosCarousel logos={logos} client:only="react" />
     </section>
 </classic-logos-carousel>
-
-<script>
-    import "./ClassicLogosCarousel";
-</script>
