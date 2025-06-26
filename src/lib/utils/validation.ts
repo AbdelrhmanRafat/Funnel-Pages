@@ -11,7 +11,7 @@ export function isValidFullName(name: string): boolean {
   if (!name || name.trim().length === 0) {
     return false;
   }
-  const nameRegex = /^[\p{L}\s'-]+$/u;
+  const nameRegex = /^[\p{L}\s'-]+$/u; // Unicode support
   return nameRegex.test(name.trim());
 }
 
@@ -22,8 +22,10 @@ export function isValidPhoneNumber(phone: string): boolean {
   if (!phone || phone.trim().length === 0) {
     return false;
   }
-  const phoneRegex = /^[+]?[\d\s().-]+$/;
-  return phoneRegex.test(phone.trim());
+  // More restrictive: require 7-15 digits
+  const phoneRegex = /^[+]?[\d\s().-]{7,15}$/;
+  const digitCount = phone.replace(/\D/g, '').length;
+  return phoneRegex.test(phone.trim()) && digitCount >= 7 && digitCount <= 15;
 }
 
 // Validates an email address.
@@ -32,7 +34,7 @@ export function isValidEmail(email: string): boolean {
   if (!email || email.trim().length === 0) {
     return false;
   }
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Standard email
   return emailRegex.test(email.trim());
 }
 

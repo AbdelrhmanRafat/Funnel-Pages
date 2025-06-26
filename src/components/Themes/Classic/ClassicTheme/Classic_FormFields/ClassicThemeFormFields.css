@@ -1,140 +1,160 @@
 /* === Classic Form Components === */
 
+/* Main form container */
 .classic-form {
     background-color: var(--classic-color-surface);
     border-radius: var(--classic-section-radius);
 }
 
-
+/* Form title styling */
 .classic-form-title {
-    font-size: 1.5rem; /* Tailwind: text-2xl */
-    font-weight: 600; /* Tailwind: font-semibold */
     color: var(--classic-color-on-surface);
 }
 
+/* Section headers within form */
 .classic-form-section-title {
-    font-size: 1.25rem; /* Tailwind: text-xl */
-    font-weight: 600; /* Tailwind: font-semibold */
     color: var(--classic-color-on-surface);
 }
 
+/* Form labels */
 .classic-form-label {
-    font-size: 0.875rem; /* Tailwind: text-sm */
-    font-weight: 500; /* Tailwind: font-medium */
     color: var(--classic-color-on-surface);
 }
 
+/* Input fields and textareas */
 .classic-form-input {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--classic-color-outline);
     border-radius: 0.5rem; /* Tailwind: rounded-lg */
-    font-size: 0.875rem; /* Tailwind: text-sm */
     color: var(--classic-color-on-surface);
     background-color: var(--classic-color-surface);
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+/* Focus state for inputs */
 .classic-form-input:focus {
     outline: none;
     border-color: var(--classic-color-primary);
-    box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.1);
+    box-shadow: var(--classic-section-shadow);
 }
 
+/* Placeholder text styling */
 .classic-form-input::placeholder {
     color: var(--classic-color-on-surface-variant);
 }
 
+/* Error message styling */
 .classic-form-error {
     display: block;
-    font-size: 0.75rem; /* Tailwind: text-xs */
     color: var(--classic-color-error);
     margin-top: 0.25rem; /* Tailwind: mt-1 */
 }
 
+/* Payment and delivery option containers */
 .classic-form-payment-option {
-    display: flex;
-    align-items: start;
     padding: 0.75rem; /* Tailwind: p-3 */
     border: 1px solid var(--classic-color-outline);
-    gap: 8px;
     border-radius: 0.5rem; /* Tailwind: rounded-lg */
     cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
+/* Hover state for payment options */
 .classic-form-payment-option:hover {
     background-color: var(--classic-color-surface-variant);
     border-color: var(--classic-color-outline-variant);
 }
 
-.classic-form-payment-option-content {
-    flex: 1;
-    margin-left: 0.75rem; /* Tailwind: ml-3 */
+/* Focus state for payment options */
+.classic-form-payment-option:focus-within {
+    border-color: var(--classic-color-primary);
+    outline: 2px solid var(--classic-color-primary);
+    outline-offset: 2px;
 }
 
+/* Payment option labels */
 .classic-form-payment-option-label {
     display: block;
-    font-weight: 500; /* Tailwind: font-medium */
     color: var(--classic-color-on-surface);
     cursor: pointer;
 }
 
+/* Payment option descriptions */
 .classic-form-payment-option-description {
     display: block;
-    font-size: 0.875rem; /* Tailwind: text-sm */
     color: var(--classic-color-on-surface-variant);
 }
 
-.classic-form-payment-option-price {
-    font-size: 0.875rem; /* Tailwind: text-sm */
-    font-weight: 500; /* Tailwind: font-medium */
-}
-
-.classic-form-payment-option-price-free {
-    color: var(--classic-color-success);
-}
-
-.classic-form-payment-option-price-paid {
-    color: var(--classic-color-on-surface-variant);
-}
-
+/* Radio button styling */
 .classic-form-radio {
-    width: 1rem; /* Tailwind: w-4 */
-    height: 1rem; /* Tailwind: h-4 */
     accent-color: var(--classic-color-primary);
     border-color: var(--classic-color-outline);
+    cursor: pointer;
 }
 
-/* Error Messages */
-/* Border Colors */
-.classic-border-error {
-  border-color: var(--classic-color-error) !important;
+/* Custom radio indicator (if used) */
+.classic-form-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--classic-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
+
+/* Radio dot inside custom indicator */
+.classic-form-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.classic-form-payment-option input[type="radio"]:checked + .classic-form-payment-option-content .classic-form-radio-indicator {
+    border-color: var(--classic-color-primary);
+    background-color: var(--classic-color-primary);
+}
+
+.classic-form-payment-option input[type="radio"]:checked + .classic-form-payment-option-content .classic-form-radio-dot {
+    background-color: var(--classic-color-surface);
+}
+
+/* Validation state classes */
+.classic-border-error {
+    border-color: var(--classic-color-error) !important;
+}
+
 .classic-text-error {
-   color: var(--classic-color-error) !important;   
+    color: var(--classic-color-error) !important;   
 }
 
 .classic-border-success {
-   border-color: var(--classic-color-success) !important;
+    border-color: var(--classic-color-success) !important;
 }
 
 .classic-text-success {
-   color: var(--classic-color-success) !important;
+    color: var(--classic-color-success) !important;
 }
 
-/* Error Container */
-.classic-error-container {
-  margin: 1rem 0;
-  padding: 0.75rem;
-  background-color: var(--classic-color-error-light);
-  color: var(--classic-color-on-error);
-  border-radius: 0.5rem;
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .classic-form-input,
+    .classic-form-payment-option,
+    .classic-form-radio-indicator,
+    .classic-form-radio-dot {
+        transition: none;
+    }
 }
 
-/* Error Message */
-.classic-error-message {
-  color: var(--classic-color-on-error);
-  font-size: 0.875rem; /* text-sm */
-  margin-bottom: 0.25rem; /* mb-1 */
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .classic-form-input {
+        border-width: 2px;
+    }
+    
+    .classic-form-payment-option {
+        border-width: 2px;
+    }
 }

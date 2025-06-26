@@ -11,7 +11,7 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 const data: BlockData = Astro.props.data;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const isHaveVariant: string = Astro.props.isHaveVariant;
-const product : Product = Astro.props.product;
+const product: Product = Astro.props.product;
 
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value ||
@@ -25,33 +25,48 @@ let deliveryOptions: DeliveryOption[] = [];
 
 if (data.cities !== null) cities = data.cities ?? [];
 if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
-if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
+if (data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
 ---
 
 <!-- MAIN FORM SECTION -->
-<section id={FunnelClassicComponents.ClassicFormFields} class="classic-form w-full p-3">
+<section 
+  id={FunnelClassicComponents.ClassicFormFields} 
+  class="classic-form w-full p-3"
+  aria-labelledby="form-heading"
+>
   <div class="mx-auto py-2 flex flex-col justify-center items-center gap-2">
     
     <!-- FORM HEADER -->
     <div class="text-center">
-      <h5 class="classic-form-title" data-translate="form.completeOrder">
+      <h5 
+        id="form-heading" 
+        class="classic-form-title text-2xl font-semibold" 
+        data-translate="form.completeOrder"
+      >
       </h5>
     </div>
 
     <!-- MAIN FORM -->
-    <form id="form-personal-payment-data" form-personal-payment-data class="w-full">
+    <form 
+      id="form-personal-payment-data" 
+      form-personal-payment-data 
+      class="w-full"
+      novalidate
+    >
       <div class="mb-8">
         <!-- PERSONAL INFORMATION SECTION -->
         <h2
-          class="classic-form-section-title mb-6"
+          class="classic-form-section-title mb-6 text-xl font-semibold"
           data-translate="form.personalInfo"
         >
         </h2>
+        
         <div class="space-y-4">
-        <!-- FULL NAME INPUT FIELD -->
+          <!-- FULL NAME INPUT FIELD -->
           <div>
             <label
-              class="classic-form-label block mb-2"
+              for="form-fullName"
+              class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.fullName"
             >
             </label>
@@ -59,17 +74,22 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
               type="text"
               id="form-fullName"
               placeholder={data.full_name}
-              class="classic-form-input text-right"
+              class="classic-form-input text-right text-sm"
+              aria-describedby="form-fullName-error"
+              required
             />
             <span
               id="form-fullName-error"
-              class="classic-form-error"
+              class="classic-form-error text-xs"
+              role="alert"
             ></span>
           </div>
+          
           <!-- PHONE NUMBER INPUT FIELD -->
           <div>
             <label
-              class="classic-form-label block mb-2"
+              for="form-phone"
+              class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.phoneNumber"
             >
             </label>
@@ -77,57 +97,77 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
               type="tel"
               id="form-phone"
               placeholder={data.phone}
-              class="classic-form-input text-right"
+              class="classic-form-input text-right text-sm"
+              aria-describedby="form-phone-error"
+              required
             />
             <span
               id="form-phone-error"
-              class="classic-form-error"
+              class="classic-form-error text-xs"
+              role="alert"
               style="display: none;"
             ></span>
           </div>
+          
           <!-- EMAIL INPUT FIELD -->
           <div>
             <label
-              class="classic-form-label block mb-2"
+              for="form-email"
+              class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.email"
             >
             </label>
             <input
               type="email"
               id="form-email"
-              class="classic-form-input text-right"
+              class="classic-form-input text-right text-sm"
+              aria-describedby="form-email-error"
+              required
             />
             <span
               id="form-email-error"
-              class="classic-form-error"
+              class="classic-form-error text-xs"
+              role="alert"
               style="display: none;"
             ></span>
           </div>
+          
           <!-- ADDRESS TEXTAREA FIELD -->
           <div>
             <label
-              class="classic-form-label block mb-2"
+              for="form-address"
+              class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.address"
             >
             </label>
             <textarea
               id="form-address"
-              class="classic-form-input text-right min-h-[80px] resize-y"
+              class="classic-form-input text-right min-h-[80px] resize-y text-sm"
+              aria-describedby="form-address-error"
+              required
             ></textarea>
             <span
               id="form-address-error"
-              class="classic-form-error"
+              class="classic-form-error text-xs"
+              role="alert"
               style="display: none;"
             ></span>
           </div>
+          
           <!-- CITY SELECTION DROPDOWN -->
           <div>
             <label
-              class="classic-form-label block mb-2"
+              for="form-city"
+              class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.city"
             >
             </label>
-            <select id="form-city" class="classic-form-input text-right">
+            <select 
+              id="form-city" 
+              class="classic-form-input text-right text-sm"
+              aria-describedby="form-city-error"
+              required
+            >
               <option value="" data-translate="form.selectCity">
               </option>
               {
@@ -140,15 +180,17 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
             </select>
             <span
               id="form-city-error"
-              class="classic-form-error"
+              class="classic-form-error text-xs"
+              role="alert"
               style="display: none;"
             ></span>
           </div>
+          
           <!-- PAYMENT OPTIONS SECTION -->
-          {paymentOptions.length > 0 &&
+          {paymentOptions.length > 0 && (
           <div>
             <label
-              class="classic-form-label block mb-2"
+              class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.paymentOptions"
             >
             </label>
@@ -156,6 +198,7 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
               class="space-y-3"
               role="radiogroup"
               aria-label="Payment Method"
+              aria-describedby="form-payment-error"
             >
               {
                 paymentOptions.map((option, index) => {
@@ -163,25 +206,22 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
                   const id = `payment-${option.id}`;
                   const isChecked = index === 0;
                   return (
-                    <div class="classic-form-payment-option">
+                    <label class="classic-form-payment-option flex items-start gap-2" for={id}>
                       <input
                         type="radio"
                         id={id}
                         name="payment-option"
                         value={value}
-                        class="classic-form-radio"
+                        class="classic-form-radio w-4 h-4"
                         checked={isChecked}
                       />
-                      <label
-                        for={id}
-                        class="classic-form-payment-option-content"
-                      >
+                      <div class="classic-form-payment-option-content flex-1 ml-3">
                         <div class="flex justify-between items-center">
                           <div class="flex-1 flex flex-col justify-start items-start gap-2">
-                            <span class="classic-form-payment-option-label">
+                            <span class="classic-form-payment-option-label font-medium">
                               {option.label[currentLang]}
                             </span>
-                            <span class="classic-form-payment-option-description">
+                            <span class="classic-form-payment-option-description text-sm">
                               {option.description[currentLang]}
                             </span>
 
@@ -201,28 +241,30 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
                             )}
                           </div>
                           {/* Custom radio indicator */}
-                          <div class="classic-form-radio-indicator">
+                          <div class="classic-form-radio-indicator flex items-center justify-center">
                             <div class="classic-form-radio-dot" />
                           </div>
                         </div>
-                      </label>
-                    </div>
+                      </div>
+                    </label>
                   );
                 })
               }
             </div>
             <span
               id="form-payment-error"
-              class="classic-form-error"
+              class="classic-form-error text-xs"
+              role="alert"
               style="display: none;"
             ></span>
           </div>
-          }
+          )}
+          
           <!-- DELIVERY OPTIONS SECTION -->
-         {deliveryOptions.length > 0 && 
+          {deliveryOptions.length > 0 && (
           <div>
             <label
-              class="classic-form-label block mb-2"
+              class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.deliveryOptions"
             >
             </label>
@@ -230,6 +272,7 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
               class="space-y-3"
               role="radiogroup"
               aria-label="Delivery Method"
+              aria-describedby="form-delivery-error"
             >
               {
                 deliveryOptions.map((option, index) => {
@@ -237,68 +280,75 @@ if(data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
                   const id = `delivery-${option.id}`;
                   const isChecked = index === 0;
                   return (
-                    <div class="classic-form-payment-option">
+                    <label class="classic-form-payment-option flex items-start gap-2" for={id}>
                       <input
                         type="radio"
                         id={id}
                         name="delivery-option"
                         value={value}
-                        class="classic-form-radio"
+                        class="classic-form-radio w-4 h-4"
                         checked={isChecked}
                       />
-                      <label
-                        for={id}
-                        class="classic-form-payment-option-content"
-                      >
+                      <div class="classic-form-payment-option-content flex-1 ml-3">
                         <div class="flex justify-between items-center">
                           <div class="flex-1 flex flex-col justify-start items-start gap-2">
-                            <span class="classic-form-payment-option-label">
+                            <span class="classic-form-payment-option-label font-medium">
                               {option.label[currentLang]}
                             </span>
-                            <span class="classic-form-payment-option-description">
+                            <span class="classic-form-payment-option-description text-sm">
                               {option.description[currentLang]}
                             </span>
                           </div>
                           {/* Custom radio indicator */}
-                          <div class="classic-form-radio-indicator">
+                          <div class="classic-form-radio-indicator flex items-center justify-center">
                             <div class="classic-form-radio-dot" />
                           </div>
                         </div>
-                      </label>
-                    </div>
+                      </div>
+                    </label>
                   );
                 })
               }
             </div>
             <span
               id="form-delivery-error"
-              class="classic-form-error"
+              class="classic-form-error text-xs"
+              role="alert"
               style="display: none;"
             ></span>
           </div>
-          }
+          )}
+          
           <!-- NOTES TEXTAREA FIELD -->
           <div>
             <label
-              class="classic-form-label block mb-2"
+              for="form-notes"
+              class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.notes"
             >
             </label>
             <textarea
               id="form-notes"
               placeholder=""
-              class="classic-form-input text-right min-h-[100px] resize-y"
+              class="classic-form-input text-right min-h-[100px] resize-y text-sm"
+              aria-describedby="form-notes-error"
             ></textarea>
             <span
               id="form-notes-error"
-              class="classic-form-error"
+              class="classic-form-error text-xs"
+              role="alert"
               style="display: none;"
             ></span>
           </div>
         </div>
       </div>
+      
       <!-- SUBMIT BUTTON SECTION -->
-      <ClassicSubmitOrderButton purchaseOptions={purchaseOptions} isHaveVariant={isHaveVariant} product={product} />
+      <ClassicSubmitOrderButton 
+        purchaseOptions={purchaseOptions} 
+        isHaveVariant={isHaveVariant} 
+        product={product} 
+      />
     </form>
   </div>
 </section>
