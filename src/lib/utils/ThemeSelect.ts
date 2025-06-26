@@ -48,6 +48,12 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.ClassicProductPreview;
     case "classic_product_usage":
       return FunnelClassicComponents.ClassicProductUsage;
+    case "classic_order_through_whatsapp" : 
+    return FunnelClassicComponents.ClassicOrderThroughWhatsapp;
+    case "classic_button_with_link" : 
+     return FunnelClassicComponents.ClassicButtonWithLink;
+    case "classic_coupon" : 
+     return FunnelClassicComponents.ClassicCoupon;
     case "classic_delivery_features":
       return FunnelClassicComponents.ClassicDeliveryFeatures;
     case "classic_product_features":

@@ -1,0 +1,17 @@
+---
+import "./classicOrderThroughWhatsapp.css";
+import type { BlockData, Features } from "../../../../../lib/api/types";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+---
+<section id={FunnelClassicComponents.ClassicOrderThroughWhatsapp} class="w-full">
+  <a href={data.whatsappLink} class="cursor">
+  <div class="classic-order-through-whatsapp">
+    <div class="flex justify-center items-center gap-5 text-2xl">
+    <h4>{data.title}</h4>
+    <i class="fa-brands fa-whatsapp text-4xl text-green-700"></i>
+    </div>
+  </div>
+  </a>
+</section>

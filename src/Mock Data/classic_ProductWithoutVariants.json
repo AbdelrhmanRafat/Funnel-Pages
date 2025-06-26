@@ -748,42 +748,53 @@
                 "name": "classic_visitors",
                 "data": {
                     "title": "الزوار",
-                    "description" : " اشترى هذا المنتج أكثر من 100 شخص",
                     "visitors": [
                         {
-                            "description": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
-                            "name": "إليزابيت روز",
-                            "city": "القاهرة",
+                            "description": "جون من القاهرة قام بالشراء الآن.",
                             "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
                         },
                         {
-                            "description": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
-                            "name": "إليزابيت روز",
-                            "city": "القاهرة",
-                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
+                            "description": "سارة من الرياض قامت بالشراء الآن.",
+                            "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face"
                         },
                         {
-                            "description": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
-                            "name": "إليزابيت روز",
-                            "city": "القاهرة",
-                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
+                            "description": "أحمد من دبي قام بالشراء الآن.",
+                            "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face"
                         },
                         {
-                            "description": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
-                            "name": "إليزابيت روز",
-                            "city": "القاهرة",
-                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
+                            "description": "ليلى من جدة قامت بالشراء الآن.",
+                            "image": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=50&h=50&fit=crop&crop=face"
                         },
                         {
-                            "description": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
-                            "name": "إليزابيت روز",
-                            "city": "القاهرة",
-                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
+                            "description": "كريم من الدوحة قام بالشراء الآن.",
+                            "image": "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=50&h=50&fit=crop&crop=face"
                         }
-                        
                     ]
                 }
+            },
+            {
+                "name": "classic_order_through_whatsapp",
+                "data": {
+                    "title": "الطلب من خلال الواتساب",
+                    "description": " اشترى هذا المنتج أكثر من 100 شخص",
+                    "whatsappLink": ""
+                }
+            },
+            {
+                "name": "classic_button_with_link",
+                "data": {
+                    "title": "Button With Link",
+                    "buttonLink": ""
+                }
+            },
+            {
+                "name": "classic_coupon",
+                "data": {
+                    "title" : "استخدم كوبون الخصم",
+                    "coupon": "Save 10"
+                }
             }
+
         ]
     }
 }

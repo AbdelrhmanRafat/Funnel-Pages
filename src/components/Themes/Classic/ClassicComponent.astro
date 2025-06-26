@@ -24,8 +24,8 @@ import ClassicImageTextBeside from "./ClassicTheme/Classic_Image_Text_Beside/cla
 import ClassicThemeTodayStatistics from "./ClassicTheme/ClassicThemeTodayStatistics/ClassicThemeTodayStatistics.astro";
 import ClassicGridImages from "./ClassicTheme/ClassicGridImagesComponent/classicGridImages.astro";
 import ClassicLogosCarousel from "./ClassicTheme/ClassicLogosCarousel/ClassicLogosCarousel.astro";
-import { undefined } from "astro:schema";
-import ClassicFakeVisitors from "./ClassicTheme/ClassicFakeVisitors/ClassicFakeVisitors.astro";
+import ClassicButtonWithLink from "./ClassicTheme/ClassicButtonWithLink/ClassicButtonWithLink.astro";
+
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -65,7 +65,7 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicProductPreview,
   FunnelClassicComponents.ClassicProductUsage,
   FunnelClassicComponents.classicLogosCarousel,
-  FunnelClassicComponents.ClassicVisitors,
+  FunnelClassicComponents.ClassicButtonWithLink,
   FunnelClassicComponents.classicTodayStatistics,
   FunnelClassicComponents.ClassicGallery,
   FunnelClassicComponents.Classic_Before_After,
@@ -83,8 +83,22 @@ const RENDER_ORDER = [
 const productFunnelData = isComponentFound(
   FunnelClassicComponents.ClassicProductFunnel,
 );
+
 const isFormFieldsDataFound = isComponentFound(
   FunnelClassicComponents.ClassicFormFields,
+);
+
+
+const isCuponDataFound = isComponentFound(
+  FunnelClassicComponents.ClassicCoupon,
+);
+
+const isFakeVisitorsDataFound = isComponentFound(
+  FunnelClassicComponents.ClassicVisitors,
+);
+
+const isOrderThroughWhatsappDataFound = isComponentFound(
+  FunnelClassicComponents.ClassicOrderThroughWhatsapp,
 );
 
 
@@ -101,6 +115,16 @@ const purchaseOptions = productFunnelData.isComponentFound
 const formFieldsData = isFormFieldsDataFound.isComponentFound
   ? isFormFieldsDataFound.componentData
   : undefined;
+
+  const cuponData = isCuponDataFound.isComponentFound
+  ? isCuponDataFound.componentData
+  : undefined;
+
+  const fakeVisitorsData = isFakeVisitorsDataFound.isComponentFound
+  ? isFakeVisitorsDataFound.componentData
+  : undefined;
+  
+
 const ratingData = isRatingFound.isComponentFound
   ? isRatingFound.componentData
   : undefined;
@@ -108,6 +132,11 @@ const ratingData = isRatingFound.isComponentFound
 const orderConfirmationNoticeData =
   isOrderConfirmationNoticeFound.isComponentFound
     ? isOrderConfirmationNoticeFound.componentData
+    : undefined;
+
+const orderThroughWhatsappData =
+  isOrderThroughWhatsappDataFound.isComponentFound
+    ? isOrderThroughWhatsappDataFound.componentData
     : undefined;
 
 
@@ -131,8 +160,11 @@ const orderConfirmationNoticeData =
           <ClassicThemeProduct
             formFieldsData={formFieldsData}
             ratingData={ratingData}
+            fakeVisitorsData={fakeVisitorsData}
             orderConfirmationNoticeData={orderConfirmationNoticeData}
+            orderThroughWhatsappData={orderThroughWhatsappData}
             product={funnelPage.product}
+            cuponData={cuponData}
             purchaseOptions={purchaseOptions}
           />
         );
@@ -145,14 +177,7 @@ const orderConfirmationNoticeData =
           <ClassicThemeCountDown data={countdownData.componentData} />
         ) : null;
       }
-      if (componentName === FunnelClassicComponents.ClassicVisitors) {
-        const visitorsData = isComponentFound(
-          FunnelClassicComponents.ClassicVisitors,
-        );
-        return visitorsData.isComponentFound ? (
-          <ClassicFakeVisitors data={visitorsData.componentData} />
-        ) : null;
-      }
+      
       
       if (componentName === FunnelClassicComponents.ClassicFaq) {
         const faqData = isComponentFound(FunnelClassicComponents.ClassicFaq);
@@ -173,6 +198,16 @@ const orderConfirmationNoticeData =
         return productPreviewData.isComponentFound ? (
           <ClassicProductPreviewComponent
             data={productPreviewData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelClassicComponents.ClassicButtonWithLink) {
+        const buttonWithLinkData = isComponentFound(
+          FunnelClassicComponents.ClassicButtonWithLink,
+        );
+        return buttonWithLinkData.isComponentFound ? (
+          <ClassicButtonWithLink
+            data={buttonWithLinkData.componentData}
           />
         ) : null;
       }

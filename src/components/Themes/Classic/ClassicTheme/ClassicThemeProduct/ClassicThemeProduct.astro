@@ -14,22 +14,32 @@ import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/C
 import ClassicSelectionOptionsWithoutBundles from "../UI/ClassicSelectionOptionsVariantWithoutBundles/classicSelectionOptionsWithoutBundles.astro";
 import ClassicProductCosts from "../UI/ClassicProductCosts/classicProductCosts.astro";
 import ClassicProductGalleryComponent from "../UI/ClassicProductGallery/ClassicProductGalleryComponent.astro";
+import ClassicOrderThroughWhatsapp from "../ClassicOrderThroughWhatsapp/classicOrderThroughWhatsapp.astro";
+import ClassicFakeVisitors from "../ClassicFakeVisitors/ClassicFakeVisitors.astro";
+import ClassicCupon from "../ClassicCupon/ClassicCupon.astro";
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
+  ClassicProductInfoComponents.Visitores,
   ClassicProductInfoComponents.ProductHeader,
   ClassicProductInfoComponents.ProductDescription,
   ClassicProductInfoComponents.PurchaseOptions,
+  ClassicProductInfoComponents.coupon,
   ClassicProductInfoComponents.FormFields,
   ClassicProductInfoComponents.OrderConfirmation,
+  ClassicProductInfoComponents.OrderThroghWhatsapp
 ];
 
 // Retrieves product and purchaseOptions from Astro's props.
 const product: Product = Astro.props.product;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const formFieldsData: BlockData = Astro.props.formFieldsData;
+const orderThroughWhatsappData : BlockData = Astro.props.orderThroughWhatsappData;
+const fakeVisitorsData : BlockData = Astro.props.fakeVisitorsData;
+const cuponData : BlockData = Astro.props.cuponData;
 const orderConfirmationNoticeData: BlockData =
   Astro.props.orderConfirmationNoticeData;
+
 
 // Extracts color and size options from the product data
 const isHaveVariant = product.is_have_variant;
@@ -74,6 +84,21 @@ function isComponentDataAvailable(
         isComponentFound: !!orderConfirmationNoticeData,
         componentData: orderConfirmationNoticeData,
       };
+    case ClassicProductInfoComponents.OrderThroghWhatsapp:
+      return {
+        isComponentFound: !!orderThroughWhatsappData,
+        componentData: orderThroughWhatsappData,
+      };
+    case ClassicProductInfoComponents.coupon:
+      return {
+        isComponentFound: !!cuponData,
+        componentData: cuponData,
+      };
+    case ClassicProductInfoComponents.Visitores:
+      return {
+        isComponentFound: !!fakeVisitorsData,
+        componentData: fakeVisitorsData,
+      };
     default:
       return {
         isComponentFound: false,
@@ -111,7 +136,7 @@ function isComponentDataAvailable(
                 data-initial-sku={product.sku_code}
                 data-current-lang={currentLang}
               >
-                <div class="flex flex-col justify-start items-start gap-2 mb-8">
+                <div class="flex flex-col justify-start items-start gap-2 ">
                   <div class="flex items-center gap-2">
                     <span
                       class={
@@ -199,6 +224,13 @@ function isComponentDataAvailable(
               />
             );
           }
+          if (componentType === ClassicProductInfoComponents.coupon) {
+            return (
+              <ClassicCupon
+                data={componentCheck.componentData}
+              />
+            );
+          }
 
           // Form Fields Component
           if (componentType === ClassicProductInfoComponents.FormFields) {
@@ -218,6 +250,26 @@ function isComponentDataAvailable(
           ) {
             return (
               <ClassicOrderConfirmationNotice
+                data={componentCheck.componentData}
+              />
+            );
+          }
+          // Visitors 
+          if (
+            componentType === ClassicProductInfoComponents.Visitores
+          ) {
+            return (
+              <ClassicFakeVisitors
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          if (
+            componentType === ClassicProductInfoComponents.OrderThroghWhatsapp
+          ) {
+            return (
+              <ClassicOrderThroughWhatsapp
                 data={componentCheck.componentData}
               />
             );

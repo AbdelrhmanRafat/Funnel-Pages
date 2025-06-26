@@ -53,6 +53,9 @@ export interface BlockData {
   logos? : Image[];
   visitors : Visitor[];
   counters? : Counter[];
+  buttonLink? : "string";
+  coupon? : string;
+  whatsappLink? : string;
   description? : string;
   company_name?: string;
   year?: string;
@@ -255,9 +258,7 @@ export interface Review {
 }
 
 export interface Visitor {
-   name? : string;
    description? : string;
-   city? : string;
    image? : string;
 }
 

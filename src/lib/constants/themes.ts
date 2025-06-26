@@ -20,12 +20,15 @@ export enum FunnelClassicComponents {
   ClassicProductFunnel = "classic_product_funnel",
   ClassicFooter = "classic_footer",
   ClassicOrderConfirmationNotice = "classic_order_confirmation_notice",
+  ClassicOrderThroughWhatsapp = "classic_order_through_whatsapp",
   ClassicFaq = "classic_faq",
   ClassicVisitors = "classic_visitors",
   ClassicProductPreview = "classic_product_preview",
   ClassicProductUsage = "classic_product_usage",
   ClassicProductFeatures = "classic_product_features",
   ClassicDeliveryFeatures = "classic_delivery_features",
+  ClassicButtonWithLink = "classic_button_with_link",
+  ClassicCoupon = "classic_coupon",
   ClassicReviews = "classic_Reviews",
   ClassicTextBar = "classic_TextBar",
   ClassicGallery = "classic_Gallery",
@@ -43,6 +46,9 @@ export enum ClassicProductInfoComponents {
   PurchaseOptions = "purchaseOptions",
   FormFields = "formFields",
   OrderConfirmation = "orderConfirmation",
+  OrderThroghWhatsapp = "orderThroghWhatsapp",
+  Visitores = "visitors",
+  coupon = "coupon" 
 }
 
 // Defines the component names for the TROY theme.
