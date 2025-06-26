@@ -2,7 +2,6 @@
 .classic-coupon-card {
     background-color: var(--classic-color-surface-variant);
     border-color: var(--classic-color-primary);
-    min-width: 120px;
 }
 
 .classic-coupon-code {

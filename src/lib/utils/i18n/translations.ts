@@ -59,6 +59,9 @@ export const translations = {
       productCode: "Product Code",
       description: "Product Description",
     },
+     coupon : {
+     copy : "copy"
+    },
     productFunnel: {
       product: "Product:",
       unitPrice: "Unit Price:",
@@ -283,6 +286,9 @@ export const translations = {
       piece: "قطعة",
       pieces: "قطع",
       currency: "ج.م"
+    },
+    coupon : {
+     copy : "نسخ"
     },
     quantityOptions: {
       chooseQuantity: "اختر الكمية المناسبة",

@@ -723,6 +723,12 @@
                 }
             },
             {
+                "name": "classic_rates",
+                "data": {
+                    "rate": 4.5
+                }
+            },
+            {
                 "name": "classic_order_through_whatsapp",
                 "data": {
                     "title": "الطلب من خلال الواتساب",
