@@ -28,7 +28,6 @@ const PRODUCT_INFO_RENDER_ORDER = [
 const product: Product = Astro.props.product;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const formFieldsData: BlockData = Astro.props.formFieldsData;
-const ratingData: BlockData = Astro.props.ratingData;
 const orderConfirmationNoticeData: BlockData =
   Astro.props.orderConfirmationNoticeData;
 
@@ -137,11 +136,12 @@ function isComponentDataAvailable(
                       <span>: <span data-product-sku>{product.sku_code}</span></span>
                     </div>
                   </div>
-                  <div class="w-full flex justify-start items-center gap-8">
+                  <div class="w-full flex justify-start items-center gap-4">
                   <h2 class="classic-product-title text-3xl lg:text-4xl font-bold leading-tight">
                     {isArabic ? product.name_ar : product.name_en}
                   </h2>
                     <ClassicThemeRates ratingData={componentCheck.componentData} />
+                    
                   </div>
                   <div class="flex justify-start items-center gap-4">
                     <div class="classic-product-price flex justify-center line-through items-center gap-2 text-4xl font-bold">

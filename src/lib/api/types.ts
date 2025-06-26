@@ -51,7 +51,9 @@ export interface BlockData {
   faqs?: Faqs[];
   features?: Features[];
   logos? : Image[];
+  visitors : Visitor[];
   counters? : Counter[];
+  description? : string;
   company_name?: string;
   year?: string;
   galleryimages?: Image[];
@@ -246,10 +248,17 @@ export interface Available_options {
 }
 
 export interface Review {
-   description : string;
-   name : string;
-   city : string;
-   image : string;
+   description? : string;
+   name? : string;
+   city? : string;
+   image? : string;
+}
+
+export interface Visitor {
+   name? : string;
+   description? : string;
+   city? : string;
+   image? : string;
 }
 
 // Represents an attachment for a product.

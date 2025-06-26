@@ -1,0 +1,123 @@
+/* Classic Visitors Component Styles - Colors only, layout handled by Tailwind */
+
+/* Section Divider */
+.classic-section-divider {
+    background: linear-gradient(90deg, 
+        var(--classic-color-primary) 0%,
+        var(--classic-color-secondary) 50%,
+        var(--classic-color-primary) 100%
+    );
+}
+
+.classic-visitors-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Animation States */
+.classic-visitor-animate {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.classic-visitor-animate.classic-animate-in {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Visitor Card Styling */
+.classic-visitor-card {
+    transition: transform 0.3s ease;
+}
+
+/* Visitor Avatar Container */
+.classic-visitor-avatar {
+    background: linear-gradient(135deg, 
+        var(--classic-color-surface-variant) 0%,
+        var(--classic-color-surface) 100%
+    );
+    border: 3px solid var(--classic-color-outline-variant);
+    box-shadow: 0 8px 25px -5px rgba(30, 64, 175, 0.1),
+                0 4px 10px -3px rgba(30, 64, 175, 0.05);
+    transition: all 0.3s ease;
+}
+
+/* Visitor Image */
+.classic-visitor-image {
+    transition: transform 0.3s ease;
+}
+
+/* Visitor Avatar Overlay */
+.classic-visitor-overlay {
+    background: linear-gradient(135deg, 
+        transparent 0%,
+        rgba(30, 64, 175, 0.1) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Visitor Name Styling */
+.classic-visitor-name {
+    color: var(--classic-color-on-surface);
+}
+
+/* Visitor City Styling */
+.classic-visitor-city {
+    color: var(--classic-color-on-surface-variant);
+}
+
+/* Hover Effects */
+.classic-visitor-card:hover {
+    transform: translateY(-4px);
+}
+
+.classic-visitor-card:hover .classic-visitor-avatar {
+    border-color: var(--classic-color-primary);
+    box-shadow: 0 20px 25px -5px rgba(30, 64, 175, 0.15),
+                0 10px 10px -5px rgba(30, 64, 175, 0.1);
+}
+
+.classic-visitor-card:hover .classic-visitor-image {
+    transform: scale(1.05);
+}
+
+.classic-visitor-card:hover .classic-visitor-overlay {
+    opacity: 1;
+}
+
+.classic-visitor-card:hover .classic-visitor-name {
+    color: var(--classic-color-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+    .classic-visitor-avatar {
+        border-width: 2px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .classic-visitor-animate {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    
+    .classic-visitor-card,
+    .classic-visitor-avatar,
+    .classic-visitor-image,
+    .classic-visitor-overlay {
+        transition: none;
+    }
+    
+    .classic-visitor-card:hover {
+        transform: none;
+    }
+    
+    .classic-visitor-card:hover .classic-visitor-image {
+        transform: none;
+    }
+}

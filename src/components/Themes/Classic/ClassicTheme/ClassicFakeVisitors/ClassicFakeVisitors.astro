@@ -1,2 +1,55 @@
 ---
+import "./ClassicFakeVisitors.css";
+import type { BlockData, Visitor } from '../../../../../lib/api/types';
+import { getTranslation } from '../../../../../lib/utils/i18n/translations';
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+const visitors: Visitor[] = data.visitors ?? [];
 ---
+
+<classic-visitors-animation>
+  <section
+    id={FunnelClassicComponents.ClassicVisitors}
+    class="classic-section"
+  >
+    <!-- Section Header -->
+    <div class="classic-middle-title flex flex-col justify-center items-center gap-3 mb-12">
+      <h3>
+        {data.description}
+      </h3>
+      <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
+    </div>
+
+    <!-- Visitors Grid -->
+    <div class="classic-visitors-grid grid grid-cols-3 md:grid-cols-5 gap-2 md:gap-10 lg:gap-12 justify-items-center">
+      {visitors.map((visitor, index) => (
+        <div 
+          class="classic-visitor-card flex flex-col items-center gap-4 text-center classic-visitor-animate"
+          data-classic-delay={index * 100}
+        >
+          <!-- Visitor Avatar -->
+          <div class="classic-visitor-avatar relative w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-full overflow-hidden">
+            <img 
+              class="classic-visitor-image w-full h-full object-cover" 
+              src={visitor.image} 
+              alt={`${visitor.name} from ${visitor.city}`}
+              loading="lazy"
+            />
+            <div class="classic-visitor-overlay absolute inset-0 rounded-full"></div>
+          </div>
+          
+          <!-- Visitor Info -->
+          <div class="classic-visitor-info flex flex-col gap-1">
+            <p class="classic-visitor-name text-base md:text-lg font-semibold leading-tight">{visitor.name}</p>
+            <p class="classic-visitor-city text-sm md:text-base font-medium opacity-75">{visitor.city}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</classic-visitors-animation>
+
+<script>
+  import "./ClassicFakeVisitors";
+</script>

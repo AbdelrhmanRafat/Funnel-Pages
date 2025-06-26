@@ -34,6 +34,8 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
         return FunnelClassicComponents.classicLogosCarousel;
     case "classic_rates":
       return FunnelClassicComponents.ClassicRates;
+    case "classic_visitors" :
+        return FunnelClassicComponents.ClassicVisitors;
     case "classic_product_funnel":
       return FunnelClassicComponents.ClassicProductFunnel;
     case "classic_footer":

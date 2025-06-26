@@ -6,46 +6,66 @@
 import "./ClassicThemeTodayStatistics.css";
 import type { BlockData, Counter, Image } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 
 const data: BlockData = Astro.props.data;
 const counters: Counter[] = data.counters ?? [];
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
 ---
 
 <classic-statistics-counter>
-    <section id={FunnelClassicComponents.classicTodayStatistics} class="classic-section">
-  <div class="classic-middle-title flex flex-col justify-center items-center gap-3">
-    <h3>
-      {data.title}
-    </h3>
-    <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
-  </div>
-
-  <div class="classic-statistics-minimal-container py-12">
-    <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 lg:gap-20">
-      {counters.map((counter, index) => (
-        <div class="classic-counter-minimal-item flex-1 max-w-xs text-center relative">
-          {/* Large animated number */}
-          <div class="classic-theme-today-order-count p-0 flex justify-center items-center gap-4 text-6xl md:text-7xl lg:text-8xl font-black leading-none">
-            <span>+</span>
-            <h5 class="classic-order-counter" data-target={counter.count}>0</h5>
-          </div>
-
-          {/* Green label text */}
-          <div class="classic-counter-minimal-label text-2xl font-bold mt-4 leading-relaxed">
-            {counter.label}
-          </div>
-
-          {/* Divider line – only if not the last item */}
-          {/* {index !== counters.length - 1 && (
-            <div class="hidden md:block absolute top-1/2 right-[-2.5rem] -translate-y-1/2 h-20 w-[3px] rounded-full" style={{ backgroundColor: "var(--classic-color-primary)", opacity: 0.7 }}></div>
-          )} */}
-        </div>
-      ))}
+  <section
+    id={FunnelClassicComponents.classicTodayStatistics}
+    class="classic-section"
+  >
+    <div
+      class="classic-middle-title flex flex-col justify-center items-center gap-3"
+    >
+      <h3>
+        {data.title}
+      </h3>
+      <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
     </div>
-  </div>
-    </section>
+
+    <div class="classic-statistics-minimal-container py-12">
+      <div
+        class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 lg:gap-20"
+      >
+        {
+          counters.map((counter, index) => (
+            <div class="classic-counter-minimal-item flex-1 max-w-xs text-center relative">
+              {/* Large animated number */}
+              <div class="classic-theme-today-order-count p-0 flex justify-center items-center gap-4 text-6xl md:text-7xl lg:text-8xl font-black leading-none">
+                <span>+</span>
+                <h5 class="classic-order-counter" data-target={counter.count}>
+                  0
+                </h5>
+              </div>
+
+              {/* Green label text */}
+              <div class="classic-counter-minimal-label text-2xl font-bold mt-4 leading-relaxed">
+                {counter.label}
+              </div>
+
+              {/* Divider line – only if not the last item */}
+              {index !== counters.length - 1 && (
+                <div
+                  class={`classic-section-divider hidden md:block absolute top-1/2 -translate-y-1/2 h-20 w-[3px] rounded-full 
+      ${isArabic ? "left-[-2.5rem]" : "right-[-2.5rem]"}`}
+                />
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 </classic-statistics-counter>
 
 <script>
-    import "./ClassicThemeTodayStatistics";
+  import "./ClassicThemeTodayStatistics";
 </script>

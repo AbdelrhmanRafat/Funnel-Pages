@@ -21,6 +21,7 @@ export enum FunnelClassicComponents {
   ClassicFooter = "classic_footer",
   ClassicOrderConfirmationNotice = "classic_order_confirmation_notice",
   ClassicFaq = "classic_faq",
+  ClassicVisitors = "classic_visitors",
   ClassicProductPreview = "classic_product_preview",
   ClassicProductUsage = "classic_product_usage",
   ClassicProductFeatures = "classic_product_features",

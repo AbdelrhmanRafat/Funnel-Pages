@@ -24,6 +24,8 @@ import ClassicImageTextBeside from "./ClassicTheme/Classic_Image_Text_Beside/cla
 import ClassicThemeTodayStatistics from "./ClassicTheme/ClassicThemeTodayStatistics/ClassicThemeTodayStatistics.astro";
 import ClassicGridImages from "./ClassicTheme/ClassicGridImagesComponent/classicGridImages.astro";
 import ClassicLogosCarousel from "./ClassicTheme/ClassicLogosCarousel/ClassicLogosCarousel.astro";
+import { undefined } from "astro:schema";
+import ClassicFakeVisitors from "./ClassicTheme/ClassicFakeVisitors/ClassicFakeVisitors.astro";
 
 interface ComponentCheckResult {
   isComponentFound: boolean;
@@ -63,6 +65,7 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicProductPreview,
   FunnelClassicComponents.ClassicProductUsage,
   FunnelClassicComponents.classicLogosCarousel,
+  FunnelClassicComponents.ClassicVisitors,
   FunnelClassicComponents.classicTodayStatistics,
   FunnelClassicComponents.ClassicGallery,
   FunnelClassicComponents.Classic_Before_After,
@@ -84,6 +87,7 @@ const isFormFieldsDataFound = isComponentFound(
   FunnelClassicComponents.ClassicFormFields,
 );
 
+
 const isOrderConfirmationNoticeFound = isComponentFound(
   FunnelClassicComponents.ClassicOrderConfirmationNotice,
 );
@@ -92,6 +96,8 @@ const isRatingFound = isComponentFound(FunnelClassicComponents.ClassicRates);
 const purchaseOptions = productFunnelData.isComponentFound
   ? productFunnelData.componentData?.purchase_options
   : undefined;
+
+
 const formFieldsData = isFormFieldsDataFound.isComponentFound
   ? isFormFieldsDataFound.componentData
   : undefined;
@@ -139,6 +145,15 @@ const orderConfirmationNoticeData =
           <ClassicThemeCountDown data={countdownData.componentData} />
         ) : null;
       }
+      if (componentName === FunnelClassicComponents.ClassicVisitors) {
+        const visitorsData = isComponentFound(
+          FunnelClassicComponents.ClassicVisitors,
+        );
+        return visitorsData.isComponentFound ? (
+          <ClassicFakeVisitors data={visitorsData.componentData} />
+        ) : null;
+      }
+      
       if (componentName === FunnelClassicComponents.ClassicFaq) {
         const faqData = isComponentFound(FunnelClassicComponents.ClassicFaq);
         return faqData.isComponentFound ? (
