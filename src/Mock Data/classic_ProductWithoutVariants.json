@@ -585,33 +585,30 @@
                 "data": {
                     "title": "معلومات عن الشحن",
                     "icon": "fa-solid fa-truck",
-                    "features": [
+                    "description": "",
+                    "items": [
                         {
-                            "icon": "fa-solid fa-credit-card",
-                            "title": "خيارات دفع متعددة",
-                            "subtitle": "الدفع عند الاستلام أو الدفع بالبطاقة"
+                            "label": "خيارات دفع متعددة",
+                            "content": "الدفع عند الاستلام أو الدفع بالبطاقة",
+                            "icon": "fa-solid fa-credit-card"
                         },
                         {
-                            "icon": "fa-solid fa-shield",
-                            "title": "ضمان لمدة عامين",
-                            "subtitle": "ضمان شامل ضد عيوب التصنيع"
+                            "label": "ضمان لمدة عامين",
+                            "content": "ضمان شامل ضد عيوب التصنيع",
+                            "icon": "fa-solid fa-credit-card"
                         },
                         {
-                            "icon": "fa-solid fa-shield",
-                            "title": "ضمان الاسترداد",
-                            "subtitle": "14 يوم ضمان استرداد"
+                            "label": "ضمان الاسترداد",
+                            "content": "14 يوم ضمان استرداد",
+                            "icon": "fa-solid fa-credit-card"
                         },
                         {
-                            "icon": "fa-solid fa-shield",
-                            "title": "ضمان الاسترداد",
-                            "subtitle": "14 يوم ضمان استرداد"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "شحن سريع",
-                            "subtitle": "توصيل خلال 3-2 أيام"
+                            "label": "شحن سريع",
+                            "content": "توصيل خلال 2-3 أيام",
+                            "icon": "fa-solid fa-credit-card"
                         }
-                    ]
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
@@ -790,11 +787,10 @@
             {
                 "name": "classic_coupon",
                 "data": {
-                    "title" : "استخدم كوبون الخصم",
+                    "title": "استخدم كوبون الخصم",
                     "coupon": "Save 10"
                 }
             }
-
         ]
     }
 }

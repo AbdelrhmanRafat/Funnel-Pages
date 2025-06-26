@@ -41,6 +41,7 @@ export interface BlockData {
   rate?: number;
   image?: Image;
   product?: string;
+  items? : Item[];
   purchase_options?: PurchaseOption[];
   cities?: string[];
   PaymentOptions?: PaymentOption[];
@@ -60,6 +61,11 @@ export interface BlockData {
   company_name?: string;
   year?: string;
   galleryimages?: Image[];
+}
+export interface Item {
+  label? : string;
+  content? : string;
+  icon? : string;
 }
 
 export interface PaymentOption {

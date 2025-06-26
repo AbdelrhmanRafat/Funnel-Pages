@@ -1,11 +1,13 @@
 ---
 import "./ClassicDeliveryFeatures.css"
-import type { BlockData, Features } from "../../../../../lib/api/types";
+import type { BlockData, Features, Item } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
-const deliveryFeatures: Features[] = data.features ?? [];
+const deliveryFeatures: Item[] = data.items ?? [];
+console.log(data);
 ---
+
 <section id={FunnelClassicComponents.ClassicDeliveryFeatures} class="classic-section">
   <!-- Header -->
   <div class="classic-section-header">
@@ -19,17 +21,17 @@ const deliveryFeatures: Features[] = data.features ?? [];
         <div class="flex flex-col justify-center items-center gap-2 p-4">
           <!-- Feature Icon -->
           <div>
-            <i class={`${feature.icon} classic-delivery-icon text-4xl`} />
+            <i class={`${feature.icon} classic-delivery-feature-icon text-4xl`} />
           </div>
           <!-- Feature Content -->
-          <h3 class="classic-delivery-title font-semibold text-lg leading-tight">
-            {feature.title}
+          <h3 class="classic-delivery-feature-title font-semibold text-lg leading-tight">
+            {feature.label}
           </h3>
-          <p class="classic-delivery-subtitle text-sm leading-relaxed">
-            {feature.subtitle}
+          <p class="classic-delivery-feature-subtitle text-sm leading-relaxed">
+            {feature.content}
           </p>
         </div>
       ))
     }
   </div>
-</section>
+</section> 
