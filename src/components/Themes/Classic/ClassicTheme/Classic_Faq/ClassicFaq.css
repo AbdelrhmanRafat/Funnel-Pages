@@ -1,8 +1,17 @@
+/* ClassicFaq.css - Enhanced version */
 /* === Classic FAQ Component === */
 .classic-faq-item {
     background-color: var(--classic-color-surface);
     border-radius: var(--classic-section-radius);
     border: 1px solid var(--classic-color-outline-variant);
+    transition: border-color 0.2s ease;
+}
+
+/* Add focus states for accessibility */
+.classic-faq-item:focus-within {
+    border-color: var(--classic-color-primary);
+    outline: 2px solid var(--classic-color-primary);
+    outline-offset: 2px;
 }
 
 .classic-faq-question {
@@ -13,19 +22,43 @@
     background-color: var(--classic-color-surface-variant);
 }
 
+.classic-faq-question:focus {
+    background-color: var(--classic-color-surface-variant);
+    outline: none; /* Handled by parent */
+}
+
 .classic-faq-question-text {
     color: var(--classic-color-on-surface);
 }
 
 .classic-faq-icon {
     color: var(--classic-color-on-surface-variant);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, color 0.2s ease;
+}
+
+/* Add open state styling */
+.classic-faq-item[open] .classic-faq-icon {
+    color: var(--classic-color-primary);
 }
 
 .classic-faq-answer {
-    transition: all 0.3s ease-out;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.classic-faq-answer.open {
+    padding-bottom: 1.5rem;
 }
 
 .classic-faq-answer-content {
     color: var(--classic-color-on-surface-variant);
+    line-height: 1.6;
+}
+
+/* Add animation polish */
+@media (prefers-reduced-motion: reduce) {
+    .classic-faq-icon,
+    .classic-faq-answer,
+    .classic-faq-question {
+        transition: none;
+    }
 }
