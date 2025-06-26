@@ -1,42 +1,52 @@
 ---
 // ProductImageSection.astro
 import "./classicImageTextBeside.css"
-import type { BlockData } from "../../../../../lib/api/types";
+import type { BlockData, Item } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
+const ImageTextData: Item | undefined = data.items?.[0];
 ---
-
-<section id={FunnelClassicComponents.ClassicImageTextBeside} class="classic-section px-4 sm:px-6 lg:px-12 py-12">
+<section 
+  id={FunnelClassicComponents.ClassicImageTextBeside} 
+  class="classic-section px-4 sm:px-6 lg:px-12 py-12"
+  aria-labelledby="image-text-heading"
+>
   <!-- Header -->
   <div class="classic-section-header">
-    <i class="fa-solid fa-images"></i>
-    <h5>{data.title}</h5>
+    <i class={data.icon} aria-hidden="true"></i>
+    <h5 id="image-text-heading">{data.title}</h5>
   </div>
   
   <!-- Product Grid -->
-  <div class="classic-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start overflow-hidden">
-    
+  <article class="classic-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start overflow-hidden">
     <!-- Image Section -->
-    <div class="h-64 sm:h-96  overflow-hidden">
-      <img 
-        src={data.image?.src}
-        alt={data.image?.alt}
-        class="w-full h-full object-cover classic-image-text-beside-image"
-      />
-    </div>
+    <figure class="h-64 sm:h-96 overflow-hidden">
+      {ImageTextData?.content ? (
+        <img 
+          src={ImageTextData.content}
+          alt={ImageTextData.label || 'Product image'}
+          class="w-full h-full object-cover classic-image-text-beside-image"
+          loading="lazy"
+        />
+      ) : (
+        <div class="classic-image-placeholder w-full h-full flex items-center justify-center">
+          <span class="text-gray-400">No image available</span>
+        </div>
+      )}
+    </figure>
     
     <!-- Text Section -->
-    <div class="classic-image-text-beside-content flex flex-col justify-start items-start w-full gap-2 p-6 sm:p-10 space-y-6 text-right backdrop-blur-sm h-full">
+    <div class="classic-image-text-beside-content flex flex-col justify-start items-start w-full gap-2 p-6 sm:p-10 space-y-6 text-right h-full">
       <h2 class="classic-image-text-beside-title text-3xl font-bold">
-        {data.subtitle}
+        {ImageTextData?.label || 'Product'}
       </h2>
       <p class="classic-image-text-beside-description text-base leading-relaxed">
-        {data.description}
+        {data.description || 'No description available'}
       </p>
       <div class="flex-1"></div>
       <ClassicBuyNowButton />
     </div>
-  </div>
+  </article>
 </section>
