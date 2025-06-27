@@ -3,81 +3,101 @@
 // Props:
 // - data: An object of type BlockData, containing product preview information.
 import "./ClassicProductPreviewComponent.css"
-import type { BlockData, ProductPreview } from "../../../../../lib/api/types";
+import type { BlockData, VideoInfoItem } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import type { Item } from "../../../../../lib/api/types";
 
 const data: BlockData = Astro.props.data;
-const productPreview: ProductPreview = data.productPreview ?? {} as ProductPreview;
+const productPreview: VideoInfoItem | undefined = data.videoInfo?.[0];
+const items: Item[] = data.items ?? [];
 ---
-<section id={FunnelClassicComponents.ClassicProductPreview} class="classic-section">
-    <!-- Header -->
-    <div class="classic-section-header">
-        <i class={data.icon}></i>
-        <h5>{data.title}</h5>
+
+<section 
+  id={FunnelClassicComponents.ClassicProductPreview} 
+  class="classic-section"
+>
+  <!-- Header -->
+  <div class="classic-section-header">
+    <i class={data.icon} aria-hidden="true"></i>
+    <h5>{data.title}</h5>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch">
+    <!-- Video Section (3/5 width on desktop) -->
+    <div class="w-full lg:w-3/5 order-2 lg:order-1">
+      <div class="classic-product-preview-video-container border-4 overflow-hidden relative">
+        {productPreview?.videoLink ? (
+          <iframe
+            class="w-full h-full rounded-[inherit]"
+            src={productPreview.videoLink}
+            title={productPreview.videoTitle || "Product video"}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          >
+          </iframe>
+        ) : (
+          <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500 rounded-[inherit]">
+            <span>Video not available</span>
+          </div>
+        )}
+        
+        {productPreview?.videoTitle && (
+          <div class="classic-product-preview-video-title absolute bottom-4 right-4 text-xl sm:text-2xl lg:text-3xl font-bold z-10">
+            <p>{productPreview.videoTitle}</p>
+          </div>
+        )}
+      </div>
     </div>
-    <!-- Main Content -->
-    <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch">
-        <!-- Video Section (3/5 width on desktop) -->
-        <div class="w-full lg:w-3/5 order-2 lg:order-1">
-            <div class="classic-product-video-container classic-product-video-height border-4 overflow-hidden relative">
-                <iframe
-                    class="w-full h-full rounded-[inherit]"
-                    src={productPreview.videoInfo.link}
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-                <div class="classic-product-video-title absolute bottom-9 right-2 text-3xl font-bold z-10">
-                    <p>{productPreview.videoInfo.title}</p>
+    
+    <!-- Features Section (2/5 width on desktop) -->
+    <div class="w-full lg:w-2/5 order-1 lg:order-2">
+      <div class="classic-product-preview-features-container h-full flex flex-col">
+        <!-- Features Header -->
+        {productPreview?.title && (
+          <div class="classic-product-preview-features-header border-b pb-4 mb-6">
+            <div class="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center sm:gap-4">
+              <h2 class="classic-product-preview-features-title text-xl sm:text-2xl font-bold">
+                {productPreview.title}
+              </h2>
+              {productPreview?.viewsText && (
+                <div class="classic-product-preview-views-badge w-fit flex-shrink-0 py-2 px-4 text-sm sm:text-base flex items-center gap-2">
+                  {productPreview.viewsIcon && (
+                    <i class={productPreview.viewsIcon} aria-hidden="true"></i>
+                  )}
+                  <span class="truncate">{productPreview.viewsText}</span>
                 </div>
+              )}
             </div>
-        </div>
-                
-        <!-- Features Section (2/5 width on desktop) -->
-        <div class="w-full lg:w-2/5 order-1 lg:order-2">
-            <div class="classic-product-features-container h-full flex flex-col rounded-xl p-6">
-                <!-- Features Header -->
-                <div class="classic-product-features-header border-b pb-3">
-                    <div class="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center sm:gap-4">
-                        <h2 class="classic-product-features-title text-2xl font-bold">
-                            {productPreview.featuresSectionTitle}
-                        </h2>
-                        <div class="classic-product-views-badge flex-shrink-0 py-1 px-4 rounded-2xl flex items-center gap-2 text-lg max-w-full">
-                            <div class="flex-shrink-0">
-                                <i class={productPreview.viewsIcon}></i>
-                            </div>
-                            <span class="truncate">{productPreview.viewsText}</span>
-                        </div>
-                    </div>
+          </div>
+        )}
+        
+        <!-- Feature List -->
+        <div class="flex-1 space-y-6">
+          {items.map((feature) => (
+            <div class="classic-product-preview-feature-item flex items-start gap-4">
+              <div class="classic-product-preview-feature-icon rounded-full flex-shrink-0 flex items-center justify-center">
+                <i class={feature.icon} aria-hidden="true"></i>
+              </div>
+              <div class="classic-product-preview-feature-content flex-1 min-w-0 text-right">
+                <div class="classic-product-preview-feature-title font-semibold text-base leading-snug">
+                  {feature.label}
                 </div>
-                                
-                <!-- Feature List -->
-                <div class="flex-1 py-6">
-                    <div class="space-y-6 lg:space-y-8">
-                        {
-                            productPreview.features.map((feature) => (
-                                <div class="classic-product-feature-item flex items-start gap-3">
-                                    <div class="classic-product-feature-icon rounded-full p-2 flex-shrink-0 flex items-center justify-center mt-0.5">
-                                        <i class="fa-solid fa-circle-check"></i>
-                                    </div>
-                                    <div class="classic-product-feature-content flex-1 min-w-0 text-right">
-                                        <div class="classic-product-feature-title font-semibold leading-snug">{feature.title}</div>
-                                        <div class="classic-product-feature-subtitle text-sm leading-snug mt-1">
-                                            {feature.subtitle}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        }
-                    </div>
+                <div class="classic-product-preview-feature-subtitle text-sm leading-relaxed mt-2">
+                  {feature.content}
                 </div>
-                                
-                <!-- Buy Now Button -->
-                <div class="mt-auto pt-4 border-t border-current/10">
-                    <ClassicBuyNowButton />
-                </div>
+              </div>
             </div>
+          ))}
         </div>
+        
+        <!-- Buy Now Button -->
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <ClassicBuyNowButton />
+        </div>
+      </div>
     </div>
+  </div>
 </section>

@@ -486,47 +486,32 @@
                 "data": {
                     "title": "عرض توضيحي للمنتج",
                     "icon": "fa-solid fa-video",
-                    "productPreview": {
-                        "viewsText": "رقم مشاهدة 27682",
-                        "viewsIcon": "fa-solid fa-eye",
-                        "videoInfo": {
-                            "title": "سماعات رأس لاسلكية ممتازة - التجربة الشاملة",
-                            "link": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    "videoInfo": [
+                        {
+                            "title": "ماذا ستشاهد في هذا الفيديو",
+                            "viewsText": "رقم مشاهدة 27682",
+                            "viewsIcon": "fa-solid fa-eye",
+                            "videoTitle": "سماعات رأس لاسلكية ممتازة - التجربة الشاملة",
+                            "videoLink": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "icon": "fa-solid fa-circle-check",
+                            "label": "مبنا السماعات وخصائصها",
+                            "content": "عرض للمميزات التقنية والصوتية"
                         },
-                        "featuresSectionTitle": "ماذا ستشاهد في هذا الفيديو",
-                        "features": [
-                            {
-                                "icon": "✔️",
-                                "title": "مبنا السماعات وخصائصها",
-                                "subtitle": "عرض للمميزات التقنية والصوتية"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الصوت وجودة الموسيقى",
-                                "subtitle": "اختبار عملي لجودة الصوت في بيئات مختلفة"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الراحة وحدة البطارية",
-                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الراحة وحدة البطارية",
-                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الراحة وحدة البطارية",
-                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الراحة وحدة البطارية",
-                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
-                            }
-                        ]
-                    }
+                        {
+                            "icon": "fa-solid fa-circle-check",
+                            "label": "تجربة الصوت وجودة الموسيقى",
+                            "content": "اختبار عملي لجودة الصوت في بيئات مختلفة"
+                        },
+                        {
+                            "icon": "fa-solid fa-circle-check",
+                            "label": "تجربة الراحة وحدة البطارية",
+                            "content": "الاستخدام لفترات طويلة وعمر البطارية"
+                        }
+                    ]
                 }
             },
             {

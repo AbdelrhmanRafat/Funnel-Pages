@@ -49,11 +49,12 @@ export interface BlockData {
   PaymentOptions?: PaymentOption[];
   DeliveryOptions?: DeliveryOption[];
   productPreview?: ProductPreview;
-  productUsage?: VideoInfo[];
+  productUsage?: VideoInfoItem[];
   confirmationNotices?: Features[];
   faqs?: Faqs[];
   features?: Features[];
   logos? : Image[];
+  videoInfo? : VideoInfoItem[];
   visitors : Visitor[];
   counters? : Counter[];
   buttonLink? : "string";
@@ -66,12 +67,12 @@ export interface BlockData {
 }
 
 export interface FormInputs {
-  full_name: string;
-  phone: string;
-  address: string;
-  cities: string[];
-  PaymentOptions: PaymentOption[];
-  DeliveryOptions: DeliveryOption[];
+  full_name? : string;
+  phone?: string;
+  address?: string;
+  cities?: string[];
+  PaymentOptions?: PaymentOption[];
+  DeliveryOptions?: DeliveryOption[];
 }
 
 
@@ -80,6 +81,7 @@ export interface Item {
   content? : string;
   icon? : string;
   image? : string;
+  videoLink? : string;
 }
 
 export interface PaymentOption {
@@ -128,14 +130,15 @@ export interface ProductPreview {
     headerBadgeIcon: string;
     viewsText: string;
     viewsIcon: string;
-    videoInfo: VideoInfo;
     featuresSectionTitle: string;
     features: Features[];
 };
-export interface VideoInfo {
-    title: string;
-    subtitle : string;
-    link: string;
+export interface VideoInfoItem {
+  viewsText?: string;
+  viewsIcon?: string;
+  videoTitle?: string;
+  videoLink?: string;
+  title? : string;
 }
 export interface Features {
     title: string;

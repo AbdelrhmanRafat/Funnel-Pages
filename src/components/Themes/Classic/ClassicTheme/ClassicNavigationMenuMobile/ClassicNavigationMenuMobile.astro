@@ -5,8 +5,8 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import { getClassicThemeComponent } from "../../../../../lib/utils/ThemeSelect";
 
 const funnelPage: Data = Astro.props.funnelPage;
-const logo : string = Astro.props.logo;
-const title : string = Astro.props.title;
+const logo: string = Astro.props.logo;
+const title: string = Astro.props.title;
 
 // Generate anchors from available components with comprehensive null checking
 const availableAnchors = funnelPage?.blocks
@@ -29,7 +29,7 @@ const availableAnchors = funnelPage?.blocks
   })
   ?.filter((anchor): anchor is NonNullable<typeof anchor> => anchor !== null) || [];
 
-// Define render order - just change this array to reorder components!
+// Define render order - WITHOUT header (as originally requested)
 const RENDER_ORDER = [
   FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
   FunnelClassicComponents.ClassicProductFeatures,
@@ -72,61 +72,75 @@ const orderedAnchors = RENDER_ORDER
 ---
 
 <!-- Mobile Navigation Menu Overlay - Only visible on mobile -->
-{orderedAnchors && orderedAnchors.length > 0 && (
+<div 
+  id="header-menu-overlay" 
+  class="classic-menu-overlay fixed top-0 left-0 w-full h-full z-60"
+>
+  <!-- Backdrop for closing menu -->
   <div 
-    id="header-menu-overlay" 
-    class="classic-menu-overlay fixed top-0 left-0 w-full h-full z-60"
-  >
-    <!-- Backdrop for closing menu -->
-    <div 
-      class="classic-menu-backdrop absolute top-0 left-0 w-full h-full" 
-      id="header-menu-backdrop"
-    ></div>
-    
-    <!-- Menu Content -->
-    <div class="classic-menu-content absolute top-0 right-0 h-full w-80 max-w-[85vw] p-6 overflow-y-auto">
-      <!-- Menu Header -->
-      <div class="classic-menu-header flex justify-between items-center mb-8 pb-4">
-        <div class="w-32">
-        <img src={logo}  alt={title || "Logo"} class="w-full" />
-        </div>
-        <button
-          id="header-menu-close"
-          class="classic-menu-close p-2 rounded-lg w-10 h-10 flex items-center justify-center transition-all duration-300"
-          aria-label="Close menu"
-          type="button"
-        >
-          <i class="fa-solid fa-times text-xl"></i>
-        </button>
+    class="classic-menu-backdrop absolute top-0 left-0 w-full h-full" 
+    id="header-menu-backdrop"
+  ></div>
+  
+  <!-- Menu Content -->
+  <div class="classic-menu-content absolute top-0 right-0 h-full w-80 max-w-[85vw] p-6 overflow-y-auto">
+    <!-- Menu Header -->
+    <div class="classic-menu-header flex justify-between items-center mb-8 pb-4">
+      <div class="w-32">
+        <img src={logo} alt={title || "Logo"} class="w-full" />
       </div>
-      
-      <!-- Menu Items with API Titles -->
-      <nav class="classic-menu-nav flex-1" role="navigation" aria-label="Main navigation">
-        <ul class="classic-menu-list space-y-2" role="list">
-          {orderedAnchors.map((anchor, index) => {
-            // Additional safety check during rendering
-            if (!anchor || !anchor.component || !anchor.componentData?.title) {
-              return null;
-            }
-            
-            return (
-              <li 
-                class="classic-menu-item transition-all duration-300 ease-out"
-                role="listitem"
-                style={`--menu-item-index: ${index}`}
-              >
-                <a
-                  href={`#${anchor.component}`}
-                  class="classic-menu-link block p-3 rounded-lg text-sm font-medium transition-all duration-300"
-                  data-anchor-target={anchor.componentData.title}
-                >
-                  {anchor.componentData.title}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+      <button
+        id="header-menu-close"
+        class="classic-menu-close p-2 rounded-lg w-10 h-10 flex items-center justify-center transition-all duration-300"
+        aria-label="Close menu"
+        type="button"
+      >
+        <i class="fa-solid fa-times text-xl"></i>
+      </button>
     </div>
+    
+    <!-- Menu Items with API Titles -->
+    <nav class="classic-menu-nav flex-1" role="navigation" aria-label="Main navigation">
+      <ul class="classic-menu-list space-y-2" role="list">
+        <!-- OPTION 2: Manual Home Link -->
+        <li 
+          class="classic-menu-item transition-all duration-300 ease-out"
+          role="listitem"
+          style="--menu-item-index: 0"
+        >
+          <a
+            href={`#${FunnelClassicComponents.ClassicHeader}`}
+            class="classic-menu-link block p-3 rounded-lg text-sm font-medium transition-all duration-300"
+            data-anchor-target="Home"
+          >
+            الرئيسية
+          </a>
+        </li>
+
+        <!-- Auto-generated navigation items -->
+        {orderedAnchors.map((anchor, index) => {
+          // Additional safety check during rendering
+          if (!anchor || !anchor.component || !anchor.componentData?.title) {
+            return null;
+          }
+          
+          return (
+            <li 
+              class="classic-menu-item transition-all duration-300 ease-out"
+              role="listitem"
+              style={`--menu-item-index: ${index + 1}`}
+            >
+              <a
+                href={`#${anchor.component}`}
+                class="classic-menu-link block p-3 rounded-lg text-sm font-medium transition-all duration-300"
+                data-anchor-target={anchor.componentData.title}
+              >
+                {anchor.componentData.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   </div>
-)}
+</div>

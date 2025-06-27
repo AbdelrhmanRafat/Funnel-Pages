@@ -1,91 +1,87 @@
-/* === Classic Theme Enhanced Classes === */
+/* === Classic Product Preview === */
 
-/* === Product Preview Specific Classes === */
-.classic-product-video-container {
+/* Video container with responsive height */
+.classic-product-preview-video-container {
     border-color: var(--classic-color-primary);
     border-radius: var(--classic-section-radius);
     box-shadow: var(--classic-section-shadow);
-}
-
-.classic-product-video-title {
-    color: var(--classic-color-on-primary);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.classic-product-features-container {
-    background-color: var(--classic-color-surface-container-high);
-    border-radius: var(--classic-section-radius);
-    padding: var(--classic-section-padding);
-}
-
-.classic-product-features-header {
-    border-bottom-color: var(--classic-color-outline);
-    color: var(--classic-color-on-surface);
-}
-
-.classic-product-features-title {
-    color: var(--classic-color-on-surface);
-}
-
-.classic-product-views-badge {
-    background-color: var(--classic-color-surface-variant);
-    color: var(--classic-color-on-surface-variant);
-}
-
-.classic-product-feature-icon {
-    background-color: var(--classic-color-primary);
-    color: var(--classic-color-on-primary);
-}
-
-.classic-product-feature-icon svg {
-    color: var(--classic-color-on-primary);
-    fill: currentColor;
-}
-
-.classic-product-feature-content {
-    color: var(--classic-color-on-surface);
-}
-
-.classic-product-feature-title {
-    color: var(--classic-color-on-surface);
-}
-
-.classic-product-feature-subtitle {
-    color: var(--classic-color-on-surface-variant);
-}
-
-/* === Alternative Color Variations === */
-.classic-product-features-container--secondary {
-    background-color: var(--classic-color-secondary);
-}
-
-.classic-product-features-container--secondary .classic-product-features-title,
-.classic-product-features-container--secondary .classic-product-feature-title {
-    color: var(--classic-color-on-secondary);
-}
-
-.classic-product-features-container--secondary .classic-product-feature-subtitle {
-    color: var(--classic-color-on-secondary-light);
-}
-
-.classic-product-features-container--secondary .classic-product-features-header {
-    border-bottom-color: var(--classic-color-on-secondary);
-}
-
-/* === Responsive Utilities === */
-.classic-product-video-height {
-    height: 300px; /* Base height */
+    /* Responsive height */
+    height: 300px;
 }
 
 @media (min-width: 768px) {
-    .classic-product-video-height {
-        height: 400px; /* md:h-[400px] */
+    .classic-product-preview-video-container {
+        height: 400px;
     }
 }
 
 @media (min-width: 1024px) {
-    .classic-product-video-height {
-        height: 100%; /* lg:h-full */
-        min-height: 450px; /* Ensures minimum height for better proportions */
+    .classic-product-preview-video-container {
+        height: 100%;
+        min-height: 450px;
+    }
+}
+
+/* Video title overlay */
+.classic-product-preview-video-title {
+    color: var(--classic-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Features container */
+.classic-product-preview-features-container {
+    background-color: var(--classic-color-surface-container-high);
+    border-radius: var(--classic-section-radius);
+    padding: 2rem;
+    box-shadow: var(--classic-section-shadow);
+}
+
+/* Features header */
+.classic-product-preview-features-header {
+    border-color: var(--classic-color-outline-variant);
+}
+
+.classic-product-preview-features-title {
+    color: var(--classic-color-on-surface);
+}
+
+/* Views badge */
+.classic-product-preview-views-badge {
+    background-color: var(--classic-color-surface-variant);
+    color: var(--classic-color-on-surface-variant);
+    border-radius: 1rem;
+}
+
+/* Feature items */
+.classic-product-preview-feature-icon {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.classic-product-preview-feature-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-preview-feature-subtitle {
+    color: var(--classic-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .classic-product-preview-video-container {
+        transition: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .classic-product-preview-features-container {
+        border: 2px solid var(--classic-color-outline);
+    }
+    
+    .classic-product-preview-video-container {
+        border-width: 3px;
     }
 }
