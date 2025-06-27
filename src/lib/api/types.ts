@@ -25,45 +25,15 @@ export interface Block {
 
 // Represents the data associated with a block.
 export interface BlockData {
-  [x: string]: any;
-  map?: (arg0: (data: BlockData, index: number) => any) => unknown;
-  title?: string;
-  icon?: string;
-  subtitle?: string;
-  logo?: string;
-  full_name?: string;
-  phone?: string;
-  address?: string;
-  hours?: number;
-  minutes?: number;
-  seconds?: number;
-  count?: number;
-  rate?: number;
-  image?: Image;
-  product?: string;
-  items? : Item[];
-  buttonLabel? : string;
-  FormInputs : FormInputs;
-  purchase_options?: PurchaseOption[];
-  cities?: string[];
-  PaymentOptions?: PaymentOption[];
-  DeliveryOptions?: DeliveryOption[];
-  productPreview?: ProductPreview;
-  productUsage?: VideoInfoItem[];
-  confirmationNotices?: Features[];
-  faqs?: Faqs[];
-  features?: Features[];
-  logos? : Image[];
-  videoInfo? : VideoInfoItem[];
-  visitors : Visitor[];
-  counters? : Counter[];
-  buttonLink? : "string";
-  coupon? : string;
-  whatsappLink? : string;
-  description? : string;
-  company_name?: string;
-  year?: string;
-  galleryimages?: Image[];
+  title?: string
+  icon?: string
+  description?: string
+  items?: Item[]
+  buttonLabel?: string
+  FormInputs?: FormInputs
+  product?: string
+  purchase_options?: PurchaseOption[]
+  videoInfo?: VideoInfoItem[]
 }
 
 export interface FormInputs {
@@ -74,7 +44,6 @@ export interface FormInputs {
   PaymentOptions?: PaymentOption[];
   DeliveryOptions?: DeliveryOption[];
 }
-
 
 export interface Item {
   name? : string;

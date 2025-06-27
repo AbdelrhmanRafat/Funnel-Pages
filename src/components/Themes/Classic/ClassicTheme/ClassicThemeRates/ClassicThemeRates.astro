@@ -30,7 +30,6 @@ function generateStars(rating: number) {
 
   return stars;
 }
-console.log(ratingData);
 const rating = Array.isArray(ratingData?.items) && ratingData.items.length > 0
   ? parseFloat(ratingData.items[0].content ?? "0")
   : 0;

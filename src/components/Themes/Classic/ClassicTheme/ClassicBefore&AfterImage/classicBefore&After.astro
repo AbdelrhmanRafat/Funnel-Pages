@@ -11,92 +11,98 @@ const beforeItemData: Item | undefined = items.find(item => item.name?.toLocaleL
 const afterItemData: Item | undefined = items.find(item => item.name?.toLocaleLowerCase() == "after");
 ---
 
- <section id={FunnelClassicComponents.Classic_Before_After} class="classic-section">
+<section 
+    id={FunnelClassicComponents.Classic_Before_After} 
+    class="classic-section"
+    aria-labelledby="before-after-heading"
+>
     <!-- Section Header -->
-    <div class="classic-middle-title flex flex-col justify-center items-center gap-3">
-        <h3>
+    <header class="classic-middle-title flex flex-col justify-center items-center gap-3">
+        <h2 id="before-after-heading">
             {data.title}
-        </h3>
-        <p class="text-xl text-center font-medium classic-section-description">
-          {data.description}
+        </h2>
+        <p class="text-lg sm:text-xl text-center font-medium classic-before-after-section-description max-w-2xl mx-auto">
+            {data.description}
         </p>
-        <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
-    </div>
+        <div class="w-24 h-1 classic-before-after-divider mx-auto rounded-full" role="presentation"></div>
+    </header>
 
-    
-    <div class="flex flex-col justify-center items-center gap-10">
-    
-    <!-- Before and After Images Container -->
-    <div class="grid md:grid-cols-2 gap-12">
+        <div class="flex flex-col justify-center items-center gap-8 sm:gap-10 max-w-6xl mx-auto px-4">
+            <!-- Before and After Images Container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 w-full max-w-6xl">
 
-        <div class="flex flex-col gap-3 justify-center items-center">
-        <!-- Before Image -->
-        <div class="classic-image-card relative overflow-hidden">
-            <!-- Badge -->
-            <div class="classic-badge-before absolute top-6 right-6 z-10 px-6 py-3 rounded-full font-bold text-lg shadow-lg">
-                <span class="classic-badge-content flex items-center" data-translate="BeforeAfter.Before">
-                    <svg class="classic-badge-icon w-5 h-5 ml-2" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                    </svg>
+                <!-- Before Card -->
+                <article class="flex flex-col gap-3 justify-center items-center">
+                    <!-- Before Image -->
+                    <figure class="classic-before-after-image-card relative overflow-hidden rounded-lg shadow-lg bg-white">
+                        <!-- Badge -->
+                        <div class="classic-badge-before absolute top-3 sm:top-4 lg:top-6 right-3 sm:right-4 lg:right-6 z-10 px-3 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-lg shadow-lg">
+                            <span class="classic-badge-content" aria-label="Before state" data-translate="BeforeAfter.Before">
+                            </span>
+                        </div>
+                                    
+                        <!-- Image -->
+                        <div class="aspect-[4/3]">
+                            <img
+                                class="w-full h-full object-cover"
+                                src={beforeItemData?.image}
+                                alt={beforeItemData?.label || "Before transformation"}
+                                loading="lazy"
+                            />
+                        </div>
+                                    
+                        <!-- Overlay Effect -->
+                        <div class="classic-overlay-before absolute inset-0" aria-hidden="true"></div>
+                    </figure>
                     
-                </span>
-            </div>
-                        
-            <!-- Placeholder Image -->
-            <div class="aspect-[4/3]">
-               <img
-                 class="w-full h-full object-cover"
-                src={beforeItemData?.image}
-                alt={beforeItemData?.label}
-               >
-            </div>
-                        
-            <!-- Overlay Effect -->
-            <div class="classic-overlay-before absolute inset-0"></div>
-        </div>
-        
-        <!-- Before Description -->
-        <div class="mt-6 text-center">
-            <h3 class="text-2xl font-bold classic-card-title mb-2">{beforeItemData?.label}</h3>
-            <p class="classic-card-description">{beforeItemData?.content}</p>
-        </div>
-        </div>   
-        <div class="flex flex-col gap-3 justify-center items-center">
-        <!-- After Image -->
-        <div class="classic-image-card relative overflow-hidden">
-            <!-- Badge -->
-            <div class="classic-badge-after absolute top-6 right-6 z-10 px-6 py-3 rounded-full font-bold text-lg shadow-lg">
-                <span class="classic-badge-content flex items-center" data-translate="BeforeAfter.After">
-                    <svg class="classic-badge-icon w-5 h-5 ml-2" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                    </svg>
+                    <!-- Before Description -->
+                    <div class="mt-4 sm:mt-6 text-center">
+                        <h3 class="text-xl sm:text-2xl font-bold classic-before-after-card-title mb-2">
+                            {beforeItemData?.label}
+                        </h3>
+                        <p class="classic-before-after-card-description text-sm sm:text-base max-w-sm mx-auto">
+                            {beforeItemData?.content}
+                        </p>
+                    </div>
+                </article>   
+
+                <!-- After Card -->
+                <article class="flex flex-col gap-3 justify-center items-center">
+                    <!-- After Image -->
+                    <figure class="classic-before-after-image-card relative overflow-hidden rounded-lg shadow-lg bg-white">
+                        <!-- Badge -->
+                        <div class="classic-badge-after absolute top-3 sm:top-4 lg:top-6 right-3 sm:right-4 lg:right-6 z-10 px-3 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-lg shadow-lg">
+                            <span class="classic-badge-content" aria-label="After state" data-translate="BeforeAfter.After">
+                            </span>
+                        </div>
+                                    
+                        <!-- Image -->
+                        <div class="aspect-[4/3]">
+                            <img
+                                class="w-full h-full object-cover"
+                                src={afterItemData?.image}
+                                alt={afterItemData?.label || "After transformation"}
+                                loading="lazy"
+                            />
+                        </div>
+                                    
+                        <!-- Overlay Effect -->
+                        <div class="classic-overlay-after absolute inset-0" aria-hidden="true"></div>
+                    </figure>
                     
-                </span>
+                    <!-- After Description -->
+                    <div class="mt-4 sm:mt-6 text-center">
+                        <h3 class="text-xl sm:text-2xl font-bold classic-before-after-card-title mb-2">
+                            {afterItemData?.label}
+                        </h3>
+                        <p class="classic-before-after-card-description text-sm sm:text-base max-w-sm mx-auto">
+                            {afterItemData?.content}
+                        </p>
+                    </div>
+                </article>
             </div>
-                        
-            <!-- Placeholder Image -->
-            <div class="aspect-[4/3]">
-                <img
-                 class="w-full h-full object-cover"
-                src={afterItemData?.image}
-                alt={afterItemData?.label}
-               >
-            </div>
-                        
-            <!-- Overlay Effect -->
-            <div class="classic-overlay-after absolute inset-0"></div>
+
+            <!-- Call to Action -->
+            <ClassicBuyNowButton />
         </div>
-        <!-- After Description -->
-        <div class="mt-6 text-center">
-            <h3 class="text-2xl font-bold classic-card-title mb-2">{afterItemData?.label}</h3>
-            <p class="classic-card-description">{afterItemData?.content}</p>
-        </div>
-    </div>
-    </div>
-
-    <!-- Call to Action -->
-   <ClassicBuyNowButton />
-</div>
-</section> 
-
-
+</section>

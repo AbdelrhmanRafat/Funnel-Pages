@@ -7,36 +7,55 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 const data: BlockData = Astro.props.data;
 const reviews: Item[] = data.items ?? [];
 ---
-
-<section id={FunnelClassicComponents.ClassicReviews} class="classic-section">
-  <h2 class="classic-section-header">
+<section 
+  id={FunnelClassicComponents.ClassicReviews} 
+  class="classic-section"
+  aria-labelledby="reviews-heading"
+>
+  <h2 id="reviews-heading" class="classic-section-header">
     {data.title}
   </h2>
   
-  <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 mb-8">
-    {
-      reviews.map((review) => (
-        <div class="classic-review-card flex flex-col  border-l-4">
-          <p class="classic-review-description text-base leading-relaxed mb-4 italic">{review.content}</p>
-          <div class="flex-1"></div>
-          <div class="classic-review-author flex flex-col gap-1">
-           <div class="flex justify-start items-center gap-2">
-            <div class="classic-review-author-image w-12 h-12 rounded-full flex items-center justify-center">
+  <div 
+    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8"
+    role="list"
+    aria-label="Customer reviews"
+  >
+    {reviews.map((review, index) => (
+      <article 
+        class="classic-review-card flex flex-col border-l-4"
+        role="listitem"
+        aria-labelledby={`review-author-${index}`}
+      >
+        <blockquote class="classic-review-description text-sm sm:text-base leading-relaxed mb-4 italic">
+          {review.content}
+        </blockquote>
+        
+        <div class="flex-1"></div>
+        
+        <footer class="classic-review-author flex flex-col gap-1">
+          <div class="flex justify-start items-center gap-2 sm:gap-3">
+            <div class="classic-review-author-image w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center">
               <img
                 src={review.image}
-                alt={`Profile of ${review.label}`}
-                class="w-10 h-10 rounded-full object-cover"
+                alt=""
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
+                loading="lazy"
               />
             </div>
-            <span class="classic-review-name font-semibold text-md">{review.label}</span>
-            </div>
+            <span 
+              id={`review-author-${index}`}
+              class="classic-review-name font-semibold text-sm sm:text-base"
+            >
+              {review.label}
+            </span>
           </div>
-        </div>
-      ))
-    }
+        </footer>
+      </article>
+    ))}
   </div>
   
-  <div class="classic-reviews-action flex justify-center mt-8">
+  <div class="classic-reviews-action flex justify-center mt-6 sm:mt-8">
     <ClassicBuyNowButton />
   </div>
 </section>
