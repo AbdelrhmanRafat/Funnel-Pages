@@ -1,7 +1,6 @@
-// ClassicThemeHeader.ts - Enhanced Header with Mobile Navigation
+// ClassicThemeHeader.ts - Simplified Header with Mobile Navigation
 
 interface HeaderElements {
-  headerLogo: HTMLImageElement | null;
   header: HTMLElement | null;
   menuButton: HTMLElement | null;
   menuOverlay: HTMLElement | null;
@@ -14,16 +13,17 @@ class ClassicThemeHeader {
   private elements: HeaderElements;
   private isMenuOpen: boolean = false;
   private lastScrollY: number = 0;
-  private scrollTicking: boolean = false;
 
   constructor() {
     this.elements = this.initializeElements();
     this.init();
   }
 
+  /**
+   * Initialize all required DOM elements with updated class names
+   */
   private initializeElements(): HeaderElements {
     return {
-      headerLogo: document.getElementById('headerLogo') as HTMLImageElement | null,
       header: document.querySelector('.classic-header') as HTMLElement | null,
       menuButton: document.getElementById('header-menu-button') as HTMLElement | null,
       menuOverlay: document.getElementById('header-menu-overlay') as HTMLElement | null,
@@ -33,80 +33,47 @@ class ClassicThemeHeader {
     };
   }
 
+  /**
+   * Initialize all header functionality
+   */
   private init(): void {
-    this.initializeLogo();
     this.initializeScrollBehavior();
     this.initializeMobileMenu();
     this.initializeKeyboardHandling();
     this.initializeResizeHandling();
-    
   }
 
-  private initializeLogo(): void {
-    const { headerLogo } = this.elements;
-    
-    if (!headerLogo) return;
-
-    const defaultLogo = 'assets/default-logo.svg';
-
-    const handleLogoError = () => {
-      console.log('Logo image failed to load, using default logo');
-      headerLogo.onerror = null;
-      headerLogo.src = `${defaultLogo}?fallback=${Date.now()}`;
-    };
-
-    headerLogo.onerror = handleLogoError;
-
-    // Check if logo failed to load initially
-    if (headerLogo.complete && headerLogo.naturalWidth === 0) {
-      headerLogo.src = `${defaultLogo}?fallback=${Date.now()}`;
-    }
-  }
-
+  /**
+   * Handle header show/hide on scroll
+   * Shows header when scrolling up, hides when scrolling down
+   */
   private initializeScrollBehavior(): void {
     const { header } = this.elements;
-    
     if (!header) return;
 
-    header.classList.add('transition-all', 'duration-300', 'ease-in-out');
     this.lastScrollY = window.scrollY;
 
-    const handleScroll = (): void => {
-      if (!this.scrollTicking) {
-        window.requestAnimationFrame(() => {
-          this.updateHeaderPosition();
-          this.scrollTicking = false;
-        });
-        this.scrollTicking = true;
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      // Always show header at top
+      if (currentScrollY <= 0) {
+        header.style.transform = 'translateY(0)';
       }
-    };
+      // Hide header when scrolling down, show when scrolling up
+      else if (currentScrollY > this.lastScrollY && currentScrollY > 100) {
+        header.style.transform = 'translateY(-100%)';
+      } else if (currentScrollY < this.lastScrollY) {
+        header.style.transform = 'translateY(0)';
+      }
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-  }
-
-  private updateHeaderPosition(): void {
-    const { header } = this.elements;
-    if (!header) return;
-
-    const currentScrollY = window.scrollY;
-
-    // Always show header at top
-    if (currentScrollY <= 0) {
-      header.style.transform = 'translateY(0)';
       this.lastScrollY = currentScrollY;
-      return;
-    }
-
-    // Hide header when scrolling down, show when scrolling up
-    if (currentScrollY > this.lastScrollY && currentScrollY > 100) {
-      header.style.transform = 'translateY(-100%)';
-    } else if (currentScrollY < this.lastScrollY) {
-      header.style.transform = 'translateY(0)';
-    }
-
-    this.lastScrollY = currentScrollY;
+    }, { passive: true });
   }
 
+  /**
+   * Initialize mobile menu functionality with updated class names
+   */
   private initializeMobileMenu(): void {
     const { menuButton, menuClose, menuBackdrop, menuLinks } = this.elements;
 
@@ -121,71 +88,57 @@ class ClassicThemeHeader {
     });
   }
 
+  /**
+   * Open the mobile menu with updated class names
+   */
   private openMenu(): void {
     const { menuButton, menuOverlay } = this.elements;
-    
     if (!menuButton || !menuOverlay) return;
 
-    
     this.isMenuOpen = true;
     menuButton.classList.add('active');
     menuOverlay.classList.add('show');
     document.body.classList.add('menu-open');
-
-    // Dispatch custom event
-    this.dispatchMenuEvent('menu-opened');
   }
 
+  /**
+   * Close the mobile menu with updated class names
+   */
   private closeMenu(): void {
     const { menuButton, menuOverlay } = this.elements;
-    
     if (!menuButton || !menuOverlay) return;
 
-    
     this.isMenuOpen = false;
     menuButton.classList.remove('active');
     menuOverlay.classList.remove('show');
     document.body.classList.remove('menu-open');
-
-    // Dispatch custom event
-    this.dispatchMenuEvent('menu-closed');
   }
 
+  /**
+   * Handle menu link clicks with smooth scrolling
+   */
   private handleMenuLinkClick(e: Event, link: HTMLAnchorElement): void {
     e.preventDefault();
-
-    // Close menu first
     this.closeMenu();
 
-    // Handle smooth scrolling
     const href = link.getAttribute('href');
     if (href && href.startsWith('#')) {
-      const targetId = href.substring(1);
-      const targetElement = document.getElementById(targetId);
-
+      const targetElement = document.getElementById(href.substring(1));
       if (targetElement) {
-        this.smoothScrollToElement(targetElement);
+        // Simple smooth scroll with offset for fixed header
+        setTimeout(() => {
+          targetElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+          });
+        }, 300);
       }
     }
   }
 
-  private smoothScrollToElement(targetElement: HTMLElement): void {
-    const { header } = this.elements;
-    
-    // Calculate offset for fixed header
-    const headerHeight = header?.clientHeight || 0;
-    const additionalOffset = 10; // Additional spacing
-    const targetPosition = targetElement.offsetTop - headerHeight - additionalOffset;
-
-    // Wait for menu close animation before scrolling
-    setTimeout(() => {
-      window.scrollTo({
-        top: Math.max(0, targetPosition),
-        behavior: 'smooth'
-      });
-    }, 300);
-  }
-
+  /**
+   * Handle keyboard interactions (ESC to close menu)
+   */
   private initializeKeyboardHandling(): void {
     document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Escape' && this.isMenuOpen) {
@@ -194,29 +147,21 @@ class ClassicThemeHeader {
     });
   }
 
+  /**
+   * Handle window resize events
+   */
   private initializeResizeHandling(): void {
-    let resizeTimeout: number;
-
     window.addEventListener('resize', () => {
-      // Debounce resize events
-      clearTimeout(resizeTimeout);
-      resizeTimeout = window.setTimeout(() => {
-        // Close menu on resize to handle mobile/desktop transitions
-        if (this.isMenuOpen) {
-          this.closeMenu();
-        }
-      }, 250);
+      // Close menu on resize to handle mobile/desktop transitions
+      if (this.isMenuOpen) {
+        this.closeMenu();
+      }
     });
   }
 
-  private dispatchMenuEvent(eventType: string): void {
-    const event = new CustomEvent(eventType, {
-      detail: { isOpen: this.isMenuOpen }
-    });
-    document.dispatchEvent(event);
-  }
-
-  // Public API methods
+  /**
+   * Public API: Toggle menu state
+   */
   public toggleMenu(): void {
     if (this.isMenuOpen) {
       this.closeMenu();
@@ -225,23 +170,17 @@ class ClassicThemeHeader {
     }
   }
 
+  /**
+   * Public API: Check if menu is open
+   */
   public isMenuCurrentlyOpen(): boolean {
     return this.isMenuOpen;
   }
-
-  public forceCloseMenu(): void {
-    this.closeMenu();
-  }
-
-  public scrollToSection(sectionId: string): void {
-    const targetElement = document.getElementById(sectionId);
-    if (targetElement) {
-      this.smoothScrollToElement(targetElement);
-    }
-  }
 }
 
-// Initialize header functionality
+/**
+ * Initialize header functionality
+ */
 export function initHeader(): void {
   new ClassicThemeHeader();
 }

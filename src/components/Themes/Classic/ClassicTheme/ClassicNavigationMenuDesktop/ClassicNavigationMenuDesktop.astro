@@ -3,7 +3,9 @@ import "./ClassicNavigationMenuDesktop.css";
 import type { Data } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import { getClassicThemeComponent } from "../../../../../lib/utils/ThemeSelect";
+
 const funnelPage: Data = Astro.props.funnelPage;
+
 // Generate anchors from available components with comprehensive null checking
 const availableAnchors = funnelPage?.blocks
   ?.map((block) => {
@@ -27,7 +29,6 @@ const availableAnchors = funnelPage?.blocks
 
 // Order anchors based on render order
 const RENDER_ORDER = [
-  FunnelClassicComponents.ClassicHeader,
   FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
   FunnelClassicComponents.ClassicProductFeatures,
   FunnelClassicComponents.ClassicProductPreview,
@@ -44,6 +45,7 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicCountdown,
   FunnelClassicComponents.ClassicFooter,
 ];
+
 // Safe filtering with additional null checks
 const orderedAnchors = RENDER_ORDER
   .map(component => {
@@ -64,61 +66,92 @@ const orderedAnchors = RENDER_ORDER
     );
   });
 ---
-<!-- Enhanced Desktop Navigation with Overflow Handling -->
+
+<!-- Option B: Enhanced Desktop Navigation with Optimized Overflow -->
 {orderedAnchors && orderedAnchors.length > 0 && (
-          <nav class="classic-desktop-nav hidden md:block w-full mt-4" id="desktop-nav">
-            <div class="relative flex items-center justify-center">
-              <!-- Visible Navigation Items -->
-              <div class="nav-container flex items-center overflow-hidden" id="nav-container">
-                <ul class="flex flex-row items-center gap-2 transition-all duration-300" id="nav-list">
-                  {orderedAnchors.map((anchor, index) => {
-                    if (!anchor || !anchor.component || !anchor.componentData?.title) {
-                      return null;
-                    }
-                    return (
-                      <li class="classic-nav-item flex-shrink-0" data-index={index}>
-                        <a 
-                          href={`#${anchor.component}`}
-                          class="classic-desktop-nav-link block px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap hover:scale-105"
-                          data-anchor-target={anchor.componentData.title}
-                        >
-                          {anchor.componentData.title}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-
-              <!-- Dots Indicator (shows when items are hidden) -->
-              <div class="classic-nav-dots hidden items-center gap-1 mx-2" id="nav-dots">
-                <div class="w-1 h-1 rounded-full"></div>
-                <div class="w-1 h-1 rounded-full"></div>
-                <div class="w-1 h-1 rounded-full"></div>
-              </div>
-
-              <!-- Overflow Dropdown -->
-              <div class="classic-nav-overflow relative hidden" id="nav-overflow">
-                <button 
-                  class="classic-overflow-toggle px-3 py-2 text-sm font-medium rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-1"
-                  id="overflow-toggle"
-                  aria-label="More navigation items"
+  <desktop-navigation 
+    class="classic-desktop-nav hidden md:block w-full mt-4 pt-4"
+    data-navigation-items={JSON.stringify(orderedAnchors.map(anchor => ({
+      id: anchor.component,
+      title: anchor.componentData.title
+    })))}
+    data-max-visible-items="6"
+    data-overflow-threshold="800"
+  >
+    <nav class="flex items-center justify-center">
+      <div class="relative flex items-center">
+        <!-- Main Navigation Container -->
+        <div 
+          class="nav-container flex items-center overflow-hidden transition-all duration-300" 
+          data-nav-container
+        >
+          <ul class="flex items-center gap-2 transition-all duration-300" data-nav-list>
+            {orderedAnchors.map((anchor, index) => {
+              // Additional safety check during rendering
+              if (!anchor || !anchor.component || !anchor.componentData?.title) {
+                return null;
+              }
+              
+              return (
+                <li 
+                  class="classic-nav-item flex-shrink-0 transition-all duration-300"
+                  data-nav-index={index}
+                  data-nav-item
                 >
-                  <span data-translate="Headers.more"></span>
-                  <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200" id="dropdown-arrow"></i>
-                </button>
-                
-                <!-- Dropdown Menu -->
-                <div class="classic-overflow-dropdown absolute top-full left-1/2 transform -translate-x-1/2 mt-2 py-2 rounded-lg shadow-lg border min-w-40 z-10 hidden" id="overflow-dropdown">
-                  <ul class="overflow-items" id="overflow-items">
-                    <!-- Hidden items will be populated here by JavaScript -->
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </nav>
- )}
+                  <a 
+                    href={`#${anchor.component}`}
+                    class="classic-desktop-nav-link block px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 hover:scale-105 whitespace-nowrap"
+                    data-anchor-target={anchor.componentData.title}
+                    data-scroll-target={anchor.component}
+                  >
+                    {anchor.componentData.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <!-- Overflow Indicator Dots -->
+        <div 
+          class="classic-nav-dots hidden items-center gap-1 mx-3 transition-opacity duration-300" 
+          data-nav-dots
+        >
+          <div class="w-1.5 h-1.5 rounded-full bg-current opacity-60"></div>
+          <div class="w-1.5 h-1.5 rounded-full bg-current opacity-80"></div>
+          <div class="w-1.5 h-1.5 rounded-full bg-current opacity-60"></div>
+        </div>
+
+        <!-- Overflow Dropdown -->
+        <div class="classic-nav-overflow relative hidden" data-nav-overflow>
+          <button 
+            class="classic-overflow-toggle px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2"
+            data-overflow-toggle
+            aria-label="More navigation items"
+            type="button"
+          >
+            <span class="text-sm" data-translate="Headers.more">More</span>
+            <i 
+              class="fa-solid fa-chevron-down text-xs transition-transform duration-200" 
+              data-dropdown-arrow
+            ></i>
+          </button>
+          
+          <!-- Dropdown Menu -->
+          <div 
+            class="classic-overflow-dropdown absolute top-full left-1/2 transform -translate-x-1/2 mt-2 py-2 rounded-lg border min-w-48 z-20 hidden"
+            data-overflow-dropdown
+          >
+            <ul class="overflow-items space-y-1" data-overflow-items>
+              <!-- Hidden items will be populated here by the web component -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </desktop-navigation>
+)}
+
 <script>
-    import { initEnhancedNavigation } from "./ClassicNavigationMenuDesktop";
-    initEnhancedNavigation();
+  import "./ClassicNavigationMenuDesktop";
 </script>

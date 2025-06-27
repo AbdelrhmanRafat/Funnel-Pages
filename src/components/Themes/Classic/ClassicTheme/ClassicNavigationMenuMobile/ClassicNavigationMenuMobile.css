@@ -1,91 +1,144 @@
-
-/* === Menu Overlay === */
+/* === Classic Mobile Menu Overlay === */
 .classic-menu-overlay {
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .classic-menu-overlay.show {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
+/* Menu backdrop */
 .classic-menu-backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
 }
 
+/* Menu content container */
 .classic-menu-content {
-    background-color: var(--classic-color-surface);
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-    transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-left: 2px solid var(--classic-color-primary);
+  background-color: var(--classic-color-surface);
+  box-shadow: var(--classic-section-shadow);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 2px solid var(--classic-color-primary);
 }
 
 .classic-menu-overlay.show .classic-menu-content {
-    transform: translateX(0);
+  transform: translateX(0);
 }
 
-/* === Menu Styling === */
-.classic-menu-title {
-    color: var(--classic-color-on-surface);
+/* Menu header */
+.classic-menu-header {
+  border-bottom: 1px solid var(--classic-color-outline-variant);
 }
 
+
+/* Menu close button */
 .classic-menu-close {
-    background-color: var(--classic-color-surface-variant);
-    border: 1px solid var(--classic-color-outline-variant);
-    color: var(--classic-color-on-surface-variant);
+  background-color: var(--classic-color-surface-variant);
+  border: 1px solid var(--classic-color-outline-variant);
+  color: var(--classic-color-on-surface-variant);
 }
 
 .classic-menu-close:hover {
-    background-color: var(--classic-color-primary);
-    border-color: var(--classic-color-primary-dark);
-    color: var(--classic-color-on-error);
-    transform: scale(1.1);
+  background-color: var(--classic-color-error);
+  color: var(--classic-color-on-error);
+  border-color: var(--classic-color-error);
+  transform: scale(1.1);
 }
 
+.classic-menu-close:focus {
+  outline: 2px solid var(--classic-color-primary);
+  outline-offset: 2px;
+}
+
+/* Menu navigation */
+.classic-menu-nav {
+  flex: 1;
+}
+
+.classic-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.classic-menu-item {
+  margin: 0;
+}
+
+/* Menu links */
 .classic-menu-link {
-    background-color: var(--classic-color-surface-variant);
-    color: var(--classic-color-on-surface);
-    text-decoration: none;
-    border: 1px solid var(--classic-color-outline-variant);
+  background-color: var(--classic-color-surface-variant);
+  color: var(--classic-color-on-surface);
+  text-decoration: none;
+  border: 1px solid var(--classic-color-outline-variant);
 }
 
 .classic-menu-link:hover {
-    background-color: var(--classic-color-primary);
-    color: var(--classic-color-on-primary);
-    border-color: var(--classic-color-primary-dark);
-    transform: translateX(-4px);
-    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--classic-color-primary);
+  color: var(--classic-color-on-primary);
+  border-color: var(--classic-color-primary);
+  transform: translateX(-4px);
+  box-shadow: var(--classic-section-shadow);
 }
 
 .classic-menu-link:focus {
-    outline: 2px solid var(--classic-color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--classic-color-primary);
+  outline-offset: 2px;
 }
 
-/* Menu Items Animation */
-.classic-menu-nav ul li {
-    opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.classic-menu-link:active {
+  background-color: var(--classic-color-primary-dark);
+  color: var(--classic-color-on-primary);
 }
 
-.classic-menu-overlay.show .classic-menu-nav ul li {
-    opacity: 1;
-    transform: translateX(0);
+/* Active state for current section */
+.classic-menu-link.active {
+  background-color: var(--classic-color-primary);
+  color: var(--classic-color-on-primary);
+  border-color: var(--classic-color-primary);
 }
 
-/* Staggered animation for menu items */
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(1) { transition-delay: 0.1s; }
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(2) { transition-delay: 0.15s; }
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(3) { transition-delay: 0.2s; }
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(4) { transition-delay: 0.25s; }
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(5) { transition-delay: 0.3s; }
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(6) { transition-delay: 0.35s; }
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(7) { transition-delay: 0.4s; }
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(8) { transition-delay: 0.45s; }
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(9) { transition-delay: 0.5s; }
-.classic-menu-overlay.show .classic-menu-nav ul li:nth-child(10) { transition-delay: 0.55s; }
+/* === Optimized Staggered Animation System === */
+.classic-menu-item {
+  opacity: 0;
+  transform: translateX(20px);
+  transition-delay: calc(var(--menu-item-index) * 0.05s);
+}
+
+.classic-menu-overlay.show .classic-menu-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .classic-menu-overlay,
+  .classic-menu-content,
+  .classic-menu-item,
+  .classic-menu-close {
+    transition: none;
+  }
+  
+  .classic-menu-item {
+    transition-delay: 0s;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .classic-menu-backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .classic-menu-content {
+    border: 2px solid var(--classic-color-outline);
+  }
+  
+  .classic-menu-link {
+    border: 2px solid var(--classic-color-outline);
+  }
+}

@@ -709,8 +709,15 @@
                 "name": "classic_header",
                 "data": {
                     "title": "اوليفر للملابس",
-                    "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
-                    "logo": "/images/logo.png"
+                    "icon": "fa-solid fa-home",
+                    "description": "ملابس عصرية بجودة عالية وسعر مناسب",
+                    "items": [
+                        {
+                            "label": "logo",
+                            "content": "assets/default-logo.svg"
+                        }
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {

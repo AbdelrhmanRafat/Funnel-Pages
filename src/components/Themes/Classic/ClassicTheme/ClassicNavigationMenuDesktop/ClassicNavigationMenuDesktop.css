@@ -1,79 +1,110 @@
 /* === Desktop Navigation === */
 .classic-desktop-nav {
-    border-top: 1px solid var(--classic-color-outline-variant);
-    padding-top: 1rem;
+  border-top: 1px solid var(--classic-color-outline-variant);
 }
 
+/* Navigation links */
 .classic-desktop-nav-link {
-    background-color: var(--classic-color-surface-variant);
-    color: var(--classic-color-on-surface-variant);
-    text-decoration: none;
-    border: 1px solid var(--classic-color-outline-variant);
+  background-color: var(--classic-color-surface-variant);
+  color: var(--classic-color-on-surface-variant);
+  text-decoration: none;
+  border: 1px solid var(--classic-color-outline-variant);
 }
 
 .classic-desktop-nav-link:hover {
-    background-color: var(--classic-color-primary);
-    color: var(--classic-color-on-primary);
-    border-color: var(--classic-color-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--classic-color-primary);
+  color: var(--classic-color-on-primary);
+  border-color: var(--classic-color-primary);
+  box-shadow: var(--classic-section-shadow);
 }
 
 .classic-desktop-nav-link:focus {
-    outline: 2px solid var(--classic-color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--classic-color-primary);
+  outline-offset: 2px;
 }
 
 /* Active state for current section */
+.classic-desktop-nav-link.active {
+  background-color: var(--classic-color-primary);
+  color: var(--classic-color-on-primary);
+  border-color: var(--classic-color-primary);
+  box-shadow: var(--classic-section-shadow);
+}
+
+/* Navigation items */
+.classic-nav-item {
+  transition: all 0.3s ease;
+}
+
+/* === Overflow System === */
+
+/* Overflow toggle button */
 .classic-overflow-toggle {
-    background-color: var(--classic-color-surface-variant);
-    border: 1px solid var(--classic-color-outline-variant);
-    color: var(--classic-color-on-surface-variant);
+  background-color: var(--classic-color-surface-variant);
+  border: 1px solid var(--classic-color-outline-variant);
+  color: var(--classic-color-on-surface-variant);
 }
 
 .classic-overflow-toggle:hover {
-    background-color: var(--classic-color-primary);
-    border-color: var(--classic-color-primary);
-    color: var(--classic-color-on-primary);
+  background-color: var(--classic-color-primary);
+  border-color: var(--classic-color-primary);
+  color: var(--classic-color-on-primary);
 }
 
+.classic-overflow-toggle:focus {
+  outline: 2px solid var(--classic-color-primary);
+  outline-offset: 2px;
+}
+
+/* Overflow dropdown */
 .classic-overflow-dropdown {
-    background-color: var(--classic-color-surface);
-    border: 1px solid var(--classic-color-outline);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background-color: var(--classic-color-surface);
+  border: 1px solid var(--classic-color-outline);
+  box-shadow: var(--classic-section-shadow);
 }
 
-.classic-overflow-dropdown a {
-    color: var(--classic-color-on-surface);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    display: block;
-    transition: background-color 0.2s ease;
+/* Overflow dropdown links */
+.classic-overflow-dropdown-link {
+  color: var(--classic-color-on-surface);
+  text-decoration: none;
 }
 
-.classic-overflow-dropdown a:hover {
-    background-color: var(--classic-color-surface-variant);
+.classic-overflow-dropdown-link:hover {
+  background-color: var(--classic-color-surface-variant);
+  color: var(--classic-color-on-surface);
 }
 
-/* Nav dots styling */
-.classic-nav-dots div {
-    background-color: var(--classic-color-on-surface-variant);
-    animation: pulse 2s infinite;
+.classic-overflow-dropdown-link:focus {
+  outline: 2px solid var(--classic-color-primary);
+  outline-offset: 2px;
+  background-color: var(--classic-color-surface-variant);
 }
 
-.classic-nav-dots div:nth-child(2) {
-    animation-delay: 0.3s;
+/* Navigation dots indicator */
+.classic-nav-dots {
+  color: var(--classic-color-on-surface-variant);
 }
 
-.classic-nav-dots div:nth-child(3) {
-    animation-delay: 0.6s;
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .classic-desktop-nav-link,
+  .classic-nav-item,
+  .classic-overflow-toggle {
+    transition: none;
+  }
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-}
-
-/* Nav item transitions */
-.classic-nav-item {
-    transition: all 0.3s ease;
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .classic-desktop-nav-link {
+    border: 2px solid var(--classic-color-outline);
+  }
+  
+  .classic-desktop-nav-link.active {
+    border: 2px solid var(--classic-color-primary);
+  }
+  
+  .classic-overflow-dropdown {
+    border: 2px solid var(--classic-color-outline);
+  }
 }
