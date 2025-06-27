@@ -5,6 +5,16 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
 ---
-<section id={FunnelClassicComponents.ClassicTextBar} class="classic-section">
-    <h5 class="classic-text-bar-title">{data.title}</h5>
+
+<section 
+  id={FunnelClassicComponents.ClassicTextBar} 
+  class="classic-section py-12"
+>
+  <div class="classic-text-bar-container flex justify-center items-center">
+    <div class="classic-text-bar-animated-button">
+      <span class="classic-text-bar-title">
+        {data.title}
+      </span>
+    </div>
+  </div>
 </section>
