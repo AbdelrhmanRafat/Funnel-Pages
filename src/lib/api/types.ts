@@ -42,6 +42,8 @@ export interface BlockData {
   image?: Image;
   product?: string;
   items? : Item[];
+  buttonLabel? : string;
+  FormInputs : FormInputs;
   purchase_options?: PurchaseOption[];
   cities?: string[];
   PaymentOptions?: PaymentOption[];
@@ -62,6 +64,17 @@ export interface BlockData {
   year?: string;
   galleryimages?: Image[];
 }
+
+export interface FormInputs {
+  full_name: string;
+  phone: string;
+  address: string;
+  cities: string[];
+  PaymentOptions: PaymentOption[];
+  DeliveryOptions: DeliveryOption[];
+}
+
+
 export interface Item {
   label? : string;
   content? : string;

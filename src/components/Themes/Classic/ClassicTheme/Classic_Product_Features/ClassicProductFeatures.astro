@@ -1,38 +1,39 @@
 ---
 import "./ClassicProductFeatures.css"
-import type { BlockData, Features } from "../../../../../lib/api/types";
+import type { BlockData, Item } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
-const productFeatures: Features[] = data.features ?? [];
+const productFeatures: Item[] = data.items ?? [];
 ---
 
-<section id={FunnelClassicComponents.ClassicProductFeatures} class="classic-section">
+<section 
+  id={FunnelClassicComponents.ClassicProductFeatures} 
+  class="classic-section"
+>
   <!-- Header -->
   <div class="classic-section-header">
-    <i class={data.icon}></i>
+    <i class={data.icon} aria-hidden="true"></i>
     <h5>{data.title}</h5>
   </div>
   
   <!-- Features Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-    {
-      productFeatures.map((feature, index) => (
-        <div class="classic-feature-card p-6 text-center rounded-2xl">
-          <!-- Feature Icon -->
-          <div class="classic-feature-icon-container w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class={`${feature.icon} classic-feature-icon text-2xl`} />
-          </div>
-                    
-          <!-- Feature Content -->
-          <h3 class="classic-feature-title font-semibold text-lg mb-2">
-            {feature.title}
-          </h3>
-          <p class="classic-feature-subtitle text-sm">
-            {feature.subtitle}
-          </p>
+    {productFeatures.map((feature) => (
+      <div class="classic-feature-card p-6 text-center">
+        <!-- Feature Icon -->
+        <div class="classic-feature-icon-container rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class={`${feature.icon} classic-feature-icon text-2xl`} aria-hidden="true" />
         </div>
-      ))
-    }
+        
+        <!-- Feature Content -->
+        <h3 class="classic-feature-title text-lg mb-2">
+          {feature.label}
+        </h3>
+        <p class="classic-feature-subtitle text-sm leading-relaxed">
+          {feature.content}
+        </p>
+      </div>
+    ))}
   </div>
 </section>

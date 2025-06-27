@@ -18,14 +18,16 @@ const currentLang: Language = (Astro.cookies.get("lang")?.value ||
   "en") as Language;
 const isArabic = currentLang === "ar";
 
+const formInputs = data.FormInputs;
 // Initialize arrays for cities and payment options
 let cities: string[] = [];
 let paymentOptions: PaymentOption[] = [];
 let deliveryOptions: DeliveryOption[] = [];
 
-if (data.cities !== null) cities = data.cities ?? [];
-if (data.PaymentOptions !== null) paymentOptions = data.PaymentOptions ?? [];
-if (data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
+if (formInputs.cities !== null) cities = formInputs.cities ?? [];
+if (formInputs.PaymentOptions !== null) paymentOptions = formInputs.PaymentOptions ?? [];
+if (formInputs.DeliveryOptions !== null) deliveryOptions = formInputs.DeliveryOptions ?? [];
+console.log(data.title);
 ---
 
 <!-- MAIN FORM SECTION -->
@@ -41,8 +43,8 @@ if (data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
       <h5 
         id="form-heading" 
         class="classic-form-title text-2xl font-semibold" 
-        data-translate="form.completeOrder"
       >
+      {data.title}
       </h5>
     </div>
 
@@ -73,7 +75,7 @@ if (data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
             <input
               type="text"
               id="form-fullName"
-              placeholder={data.full_name}
+              placeholder={formInputs.full_name}
               class="classic-form-input text-right text-sm"
               aria-describedby="form-fullName-error"
               required
@@ -96,7 +98,7 @@ if (data.DeliveryOptions !== null) deliveryOptions = data.DeliveryOptions ?? [];
             <input
               type="tel"
               id="form-phone"
-              placeholder={data.phone}
+              placeholder={formInputs.phone}
               class="classic-form-input text-right text-sm"
               aria-describedby="form-phone-error"
               required

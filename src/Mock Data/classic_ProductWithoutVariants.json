@@ -286,71 +286,73 @@
             {
                 "name": "classic_form_fields",
                 "data": {
-                    "full_name": "اكتب اسمك الكامل هنا",
-                    "phone": "مثال: 05XXXXXXXX",
-                    "address": "اكتب عنوان التوصيل بالتفصيل",
-                    "cities": [
-                        "Cairo",
-                        "Alex",
-                        "Port Said"
-                    ],
-                    "PaymentOptions": [
-                        {
-                            "id": "creditCard",
-                            "label": {
-                                "en": "Credit Card",
-                                "ar": "بطاقة ائتمان"
+                "title" : "اتمام الطلب",
+                "icon": "",
+                "description": "",
+                    "FormInputs": {
+                        "full_name": "اكتب اسمك الكامل هنا",
+                        "phone": "مثال: 05XXXXXXXX",
+                        "address": "اكتب عنوان التوصيل بالتفصيل",
+                        "cities": [
+                            "Cairo",
+                            "Alex",
+                            "Port Said"
+                        ],
+                        "PaymentOptions": [
+                            {
+                                "id": "creditCard",
+                                "label": {
+                                    "en": "Credit Card",
+                                    "ar": "بطاقة ائتمان"
+                                },
+                                "description": {
+                                    "en": "Pay securely using your credit card.",
+                                    "ar": "ادفع بأمان باستخدام بطاقة الائتمان الخاصة بك."
+                                },
+                                "images": [
+                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png",
+                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png",
+                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png"
+                                ]
                             },
-                            "description": {
-                                "en": "Pay securely using your credit card.",
-                                "ar": "ادفع بأمان باستخدام بطاقة الائتمان الخاصة بك."
-                            },
-                            "images": [
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png"
-                            ]
-                        },
-                        {
-                            "id": "cashOnDelivery",
-                            "label": {
-                                "en": "Cash on Delivery",
-                                "ar": "الدفع عند الاستلام"
-                            },
-                            "description": {
-                                "en": "Pay in cash upon delivery.",
-                                "ar": "ادفع نقدًا عند الاستلام."
+                            {
+                                "id": "cashOnDelivery",
+                                "label": {
+                                    "en": "Cash on Delivery",
+                                    "ar": "الدفع عند الاستلام"
+                                },
+                                "description": {
+                                    "en": "Pay in cash upon delivery.",
+                                    "ar": "ادفع نقدًا عند الاستلام."
+                                }
                             }
-                        }
-                    ],
-                    "DeliveryOptions": [
-                        {
-                            "id": "homeDelivery",
-                            "label": {
-                                "en": "Home Delivery",
-                                "ar": "توصيل إلى المنزل"
+                        ],
+                        "DeliveryOptions": [
+                            {
+                                "id": "homeDelivery",
+                                "label": {
+                                    "en": "Home Delivery",
+                                    "ar": "توصيل إلى المنزل"
+                                },
+                                "description": {
+                                    "en": "Your order will be delivered to your doorstep.",
+                                    "ar": "سيتم توصيل طلبك إلى باب منزلك."
+                                }
                             },
-                            "description": {
-                                "en": "Your order will be delivered to your doorstep.",
-                                "ar": "سيتم توصيل طلبك إلى باب منزلك."
+                            {
+                                "id": "pickup",
+                                "label": {
+                                    "en": "Receive from Store",
+                                    "ar": "الاستلام من المتجر"
+                                },
+                                "description": {
+                                    "en": "Pick up your order directly from the store.",
+                                    "ar": "استلم طلبك مباشرة من المتجر."
+                                }
                             }
-                        },
-                        {
-                            "id": "pickup",
-                            "label": {
-                                "en": "Receive from Store",
-                                "ar": "الاستلام من المتجر"
-                            },
-                            "description": {
-                                "en": "Pick up your order directly from the store.",
-                                "ar": "استلم طلبك مباشرة من المتجر."
-                            }
-                        }
-                    ]
+                        ]
+                    },
+                    "buttonLabel": "تاكيد الطلب"
                 }
             },
             {
@@ -631,33 +633,30 @@
                 "data": {
                     "title": "معلومات عن المنتج",
                     "icon": "fa-solid fa-cart-shopping",
-                    "features": [
+                    "description": "",
+                    "items": [
                         {
-                            "icon": "fa-solid fa-credit-card",
-                            "title": "خيارات دفع متعددة",
-                            "subtitle": "الدفع عند الاستلام أو الدفع بالبطاقة"
+                            "label": "خيارات دفع متعددة",
+                            "icon": "fa-solid fa-shield",
+                            "content": "الدفع عند الاستلام أو الدفع بالبطاقة"
                         },
                         {
+                            "label": "ضمان لمدة عامين",
                             "icon": "fa-solid fa-shield",
-                            "title": "ضمان لمدة عامين",
-                            "subtitle": "ضمان شامل ضد عيوب التصنيع"
+                            "content": "ضمان شامل ضد عيوب التصنيع"
                         },
                         {
+                            "label": "ضمان الاسترداد",
                             "icon": "fa-solid fa-shield",
-                            "title": "ضمان الاسترداد",
-                            "subtitle": "14 يوم ضمان استرداد"
+                            "content": "14 يوم ضمان استرداد"
                         },
                         {
+                            "label": "شحن سريع",
                             "icon": "fa-solid fa-shield",
-                            "title": "ضمان الاسترداد",
-                            "subtitle": "14 يوم ضمان استرداد"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "شحن سريع",
-                            "subtitle": "توصيل خلال 3-2 أيام"
+                            "content": "توصيل خلال 2-3 أيام"
                         }
-                    ]
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
