@@ -1,13 +1,17 @@
 ---
 import "./classicBefore&After.css"
-import type { BlockData } from "../../../../../lib/api/types";
+import type { BlockData, Item } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
+const items: Item[] = data.items ?? [];
+
+const beforeItemData: Item | undefined = items.find(item => item.name?.toLocaleLowerCase() == "before");
+const afterItemData: Item | undefined = items.find(item => item.name?.toLocaleLowerCase() == "after");
 ---
 
-<section id={FunnelClassicComponents.Classic_Before_After} class="classic-section">
+ <section id={FunnelClassicComponents.Classic_Before_After} class="classic-section">
     <!-- Section Header -->
     <div class="classic-middle-title flex flex-col justify-center items-center gap-3">
         <h3>
@@ -18,10 +22,13 @@ const data: BlockData = Astro.props.data;
         </p>
         <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
     </div>
+
     
     <div class="flex flex-col justify-center items-center gap-10">
+    
     <!-- Before and After Images Container -->
     <div class="grid md:grid-cols-2 gap-12">
+
         <div class="flex flex-col gap-3 justify-center items-center">
         <!-- Before Image -->
         <div class="classic-image-card relative overflow-hidden">
@@ -39,8 +46,8 @@ const data: BlockData = Astro.props.data;
             <div class="aspect-[4/3]">
                <img
                  class="w-full h-full object-cover"
-                src={data.beforeImage.src}
-                alt={data.beforeImage.alt}
+                src={beforeItemData?.image}
+                alt={beforeItemData?.label}
                >
             </div>
                         
@@ -50,8 +57,8 @@ const data: BlockData = Astro.props.data;
         
         <!-- Before Description -->
         <div class="mt-6 text-center">
-            <h3 class="text-2xl font-bold classic-card-title mb-2">{data.beforetitle}</h3>
-            <p class="classic-card-description">{data.beforedescription}</p>
+            <h3 class="text-2xl font-bold classic-card-title mb-2">{beforeItemData?.label}</h3>
+            <p class="classic-card-description">{beforeItemData?.content}</p>
         </div>
         </div>   
         <div class="flex flex-col gap-3 justify-center items-center">
@@ -71,8 +78,8 @@ const data: BlockData = Astro.props.data;
             <div class="aspect-[4/3]">
                 <img
                  class="w-full h-full object-cover"
-                src={data.afterImage.src}
-                alt={data.afterImage.alt}
+                src={afterItemData?.image}
+                alt={afterItemData?.label}
                >
             </div>
                         
@@ -81,8 +88,8 @@ const data: BlockData = Astro.props.data;
         </div>
         <!-- After Description -->
         <div class="mt-6 text-center">
-            <h3 class="text-2xl font-bold classic-card-title mb-2">{data.aftertitle}</h3>
-            <p class="classic-card-description">{data.afterdescription}</p>
+            <h3 class="text-2xl font-bold classic-card-title mb-2">{afterItemData?.label}</h3>
+            <p class="classic-card-description">{afterItemData?.content}</p>
         </div>
     </div>
     </div>
@@ -90,4 +97,6 @@ const data: BlockData = Astro.props.data;
     <!-- Call to Action -->
    <ClassicBuyNowButton />
 </div>
-</section>
+</section> 
+
+

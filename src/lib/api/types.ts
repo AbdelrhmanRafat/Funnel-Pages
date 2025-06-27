@@ -77,8 +77,10 @@ export interface FormInputs {
 
 
 export interface Item {
+  name? : string;
   label? : string;
   content? : string;
+  link? : string;
   icon? : string;
   image? : string;
   videoLink? : string;

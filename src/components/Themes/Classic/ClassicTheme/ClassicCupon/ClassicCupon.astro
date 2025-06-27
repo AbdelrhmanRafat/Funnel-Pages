@@ -4,16 +4,17 @@ import type { BlockData, Visitor } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
+const couponName : string | undefined = data.items?.[0].label;
 ---
 
-<section
+ <section
   id={FunnelClassicComponents.ClassicCoupon}
   class="classic-section w-full"
 >
 <div class="flex-col gap-2 flex  md:flex-row md:justify-between items-center w-full ">
   <!-- Section Header -->
   <div class="classic-section-header md:w-1/2">
-    <i class="fa-solid fa-ticket"></i>
+    <i class={data.icon}></i>
     <h5>{data.title}</h5>
     </div>
     <!-- Coupon Container -->
@@ -22,7 +23,7 @@ const data: BlockData = Astro.props.data;
         class="classic-coupon-card px-4 py-2 rounded-lg border-2 border-dashed text-center"
       >
         <span class="classic-coupon-code text-lg font-semibold tracking-wide">
-          {data.coupon}
+          {couponName}
         </span>
       </div>
       <button

@@ -30,11 +30,15 @@ function generateStars(rating: number) {
 
   return stars;
 }
+console.log(ratingData);
+const rating = Array.isArray(ratingData?.items) && ratingData.items.length > 0
+  ? parseFloat(ratingData.items[0].content ?? "0")
+  : 0;
 
-const stars = generateStars(parseFloat(ratingData.rate));
+const stars = generateStars(rating);
 ---
 
-<div id={FunnelClassicComponents.ClassicRates} class="classic-rates">
+ <div id={FunnelClassicComponents.ClassicRates} class="classic-rates">
   <div class="classic-rating-display">
     {stars.map((star) => (
       star.type === 'full' ? (
@@ -45,6 +49,6 @@ const stars = generateStars(parseFloat(ratingData.rate));
         <i class="fa-regular fa-star classic-rating-star-empty"></i>
       )
     ))}
-    <span class="classic-rating-number">({ratingData.rate})</span>
+    <span class="classic-rating-number">({rating})</span>
   </div>
-</div>
+</div> 

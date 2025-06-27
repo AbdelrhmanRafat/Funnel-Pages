@@ -6,7 +6,7 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 const data: BlockData = Astro.props.data;
 ---
 <section id={FunnelClassicComponents.ClassicOrderThroughWhatsapp} class="w-full">
-  <a href={data.whatsappLink} class="cursor">
+  <a href={data.items?.[0].link} target="_blank" class="cursor-pointer">
   <div class="classic-order-through-whatsapp">
     <div class="flex justify-center items-center gap-5 text-2xl">
     <h4>{data.title}</h4>

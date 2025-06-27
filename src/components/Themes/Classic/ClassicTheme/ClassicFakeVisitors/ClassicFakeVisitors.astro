@@ -1,10 +1,10 @@
 ---
 import "./ClassicFakeVisitors.css";
-import type { BlockData, Visitor } from '../../../../../lib/api/types';
+import type { BlockData, Item } from '../../../../../lib/api/types';
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
-const visitors: Visitor[] = data.visitors ?? [];
+const visitors: Item[] = data.items ?? [];
 ---
 
 <classic-visitors-animation 

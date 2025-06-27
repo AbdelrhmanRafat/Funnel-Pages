@@ -4,12 +4,17 @@
 // Props:
 // - data: An object of type BlockData, expected to contain `counters` array.
 import "./ClassicThemeTodayStatistics.css";
-import type { BlockData, Counter, Image } from "../../../../../lib/api/types";
+import type {
+  BlockData,
+  Counter,
+  Image,
+  Item,
+} from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 
 const data: BlockData = Astro.props.data;
-const counters: Counter[] = data.counters ?? [];
+const counters: Item[] = data.items ?? [];
 
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value ||
@@ -39,14 +44,15 @@ const isArabic = currentLang === "ar";
           counters.map((counter, index) => (
             <div class="classic-counter-minimal-item flex-1 max-w-xs text-center relative">
               {/* Large animated number */}
+              <i
+                class={`${counter.icon} classic-counter-minimal-label text-5xl font-bold mt-4 leading-relaxed`}
+              ></i>
               <div class="classic-theme-today-order-count p-0 flex justify-center items-center gap-4 text-6xl md:text-7xl lg:text-8xl font-black leading-none">
                 <span>+</span>
-                <h5 class="classic-order-counter" data-target={counter.count}>
+                <h5 class="classic-order-counter" data-target={counter.content}>
                   0
                 </h5>
               </div>
-
-              {/* Green label text */}
               <div class="classic-counter-minimal-label text-2xl font-bold mt-4 leading-relaxed">
                 {counter.label}
               </div>

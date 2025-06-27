@@ -2,7 +2,7 @@
 
 interface ClassicVisitor {
     image: string;
-    description: string;
+    label: string;
   }
   
   interface ClassicVisitorsConfig {
@@ -93,7 +93,7 @@ interface ClassicVisitor {
           // Update content
           this.imageElement.src = currentVisitor.image;
           this.imageElement.alt = `Visitor ${this.currentVisitorIndex + 1}`;
-          this.descriptionElement.textContent = currentVisitor.description;
+          this.descriptionElement.textContent = currentVisitor.label;
           
           // Show with flash effect
           this.flashVisitor();

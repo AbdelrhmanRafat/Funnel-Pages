@@ -1,13 +1,14 @@
 ---
 import "./ClassicButtonWithLink.css";
-import type { BlockData, Visitor } from '../../../../../lib/api/types';
+import type { BlockData, Item } from '../../../../../lib/api/types';
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
+const link : string | undefined = data.items?.[0].link;
 ---
 <section id={FunnelClassicComponents.ClassicButtonWithLink}>
   <div class="classic-button-container">
-    <a href={data.buttonLink} class="classic-button-shine">
+    <a href={link} class="classic-button-shine" target="_blank">
       <span>{data.title}</span>
     </a>
   </div>

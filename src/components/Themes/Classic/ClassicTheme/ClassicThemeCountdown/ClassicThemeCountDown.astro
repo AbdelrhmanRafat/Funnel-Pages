@@ -4,20 +4,23 @@
 // Props:
 // - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
 import "./ClassicThemeCountDown.css";
-import type { BlockData } from "../../../../../lib/api/types";
+import type { BlockData, Item } from "../../../../../lib/api/types";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
-let totalSeconds = 0;
-
-// Calculate the total seconds from the provided hours, minutes, and seconds.
-if(data.hours != null && data.minutes != null && data.seconds != null) {
-  totalSeconds =
-  (parseInt(data.hours?.toString() || '0') || 0) * 3600 +
-  (parseInt(data.minutes?.toString() || '0' ) || 0) * 60 +
-  (parseInt(data.seconds.toString() || '0' ) || 0);
+const items: Item[] = data.items ?? [];
+function getValue(name: string): number {
+  const item = items.find(i => i.name?.toLocaleLowerCase() === name);
+  return parseInt(item?.content || '0') || 0;
 }
+
+const hours = getValue("hours");
+const minutes = getValue("minutes");
+const seconds = getValue("seconds");
+
+const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
 ---
 
 <!-- Elegant Countdown Timer with proper spacing for fixed header -->

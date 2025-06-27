@@ -1,11 +1,11 @@
 ---
 import "./ClassicThemeReviews.css";
-import type { BlockData, Review } from "../../../../../lib/api/types";
+import type { BlockData, Item } from "../../../../../lib/api/types";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 const data: BlockData = Astro.props.data;
-const reviews: Review[] = data.reviews;
+const reviews: Item[] = data.items ?? [];
 ---
 
 <section id={FunnelClassicComponents.ClassicReviews} class="classic-section">
@@ -17,20 +17,19 @@ const reviews: Review[] = data.reviews;
     {
       reviews.map((review) => (
         <div class="classic-review-card flex flex-col  border-l-4">
-          <p class="classic-review-description text-base leading-relaxed mb-4 italic">{review.description}</p>
+          <p class="classic-review-description text-base leading-relaxed mb-4 italic">{review.content}</p>
           <div class="flex-1"></div>
           <div class="classic-review-author flex flex-col gap-1">
            <div class="flex justify-start items-center gap-2">
             <div class="classic-review-author-image w-12 h-12 rounded-full flex items-center justify-center">
               <img
                 src={review.image}
-                alt={`Profile of ${review.name}`}
+                alt={`Profile of ${review.label}`}
                 class="w-10 h-10 rounded-full object-cover"
               />
             </div>
-            <span class="classic-review-name font-semibold text-md">{review.name}</span>
+            <span class="classic-review-name font-semibold text-md">{review.label}</span>
             </div>
-            <span class="classic-review-city text-sm">{review.city}</span>
           </div>
         </div>
       ))

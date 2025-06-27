@@ -260,27 +260,26 @@
                 "name": "classic_reviews",
                 "data": {
                     "title": "لا تكتفي بكلامنا استمع لتجارب المشترين",
-                    "subtitle": "في الأسفل بعض من تجارب زبائننا الذين اعجبهم منتجنا و اردوا اخباركم بذلك.",
-                    "reviews": [
+                    "icon": "fa-solid fa-star",
+                    "description": "في الأسفل بعض من تجارب زبائننا الذين اعجبهم منتجنا و اردوا اخباركم بذلك.",
+                    "items": [
                         {
-                            "description": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
-                            "name": "إليزابيت روز",
-                            "city": "القاهرة",
+                            "label": "إليزابيت روز - القاهرة",
+                            "content": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
                             "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
                         },
                         {
-                            "description": "منتج رائع! لاحظت فرق كبير من أول استخدام. أنصح به بشدة لكل من يعاني من مشاكل في الشعر.",
-                            "name": "ليلى أحمد",
-                            "city": "الرياض",
+                            "label": "ليلى أحمد - الرياض",
+                            "content": "منتج رائع! لاحظت فرق كبير من أول استخدام. أنصح به بشدة لكل من يعاني من مشاكل في الشعر.",
                             "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
                         },
                         {
-                            "description": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
-                            "name": "سارة الجوهري",
-                            "city": "دبي",
-                            "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
+                            "label": "سارة الجوهري - دبي",
+                            "content": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
+                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
                         }
-                    ]
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
@@ -368,56 +367,91 @@
             {
                 "name": "classic_countdown",
                 "data": {
-                    "hours": 11,
-                    "minutes": 58,
-                    "seconds": 5
+                    "title": "العرض ينتهي خلال",
+                    "icon": "fa-solid fa-clock",
+                    "description": "",
+                    "items": [
+                        {
+                            "name": "hours",
+                            "label": "hours",
+                            "content": "11"
+                        },
+                        {
+                            "name": "minutes",
+                            "label": "minutes",
+                            "content": "58"
+                        },
+                        {
+                            "name": "seconds",
+                            "label": "seconds",
+                            "content": "5"
+                        }
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
                 "name": "classic_today_statistics",
                 "data": {
                     "title": "إحصائيات اليوم",
-                    "counters": [
+                    "icon": "fa-solid fa-chart-bar",
+                    "description": "",
+                    "items": [
                         {
                             "label": "طلبات",
-                            "count": 100
+                            "content": "100",
+                            "icon": "fa-solid fa-shopping-cart"
                         },
                         {
                             "label": "عميل",
-                            "count": 100
+                            "content": "100",
+                            "icon": "fa-solid fa-user"
                         },
                         {
                             "label": "زيارة",
-                            "count": 350
+                            "content": "350",
+                            "icon": "fa-solid fa-users"
                         }
-                    ]
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
                 "name": "classic_before_&_after",
-                "title": "قبل وبعد",
-                "description": "اشهد التحول المذهل من خلال حلولنا المبتكرة. شاهد الفرق الهائل الذي يصنع كل الفرق.",
                 "data": {
-                    "title": "تحول رائع مع خدماتنا",
-                    "description": "نقارن بين الحالة الأصلية والنتيجة بعد استخدام حلولنا لتحسين الأداء والجودة.",
-                    "beforeImage": {
-                        "src": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=600&fit=crop",
-                        "alt": "الصورة قبل - الحالة الأصلية"
-                    },
-                    "afterImage": {
-                        "src": "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?w=800&h=600&fit=crop",
-                        "alt": "الصورة بعد - النتيجة المحولة"
-                    },
-                    "beforetitle": "الحالة الأصلية",
-                    "aftertitle": "النتيجة المحولة",
-                    "beforedescription": "نقطة البداية قبل أن تبدأ عملية التحويل الخاصة بنا.",
-                    "afterdescription": "النتيجة المذهلة بعد تطبيق حلنا المبتكر."
+                    "title": "قبل وبعد",
+                    "icon": "fa-solid fa-exchange-alt",
+                    "description": "اشهد التحول المذهل من خلال حلولنا المبتكرة. شاهد الفرق الهائل الذي يصنع كل الفرق.",
+                    "items": [
+                        {
+                            "name": "Before",
+                            "label": "الحالة الأصلية",
+                            "content": "نقطة البداية قبل أن تبدأ عملية التحويل الخاصة بنا",
+                            "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=600&fit=crop"
+                        },
+                        {
+                            "name": "after",
+                            "label": "النتيجة المحولة",
+                            "content": "النتيجة المذهلة بعد تطبيق حلنا المبتكر",
+                            "image": "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?w=800&h=600&fit=crop"
+                        }
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
                 "name": "classic_rates",
                 "data": {
-                    "rate": 4.5
+                    "title": "تقييم المنتج",
+                    "icon": "fa-solid fa-star",
+                    "description": "",
+                    "items": [
+                        {
+                            "label": "التقييم",
+                            "content": "4.5"
+                        }
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
@@ -467,20 +501,48 @@
             {
                 "name": "classic_footer",
                 "data": {
-                    "company_name": "Digital Creativity Company",
-                    "year": "2025",
-                    "policies": [
-                        "سياسة الشحن",
-                        "سياسة الخصوصية",
-                        "شروط الاستخدام",
-                        "شروط الإستبدال الإسترجاع"
+                    "title": "Digital Creativity Company",
+                    "icon": "fa-solid fa-building",
+                    "description": "2025",
+                    "items": [
+                        {
+                            "label": "سياسة الشحن",
+                            "content": "policy"
+                        },
+                        {
+                            "label": "سياسة الخصوصية",
+                            "content": "policy"
+                        },
+                        {
+                            "label": "شروط الاستخدام",
+                            "content": "policy"
+                        },
+                        {
+                            "label": "شروط الإستبدال الإسترجاع",
+                            "content": "policy"
+                        },
+                        {
+                            "icon": "fab fa-whatsapp",
+                            "link": "",
+                            "content": "social"
+                        },
+                        {
+                            "icon": "fab fa-instagram",
+                            "link": "",
+                            "content": "social"
+                        },
+                        {
+                            "icon": "fab fa-facebook-messenger",
+                            "link": "",
+                            "content": "social"
+                        },
+                        {
+                            "icon": "fab fa-facebook-f",
+                            "link": "",
+                            "content": "social"
+                        }
                     ],
-                    "social_icons": [
-                        "fab fa-whatsapp",
-                        "fab fa-instagram",
-                        "fab fa-facebook-messenger",
-                        "fab fa-facebook-f"
-                    ]
+                    "buttonLabel": ""
                 }
             },
             {
@@ -653,146 +715,145 @@
                 "name": "classic_Gallery",
                 "data": {
                     "title": "معرض الصور",
-                    "galleryimages": [
+                    "icon": "fa-solid fa-images",
+                    "description": "",
+                    "items": [
                         {
-                            "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop",
-                            "alt": "صورة المنتج الرئيسية"
+                            "label": "صورة المنتج الرئيسية",
+                            "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop"
                         },
                         {
-                            "src": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 2"
+                            "label": "صورة المنتج 2",
+                            "image": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=400&fit=crop"
                         },
                         {
-                            "src": "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 3"
+                            "label": "صورة المنتج 3",
+                            "image": "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=400&fit=crop"
                         },
                         {
-                            "src": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 4"
+                            "label": "صورة المنتج 4",
+                            "image": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop"
                         },
                         {
-                            "src": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 4"
+                            "label": "صورة المنتج 4",
+                            "image": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop"
                         },
                         {
-                            "src": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 4"
+                            "label": "صورة المنتج 4",
+                            "image": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop"
                         },
                         {
-                            "src": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 4"
+                            "label": "صورة المنتج 4",
+                            "image": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop"
                         },
                         {
-                            "src": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 4"
+                            "label": "صورة المنتج 4",
+                            "image": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop"
                         }
-                    ]
+                    ],
+                    "buttonLabel": "عرض المزيد"
                 }
             },
             {
                 "name": "classic_logos_carousel",
                 "data": {
                     "title": "شركائنا",
-                    "logos": [
+                    "icon": "fa-solid fa-handshake",
+                    "description": "",
+                    "items": [
                         {
-                            "src": "https://logo.clearbit.com/apple.com",
-                            "alt": "Apple Logo"
+                            "label": "Apple Logo",
+                            "image": "https://logo.clearbit.com/apple.com"
                         },
                         {
-                            "src": "https://logo.clearbit.com/microsoft.com",
-                            "alt": "Microsoft Logo"
+                            "label": "Microsoft Logo",
+                            "image": "https://logo.clearbit.com/microsoft.com"
                         },
                         {
-                            "src": "https://logo.clearbit.com/google.com",
-                            "alt": "Google Logo"
+                            "label": "Google Logo",
+                            "image": "https://logo.clearbit.com/google.com"
                         },
                         {
-                            "src": "https://logo.clearbit.com/amazon.com",
-                            "alt": "Amazon Logo"
+                            "label": "Amazon Logo",
+                            "image": "https://logo.clearbit.com/amazon.com"
                         },
                         {
-                            "src": "https://logo.clearbit.com/facebook.com",
-                            "alt": "Meta Logo"
+                            "label": "Meta Logo",
+                            "image": "https://logo.clearbit.com/facebook.com"
                         },
                         {
-                            "src": "https://logo.clearbit.com/netflix.com",
-                            "alt": "Netflix Logo"
-                        },
-                        {
-                            "src": "https://logo.clearbit.com/tesla.com",
-                            "alt": "Tesla Logo"
-                        },
-                        {
-                            "src": "https://logo.clearbit.com/spotify.com",
-                            "alt": "Spotify Logo"
-                        },
-                        {
-                            "src": "https://logo.clearbit.com/adobe.com",
-                            "alt": "Adobe Logo"
-                        },
-                        {
-                            "src": "https://logo.clearbit.com/salesforce.com",
-                            "alt": "Salesforce Logo"
-                        },
-                        {
-                            "src": "https://logo.clearbit.com/uber.com",
-                            "alt": "Uber Logo"
-                        },
-                        {
-                            "src": "https://logo.clearbit.com/airbnb.com",
-                            "alt": "Airbnb Logo"
+                            "label": "Netflix Logo",
+                            "image": "https://logo.clearbit.com/netflix.com"
                         }
-                    ]
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
                 "name": "classic_visitors",
                 "data": {
                     "title": "الزوار",
-                    "visitors": [
+                    "icon": "fa-solid fa-users",
+                    "description": "",
+                    "items": [
                         {
-                            "description": "جون من القاهرة قام بالشراء الآن.",
+                            "label": "جون من القاهرة قام بالشراء الآن.",
                             "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
                         },
                         {
-                            "description": "سارة من الرياض قامت بالشراء الآن.",
+                            "label": "سارة من الرياض قامت بالشراء الآن.",
                             "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face"
                         },
                         {
-                            "description": "أحمد من دبي قام بالشراء الآن.",
+                            "label": "أحمد من دبي قام بالشراء الآن.",
                             "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "ليلى من جدة قامت بالشراء الآن.",
-                            "image": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "كريم من الدوحة قام بالشراء الآن.",
-                            "image": "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=50&h=50&fit=crop&crop=face"
                         }
-                    ]
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
                 "name": "classic_order_through_whatsapp",
                 "data": {
                     "title": "الطلب من خلال الواتساب",
-                    "description": " اشترى هذا المنتج أكثر من 100 شخص",
-                    "whatsappLink": ""
+                    "icon": "fab fa-whatsapp",
+                    "description": "اشترى هذا المنتج أكثر من 100 شخص",
+                    "items": [
+                        {
+                            "label": "رابط الواتساب",
+                            "link": ""
+                        }
+                    ],
+                    "buttonLabel": "اطلب عبر الواتساب"
                 }
             },
             {
                 "name": "classic_button_with_link",
                 "data": {
                     "title": "Button With Link",
-                    "buttonLink": ""
+                    "icon": "fa-solid fa-link",
+                    "description": "",
+                    "items": [
+                        {
+                            "label": "link",
+                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ&embeds_referring_euri=https%3A%2F%2Ffunnel.baseet.cloud%2F&source_ve_path=OTY3MTQ"
+                        }
+                    ]
                 }
             },
             {
                 "name": "classic_coupon",
                 "data": {
                     "title": "استخدم كوبون الخصم",
-                    "coupon": "Save 10"
+                    "icon": "fa-solid fa-ticket",
+                    "description": "",
+                    "items": [
+                        {
+                            "label": "Save 10",
+                            "content": ""
+                        }
+                    ],
+                    "buttonLabel": "نسخ الكوبون"
                 }
             }
         ]

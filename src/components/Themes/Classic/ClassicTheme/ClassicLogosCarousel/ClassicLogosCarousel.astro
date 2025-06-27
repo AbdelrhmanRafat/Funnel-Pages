@@ -1,12 +1,11 @@
 ---
 import "./ClassicLogosCarousel.css";
-import type { BlockData } from "../../../../../lib/api/types";
+import type { BlockData, Item } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import LogosCarousel from "./LogosCarousel";
 
 const data: BlockData = Astro.props.data;
-const logos = data.logos ?? []
-
+const logos : Item[] = data.items ?? [];
 ---
 
 <classic-logos-carousel>

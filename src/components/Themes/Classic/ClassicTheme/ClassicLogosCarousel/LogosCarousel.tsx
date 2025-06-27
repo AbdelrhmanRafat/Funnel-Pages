@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import type { Item } from '../../../../../lib/api/types';
 
-interface Logo {
-  src: string;
-  alt: string;
-}
+
 
 interface LogosCarouselProps {
-  logos: Logo[];
+  logos: Item[];
 }
 
 const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
@@ -172,8 +170,8 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
             {logos.map((logo, index) => (
               <div key={index} className="carousel-item">
                 <img 
-                  src={logo.src} 
-                  alt={logo.alt} 
+                  src={logo.image} 
+                  alt={logo.label} 
                   className="logo-img"
                   loading="lazy"
                 />
