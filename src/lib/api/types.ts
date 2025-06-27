@@ -139,6 +139,7 @@ export interface VideoInfoItem {
   videoTitle?: string;
   videoLink?: string;
   title? : string;
+  subtitle? : string;
 }
 export interface Features {
     title: string;

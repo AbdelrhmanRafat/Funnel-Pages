@@ -533,6 +533,7 @@
                     "videoInfo": [
                         {
                             "title": "ماذا ستشاهد في هذا الفيديو",
+                            "subtitle": "",
                             "viewsText": "رقم مشاهدة 27682",
                             "viewsIcon": "fa-solid fa-eye",
                             "videoTitle": "سماعات رأس لاسلكية ممتازة - التجربة الشاملة",
@@ -563,19 +564,19 @@
                 "data": {
                     "title": "شاهد كيفية الاستخدام",
                     "icon": "fa-solid fa-circle-chevron-right",
-                    "productUsage": [
+                    "videoInfo": [
                         {
-                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            "videoLink": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
                             "title": "طريقة استخدام المنتج الكلاسيكي",
                             "subtitle": "شرح خطوة بخطوة لكيفية الاستفادة من المنتج"
                         },
                         {
-                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            "videoLink": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
                             "title": "نصائح مهمة للاستفادة القصوى",
                             "subtitle": "أفضل الطرق لاستخدام المنتج بكفاءة"
                         },
                         {
-                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                            "videoLink": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
                             "title": "نصائح مهمة للاستفادة القصوى",
                             "subtitle": "أفضل الطرق لاستخدام المنتج بكفاءة"
                         }

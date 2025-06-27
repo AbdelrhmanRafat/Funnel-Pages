@@ -1,7 +1,7 @@
 ---
 // server-side code
 import "./ClassicProductUsage.css";
-import type { BlockData, VideoInfo } from "../../../../../lib/api/types";
+import type { BlockData, VideoInfoItem } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
 function convertToEmbed(link: string) {
@@ -13,41 +13,56 @@ function convertToEmbed(link: string) {
 }
 
 const data: BlockData = Astro.props.data;
-const productUsage: VideoInfo[] = data.productUsage ?? [];
+const productUsage: VideoInfoItem[] = data.videoInfo ?? [];
 ---
 
-<section id={FunnelClassicComponents.ClassicProductUsage} class="classic-section">
-    <!-- Header -->
-    <div class="classic-section-header">
-        <i class={data.icon}></i>
-        <h5>{data.title}</h5>
+<section 
+  id={FunnelClassicComponents.ClassicProductUsage} 
+  class="classic-section"
+>
+  <!-- Header -->
+  <div class="classic-section-header">
+    <i class={data.icon} aria-hidden="true"></i>
+    <h5>{data.title}</h5>
+  </div>
+  
+  <!-- Video Container with Flex Layout -->
+  {productUsage.length > 0 ? (
+    <div class="flex flex-wrap justify-center gap-6">
+      {productUsage.map((video, index) => (
+        <div class="classic-usage-card overflow-hidden flex-shrink-0 w-full  md:w-1/3 lg:w-[420px]">
+          <div class="classic-usage-video relative">
+            {video.videoLink ? (
+              <iframe
+                class="classic-usage-iframe w-full h-48 sm:h-56 md:h-[530px]"
+                src={convertToEmbed(video.videoLink)}
+                title={video.title || `Product usage video ${index + 1}`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              />
+            ) : (
+              <div class="classic-usage-video-placeholder w-full h-48 sm:h-56 md:h-64 lg:h-80 xl:h-96 flex items-center justify-center">
+                <span class="text-base">Video not available</span>
+              </div>
+            )}
+          </div>
+          <div class="classic-usage-content p-4">
+            <h3 class="classic-usage-title text-lg md:text-xl font-medium mb-3 leading-snug">
+              {video.title || 'Product Usage Video'}
+            </h3>
+            {video.subtitle && (
+              <p class="classic-usage-subtitle text-base md:text-lg leading-relaxed">
+                {video.subtitle}
+              </p>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
-    
-    <!-- Video Grid -->
-    <div class={`grid grid-cols-1 gap-x-2 gap-y-4 md:grid-cols-3`}>
-        {
-            productUsage.map((video) => (
-                <div class="classic-usage-card overflow-hidden">
-                    <div class="classic-usage-video relative">
-                        <iframe
-                            class="classic-usage-iframe w-full h-[300px] lg:h-[620px]"
-  src={convertToEmbed(video.link)}
-                            title={video.title}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen
-                        >
-                      </iframe>
-                    </div>
-                    <div class="classic-usage-content p-3">
-                        <h3 class="classic-usage-title font-medium text-base mb-1">
-                            {video.title}
-                        </h3>
-                        <p class="classic-usage-subtitle text-sm mb-2">
-                            {video.subtitle}
-                        </p>
-                    </div>
-                </div>
-            ))
-        }
+  ) : (
+    <div class="text-center py-8">
+      <p class="text-gray-500">No usage videos available</p>
     </div>
+  )}
 </section>
