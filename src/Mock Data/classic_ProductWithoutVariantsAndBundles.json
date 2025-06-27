@@ -220,13 +220,13 @@
                     "items": [
                         {
                             "label": "logo",
-                            "content": "assets/default-logo.svg"
+                            "image": "assets/default-logo.svg"
                         }
                     ],
                     "buttonLabel": ""
                 }
             },
-                        {
+            {
                 "name": "classic_Image_Text_overlay",
                 "data": {
                     "title": "معلومات عن المنتج",
@@ -235,7 +235,7 @@
                     "items": [
                         {
                             "label": "ملابس عصرية بجودة عالية وسعر مناسب",
-                            "content": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop"
+                            "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop"
                         }
                     ],
                     "buttonLabel": ""
@@ -250,7 +250,7 @@
                     "items": [
                         {
                             "label": "ملابس عصرية بجودة عالية وسعر مناسب",
-                            "content": "https://aor-images-prod.s3.amazonaws.com/udpnrny5bwodp2vt40zdo3d1vw1u"
+                            "image": "https://aor-images-prod.s3.amazonaws.com/udpnrny5bwodp2vt40zdo3d1vw1u"
                         }
                     ],
                     "buttonLabel": ""
@@ -409,6 +409,12 @@
                 }
             },
             {
+                "name": "classic_rates",
+                "data": {
+                    "rate": 4.5
+                }
+            },
+            {
                 "name": "classic_footer",
                 "data": {
                     "company_name": "Digital Creativity Company",
@@ -431,20 +437,23 @@
                 "name": "classic_order_confirmation_notice",
                 "data": {
                     "title": "سيتم الاتصال بك لتأكيد الطلب قبل الشحن",
-                    "confirmationNotices": [
+                    "icon": "fa-solid fa-phone",
+                    "description": "",
+                    "items": [
                         {
-                            "title": "و،سرو،سور،",
+                            "label": "و،سرو،سور،",
                             "icon": "fa-solid fa-truck-fast"
                         },
                         {
-                            "title": "ضمان لمدة عامين",
+                            "label": "ضمان لمدة عامين",
                             "icon": "fa-solid fa-shield"
                         },
                         {
-                            "title": "استرجاع مجاني",
+                            "label": "استرجاع مجاني",
                             "icon": "fa-solid fa-reply"
                         }
-                    ]
+                    ],
+                    "buttonLabel": ""
                 }
             },
             {
@@ -732,17 +741,11 @@
                 }
             },
             {
-                "name": "classic_rates",
-                "data": {
-                    "rate": 4.5
-                }
-            },
-            {
                 "name": "classic_order_through_whatsapp",
                 "data": {
                     "title": "الطلب من خلال الواتساب",
-                    "description" : " اشترى هذا المنتج أكثر من 100 شخص",
-                    "whatsappLink" : ""   
+                    "description": " اشترى هذا المنتج أكثر من 100 شخص",
+                    "whatsappLink": ""
                 }
             },
             {
@@ -755,7 +758,7 @@
             {
                 "name": "classic_coupon",
                 "data": {
-                    "title" : "استخدم كوبون الخصم",
+                    "title": "استخدم كوبون الخصم",
                     "coupon": "Save 10"
                 }
             }

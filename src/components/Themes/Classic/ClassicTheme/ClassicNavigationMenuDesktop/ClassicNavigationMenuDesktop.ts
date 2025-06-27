@@ -1,4 +1,4 @@
-// ClassicNavigationMenuDesktop.ts - Option B: Optimized Web Component with Overflow
+// ClassicNavigationMenuDesktop.ts - Optimized Web Component with Overflow
 
 interface NavigationItem {
   id: string;
@@ -26,7 +26,6 @@ class DesktopNavigation extends HTMLElement {
   private navLinks: NodeListOf<HTMLAnchorElement> | null = null;
   
   // State
-  private currentActiveLink: HTMLAnchorElement | null = null;
   private isDropdownOpen: boolean = false;
   private resizeObserver: ResizeObserver | null = null;
 
@@ -41,7 +40,6 @@ class DesktopNavigation extends HTMLElement {
     this.initializeConfiguration();
     this.initializeElements();
     this.setupEventListeners();
-    this.setupIntersectionObserver();
     this.setupResizeObserver();
     
     // Initial overflow check
@@ -257,7 +255,6 @@ class DesktopNavigation extends HTMLElement {
     
     if (targetId) {
       this.smoothScrollToSection(targetId);
-      this.setActiveLink(link);
     }
   }
 
@@ -274,13 +271,6 @@ class DesktopNavigation extends HTMLElement {
       const targetId = target.getAttribute('data-scroll-target');
       if (targetId) {
         this.smoothScrollToSection(targetId);
-        // Find corresponding main nav link to set active
-        const mainLink = Array.from(this.navLinks || []).find(link => 
-          link.getAttribute('data-scroll-target') === targetId
-        );
-        if (mainLink) {
-          this.setActiveLink(mainLink);
-        }
       }
     }
   }
@@ -350,65 +340,6 @@ class DesktopNavigation extends HTMLElement {
   }
 
   /**
-   * Set active link state
-   */
-  private setActiveLink(activeLink: HTMLAnchorElement): void {
-    if (!this.navLinks) return;
-
-    // Remove active state from all links
-    this.navLinks.forEach(link => {
-      link.classList.remove('active');
-    });
-
-    // Add active state to current link
-    activeLink.classList.add('active');
-    this.currentActiveLink = activeLink;
-  }
-
-  /**
-   * Set up intersection observer for automatic active state
-   */
-  private setupIntersectionObserver(): void {
-    const options = {
-      root: null,
-      rootMargin: '-100px 0px -50% 0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id;
-          this.updateActiveLinkBySection(sectionId);
-        }
-      });
-    }, options);
-
-    // Observe all sections
-    this.navigationItems.forEach(item => {
-      const section = document.getElementById(item.id);
-      if (section) {
-        observer.observe(section);
-      }
-    });
-  }
-
-  /**
-   * Update active link based on current section
-   */
-  private updateActiveLinkBySection(sectionId: string): void {
-    if (!this.navLinks) return;
-
-    const targetLink = Array.from(this.navLinks).find(link => 
-      link.getAttribute('data-scroll-target') === sectionId
-    );
-
-    if (targetLink) {
-      this.setActiveLink(targetLink);
-    }
-  }
-
-  /**
    * Cleanup resources
    */
   private cleanup(): void {
@@ -425,13 +356,6 @@ class DesktopNavigation extends HTMLElement {
    */
   public scrollToSection(sectionId: string): void {
     this.smoothScrollToSection(sectionId);
-  }
-
-  /**
-   * Public API: Get current active section
-   */
-  public getCurrentActiveSection(): string | null {
-    return this.currentActiveLink?.getAttribute('data-scroll-target') || null;
   }
 
   /**

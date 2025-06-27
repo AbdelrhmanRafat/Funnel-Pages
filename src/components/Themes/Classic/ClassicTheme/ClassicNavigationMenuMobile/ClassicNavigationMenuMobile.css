@@ -43,9 +43,9 @@
 }
 
 .classic-menu-close:hover {
-  background-color: var(--classic-color-error);
-  color: var(--classic-color-on-error);
-  border-color: var(--classic-color-error);
+  background-color: var(--classic-color-primary);
+  color: var(--classic-color-on-primary);
+  border-color: var(--classic-color-primary-dark);
   transform: scale(1.1);
 }
 

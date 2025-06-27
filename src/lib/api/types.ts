@@ -66,6 +66,7 @@ export interface Item {
   label? : string;
   content? : string;
   icon? : string;
+  image? : string;
 }
 
 export interface PaymentOption {

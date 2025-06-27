@@ -23,9 +23,9 @@ const ImageTextData: Item | undefined = data.items?.[0];
   <article class="classic-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start overflow-hidden">
     <!-- Image Section -->
     <figure class="h-64 sm:h-96 overflow-hidden">
-      {ImageTextData?.content ? (
+      {ImageTextData?.image ? (
         <img 
-          src={ImageTextData.content}
+          src={ImageTextData.image}
           alt={ImageTextData.label || 'Product image'}
           class="w-full h-full object-cover classic-image-text-beside-image"
           loading="lazy"
