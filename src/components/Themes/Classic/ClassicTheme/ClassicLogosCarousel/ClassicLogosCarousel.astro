@@ -5,20 +5,22 @@ import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import LogosCarousel from "./LogosCarousel";
 
 const data: BlockData = Astro.props.data;
-const logos : Item[] = data.items ?? [];
+const logos: Item[] = data.items ?? [];
 ---
 
-<classic-logos-carousel>
-    <section id={FunnelClassicComponents.classicLogosCarousel} class="classic-section">
-        <!-- Section Header -->
-        <div class="classic-middle-title flex flex-col justify-center items-center gap-3 mb-12">
-            <h3>
-                {data.title}
-            </h3>
-            <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
-        </div>
+<section 
+    id={FunnelClassicComponents.classicLogosCarousel} 
+    class="classic-section"
+    aria-labelledby="logos-heading"
+    data-component="logos-carousel-section"
+>
+    <!-- Section Header -->
+    <div class="classic-middle-title flex flex-col justify-center items-center gap-3 mb-8 sm:mb-12">
+        <h3 id="logos-heading">
+            {data.title}
+        </h3>
+    </div>
 
-        <!-- React Carousel Component -->
-        <LogosCarousel logos={logos} client:only="react" />
-    </section>
-</classic-logos-carousel>
+    <!-- React Carousel Component -->
+    <LogosCarousel logos={logos} client:only="react" />
+</section>

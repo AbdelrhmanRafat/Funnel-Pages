@@ -1,7 +1,7 @@
-/* Classic Logos Carousel Simple Design - Colors only, layout handled by Tailwind */
+/* === Classic Logos Carousel Component - Clean & Simple === */
 
 /* Section Divider */
-.classic-section-divider {
+.classic-logos-carousel-divider {
     background: linear-gradient(90deg, 
         var(--classic-color-primary) 0%,
         var(--classic-color-secondary) 50%,
@@ -9,42 +9,200 @@
     );
 }
 
-/* Simple Logo Cards */
+/* Logo Cards - Clean and minimal */
 .classic-logo-card {
-    background-color: var(--classic-color-surface);
-    border: 1px solid var(--classic-color-outline-variant);
+    /* No background, borders, or hover effects - just clean space for logos */
+    background: transparent;
+    transition: none;
 }
 
-/* Carousel Navigation Arrows */
+/* Carousel Navigation Arrows - Clean design */
 .classic-carousel-left,
 .classic-carousel-right {
     background-color: var(--classic-color-surface);
     color: var(--classic-color-on-surface);
     border: 1px solid var(--classic-color-outline-variant);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-/* Simple Page Indicators */
+.classic-carousel-left:hover,
+.classic-carousel-right:hover {
+    background-color: var(--classic-color-surface-variant);
+    border-color: var(--classic-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.classic-carousel-left:disabled,
+.classic-carousel-right:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background-color: var(--classic-color-surface);
+    border-color: var(--classic-color-outline-variant);
+}
+
+.classic-carousel-left:active,
+.classic-carousel-right:active {
+    transform: scale(0.95);
+}
+
+/* Page Indicators - Simple dots */
 .classic-page-indicator {
     background-color: var(--classic-color-outline);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.classic-page-indicator:hover {
+    background-color: var(--classic-color-primary-light);
 }
 
 .classic-page-indicator.active {
     background-color: var(--classic-color-primary);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Focus states for accessibility */
+.classic-carousel-left:focus,
+.classic-carousel-right:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--classic-color-primary-light);
+    border-color: var(--classic-color-primary);
+}
+
+.classic-page-indicator:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--classic-color-primary-light);
+}
+
+/* Loading state - Simple skeleton */
+.classic-logo-card.animate-pulse {
+    background: linear-gradient(90deg, 
+        var(--classic-color-surface) 25%, 
+        var(--classic-color-surface-variant) 50%, 
+        var(--classic-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: classic-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes classic-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Trust indicator styling */
+.classic-trust-indicator {
+    color: var(--classic-color-on-surface-variant);
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* Responsive Design - Mobile-first approach */
+@media (max-width: 640px) {
     .classic-carousel-left,
     .classic-carousel-right {
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
     }
     
-    .classic-carousel-left {
-        transform: translateY(-50%) translateX(-2px);
+    .classic-logo-card {
+        min-height: 56px;
+        padding: 0.75rem;
     }
     
+    .classic-page-indicator {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .classic-page-indicator.active {
+        width: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .classic-logo-card {
+        min-height: 48px;
+        padding: 0.5rem;
+    }
+    
+    .classic-carousel-left,
     .classic-carousel-right {
-        transform: translateY(-50%) translateX(2px);
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Large screens - Enhanced spacing */
+@media (min-width: 1024px) {
+    .classic-logo-card {
+        min-height: 80px;
+        padding: 1.25rem;
+    }
+    
+    .classic-carousel-left,
+    .classic-carousel-right {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Motion preferences - Respect user settings */
+@media (prefers-reduced-motion: reduce) {
+    .classic-carousel-left,
+    .classic-carousel-right,
+    .classic-page-indicator {
+        transition: none;
+        animation: none;
+    }
+    
+    .classic-carousel-left:active,
+    .classic-carousel-right:active {
+        transform: none;
+    }
+}
+
+/* High contrast mode - Better accessibility */
+@media (prefers-contrast: high) {
+    .classic-carousel-left,
+    .classic-carousel-right {
+        border-width: 2px;
+        border-color: var(--classic-color-on-surface);
+    }
+    
+    .classic-page-indicator {
+        border: 2px solid var(--classic-color-on-surface);
+    }
+    
+    .classic-page-indicator.active {
+        background: var(--classic-color-on-surface);
+        border-color: var(--classic-color-primary);
+    }
+}
+
+/* RTL Support - Ensure proper visual direction */
+[dir="rtl"] .classic-carousel-left {
+    /* In RTL, the left button should visually point right */
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .classic-carousel-right {
+    /* In RTL, the right button should visually point left */
+    transform: scaleX(-1);
+}
+
+/* Dark mode support (if applicable) */
+@media (prefers-color-scheme: dark) {
+    .classic-carousel-left,
+    .classic-carousel-right {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--classic-color-on-surface);
+    }
+    
+    .classic-carousel-left:hover,
+    .classic-carousel-right:hover {
+        background: rgba(255, 255, 255, 0.2);
     }
 }
