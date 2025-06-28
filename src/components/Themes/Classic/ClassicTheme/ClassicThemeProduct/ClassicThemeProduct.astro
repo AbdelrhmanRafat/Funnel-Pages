@@ -16,7 +16,8 @@ import ClassicProductCosts from "../UI/ClassicProductCosts/classicProductCosts.a
 import ClassicProductGalleryComponent from "../UI/ClassicProductGallery/ClassicProductGalleryComponent.astro";
 import ClassicOrderThroughWhatsapp from "../ClassicOrderThroughWhatsapp/classicOrderThroughWhatsapp.astro";
 import ClassicFakeVisitors from "../ClassicFakeVisitors/ClassicFakeVisitors.astro";
-import ClassicCupon from "../ClassicCupon/ClassicCupon.astro";
+import ClassicCoupon from "../ClassicCoupon/ClassicCoupon.astro";
+
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
@@ -228,7 +229,7 @@ function isComponentDataAvailable(
           }
           if (componentType === ClassicProductInfoComponents.coupon) {
             return (
-              <ClassicCupon
+              <ClassicCoupon
                 data={componentCheck.componentData}
               />
             );
