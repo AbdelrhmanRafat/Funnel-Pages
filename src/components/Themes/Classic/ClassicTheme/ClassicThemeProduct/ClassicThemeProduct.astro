@@ -4,7 +4,6 @@ import type {
   BlockData,
   Product,
 } from "../../../../../lib/api/types";
-import ClassicThemeProductFunnel from "../ClassicThemeProductFunnel/ClassicThemeProductFunnel.astro";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 import { ClassicProductInfoComponents } from "../../../../../lib/constants/themes";
@@ -17,6 +16,7 @@ import ClassicProductGalleryComponent from "../UI/ClassicProductGallery/ClassicP
 import ClassicOrderThroughWhatsapp from "../ClassicOrderThroughWhatsapp/classicOrderThroughWhatsapp.astro";
 import ClassicFakeVisitors from "../ClassicFakeVisitors/ClassicFakeVisitors.astro";
 import ClassicCoupon from "../ClassicCoupon/ClassicCoupon.astro";
+import ClassicProductBundles from "../ClassicProductBundles/ClassicProductBundles.astro";
 
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
@@ -211,7 +211,7 @@ function isComponentDataAvailable(
           // Purchase Options Component
           if (componentType === ClassicProductInfoComponents.PurchaseOptions) {
             return (
-              <ClassicThemeProductFunnel
+              <ClassicProductBundles
                 product={product}
                 data={componentCheck.componentData}
               />
