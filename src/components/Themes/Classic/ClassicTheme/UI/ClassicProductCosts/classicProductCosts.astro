@@ -9,76 +9,76 @@ const showDiscountWhenZero = Astro.props.showDiscountWhenZero ?? false;
 const currency = Astro.props.currency ?? getTranslation('productFunnel.currency');
 ---
 
-<classic-product-funnel 
-  data-funnel-auto-update={autoUpdate}
-  data-funnel-show-discount-when-zero={showDiscountWhenZero}
+<classic-product-funnel
+  data-funnel-auto-update={autoUpdate.toString()}
+  data-funnel-show-discount-when-zero={showDiscountWhenZero.toString()}
   data-funnel-currency={currency}
   data-funnel-has-bundles={hasBundles}
 >
-  <div class="classic-purchase-options">
-    <div class="classic-purchase-options-body">
-      <div class="classic-purchase-options-content space-y-3">
-        <div class="classic-purchase-row flex justify-between items-center">
-          <span class="classic-purchase-label" data-translate="productFunnel.quantity">
+  <div class="classic-product-costs-container">
+    <div class="classic-product-costs-body">
+      <div class="classic-product-costs-content space-y-3">
+        <div class="classic-product-costs-row flex justify-between items-center">
+          <span class="classic-product-costs-label" data-translate="productFunnel.quantity">
             {getTranslation('productFunnel.quantity')}
           </span>
           <div>
-            <span class="classic-purchase-value" data-funnel-price-quantity>0</span>
+            <span class="classic-product-costs-value" data-funnel-price-quantity>0</span>
             <span data-translate="productFunnel.piece">
               {getTranslation('productFunnel.piece')}
             </span>
           </div>
         </div>
         
-        <div class="classic-purchase-row flex justify-between items-center">
-          <span class="classic-purchase-label" data-translate="productFunnel.unitPrice">
+        <div class="classic-product-costs-row flex justify-between items-center">
+          <span class="classic-product-costs-label" data-translate="productFunnel.unitPrice">
             {getTranslation('productFunnel.unitPrice')}
           </span>
-          <span class="classic-purchase-value" data-funnel-price-unit>
+          <span class="classic-product-costs-value" data-funnel-price-unit>
             0 {getTranslation('productFunnel.currency')}
           </span>
         </div>
         
-        <div class="classic-purchase-row flex justify-between items-center">
-          <span class="classic-purchase-label" data-translate="productFunnel.subtotal">
+        <div class="classic-product-costs-row flex justify-between items-center">
+          <span class="classic-product-costs-label" data-translate="productFunnel.subtotal">
             {getTranslation('productFunnel.subtotal')}
           </span>
-          <span class="classic-purchase-value" data-funnel-price-subtotal>
+          <span class="classic-product-costs-value" data-funnel-price-subtotal>
             0 {getTranslation('productFunnel.currency')}
           </span>
         </div>
         
-        <div class="classic-purchase-row flex justify-between items-center">
-          <span class="classic-purchase-label" data-translate="productFunnel.shippingCost">
+        <div class="classic-product-costs-row flex justify-between items-center">
+          <span class="classic-product-costs-label" data-translate="productFunnel.shippingCost">
             {getTranslation('productFunnel.shippingCost')}
           </span>
-          <span class="classic-purchase-value" data-funnel-price-shipping>
+          <span class="classic-product-costs-value" data-funnel-price-shipping>
             0 {getTranslation('productFunnel.currency')}
           </span>
         </div>
         
-        <div 
+        <div
           class:list={[
-            "classic-purchase-row flex justify-between items-center border-b-gray-200",
+            "classic-product-costs-row flex justify-between items-center",
             { "hidden": !showDiscountWhenZero }
           ]}
           data-funnel-discount-container
         >
-          <span class="classic-purchase-label" data-translate="productFunnel.discount">
+          <span class="classic-product-costs-label" data-translate="productFunnel.discount">
             {getTranslation('productFunnel.discount')}
           </span>
-          <span class="classic-purchase-discount" data-funnel-price-discount>
+          <span class="classic-product-costs-discount" data-funnel-price-discount>
             - 0 {getTranslation('productFunnel.currency')}
           </span>
         </div>
       </div>
       
-      <div class="classic-purchase-total-section">
+      <div class="classic-product-costs-total-section">
         <div class="flex justify-between items-center">
-          <span class="classic-purchase-total-label" data-translate="productFunnel.total">
+          <span class="classic-product-costs-total-label" data-translate="productFunnel.total">
             {getTranslation('productFunnel.total')}
           </span>
-          <span class="classic-purchase-total-value" data-funnel-price-total>
+          <span class="classic-product-costs-total-value" data-funnel-price-total>
             0 {getTranslation('productFunnel.currency')}
           </span>
         </div>

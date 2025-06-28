@@ -48,7 +48,7 @@
 .classic-form-error {
     display: block;
     color: var(--classic-color-error);
-    margin-top: 0.25rem; /* Tailwind: mt-1 */
+    margin-block: 0.25rem; /* Tailwind: mt-1 */
 }
 
 /* Payment and delivery option containers */

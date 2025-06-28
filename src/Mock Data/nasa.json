@@ -1,596 +1,0 @@
-{
-    "code": 200,
-    "status": 1,
-    "errors": null,
-    "message": "messages.success",
-    "data": {
-        "product": {
-            "id": 35,
-            "category_id": 17,
-            "ware_house_id": 2,
-            "image": "https://backend.dev.baseet.co/uploads/Product/IOnIf02UNJA8Xhat77QDbPqy2gjdFrDhBZDHnoga.png",
-            "name": "Printed Tishirt Black",
-            "name_ar": "تيشيرت مطبوع بلاك",
-            "name_en": "Printed Tishirt Green",
-            "slug": "printed",
-            "slug_ar": "مطبوع",
-            "slug_en": "printed",
-            "description": "<p>Printed Round Neck T-Shirt – Comfort &amp; Style in a Trendy Design. Made from 100% soft cotton. Ideal for casual wear, daily outings, or relaxed weekends. Easy to wash and retains color after multiple uses.</p>",
-            "description_ar": "<p>تيشيرت راوند مطبوع – راحة وأناقة بتصميم عصري. مصنوع من قطن ناعم 100%. مثالي للارتداء اليومي والمناسبات غير الرسمية. سهل الغسيل ويحافظ على اللون بعد الغسيل.</p>",
-            "description_en": "<p>Printed Round Neck T-Shirt – Comfort &amp; Style in a Trendy Design. Made from 100% soft cotton. Ideal for casual wear, daily outings, or relaxed weekends. Easy to wash and retains color after multiple uses.</p>",
-            "is_active": 1,
-            "qty": 0,
-            "sku_code": "#49949CC3",
-            "price": 2290,
-            "price_after_discount": 2290,
-            "weight": null,
-            "weight_type": null,
-            "options": [
-                {
-                    "options": [
-                        {
-                            "name": "color",
-                            "value": [
-                                {
-                                    "name": "Black",
-                                    "hex": "#000000"
-                                },
-                                {
-                                    "name": "White",
-                                    "hex": "#FFFFFF"
-                                },
-                                {
-                                    "name": "Gray",
-                                    "hex": "#808080"
-                                },
-                                {
-                                    "name": "red",
-                                    "hex": "#FF0000"
-                                }
-                            ]
-                        },
-                        {
-                            "name": "size",
-                            "value": [
-                                {
-                                    "display": "Xl",
-                                    "value": "Xl"
-                                },
-                                {
-                                    "display": "xxl",
-                                    "value": "xxl"
-                                },
-                                {
-                                    "display": "xxxl",
-                                    "value": "xxxl"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "category": {
-                "id": 17,
-                "parent_id": 0,
-                "name_ar": "مطبوع",
-                "name_en": "Printed",
-                "is_active": 1
-            },
-            "skus": null,
-            "meta": {
-                "id": 33,
-                "title": "printed",
-                "description": "Printed Round Neck T-Shirt – Trendy casual wear for everyday comfort. Perfect for men and women. Durable fabric with modern design.",
-                "image": "https://backend.dev.baseet.co/uploads/Meta/IboXN291m9dPC0wDDfdKy2GHktUYJNDZeHT2q5NT.png",
-                "metaable_type": "App\\Models\\Product\\Product",
-                "metaable_id": 35,
-                "created_at": "2025-03-12T12:48:25.000000Z",
-                "updated_at": "2025-03-12T12:48:25.000000Z"
-            },
-            "attachment": [
-                {
-                    "id": 53,
-                    "path": "https://backend.dev.baseet.co/uploads/attachments/zbwCSfSr0FzwFrSgz83fmtg7ErTIstZYpftmWEje.png",
-                    "attachmentable_type": "App\\Models\\Product\\Product",
-                    "attachmentable_id": 35,
-                    "order": 0,
-                    "created_at": "2025-03-12T12:48:21.000000Z",
-                    "updated_at": "2025-03-12T12:48:21.000000Z"
-                },
-                {
-                    "id": 54,
-                    "path": "https://backend.dev.baseet.co/uploads/attachments/S03092t0fmQUb3gIal7El6mqszQzfbnveY2zxFvp.webp",
-                    "attachmentable_type": "App\\Models\\Product\\Product",
-                    "attachmentable_id": 54,
-                    "order": 0,
-                    "created_at": "2025-03-12T12:48:21.000000Z",
-                    "updated_at": "2025-03-12T12:48:21.000000Z"
-                },
-                {
-                    "id": 56,
-                    "path": "https://backend.dev.baseet.co/uploads/attachments/1OXuRtJTsSUyFtQqBqEnyY3bTBAYcPo4HMXdvVqF.png",
-                    "attachmentable_type": "App\\Models\\Product\\Product",
-                    "attachmentable_id": 35,
-                    "order": 0,
-                    "created_at": "2025-03-12T13:02:26.000000Z",
-                    "updated_at": "2025-03-12T13:02:26.000000Z"
-                },
-                {
-                    "id": 57,
-                    "path": "https://backend.dev.baseet.co/uploads/attachments/S03092t0fmQUb3gIal7El6mqszQzfbnveY2zxFvp.webp",
-                    "attachmentable_type": "App\\Models\\Product\\Product",
-                    "attachmentable_id": 35,
-                    "order": 0,
-                    "created_at": "2025-03-12T13:19:06.000000Z",
-                    "updated_at": "2025-03-12T13:19:06.000000Z"
-                },
-                {
-                    "id": 53,
-                    "path": "https://backend.dev.baseet.co/uploads/attachments/zbwCSfSr0FzwFrSgz83fmtg7ErTIstZYpftmWEje.png",
-                    "attachmentable_type": "App\\Models\\Product\\Product",
-                    "attachmentable_id": 35,
-                    "order": 0,
-                    "created_at": "2025-03-12T12:48:21.000000Z",
-                    "updated_at": "2025-03-12T12:48:21.000000Z"
-                }
-            ],
-            "is_have_variant": "false"
-        },
-        "theme": "nasa",
-        "accept_online_payment": true,
-        "blocks": [
-            {
-                "name": "nasa_header",
-                "data": {
-                    "title": "اوليفر للملابس",
-                    "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
-                    "logo": "/images/logo.png"
-                }
-            },
-            {
-                "name": "nasa_Image_Text_overlay",
-                "data": {
-                    "image": {
-                        "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop",
-                        "alt": "صورة المنتج الرئيسية"
-                    },
-                    "title": "معلومات عن المنتج",
-                    "icon": "fa-solid fa-images",
-                    "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
-                    "description": " زسشسش ين سشن ن يشسا شسا سشع سشيع شسل سشسش ي شسلي يسش يسش سشيلسشي اشيسايسشل ايسش ياسشل يشلاس اسشيل ايسش ليسش اي سشاشلي سشاشيسلايسش اليسشا يسشلا يسشاي سشا شيستاختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث"
-                }
-            },
-            {
-                "name": "nasa_Image_Text_beside",
-                "data": {
-                    "image": {
-                        "src": "https://aor-images-prod.s3.amazonaws.com/udpnrny5bwodp2vt40zdo3d1vw1u",
-                        "alt": "صورة المنتج الرئيسية"
-                    },
-                    "title": "معلومات عن المنتج",
-                    "icon": "fa-solid fa-images",
-                    "subtitle": "ملابس عصرية بجودة عالية وسعر مناسب",
-                    "description": " اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث اختبر الفخامة المعاد تعريفها مع مجموعتنا المتميزة الأحدث"
-                }
-            },
-            {
-                "name": "nasa_reviews",
-                "data": {
-                    "title": "لا تكتفي بكلامنا استمع لتجارب المشترين",
-                    "subtitle": "في الأسفل بعض من تجارب زبائننا الذين اعجبهم منتجنا و اردوا اخباركم بذلك.",
-                    "reviews": [
-                        {
-                            "description": "التنظيف المنتظم للشعر وذلك لأن غسيل الشعر المنتظم يحمي فروة الرأس ويبقي صحية وتنظيفة مع استخدام شامبو مناسب لنوعية شعرك.",
-                            "name": "إليزابيت روز",
-                            "city": "القاهرة",
-                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "منتج رائع! لاحظت فرق كبير من أول استخدام. أنصح به بشدة لكل من يعاني من مشاكل في الشعر.",
-                            "name": "ليلى أحمد",
-                            "city": "الرياض",
-                            "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
-                        },
-                        {
-                            "description": "رائحة المنتج جميلة جدًا وفعاليته ممتازة. شعري أصبح أنعم وأكثر حيوية بعد استخدامه.",
-                            "name": "سارة الجوهري",
-                            "city": "دبي",
-                            "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "nasa_form_fields",
-                "data": {
-                    "full_name": "اكتب اسمك الكامل هنا",
-                    "phone": "مثال: 05XXXXXXXX",
-                    "address": "اكتب عنوان التوصيل بالتفصيل",
-                    "cities": [
-                        "Cairo",
-                        "Alex",
-                        "Port Said"
-                    ],
-                    "PaymentOptions": [
-                        {
-                            "id": "creditCard",
-                            "label": {
-                                "en": "Credit Card",
-                                "ar": "بطاقة ائتمان"
-                            },
-                            "description": {
-                                "en": "Pay securely using your credit card.",
-                                "ar": "ادفع بأمان باستخدام بطاقة الائتمان الخاصة بك."
-                            },
-                            "images": [
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png",
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/200px-Orange_logo.svg.png"
-                            ]
-                        },
-                        {
-                            "id": "cashOnDelivery",
-                            "label": {
-                                "en": "Cash on Delivery",
-                                "ar": "الدفع عند الاستلام"
-                            },
-                            "description": {
-                                "en": "Pay in cash upon delivery.",
-                                "ar": "ادفع نقدًا عند الاستلام."
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "nasa_text-bar",
-                "data": {
-                    "title": "متاح الآن في السعودية 🇸🇦"
-                }
-            },
-            {
-                "name": "nasa_countdown",
-                "data": {
-                    "hours": 11,
-                    "minutes": 58,
-                    "seconds": 5
-                }
-            },
-            {
-                "name": "nasa_today_orders",
-                "data": {
-                    "title": "طلبات اليوم",
-                    "count": 27
-                }
-            },
-            {
-                "name": "nasa_before_&_after",
-                "title": "قبل وبعد",
-                "description": "اشهد التحول المذهل من خلال حلولنا المبتكرة. شاهد الفرق الهائل الذي يصنع كل الفرق.",
-                "data": {
-                    "title": "تحول رائع مع خدماتنا",
-                    "description": "نقارن بين الحالة الأصلية والنتيجة بعد استخدام حلولنا لتحسين الأداء والجودة.",
-                    "beforeImage": {
-                        "src": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=600&fit=crop",
-                        "alt": "الصورة قبل - الحالة الأصلية"
-                    },
-                    "afterImage": {
-                        "src": "https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?w=800&h=600&fit=crop",
-                        "alt": "الصورة بعد - النتيجة المحولة"
-                    },
-                    "beforetitle": "الحالة الأصلية",
-                    "aftertitle": "النتيجة المحولة",
-                    "beforedescription": "نقطة البداية قبل أن تبدأ عملية التحويل الخاصة بنا.",
-                    "afterdescription": "النتيجة المذهلة بعد تطبيق حلنا المبتكر."
-                }
-            },
-            {
-                "name": "nasa_rates",
-                "data": {
-                    "rate": 4.5,
-                    "count": 140
-                }
-            },
-            {
-                "name": "nasa_product_funnel",
-                "data": {
-                    "product": "@bind:product",
-                    "purchase_options": [
-                        {
-                            "title": "شراء منتج واحد",
-                            "items": 1,
-                            "price_per_item": 2290,
-                            "original_price_per_item": 2290,
-                            "original_total": 2290,
-                            "total_price": 2290,
-                            "discount": 0,
-                            "discount_percent": "0%",
-                            "shipping_price": 50,
-                            "final_total": 2340
-                        },
-                        {
-                            "title": "اشترِ قطعتين ووفر",
-                            "items": 2,
-                            "price_per_item": 1785,
-                            "original_price_per_item": 2290,
-                            "original_total": 4580,
-                            "total_price": 3570,
-                            "discount": 1010,
-                            "discount_percent": "22%",
-                            "shipping_price": 70,
-                            "final_total": 3640
-                        },
-                        {
-                            "title": "اشترِ ثلاثة ووفر",
-                            "items": 3,
-                            "price_per_item": 1499,
-                            "original_price_per_item": 2290,
-                            "original_total": 6870,
-                            "total_price": 4497,
-                            "discount": 2373,
-                            "discount_percent": "35%",
-                            "shipping_price": 90,
-                            "final_total": 4587
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "nasa_footer",
-                "data": {
-                    "company_name": "Digital Creativity Company",
-                    "year": "2025",
-                    "policies": [
-                        "سياسة الشحن",
-                        "سياسة الخصوصية",
-                        "شروط الاستخدام",
-                        "شروط الإستبدال الإسترجاع"
-                    ],
-                    "social_icons": [
-                        "fab fa-whatsapp",
-                        "fab fa-instagram",
-                        "fab fa-facebook-messenger",
-                        "fab fa-facebook-f"
-                    ]
-                }
-            },
-            {
-                "name": "nasa_order_confirmation_notice",
-                "data": {
-                    "title": "سيتم الاتصال بك لتأكيد الطلب قبل الشحن",
-                    "confirmationNotices": [
-                        {
-                            "title": "و،سرو،سور،",
-                            "icon": "fa-solid fa-truck-fast"
-                        },
-                        {
-                            "title": "ضمان لمدة عامين",
-                            "icon": "fa-solid fa-shield"
-                        },
-                        {
-                            "title": "استرجاع مجاني",
-                            "icon": "fa-solid fa-reply"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "nasa_faq",
-                "data": {
-                    "title": "الأسئلة الشائعة",
-                    "icon": "fa-solid fa-circle-question",
-                    "faqs": [
-                        {
-                            "question": "ما هي مدة التوصيل؟",
-                            "answer": "مدة التوصيل تتراوح من 2-5 أيام عمل داخل المدن الرئيسية، و 5-7 أيام عمل للمناطق النائية. نحن نعمل مع أفضل شركات الشحن لضمان وصول طلبك في أسرع وقت ممكن."
-                        },
-                        {
-                            "question": "هل يمكنني الدفع عند الاستلام؟",
-                            "answer": "نعم، نوفر خدمة الدفع عند الاستلام لجميع المناطق المتاحة. كما يمكنك الدفع عبر البطاقات الائتمانية أو المحافظ الإلكترونية للحصول على خصومات إضافية."
-                        },
-                        {
-                            "question": "ما هي مدة الضمان؟",
-                            "answer": "نوفر ضمان لمدة سنة كاملة على جميع المنتجات، بالإضافة إلى إمكانية الإرجاع خلال 14 يوم من تاريخ الاستلام بدون أي شروط. خدمة العملاء متاحة على مدار الساعة لمساعدتك."
-                        }
-                    ],
-                    "moreQuestionsLabel": "المزيد من الأسئلة"
-                }
-            },
-            {
-                "name": "nasa_product_preview",
-                "data": {
-                    "title": "عرض توضيحي للمنتج",
-                    "icon": "fa-solid fa-video",
-                    "productPreview": {
-                        "viewsText": "رقم مشاهدة 27682",
-                        "viewsIcon": "fa-solid fa-eye",
-                        "videoInfo": {
-                            "title": "سماعات رأس لاسلكية ممتازة - التجربة الشاملة",
-                            "link": "https://www.youtube.com/embed/dQw4w9WgXcQ"
-                        },
-                        "featuresSectionTitle": "ماذا ستشاهد في هذا الفيديو",
-                        "features": [
-                            {
-                                "icon": "✔️",
-                                "title": "مبنا السماعات وخصائصها",
-                                "subtitle": "عرض للمميزات التقنية والصوتية"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الصوت وجودة الموسيقى",
-                                "subtitle": "اختبار عملي لجودة الصوت في بيئات مختلفة"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الراحة وحدة البطارية",
-                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الراحة وحدة البطارية",
-                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الراحة وحدة البطارية",
-                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
-                            },
-                            {
-                                "icon": "✔️",
-                                "title": "تجربة الراحة وحدة البطارية",
-                                "subtitle": "الاستخدام لفترات طويلة وعمر البطارية"
-                            }
-                        ]
-                    }
-                }
-            },
-            {
-                "name": "nasa_product_usage",
-                "data": {
-                    "title": "شاهد كيفية الاستخدام",
-                    "icon": "fa-solid fa-circle-chevron-right",
-                    "productUsage": [
-                        {
-                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                            "title": "طريقة استخدام المنتج الكلاسيكي",
-                            "subtitle": "شرح خطوة بخطوة لكيفية الاستفادة من المنتج"
-                        },
-                        {
-                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                            "title": "نصائح مهمة للاستفادة القصوى",
-                            "subtitle": "أفضل الطرق لاستخدام المنتج بكفاءة"
-                        },
-                        {
-                            "link": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                            "title": "نصائح مهمة للاستفادة القصوى",
-                            "subtitle": "أفضل الطرق لاستخدام المنتج بكفاءة"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "nasa_delivery_features",
-                "data": {
-                    "title": "معلومات عن الشحن",
-                    "icon": "fa-solid fa-truck",
-                    "features": [
-                        {
-                            "icon": "fa-solid fa-credit-card",
-                            "title": "خيارات دفع متعددة",
-                            "subtitle": "الدفع عند الاستلام أو الدفع بالبطاقة"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "ضمان لمدة عامين",
-                            "subtitle": "ضمان شامل ضد عيوب التصنيع"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "ضمان الاسترداد",
-                            "subtitle": "14 يوم ضمان استرداد"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "ضمان الاسترداد",
-                            "subtitle": "14 يوم ضمان استرداد"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "شحن سريع",
-                            "subtitle": "توصيل خلال 3-2 أيام"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "nasa_product_features",
-                "data": {
-                    "title": "معلومات عن المنتج",
-                    "icon": "fa-solid fa-cart-shopping",
-                    "features": [
-                        {
-                            "icon": "fa-solid fa-credit-card",
-                            "title": "خيارات دفع متعددة",
-                            "subtitle": "الدفع عند الاستلام أو الدفع بالبطاقة"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "ضمان لمدة عامين",
-                            "subtitle": "ضمان شامل ضد عيوب التصنيع"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "ضمان الاسترداد",
-                            "subtitle": "14 يوم ضمان استرداد"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "ضمان الاسترداد",
-                            "subtitle": "14 يوم ضمان استرداد"
-                        },
-                        {
-                            "icon": "fa-solid fa-shield",
-                            "title": "شحن سريع",
-                            "subtitle": "توصيل خلال 3-2 أيام"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "nasa_Gallery",
-                "data": {
-                    "galleryimages": [
-                        {
-                            "src": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop",
-                            "alt": "صورة المنتج الرئيسية"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 2"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 3"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 4"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        },
-                        {
-                            "src": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop",
-                            "alt": "صورة المنتج 5"
-                        }
-                    ]
-                }
-            }
-        ]
-    }
-}

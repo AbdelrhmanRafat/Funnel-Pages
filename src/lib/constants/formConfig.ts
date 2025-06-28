@@ -11,7 +11,7 @@ export const FORM_FIELD_CONFIG = {
   ERROR_CLASSES: {
     INVALID: 'classic-border-error',
     VALID: 'classic-border-success',
-    ERROR_CONTAINER: 'classic-error-container',
+    ERROR_CONTAINER: 'classic-form-error',
     ERROR_MESSAGE: 'classic-error-message'
   }
 } as const;
