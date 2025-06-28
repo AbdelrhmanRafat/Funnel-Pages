@@ -37,7 +37,6 @@ if (isHaveVariant === "true" && customOptions) {
       }
     : null;
 
-
   const colorDetection = detectColorOption(firstOption, secondOption);
 
   // 🆕 Build associations for filtering (first → second only)
@@ -73,10 +72,9 @@ if (isHaveVariant === "true" && customOptions) {
     associations, // firstOption.value → secondOption items with sku_id
   };
 }
-
 ---
 
-<div id="classic-pannel-container" class="classic-pannel-container">
+<div id="classic-bundle-options-container" class="classic-bundle-options-container">
   <classic-select-options-bundles
     data-options-panel-index={panelIndex}
     data-options-allow-multiple={allowMultipleSelection}
@@ -87,18 +85,11 @@ if (isHaveVariant === "true" && customOptions) {
     data-sku-no-variant={skuNoVariant}
     data-no-of-options={nOfOptions}
   >
-    <div
-      class="option-panel classic-option-panel p-4 border"
-    >
+    <div class="classic-bundle-options-container-panel p-4 border">
       <!-- Header with Selection Indicators -->
-      <div
-        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 pb-3"
-      >
-        <div class="classic-panel-header font-bold text-lg sm:text-xl">
-          <p
-            class="inline"
-            data-translate="dynamicPanel.selectOptionsForProduct"
-          >
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 pb-3">
+        <div class="classic-bundle-options-container-header font-bold text-lg sm:text-xl">
+          <p class="inline" data-translate="dynamicPanel.selectOptionsForProduct">
           </p>
           <span data-options-panel-index-display>{panelIndex}</span>
         </div>
@@ -107,13 +98,13 @@ if (isHaveVariant === "true" && customOptions) {
           showSelectionIndicators && optionData && (
             <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
               {optionData.firstOption && (
-                <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
+                <div class="classic-bundle-options-container-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
                   <span>{optionData.firstOption.title}</span>
                   <span data-selected-first-option="" />
                 </div>
               )}
               {optionData.secondOption && (
-                <div class="classic-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
+                <div class="classic-bundle-options-container-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
                   <span>{optionData.secondOption.title}</span>
                   <span data-selected-second-option="" />
                 </div>
@@ -122,13 +113,11 @@ if (isHaveVariant === "true" && customOptions) {
           )
         }
       </div>
-      <div
-        class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6 md:gap-0"
-      >
+      <div class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6 md:gap-0">
         {
           optionData?.firstOption && (
             <div class="select-option-section md:w-1/2 space-y-2">
-              <p class="classic-selection-title text-base sm:text-lg font-semibold">
+              <p class="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
                 {optionData.firstOption.title}
               </p>
 
@@ -137,16 +126,16 @@ if (isHaveVariant === "true" && customOptions) {
                 <div class="flex flex-wrap justify-start content-center gap-2">
                   {optionData.firstOption.values.map((option : any, index : number) => (
                     <div
-                      class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                      class="classic-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
                       data-option-type="first"
                       data-option-value={option.value}
                       data-option-index={index}
                     >
                       <div
-                        class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                        class="classic-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
                         style={`background-color: ${option.hex || "#ccc"}`}
                       />
-                      <span class="classic-color-name text-xs sm:text-sm text-center">
+                      <span class="classic-bundle-options-container-color-name text-xs sm:text-sm text-center">
                         {option.value}
                       </span>
                     </div>
@@ -154,10 +143,10 @@ if (isHaveVariant === "true" && customOptions) {
                 </div>
               ) : (
                 /* Text-only options */
-                <div class="md:w-full  grid grid-cols-3 gap-2 sm:gap-4 p-1">
+                <div class="md:w-full grid grid-cols-3 gap-2 sm:gap-4 p-1">
                   {optionData.firstOption.values.map((option : any, index : number) => (
                     <div
-                      class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                      class="classic-bundle-options-container-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
                       data-option-type="first"
                       data-option-value={option.value}
                       data-option-index={index}
@@ -175,7 +164,7 @@ if (isHaveVariant === "true" && customOptions) {
         {
           optionData?.secondOption && (
             <div class="md:w-1/2 select-option-section space-y-2">
-              <p class="classic-selection-title text-base sm:text-lg font-semibold">
+              <p class="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
                 {optionData.secondOption.title}
               </p>
 
@@ -184,16 +173,16 @@ if (isHaveVariant === "true" && customOptions) {
                 <div class="flex flex-wrap justify-start content-center gap-2">
                   {optionData.secondOption.values.map((option : any, index : number) => (
                     <div
-                      class="classic-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                      class="classic-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
                       data-option-type="second"
                       data-option-value={option.value}
                       data-option-index={index}
                     >
                       <div
-                        class="classic-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                        class="classic-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
                         style={`background-color: ${option.hex || "#ccc"}`}
                       />
-                      <span class="classic-color-name text-xs sm:text-sm text-center">
+                      <span class="classic-bundle-options-container-color-name text-xs sm:text-sm text-center">
                         {option.value}
                       </span>
                     </div>
@@ -201,10 +190,10 @@ if (isHaveVariant === "true" && customOptions) {
                 </div>
               ) : (
                 /* Text-only options */
-                <div class="w-full grid grid-cols-3 gap-2  p-1">
+                <div class="w-full grid grid-cols-3 gap-2 p-1">
                   {optionData.secondOption.values.map((option : any, index : number) => (
                     <div
-                      class="classic-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                      class="classic-bundle-options-container-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
                       data-option-type="second"
                       data-option-value={option.value}
                       data-option-index={index}
@@ -222,7 +211,7 @@ if (isHaveVariant === "true" && customOptions) {
         {
           !isHaveVariant && (
             <div class="select-option-section space-y-2">
-              <p class="classic-selection-title text-base sm:text-lg font-semibold">
+              <p class="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
                 Single Product
               </p>
               <div class="py-2 px-4 border rounded-lg bg-gray-50">

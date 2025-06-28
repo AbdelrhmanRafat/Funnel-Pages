@@ -80,6 +80,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
   }
 
   private loadBundleData(state: any): void {
+    console.log('Loading bundle data from BundleOptionsSubject:', state);
     if (state.selectedOffer) {
       this.currentOffer = state.selectedOffer as PurchaseOption;
     } else if (state.items && state.items.length > 0) {
@@ -216,7 +217,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
 
   private updateBundleOffer(quantityState: any): void {
     if (quantityState.selectedOffer) {
-      this.currentOffer = quantityState.selectedItem as PurchaseOption;
+      this.currentOffer = quantityState.selectedOffer as PurchaseOption;
     }
     // Add any additional bundle-specific logic here
   }

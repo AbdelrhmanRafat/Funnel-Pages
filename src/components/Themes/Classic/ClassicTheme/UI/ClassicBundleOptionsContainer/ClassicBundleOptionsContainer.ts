@@ -1,4 +1,4 @@
-// ClassicSelectOptions.ts - Enhanced with Fixed Selection States
+// ClassicSelectOptionsBundles.ts - Enhanced with Fixed Naming Convention
 
 import type { Observer, Subject } from "../../../../../../lib/patterns/Observers/base-observer";
 import { BundleOptionsSubject, type BundleState } from "../../../../../../lib/patterns/Observers/bundle-observer";
@@ -25,6 +25,23 @@ interface SelectedOptions {
   second?: string;
 }
 
+// Updated CSS class constants with proper naming convention
+const CSS_CLASSES = {
+  // Selection states
+  SELECTED_COLOR: 'classic-bundle-options-container-selected-color',
+  SELECTED_SIZE: 'classic-bundle-options-container-selected-size',
+  SELECTED_GENERIC: 'classic-selected',
+  
+  // Option types
+  COLOR_OPTION: 'classic-bundle-options-container-color-option',
+  SIZE_OPTION: 'classic-bundle-options-container-size-option',
+  
+  // Availability states
+  OPTION_AVAILABLE: 'classic-bundle-options-container-option-available',
+  OPTION_DISABLED: 'classic-bundle-options-container-option-disabled',
+  OPTION_TRANSITIONING: 'classic-bundle-options-container-option-transitioning'
+} as const;
+
 class ClassicSelectOptionsBundles extends HTMLElement implements Observer<BundleState>, Observer<CustomOptionBundlesState> {
   // === Configuration Properties ===
   private panelIndex: number = 1;
@@ -37,8 +54,8 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
   private selectedOptions: SelectedOptions = {};
   
   // === Observer Instances ===
-  private quantitySubject: BundleOptionsSubject;
-  private customOptionSubject: CustomOptionBundlesSubject;
+  private bundleOptionsSubject: BundleOptionsSubject;
+  private customOptionBundlesSubject: CustomOptionBundlesSubject;
   
   // === DOM Element References ===
   private firstOptionElements: NodeListOf<HTMLElement> | null = null;
@@ -48,8 +65,8 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
 
   constructor() {
     super();
-    this.quantitySubject = BundleOptionsSubject.getInstance();
-    this.customOptionSubject = CustomOptionBundlesSubject.getInstance();
+    this.bundleOptionsSubject = BundleOptionsSubject.getInstance();
+    this.customOptionBundlesSubject = CustomOptionBundlesSubject.getInstance();
   }
 
   // === Lifecycle Methods ===
@@ -65,23 +82,24 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
 
   disconnectedCallback() {
     this.detachFromObservers();
+    this.removeEventListeners();
   }
 
   // === Initialization Methods ===
   
   private initializeSettings(): void {
-    this.panelIndex = parseInt(this.getAttribute('data-options-panel-index') || '1');
-    this.isVariant = this.getAttribute('data-options-is-variant') === 'true';
-    this.skuNoVariant = this.getAttribute('data-sku-no-variant') || '';
-    this.nOfOptions = parseInt(this.getAttribute('data-no-of-options') || '0');
-    
-    const optionDataAttr = this.getAttribute('data-option-data');
-    if (optionDataAttr && this.isVariant) {
-      try {
+    try {
+      this.panelIndex = parseInt(this.getAttribute('data-options-panel-index') || '1');
+      this.isVariant = this.getAttribute('data-options-is-variant') === 'true';
+      this.skuNoVariant = this.getAttribute('data-sku-no-variant') || '';
+      this.nOfOptions = parseInt(this.getAttribute('data-no-of-options') || '0');
+      
+      const optionDataAttr = this.getAttribute('data-option-data');
+      if (optionDataAttr && this.isVariant) {
         this.optionData = JSON.parse(optionDataAttr);
-      } catch (e) {
-        console.error('Failed to parse option data:', e);
       }
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to initialize settings:', error);
     }
   }
 
@@ -90,6 +108,10 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
     this.secondOptionElements = this.querySelectorAll('[data-option-type="second"]');
     this.firstOptionDisplay = this.querySelector('[data-selected-first-option]');
     this.secondOptionDisplay = this.querySelector('[data-selected-second-option]');
+    
+    if (!this.firstOptionElements?.length && !this.secondOptionElements?.length) {
+      console.warn('ClassicSelectOptionsBundles: No option elements found');
+    }
   }
 
   private setupEventListeners(): void {
@@ -102,23 +124,33 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
     });
   }
 
+  private removeEventListeners(): void {
+    this.firstOptionElements?.forEach(element => {
+      element.removeEventListener('click', () => this.handleFirstOptionClick(element));
+    });
+    
+    this.secondOptionElements?.forEach(element => {
+      element.removeEventListener('click', () => this.handleSecondOptionClick(element));
+    });
+  }
+
   private attachToObservers(): void {
-    this.quantitySubject.attach(this);
-    this.customOptionSubject.attach(this);
+    this.bundleOptionsSubject.attach(this);
+    this.customOptionBundlesSubject.attach(this);
   }
 
   private detachFromObservers(): void {
-    this.quantitySubject.detach(this);
-    this.customOptionSubject.detach(this);
+    this.bundleOptionsSubject.detach(this);
+    this.customOptionBundlesSubject.detach(this);
   }
 
   private initializeState(): void {
-    this.customOptionSubject.updatePanelOption(this.panelIndex, {
+    this.customOptionBundlesSubject.updatePanelOption(this.panelIndex, {
       numberOfOptions: this.nOfOptions
     });
 
     if (!this.isVariant && this.skuNoVariant) {
-      this.customOptionSubject.updatePanelOption(this.panelIndex, {
+      this.customOptionBundlesSubject.updatePanelOption(this.panelIndex, {
         sku_id: parseInt(this.skuNoVariant),
         numberOfOptions: this.nOfOptions
       });
@@ -136,21 +168,26 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
   // === Observer Implementation ===
   
   public update(subject: Subject<BundleState | CustomOptionBundlesState>): void {
-    if (subject instanceof BundleOptionsSubject) {
-      this.handleQuantityUpdate(subject.getState());
-    } else if (subject instanceof CustomOptionBundlesSubject) {
-      this.handleCustomOptionUpdate(subject.getState());
+    try {
+      if (subject instanceof BundleOptionsSubject) {
+        this.handleBundleOptionsUpdate(subject.getState());
+      } else if (subject instanceof CustomOptionBundlesSubject) {
+        this.handleCustomOptionBundlesUpdate(subject.getState());
+      }
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Observer update failed:', error);
     }
   }
 
-  private handleQuantityUpdate(state: BundleState): void {
-    this.dispatchEvent(new CustomEvent('quantity-updated', {
-      detail: { panelIndex: this.panelIndex, quantityState: state }
+  private handleBundleOptionsUpdate(state: BundleState): void {
+    this.dispatchEvent(new CustomEvent('bundle-options-updated', {
+      detail: { panelIndex: this.panelIndex, bundleState: state },
+      bubbles: true
     }));
   }
 
-  private handleCustomOptionUpdate(state: CustomOptionBundlesState): void {
-    const panelOption = this.customOptionSubject.getPanelOption(this.panelIndex);
+  private handleCustomOptionBundlesUpdate(state: CustomOptionBundlesState): void {
+    const panelOption = this.customOptionBundlesSubject.getPanelOption(this.panelIndex);
     if (panelOption) {
       this.syncUIWithObserver(panelOption);
     }
@@ -160,50 +197,58 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
   
   private handleFirstOptionClick(element: HTMLElement): void {
     const value = element.getAttribute('data-option-value');
-    if (!value) return;
+    if (!value || element.classList.contains(CSS_CLASSES.OPTION_DISABLED)) return;
 
-    // Clear all first option selections first
-    this.clearFirstOptionSelections();
-    
-    // Apply selection style immediately
-    this.applySelectionStyle(element);
-    
-    // Update internal state
-    this.selectedOptions.first = value;
-    this.updateOptionDisplay(this.firstOptionDisplay, value);
-    
-    // Clear second options and reset their state
-    this.clearSecondOptionSelections();
-    
-    // Update observer state
-    this.updateObserverForFirstOption(value);
-    
-    // Filter and enable available second options
-    this.filterSecondOptions(value);
-    
-    // Dispatch event
-    this.dispatchSelectionEvent('first-option-selected', value);
+    try {
+      // Clear all first option selections
+      this.clearFirstOptionSelections();
+      
+      // Apply selection style immediately
+      this.applySelectionStyle(element);
+      
+      // Update internal state
+      this.selectedOptions.first = value;
+      this.updateOptionDisplay(this.firstOptionDisplay, value);
+      
+      // Clear and reset second options
+      this.clearSecondOptionSelections();
+      
+      // Update observer state
+      this.updateObserverForFirstOption(value);
+      
+      // Filter and enable available second options
+      this.filterSecondOptions(value);
+      
+      // Dispatch event
+      this.dispatchSelectionEvent('first-option-selected', value);
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: First option selection failed:', error);
+    }
   }
 
   private handleSecondOptionClick(element: HTMLElement): void {
     const value = element.getAttribute('data-option-value');
-    if (!value || element.classList.contains('classic-option-disabled')) return;
+    if (!value || element.classList.contains(CSS_CLASSES.OPTION_DISABLED)) return;
 
-    // Clear all second option selections first
-    this.clearSecondOptionSelections();
-    
-    // Apply selection style immediately
-    this.applySelectionStyle(element);
-    
-    // Update internal state
-    this.selectedOptions.second = value;
-    this.updateOptionDisplay(this.secondOptionDisplay, value);
-    
-    // Update observer state
-    this.updateObserverForSecondOption();
-    
-    // Dispatch event
-    this.dispatchSelectionEvent('second-option-selected', value);
+    try {
+      // Clear all second option selections
+      this.clearSecondOptionSelections();
+      
+      // Apply selection style immediately
+      this.applySelectionStyle(element);
+      
+      // Update internal state
+      this.selectedOptions.second = value;
+      this.updateOptionDisplay(this.secondOptionDisplay, value);
+      
+      // Update observer state
+      this.updateObserverForSecondOption();
+      
+      // Dispatch event
+      this.dispatchSelectionEvent('second-option-selected', value);
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Second option selection failed:', error);
+    }
   }
 
   // === UI State Management ===
@@ -212,11 +257,10 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
     if (!this.firstOptionElements) return;
     
     this.firstOptionElements.forEach(el => {
-      // Remove all possible selection classes
       el.classList.remove(
-        'classic-selected-color-option', 
-        'classic-selected-size-option',
-        'classic-selected'
+        CSS_CLASSES.SELECTED_COLOR, 
+        CSS_CLASSES.SELECTED_SIZE,
+        CSS_CLASSES.SELECTED_GENERIC
       );
     });
   }
@@ -225,11 +269,10 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
     if (!this.secondOptionElements) return;
     
     this.secondOptionElements.forEach(el => {
-      // Remove all possible selection classes
       el.classList.remove(
-        'classic-selected-color-option', 
-        'classic-selected-size-option',
-        'classic-selected'
+        CSS_CLASSES.SELECTED_COLOR, 
+        CSS_CLASSES.SELECTED_SIZE,
+        CSS_CLASSES.SELECTED_GENERIC
       );
     });
     
@@ -239,18 +282,25 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
   }
 
   private applySelectionStyle(element: HTMLElement): void {
-    // Determine the correct selection class based on element type
-    if (element.classList.contains('classic-color-option')) {
-      element.classList.add('classic-selected-color-option');
-    } else if (element.classList.contains('classic-size-option')) {
-      element.classList.add('classic-selected-size-option');
+    try {
+      // Remove any existing selection classes first
+      element.classList.remove(CSS_CLASSES.SELECTED_COLOR, CSS_CLASSES.SELECTED_SIZE);
+      
+      // Determine and apply the correct selection class based on element type
+      if (element.classList.contains(CSS_CLASSES.COLOR_OPTION)) {
+        element.classList.add(CSS_CLASSES.SELECTED_COLOR);
+      } else if (element.classList.contains(CSS_CLASSES.SIZE_OPTION)) {
+        element.classList.add(CSS_CLASSES.SELECTED_SIZE);
+      }
+      
+      // Add generic selected class for additional styling
+      element.classList.add(CSS_CLASSES.SELECTED_GENERIC);
+      
+      // Force reflow to ensure immediate visual update
+      element.offsetHeight;
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to apply selection style:', error);
     }
-    
-    // Also add a generic selected class for additional styling if needed
-    element.classList.add('classic-selected');
-    
-    // Force a reflow to ensure the class is applied immediately
-    element.offsetHeight;
   }
 
   private updateOptionDisplay(displayElement: HTMLElement | null, value: string): void {
@@ -262,74 +312,90 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
   private filterSecondOptions(firstValue: string): void {
     if (!this.optionData?.associations || !this.secondOptionElements) return;
 
-    const availableSecondOptions = this.optionData.associations[firstValue] || [];
-    const availableValues = availableSecondOptions.map(opt => opt.value);
+    try {
+      const availableSecondOptions = this.optionData.associations[firstValue] || [];
+      const availableValues = new Set(availableSecondOptions.map(opt => opt.value));
 
-    this.secondOptionElements.forEach(element => {
-      const value = element.getAttribute('data-option-value');
-      const isAvailable = availableValues.includes(value || '');
-      this.toggleElementAvailability(element, isAvailable);
-    });
+      this.secondOptionElements.forEach(element => {
+        const value = element.getAttribute('data-option-value');
+        const isAvailable = availableValues.has(value || '');
+        this.toggleElementAvailability(element, isAvailable);
+      });
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to filter second options:', error);
+    }
   }
 
   private toggleElementAvailability(element: HTMLElement, isAvailable: boolean): void {
-    if (isAvailable) {
-      element.classList.remove('classic-option-disabled');
-      element.classList.add('classic-option-available');
-      element.style.pointerEvents = 'auto';
-      element.style.opacity = '1';
-    } else {
-      element.classList.add('classic-option-disabled');
-      element.classList.remove('classic-option-available');
-      element.style.pointerEvents = 'none';
-      element.style.opacity = '0.3';
+    try {
+      if (isAvailable) {
+        element.classList.remove(CSS_CLASSES.OPTION_DISABLED);
+        element.classList.add(CSS_CLASSES.OPTION_AVAILABLE);
+        element.style.pointerEvents = 'auto';
+        element.style.opacity = '1';
+      } else {
+        element.classList.add(CSS_CLASSES.OPTION_DISABLED);
+        element.classList.remove(CSS_CLASSES.OPTION_AVAILABLE);
+        element.style.pointerEvents = 'none';
+        element.style.opacity = '0.3';
+      }
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to toggle element availability:', error);
     }
   }
 
   private syncUIWithObserver(panelOption: any): void {
-    // Update internal state from observer
-    this.selectedOptions = {
-      first: panelOption.firstOption,
-      second: panelOption.secondOption
-    };
-    
-    // Update display elements
-    this.updateOptionDisplay(this.firstOptionDisplay, panelOption.firstOption || '');
-    this.updateOptionDisplay(this.secondOptionDisplay, panelOption.secondOption || '');
-    
-    // Update visual selections
-    this.updateVisualSelections(panelOption);
+    try {
+      // Update internal state from observer
+      this.selectedOptions = {
+        first: panelOption.firstOption,
+        second: panelOption.secondOption
+      };
+      
+      // Update display elements
+      this.updateOptionDisplay(this.firstOptionDisplay, panelOption.firstOption || '');
+      this.updateOptionDisplay(this.secondOptionDisplay, panelOption.secondOption || '');
+      
+      // Update visual selections
+      this.updateVisualSelections(panelOption);
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to sync UI with observer:', error);
+    }
   }
 
   private updateVisualSelections(panelOption: any): void {
-    // Clear all current selections
-    this.clearAllSelections();
+    try {
+      // Clear all current selections
+      this.clearAllSelections();
 
-    // Apply first option selection if exists
-    if (panelOption.firstOption && this.firstOptionElements) {
-      const firstElement = this.findElementByValue(this.firstOptionElements, panelOption.firstOption);
-      if (firstElement) {
-        this.applySelectionStyle(firstElement);
-        // Filter second options based on first selection
-        this.filterSecondOptions(panelOption.firstOption);
+      // Apply first option selection if exists
+      if (panelOption.firstOption && this.firstOptionElements) {
+        const firstElement = this.findElementByValue(this.firstOptionElements, panelOption.firstOption);
+        if (firstElement) {
+          this.applySelectionStyle(firstElement);
+          // Filter second options based on first selection
+          this.filterSecondOptions(panelOption.firstOption);
+        }
       }
-    }
 
-    // Apply second option selection if exists
-    if (panelOption.secondOption && this.secondOptionElements) {
-      const secondElement = this.findElementByValue(this.secondOptionElements, panelOption.secondOption);
-      if (secondElement && !secondElement.classList.contains('classic-option-disabled')) {
-        this.applySelectionStyle(secondElement);
-        // Ensure display is updated
-        this.updateOptionDisplay(this.secondOptionDisplay, panelOption.secondOption);
+      // Apply second option selection if exists
+      if (panelOption.secondOption && this.secondOptionElements) {
+        const secondElement = this.findElementByValue(this.secondOptionElements, panelOption.secondOption);
+        if (secondElement && !secondElement.classList.contains(CSS_CLASSES.OPTION_DISABLED)) {
+          this.applySelectionStyle(secondElement);
+          // Ensure display is updated
+          this.updateOptionDisplay(this.secondOptionDisplay, panelOption.secondOption);
+        }
       }
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to update visual selections:', error);
     }
   }
 
   // === Observer Update Methods ===
   
   private updateObserverForFirstOption(value: string): void {
-    this.customOptionSubject.updatePanelOption(this.panelIndex, {
+    this.customOptionBundlesSubject.updatePanelOption(this.panelIndex, {
       panelIndex: this.panelIndex,
       firstOption: value,
       secondOption: null,
@@ -357,7 +423,7 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
       if (imageUrl) updateData.image = imageUrl;
     }
     
-    this.customOptionSubject.updatePanelOption(this.panelIndex, updateData);
+    this.customOptionBundlesSubject.updatePanelOption(this.panelIndex, updateData);
   }
 
   // === Utility Methods ===
@@ -373,9 +439,14 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
       return null;
     }
 
-    const availableOptions = this.optionData.associations[this.selectedOptions.first];
-    const matchingOption = availableOptions?.find(opt => opt.value === this.selectedOptions.second);
-    return matchingOption?.sku_id || null;
+    try {
+      const availableOptions = this.optionData.associations[this.selectedOptions.first];
+      const matchingOption = availableOptions?.find(opt => opt.value === this.selectedOptions.second);
+      return matchingOption?.sku_id || null;
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to find SKU ID:', error);
+      return null;
+    }
   }
 
   private findImageUrl(): string | null {
@@ -383,9 +454,14 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
       return null;
     }
 
-    const availableOptions = this.optionData.associations[this.selectedOptions.first];
-    const matchingOption = availableOptions?.find(opt => opt.value === this.selectedOptions.second);
-    return matchingOption?.image || null;
+    try {
+      const availableOptions = this.optionData.associations[this.selectedOptions.first];
+      const matchingOption = availableOptions?.find(opt => opt.value === this.selectedOptions.second);
+      return matchingOption?.image || null;
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to find image URL:', error);
+      return null;
+    }
   }
 
   private dispatchSelectionEvent(eventName: string, value: string): void {
@@ -394,7 +470,8 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
         panelIndex: this.panelIndex,
         value,
         selectedOptions: { ...this.selectedOptions }
-      }
+      },
+      bubbles: true
     }));
   }
 
@@ -419,14 +496,23 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
   }
 
   public clearSelections(): void {
-    this.clearAllSelections();
-    this.selectedOptions = {};
-    
-    this.updateOptionDisplay(this.firstOptionDisplay, '');
-    this.updateOptionDisplay(this.secondOptionDisplay, '');
-    
-    this.resetSecondOptionsState();
-    this.updateObserverForClear();
+    try {
+      this.clearAllSelections();
+      this.selectedOptions = {};
+      
+      this.updateOptionDisplay(this.firstOptionDisplay, '');
+      this.updateOptionDisplay(this.secondOptionDisplay, '');
+      
+      this.resetSecondOptionsState();
+      this.updateObserverForClear();
+      
+      this.dispatchEvent(new CustomEvent('selections-cleared', {
+        detail: { panelIndex: this.panelIndex },
+        bubbles: true
+      }));
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to clear selections:', error);
+    }
   }
 
   public getPanelIndex(): number {
@@ -436,40 +522,66 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
   // === Enhanced Selection Methods ===
   
   public forceRefreshSelections(): void {
-    // Force refresh all visual selections based on current state
-    const panelOption = this.customOptionSubject.getPanelOption(this.panelIndex);
-    if (panelOption) {
-      this.updateVisualSelections(panelOption);
+    try {
+      const panelOption = this.customOptionBundlesSubject.getPanelOption(this.panelIndex);
+      if (panelOption) {
+        this.updateVisualSelections(panelOption);
+      }
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to refresh selections:', error);
     }
   }
 
   public validateSelectionStates(): boolean {
-    // Validate that UI state matches internal state
-    let isValid = true;
-    
-    if (this.selectedOptions.first && this.firstOptionElements) {
-      const firstElement = this.findElementByValue(this.firstOptionElements, this.selectedOptions.first);
-      if (firstElement && !firstElement.classList.contains('classic-selected-size-option') && 
-          !firstElement.classList.contains('classic-selected-color-option')) {
-        isValid = false;
+    try {
+      let isValid = true;
+      
+      if (this.selectedOptions.first && this.firstOptionElements) {
+        const firstElement = this.findElementByValue(this.firstOptionElements, this.selectedOptions.first);
+        if (firstElement && !firstElement.classList.contains(CSS_CLASSES.SELECTED_SIZE) && 
+            !firstElement.classList.contains(CSS_CLASSES.SELECTED_COLOR)) {
+          isValid = false;
+        }
       }
-    }
-    
-    if (this.selectedOptions.second && this.secondOptionElements) {
-      const secondElement = this.findElementByValue(this.secondOptionElements, this.selectedOptions.second);
-      if (secondElement && !secondElement.classList.contains('classic-selected-size-option') && 
-          !secondElement.classList.contains('classic-selected-color-option')) {
-        isValid = false;
+      
+      if (this.selectedOptions.second && this.secondOptionElements) {
+        const secondElement = this.findElementByValue(this.secondOptionElements, this.selectedOptions.second);
+        if (secondElement && !secondElement.classList.contains(CSS_CLASSES.SELECTED_SIZE) && 
+            !secondElement.classList.contains(CSS_CLASSES.SELECTED_COLOR)) {
+          isValid = false;
+        }
       }
+      
+      return isValid;
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to validate selection states:', error);
+      return false;
     }
-    
-    return isValid;
   }
 
   public repairSelections(): void {
-    // Repair any broken selection states
-    if (!this.validateSelectionStates()) {
-      this.forceRefreshSelections();
+    try {
+      if (!this.validateSelectionStates()) {
+        this.forceRefreshSelections();
+      }
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to repair selections:', error);
+    }
+  }
+
+  // === Enhanced Error Recovery ===
+  
+  public resetToInitialState(): void {
+    try {
+      this.clearSelections();
+      this.initializeSecondOptionsState();
+      
+      this.dispatchEvent(new CustomEvent('component-reset', {
+        detail: { panelIndex: this.panelIndex },
+        bubbles: true
+      }));
+    } catch (error) {
+      console.error('ClassicSelectOptionsBundles: Failed to reset to initial state:', error);
     }
   }
 
@@ -488,7 +600,7 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
   }
 
   private updateObserverForClear(): void {
-    this.customOptionSubject.updatePanelOption(this.panelIndex, {
+    this.customOptionBundlesSubject.updatePanelOption(this.panelIndex, {
       panelIndex: this.panelIndex,
       firstOption: null,
       secondOption: null,
@@ -501,19 +613,40 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Bundle
 
 // === Component Registration ===
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (!customElements.get('classic-select-options-bundles')) {
-    customElements.define('classic-select-options-bundles', ClassicSelectOptionsBundles);
-  }
-});
+class ClassicSelectOptionsBundlesManager {
+  private static readonly COMPONENT_NAME = 'classic-select-options-bundles';
 
-document.addEventListener('astro:page-load', () => {
-  const selectOptions = document.querySelectorAll('classic-select-options-bundles:not(:defined)');
-  selectOptions.forEach(option => {
-    if (option instanceof ClassicSelectOptionsBundles) {
-      option.connectedCallback();
+  public static initialize(): void {
+    this.registerComponent();
+    this.setupEventListeners();
+  }
+
+  private static registerComponent(): void {
+    if (!customElements.get(this.COMPONENT_NAME)) {
+      customElements.define(this.COMPONENT_NAME, ClassicSelectOptionsBundles);
     }
-  });
-});
+  }
+
+  private static setupEventListeners(): void {
+    document.addEventListener('DOMContentLoaded', this.handleDOMContentLoaded.bind(this));
+    document.addEventListener('astro:page-load', this.handleAstroPageLoad.bind(this));
+  }
+
+  private static handleDOMContentLoaded(): void {
+    // Component registration is handled in registerComponent
+  }
+
+  private static handleAstroPageLoad(): void {
+    const undefinedComponents = document.querySelectorAll(`${this.COMPONENT_NAME}:not(:defined)`);
+    undefinedComponents.forEach(component => {
+      if (component instanceof ClassicSelectOptionsBundles) {
+        component.connectedCallback();
+      }
+    });
+  }
+}
+
+// Initialize the component manager
+ClassicSelectOptionsBundlesManager.initialize();
 
 export { ClassicSelectOptionsBundles };
