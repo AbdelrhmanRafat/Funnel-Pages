@@ -1,5 +1,4 @@
 // quantity-observer.ts
-import { QuantityOptionsSubject } from '../../../../../lib/patterns/Observers/quantity-observer';
 
 // form-fields-observer.ts
 import { FormFieldsSubject } from '../../../../../lib/patterns/Observers/form-fields-observer';
@@ -9,8 +8,9 @@ import { DeliveryOptionsSubject } from '../../../../../lib/patterns/Observers/de
 
 // payment-observer.ts
 import { PaymentOptionsSubject } from '../../../../../lib/patterns/Observers/payment-observer';
-import { CustomOptionSubject, type CustomOption } from '../../../../../lib/patterns/Observers/custom-option-observer';
 import { CustomOptionsNonBundleSubject } from '../../../../../lib/patterns/Observers/custom-options-non-bundle';
+import { BundleOptionsSubject } from '../../../../../lib/patterns/Observers/bundle-observer';
+import { CustomOptionBundlesSubject, type CustomOptionBundlesState } from '../../../../../lib/patterns/Observers/custom-option-observer-bundles';
 
 
 interface SelectedOffer {
@@ -54,8 +54,8 @@ class ClassicPurchaseModal extends HTMLElement {
   
   // Observer subjects - centralized access
   private subjects = {
-    customOptions: CustomOptionSubject.getInstance(),
-    quantity: QuantityOptionsSubject.getInstance(),
+    customOptions: CustomOptionBundlesSubject.getInstance(),
+    quantity: BundleOptionsSubject.getInstance(),
     formFields: FormFieldsSubject.getInstance(),
     delivery: DeliveryOptionsSubject.getInstance(),
     payment: PaymentOptionsSubject.getInstance(),
@@ -267,7 +267,6 @@ class ClassicPurchaseModal extends HTMLElement {
       
       
       this.populateQuantityInfo(states.quantity.selectedItem);
-      this.populateCustomOptions(states.customOptions.options);
       this.populateDirectPurchaseInfo(states.customOptionNonBundle.option);
       this.populateCustomerInfo(states.formFields.formData, states.payment.selectedPaymentOptionValue ?? "");
       
@@ -373,7 +372,7 @@ class ClassicPurchaseModal extends HTMLElement {
     });
   }
 
-  private populateCustomOptions(customOptions: CustomOption[]): void {
+  private populateCustomOptions(customOptions: CustomOptionBundlesState[]): void {
     const container = this.elements.selectionItemsContainer;
     if (!container || !customOptions) return;
 

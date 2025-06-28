@@ -1,7 +1,7 @@
 // OfferSelector.ts - Enhanced Web Component for Offer Selection
 
-import { QuantityOptionsSubject } from '../../../../../../lib/patterns/Observers/quantity-observer';
-import { CustomOptionSubject } from '../../../../../../lib/patterns/Observers/custom-option-observer';
+import { BundleOptionsSubject } from '../../../../../../lib/patterns/Observers/bundle-observer';
+import { CustomOptionBundlesSubject } from '../../../../../../lib/patterns/Observers/custom-option-observer-bundles';
 
 // Types and Interfaces
 interface OfferSelectorElements {
@@ -58,14 +58,14 @@ class OfferSelector extends HTMLElement {
     repeatedElements: null
   };
   
-  private readonly quantitySubject: QuantityOptionsSubject;
-  private readonly customOptionSubject: CustomOptionSubject;
+  private readonly quantitySubject: BundleOptionsSubject;
+  private readonly customOptionSubject: CustomOptionBundlesSubject;
   private config: OfferSelectorConfig;
 
   constructor() {
     super();
-    this.quantitySubject = QuantityOptionsSubject.getInstance();
-    this.customOptionSubject = CustomOptionSubject.getInstance();
+    this.quantitySubject = BundleOptionsSubject.getInstance();
+    this.customOptionSubject = CustomOptionBundlesSubject.getInstance();
     this.config = this.getDefaultConfig();
   }
 
@@ -327,11 +327,11 @@ class OfferSelector extends HTMLElement {
     this.setAttribute(DATA_ATTRIBUTES.ENABLE_STORAGE, enabled.toString());
   }
 
-  public getQuantitySubject(): QuantityOptionsSubject {
+  public getQuantitySubject(): BundleOptionsSubject {
     return this.quantitySubject;
   }
 
-  public getCustomOptionSubject(): CustomOptionSubject {
+  public getCustomOptionSubject(): CustomOptionBundlesSubject {
     return this.customOptionSubject;
   }
 }

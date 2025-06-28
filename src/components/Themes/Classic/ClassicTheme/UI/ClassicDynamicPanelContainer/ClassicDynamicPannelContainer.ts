@@ -1,10 +1,8 @@
 // ClassicSelectOptions.ts - Enhanced with Fixed Selection States
 
-import { QuantityOptionsSubject } from "../../../../../../lib/patterns/Observers/quantity-observer";
-import type { QuantityState } from "../../../../../../lib/patterns/Observers/quantity-observer";
-import { CustomOptionSubject } from "../../../../../../lib/patterns/Observers/custom-option-observer";
-import type { CustomOptionState } from "../../../../../../lib/patterns/Observers/custom-option-observer";
 import type { Observer, Subject } from "../../../../../../lib/patterns/Observers/base-observer";
+import { BundleOptionsSubject, type BundleState } from "../../../../../../lib/patterns/Observers/bundle-observer";
+import { CustomOptionBundlesSubject, type CustomOptionBundlesState } from "../../../../../../lib/patterns/Observers/custom-option-observer-bundles";
 
 interface OptionData {
   firstOption?: {
@@ -27,7 +25,7 @@ interface SelectedOptions {
   second?: string;
 }
 
-class ClassicSelectOptionsBundles extends HTMLElement implements Observer<QuantityState>, Observer<CustomOptionState> {
+class ClassicSelectOptionsBundles extends HTMLElement implements Observer<BundleState>, Observer<CustomOptionBundlesState> {
   // === Configuration Properties ===
   private panelIndex: number = 1;
   private isVariant: boolean = false;
@@ -39,8 +37,8 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Quanti
   private selectedOptions: SelectedOptions = {};
   
   // === Observer Instances ===
-  private quantitySubject: QuantityOptionsSubject;
-  private customOptionSubject: CustomOptionSubject;
+  private quantitySubject: BundleOptionsSubject;
+  private customOptionSubject: CustomOptionBundlesSubject;
   
   // === DOM Element References ===
   private firstOptionElements: NodeListOf<HTMLElement> | null = null;
@@ -50,8 +48,8 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Quanti
 
   constructor() {
     super();
-    this.quantitySubject = QuantityOptionsSubject.getInstance();
-    this.customOptionSubject = CustomOptionSubject.getInstance();
+    this.quantitySubject = BundleOptionsSubject.getInstance();
+    this.customOptionSubject = CustomOptionBundlesSubject.getInstance();
   }
 
   // === Lifecycle Methods ===
@@ -137,21 +135,21 @@ class ClassicSelectOptionsBundles extends HTMLElement implements Observer<Quanti
 
   // === Observer Implementation ===
   
-  public update(subject: Subject<QuantityState | CustomOptionState>): void {
-    if (subject instanceof QuantityOptionsSubject) {
+  public update(subject: Subject<BundleState | CustomOptionBundlesState>): void {
+    if (subject instanceof BundleOptionsSubject) {
       this.handleQuantityUpdate(subject.getState());
-    } else if (subject instanceof CustomOptionSubject) {
+    } else if (subject instanceof CustomOptionBundlesSubject) {
       this.handleCustomOptionUpdate(subject.getState());
     }
   }
 
-  private handleQuantityUpdate(state: QuantityState): void {
+  private handleQuantityUpdate(state: BundleState): void {
     this.dispatchEvent(new CustomEvent('quantity-updated', {
       detail: { panelIndex: this.panelIndex, quantityState: state }
     }));
   }
 
-  private handleCustomOptionUpdate(state: CustomOptionState): void {
+  private handleCustomOptionUpdate(state: CustomOptionBundlesState): void {
     const panelOption = this.customOptionSubject.getPanelOption(this.panelIndex);
     if (panelOption) {
       this.syncUIWithObserver(panelOption);

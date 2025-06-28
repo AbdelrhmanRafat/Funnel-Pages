@@ -12,22 +12,22 @@ export interface CustomOption {
   image: string | null;
 }
 
-export interface CustomOptionState extends State {
+export interface CustomOptionBundlesState extends State {
   options: CustomOption[];
 }
 
-export class CustomOptionSubject extends GenericSubject<CustomOptionState> {
-  private static instance: CustomOptionSubject;
+export class CustomOptionBundlesSubject extends GenericSubject<CustomOptionBundlesState> {
+  private static instance: CustomOptionBundlesSubject;
 
   private constructor() {
     super({ options: [] });
   }
 
-  public static getInstance(): CustomOptionSubject {
-    if (!CustomOptionSubject.instance) {
-      CustomOptionSubject.instance = new CustomOptionSubject();
+  public static getInstance(): CustomOptionBundlesSubject {
+    if (!CustomOptionBundlesSubject.instance) {
+      CustomOptionBundlesSubject.instance = new CustomOptionBundlesSubject();
     }
-    return CustomOptionSubject.instance;
+    return CustomOptionBundlesSubject.instance;
   }
 
   public initializePanels(quantity: number): void {

@@ -9,9 +9,9 @@ import {
 } from '../../../../../../lib/utils/validation';
 import { getTranslation, type Language } from '../../../../../../lib/utils/i18n/translations';
 import { FORM_FIELD_CONFIG } from '../../../../../../lib/constants/formConfig';
-import { CustomOptionSubject } from '../../../../../../lib/patterns/Observers/custom-option-observer';
 import { FormFieldsSubject } from '../../../../../../lib/patterns/Observers/form-fields-observer';
 import { CustomOptionsNonBundleSubject } from '../../../../../../lib/patterns/Observers/custom-options-non-bundle';
+import { CustomOptionBundlesSubject } from '../../../../../../lib/patterns/Observers/custom-option-observer-bundles';
 
 interface ValidationState {
   isValid: boolean;
@@ -24,7 +24,7 @@ class ClassicSubmitOrder extends HTMLElement {
   
   // Observers - initialized in constructor
   private readonly formFieldsSubject: FormFieldsSubject;
-  private readonly customOptionSubject: CustomOptionSubject;
+  private readonly customOptionSubject: CustomOptionBundlesSubject;
   private readonly customOptionsNonBundleSubject: CustomOptionsNonBundleSubject;
   
   // Configuration
@@ -55,7 +55,7 @@ class ClassicSubmitOrder extends HTMLElement {
     
     // Initialize observers in constructor
     this.formFieldsSubject = FormFieldsSubject.getInstance();
-    this.customOptionSubject = CustomOptionSubject.getInstance();
+    this.customOptionSubject = CustomOptionBundlesSubject.getInstance();
     this.customOptionsNonBundleSubject = CustomOptionsNonBundleSubject.getInstance();
   }
 
@@ -436,7 +436,7 @@ class ClassicSubmitOrder extends HTMLElement {
     return this.formFieldsSubject;
   }
 
-  public getColorSizeSubject(): CustomOptionSubject {
+  public getColorSizeSubject(): CustomOptionBundlesSubject {
     return this.customOptionSubject;
   }
 }

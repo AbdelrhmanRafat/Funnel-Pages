@@ -1,8 +1,8 @@
 // ClassicThemeProductFunnel.ts - Web Component for Product Funnel
 
 import type { PurchaseOption } from "../../../../../lib/api/types";
-import { QuantityOptionsSubject } from "../../../../../lib/patterns/Observers/quantity-observer";
 import type { Observer } from "../../../../../lib/patterns/Observers/base-observer";
+import { BundleOptionsSubject } from "../../../../../lib/patterns/Observers/bundle-observer";
 import {  DeliveryOptionsSubject } from "../../../../../lib/patterns/Observers/delivery-observer";
 import { getTranslation } from '../../../../../lib/utils/i18n/translations';
 
@@ -26,7 +26,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     discountContainer: null,
     totalElement: null
   };
-  private quantitySubject: QuantityOptionsSubject;
+  private quantitySubject: BundleOptionsSubject;
   private deliverySubject: DeliveryOptionsSubject;
   private autoUpdate: boolean = true;
   private showDiscountWhenZero: boolean = false;
@@ -35,7 +35,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
 
   constructor() {
     super();
-    this.quantitySubject = QuantityOptionsSubject.getInstance();
+    this.quantitySubject = BundleOptionsSubject.getInstance();
     this.deliverySubject = DeliveryOptionsSubject.getInstance();
   }
 
@@ -235,7 +235,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     return this.calculateValues(offer, deliveryState);
   }
 
-  public getQuantitySubject(): QuantityOptionsSubject {
+  public getQuantitySubject(): BundleOptionsSubject {
     return this.quantitySubject;
   }
 

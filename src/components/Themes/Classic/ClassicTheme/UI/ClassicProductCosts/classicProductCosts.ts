@@ -1,11 +1,11 @@
 // ClassicThemeProductFunnel.ts - Web Component for Product Funnel
 
 import type { PurchaseOption } from "../../../../../../lib/api/types";
-import { QuantityOptionsSubject } from "../../../../../../lib/patterns/Observers/quantity-observer";
 import type { Observer } from "../../../../../../lib/patterns/Observers/base-observer";
 import { DeliveryOptionsSubject } from "../../../../../../lib/patterns/Observers/delivery-observer";
 import { CustomOptionsNonBundleSubject } from '../../../../../../lib/patterns/Observers/custom-options-non-bundle';
 import { getTranslation } from '../../../../../../lib/utils/i18n/translations';
+import { BundleOptionsSubject } from "../../../../../../lib/patterns/Observers/bundle-observer";
 
 interface ProductFunnelElements {
   quantityElement: HTMLElement | null;
@@ -27,7 +27,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     discountContainer: null,
     totalElement: null
   };
-  private quantitySubject: QuantityOptionsSubject;
+  private quantitySubject: BundleOptionsSubject;
   private customOptionsNonBundleSubject: CustomOptionsNonBundleSubject;
   private deliverySubject: DeliveryOptionsSubject;
   private autoUpdate: boolean = true;
@@ -38,7 +38,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
 
   constructor() {
     super();
-    this.quantitySubject = QuantityOptionsSubject.getInstance();
+    this.quantitySubject = BundleOptionsSubject.getInstance();
     this.deliverySubject = DeliveryOptionsSubject.getInstance();
     this.customOptionsNonBundleSubject = CustomOptionsNonBundleSubject.getInstance();
   }
@@ -68,7 +68,6 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
   }
 
   private loadInitialDataFromSubject(): void {
-    // Get initial data from QuantityOptionsSubject instead of props
     const state = this.quantitySubject.getState();
     
     if (this.hasBundles) {
@@ -91,7 +90,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     } else {
       // Create a fallback empty offer if no data is available
       this.currentOffer = this.createFallbackOffer();
-      console.warn('Product Funnel: No bundle data available in QuantityOptionsSubject, using fallback values');
+      console.warn('Product Funnel: No bundle data available in BundleOptionsSubject, using fallback values');
     }
   }
 
@@ -119,7 +118,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
       shipping_price: 0,
       discount: 0,
       final_total: 0
-    } as PurchaseOption;
+    } as any as PurchaseOption;
   }
 
   private initializeElements(): void {
@@ -265,7 +264,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
         second_option: customOptionsState.secondOption,
         qty: selectedQuantity
       }
-    } as PurchaseOption;
+    } as unknown as PurchaseOption;
   }
 
   private updateUI(offer: PurchaseOption, deliveryState: any): void {
@@ -305,7 +304,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     let actualFinalTotal: number;
 
     // Calculate final total with quantity multiplied
-    const baseTotal = offer.total_price; // This already includes quantity multiplication from createOfferFromCustomOptions
+    const baseTotal = offer.final_total; // This already includes quantity multiplication from createOfferFromCustomOptions
 
     if (deliveryState.selectedDeliveryOptionId === "delivery-pickup") {
       actualFinalTotal = baseTotal - Number(offer.shipping_price);
@@ -407,7 +406,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     return this.customOptionsNonBundleSubject;
   }
 
-  public getQuantitySubject(): QuantityOptionsSubject {
+  public getQuantitySubject(): BundleOptionsSubject {
     return this.quantitySubject;
   }
 
