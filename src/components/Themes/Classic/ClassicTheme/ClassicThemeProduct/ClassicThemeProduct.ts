@@ -1,5 +1,3 @@
-// ClassicProductHeader.ts - Web Component for Product Header with CustomOptions Observer
-
 import { CustomOptionsNonBundleSubject } from '../../../../../lib/patterns/Observers/custom-options-non-bundle';
 import type { Observer } from '../../../../../lib/patterns/Observers/base-observer';
 
@@ -29,7 +27,6 @@ class ClassicProductHeader extends HTMLElement implements Observer<any> {
   connectedCallback() {
     this.initializeSettings();
     this.initializeElements();
-    
     if (this.shouldObserve) {
       this.attachToSubject();
     }

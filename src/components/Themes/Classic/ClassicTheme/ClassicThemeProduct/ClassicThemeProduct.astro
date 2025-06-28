@@ -18,7 +18,6 @@ import ClassicOrderThroughWhatsapp from "../ClassicOrderThroughWhatsapp/classicO
 import ClassicFakeVisitors from "../ClassicFakeVisitors/ClassicFakeVisitors.astro";
 import ClassicCoupon from "../ClassicCoupon/ClassicCoupon.astro";
 
-
 // Define render order for product info section - reorder as needed!
 const PRODUCT_INFO_RENDER_ORDER = [
   ClassicProductInfoComponents.Visitores,
@@ -41,7 +40,6 @@ const fakeVisitorsData : BlockData = Astro.props.fakeVisitorsData;
 const cuponData : BlockData = Astro.props.cuponData;
 const orderConfirmationNoticeData: BlockData =
   Astro.props.orderConfirmationNoticeData;
-
 
 // Extracts color and size options from the product data
 const isHaveVariant = product.is_have_variant;
@@ -110,15 +108,13 @@ function isComponentDataAvailable(
 }
 ---
 
-<section id="classic-product-details" class="classic-section">
+<section id="classic-product-details" class="classic-product-details-section">
   <div class="flex flex-col lg:flex-row gap-5">
     <!-- Gallery Section -->
     {<ClassicProductGalleryComponent product={product} />}
 
     <!-- Product Info Section with Array-Based Rendering -->
-    <div
-      class="lg:w-1/2 classic-product-info flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl"
-    >
+       <div class="lg:w-1/2 classic-product-details-container flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl">
       {
         PRODUCT_INFO_RENDER_ORDER.map((componentType) => {
           const componentCheck = isComponentDataAvailable(componentType);
@@ -131,20 +127,20 @@ function isComponentDataAvailable(
           if (componentType === ClassicProductInfoComponents.ProductHeader) {
             return (
               <classic-product-header class="w-full"
-                data-purchase-options={!purchaseOptions}
-                data-is-have-variant={isHaveVariant}
-                data-initial-price={product.price}
-                data-initial-price-discount={product.price_after_discount}
+                data-purchase-options={(!purchaseOptions).toString()}
+                data-is-have-variant={isHaveVariant.toString()}
+                data-initial-price={product.price.toString()}
+                data-initial-price-discount={product.price_after_discount.toString()}
                 data-initial-sku={product.sku_code}
                 data-current-lang={currentLang}
               >
-                <div class="flex flex-col justify-start items-start gap-2 ">
+                <div class="flex flex-col justify-start items-start gap-2">
                   <div class="flex items-center gap-2">
                     <span
                       class={
                         product.is_active
-                          ? "classic-badge-success text-xs py-1 px-3 rounded-full font-medium"
-                          : "classic-badge-error text-xs py-1 px-3 rounded-full font-medium"
+                          ? "classic-product-details-badge-success text-xs py-1 px-3 rounded-full font-medium"
+                          : "classic-product-details-badge-error text-xs py-1 px-3 rounded-full font-medium"
                       }
                       data-translate={
                         product.is_active
@@ -156,26 +152,26 @@ function isComponentDataAvailable(
                         ? getTranslation("product.available", currentLang)
                         : getTranslation("product.notAvailable", currentLang)}
                     </span>
-                    <div class="classic-product-sku text-sm">
+                    { (!purchaseOptions || isHaveVariant === "false") &&
+                    <div class="classic-product-details-sku text-sm">
                       <span data-translate="product.productCode">
                         {getTranslation("product.productCode", currentLang)}
                       </span>
                       <span>: <span data-product-sku>{product.sku_code}</span></span>
                     </div>
+                    }
                   </div>
                   <div class="w-full flex justify-start items-center gap-4">
-                  <h2 class="classic-product-title text-3xl lg:text-4xl font-bold leading-tight">
-                    {isArabic ? product.name_ar : product.name_en}
-                  </h2>
-                   {ratingData &&
-                    <ClassicThemeRates ratingData={ratingData} />
-                   }
+                    <h2 class="classic-product-details-title text-3xl lg:text-4xl font-bold leading-tight">
+                      {isArabic ? product.name_ar : product.name_en}
+                    </h2>
+                    {ratingData && <ClassicThemeRates ratingData={ratingData} />}
                   </div>
                   <div class="flex justify-start items-center gap-4">
-                    <div class="classic-product-price flex justify-center line-through items-center gap-2 text-4xl font-bold">
+                    <div class="classic-product-details-price classic-product-details-price--discount flex justify-center line-through items-center gap-2 text-4xl font-bold">
                       <span data-product-price>{product.price}</span>
                     </div>
-                    <div class="classic-product-price flex justify-center items-center gap-2 text-4xl font-bold">
+                    <div class="classic-product-details-price flex justify-center items-center gap-2 text-4xl font-bold">
                       <span data-product-price-discount>{product.price_after_discount}</span>
                       <span data-translate="productFunnel.currency" />
                     </div>
@@ -186,38 +182,32 @@ function isComponentDataAvailable(
           }
           
           // Product Description Component
-          if (
-            componentType === ClassicProductInfoComponents.ProductDescription
-          ) {
+          if (componentType === ClassicProductInfoComponents.ProductDescription) {
             return (
               <>
-                <div class="classic-product-description w-full">
-                  <h3
-                    class="classic-description-header text-2xl font-bold pb-3"
-                    data-translate="product.description"
-                  >
+                <div class="w-full">
+                  <h3 class="classic-product-details-description-header text-2xl font-bold pb-3" data-translate="product.description">
                     {getTranslation("product.description", currentLang)}
                   </h3>
                   <p
-                    class="classic-text-body leading-relaxed"
-                    set:html={
-                      isArabic ? product.description_ar : product.description_en
-                    }
+                    class="classic-product-details-text-body leading-relaxed"
+                    set:html={isArabic ? product.description_ar : product.description_en}
                   />
                 </div>
                 {!purchaseOptions && (
-                  <div class="w-full py-3">
-                    <ClassicSelectionOptionsWithoutBundles
-                      product={product}
-                    />
-                  </div>
-                  <div class="w-full">
-                    <ClassicProductCosts hasBundles="false" />
-                  </div>
+                  <>
+                    <div class="w-full py-3">
+                      <ClassicSelectionOptionsWithoutBundles product={product} />
+                    </div>
+                    <div class="w-full">
+                      <ClassicProductCosts hasBundles="false" />
+                    </div>
+                  </>
                 )}
               </>
             );
           }
+
           // Purchase Options Component
           if (componentType === ClassicProductInfoComponents.PurchaseOptions) {
             return (
@@ -227,6 +217,8 @@ function isComponentDataAvailable(
               />
             );
           }
+
+          // Coupon Component
           if (componentType === ClassicProductInfoComponents.coupon) {
             return (
               <ClassicCoupon
@@ -248,19 +240,16 @@ function isComponentDataAvailable(
           }
 
           // Order Confirmation Component
-          if (
-            componentType === ClassicProductInfoComponents.OrderConfirmation
-          ) {
+          if (componentType === ClassicProductInfoComponents.OrderConfirmation) {
             return (
               <ClassicOrderConfirmationNotice
                 data={componentCheck.componentData}
               />
             );
           }
-          // Visitors 
-          if (
-            componentType === ClassicProductInfoComponents.Visitores
-          ) {
+
+          // Visitors Component
+          if (componentType === ClassicProductInfoComponents.Visitores) {
             return (
               <ClassicFakeVisitors
                 data={componentCheck.componentData}
@@ -268,9 +257,8 @@ function isComponentDataAvailable(
             );
           }
 
-          if (
-            componentType === ClassicProductInfoComponents.OrderThroghWhatsapp
-          ) {
+          // Order Through WhatsApp Component
+          if (componentType === ClassicProductInfoComponents.OrderThroghWhatsapp) {
             return (
               <ClassicOrderThroughWhatsapp
                 data={componentCheck.componentData}
