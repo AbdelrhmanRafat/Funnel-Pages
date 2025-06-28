@@ -147,7 +147,8 @@ if (isHaveVariant === "true" && customOptions) {
     };
 }
 ---
-<div id="classic-pannel-container" class="classic-panel-wrapper w-full">
+
+<div id="classic-selection-options-without-bundles" class="classic-selection-options-without-bundles w-full">
   <classic-select-options 
     data-options-allow-multiple={allowMultipleSelection}
     data-options-show-indicators={showSelectionIndicators}
@@ -160,8 +161,8 @@ if (isHaveVariant === "true" && customOptions) {
     data-base-image={product.image || ''}
     data-qty-non-variant={qty_NonVariant || 1}
   >
-    <section id="classic-select-option-no-bundles">
-      <div class="flex  gap-6 flex-col-reverse">
+    <section id="classic-selection-options-without-bundles-section">
+      <div class="flex gap-6 flex-col-reverse">
         
         <!-- OPTIONS SECTION -->
         {isHaveVariant === "true" ? (
@@ -169,10 +170,9 @@ if (isHaveVariant === "true" && customOptions) {
             <div class="space-y-6">
               <!-- First Option -->
               {optionData?.firstOption && (
-                <div class="classic-option-group">
-                  {/* <h3 class="classic-option-title text-2xl font-bold block mb-6">{optionData.firstOption.title}</h3> */}
+                <div class="classic-selection-options-without-bundles-option-group">
                   {optionData.firstOption.hasColors ? (
-                    <div class="classic-color-grid flex flex-wrap gap-3">
+                    <div class="classic-selection-options-without-bundles-color-grid flex flex-wrap gap-3">
                       {optionData.firstOption.values.map((option : any, index : number) => (
                         <ClassicColorOptionsWithoutBundles 
                           option={option}
@@ -182,7 +182,7 @@ if (isHaveVariant === "true" && customOptions) {
                       ))}
                     </div>
                   ) : (
-                    <div class="classic-text-grid grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div class="classic-selection-options-without-bundles-text-grid grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {optionData.firstOption.values.map((option : any, index : number) => (
                         <ClassicTextOptionsWithoutBundles 
                           option={option}
@@ -197,10 +197,9 @@ if (isHaveVariant === "true" && customOptions) {
               
               <!-- Second Option -->
               {optionData?.secondOption && (
-                <div class="classic-option-group">
-                  {/* <h3 class="classic-option-title text-2xl font-bold block mb-6">{optionData.secondOption.title}</h3> */}
+                <div class="classic-selection-options-without-bundles-option-group">
                   {optionData.secondOption.hasColors ? (
-                    <div class="classic-color-grid flex flex-wrap gap-3">
+                    <div class="classic-selection-options-without-bundles-color-grid flex flex-wrap gap-3">
                       {optionData.secondOption.values.map((option : any, index : number) => (
                         <ClassicColorOptionsWithoutBundles 
                           option={option}
@@ -210,7 +209,7 @@ if (isHaveVariant === "true" && customOptions) {
                       ))}
                     </div>
                   ) : (
-                    <div class="classic-text-grid flex flex-wrap justify-start content-start gap-3">
+                    <div class="classic-selection-options-without-bundles-text-grid flex flex-wrap justify-start content-start gap-3">
                       {optionData.secondOption.values.map((option : any, index : number) => (
                         <ClassicTextOptionsWithoutBundles 
                           option={option}
@@ -233,32 +232,30 @@ if (isHaveVariant === "true" && customOptions) {
             <!-- Quantity Controls -->
             <div>
               <div class="flex justify-start items-center gap-1 pb-4">
-             <div>
-              <label class="classic-qty-label text-2xl font-bold" data-translate="productFunnel.maxAvailable">
-              </label>
-              </div>
-                 {isHaveVariant === "true" && (
-  <div class="classic-max-qty-display classic-max-qty-indicator hidden" data-max-qty-display style="display: none;">
-    {/* <span class="classic-max-qty-text inline-block" data-translate="productFunnel.maxAvailable"></span> */}
-    <span class="inline-block ms-1">
-      <span data-max-qty-value class="classic-max-qty-value text-2xl  font-bold">0</span>
-    </span>
-  </div>
-)}
+                <div>
+                  <label class="classic-selection-options-without-bundles-qty-label text-2xl font-bold" data-translate="productFunnel.maxAvailable">
+                  </label>
+                </div>
+                {isHaveVariant === "true" && (
+                  <div class="classic-selection-options-without-bundles-max-qty-display classic-selection-options-without-bundles-max-qty-indicator hidden" data-max-qty-display style="display: none;">
+                    <span class="inline-block ms-1">
+                      <span data-max-qty-value class="classic-selection-options-without-bundles-max-qty-value text-2xl font-bold">0</span>
+                    </span>
+                  </div>
+                )}
 
-{isHaveVariant === "false" && (
-  <div class="classic-max-qty-display text-2xl font-bold">
-    {/* <span class="classic-max-qty-text inline-block" data-translate="productFunnel.maxAvailable"></span> */}
-    <span class="inline-block ms-1">
-      <span data-max-qty-value class="classic-max-qty-value font-medium">{qty_NonVariant}</span>
-    </span>
-  </div>
-)}
+                {isHaveVariant === "false" && (
+                  <div class="classic-selection-options-without-bundles-max-qty-display text-2xl font-bold">
+                    <span class="inline-block ms-1">
+                      <span data-max-qty-value class="classic-selection-options-without-bundles-max-qty-value font-medium">{qty_NonVariant}</span>
+                    </span>
+                  </div>
+                )}
               </div>
-              <div class="classic-qty-controls flex items-center gap-3">
+              <div class="classic-selection-options-without-bundles-qty-controls flex items-center gap-3">
                 <button 
                   type="button" 
-                  class="classic-qty-btn classic-qty-decrease w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="classic-selection-options-without-bundles-qty-btn classic-selection-options-without-bundles-qty-decrease w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   data-qty-action="decrease"
                 >
                   <span class="text-lg font-medium select-none">−</span>
@@ -266,7 +263,7 @@ if (isHaveVariant === "true" && customOptions) {
                 
                 <input 
                   type="number" 
-                  class="classic-qty-input w-20 h-10 text-center rounded-2xl focus:outline-none focus:ring-2 transition-all duration-200" 
+                  class="classic-selection-options-without-bundles-qty-input w-20 h-10 text-center rounded-2xl focus:outline-none focus:ring-2 transition-all duration-200" 
                   value="1" 
                   min="1" 
                   data-qty-input
@@ -274,24 +271,20 @@ if (isHaveVariant === "true" && customOptions) {
                 
                 <button 
                   type="button" 
-                  class="classic-qty-btn classic-qty-increase w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="classic-selection-options-without-bundles-qty-btn classic-selection-options-without-bundles-qty-increase w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   data-qty-action="increase"
                 >
                   <span class="text-lg font-medium select-none">+</span>
                 </button>
               </div>
-
             </div>
-            
           </div>
         </div>
-        
       </div>
-    </div>
+    </section>
   </classic-select-options>
-</section>
+</div>
 
 <script>
   import "./classicSelectionOptionsWithoutBundles";
-
 </script>
