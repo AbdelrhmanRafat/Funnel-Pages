@@ -1,4 +1,4 @@
-// OfferSelector.ts - Enhanced Web Component for Offer Selection
+// OfferSelector.ts - Optimized Web Component for Bundle Option Selection
 
 import { BundleOptionsSubject } from '../../../../../../lib/patterns/Observers/bundle-observer';
 import { CustomOptionBundlesSubject } from '../../../../../../lib/patterns/Observers/custom-option-observer-bundles';
@@ -6,13 +6,13 @@ import { CustomOptionBundlesSubject } from '../../../../../../lib/patterns/Obser
 // Types and Interfaces
 interface OfferSelectorElements {
   radioButtons: NodeListOf<HTMLInputElement> | null;
-  repeatedElements: NodeListOf<HTMLElement> | null;
+  bundleOptionsElements: NodeListOf<HTMLElement> | null;
 }
 
 interface OfferSelectionDetail {
   radioId: string;
   items: number;
-  selectedItem: any;
+  selectedOffer: any;
   previousSelection?: any;
   updatedState?: any;
 }
@@ -24,11 +24,9 @@ interface OfferSelectorConfig {
   storageKey: string;
 }
 
-// Constants
+// Constants - Removed unused constants
 const CSS_CLASSES = {
-  HIDDEN: 'hidden',
-  SELECTED_SIZE: 'classic-selected-size-option',
-  SELECTED_COLOR: 'classic-selected-color-option'
+  HIDDEN: 'hidden'
 } as const;
 
 const DATA_ATTRIBUTES = {
@@ -40,11 +38,7 @@ const DATA_ATTRIBUTES = {
   ITEMS: 'data-offer-items',
   SELECTED_ITEM: 'data-offer-selected-item',
   OPTION_ID: 'data-offer-option-id',
-  OPTIONS_ELEMENTS: 'data-offer-options-elements',
-  SIZE_OPTION: 'data-options-size-option',
-  COLOR_OPTION: 'data-options-color-option',
-  SELECTED_SIZE: 'data-options-selected-size',
-  SELECTED_COLOR: 'data-options-selected-color'
+  BUNDLE_OPTIONS_ELEMENTS: 'data-offer-bundle-options-elements'
 } as const;
 
 const CUSTOM_EVENTS = {
@@ -55,22 +49,26 @@ const CUSTOM_EVENTS = {
 class OfferSelector extends HTMLElement {
   private elements: OfferSelectorElements = {
     radioButtons: null,
-    repeatedElements: null
+    bundleOptionsElements: null
   };
   
-  private readonly quantitySubject: BundleOptionsSubject;
-  private readonly customOptionSubject: CustomOptionBundlesSubject;
+  private readonly bundleOptionsSubject: BundleOptionsSubject;
+  private readonly customOptionBundlesSubject: CustomOptionBundlesSubject;
   private config: OfferSelectorConfig;
 
   constructor() {
     super();
-    this.quantitySubject = BundleOptionsSubject.getInstance();
-    this.customOptionSubject = CustomOptionBundlesSubject.getInstance();
+    this.bundleOptionsSubject = BundleOptionsSubject.getInstance();
+    this.customOptionBundlesSubject = CustomOptionBundlesSubject.getInstance();
     this.config = this.getDefaultConfig();
   }
 
   connectedCallback(): void {
     this.initialize();
+  }
+
+  disconnectedCallback(): void {
+    this.cleanup();
   }
 
   // Configuration Methods
@@ -79,7 +77,7 @@ class OfferSelector extends HTMLElement {
       offerName: 'qty',
       autoSelectFirst: true,
       enableStorage: true,
-      storageKey: 'selectedItem'
+      storageKey: 'selectedOffer'
     };
   }
 
@@ -103,7 +101,7 @@ class OfferSelector extends HTMLElement {
   private initializeElements(): void {
     this.elements = {
       radioButtons: this.querySelectorAll(`[${DATA_ATTRIBUTES.RADIO}]`) as NodeListOf<HTMLInputElement>,
-      repeatedElements: this.querySelectorAll(`[${DATA_ATTRIBUTES.OPTIONS_ELEMENTS}]`) as NodeListOf<HTMLElement>
+      bundleOptionsElements: this.querySelectorAll(`[${DATA_ATTRIBUTES.BUNDLE_OPTIONS_ELEMENTS}]`) as NodeListOf<HTMLElement>
     };
 
     if (!this.elements.radioButtons?.length) {
@@ -128,6 +126,14 @@ class OfferSelector extends HTMLElement {
     }
   }
 
+  private cleanup(): void {
+    if (!this.elements.radioButtons) return;
+
+    this.elements.radioButtons.forEach(radio => {
+      radio.removeEventListener('change', this.handleRadioChange.bind(this));
+    });
+  }
+
   // Event Handlers
   private handleRadioChange(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -141,38 +147,46 @@ class OfferSelector extends HTMLElement {
     const selectionData = this.extractSelectionData(selectedRadio);
     if (!selectionData) return;
 
-    const { items, selectedItem } = selectionData;
+    const { items, selectedOffer } = selectionData;
 
-    this.dispatchSelectionStartEvent(selectedRadio, items, selectedItem);
-    this.updateQuantityState(items, selectedItem);
+    this.dispatchSelectionStartEvent(selectedRadio, items, selectedOffer);
+    this.updateBundleOptionsState(items, selectedOffer);
     this.saveToStorage();
-    this.initializeCustomOptions(items);
+    this.initializeCustomOptionBundles(items);
     this.updateUIVisibility(selectedRadio);
-    this.dispatchSelectionCompleteEvent(selectedRadio, items, selectedItem);
+    this.dispatchSelectionCompleteEvent(selectedRadio, items, selectedOffer);
   }
 
-  private extractSelectionData(selectedRadio: HTMLInputElement): { items: number; selectedItem: any } | null {
-    const items = parseInt(selectedRadio.getAttribute(DATA_ATTRIBUTES.ITEMS) || '1');
-    const selectedItemJson = selectedRadio.getAttribute(DATA_ATTRIBUTES.SELECTED_ITEM);
+  private extractSelectionData(selectedRadio: HTMLInputElement): { items: number; selectedOffer: any } | null {
+    const itemsAttr = selectedRadio.getAttribute(DATA_ATTRIBUTES.ITEMS);
+    const items = itemsAttr ? parseInt(itemsAttr, 10) : 1;
     
-    if (!selectedItemJson) {
+    // Add validation
+    if (isNaN(items) || items < 0) {
+      console.warn('OfferSelector: Invalid items count');
+      return null;
+    }
+    
+    const selectedOfferJson = selectedRadio.getAttribute(DATA_ATTRIBUTES.SELECTED_ITEM);
+    
+    if (!selectedOfferJson) {
       console.warn('OfferSelector: No selected item data found');
       return null;
     }
 
     try {
-      const selectedItem = JSON.parse(selectedItemJson);
-      return { items, selectedItem };
+      const selectedOffer = JSON.parse(selectedOfferJson);
+      return { items, selectedOffer };
     } catch (error) {
       console.error('OfferSelector: Invalid JSON in selected item data', error);
       return null;
     }
   }
 
-  private updateQuantityState(items: number, selectedItem: any): void {
-    this.quantitySubject.setState({
+  private updateBundleOptionsState(items: number, selectedOffer: any): void {
+    this.bundleOptionsSubject.setState({
       quantity: items,
-      selectedItem: selectedItem
+      selectedOffer: selectedOffer
     });
   }
 
@@ -180,27 +194,27 @@ class OfferSelector extends HTMLElement {
     if (!this.config.enableStorage) return;
 
     try {
-      const updatedSelectedItem = this.quantitySubject.getState().selectedItem;
-      localStorage.setItem(this.config.storageKey, JSON.stringify(updatedSelectedItem));
+      const updatedselectedOffer = this.bundleOptionsSubject.getState().selectedOffer;
+      localStorage.setItem(this.config.storageKey, JSON.stringify(updatedselectedOffer));
     } catch (error) {
       console.warn('OfferSelector: Failed to save to localStorage', error);
     }
   }
 
-  private initializeCustomOptions(items: number): void {
-    this.customOptionSubject.initializePanels(items);
+  private initializeCustomOptionBundles(items: number): void {
+    this.customOptionBundlesSubject.initializeBundle(items);
   }
 
-  // UI Update Methods
+  // UI Update Methods - Simplified
   private updateUIVisibility(selectedRadio: HTMLInputElement): void {
-    this.hideAllRepeatedElements();
+    this.hideAllBundleOptionsElements();
     this.showSelectedElements(selectedRadio);
   }
 
-  private hideAllRepeatedElements(): void {
-    if (!this.elements.repeatedElements) return;
+  private hideAllBundleOptionsElements(): void {
+    if (!this.elements.bundleOptionsElements) return;
 
-    this.elements.repeatedElements.forEach(element => {
+    this.elements.bundleOptionsElements.forEach(element => {
       element.classList.add(CSS_CLASSES.HIDDEN);
     });
   }
@@ -212,70 +226,44 @@ class OfferSelector extends HTMLElement {
     if (!targetElements) return;
 
     targetElements.classList.remove(CSS_CLASSES.HIDDEN);
-    this.resetSelectionsInTarget(targetElements);
+    this.resetBundleSelections(targetElements);
   }
 
-  private resetSelectionsInTarget(targetElements: HTMLElement): void {
-    const dynamicPanels = targetElements.querySelectorAll('classic-select-options-bundles');
-    dynamicPanels.forEach(panel => {
-      this.resetPanelSelections(panel as HTMLElement);
+  // Simplified reset method
+  private resetBundleSelections(targetElements: HTMLElement): void {
+    const bundlePanels = targetElements.querySelectorAll('classic-select-options-bundles');
+    bundlePanels.forEach(panel => {
+      const componentWithAPI = panel as any;
+      
+      // Try to use component's API first, fallback to manual reset
+      if (componentWithAPI?.clearSelections && typeof componentWithAPI.clearSelections === 'function') {
+        componentWithAPI.clearSelections();
+      } else {
+        // Simple manual reset - just remove any selection classes
+        const selectedElements = panel.querySelectorAll('[class*="selected"]');
+        selectedElements.forEach(el => {
+          el.classList.remove(...Array.from(el.classList).filter(cls => cls.includes('selected')));
+        });
+      }
     });
-  }
-
-  private resetPanelSelections(panelContainer: HTMLElement): void {
-    const componentWithAPI = panelContainer as any;
-    
-    if (componentWithAPI?.clearSelections && typeof componentWithAPI.clearSelections === 'function') {
-      componentWithAPI.clearSelections();
-    } else {
-      this.resetSelectionsManually(panelContainer);
-    }
-  }
-
-  private resetSelectionsManually(panelContainer: HTMLElement): void {
-    this.resetSizeSelections(panelContainer);
-    this.resetColorSelections(panelContainer);
-    this.clearSelectedTexts(panelContainer);
-  }
-
-  private resetSizeSelections(container: HTMLElement): void {
-    const sizeOptions = container.querySelectorAll<HTMLElement>(`[${DATA_ATTRIBUTES.SIZE_OPTION}]`);
-    sizeOptions.forEach(option => {
-      option.classList.remove(CSS_CLASSES.SELECTED_SIZE);
-    });
-  }
-
-  private resetColorSelections(container: HTMLElement): void {
-    const colorOptions = container.querySelectorAll<HTMLElement>(`[${DATA_ATTRIBUTES.COLOR_OPTION}]`);
-    colorOptions.forEach(option => {
-      option.classList.remove(CSS_CLASSES.SELECTED_COLOR);
-    });
-  }
-
-  private clearSelectedTexts(container: HTMLElement): void {
-    const selectedSizeText = container.querySelector<HTMLElement>(`[${DATA_ATTRIBUTES.SELECTED_SIZE}]`);
-    const selectedColorText = container.querySelector<HTMLElement>(`[${DATA_ATTRIBUTES.SELECTED_COLOR}]`);
-    
-    if (selectedSizeText) selectedSizeText.textContent = '';
-    if (selectedColorText) selectedColorText.textContent = '';
   }
 
   // Event Dispatching
-  private dispatchSelectionStartEvent(radio: HTMLInputElement, items: number, selectedItem: any): void {
+  private dispatchSelectionStartEvent(radio: HTMLInputElement, items: number, selectedOffer: any): void {
     this.dispatchCustomEvent(CUSTOM_EVENTS.SELECTION_START, {
       radioId: radio.id,
       items,
-      selectedItem,
-      previousSelection: this.quantitySubject.getState()
+      selectedOffer,
+      previousSelection: this.bundleOptionsSubject.getState()
     });
   }
 
-  private dispatchSelectionCompleteEvent(radio: HTMLInputElement, items: number, selectedItem: any): void {
+  private dispatchSelectionCompleteEvent(radio: HTMLInputElement, items: number, selectedOffer: any): void {
     this.dispatchCustomEvent(CUSTOM_EVENTS.SELECTED, {
       radioId: radio.id,
       items,
-      selectedItem,
-      updatedState: this.quantitySubject.getState()
+      selectedOffer,
+      updatedState: this.bundleOptionsSubject.getState()
     });
   }
 
@@ -285,7 +273,7 @@ class OfferSelector extends HTMLElement {
 
   // Public API
   public getCurrentSelection(): any {
-    return this.quantitySubject.getState();
+    return this.bundleOptionsSubject.getState();
   }
 
   public selectOffer(radioId: string): boolean {
@@ -327,12 +315,12 @@ class OfferSelector extends HTMLElement {
     this.setAttribute(DATA_ATTRIBUTES.ENABLE_STORAGE, enabled.toString());
   }
 
-  public getQuantitySubject(): BundleOptionsSubject {
-    return this.quantitySubject;
+  public getBundleOptionsSubject(): BundleOptionsSubject {
+    return this.bundleOptionsSubject;
   }
 
-  public getCustomOptionSubject(): CustomOptionBundlesSubject {
-    return this.customOptionSubject;
+  public getCustomOptionBundlesSubject(): CustomOptionBundlesSubject {
+    return this.customOptionBundlesSubject;
   }
 }
 
@@ -369,7 +357,7 @@ class OfferSelectorManager {
     });
   }
 }
-
+ 
 // Initialize the component manager
 OfferSelectorManager.initialize();
 

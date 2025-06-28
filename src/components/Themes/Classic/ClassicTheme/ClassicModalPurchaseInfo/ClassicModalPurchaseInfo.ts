@@ -265,8 +265,8 @@ class ClassicPurchaseModal extends HTMLElement {
         customOptionNonBundle: this.subjects.customOptionNonBundle.getState()
       };
       
-      
-      this.populateQuantityInfo(states.quantity.selectedItem);
+      console.log("saaaaayed",states.quantity);
+      this.populateQuantityInfo(states.quantity.selectedOffer);
       this.populateDirectPurchaseInfo(states.customOptionNonBundle.option);
       this.populateCustomerInfo(states.formFields.formData, states.payment.selectedPaymentOptionValue ?? "");
       

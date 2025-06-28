@@ -30,7 +30,7 @@ export class CustomOptionBundlesSubject extends GenericSubject<CustomOptionBundl
     return CustomOptionBundlesSubject.instance;
   }
 
-  public initializePanels(quantity: number): void {
+  public initializeBundle(quantity: number): void {
     const options: CustomOption[] = [];
     for (let i = 1; i <= quantity; i++) {
       options.push({
