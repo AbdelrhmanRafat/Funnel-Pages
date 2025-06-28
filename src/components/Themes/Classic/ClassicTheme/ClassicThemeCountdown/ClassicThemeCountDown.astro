@@ -5,8 +5,13 @@
 // - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
 import "./ClassicThemeCountDown.css";
 import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const items: Item[] = data.items ?? [];
@@ -28,7 +33,7 @@ const totalSeconds = hours * 3600 + minutes * 60 + seconds;
   <div class="classic-countdown-container px-6 text-center">
     <div class="classic-middle-title">
     <h2 data-translate="countdown.offerEndsIn">
-      {getTranslation('countdown.offerEndsIn')}
+     {isArabic ? data.title_ar : data.title_en}
     </h2>
     </div>
              

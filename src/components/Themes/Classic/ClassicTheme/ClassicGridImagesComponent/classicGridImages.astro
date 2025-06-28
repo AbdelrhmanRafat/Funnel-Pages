@@ -1,7 +1,12 @@
 ---
 import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const galleryImages: Item[] = data.items ?? [];
@@ -13,7 +18,7 @@ const galleryImages: Item[] = data.items ?? [];
         <div class="classic-section-header">
             <i class={data.icon}></i>
             <h3>
-                {data.title}
+                {isArabic ? data.title_ar : data.title_en}
             </h3>
         </div>
         

@@ -25,7 +25,9 @@ export interface Block {
 
 // Represents the data associated with a block.
 export interface BlockData {
-  title?: string
+  title?: string,
+  title_ar? : string,
+  title_en? : string,
   icon?: string
   description?: string
   items?: Item[]

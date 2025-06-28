@@ -4,9 +4,14 @@
 // - data: An object of type BlockData, containing product preview information.
 import "./ClassicProductPreviewComponent.css"
 import type { BlockData, VideoInfoItem } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import type { Item } from "../../../../../lib/api/types";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const productPreview: VideoInfoItem | undefined = data.videoInfo?.[0];
@@ -20,7 +25,7 @@ const items: Item[] = data.items ?? [];
   <!-- Header -->
   <div class="classic-section-header">
     <i class={data.icon} aria-hidden="true"></i>
-    <h5>{data.title}</h5>
+    <h5>{isArabic ? data.title_ar : data.title_en}</h5>
   </div>
   
   <!-- Main Content -->

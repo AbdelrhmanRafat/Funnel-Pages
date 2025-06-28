@@ -1,7 +1,12 @@
 ---
 import "./ClassicProductFeatures.css"
 import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const productFeatures: Item[] = data.items ?? [];
@@ -14,7 +19,7 @@ const productFeatures: Item[] = data.items ?? [];
   <!-- Header -->
   <div class="classic-section-header">
     <i class={data.icon} aria-hidden="true"></i>
-    <h5>{data.title}</h5>
+    <h5>{isArabic ? data.title_ar : data.title_en}</h5>
   </div>
   
   <!-- Features Grid -->

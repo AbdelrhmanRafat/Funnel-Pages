@@ -197,12 +197,6 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Trust indicator */}
-      <div className="text-center mb-6 opacity-75">
-        <p className="text-sm sm:text-base font-medium text-gray-600">
-          Trusted by {logos.length}+ leading companies
-        </p>
-      </div>
 
       <div className="relative">
         {/* Navigation buttons - only show if needed */}

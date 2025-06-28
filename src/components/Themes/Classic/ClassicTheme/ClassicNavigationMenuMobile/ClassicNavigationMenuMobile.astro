@@ -3,6 +3,7 @@ import "./ClassicNavigationMenuMobile.css"
 import type { Data } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import { getClassicThemeComponent } from "../../../../../lib/utils/ThemeSelect";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 
 const funnelPage: Data = Astro.props.funnelPage;
 const logo: string = Astro.props.logo;
@@ -50,6 +51,9 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicFooter,
 ];
 
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 // Safe filtering with additional null checks
 const orderedAnchors = RENDER_ORDER
   .map(component => {
@@ -102,20 +106,6 @@ const orderedAnchors = RENDER_ORDER
     <!-- Menu Items with API Titles -->
     <nav class="classic-menu-nav flex-1" role="navigation" aria-label="Main navigation">
       <ul class="classic-menu-list space-y-2" role="list">
-        <!-- OPTION 2: Manual Home Link -->
-        <li 
-          class="classic-menu-item transition-all duration-300 ease-out"
-          role="listitem"
-          style="--menu-item-index: 0"
-        >
-          <a
-            href={`#${FunnelClassicComponents.ClassicHeader}`}
-            class="classic-menu-link block p-3 rounded-lg text-sm font-medium transition-all duration-300"
-            data-anchor-target="Home"
-          >
-            الرئيسية
-          </a>
-        </li>
 
         <!-- Auto-generated navigation items -->
         {orderedAnchors.map((anchor, index) => {
@@ -135,8 +125,8 @@ const orderedAnchors = RENDER_ORDER
                 class="classic-menu-link block p-3 rounded-lg text-sm font-medium transition-all duration-300"
                 data-anchor-target={anchor.componentData.title}
               >
-                {anchor.componentData.title}
-              </a>
+                    {isArabic ?   anchor.componentData.title_ar : anchor.componentData.title_en}
+                  </a>
             </li>
           );
         })}

@@ -3,6 +3,7 @@ import "./ClassicNavigationMenuDesktop.css";
 import type { Data } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import { getClassicThemeComponent } from "../../../../../lib/utils/ThemeSelect";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 
 const funnelPage: Data = Astro.props.funnelPage;
 
@@ -26,6 +27,10 @@ const availableAnchors = funnelPage?.blocks
     return null;
   })
   ?.filter((anchor): anchor is NonNullable<typeof anchor> => anchor !== null) || [];
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 
 // Order anchors based on render order
 const RENDER_ORDER = [
@@ -104,7 +109,7 @@ const orderedAnchors = RENDER_ORDER
                     data-anchor-target={anchor.componentData.title}
                     data-scroll-target={anchor.component}
                   >
-                    {anchor.componentData.title}
+                    {isArabic ?   anchor.componentData.title_ar : anchor.componentData.title_en}
                   </a>
                 </li>
               );

@@ -202,7 +202,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
 
   private updateBundleOffer(bundleOptionsState: any): void {
     if (bundleOptionsState.selectedOffer) {
-      this.currentOffer = bundleOptionsState.selectedItem as PurchaseOption;
+      this.currentOffer = bundleOptionsState.selectedOffer as PurchaseOption; 
     }
     // Add any additional bundle-specific logic here
   }

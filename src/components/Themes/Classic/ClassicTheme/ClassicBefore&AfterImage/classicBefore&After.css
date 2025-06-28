@@ -65,10 +65,6 @@
 }
 
 /* Section divider */
-.classic-before-after-divider {
-    background: linear-gradient(to right, var(--classic-color-tertiary), var(--classic-color-secondary));
-}
-
 /* Custom pulse animation */
 @keyframes classic-before-after-pulse {
     0%, 100% { 

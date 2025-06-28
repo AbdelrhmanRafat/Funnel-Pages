@@ -1,8 +1,13 @@
 ---
 import "./classicBefore&After.css"
 import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const items: Item[] = data.items ?? [];
@@ -19,12 +24,12 @@ const afterItemData: Item | undefined = items.find(item => item.name?.toLocaleLo
     <!-- Section Header -->
     <header class="classic-middle-title flex flex-col justify-center items-center gap-3">
         <h2 id="before-after-heading">
-            {data.title}
+            {isArabic ? data.title_ar : data.title_en}
         </h2>
         <p class="text-lg sm:text-xl text-center font-medium classic-before-after-section-description max-w-2xl mx-auto">
             {data.description}
         </p>
-        <div class="w-24 h-1 classic-before-after-divider mx-auto rounded-full" role="presentation"></div>
+        <div class="w-24 h-1 classic-divider mx-auto rounded-full" role="presentation"></div>
     </header>
 
         <div class="flex flex-col justify-center items-center gap-8 sm:gap-10 max-w-6xl mx-auto px-4">

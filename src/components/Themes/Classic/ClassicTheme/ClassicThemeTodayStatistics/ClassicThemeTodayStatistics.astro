@@ -31,9 +31,9 @@ const isArabic = currentLang === "ar";
       class="classic-middle-title flex flex-col justify-center items-center gap-3"
     >
       <h3>
-        {data.title}
+        {isArabic ? data.title_ar : data.title_en}
       </h3>
-      <div class="w-24 h-1 classic-section-divider mx-auto rounded-full"></div>
+      <div class="w-24 h-1 classic-divider mx-auto rounded-full" role="presentation"></div>
     </div>
 
     <div class="classic-statistics-minimal-container py-12">

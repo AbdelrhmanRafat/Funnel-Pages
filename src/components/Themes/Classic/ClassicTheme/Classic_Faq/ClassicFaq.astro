@@ -2,7 +2,12 @@
 // ClassicFaq.astro - Enhanced version
 import "./ClassicFaq.css";
 import type { BlockData, Faqs, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const faqs: Item[] = data.items ?? [];
@@ -17,7 +22,7 @@ const faqs: Item[] = data.items ?? [];
     <!-- Header -->
     <div class="classic-section-header">
         <i class={data.icon} aria-hidden="true"></i>
-        <h5 id="faq-heading">{data.title}</h5>
+        <h5 id="faq-heading">{isArabic ? data.title_ar : data.title_en}</h5>
     </div>
     
     <!-- FAQ Items -->

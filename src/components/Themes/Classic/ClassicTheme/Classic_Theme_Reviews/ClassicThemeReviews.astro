@@ -1,8 +1,13 @@
 ---
 import "./ClassicThemeReviews.css";
 import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const reviews: Item[] = data.items ?? [];
@@ -13,7 +18,7 @@ const reviews: Item[] = data.items ?? [];
   aria-labelledby="reviews-heading"
 >
   <h2 id="reviews-heading" class="classic-section-header">
-    {data.title}
+    {isArabic ? data.title_ar : data.title_en}
   </h2>
   
   <div 

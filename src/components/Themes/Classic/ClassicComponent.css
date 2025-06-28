@@ -28,6 +28,10 @@
     color: var(--classic-color-on-surface);
     margin-bottom: var(--classic-header-center-margin-bottom);
 }
+.classic-divider {
+    background: linear-gradient(to right, var(--classic-color-tertiary), var(--classic-color-secondary));
+}
+
 
 /* === Scroll to Top Button === */
 .classic-scrollToTopBtn {
