@@ -1,6 +1,6 @@
 ---
+import "./ClassicBundleOptionsContainer.css";
 import type { CustomOptions, Product } from "../../../../../../lib/api/types";
-import "./ClassicDynamicPannelContainer.css";
 import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
 
 const product: Product = Astro.props.product;
@@ -236,5 +236,5 @@ if (isHaveVariant === "true" && customOptions) {
   </classic-select-options-bundles>
 </div>
 <script>
-  import "./ClassicDynamicPannelContainer";
+  import "./ClassicBundleOptionsContainer";
 </script>

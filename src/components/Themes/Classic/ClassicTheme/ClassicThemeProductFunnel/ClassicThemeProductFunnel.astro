@@ -8,9 +8,9 @@ const product : Product = Astro.props.product;
 const initialOffer = data[0];
 
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
-import ClassicQuantityOptions from "../UI/ClassicQuantityOptions/ClassicQuantityOptions.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import ClassicProductCosts from "../UI/ClassicProductCosts/classicProductCosts.astro";
+import ClassicBundleOptions from "../UI/ClassicBundleOptions/ClassicBundleOptions.astro";
 
 // Component configuration
 const autoUpdate = Astro.props.autoUpdate ?? true;
@@ -19,7 +19,7 @@ const currency = Astro.props.currency ?? getTranslation('productFunnel.currency'
 ---
 
 <div id={FunnelClassicComponents.ClassicProductFunnel} class="w-full flex flex-col gap-2">
-  <ClassicQuantityOptions data={data} product={product} />
+  <ClassicBundleOptions data={data} product={product} />
   <ClassicProductCosts hasBundles="true" />
 </div>
 

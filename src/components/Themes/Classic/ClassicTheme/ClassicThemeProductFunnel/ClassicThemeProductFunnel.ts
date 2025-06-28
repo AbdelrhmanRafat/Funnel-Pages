@@ -101,7 +101,7 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
     // Always get the latest state from both subjects
     const quantityState = this.quantitySubject.getState();
     const deliveryState = this.deliverySubject.getState();
-    const offer = quantityState.selectedItem as PurchaseOption;
+    const offer = quantityState.selectedOffer as PurchaseOption;
 
     if (!offer) {
       // Fallback to initial offer if no selection

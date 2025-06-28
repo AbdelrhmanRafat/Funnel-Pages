@@ -80,8 +80,8 @@ class ClassicProductFunnel extends HTMLElement implements Observer<any> {
   }
 
   private loadBundleData(state: any): void {
-    if (state.selectedItem) {
-      this.currentOffer = state.selectedItem as PurchaseOption;
+    if (state.selectedOffer) {
+      this.currentOffer = state.selectedOffer as PurchaseOption;
     } else if (state.items && state.items.length > 0) {
       // If no selection, use the first available option as default
       this.currentOffer = state.items[0] as PurchaseOption;

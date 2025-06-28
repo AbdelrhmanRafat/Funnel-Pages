@@ -1,8 +1,8 @@
 ---
-import "./ClassicQuantityOptions.css";
+import "./ClassicBundleOptions.css";
 import type { BlockData, OptionOption, Product } from "../../../../../../lib/api/types";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
-import ClassicDynamicPannelContainer from "../ClassicDynamicPanelContainer/ClassicDynamicPannelContainer.astro";
+import ClassicBundleOptionsContainer from "../ClassicBundleOptionsContainer/ClassicBundleOptionsContainer.astro";
 
 const data: BlockData[] = Astro.props.data;
 const product : Product = Astro.props.product;
@@ -118,7 +118,7 @@ const name = "qty";
         data-offer-option-id={`${name}${index + 1}`}
       >
         {[...Array(item.items)].map((_, panelIndex) => (
-          <ClassicDynamicPannelContainer
+          <ClassicBundleOptionsContainer
             product={product}
             key={panelIndex}
             panel-index={panelIndex + 1}
@@ -135,5 +135,5 @@ const name = "qty";
 </offer-selector>
 
 <script>
-  import "./ClassicQuantityOptions";
+  import "./ClassicBundleOptions";
 </script>
