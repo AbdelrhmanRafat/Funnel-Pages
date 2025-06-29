@@ -12,6 +12,7 @@ export interface FunnelRes {
 // Represents the main data object within the API response.
 export interface Data {
     product: Product;
+    themeCss : string;
     theme: string;
     accept_online_payment: boolean;
     blocks: Block[];

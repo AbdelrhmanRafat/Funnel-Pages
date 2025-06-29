@@ -704,6 +704,7 @@
         },
         "theme": "classic",
         "accept_online_payment": true,
+                "themeCss" : "https://classic-theme.vercel.app/classic-theme.css",
         "blocks": [
               {
                 "name": "classic_header",

@@ -1,8 +1,11 @@
 ---
 import type { Meta } from "../lib/api/types";
+
 const metadata: Meta = Astro.props.metadata;
-const strThemeName : string = Astro.props.strThemeName;
+const strThemeName: string = Astro.props.strThemeName;
+const themeCss: string = Astro.props.themeCss;
 ---
+
 <!doctype html>
 <html>
 	<head>
@@ -24,10 +27,10 @@ const strThemeName : string = Astro.props.strThemeName;
 			}
 		</style>
 		
-		<!-- Preload the external CSS -->
+		<!-- Preload the dynamic CSS -->
 		<link 
 			rel="preload" 
-			href={`https://classic-theme.vercel.app/classic-theme.css?v=${Date.now()}`}
+			href={`${themeCss}?v=${Date.now()}`}
 			as="style" 
 			onload="this.onload=null;this.rel='stylesheet'"
 		/>
@@ -46,8 +49,8 @@ const strThemeName : string = Astro.props.strThemeName;
 			sizes="180x180"
 			href="/apple-touch-icon.png"
 		/>
-       <!-- stylesheet -->
-	   <link rel="stylesheet" href={`Theme-Styling/${strThemeName}-root.css`} />
+		<!-- stylesheet -->
+		<link rel="stylesheet" href={`Theme-Styling/${strThemeName}-root.css`} />
 		<!-- Open Graph / Facebook Meta Tags -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://www.yourdomain.com/page-url" />
@@ -73,15 +76,16 @@ const strThemeName : string = Astro.props.strThemeName;
 		<slot />
 	</body>
 </html>
-<script is:inline>
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = 'https://classic-theme.vercel.app/classic-theme.css?v=' + Date.now();
-  
-  // Show body when CSS is loaded
-  link.onload = function() {
-    document.body.classList.add('loaded');
-  };
-  
-  document.head.appendChild(link);
+
+<script is:inline define:vars={{ themeCss }}>
+	const link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.href = themeCss + '?v=' + Date.now();
+	
+	// Show body when CSS is loaded
+	link.onload = function() {
+		document.body.classList.add('loaded');
+	};
+	
+	document.head.appendChild(link);
 </script>

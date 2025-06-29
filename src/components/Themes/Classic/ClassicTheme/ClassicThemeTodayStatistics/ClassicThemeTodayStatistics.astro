@@ -4,12 +4,7 @@
 // Props:
 // - data: An object of type BlockData, expected to contain `counters` array.
 import "./ClassicThemeTodayStatistics.css";
-import type {
-  BlockData,
-  Counter,
-  Image,
-  Item,
-} from "../../../../../lib/api/types";
+import type { BlockData, Item } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 
@@ -31,9 +26,9 @@ const isArabic = currentLang === "ar";
       class="classic-middle-title flex flex-col justify-center items-center gap-3"
     >
       <h3>
-        {isArabic ? data.title_ar : data.title_en}
+        {data.title}
       </h3>
-      <div class="w-24 h-1 classic-divider mx-auto rounded-full" role="presentation"></div>
+      <div class="w-24 h-1 classic-divider mx-auto rounded-full"></div>
     </div>
 
     <div class="classic-statistics-minimal-container py-12">
@@ -44,15 +39,14 @@ const isArabic = currentLang === "ar";
           counters.map((counter, index) => (
             <div class="classic-counter-minimal-item flex-1 max-w-xs text-center relative">
               {/* Large animated number */}
-              <i
-                class={`${counter.icon} classic-counter-minimal-label text-5xl font-bold mt-4 leading-relaxed`}
-              ></i>
               <div class="classic-theme-today-order-count p-0 flex justify-center items-center gap-4 text-6xl md:text-7xl lg:text-8xl font-black leading-none">
                 <span>+</span>
                 <h5 class="classic-order-counter" data-target={counter.content}>
                   0
                 </h5>
               </div>
+
+              {/* Green label text */}
               <div class="classic-counter-minimal-label text-2xl font-bold mt-4 leading-relaxed">
                 {counter.label}
               </div>
@@ -60,7 +54,7 @@ const isArabic = currentLang === "ar";
               {/* Divider line – only if not the last item */}
               {index !== counters.length - 1 && (
                 <div
-                  class={`classic-section-divider hidden md:block absolute top-1/2 -translate-y-1/2 h-20 w-[3px] rounded-full 
+                  class={`classic-divider hidden md:block absolute top-1/2 -translate-y-1/2 h-20 w-[3px] rounded-full 
       ${isArabic ? "left-[-2.5rem]" : "right-[-2.5rem]"}`}
                 />
               )}

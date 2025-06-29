@@ -16,7 +16,7 @@ const strTheme: string = funnelPage.data.theme;
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
 const meta = funnelPage.data.product.meta; 
 ---
-<Layout metadata={meta} strThemeName={strTheme}>
+<Layout metadata={meta} strThemeName={strTheme} themeCss={funnelPage.data.themeCss}>
   {
     (() => {
       // Selects and renders the appropriate theme component based on the Theme enum value.

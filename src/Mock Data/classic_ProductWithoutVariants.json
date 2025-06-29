@@ -209,6 +209,7 @@
             ]
         },
         "theme": "classic",
+        "themeCss" : "https://classic-theme.vercel.app/classic-theme.css",
         "accept_online_payment": true,
         "blocks": [
               {
