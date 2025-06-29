@@ -48,7 +48,7 @@ const ImageTextData: Item | undefined = data.items?.[0];
         {ImageTextData?.label || 'Product'}
       </h2>
       <p class="classic-image-text-beside-description text-base leading-relaxed">
-        {data.description || 'No description available'}
+        {ImageTextData?.content || 'No description available'}
       </p>
       <div class="flex-1"></div>
       <ClassicBuyNowButton />

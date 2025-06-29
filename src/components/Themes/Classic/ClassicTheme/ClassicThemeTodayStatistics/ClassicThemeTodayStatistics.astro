@@ -26,7 +26,7 @@ const isArabic = currentLang === "ar";
       class="classic-middle-title flex flex-col justify-center items-center gap-3"
     >
       <h3>
-        {data.title}
+        {isArabic ? data.title_ar : data.title_en}
       </h3>
       <div class="w-24 h-1 classic-divider mx-auto rounded-full"></div>
     </div>
@@ -41,7 +41,7 @@ const isArabic = currentLang === "ar";
               {/* Large animated number */}
               <div class="classic-theme-today-order-count p-0 flex justify-center items-center gap-4 text-6xl md:text-7xl lg:text-8xl font-black leading-none">
                 <span>+</span>
-                <h5 class="classic-order-counter" data-target={counter.content}>
+                <h5 class="classic-order-counter" data-target={counter.number}>
                   0
                 </h5>
               </div>

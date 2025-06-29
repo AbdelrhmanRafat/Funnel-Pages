@@ -18,7 +18,7 @@ const availableAnchors = funnelPage?.blocks
     const component = getClassicThemeComponent(block.name);
     
     // Check if component exists and has title from API
-    if (component && block.data?.title) {
+    if (component) {
       return {
         component: component,
         componentData: block.data
@@ -51,7 +51,8 @@ const RENDER_ORDER = [
   FunnelClassicComponents.ClassicFooter,
 ];
 
-// Safe filtering with additional null checks
+
+ // Safe filtering with additional null checks
 const orderedAnchors = RENDER_ORDER
   .map(component => {
     const foundAnchor = availableAnchors.find(anchor => 
@@ -65,9 +66,11 @@ const orderedAnchors = RENDER_ORDER
       anchor !== null &&
       !!anchor.component &&
       !!anchor.componentData &&
-      !!anchor.componentData.title &&
-      typeof anchor.componentData.title === 'string' &&
-      anchor.componentData.title.trim() !== ''
+      // Check for language-specific titles instead of generic 'title'
+      (
+        (!!anchor.componentData.title_en && anchor.componentData.title_en.trim() !== '') ||
+        (!!anchor.componentData.title_ar && anchor.componentData.title_ar.trim() !== '')
+      )
     );
   });
 ---
@@ -78,8 +81,7 @@ const orderedAnchors = RENDER_ORDER
     class="classic-desktop-nav hidden md:block w-full mt-4 pt-4"
     data-navigation-items={JSON.stringify(orderedAnchors.map(anchor => ({
       id: anchor.component,
-      title: anchor.componentData.title
-    })))}
+      title: isArabic ? anchor.componentData.title_ar : anchor.componentData.title_en})))}
     data-max-visible-items="6"
     data-overflow-threshold="800"
   >
@@ -93,7 +95,7 @@ const orderedAnchors = RENDER_ORDER
           <ul class="flex items-center gap-2 transition-all duration-300" data-nav-list>
             {orderedAnchors.map((anchor, index) => {
               // Additional safety check during rendering
-              if (!anchor || !anchor.component || !anchor.componentData?.title) {
+              if (!anchor || !anchor.component) {
                 return null;
               }
               

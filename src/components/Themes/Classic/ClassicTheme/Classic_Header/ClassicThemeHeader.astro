@@ -4,13 +4,17 @@ import type { BlockData, Data } from "../../../../../lib/api/types";
 import ClassicLanguageSwitcher from "../UI/ClassicLanguageSwitcher/ClassicLanguageSwitcher.astro";
 import ClassicNavigationMenuDesktop from "../ClassicNavigationMenuDesktop/ClassicNavigationMenuDesktop.astro";
 import ClassicNavigationMenuMobile from "../ClassicNavigationMenuMobile/ClassicNavigationMenuMobile.astro";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 
 const data: BlockData = Astro.props.data;
 const funnelPage: Data = Astro.props.funnelPage;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
 
 const logo = data?.items?.[0]?.image;
-const title = data?.title || "";
-const subtitle = data?.description || "";
+const title = (isArabic ? data?.title_ar : data?.title_en) || "";
+const subtitle = data?.items?.[0]?.content || "";
 ---
 <header>
   <div id="classic-header" class="classic-header fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out">

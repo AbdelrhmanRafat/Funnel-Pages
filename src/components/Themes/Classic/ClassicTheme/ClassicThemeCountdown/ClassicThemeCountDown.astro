@@ -17,7 +17,7 @@ const data: BlockData = Astro.props.data;
 const items: Item[] = data.items ?? [];
 function getValue(name: string): number {
   const item = items.find(i => i.name?.toLocaleLowerCase() === name);
-  return parseInt(item?.content || '0') || 0;
+  return parseInt(item?.number || '0') || 0;
 }
 
 const hours = getValue("hours");
@@ -25,7 +25,6 @@ const minutes = getValue("minutes");
 const seconds = getValue("seconds");
 
 const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-
 ---
 
 <!-- Elegant Countdown Timer with proper spacing for fixed header -->

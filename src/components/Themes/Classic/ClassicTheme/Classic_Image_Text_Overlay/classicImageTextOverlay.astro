@@ -51,7 +51,7 @@ const ImageTextData: Item | undefined = data.items?.[0];
             {ImageTextData?.label || 'Featured Product'}
           </h2>
           <p class="classic-image-text-overlay-subtitle text-sm sm:text-base md:text-lg leading-relaxed opacity-90">
-            {data.description || 'Discover our featured product'}
+            {ImageTextData?.content || 'Discover our featured product'}
           </p>
           <div class="pt-4">
             <ClassicBuyNowButton />

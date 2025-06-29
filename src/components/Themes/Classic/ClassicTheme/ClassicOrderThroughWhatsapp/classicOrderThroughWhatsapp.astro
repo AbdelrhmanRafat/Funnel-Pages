@@ -2,14 +2,20 @@
 import "./classicOrderThroughWhatsapp.css";
 import type { BlockData, Features } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
 
 const data: BlockData = Astro.props.data;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const title = isArabic ? data.title_ar : data.title_en;
 ---
 <section id={FunnelClassicComponents.ClassicOrderThroughWhatsapp} class="w-full">
   <a href={data.items?.[0].link} target="_blank" class="cursor-pointer">
   <div class="classic-order-through-whatsapp">
     <div class="flex justify-center items-center gap-5 text-2xl">
-    <h4>{data.title}</h4>
+    <h4>{title}</h4>
     <i class="fa-brands fa-whatsapp text-4xl text-green-700"></i>
     </div>
   </div>

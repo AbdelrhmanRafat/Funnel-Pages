@@ -10,6 +10,7 @@ const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const productFeatures: Item[] = data.items ?? [];
+const title = isArabic ? data.title_ar : data.title_en;
 ---
 
 <section 
@@ -19,7 +20,7 @@ const productFeatures: Item[] = data.items ?? [];
   <!-- Header -->
   <div class="classic-section-header">
     <i class={data.icon} aria-hidden="true"></i>
-    <h5>{isArabic ? data.title_ar : data.title_en}</h5>
+    <h5>{title}</h5>
   </div>
   
   <!-- Features Grid -->

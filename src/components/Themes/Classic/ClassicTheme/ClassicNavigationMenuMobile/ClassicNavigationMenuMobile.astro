@@ -20,7 +20,7 @@ const availableAnchors = funnelPage?.blocks
     const component = getClassicThemeComponent(block.name);
     
     // Check if component exists and has title from API
-    if (component && block.data?.title) {
+    if (component) {
       return {
         component: component,
         componentData: block.data
@@ -68,9 +68,11 @@ const orderedAnchors = RENDER_ORDER
       anchor !== null &&
       !!anchor.component &&
       !!anchor.componentData &&
-      !!anchor.componentData.title &&
-      typeof anchor.componentData.title === 'string' &&
-      anchor.componentData.title.trim() !== ''
+      // Check for language-specific titles instead of generic 'title'
+      (
+        (!!anchor.componentData.title_en && anchor.componentData.title_en.trim() !== '') ||
+        (!!anchor.componentData.title_ar && anchor.componentData.title_ar.trim() !== '')
+      )
     );
   });
 ---
@@ -106,11 +108,10 @@ const orderedAnchors = RENDER_ORDER
     <!-- Menu Items with API Titles -->
     <nav class="classic-menu-nav flex-1" role="navigation" aria-label="Main navigation">
       <ul class="classic-menu-list space-y-2" role="list">
-
         <!-- Auto-generated navigation items -->
         {orderedAnchors.map((anchor, index) => {
           // Additional safety check during rendering
-          if (!anchor || !anchor.component || !anchor.componentData?.title) {
+          if (!anchor || !anchor.component) {
             return null;
           }
           

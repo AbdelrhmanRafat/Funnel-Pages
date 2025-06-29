@@ -29,7 +29,7 @@ export interface BlockData {
   title?: string,
   title_ar? : string,
   title_en? : string,
-  icon?: string
+  icon?: string,
   description?: string
   items?: Item[]
   buttonLabel?: string
@@ -52,6 +52,7 @@ export interface Item {
   name? : string;
   label? : string;
   content? : string;
+  number : Number,
   link? : string;
   icon? : string;
   image? : string;
