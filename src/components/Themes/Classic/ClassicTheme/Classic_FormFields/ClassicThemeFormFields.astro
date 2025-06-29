@@ -24,9 +24,9 @@ let cities: string[] = [];
 let paymentOptions: PaymentOption[] = [];
 let deliveryOptions: DeliveryOption[] = [];
 
-if (formInputs.cities !== null) cities = formInputs.cities ?? [];
-if (formInputs.PaymentOptions !== null) paymentOptions = formInputs.PaymentOptions ?? [];
-if (formInputs.DeliveryOptions !== null) deliveryOptions = formInputs.DeliveryOptions ?? [];
+if (formInputs?.cities !== null) cities = formInputs?.cities ?? [];
+if (formInputs?.PaymentOptions !== null) paymentOptions = formInputs?.PaymentOptions ?? [];
+if (formInputs?.DeliveryOptions !== null) deliveryOptions = formInputs?.DeliveryOptions ?? [];
 ---
 
 <!-- MAIN FORM SECTION -->
@@ -64,44 +64,44 @@ if (formInputs.DeliveryOptions !== null) deliveryOptions = formInputs.DeliveryOp
         
         <div class="space-y-4">
           <!-- FULL NAME INPUT FIELD -->
-          <div>
-            <label
-              for="form-fullName"
-              class="classic-form-label block mb-2 text-sm font-medium"
-              data-translate="form.fullName"
-            >
-            </label>
-            <input
+          <div class="classic-form-group">
+             <input
               type="text"
               id="form-fullName"
-              placeholder={formInputs.full_name}
               class="classic-form-input text-right text-sm"
               aria-describedby="form-fullName-error"
               required
             />
+            <label
+              for="form-fullName"
+              class="classic-form-label"
+              data-translate="form.fullName"
+            >
+            </label>
             <span
               id="form-fullName-error"
               class="classic-form-error text-xs"
               role="alert"
+              style="display: none;"
             ></span>
           </div>
           
           <!-- PHONE NUMBER INPUT FIELD -->
-          <div>
-            <label
-              for="form-phone"
-              class="classic-form-label block mb-2 text-sm font-medium"
-              data-translate="form.phoneNumber"
-            >
-            </label>
-            <input
+          <div class="classic-form-group">
+          <input
               type="tel"
               id="form-phone"
-              placeholder={formInputs.phone}
               class="classic-form-input text-right text-sm"
               aria-describedby="form-phone-error"
               required
             />
+            <label
+              for="form-phone"
+              class="classic-form-label"
+              data-translate="form.phoneNumber"
+            >
+            </label>
+            
             <span
               id="form-phone-error"
               class="classic-form-error text-xs"
@@ -111,20 +111,20 @@ if (formInputs.DeliveryOptions !== null) deliveryOptions = formInputs.DeliveryOp
           </div>
           
           <!-- EMAIL INPUT FIELD -->
-          <div>
-            <label
-              for="form-email"
-              class="classic-form-label block mb-2 text-sm font-medium"
-              data-translate="form.email"
-            >
-            </label>
-            <input
+          <div class="classic-form-group">
+             <input
               type="email"
               id="form-email"
               class="classic-form-input text-right text-sm"
               aria-describedby="form-email-error"
               required
             />
+            <label
+              for="form-email"
+              class="classic-form-label block mb-2 text-sm font-medium"
+              data-translate="form.email"
+            >
+            </label>
             <span
               id="form-email-error"
               class="classic-form-error text-xs"
@@ -134,19 +134,20 @@ if (formInputs.DeliveryOptions !== null) deliveryOptions = formInputs.DeliveryOp
           </div>
           
           <!-- ADDRESS TEXTAREA FIELD -->
-          <div>
+          <div class="classic-form-group">
+              <textarea
+              id="form-address"
+              class="classic-form-input text-right min-h-[80px] resize-y text-sm"
+              aria-describedby="form-address-error"
+              required
+            ></textarea>
             <label
               for="form-address"
               class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.address"
             >
             </label>
-            <textarea
-              id="form-address"
-              class="classic-form-input text-right min-h-[80px] resize-y text-sm"
-              aria-describedby="form-address-error"
-              required
-            ></textarea>
+
             <span
               id="form-address-error"
               class="classic-form-error text-xs"
@@ -321,19 +322,19 @@ if (formInputs.DeliveryOptions !== null) deliveryOptions = formInputs.DeliveryOp
           )}
           
           <!-- NOTES TEXTAREA FIELD -->
-          <div>
+          <div class="classic-form-group">
+              <textarea
+              id="form-notes"
+              placeholder=""
+              class="classic-form-input text-right min-h-[100px] resize-y text-sm"
+              aria-describedby="form-notes-error"
+            ></textarea>
             <label
               for="form-notes"
               class="classic-form-label block mb-2 text-sm font-medium"
               data-translate="form.notes"
             >
             </label>
-            <textarea
-              id="form-notes"
-              placeholder=""
-              class="classic-form-input text-right min-h-[100px] resize-y text-sm"
-              aria-describedby="form-notes-error"
-            ></textarea>
             <span
               id="form-notes-error"
               class="classic-form-error text-xs"

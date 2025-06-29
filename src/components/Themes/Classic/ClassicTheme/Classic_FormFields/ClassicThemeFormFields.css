@@ -16,46 +16,89 @@
     color: var(--classic-color-on-surface);
 }
 
-/* Form labels */
-.classic-form-label {
-    color: var(--classic-color-on-surface);
+/* Improved Input Group */
+.classic-form-group {
+    position: relative;
+    width: 100%;
 }
 
-/* Input fields and textareas */
+/* Input field styling */
 .classic-form-input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--classic-color-outline);
-    border-radius: 0.5rem; /* Tailwind: rounded-lg */
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--classic-color-outline);
+    border-radius: 12px;
     color: var(--classic-color-on-surface);
     background-color: var(--classic-color-surface);
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
-/* Focus state for inputs */
-.classic-form-input:focus {
-    outline: none;
+/* Floating label styling */
+.classic-form-label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--classic-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--classic-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Focus and valid states for input */
+.classic-form-input:focus,
+.classic-form-input:valid {
     border-color: var(--classic-color-primary);
     box-shadow: var(--classic-section-shadow);
 }
 
-/* Placeholder text styling */
-.classic-form-input::placeholder {
-    color: var(--classic-color-on-surface-variant);
+/* Floating label animation */
+.classic-form-input:focus~.classic-form-label,
+.classic-form-input:valid~.classic-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--classic-color-primary);
+    font-weight: 600;
 }
 
-/* Error message styling */
+/* Error state styling */
 .classic-form-error {
     display: block;
+    font-size: 0.875rem;
     color: var(--classic-color-error);
-    margin-block: 0.25rem; /* Tailwind: mt-1 */
+    min-height: 1.25rem;
 }
+
+/* RTL support */
+.classic-form-input.text-right {
+    text-align: right;
+    direction: rtl;
+}
+
+.classic-form-input.text-right~.classic-form-label {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+
+.classic-form-input.text-right:focus~.classic-form-label,
+.classic-form-input.text-right:valid~.classic-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
 
 /* Payment and delivery option containers */
 .classic-form-payment-option {
-    padding: 0.75rem; /* Tailwind: p-3 */
+    padding: 0.75rem;
+    /* Tailwind: p-3 */
     border: 1px solid var(--classic-color-outline);
-    border-radius: 0.5rem; /* Tailwind: rounded-lg */
+    border-radius: 0.5rem;
+    /* Tailwind: rounded-lg */
     cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -112,12 +155,12 @@
 }
 
 /* Active state for custom radio indicator */
-.classic-form-payment-option input[type="radio"]:checked + .classic-form-payment-option-content .classic-form-radio-indicator {
+.classic-form-payment-option input[type="radio"]:checked+.classic-form-payment-option-content .classic-form-radio-indicator {
     border-color: var(--classic-color-primary);
     background-color: var(--classic-color-primary);
 }
 
-.classic-form-payment-option input[type="radio"]:checked + .classic-form-payment-option-content .classic-form-radio-dot {
+.classic-form-payment-option input[type="radio"]:checked+.classic-form-payment-option-content .classic-form-radio-dot {
     background-color: var(--classic-color-surface);
 }
 
@@ -127,7 +170,7 @@
 }
 
 .classic-text-error {
-    color: var(--classic-color-error) !important;   
+    color: var(--classic-color-error) !important;
 }
 
 .classic-border-success {
@@ -140,6 +183,7 @@
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
+
     .classic-form-input,
     .classic-form-payment-option,
     .classic-form-radio-indicator,
@@ -153,7 +197,7 @@
     .classic-form-input {
         border-width: 2px;
     }
-    
+
     .classic-form-payment-option {
         border-width: 2px;
     }

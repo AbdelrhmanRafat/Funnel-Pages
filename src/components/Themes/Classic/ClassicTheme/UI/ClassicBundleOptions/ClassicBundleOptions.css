@@ -17,7 +17,12 @@
     box-shadow: var(--classic-section-shadow);
 }
 
-
+.classic-bundle-options-label:has(:checked) {
+    border-color: var(--classic-color-primary);
+    background-color: var(--classic-color-primary-light);
+    background-color: rgba(79, 182, 172, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
 
 .classic-bundle-options-option-title {
     color: var(--classic-color-on-surface);
