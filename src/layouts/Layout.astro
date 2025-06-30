@@ -16,28 +16,35 @@ const facebookPixelID = Astro.props.facebookPixelID;
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<link rel="icon" type="image/svg+xml+png" href={metadata.image} />
 		<meta name="generator" content={Astro.generator} />
-		
+
 		<!-- SOLUTION 2: Hide body initially -->
 		<style>
-			body { 
-				opacity: 0; 
-				transition: opacity 0.3s ease-in-out; 
+			body {
+				opacity: 0;
+				transition: opacity 0.3s ease-in-out;
 			}
-			body.loaded { 
-				opacity: 1; 
+			body.loaded {
+				opacity: 1;
 			}
 		</style>
-		
+
 		<!-- Preload the dynamic CSS -->
-		<link 
-			rel="preload" 
+		<link
+			rel="preload"
 			href={`${themeCss}?v=${Date.now()}`}
-			as="style" 
+			as="style"
 			onload="
 this.onload=null;this.rel='stylesheet'"
 		/>
+		<script>
+			import { initFacebookPixel } from "../lib/Tracking/facebook-tracking";
+			initFacebookPixel("2252582971811800");
+		</script>
+		<script>
+			import { initTikTokPixel } from "../lib/Tracking/tiktok-tracking";
+			initTikTokPixel("D1H8EHJC77U0TEH3GQF0");
+		</script>
 
-		
 		<!-- SEO Meta Tags -->
 		<title>{metadata.title}</title>
 		<meta name="description" content={metadata.description} />
@@ -53,7 +60,10 @@ this.onload=null;this.rel='stylesheet'"
 			href="/apple-touch-icon.png"
 		/>
 		<!-- stylesheet -->
-		<link rel="stylesheet" href={`Theme-Styling/${strThemeName}-root.css`} />
+		<link
+			rel="stylesheet"
+			href={`Theme-Styling/${strThemeName}-root.css`}
+		/>
 		<!-- Open Graph / Facebook Meta Tags -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://www.yourdomain.com/page-url" />
@@ -69,10 +79,7 @@ this.onload=null;this.rel='stylesheet'"
 		<meta name="twitter:creator" content="@ContentCreator" />
 		<meta name="twitter:title" content={metadata.title} />
 		<meta name="twitter:description" content={metadata.description} />
-		<meta
-			name="twitter:image"
-			content={metadata.image}
-		/>
+		<meta name="twitter:image" content={metadata.image} />
 		<meta name="twitter:image:alt" content={metadata.title} />
 	</head>
 	<body>
@@ -81,32 +88,14 @@ this.onload=null;this.rel='stylesheet'"
 </html>
 
 <script is:inline define:vars={{ themeCss }}>
-	const link = document.createElement('link');
-	link.rel = 'stylesheet';
-	link.href = themeCss + '?v=' + Date.now();
-	
+	const link = document.createElement("link");
+	link.rel = "stylesheet";
+	link.href = themeCss + "?v=" + Date.now();
+
 	// Show body when CSS is loaded
-	link.onload = function() {
-		document.body.classList.add('loaded');
+	link.onload = function () {
+		document.body.classList.add("loaded");
 	};
-	
+
 	document.head.appendChild(link);
-
 </script>
-
-<!-- <script>
-import { initFacebookPixel } from '../lib/Tracking/facebook-tracking';
-
-document.addEventListener('DOMContentLoaded', () => {
-  initFacebookPixel('2252582971811800'); // Call here to ensure DOM is ready
-});
-</script> -->
-
-
-
-
-<script>
-import { initFacebookPixel } from "../lib/Tracking/facebook-tracking";
-initFacebookPixel("2252582971811800");
-</script>
-
