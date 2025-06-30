@@ -5,12 +5,14 @@ import { DeliveryOptionsSubject } from '../../../../../lib/patterns/Observers/de
 import { PaymentOptionsSubject } from '../../../../../lib/patterns/Observers/payment-observer';
 import { CustomOptionsNonBundleSubject } from '../../../../../lib/patterns/Observers/custom-options-non-bundle';
 import { BundleOptionsSubject } from '../../../../../lib/patterns/Observers/bundle-observer';
-import { CustomOptionBundlesSubject } from '../../../../../lib/patterns/Observers/custom-option-observer-bundles';
+import { CustomOptionBundlesSubject, type CustomOption } from '../../../../../lib/patterns/Observers/custom-option-observer-bundles';
+import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
 
 // Simplified interfaces
 interface ModalElements {
   modal: HTMLElement | null;
   overlay: HTMLElement | null;
+  selectionItemsContainer : HTMLElement | null;
   cancelButton: HTMLElement | null;
   purchaseView: HTMLElement | null;
   celebrationView: HTMLElement | null;
@@ -18,7 +20,7 @@ interface ModalElements {
 }
 
 interface ObserverSubjects {
-  customOptions: CustomOptionBundlesSubject;
+  customOptionBundlesSubject: CustomOptionBundlesSubject;
   bundle: BundleOptionsSubject;
   formFields: FormFieldsSubject;
   delivery: DeliveryOptionsSubject;
@@ -31,11 +33,12 @@ class ClassicPurchaseModal extends HTMLElement {
     modal: null,
     overlay: null,
     cancelButton: null,
+    selectionItemsContainer : null,
     purchaseView: null,
     celebrationView: null,
     continueButton: null
   };
-
+  private currentLang: Language = 'en';
   private subjects: ObserverSubjects;
   private hasVariants: boolean = false;
   private hasBundles: boolean = false;
@@ -44,13 +47,14 @@ class ClassicPurchaseModal extends HTMLElement {
     super();
     // Initialize all observers
     this.subjects = {
-      customOptions: CustomOptionBundlesSubject.getInstance(),
+      customOptionBundlesSubject: CustomOptionBundlesSubject.getInstance(),
       bundle: BundleOptionsSubject.getInstance(),
       formFields: FormFieldsSubject.getInstance(),
       delivery: DeliveryOptionsSubject.getInstance(),
       payment: PaymentOptionsSubject.getInstance(),
       customNonBundle: CustomOptionsNonBundleSubject.getInstance()
     };
+    this.currentLang = this.detectLanguage();
   }
 
   connectedCallback() {
@@ -70,12 +74,20 @@ class ClassicPurchaseModal extends HTMLElement {
     this.hasBundles = this.getAttribute('data-has-bundles') === 'true';
   }
 
+  private detectLanguage(): Language {
+    const langCookie = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('lang='))
+      ?.split('=')[1];
+    return (langCookie || 'en') as Language;
+  }
   private cacheElements(): void {
     this.elements = {
       modal: this.querySelector('[data-modal-container]'),
       overlay: this.querySelector('[data-modal-overlay]'),
       cancelButton: this.querySelector('[data-modal-cancel-button]'),
       purchaseView: this.querySelector('[data-modal-purchase-info-view]'),
+      selectionItemsContainer : this.querySelector('[data-modal-selection-items]'),
       celebrationView: this.querySelector('[data-modal-celebration-view]'),
       continueButton: this.querySelector('[data-modal-celebration-continue-button]')
     };
@@ -189,6 +201,24 @@ class ClassicPurchaseModal extends HTMLElement {
       ? `${offer.discount} جنيه (${offer.discount_percent})`
       : 'لا يوجد خصم';
     this.updateText('[data-modal-discount-info]', discountText);
+    if(this.hasVariants) {
+    const bundleOptions = this.subjects.customOptionBundlesSubject.getState();
+    // Update Bundle custom options
+    this.populateCustomOptions(bundleOptions.options);
+    }
+ 
+  }
+
+    private populateCustomOptions(customOptions: CustomOption[]): void {
+    const container = this.elements.selectionItemsContainer;
+    if (!container || !customOptions) return;
+    container.innerHTML = customOptions.map(option => `
+      <div class="classic-selection-item">
+          <div class="classic-panel-info">${getTranslation('modal.item', this.currentLang)} ${option.panelIndex}</div>
+          <div class="classic-selection-display"><span>${option.firstOption}</span></div>
+          <div class="classic-selection-display"><span>${option.secondOption}</span></div>
+      </div>
+    `).join('');
   }
 
   private loadDirectData(customState: any): void {

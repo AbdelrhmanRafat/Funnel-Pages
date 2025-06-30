@@ -23,7 +23,6 @@ class ClassicGallery extends HTMLElement {
     private autoPlayInterval: number | null = null;
     private autoPlayEnabled: boolean = false;
     private autoPlayDelay: number = 5000;
-    private enableKeyboard: boolean = true;
     private enableTouch: boolean = true;
 
     constructor() {
@@ -37,9 +36,7 @@ class ClassicGallery extends HTMLElement {
         this.setupEventListeners();
         this.updateDisplay();
         
-        if (this.enableKeyboard) {
-            this.setupKeyboardNavigation();
-        }
+       
         
         if (this.enableTouch) {
             this.setupTouchNavigation();
@@ -57,7 +54,6 @@ class ClassicGallery extends HTMLElement {
     private initializeSettings(): void {
         this.autoPlayEnabled = this.getAttribute('data-gallery-auto-play') === 'true';
         this.autoPlayDelay = parseInt(this.getAttribute('data-gallery-auto-play-delay') || '5000');
-        this.enableKeyboard = this.getAttribute('data-gallery-enable-keyboard') !== 'false';
         this.enableTouch = this.getAttribute('data-gallery-enable-touch') !== 'false';
     }
 

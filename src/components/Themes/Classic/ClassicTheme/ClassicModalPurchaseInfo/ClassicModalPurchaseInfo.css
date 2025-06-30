@@ -282,7 +282,8 @@
 
 .classic-summary-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
+  gap: 1rem;
   align-items: center;
   padding: 0.75rem 0;
   border-bottom: 1px solid var(--classic-color-outline);
@@ -306,11 +307,7 @@
   color: var(--classic-color-success) !important;
 }
 
-/* Selection Items */
-.classic-selection-items {
-  display: grid;
-  gap: 0.75rem;
-}
+
 
 .classic-selection-item {
   background: var(--classic-color-background);
@@ -318,7 +315,7 @@
   border-radius: 0.75rem;
   padding: 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   gap: 1rem;
 }
@@ -329,8 +326,7 @@
   font-size: 0.875rem;
 }
 
-.classic-color-display,
-.classic-size-display {
+.classic-selection-display {
   padding: 0.25rem 0.75rem;
   background: var(--classic-color-surface-container);
   color: var(--classic-color-on-surface);

@@ -5,6 +5,10 @@ const metadata: Meta = Astro.props.metadata;
 const strThemeName: string = Astro.props.strThemeName;
 const themeCss: string = Astro.props.themeCss;
 const facebookPixelID = Astro.props.facebookPixelID;
+const twitterPixelID = Astro.props.twitterPixelID;
+const snapchatPixelID = Astro.props.snapchatPixelID;
+const tiktokPixelID = Astro.props.tiktokPixelID;
+
 ---
 
 <!doctype html>
@@ -36,22 +40,40 @@ const facebookPixelID = Astro.props.facebookPixelID;
 			onload="
 this.onload=null;this.rel='stylesheet'"
 		/>
-		<script>
-			import { initFacebookPixel } from "../lib/Tracking/facebook-tracking";
-			initFacebookPixel("2252582971811800");
-		</script>
-		<script>
-			import { initTikTokPixel } from "../lib/Tracking/tiktok-tracking";
-			initTikTokPixel("D1H8EHJC77U0TEH3GQF0");
-		</script>
-		<script>
-			import { initTwitterPixel } from "../lib/Tracking/twitter-tracking";
-            initTwitterPixel("");
-		</script>
-		<script>
-			import { initSnapchatPixel } from '../lib/Tracking/snapchat-tracking.js';
-			initSnapchatPixel('YOUR_PIXEL_ID'); // ← Replace with actual ID
-		  </script>		  
+
+		<!--  -->
+    <script type="module" define:vars={{
+  facebookPixelID,
+  twitterPixelID,
+  snapchatPixelID,
+  tiktokPixelID
+}}>
+  if (facebookPixelID) {
+    import("/src/lib/Tracking/facebook-tracking").then(({ initFacebookPixel }) => {
+      initFacebookPixel(facebookPixelID);
+    });
+  }
+
+  if (twitterPixelID) {
+    import("/src/lib/Tracking/twitter-tracking").then(({ initTwitterPixel }) => {
+      initTwitterPixel(twitterPixelID);
+    });
+  }
+
+  if (snapchatPixelID) {
+    import("/src/lib/Tracking/snapchat-tracking").then(({ initSnapchatPixel }) => {
+      initSnapchatPixel(snapchatPixelID);
+    });
+  }
+
+  if (tiktokPixelID) {
+    import("/src/lib/Tracking/tiktok-tracking").then(({ initTikTokPixel }) => {
+      initTikTokPixel(tiktokPixelID);
+    });
+  }
+</script>
+
+		<!--  -->
 
 		<!-- SEO Meta Tags -->
 		<title>{metadata.title}</title>

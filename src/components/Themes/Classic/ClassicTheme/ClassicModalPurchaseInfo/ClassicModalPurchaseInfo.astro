@@ -16,7 +16,6 @@ const isArabic = currentLang === "ar";
 const hasVariants = isHaveVariant === "true";
 const hasBundles = purchaseOptions !== undefined;
 ---
-
 <classic-purchase-modal data-has-variants={hasVariants} data-has-bundles={hasBundles}>
   <div
     data-modal-container
@@ -61,11 +60,11 @@ const hasBundles = purchaseOptions !== undefined;
                 </h4>
               </div>
 
-              <!-- Enhanced Quantity Information -->
+              <!-- Enhanced Bundle Information -->
               {hasBundles ? (
-                <!-- Bundle-based Quantity Information -->
+                <!-- Bundle-based Bundle Information -->
                 <div
-                  data-modal-quantity-info
+                  data-modal-Bundle-info
                   class="classic-summary-section"
                 >
                   <div class="classic-summary-grid">
