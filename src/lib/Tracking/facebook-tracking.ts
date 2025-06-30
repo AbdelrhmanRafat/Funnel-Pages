@@ -1,43 +1,71 @@
-// src/lib/Tracking/facebook-tracking.js
+// src/lib/Tracking/facebook-tracking.ts
 
-export function initFacebookPixel(pixelId : string) {
+import { BotDetector } from "../utils/ bot-detector";
 
-  const isBot = () => {
-    try {
-      if (navigator.webdriver) return true;
-      if (navigator.plugins.length === 0) return true;
-      if (!navigator.languages) return true;
-      if (navigator.hardwareConcurrency === 0) return true;
-      if (!window.chrome && navigator.userAgent.includes('Chrome')) return true;
-    } catch (e) {
-      return true;
-    }
-    return false;
-  };
+// Optional config interface
+interface FacebookPixelConfig {
+  debug?: boolean;
+  autoPageView?: boolean;
+  consent?: boolean;
+  deferLoad?: boolean;
+  retryAttempts?: number;
+}
 
-  if (isBot()) return;
+export function initFacebookPixel(
+  pixelId: string,
+  config: FacebookPixelConfig = {}
+): void {
+  const {
+    debug = false,
+    autoPageView = true,
+    consent = true,
+    deferLoad = false,
+    retryAttempts = 3,
+  } = config;
 
-  if (!window.fbq) {
-    (function (f, b, e, v, n, t, s) {
-      if (f.fbq) return;
-      n = f.fbq = function () {
-        n.callMethod
-          ? n.callMethod.apply(n, arguments)
-          : n.queue.push(arguments);
-      };
-      if (!f._fbq) f._fbq = n;
-      n.push = n;
-      n.loaded = true;
-      n.version = '2.0';
-      n.queue = [];
-      t = b.createElement(e);
-      t.async = true;
-      t.src = 'https://connect.facebook.net/en_US/fbevents.js';
-      s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s);
-    })(window, document, 'script');
+  // 🛡️ Anti-bot + consent check
+  if (BotDetector.isBot() || !consent) {
+    return;
   }
 
-  window.fbq('init', pixelId, {}, { autoConfig: false });
-  window.fbq('track', 'PageView');
+  const initialize = () => {
+    if (!window.fbq) {
+      (function (f: any, b: Document, e: string, v: string, n: any, t: HTMLScriptElement, s: HTMLScriptElement) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = true;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e) as HTMLScriptElement;
+        t.async = true;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0] as HTMLScriptElement;
+        s.parentNode?.insertBefore(t, s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    }
+
+    // ✅ Init with config
+    window.fbq('init', pixelId, {}, { autoConfig: false , advancedMatching : false });
+
+    if (autoPageView) {
+      sendFacebookPageView();
+    }
+  };
+
+  if (deferLoad) {
+    window.addEventListener('load', initialize);
+  } else {
+    initialize();
+  }
+}
+
+// ✅ Call this manually after SPA route/language changes
+export function sendFacebookPageView(): void {
+  if (typeof window.fbq === 'function') {
+    window.fbq('track', 'PageView');
+  }
 }

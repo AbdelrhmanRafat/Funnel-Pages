@@ -36,6 +36,7 @@ const facebookPixelID = Astro.props.facebookPixelID;
 			onload="
 this.onload=null;this.rel='stylesheet'"
 		/>
+
 		
 		<!-- SEO Meta Tags -->
 		<title>{metadata.title}</title>
@@ -93,7 +94,19 @@ this.onload=null;this.rel='stylesheet'"
 
 </script>
 
+<!-- <script>
+import { initFacebookPixel } from '../lib/Tracking/facebook-tracking';
+
+document.addEventListener('DOMContentLoaded', () => {
+  initFacebookPixel('2252582971811800'); // Call here to ensure DOM is ready
+});
+</script> -->
+
+
+
+
 <script>
 import { initFacebookPixel } from "../lib/Tracking/facebook-tracking";
 initFacebookPixel("2252582971811800");
 </script>
+
