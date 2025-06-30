@@ -208,6 +208,10 @@
         }
       ]
     },
+    "facebookPixelId": "2252582971811800",
+    "tiktokPixelId": "",
+    "twitterPixelId": "",
+    "snapchatPixelId": "",
     "theme": "classic",
     "themeCss": "https://classic-theme.vercel.app/classic-theme.css",
     "accept_online_payment": true,

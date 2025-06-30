@@ -14,6 +14,10 @@ export interface Data {
     product: Product;
     themeCss : string;
     theme: string;
+    facebookPixelId?: string,
+    tiktokPixelId?: string,
+    twitterPixelId?: string,
+    snapchatPixelId?: string,
     accept_online_payment: boolean;
     blocks: Block[];
 }

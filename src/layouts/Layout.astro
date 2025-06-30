@@ -4,6 +4,7 @@ import type { Meta } from "../lib/api/types";
 const metadata: Meta = Astro.props.metadata;
 const strThemeName: string = Astro.props.strThemeName;
 const themeCss: string = Astro.props.themeCss;
+const facebookPixelID = Astro.props.facebookPixelID;
 ---
 
 <!doctype html>
@@ -32,7 +33,8 @@ const themeCss: string = Astro.props.themeCss;
 			rel="preload" 
 			href={`${themeCss}?v=${Date.now()}`}
 			as="style" 
-			onload="this.onload=null;this.rel='stylesheet'"
+			onload="
+this.onload=null;this.rel='stylesheet'"
 		/>
 		
 		<!-- SEO Meta Tags -->
@@ -88,4 +90,10 @@ const themeCss: string = Astro.props.themeCss;
 	};
 	
 	document.head.appendChild(link);
+
+</script>
+
+<script>
+import { initFacebookPixel } from "../lib/Tracking/facebook-tracking";
+initFacebookPixel("2252582971811800");
 </script>
