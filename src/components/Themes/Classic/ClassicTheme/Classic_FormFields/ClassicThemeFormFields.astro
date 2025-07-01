@@ -68,7 +68,7 @@ if (formInputs?.DeliveryOptions !== null) deliveryOptions = formInputs?.Delivery
              <input
               type="text"
               id="form-fullName"
-              class="classic-form-input text-right text-sm"
+              class=`classic-form-input  ${isArabic ? "text-right" : "text-left"}  text-sm`
               aria-describedby="form-fullName-error"
               required
             />
@@ -91,7 +91,7 @@ if (formInputs?.DeliveryOptions !== null) deliveryOptions = formInputs?.Delivery
           <input
               type="tel"
               id="form-phone"
-              class="classic-form-input text-right text-sm"
+              class=`classic-form-input ${isArabic ? "text-right" : "text-left"}  text-sm`
               aria-describedby="form-phone-error"
               required
             />
@@ -115,7 +115,7 @@ if (formInputs?.DeliveryOptions !== null) deliveryOptions = formInputs?.Delivery
              <input
               type="email"
               id="form-email"
-              class="classic-form-input text-right text-sm"
+              class=`classic-form-input ${isArabic ? "text-right" : "text-left"} text-sm`
               aria-describedby="form-email-error"
               required
             />
@@ -137,7 +137,7 @@ if (formInputs?.DeliveryOptions !== null) deliveryOptions = formInputs?.Delivery
           <div class="classic-form-group">
               <textarea
               id="form-address"
-              class="classic-form-input text-right min-h-[80px] resize-y text-sm"
+              class=`classic-form-input ${isArabic ? "text-right" : "text-left"} min-h-[80px] resize-y text-sm`
               aria-describedby="form-address-error"
               required
             ></textarea>
@@ -166,7 +166,7 @@ if (formInputs?.DeliveryOptions !== null) deliveryOptions = formInputs?.Delivery
             </label>
             <select 
               id="form-city" 
-              class="classic-form-input text-right text-sm"
+              class=`classic-form-input ${isArabic ? "text-right" : "text-left"}  text-sm`
               aria-describedby="form-city-error"
               required
             >
@@ -326,7 +326,7 @@ if (formInputs?.DeliveryOptions !== null) deliveryOptions = formInputs?.Delivery
               <textarea
               id="form-notes"
               placeholder=""
-              class="classic-form-input text-right min-h-[100px] resize-y text-sm"
+              class=`classic-form-input ${isArabic ? "text-right" : "text-left"} min-h-[100px] resize-y text-sm`
               aria-describedby="form-notes-error"
             ></textarea>
             <label
