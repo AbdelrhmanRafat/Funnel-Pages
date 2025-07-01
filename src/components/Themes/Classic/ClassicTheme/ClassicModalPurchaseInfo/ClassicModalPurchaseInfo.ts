@@ -240,9 +240,10 @@ ${option.secondOption ? `<div class="classic-selection-display"><span>${option.s
 
     // Update totals
     this.updateText('[data-modal-total-quantity]', quantity.toString());
-    this.updateText('[data-modal-subtotal]', `${price * quantity} جنيه`);
-    this.updateText('[data-modal-total-discount]', totalDiscount > 0 ? `${totalDiscount} جنيه` : 'لا يوجد خصم');
-    this.updateText('[data-modal-final-total]', `${finalTotal} جنيه`);
+    this.updateText('[data-modal-subtotal]', `${price * quantity} $`);
+    this.updateText('[data-modal-total-discount]', totalDiscount > 0 ? `${totalDiscount} $` : '0 $');
+    this.updateText('[data-modal-final-total]', `${finalTotal} $`);
+    this.updateText('[data-modal-summary-final-total]', `${finalTotal} $`);
   }
 
   private loadCustomerData(formState: any, paymentState: any, deliveryState: any): void {

@@ -127,13 +127,17 @@ const hasBundles = purchaseOptions !== undefined;
                       <span class="classic-summary-label" data-translate="modal.totalDiscount"></span>
                       <span class="classic-summary-value classic-discount-info" data-modal-total-discount></span>
                     </div>
+                    <div class="classic-direct-summary-item">
+                      <span class="classic-summary-label" data-translate="modal.finalTotal"></span>
+                      <span class="classic-summary-value" data-modal-summary-final-total></span>
+                    </div>
                   </div>
                 </div>
               )}
 
               <!-- Enhanced Product Options Section -->
               <!-- Show only when product has variants (scenarios 1 & 2) -->
-              {hasVariants && (
+              {hasVariants && hasBundles && (
                 <div
                   data-modal-color-size-info
                   class="classic-summary-section classic-options-section"
@@ -156,24 +160,6 @@ const hasBundles = purchaseOptions !== undefined;
                     <!-- Dynamic content populated by JavaScript -->
                   </div>
                   
-                </div>
-              )}
-
-              <!-- Simple Product Notice -->
-              <!-- Show when no variants and no bundles (scenario 4) -->
-              {!hasVariants && !hasBundles && (
-                <div class="classic-summary-section classic-simple-section">
-                  <div class="classic-section-header">
-                    <div class="classic-section-icon classic-icon-simple">
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                    </div>
-                    <div class="classic-simple-product-info">
-                      <h5 class="classic-subsection-title" data-translate="modal.simpleProduct"></h5>
-                      <p class="classic-simple-description" data-translate="modal.simpleProductDescription"></p>
-                    </div>
-                  </div>
                 </div>
               )}
 

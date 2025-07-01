@@ -1,8 +1,9 @@
+/* === Base Option Styles === */
 .classic-selection-options-without-bundles-option-title {
     color: var(--classic-color-on-surface);
 }
 
-/* === Size/Text Options === */
+/* === Size/Text Options Base === */
 .classic-selection-options-without-bundles-size-option {
     background-color: var(--classic-color-surface);
     color: var(--classic-color-on-surface-variant);
@@ -19,7 +20,8 @@
     box-shadow: var(--classic-section-shadow);
 }
 
-.classic-selection-options-without-bundles-size-option.classic-selection-options-without-bundles-selected {
+/* === Size/Text Options Selected State === */
+.classic-selection-options-without-bundles-size-option--selected {
     background-color: var(--classic-color-secondary);
     color: var(--classic-color-on-secondary);
     border-color: var(--classic-color-secondary-dark);
@@ -27,7 +29,15 @@
     box-shadow: var(--classic-section-shadow);
 }
 
-/* === Color Options === */
+.classic-selection-options-without-bundles-size-option--selected:hover {
+    background-color: var(--classic-color-secondary);
+    color: var(--classic-color-on-secondary);
+    border-color: var(--classic-color-secondary-dark);
+    transform: translateY(-4px);
+    box-shadow: var(--classic-section-shadow);
+}
+
+/* === Color Options Base === */
 .classic-selection-options-without-bundles-color-option {
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -49,19 +59,31 @@
     color: var(--classic-color-on-surface-variant);
 }
 
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-selected {
+/* === Color Options Selected State === */
+.classic-selection-options-without-bundles-color-option--selected {
     transform: scale(1.1);
 }
 
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-selected .classic-selection-options-without-bundles-color-swatch {
+.classic-selection-options-without-bundles-color-option--selected .classic-selection-options-without-bundles-color-swatch {
     border: 3px solid var(--classic-color-primary);
     box-shadow: 0 0 0 2px var(--classic-color-surface),
                 0 0 0 4px var(--classic-color-primary),
                 0 6px 16px rgba(0, 150, 136, 0.25);
 }
 
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-selected .classic-selection-options-without-bundles-color-name {
+.classic-selection-options-without-bundles-color-option--selected .classic-selection-options-without-bundles-color-name {
     color: var(--classic-color-secondary);
+}
+
+.classic-selection-options-without-bundles-color-option--selected:hover {
+    transform: scale(1.1);
+}
+
+/* === Generic Option Selected State === */
+.classic-selection-options-without-bundles-option--selected {
+    opacity: 1;
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 2px var(--classic-color-primary);
 }
 
 /* === Quantity Section === */
@@ -99,8 +121,6 @@
     ring-color: var(--classic-color-primary);
 }
 
-
-
 .classic-selection-options-without-bundles-max-qty-text {
     color: var(--classic-color-on-surface-variant);
 }
@@ -108,8 +128,6 @@
 .classic-selection-options-without-bundles-max-qty-value {
     color: var(--classic-color-secondary);
 }
-
-
 
 /* === Option States === */
 
@@ -186,19 +204,18 @@
 }
 
 /* === Enhanced Hover States === */
-.classic-selection-options-without-bundles-size-option.classic-selection-options-without-bundles-option-available:hover {
+.classic-selection-options-without-bundles-size-option.classic-selection-options-without-bundles-option-available:hover:not(.classic-selection-options-without-bundles-size-option--selected) {
     background-color: var(--classic-color-secondary-light);
     color: var(--classic-color-on-secondary);
     border-color: var(--classic-color-secondary);
-    transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-available:hover {
+.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-available:hover:not(.classic-selection-options-without-bundles-color-option--selected) {
     transform: scale(1.08);
 }
 
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-available:hover .classic-selection-options-without-bundles-color-swatch {
+.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-available:hover:not(.classic-selection-options-without-bundles-color-option--selected) .classic-selection-options-without-bundles-color-swatch {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 

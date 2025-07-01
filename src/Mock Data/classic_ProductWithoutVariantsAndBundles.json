@@ -466,50 +466,6 @@
         }
       },
       {
-        "name": "classic_product_funnel",
-        "data": {
-          "product": "@bind:product",
-          "purchase_options": [
-            {
-              "title": "شراء منتج واحد",
-              "items": 1,
-              "price_per_item": 2290,
-              "original_price_per_item": 2290,
-              "original_total": 2290,
-              "total_price": 2290,
-              "discount": 0,
-              "discount_percent": "0%",
-              "shipping_price": 50,
-              "final_total": 2340
-            },
-            {
-              "title": "اشترِ قطعتين ووفر",
-              "items": 2,
-              "price_per_item": 1785,
-              "original_price_per_item": 2290,
-              "original_total": 4580,
-              "total_price": 3570,
-              "discount": 1010,
-              "discount_percent": "22%",
-              "shipping_price": 70,
-              "final_total": 3640
-            },
-            {
-              "title": "اشترِ ثلاثة ووفر",
-              "items": 3,
-              "price_per_item": 1499,
-              "original_price_per_item": 2290,
-              "original_total": 6870,
-              "total_price": 4497,
-              "discount": 2373,
-              "discount_percent": "35%",
-              "shipping_price": 90,
-              "final_total": 4587
-            }
-          ]
-        }
-      },
-      {
         "name": "classic_footer",
         "data": {
           "title_ar": "شركة الإبداع الرقمي",
