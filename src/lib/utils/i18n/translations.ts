@@ -151,6 +151,7 @@ export const translations = {
     "address": "Address",
     "city": "City",
     "paymentMethod": "Payment Method",
+    "deliveryMethod": "Delivery Method",
     "notes": "Notes",
     "finalTotal": "Final Total",
     "cancel": "Cancel"
@@ -361,6 +362,7 @@ export const translations = {
     "address": "العنوان",
     "city": "المدينة",
     "paymentMethod": "طريقة الدفع",
+    "deliveryMethod": "طريقة التسليم",
     "notes": "ملاحظات",
     "finalTotal": "المجموع النهائي",
     "cancel": "إلغاء"

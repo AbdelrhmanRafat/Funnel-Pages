@@ -12,7 +12,7 @@ import { getTranslation, type Language } from '../../../../../lib/utils/i18n/tra
 interface ModalElements {
   modal: HTMLElement | null;
   overlay: HTMLElement | null;
-  selectionItemsContainer : HTMLElement | null;
+  selectionItemsContainer: HTMLElement | null;
   cancelButton: HTMLElement | null;
   purchaseView: HTMLElement | null;
   celebrationView: HTMLElement | null;
@@ -33,7 +33,7 @@ class ClassicPurchaseModal extends HTMLElement {
     modal: null,
     overlay: null,
     cancelButton: null,
-    selectionItemsContainer : null,
+    selectionItemsContainer: null,
     purchaseView: null,
     celebrationView: null,
     continueButton: null
@@ -87,7 +87,7 @@ class ClassicPurchaseModal extends HTMLElement {
       overlay: this.querySelector('[data-modal-overlay]'),
       cancelButton: this.querySelector('[data-modal-cancel-button]'),
       purchaseView: this.querySelector('[data-modal-purchase-info-view]'),
-      selectionItemsContainer : this.querySelector('[data-modal-selection-items]'),
+      selectionItemsContainer: this.querySelector('[data-modal-selection-items]'),
       celebrationView: this.querySelector('[data-modal-celebration-view]'),
       continueButton: this.querySelector('[data-modal-celebration-continue-button]')
     };
@@ -97,7 +97,7 @@ class ClassicPurchaseModal extends HTMLElement {
     // Modal controls
     this.elements.cancelButton?.addEventListener('click', () => this.close());
     this.elements.continueButton?.addEventListener('click', () => this.handleContinue());
-    
+
     // Global events
     document.addEventListener('openPurchaseModal', () => this.open());
     document.addEventListener('orderConfirmed', () => this.showCelebration());
@@ -107,24 +107,24 @@ class ClassicPurchaseModal extends HTMLElement {
 
   public open(): void {
     if (!this.elements.modal) return;
-    
+
     this.elements.modal.classList.add('classic-modal-open');
     this.toggleBodyScroll(false);
     this.showPurchaseView();
     this.loadAllData();
-    
+
     this.dispatchEvent(new CustomEvent('modal-opened'));
   }
 
   public close(): void {
     if (!this.elements.modal) return;
-    
+
     this.elements.modal.classList.remove('classic-modal-open');
     this.toggleBodyScroll(true);
-    
+
     // Reset to purchase view after close
     setTimeout(() => this.showPurchaseView(), 300);
-    
+
     this.dispatchEvent(new CustomEvent('modal-closed'));
   }
 
@@ -132,7 +132,7 @@ class ClassicPurchaseModal extends HTMLElement {
     this.showView('celebration');
     this.generateOrderNumber();
     this.createConfetti();
-    
+
     this.dispatchEvent(new CustomEvent('celebration-shown'));
   }
 
@@ -144,7 +144,7 @@ class ClassicPurchaseModal extends HTMLElement {
 
   private showView(viewType: 'purchase' | 'celebration'): void {
     const { purchaseView, celebrationView } = this.elements;
-    
+
     if (viewType === 'purchase') {
       purchaseView!.style.display = 'block';
       celebrationView!.style.display = 'none';
@@ -163,16 +163,17 @@ class ClassicPurchaseModal extends HTMLElement {
       const customState = this.subjects.customNonBundle.getState();
       const formState = this.subjects.formFields.getState();
       const paymentState = this.subjects.payment.getState();
-      
+      const deliveryState = this.subjects.delivery.getState();
+
       // Load data based on product type
       if (this.hasBundles) {
         this.loadBundleData(bundleState);
       } else {
         this.loadDirectData(customState);
       }
-      
-      this.loadCustomerData(formState, paymentState);
-      
+
+      this.loadCustomerData(formState, paymentState, deliveryState);
+
       console.log('Modal data loaded successfully');
     } catch (error) {
       console.error('Failed to load modal data:', error);
@@ -185,10 +186,10 @@ class ClassicPurchaseModal extends HTMLElement {
 
     const delivery = this.subjects.delivery.getState();
     const isPickup = delivery.selectedDeliveryOptionId === 'delivery-pickup';
-    
+
     // Calculate final amounts
-    const finalTotal = isPickup 
-      ? offer.final_total - offer.shipping_price 
+    const finalTotal = isPickup
+      ? offer.final_total - offer.shipping_price
       : offer.final_total;
 
     // Update bundle information
@@ -196,28 +197,28 @@ class ClassicPurchaseModal extends HTMLElement {
     this.updateText('[data-modal-items-count]', offer.items.toString());
     this.updateText('[data-modal-price-per-item]', `${offer.price_per_item} جنيه`);
     this.updateText('[data-modal-final-total]', `${finalTotal} جنيه`);
-    
-    const discountText = offer.discount > 0 
+
+    const discountText = offer.discount > 0
       ? `${offer.discount} جنيه (${offer.discount_percent})`
       : 'لا يوجد خصم';
     this.updateText('[data-modal-discount-info]', discountText);
-    if(this.hasVariants) {
-    const bundleOptions = this.subjects.customOptionBundlesSubject.getState();
-    // Update Bundle custom options
-    this.populateCustomOptions(bundleOptions.options);
+    if (this.hasVariants) {
+      const bundleOptions = this.subjects.customOptionBundlesSubject.getState();
+      // Update Bundle custom options
+      this.populateCustomOptions(bundleOptions.options);
     }
- 
+
   }
 
-    private populateCustomOptions(customOptions: CustomOption[]): void {
+  private populateCustomOptions(customOptions: CustomOption[]): void {
     const container = this.elements.selectionItemsContainer;
     if (!container || !customOptions) return;
     container.innerHTML = customOptions.map(option => `
       <div class="classic-selection-item">
           <div class="classic-panel-info">${getTranslation('modal.item', this.currentLang)} ${option.panelIndex}</div>
           <div class="classic-selection-display"><span>${option.firstOption}</span></div>
-          <div class="classic-selection-display"><span>${option.secondOption}</span></div>
-      </div>
+${option.secondOption ? `<div class="classic-selection-display"><span>${option.secondOption}</span></div>` : ""}
+          </div>
     `).join('');
   }
 
@@ -244,7 +245,7 @@ class ClassicPurchaseModal extends HTMLElement {
     this.updateText('[data-modal-final-total]', `${finalTotal} جنيه`);
   }
 
-  private loadCustomerData(formState: any, paymentState: any): void {
+  private loadCustomerData(formState: any, paymentState: any, deliveryState: any): void {
     const formData = formState.formData;
     if (!formData) return;
 
@@ -255,7 +256,8 @@ class ClassicPurchaseModal extends HTMLElement {
       '[data-modal-customer-email]': formData.email?.value || '-',
       '[data-modal-customer-address]': formData.address?.value || '-',
       '[data-modal-customer-city]': formData.city?.value || '-',
-      '[data-modal-payment-method]': paymentState.selectedPaymentOptionValue || '-'
+      '[data-modal-payment-method]': paymentState.selectedPaymentOptionValue || '-',
+      '[data-modal-delivery-method]': deliveryState.selectedDeliveryOptionValue || '-'
     };
 
     // Update all customer fields
@@ -279,7 +281,7 @@ class ClassicPurchaseModal extends HTMLElement {
   private createDirectItemHTML(option: any, quantity: number, price: number, discountPrice: number): string {
     const hasDiscount = price > discountPrice;
     const optionTags = [];
-    
+
     if (option.firstOption) optionTags.push(`<span class="classic-direct-option-tag">${option.firstOption}</span>`);
     if (option.secondOption) optionTags.push(`<span class="classic-direct-option-tag">${option.secondOption}</span>`);
 
@@ -333,7 +335,7 @@ class ClassicPurchaseModal extends HTMLElement {
             top: 100%;
             animation: float-up 3s ease-out forwards;
           `;
-          
+
           container.appendChild(emoji);
           setTimeout(() => emoji.remove(), 3000);
         }, i * 200);

@@ -151,16 +151,11 @@ const hasBundles = purchaseOptions !== undefined;
                   
                   <div
                     data-modal-selection-items
-                    class="classic-selection-items"
+                    class="classic-selection-items flex flex-col gap-2"
                   >
                     <!-- Dynamic content populated by JavaScript -->
                   </div>
                   
-                  {!hasBundles && (
-                    <div class="classic-info-notice classic-notice-direct">
-                      <span data-translate="modal.directPurchaseSelected"></span>
-                    </div>
-                  )}
                 </div>
               )}
 
@@ -224,6 +219,10 @@ const hasBundles = purchaseOptions !== undefined;
                       <div class="classic-customer-field">
                         <span class="classic-field-label" data-translate="modal.paymentMethod"></span>
                         <span class="classic-field-value" data-modal-payment-method></span>
+                      </div>
+                        <div class="classic-customer-field">
+                        <span class="classic-field-label" data-translate="modal.deliveryMethod"></span>
+                        <span class="classic-field-value" data-modal-delivery-method></span>
                       </div>
                     </div>
                   </div>
