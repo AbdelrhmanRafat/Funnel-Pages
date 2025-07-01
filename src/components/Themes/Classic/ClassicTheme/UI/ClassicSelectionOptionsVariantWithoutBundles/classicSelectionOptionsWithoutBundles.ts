@@ -15,6 +15,7 @@ interface SelectedOptions {
 const CSS_CLASSES = {
   SELECTED_COLOR: 'classic-selection-options-without-bundles-color-option--selected',
   SELECTED_SIZE: 'classic-selection-options-without-bundles-size-option--selected',
+  SELECTED_GENERIC: 'classic-selection-options-without-bundles-selected',
   COLOR_OPTION: 'classic-selection-options-without-bundles-color-option',
   SIZE_OPTION: 'classic-selection-options-without-bundles-size-option',
   OPTION_AVAILABLE: 'classic-selection-options-without-bundles-option-available',
@@ -92,6 +93,9 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
         this.optionData = JSON.parse(optionDataAttr);
         
         if (this.optionData) {
+          this.optionData.basePrice = this.basePrice;
+          this.optionData.basePriceAfterDiscount = this.basePriceAfterDiscount;
+          this.optionData.baseImage = this.baseImage;
           
           this.hasSecondOption = !!(this.optionData.secondOption && this.optionData.secondOption.values && this.optionData.secondOption.values.length > 0);
         }
@@ -166,6 +170,8 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
       this.isVariant,
       this.qtyNonVariant,
       this.skuNoVariant,
+      this.basePrice,
+      this.basePriceAfterDiscount
     );
   }
 
@@ -325,6 +331,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
       el.classList.remove(
         CSS_CLASSES.SELECTED_COLOR, 
         CSS_CLASSES.SELECTED_SIZE, 
+        CSS_CLASSES.SELECTED_GENERIC
       );
     });
   }
@@ -335,6 +342,7 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
         el.classList.remove(
           CSS_CLASSES.SELECTED_COLOR, 
           CSS_CLASSES.SELECTED_SIZE, 
+          CSS_CLASSES.SELECTED_GENERIC
         );
       });
     }
@@ -346,12 +354,14 @@ class ClassicSelectOptions extends HTMLElement implements Observer<CustomOptions
   private applySelectionStyle(element: HTMLElement): void {
     try {
       element.classList.remove(CSS_CLASSES.SELECTED_COLOR, CSS_CLASSES.SELECTED_SIZE);
+      
       if (element.classList.contains(CSS_CLASSES.COLOR_OPTION)) {
         element.classList.add(CSS_CLASSES.SELECTED_COLOR);
       } else if (element.classList.contains(CSS_CLASSES.SIZE_OPTION)) {
         element.classList.add(CSS_CLASSES.SELECTED_SIZE);
       }
       
+      element.classList.add(CSS_CLASSES.SELECTED_GENERIC);
       element.offsetHeight;
     } catch (error) {
       console.error('ClassicSelectOptions: Failed to apply selection style:', error);
