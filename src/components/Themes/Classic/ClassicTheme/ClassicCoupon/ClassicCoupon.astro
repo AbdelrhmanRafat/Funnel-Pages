@@ -7,45 +7,53 @@ const data: BlockData = Astro.props.data;
 const couponName: string | undefined = data.items?.[0].label;
 ---
 
-<section 
-    id={FunnelClassicComponents.ClassicCoupon}
-    class="classic-section w-full"
-    aria-labelledby="coupon-heading"
+<classic-coupon 
+    class="w-full"
+    data-coupon-value={couponName}
+    data-title={data.title}
+    data-icon={data.icon}
 >
-    <div class="flex flex-col gap-4 md:flex-row md:justify-between md:items-center w-full">
-        <!-- Section Header -->
-        <header class="classic-section-header md:w-1/2">
-            <i class={data.icon} aria-hidden="true"></i>
-            <h5 id="coupon-heading">{data.title}</h5>
-        </header>
-        
-        <!-- Coupon Container -->
-        <div class="flex flex-col sm:flex-row justify-start md:justify-end items-center gap-3 md:w-1/2">
-            <div
-                class="classic-coupon-card px-4 py-3 rounded-lg border-2 border-dashed text-center min-w-0"
-                role="group"
-                aria-labelledby="coupon-heading"
-            >
-                <span 
-                    class="classic-coupon-code text-lg font-semibold tracking-wide break-all"
-                    data-coupon-code
-                    aria-label={`Coupon code: ${couponName}`}
-                >
-                    {couponName}
-                </span>
-            </div>
+    <section 
+        id={FunnelClassicComponents.ClassicCoupon}
+        class="classic-section"
+        aria-labelledby="coupon-heading"
+    >
+        <div class="flex flex-col gap-4 md:flex-row md:justify-between md:items-center w-full">
+            <!-- Section Header -->
+            <header class="classic-section-header md:w-1/2">
+                <i class={data.icon} aria-hidden="true"></i>
+                <h5 id="coupon-heading">{data.title}</h5>
+            </header>
             
-            <button
-                class="classic-coupon-copy px-4 py-3 flex items-center gap-2 rounded-lg text-sm font-medium transition-all duration-200 min-w-fit"
-                onclick="copyCoupon()"
-                type="button"
-            >
-                <i class="fa-solid fa-copy text-sm" data-copy-icon aria-hidden="true"></i>
-                <span data-copy-text>Copy</span>
-            </button>
+            <!-- Coupon Container -->
+            <div class="flex flex-col sm:flex-row justify-start md:justify-end items-center gap-3 md:w-1/2">
+                <div 
+                    class="classic-coupon-card px-4 py-3 rounded-lg border-2 border-dashed text-center min-w-0"
+                    role="group"
+                    aria-labelledby="coupon-heading"
+                >
+                    <span 
+                        class="classic-coupon-code text-lg font-semibold tracking-wide break-all"
+                        data-coupon-display
+                        aria-label={`Coupon code: ${couponName}`}
+                    >
+                        {couponName}
+                    </span>
+                </div>
+                
+                <button 
+                    class="classic-coupon-copy px-4 py-3 flex items-center gap-2 rounded-lg text-sm font-medium transition-all duration-200 min-w-fit"
+                    data-coupon-copy-btn
+                    type="button"
+                    aria-label="Copy coupon code"
+                >
+                    <i class="fa-solid fa-copy text-sm" data-copy-icon aria-hidden="true"></i>
+                    <span data-copy-text data-translate="coupon.copy"></span>
+                </button>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</classic-coupon>
 
 <script>
     import "./ClassicCoupon";

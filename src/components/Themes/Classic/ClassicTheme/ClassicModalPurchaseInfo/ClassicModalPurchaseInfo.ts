@@ -195,11 +195,11 @@ class ClassicPurchaseModal extends HTMLElement {
     // Update bundle information
     this.updateText('[data-modal-order-title]', offer.title);
     this.updateText('[data-modal-items-count]', offer.items.toString());
-    this.updateText('[data-modal-price-per-item]', `${offer.price_per_item} جنيه`);
-    this.updateText('[data-modal-final-total]', `${finalTotal} جنيه`);
+    this.updateText('[data-modal-price-per-item]', `${offer.price_per_item} $`);
+    this.updateText('[data-modal-final-total]', `${finalTotal} $`);
 
     const discountText = offer.discount > 0
-      ? `${offer.discount} جنيه (${offer.discount_percent})`
+      ? `${offer.discount} $ (${offer.discount_percent})`
       : 'لا يوجد خصم';
     this.updateText('[data-modal-discount-info]', discountText);
     if (this.hasVariants) {
@@ -293,9 +293,9 @@ ${option.secondOption ? `<div class="classic-selection-display"><span>${option.s
           ${optionTags.length > 0 ? `<div class="classic-direct-item-options">${optionTags.join('')}</div>` : ''}
         </div>
         <div class="classic-direct-item-pricing">
-          <div class="classic-direct-item-price">${discountPrice} جنيه</div>
-          ${hasDiscount ? `<div class="classic-direct-item-original-price">${price} جنيه</div>` : ''}
-          ${hasDiscount ? `<div class="classic-direct-item-discount">وفر ${price - discountPrice} جنيه</div>` : ''}
+          <div class="classic-direct-item-price">${discountPrice} $</div>
+          ${hasDiscount ? `<div class="classic-direct-item-original-price">${price} $</div>` : ''}
+          ${hasDiscount ? `<div class="classic-direct-item-discount">وفر ${price - discountPrice} $</div>` : ''}
         </div>
         <div class="classic-direct-item-quantity">${quantity}</div>
       </div>

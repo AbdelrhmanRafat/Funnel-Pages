@@ -1,84 +1,42 @@
-// ClassicCoupon.ts - Simple copy functionality with language support
+// ClassicCoupon.ts - Simple web component for coupon copying
 
-function detectLanguage(): string {
-    const langCookie = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('lang='))
-        ?.split('=')[1];
-    return langCookie || 'en';
-}
-
-function copyCoupon(): void {
-    const couponCodeElement = document.querySelector('[data-coupon-code]') as HTMLElement;
-    const copyButton = document.querySelector('[data-coupon-copy]') as HTMLButtonElement;
-    const copyIcon = copyButton?.querySelector('[data-copy-icon]') as HTMLElement;
-    const copyText = copyButton?.querySelector('[data-copy-text]') as HTMLElement;
-    
-    if (!couponCodeElement || !copyButton || !copyIcon || !copyText) {
-        console.warn('Coupon elements not found');
-        return;
+class ClassicCoupon extends HTMLElement {
+    connectedCallback() {
+        this.querySelector('[data-coupon-copy-btn]')?.addEventListener('click', this.copy.bind(this));
     }
 
-    const couponCode = couponCodeElement.textContent?.trim();
-    if (!couponCode) return;
+    private async copy() {
+        const code = this.dataset.couponValue || this.querySelector('[data-coupon-display]')?.textContent?.trim();
+        const btn = this.querySelector('[data-coupon-copy-btn]') as HTMLButtonElement;
+        const icon = this.querySelector('[data-copy-icon]') as HTMLElement;
+        const text = this.querySelector('[data-copy-text]') as HTMLElement;
+        const isArabic = document.cookie.includes('lang=ar');
+        
+        if (!code || !btn) return;
 
-    const currentLang = detectLanguage();
-    
-    // Copy to clipboard
-    navigator.clipboard.writeText(couponCode).then(() => {
-        // Update button state
-        copyButton.classList.add('copied');
-        copyIcon.className = 'fa-solid fa-check text-sm';
-        
-        // Show language-specific message
-        if (currentLang === 'ar') {
-            copyText.textContent = 'تم النسخ!';
-        } else {
-            copyText.textContent = 'Copied!';
+        try {
+            await navigator.clipboard.writeText(code);
+        } catch {
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
         }
-        
-        // Reset after 2 seconds
+
+        // Show success
+        btn.disabled = true;
+        icon.className = 'fa-solid fa-check text-sm';
+        text.textContent = isArabic ? 'تم النسخ!' : 'Copied!';
+
+        // Reset after 2s
         setTimeout(() => {
-            copyButton.classList.remove('copied');
-            copyIcon.className = 'fa-solid fa-copy text-sm';
-            
-            if (currentLang === 'ar') {
-                copyText.textContent = 'نسخ';
-            } else {
-                copyText.textContent = 'Copy';
-            }
+            btn.disabled = false;
+            icon.className = 'fa-solid fa-copy text-sm';
+            text.textContent = isArabic ? 'نسخ' : 'Copy';
         }, 2000);
-    }).catch(() => {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = couponCode;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        
-        // Show success message (same as above)
-        copyButton.classList.add('copied');
-        copyIcon.className = 'fa-solid fa-check text-sm';
-        copyText.textContent = currentLang === 'ar' ? 'تم النسخ!' : 'Copied!';
-        
-        setTimeout(() => {
-            copyButton.classList.remove('copied');
-            copyIcon.className = 'fa-solid fa-copy text-sm';
-            copyText.textContent = currentLang === 'ar' ? 'نسخ' : 'Copy';
-        }, 2000);
-    });
+    }
 }
 
-// Make function globally available
-(window as any).copyCoupon = copyCoupon;
-
-// Auto-initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    // Function is ready to use
-});
-
-// Support for Astro page transitions
-document.addEventListener('astro:page-load', () => {
-    // Function is ready to use
-});
+customElements.define('classic-coupon', ClassicCoupon);
