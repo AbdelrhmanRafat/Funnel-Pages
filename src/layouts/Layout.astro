@@ -41,37 +41,6 @@ const tiktokPixelID = Astro.props.tiktokPixelID;
 this.onload=null;this.rel='stylesheet'"
 		/>
 
-<script type="module" define:vars={{
-  facebookPixelID,
-  twitterPixelID,
-  snapchatPixelID,
-  tiktokPixelID
-}}>
-  if (facebookPixelID) {
-    import("/src/lib/Tracking/facebook-tracking").then(({ initFacebookPixel }) => {
-      initFacebookPixel(facebookPixelID);
-    });
-  }
-
-  if (twitterPixelID) {
-    import("/src/lib/Tracking/twitter-tracking").then(({ initTwitterPixel }) => {
-      initTwitterPixel(twitterPixelID);
-    });
-  }
-
-  if (snapchatPixelID) {
-    import("/src/lib/Tracking/snapchat-tracking").then(({ initSnapchatPixel }) => {
-      initSnapchatPixel(snapchatPixelID);
-    });
-  }
-
-  if (tiktokPixelID) {
-    import("/src/lib/Tracking/tiktok-tracking").then(({ initTikTokPixel }) => {
-      initTikTokPixel(tiktokPixelID);
-    });
-  }
-</script>
-
 
 		<!-- SEO Meta Tags -->
 		<title>{metadata.title}</title>
@@ -126,4 +95,20 @@ this.onload=null;this.rel='stylesheet'"
 	};
 
 	document.head.appendChild(link);
+</script>
+
+<script type="module" is:inline define:vars={{
+  facebookPixelID,
+  twitterPixelID,
+  snapchatPixelID,
+  tiktokPixelID
+}}>
+  import("/SocialMediaTracking/init-tracking").then(({ initTracking }) => {
+    initTracking({
+      facebookPixelID,
+      twitterPixelID,
+      snapchatPixelID,
+      tiktokPixelID
+    });
+  });
 </script>
