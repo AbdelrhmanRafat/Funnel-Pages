@@ -174,7 +174,6 @@ class ClassicPurchaseModal extends HTMLElement {
 
       this.loadCustomerData(formState, paymentState, deliveryState);
 
-      console.log('Modal data loaded successfully');
     } catch (error) {
       console.error('Failed to load modal data:', error);
     }

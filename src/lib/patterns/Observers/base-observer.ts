@@ -33,7 +33,6 @@ export class GenericSubject<T extends State> implements Subject<T> {
 
   public attach(observer: Observer<T>): void {
     if (this.observers.includes(observer)) {
-      console.log('Subject: Observer has been attached already.');
       return;
     }
     this.observers.push(observer);
@@ -43,7 +42,6 @@ export class GenericSubject<T extends State> implements Subject<T> {
   public detach(observer: Observer<T>): void {
     const index = this.observers.indexOf(observer);
     if (index === -1) {
-      console.log('Subject: Nonexistent observer.');
       return;
     }
     this.observers.splice(index, 1);

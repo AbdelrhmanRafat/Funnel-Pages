@@ -10,7 +10,6 @@
 export function initFooter() {
   // This function can be expanded if footer functionality is added in the future.
   // For example, handling newsletter sign-ups or dynamic content loading.
-  console.log('Footer component initialized (no active functionality).');
 }
 
 // The line below is commented out because there is no active JavaScript functionality for the footer yet.

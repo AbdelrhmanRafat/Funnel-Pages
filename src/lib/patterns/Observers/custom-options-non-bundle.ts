@@ -1,4 +1,4 @@
-// observers/custom-options-non-bundle-observer.ts - Complete Fixed Version
+// observers/custom-options-non-bundle-observer.ts - Clean Version
 import { GenericSubject } from './base-observer';
 import type { State } from './base-observer';
 
@@ -118,20 +118,11 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
     priceNoVariant?: number,
     priceAfterDiscountNoVariant?: number
   ): void {
-    console.log('🔵 Observer initializing with:', {
-      isVariant,
-      hasOptionData: !!optionData,
-      hasFirstOption: !!optionData?.firstOption,
-      hasSecondOption: !!optionData?.secondOption
-    });
-
     this.optionData = optionData;
     this.baseQuantityNonVariant = baseQtyNonVariant;
     
     // Determine if we have a second option
     this.hasSecondOption = !!(optionData?.secondOption && optionData.secondOption.values && optionData.secondOption.values.length > 0);
-    
-    console.log('🔧 Observer detected second option:', this.hasSecondOption);
 
     if (!isVariant) {
       // Non-variant initialization - use dedicated non-variant values
@@ -251,164 +242,131 @@ export class CustomOptionsNonBundleSubject extends GenericSubject<CustomOptionsN
     return maxQty || this.baseQuantityNonVariant;
   }
 
-  // Fixed calculateMaxQuantityFromSelection method in observer
-
-// Keep the old method for backward compatibility (but it should use the new one)
-private calculateMaxQuantityFromSelection(): number {
-  const state = this.getState();
-  const { firstOption, secondOption } = state.option;
-  return this.calculateMaxQuantityForValues(firstOption, secondOption);
-}
+  private calculateMaxQuantityFromSelection(): number {
+    const state = this.getState();
+    const { firstOption, secondOption } = state.option;
+    return this.calculateMaxQuantityForValues(firstOption, secondOption);
+  }
 
   public updateFirstOption(value: string | null): void {
-  console.log('🔥 updateFirstOption called with:', value);
-  console.log('🔥 Has second option:', this.hasSecondOption);
-  
-  const currentState = this.getState();
-  const { secondOption } = currentState.option;
+    const currentState = this.getState();
+    const { secondOption } = currentState.option;
 
-  // Calculate available second options based on first selection
-  let availableSecondOptions: AvailableOption[] = [];
-  let newSecondOption = secondOption;
+    // Calculate available second options based on first selection
+    let availableSecondOptions: AvailableOption[] = [];
+    let newSecondOption = secondOption;
 
-  if (this.hasSecondOption) {
-    if (value) {
-      availableSecondOptions = this.getAvailableSecondOptions(value);
-      
-      // Check if current second option is still available
-      const isSecondStillValid = availableSecondOptions.some(opt => opt.value === secondOption);
-      if (secondOption && !isSecondStillValid) {
-        newSecondOption = null;
-      }
-    } else {
-      availableSecondOptions = this.getAllSecondOptions();
-    }
-  }
-
-  // Build complete option data
-  const completeOptionData = this.buildCompleteOptionData(value, newSecondOption);
-  
-  // ✅ FIX: Calculate max quantity using the NEW values, not current state
-  const maxQuantity = this.calculateMaxQuantityForValues(value, newSecondOption);
-  
-  // Always start with quantity 1, don't use the quantity from data
-  const currentQuantity = 1;
-  
-  // Check if selection is complete
-  const isComplete = this.checkSelectionComplete(value, newSecondOption);
-
-  console.log('🔥 Setting state with:', {
-    firstOption: value,
-    secondOption: newSecondOption,
-    maxQuantity,
-    isComplete,
-    hasSecondOption: this.hasSecondOption
-  });
-
-  this.setState({
-    option: {
-      ...completeOptionData,
-      qty: currentQuantity, // Always 1
-    },
-    availableSecondOptions,
-    maxQuantity,
-    isSelectionComplete: isComplete,
-  });
-}
-
-public updateSecondOption(value: string | null): void {
-  if (!this.hasSecondOption) {
-    console.log('🛑 updateSecondOption called but no second options exist');
-    return;
-  }
-
-  console.log('🔥 updateSecondOption called with:', value);
-  
-  const currentState = this.getState();
-  const { firstOption } = currentState.option;
-
-  // Build complete option data
-  const completeOptionData = this.buildCompleteOptionData(firstOption, value);
-  
-  // ✅ FIX: Calculate max quantity using the NEW values, not current state
-  const maxQuantity = this.calculateMaxQuantityForValues(firstOption, value);
-  
-  // Always start with quantity 1, don't use the quantity from data
-  const currentQuantity = 1;
-  
-  // Check if selection is complete
-  const isComplete = this.checkSelectionComplete(firstOption, value);
-
-  this.setState({
-    option: {
-      ...completeOptionData,
-      qty: currentQuantity, // Always 1
-    },
-    maxQuantity,
-    isSelectionComplete: isComplete,
-  });
-}
-
-// ✅ NEW METHOD: Calculate max quantity for specific values (not current state)
-private calculateMaxQuantityForValues(firstOption: string | null, secondOption: string | null): number {
-  if (!this.optionData) return this.baseQuantityNonVariant;
-
-  console.log('🔢 Calculating max quantity for VALUES:', {
-    firstOption,
-    secondOption,
-    hasSecondOption: this.hasSecondOption
-  });
-
-  // Priority 1: If both options provided and we have second options, get from combination
-  if (firstOption && secondOption && this.hasSecondOption && this.optionData.associations) {
-    const combination = this.optionData.associations[firstOption]?.find(
-      opt => opt.value === secondOption
-    );
-    if (combination && combination.qty !== undefined) {
-      console.log('🔢 Max qty from combination:', combination.qty);
-      return combination.qty;
-    }
-  }
-
-  // Priority 2: If only first option provided and NO second options exist, get from associations
-  if (firstOption && !this.hasSecondOption && this.optionData.associations) {
-    const firstOptionAssociations = this.optionData.associations[firstOption];
-    if (firstOptionAssociations && firstOptionAssociations.length > 0) {
-      // For single options, the association should contain the correct qty
-      const association = firstOptionAssociations[0];
-      if (association && association.qty !== undefined) {
-        console.log('🔢 Max qty from single option association:', association.qty, 'for option:', firstOption);
-        console.log('🔍 Association data:', association);
-        return association.qty;
+    if (this.hasSecondOption) {
+      if (value) {
+        availableSecondOptions = this.getAvailableSecondOptions(value);
+        
+        // Check if current second option is still available
+        const isSecondStillValid = availableSecondOptions.some(opt => opt.value === secondOption);
+        if (secondOption && !isSecondStillValid) {
+          newSecondOption = null;
+        }
+      } else {
+        availableSecondOptions = this.getAllSecondOptions();
       }
     }
+
+    // Build complete option data
+    const completeOptionData = this.buildCompleteOptionData(value, newSecondOption);
+    
+    // Calculate max quantity using the NEW values, not current state
+    const maxQuantity = this.calculateMaxQuantityForValues(value, newSecondOption);
+    
+    // Always start with quantity 1, don't use the quantity from data
+    const currentQuantity = 1;
+    
+    // Check if selection is complete
+    const isComplete = this.checkSelectionComplete(value, newSecondOption);
+
+    this.setState({
+      option: {
+        ...completeOptionData,
+        qty: currentQuantity, // Always 1
+      },
+      availableSecondOptions,
+      maxQuantity,
+      isSelectionComplete: isComplete,
+    });
   }
 
-  // Priority 3: If only first option provided, get from first option metadata
-  if (firstOption && this.optionData.firstOptionMetadata?.[firstOption]) {
-    const metadata = this.optionData.firstOptionMetadata[firstOption];
-    if (metadata.qty !== undefined) {
-      console.log('🔢 Max qty from first option metadata:', metadata.qty, 'for option:', firstOption);
-      console.log('🔍 Metadata:', metadata);
-      return metadata.qty;
+  public updateSecondOption(value: string | null): void {
+    if (!this.hasSecondOption) {
+      return;
     }
+
+    const currentState = this.getState();
+    const { firstOption } = currentState.option;
+
+    // Build complete option data
+    const completeOptionData = this.buildCompleteOptionData(firstOption, value);
+    
+    // Calculate max quantity using the NEW values, not current state
+    const maxQuantity = this.calculateMaxQuantityForValues(firstOption, value);
+    
+    // Always start with quantity 1, don't use the quantity from data
+    const currentQuantity = 1;
+    
+    // Check if selection is complete
+    const isComplete = this.checkSelectionComplete(firstOption, value);
+
+    this.setState({
+      option: {
+        ...completeOptionData,
+        qty: currentQuantity, // Always 1
+      },
+      maxQuantity,
+      isSelectionComplete: isComplete,
+    });
   }
 
-  // Priority 4: If only second option provided and we have second options, get from second option metadata
-  if (secondOption && this.hasSecondOption && this.optionData.secondOptionMetadata?.[secondOption]) {
-    const metadata = this.optionData.secondOptionMetadata[secondOption];
-    if (metadata.qty !== undefined) {
-      console.log('🔢 Max qty from second option metadata:', metadata.qty);
-      return metadata.qty;
+  private calculateMaxQuantityForValues(firstOption: string | null, secondOption: string | null): number {
+    if (!this.optionData) return this.baseQuantityNonVariant;
+
+    // Priority 1: If both options provided and we have second options, get from combination
+    if (firstOption && secondOption && this.hasSecondOption && this.optionData.associations) {
+      const combination = this.optionData.associations[firstOption]?.find(
+        opt => opt.value === secondOption
+      );
+      if (combination && combination.qty !== undefined) {
+        return combination.qty;
+      }
     }
+
+    // Priority 2: If only first option provided and NO second options exist, get from associations
+    if (firstOption && !this.hasSecondOption && this.optionData.associations) {
+      const firstOptionAssociations = this.optionData.associations[firstOption];
+      if (firstOptionAssociations && firstOptionAssociations.length > 0) {
+        // For single options, the association should contain the correct qty
+        const association = firstOptionAssociations[0];
+        if (association && association.qty !== undefined) {
+          return association.qty;
+        }
+      }
+    }
+
+    // Priority 3: If only first option provided, get from first option metadata
+    if (firstOption && this.optionData.firstOptionMetadata?.[firstOption]) {
+      const metadata = this.optionData.firstOptionMetadata[firstOption];
+      if (metadata.qty !== undefined) {
+        return metadata.qty;
+      }
+    }
+
+    // Priority 4: If only second option provided and we have second options, get from second option metadata
+    if (secondOption && this.hasSecondOption && this.optionData.secondOptionMetadata?.[secondOption]) {
+      const metadata = this.optionData.secondOptionMetadata[secondOption];
+      if (metadata.qty !== undefined) {
+        return metadata.qty;
+      }
+    }
+
+    // Fallback: Get max from all options
+    return this.calculateMaxQuantityFromAllOptions();
   }
-
-  // Fallback: Get max from all options
-  const fallbackQty = this.calculateMaxQuantityFromAllOptions();
-  console.log('🔢 Max qty fallback:', fallbackQty);
-  return fallbackQty;
-}
-
 
   private buildCompleteOptionData(firstOption: string | null, secondOption: string | null): CustomOptionsNonBundle {
     const baseData: CustomOptionsNonBundle = {
@@ -499,15 +457,6 @@ private calculateMaxQuantityForValues(firstOption: string | null, secondOption: 
 
     const hasFirst = !needsFirst || !!firstOption;
     const hasSecond = !needsSecond || !!secondOption;
-
-    console.log('🔍 Selection completeness check:', {
-      needsFirst,
-      needsSecond,
-      hasFirst,
-      hasSecond,
-      hasSecondOption: this.hasSecondOption,
-      result: hasFirst && hasSecond
-    });
 
     return hasFirst && hasSecond;
   }
