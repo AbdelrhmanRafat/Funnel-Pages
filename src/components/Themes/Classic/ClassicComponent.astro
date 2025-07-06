@@ -25,6 +25,7 @@ import ClassicThemeTodayStatistics from "./ClassicTheme/ClassicThemeTodayStatist
 import ClassicGridImages from "./ClassicTheme/ClassicGridImagesComponent/classicGridImages.astro";
 import ClassicLogosCarousel from "./ClassicTheme/ClassicLogosCarousel/ClassicLogosCarousel.astro";
 import ClassicButtonWithLink from "./ClassicTheme/ClassicButtonWithLink/ClassicButtonWithLink.astro";
+import LucideIcon from "../../Shared/LucideIcon.astro";
 
 
 interface ComponentCheckResult {
@@ -307,7 +308,8 @@ const orderThroughWhatsappData =
     })
   }
   <button id="scrollToTopBtn" class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 classic-scrollToTopBtn">
-   <i class="fa-solid fa-up-long"></i>
+   <LucideIcon name="MoveUp" width="32" height="32" />
+
   </button>
   </section>
 </main>

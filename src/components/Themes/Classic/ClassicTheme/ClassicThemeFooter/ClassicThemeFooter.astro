@@ -2,6 +2,7 @@
 import "./ClassicThemeFooter.css";
 import type { BlockData, Item } from "../../../../../lib/api/types";
 import { FunnelClassicComponents, FunnelNasaComponents } from "../../../../../lib/constants/themes";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
 
 const data: BlockData = Astro.props.data;
 const items: Item[] = data.items ?? [];
@@ -26,7 +27,8 @@ const social_icons: Item[] = items.filter(item => !!item.icon);
   <div class="classic-footer-social flex justify-center gap-6 text-2xl">
     {(social_icons || []).map((iconClass: Item, index: number) => (
       <a href="#" class="classic-footer-social-link" aria-label={`social-${index}`}>
-        <i class={iconClass.icon}></i>
+      {iconClass.icon && <LucideIcon name={iconClass.icon as any} width="32" height="32" />}
+
       </a>
     ))}
   </div>

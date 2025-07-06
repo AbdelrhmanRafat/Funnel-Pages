@@ -8,6 +8,7 @@ import type { Language } from "../../../../../lib/utils/i18n/translations";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import type { Item } from "../../../../../lib/api/types";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
 
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
@@ -24,7 +25,7 @@ const items: Item[] = data.items ?? [];
 >
   <!-- Header -->
   <div class="classic-section-header">
-    <i class={data.icon} aria-hidden="true"></i>
+    {data.icon && <LucideIcon name={data.icon as any} width="32" height="32" />}
     <h5>{isArabic ? data.title_ar : data.title_en}</h5>
   </div>
   
@@ -70,7 +71,7 @@ const items: Item[] = data.items ?? [];
               {productPreview?.viewsText && (
                 <div class="classic-product-preview-views-badge w-fit flex-shrink-0 py-2 px-4 text-sm sm:text-base flex items-center gap-2">
                   {productPreview.viewsIcon && (
-                    <i class={productPreview.viewsIcon} aria-hidden="true"></i>
+                  <LucideIcon name={productPreview.viewsIcon as any} width="32" height="32" /> 
                   )}
                   <span class="truncate">{productPreview.viewsText}</span>
                 </div>
@@ -84,7 +85,7 @@ const items: Item[] = data.items ?? [];
           {items.map((feature) => (
             <div class="classic-product-preview-feature-item flex items-start gap-4">
               <div class="classic-product-preview-feature-icon rounded-full flex-shrink-0 flex items-center justify-center">
-                <i class={feature.icon} aria-hidden="true"></i>
+                {feature.icon && <LucideIcon name={feature.icon as any} width="32" height="32" />}
               </div>
               <div class="classic-product-preview-feature-content flex-1 min-w-0 text-right">
                 <div class="classic-product-preview-feature-title font-semibold text-base leading-snug">

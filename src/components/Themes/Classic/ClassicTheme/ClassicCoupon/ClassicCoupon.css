@@ -1,5 +1,18 @@
 /* === Classic Coupon Component === */
 
+/* Icon container for smooth transitions */
+.copy-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-icon,
+.check-icon {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
 /* Coupon card styling */
 .classic-coupon-card {
     background-color: var(--classic-color-surface-variant);

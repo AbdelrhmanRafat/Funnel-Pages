@@ -3,6 +3,7 @@ import "./ClassicOrderConfirmationNotice.css";
 import type { BlockData, Item } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
 
 const data: BlockData = Astro.props.data;
 const confirmationNotices: Item[] = data.items ?? [];
@@ -24,7 +25,7 @@ const title = isArabic ? data.title_ar : data.title_en;
       {confirmationNotices.map((item, index) => (
         <div class="flex items-center gap-3 md:gap-2">
           <div class="classic-order-confirmation-icon flex justify-center items-center rounded-full w-8 h-8 flex-shrink-0">
-            <i class={item.icon} aria-hidden="true" />
+            {data.icon && <LucideIcon name={data.icon as any} width="15" height="15" />} 
           </div>
           <span class="font-medium">
             {item.label}

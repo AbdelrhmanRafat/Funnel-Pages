@@ -44,3 +44,8 @@
     display: inline-block;
     margin: 0;
 }
+.classic-rating-star-full {
+    color: var(--classic-color-warning);
+    font-size: 1.25rem;
+  }
+  

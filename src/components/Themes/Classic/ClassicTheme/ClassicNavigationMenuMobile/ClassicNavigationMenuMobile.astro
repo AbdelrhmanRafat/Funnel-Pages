@@ -4,6 +4,7 @@ import type { Data } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import { getClassicThemeComponent } from "../../../../../lib/utils/ThemeSelect";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
 
 const funnelPage: Data = Astro.props.funnelPage;
 const logo: string = Astro.props.logo;
@@ -101,7 +102,8 @@ const orderedAnchors = RENDER_ORDER
         aria-label="Close menu"
         type="button"
       >
-        <i class="fa-solid fa-times text-xl"></i>
+     <LucideIcon name="SquareX" width="18" height="18" />
+
       </button>
     </div>
     

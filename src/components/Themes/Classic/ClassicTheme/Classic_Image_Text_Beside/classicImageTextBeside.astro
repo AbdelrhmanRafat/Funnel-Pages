@@ -5,6 +5,7 @@ import type { BlockData, Item } from "../../../../../lib/api/types";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 import ClassicBuyNowButton from "../UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
 
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
@@ -20,7 +21,7 @@ const ImageTextData: Item | undefined = data.items?.[0];
 >
   <!-- Header -->
   <div class="classic-section-header">
-    <i class={data.icon} aria-hidden="true"></i>
+    {data.icon && <LucideIcon name={data.icon as any} width="32" height="32" />}
     <h5 id="image-text-heading">{isArabic ? data.title_ar : data.title_en}</h5>
   </div>
   

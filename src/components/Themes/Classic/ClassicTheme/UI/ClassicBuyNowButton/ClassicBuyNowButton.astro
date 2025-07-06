@@ -2,6 +2,7 @@
 // Enhanced ClassicBuyNowButton component with advanced animations
 // Optional props for button variations
 import { FunnelClassicComponents } from "../../../../../../lib/constants/themes";
+import LucideIcon from "../../../../../Shared/LucideIcon.astro";
 import "./ClassicBuyNowButton.css";
 ---
 
@@ -12,7 +13,8 @@ import "./ClassicBuyNowButton.css";
   >
     <div class="classic-buy-now-icon-wrapper">
       <div class="classic-buy-now-icon-container">
-        <i class="fa-solid fa-cart-shopping classic-buy-now-button-icon"></i>
+         <LucideIcon name="ShoppingCart" width="32" height="32" class="classic-buy-now-button-icon" />
+
       </div>
     </div>
     <span class="classic-buy-now-text" data-translate="CTA.button">Buy Now</span>
