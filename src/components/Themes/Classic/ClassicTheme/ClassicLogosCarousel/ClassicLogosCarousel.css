@@ -36,7 +36,6 @@
 .classic-carousel-left:disabled,
 .classic-carousel-right:disabled {
     opacity: 0.3;
-    cursor: not-allowed;
     background-color: var(--classic-color-surface);
     border-color: var(--classic-color-outline-variant);
 }

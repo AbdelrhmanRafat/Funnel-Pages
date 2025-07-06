@@ -91,7 +91,6 @@
 /* Disabled Options (filtered out by variant logic) */
 .classic-bundle-options-container-option-disabled {
   opacity: 0.3;
-  cursor: not-allowed;
   pointer-events: none;
   transition: all 0.3s ease;
   position: relative;

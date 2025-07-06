@@ -145,7 +145,6 @@
 /* Disabled Options */
 .classic-selection-options-without-bundles-option-disabled {
     opacity: 0.3;
-    cursor: not-allowed;
     pointer-events: none;
     position: relative;
     transition: all 0.3s ease;

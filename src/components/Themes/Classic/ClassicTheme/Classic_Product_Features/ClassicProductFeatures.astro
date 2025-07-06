@@ -20,7 +20,7 @@ const title = isArabic ? data.title_ar : data.title_en;
 >
   <!-- Header -->
   <div class="classic-section-header">
-    {data.icon && <LucideIcon name={data.icon as any} width="32" height="32" />}
+    {data.icon && <LucideIcon name={data.icon as any} width="48" height="48" class="fill-current" />}
     <h5>{title}</h5>
   </div>
   
@@ -30,7 +30,7 @@ const title = isArabic ? data.title_ar : data.title_en;
       <div class="classic-feature-card p-6 text-center">
         <!-- Feature Icon -->
         <div class="classic-feature-icon-container rounded-full flex items-center justify-center mx-auto mb-4">
-          {data.icon && <LucideIcon name={data.icon as any} width="32" height="32" class="text-2xl classic-feature-icon" />} 
+          {data.icon && <LucideIcon name={data.icon as any} width="32" height="32" class="text-2xl fill-current classic-feature-icon" />} 
         </div>
         
         <!-- Feature Content -->
