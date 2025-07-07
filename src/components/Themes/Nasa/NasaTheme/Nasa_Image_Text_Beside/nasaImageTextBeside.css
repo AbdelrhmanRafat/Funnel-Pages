@@ -1,0 +1,44 @@
+/* Classic Image-Text Section */
+.nasa-image-text-beside {
+  background-color: var(--nasa-color-surface);
+  border-radius: var(--nasa-section-radius);
+}
+
+.nasa-image-text-beside-image {
+  border-radius: var(--nasa-section-radius);
+  transition: transform 0.3s ease;
+}
+
+.nasa-image-text-beside-image:hover {
+  transform: scale(1.02);
+}
+
+.nasa-image-text-beside-content {
+  background-color: var(--nasa-color-surface-container-high);
+  border-radius: var(--nasa-section-radius);
+  box-shadow: var(--nasa-section-shadow);
+  transition: all 0.3s ease;
+}
+
+.nasa-image-text-beside-title {
+  color: var(--nasa-color-on-surface);
+}
+
+.nasa-image-text-beside-description {
+  color: var(--nasa-color-on-surface-variant);
+}
+
+/* Image placeholder for missing images */
+.nasa-image-placeholder {
+  background-color: var(--nasa-color-surface-variant);
+  color: var(--nasa-color-on-surface-variant);
+  border-radius: var(--nasa-section-radius);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .nasa-image-text-beside-image,
+  .nasa-image-text-beside-content {
+    transition: none;
+  }
+}

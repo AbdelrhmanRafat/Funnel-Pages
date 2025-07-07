@@ -1,0 +1,83 @@
+/* === Classic Reviews Component === */
+.nasa-review-card {
+    background-color: var(--nasa-color-surface-variant);
+    border-radius: var(--nasa-section-radius);
+    border-left-color: var(--nasa-color-primary);
+    padding: var(--nasa-section-padding);
+    box-shadow: var(--nasa-section-shadow);
+    
+    /* Add these enhancements */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+/* Add hover effect */
+.nasa-review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--nasa-section-shadow-hover, 0 8px 25px rgba(0,0,0,0.1));
+}
+
+/* Add focus-within for accessibility */
+.nasa-review-card:focus-within {
+    outline: 2px solid var(--nasa-color-primary);
+    outline-offset: 2px;
+}
+
+.nasa-review-description {
+    color: var(--nasa-color-on-surface);
+    /* Add quotation marks for better visual hierarchy */
+}
+
+.nasa-review-description::before {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--nasa-color-primary);
+    position: absolute;
+    top: var(--nasa-section-padding);
+    left: calc(var(--nasa-section-padding) - 0.5rem);
+    line-height: 1;
+}
+
+.nasa-review-description::after {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--nasa-color-primary);
+}
+
+.nasa-review-name {
+    color: var(--nasa-color-primary);
+}
+
+.nasa-review-author-image {
+    background-color: var(--nasa-color-primary);
+    box-shadow: var(--nasa-section-shadow);
+    /* Add smooth image loading */
+    overflow: hidden;
+}
+
+.nasa-review-author-image img {
+    transition: transform 0.3s ease;
+}
+
+.nasa-review-author-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Add responsive improvements */
+@media (max-width: 640px) {
+    .nasa-review-card {
+        padding: calc(var(--nasa-section-padding) * 0.75);
+    }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .nasa-review-card,
+    .nasa-review-author-image img {
+        transition: none;
+    }
+    
+    .nasa-review-card:hover {
+        transform: none;
+    }
+}

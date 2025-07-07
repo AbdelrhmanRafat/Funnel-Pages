@@ -1,0 +1,27 @@
+/* === Classic Footer Component === */
+.nasa-footer {
+    border-top-color: var(--nasa-color-outline);
+}
+
+.nasa-footer-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-footer-link {
+    color: var(--nasa-color-on-surface);
+    transition: color 0.2s ease;
+}
+
+.nasa-footer-link:hover {
+    color: var(--nasa-color-primary);
+}
+
+.nasa-footer-social-link {
+    color: var(--nasa-color-on-surface);
+    transition: all 0.2s ease;
+}
+
+.nasa-footer-social-link:hover {
+    color: var(--nasa-color-primary);
+    transform: scale(1.1);
+}

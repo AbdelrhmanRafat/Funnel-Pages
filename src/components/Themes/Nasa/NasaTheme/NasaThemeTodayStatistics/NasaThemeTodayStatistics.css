@@ -1,0 +1,66 @@
+/* Classic Statistics Minimal Design - Matching the provided image */
+
+.nasa-theme-today-order-count {
+    background: transparent;
+    color: var(--nasa-color-on-surface);
+    box-shadow: none;
+    border-radius: 0;
+    transition: transform 0.3s ease;
+    padding: 0;
+    min-width: auto;
+    min-height: auto;
+}
+
+.nasa-theme-today-order-count:hover {
+    transform: translateY(-2px);
+}
+
+.nasa-order-counter {
+    transition: all 0.1s ease;
+    color: var(--nasa-color-tertiary-dark);
+}
+
+/* Classic Statistics Container */
+.nasa-statistics-minimal-container {
+    background: transparent;
+    padding: 3rem 0;
+}
+
+/* Classic Counter Item Styling */
+.nasa-counter-minimal-item {
+    text-align: center;
+    position: relative;
+}
+
+/* Classic Counter Label - Green color like in image */
+.nasa-counter-minimal-label {
+    color: var(--nasa-color-success);
+}
+
+
+
+
+/* Classic Animation Effects */
+.nasa-order-counter[data-nasa-animating="true"] {
+    color: var(--nasa-color-primary);
+}
+
+@media (max-width: 768px) {
+    .nasa-order-counter {
+        font-size: 3rem;
+    }
+    
+    .nasa-counter-minimal-item:not(:last-child)::after {
+        display: none;
+    }
+    
+    .nasa-counter-minimal-label {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .nasa-order-counter {
+        font-size: 2.5rem;
+    }
+}

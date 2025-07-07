@@ -1,0 +1,98 @@
+/* === Desktop Navigation === */
+.nasa-desktop-nav {
+  border-top: 1px solid var(--nasa-color-outline-variant);
+}
+
+/* Navigation links */
+.nasa-desktop-nav-link {
+  background-color: var(--nasa-color-surface-variant);
+  color: var(--nasa-color-on-surface-variant);
+  text-decoration: none;
+  border: 1px solid var(--nasa-color-outline-variant);
+}
+
+.nasa-desktop-nav-link:hover {
+  background-color: var(--nasa-color-primary);
+  color: var(--nasa-color-on-primary);
+  border-color: var(--nasa-color-primary);
+  box-shadow: var(--nasa-section-shadow);
+}
+
+.nasa-desktop-nav-link:focus {
+  outline: 2px solid var(--nasa-color-primary);
+  outline-offset: 2px;
+}
+
+/* Navigation items */
+.nasa-nav-item {
+  transition: all 0.3s ease;
+}
+
+/* === Overflow System === */
+
+/* Overflow toggle button */
+.nasa-overflow-toggle {
+  background-color: var(--nasa-color-surface-variant);
+  border: 1px solid var(--nasa-color-outline-variant);
+  color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-overflow-toggle:hover {
+  background-color: var(--nasa-color-primary);
+  border-color: var(--nasa-color-primary);
+  color: var(--nasa-color-on-primary);
+}
+
+.nasa-overflow-toggle:focus {
+  outline: 2px solid var(--nasa-color-primary);
+  outline-offset: 2px;
+}
+
+/* Overflow dropdown */
+.nasa-overflow-dropdown {
+  background-color: var(--nasa-color-surface);
+  border: 1px solid var(--nasa-color-outline);
+  box-shadow: var(--nasa-section-shadow);
+}
+
+/* Overflow dropdown links */
+.nasa-overflow-dropdown-link {
+  color: var(--nasa-color-on-surface);
+  text-decoration: none;
+}
+
+.nasa-overflow-dropdown-link:hover {
+  background-color: var(--nasa-color-surface-variant);
+  color: var(--nasa-color-on-surface);
+}
+
+.nasa-overflow-dropdown-link:focus {
+  outline: 2px solid var(--nasa-color-primary);
+  outline-offset: 2px;
+  background-color: var(--nasa-color-surface-variant);
+}
+
+/* Navigation dots indicator */
+.nasa-nav-dots {
+  color: var(--nasa-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .nasa-desktop-nav-link,
+  .nasa-nav-item,
+  .nasa-overflow-toggle {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .nasa-desktop-nav-link {
+    border: 2px solid var(--nasa-color-outline);
+  }
+  
+  .nasa-overflow-dropdown {
+    border: 2px solid var(--nasa-color-outline);
+  }
+}

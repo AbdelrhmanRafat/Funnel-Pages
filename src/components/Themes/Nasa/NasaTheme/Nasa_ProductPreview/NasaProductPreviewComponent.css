@@ -1,0 +1,87 @@
+/* === Classic Product Preview === */
+
+/* Video container with responsive height */
+.nasa-product-preview-video-container {
+    border-color: var(--nasa-color-primary);
+    border-radius: var(--nasa-section-radius);
+    box-shadow: var(--nasa-section-shadow);
+    /* Responsive height */
+    height: 300px;
+}
+
+@media (min-width: 768px) {
+    .nasa-product-preview-video-container {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .nasa-product-preview-video-container {
+        height: 100%;
+        min-height: 450px;
+    }
+}
+
+/* Video title overlay */
+.nasa-product-preview-video-title {
+    color: var(--nasa-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Features container */
+.nasa-product-preview-features-container {
+    background-color: var(--nasa-color-surface-container-high);
+    border-radius: var(--nasa-section-radius);
+    padding: 2rem;
+    box-shadow: var(--nasa-section-shadow);
+}
+
+/* Features header */
+.nasa-product-preview-features-header {
+    border-color: var(--nasa-color-outline-variant);
+}
+
+.nasa-product-preview-features-title {
+    color: var(--nasa-color-on-surface);
+}
+
+/* Views badge */
+.nasa-product-preview-views-badge {
+    background-color: var(--nasa-color-surface-variant);
+    color: var(--nasa-color-on-surface-variant);
+    border-radius: 1rem;
+}
+
+/* Feature items */
+.nasa-product-preview-feature-icon {
+    background-color: var(--nasa-color-primary);
+    color: var(--nasa-color-on-primary);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.nasa-product-preview-feature-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-product-preview-feature-subtitle {
+    color: var(--nasa-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .nasa-product-preview-video-container {
+        transition: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .nasa-product-preview-features-container {
+        border: 2px solid var(--nasa-color-outline);
+    }
+    
+    .nasa-product-preview-video-container {
+        border-width: 3px;
+    }
+}

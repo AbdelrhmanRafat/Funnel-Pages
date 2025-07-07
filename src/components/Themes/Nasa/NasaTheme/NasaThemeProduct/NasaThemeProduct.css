@@ -1,0 +1,43 @@
+/* === Product Details Section Classes === */
+.nasa-product-details-section {
+    background-color: var(--nasa-color-background);
+}
+
+.nasa-product-details-container {
+    background: linear-gradient(135deg, var(--nasa-color-surface) 0%, var(--nasa-color-surface-variant) 100%);
+    border-radius: var(--nasa-section-radius);
+}
+
+.nasa-product-details-badge-success {
+    background-color: var(--nasa-color-success-light);
+    color: var(--nasa-color-on-success);
+}
+
+.nasa-product-details-badge-error {
+    background-color: var(--nasa-color-error-light);
+    color: var(--nasa-color-on-error);
+}
+
+.nasa-product-details-sku {
+    color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-product-details-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-product-details-price {
+    color: var(--nasa-color-primary);
+}
+
+.nasa-product-details-price--discount {
+    color: var(--nasa-color-on-surface-variant);
+}
+
+.nasa-product-details-description-header {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-product-details-text-body {
+    color: var(--nasa-color-on-surface-variant);
+}

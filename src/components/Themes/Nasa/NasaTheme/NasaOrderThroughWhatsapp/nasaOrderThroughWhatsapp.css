@@ -1,0 +1,7 @@
+/* === Order Confirmation Notice === */
+.nasa-order-through-whatsapp {
+    background-color: var(--nasa-color-surface);
+    color: var(--nasa-color-on-surface);
+    border-radius: var(--nasa-section-radius);
+    padding: var(--nasa-section-padding);
+}

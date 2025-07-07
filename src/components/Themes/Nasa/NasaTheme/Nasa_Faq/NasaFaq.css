@@ -1,0 +1,64 @@
+/* NasaFaq.css - Enhanced version */
+/* === Classic FAQ Component === */
+.nasa-faq-item {
+    background-color: var(--nasa-color-surface);
+    border-radius: var(--nasa-section-radius);
+    border: 1px solid var(--nasa-color-outline-variant);
+    transition: border-color 0.2s ease;
+}
+
+/* Add focus states for accessibility */
+.nasa-faq-item:focus-within {
+    border-color: var(--nasa-color-primary);
+    outline: 2px solid var(--nasa-color-primary);
+    outline-offset: 2px;
+}
+
+.nasa-faq-question {
+    transition: background-color 0.2s ease;
+}
+
+.nasa-faq-question:hover {
+    background-color: var(--nasa-color-surface-variant);
+}
+
+.nasa-faq-question:focus {
+    background-color: var(--nasa-color-surface-variant);
+    outline: none; /* Handled by parent */
+}
+
+.nasa-faq-question-text {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-faq-icon {
+    color: var(--nasa-color-on-surface-variant);
+    transition: transform 0.3s ease, color 0.2s ease;
+}
+
+/* Add open state styling */
+.nasa-faq-item[open] .nasa-faq-icon {
+    color: var(--nasa-color-primary);
+}
+
+.nasa-faq-answer {
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.nasa-faq-answer.open {
+    padding-bottom: 1.5rem;
+}
+
+.nasa-faq-answer-content {
+    color: var(--nasa-color-on-surface-variant);
+    line-height: 1.6;
+}
+
+/* Add animation polish */
+@media (prefers-reduced-motion: reduce) {
+    .nasa-faq-icon,
+    .nasa-faq-answer,
+    .nasa-faq-question {
+        transition: none;
+    }
+}

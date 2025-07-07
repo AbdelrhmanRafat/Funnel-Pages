@@ -6,6 +6,7 @@ import { getThemeFromString } from "../lib/utils/ThemeSelect";
 import { FunnelDataType, getFunnelPage } from "../lib/api/funnel";
 import { Theme } from "../lib/constants/themes";
 import type { FunnelRes } from "../lib/api/types";
+import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
 
 // 1. Get 'type' from query param
 const urlParams = Astro.url.searchParams;
@@ -27,6 +28,7 @@ const facebookPixelID = funnelPage.data.facebookPixelId;
 const twitterPixelID = funnelPage.data.twitterPixelId;
 const snapchatPixelID = funnelPage.data.snapchatPixelId;
 const tiktokPixelID = funnelPage.data.tiktokPixelId;
+
 ---
 
 <Layout
@@ -43,6 +45,8 @@ const tiktokPixelID = funnelPage.data.tiktokPixelId;
       switch (enumTheme) {
         case Theme.Classic:
           return <ClassicComponent funnelPage={funnelPage.data} />;
+          case Theme.Nasa:
+          return <NasaComponent funnelPage={funnelPage.data} />;
         default:
           return <p>Theme not found</p>;
       }

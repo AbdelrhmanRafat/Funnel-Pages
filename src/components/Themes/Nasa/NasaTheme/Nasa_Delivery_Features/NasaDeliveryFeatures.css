@@ -1,0 +1,12 @@
+/* === Delivery Features Section Classes === */
+.nasa-delivery-feature-icon {
+    color: var(--nasa-color-primary);
+}
+
+.nasa-delivery-feature-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-delivery-feature-subtitle {
+    color: var(--nasa-color-on-surface-variant);
+}

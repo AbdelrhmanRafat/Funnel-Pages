@@ -37,7 +37,6 @@ export enum FunnelClassicComponents {
   ClassicImageTextBeside = "classic_Image_Text_beside"
 }
 
-
 // Define the available product info section components
 export enum ClassicProductInfoComponents {
   Rating = "rating",
@@ -51,62 +50,35 @@ export enum ClassicProductInfoComponents {
   coupon = "coupon" 
 }
 
-// Defines the component names for the TROY theme.
-export enum FunnelTroyComponents {
-  TroyHeader = "troy_header",
-  TroyFormFields = "troy_form_fields",
-  TroyCountdown = "troy_countdown",
-  TroyTodayOrders = "troy_today_orders",
-  TroyRates = "troy_rates",
-  TroyProductFunnel = "troy_product_funnel",
-  TroyFooter = "troy_footer",
-  TroyOrderConfirmationNotice = "troy_order_confirmation_notice",
-  TroyFaq = "troy_faq",
-  TroyProductPreview = "troy_product_preview",
-  TroyProductUsage = "troy_product_usage",
-  TroyProductFeatures = "troy_product_features",
-  TroyDeliveryFeatures = "troy_delivery_features",
-  TroyReviews = "troy_reviews",
-  TroyTextBar = "troy_text-bar",
-  TroyGallery = "troy_Gallery",
-  Troy_Before_After = "troy_before_&_after",
-  TroyImageTextOverLay = "troy_Image_Text_overlay",
-  TroyImageTextBeside = "troy_Image_Text_beside"
-}
-
-// Define the available product info section components for TROY theme
-export enum TroyProductInfoComponents {
-  Rating = "rating",
-  ProductHeader = "productHeader",
-  ProductDescription = "productDescription",
-  PurchaseOptions = "purchaseOptions",
-  FormFields = "formFields",
-  OrderConfirmation = "orderConfirmation",
-}
-
+// Defines the component names for the NASA theme.
 export enum FunnelNasaComponents {
   NasaHeader = "nasa_header",
   NasaFormFields = "nasa_form_fields",
   NasaCountdown = "nasa_countdown",
-  NasaTodayOrders = "nasa_today_orders",
+  NasaTodayStatistics = "nasa_today_statistics",
+  NasaLogosCarousel = "nasa_logos_carousel",
   NasaRates = "nasa_rates",
   NasaProductFunnel = "nasa_product_funnel",
   NasaFooter = "nasa_footer",
   NasaOrderConfirmationNotice = "nasa_order_confirmation_notice",
+  NasaOrderThroughWhatsapp = "nasa_order_through_whatsapp",
   NasaFaq = "nasa_faq",
+  NasaVisitors = "nasa_visitors",
   NasaProductPreview = "nasa_product_preview",
   NasaProductUsage = "nasa_product_usage",
   NasaProductFeatures = "nasa_product_features",
   NasaDeliveryFeatures = "nasa_delivery_features",
-  NasaReviews = "nasa_reviews",
-  NasaTextBar = "nasa_text_bar",
-  NasaGallery = "nasa_gallery",
-  NasaBeforeAfter = "nasa_before_&_after",
-  NasaImageTextOverlay = "nasa_image_text_overlay",
-  NasaImageTextBeside = "nasa_image_text_beside",
+  NasaButtonWithLink = "nasa_button_with_link",
+  NasaCoupon = "nasa_coupon",
+  NasaReviews = "nasa_Reviews",
+  NasaTextBar = "nasa_TextBar",
+  NasaGallery = "nasa_Gallery",
+  Nasa_Before_After = "nasa_before_&_after",
+  NasaImageTextOverLay = "nasa_Image_Text_overlay",
+  NasaImageTextBeside = "nasa_Image_Text_beside"
 }
 
-// Define the available product info section components
+// Define the available product info section components for the NASA theme
 export enum NasaProductInfoComponents {
   Rating = "rating",
   ProductHeader = "productHeader",
@@ -114,4 +86,7 @@ export enum NasaProductInfoComponents {
   PurchaseOptions = "purchaseOptions",
   FormFields = "formFields",
   OrderConfirmation = "orderConfirmation",
+  OrderThroghWhatsapp = "orderThroghWhatsapp",
+  Visitores = "visitors",
+  coupon = "coupon" 
 }
