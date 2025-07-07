@@ -1,6 +1,5 @@
 ---
-// This file is the main page that fetches data, determines the theme, and renders the appropriate theme component.
-import "../styles/global.css"
+import "../styles/global.css";
 import Layout from "../layouts/Layout.astro";
 import ClassicComponent from "../components/Themes/Classic/ClassicComponent.astro";
 import { getThemeFromString } from "../lib/utils/ThemeSelect";
@@ -8,11 +7,20 @@ import { FunnelDataType, getFunnelPage } from "../lib/api/funnel";
 import { Theme } from "../lib/constants/themes";
 import type { FunnelRes } from "../lib/api/types";
 
-// Fetches the funnel page data from the API.
-const funnelPage: FunnelRes = await getFunnelPage(FunnelDataType.PRODUCT_WITHOUT_VARIANTS_AND_BUNDLES);
-// Gets the theme name string from the API response.
+// 1. Get 'type' from query param
+const urlParams = Astro.url.searchParams;
+const typeParam = urlParams.get("type") as FunnelDataType | null;
+
+// 2. Validate the param or fallback
+const dataType: FunnelDataType = Object.values(FunnelDataType).includes(typeParam as FunnelDataType)
+  ? (typeParam as FunnelDataType)
+  : FunnelDataType.CLASSIC_DEFAULT;
+
+// 3. Fetch the funnel data based on query param
+const funnelPage: FunnelRes = await getFunnelPage(dataType);
+
+// 4. Prepare required values
 const strTheme: string = funnelPage.data.theme;
-// Converts the theme string to a Theme enum value.
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
 const meta = funnelPage.data.product.meta;
 const facebookPixelID = funnelPage.data.facebookPixelId;
@@ -20,10 +28,18 @@ const twitterPixelID = funnelPage.data.twitterPixelId;
 const snapchatPixelID = funnelPage.data.snapchatPixelId;
 const tiktokPixelID = funnelPage.data.tiktokPixelId;
 ---
-<Layout metadata={meta} strThemeName={strTheme} themeCss={funnelPage.data.themeCss} facebookPixelID={facebookPixelID} twitterPixelID={twitterPixelID} snapchatPixelID={snapchatPixelID} tiktokPixelID={tiktokPixelID}>
+
+<Layout
+  metadata={meta}
+  strThemeName={strTheme}
+  themeCss={funnelPage.data.themeCss}
+  facebookPixelID={facebookPixelID}
+  twitterPixelID={twitterPixelID}
+  snapchatPixelID={snapchatPixelID}
+  tiktokPixelID={tiktokPixelID}
+>
   {
     (() => {
-      // Selects and renders the appropriate theme component based on the Theme enum value.
       switch (enumTheme) {
         case Theme.Classic:
           return <ClassicComponent funnelPage={funnelPage.data} />;
@@ -33,4 +49,3 @@ const tiktokPixelID = funnelPage.data.tiktokPixelId;
     })()
   }
 </Layout>
-
