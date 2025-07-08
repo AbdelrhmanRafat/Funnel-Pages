@@ -1,0 +1,17 @@
+/* This file is intended for CSS styles specific to the ZenThemeCountdown component. */
+/* Currently, it is empty as the component's styling is handled by Tailwind CSS classes in the .astro file. */
+/* However, this file can be used for more complex or component-specific styling if needed in the future. */
+/* === Classic Countdown Component === */
+
+.zen-countdown-block {
+    background-color: var(--zen-color-surface-variant);
+    color: var(--zen-color-primary-dark);
+    border-color: var(--zen-color-secondary);
+    box-shadow: var(--zen-section-shadow);
+    transition: all 0.3s ease;
+}
+
+.zen-countdown-block:hover {
+    box-shadow: var(--zen-section-shadow);
+    transform: scale(1.05);
+}

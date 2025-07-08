@@ -1,0 +1,44 @@
+/* Classic Image-Text Section */
+.minimal-image-text-beside {
+  background-color: var(--minimal-color-surface);
+  border-radius: var(--minimal-section-radius);
+}
+
+.minimal-image-text-beside-image {
+  border-radius: var(--minimal-section-radius);
+  transition: transform 0.3s ease;
+}
+
+.minimal-image-text-beside-image:hover {
+  transform: scale(1.02);
+}
+
+.minimal-image-text-beside-content {
+  background-color: var(--minimal-color-surface-container-high);
+  border-radius: var(--minimal-section-radius);
+  box-shadow: var(--minimal-section-shadow);
+  transition: all 0.3s ease;
+}
+
+.minimal-image-text-beside-title {
+  color: var(--minimal-color-on-surface);
+}
+
+.minimal-image-text-beside-description {
+  color: var(--minimal-color-on-surface-variant);
+}
+
+/* Image placeholder for missing images */
+.minimal-image-placeholder {
+  background-color: var(--minimal-color-surface-variant);
+  color: var(--minimal-color-on-surface-variant);
+  border-radius: var(--minimal-section-radius);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .minimal-image-text-beside-image,
+  .minimal-image-text-beside-content {
+    transition: none;
+  }
+}

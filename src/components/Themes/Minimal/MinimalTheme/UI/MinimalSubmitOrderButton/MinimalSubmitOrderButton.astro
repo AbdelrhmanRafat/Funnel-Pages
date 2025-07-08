@@ -1,0 +1,41 @@
+---
+import "./MinimalSubmitOrderButton.css";
+import MinimalModalPurchaseInfo from "../../MinimalModalPurchaseInfo/MinimalModalPurchaseInfo.astro";
+import type { BlockData, Product } from "../../../../../../lib/api/types";
+
+const isHaveVariant : string = Astro.props.isHaveVariant;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const product : Product = Astro.props.product;
+// Component configuration
+const validateOnSubmit =  true;
+const showValidationMessages =  true;
+const autoFocusFirstError =  true;
+const enableColorSizeValidation =  true;
+const isHaveBundles = !(purchaseOptions === undefined);
+---
+
+<minimal-submit-order 
+  data-submit-validate-on-submit={validateOnSubmit}
+  data-submit-show-validation-messages={showValidationMessages}
+  data-submit-auto-focus-first-error={autoFocusFirstError}
+  data-submit-enable-color-size-validation={enableColorSizeValidation}
+  is-Have-Variant={isHaveVariant}
+  is-Have-Bundles={isHaveBundles}
+>
+  <div>
+    <button
+      type="button"
+      data-submit-order-button
+      class="minimal-form-submit"
+      data-translate="form.submit"
+    >
+    </button>
+  </div>
+</minimal-submit-order>
+
+<!-- Include the modal component -->
+<MinimalModalPurchaseInfo  isHaveVariant={isHaveVariant} purchaseOptions={purchaseOptions} product={product} />
+
+<script>
+  import "./MinimalSubmitOrderButton";
+</script>

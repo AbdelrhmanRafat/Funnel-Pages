@@ -1,0 +1,207 @@
+/* === Classic Logos Carousel Component - Clean & Simple === */
+
+/* Section Divider */
+.urban-logos-carousel-divider {
+    background: linear-gradient(90deg, 
+        var(--urban-color-primary) 0%,
+        var(--urban-color-secondary) 50%,
+        var(--urban-color-primary) 100%
+    );
+}
+
+/* Logo Cards - Clean and minimal */
+.urban-logo-card {
+    /* No background, borders, or hover effects - just clean space for logos */
+    background: transparent;
+    transition: none;
+}
+
+/* Carousel Navigation Arrows - Clean design */
+.urban-carousel-left,
+.urban-carousel-right {
+    background-color: var(--urban-color-surface);
+    color: var(--urban-color-on-surface);
+    border: 1px solid var(--urban-color-outline-variant);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.urban-carousel-left:hover,
+.urban-carousel-right:hover {
+    background-color: var(--urban-color-surface-variant);
+    border-color: var(--urban-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.urban-carousel-left:disabled,
+.urban-carousel-right:disabled {
+    opacity: 0.3;
+    background-color: var(--urban-color-surface);
+    border-color: var(--urban-color-outline-variant);
+}
+
+.urban-carousel-left:active,
+.urban-carousel-right:active {
+    transform: scale(0.95);
+}
+
+/* Page Indicators - Simple dots */
+.urban-page-indicator {
+    background-color: var(--urban-color-outline);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.urban-page-indicator:hover {
+    background-color: var(--urban-color-primary-light);
+}
+
+.urban-page-indicator.active {
+    background-color: var(--urban-color-primary);
+}
+
+/* Focus states for accessibility */
+.urban-carousel-left:focus,
+.urban-carousel-right:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--urban-color-primary-light);
+    border-color: var(--urban-color-primary);
+}
+
+.urban-page-indicator:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--urban-color-primary-light);
+}
+
+/* Loading state - Simple skeleton */
+.urban-logo-card.animate-pulse {
+    background: linear-gradient(90deg, 
+        var(--urban-color-surface) 25%, 
+        var(--urban-color-surface-variant) 50%, 
+        var(--urban-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: urban-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes urban-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Trust indicator styling */
+.urban-trust-indicator {
+    color: var(--urban-color-on-surface-variant);
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* Responsive Design - Mobile-first approach */
+@media (max-width: 640px) {
+    .urban-carousel-left,
+    .urban-carousel-right {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .urban-logo-card {
+        min-height: 56px;
+        padding: 0.75rem;
+    }
+    
+    .urban-page-indicator {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .urban-page-indicator.active {
+        width: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .urban-logo-card {
+        min-height: 48px;
+        padding: 0.5rem;
+    }
+    
+    .urban-carousel-left,
+    .urban-carousel-right {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Large screens - Enhanced spacing */
+@media (min-width: 1024px) {
+    .urban-logo-card {
+        min-height: 80px;
+        padding: 1.25rem;
+    }
+    
+    .urban-carousel-left,
+    .urban-carousel-right {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Motion preferences - Respect user settings */
+@media (prefers-reduced-motion: reduce) {
+    .urban-carousel-left,
+    .urban-carousel-right,
+    .urban-page-indicator {
+        transition: none;
+        animation: none;
+    }
+    
+    .urban-carousel-left:active,
+    .urban-carousel-right:active {
+        transform: none;
+    }
+}
+
+/* High contrast mode - Better accessibility */
+@media (prefers-contrast: high) {
+    .urban-carousel-left,
+    .urban-carousel-right {
+        border-width: 2px;
+        border-color: var(--urban-color-on-surface);
+    }
+    
+    .urban-page-indicator {
+        border: 2px solid var(--urban-color-on-surface);
+    }
+    
+    .urban-page-indicator.active {
+        background: var(--urban-color-on-surface);
+        border-color: var(--urban-color-primary);
+    }
+}
+
+/* RTL Support - Ensure proper visual direction */
+[dir="rtl"] .urban-carousel-left {
+    /* In RTL, the left button should visually point right */
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .urban-carousel-right {
+    /* In RTL, the right button should visually point left */
+    transform: scaleX(-1);
+}
+
+/* Dark mode support (if applicable) */
+@media (prefers-color-scheme: dark) {
+    .urban-carousel-left,
+    .urban-carousel-right {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--urban-color-on-surface);
+    }
+    
+    .urban-carousel-left:hover,
+    .urban-carousel-right:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}

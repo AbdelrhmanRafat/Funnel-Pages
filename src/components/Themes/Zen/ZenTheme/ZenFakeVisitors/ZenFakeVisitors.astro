@@ -1,0 +1,32 @@
+---
+import "./ZenFakeVisitors.css";
+import type { BlockData, Item } from '../../../../../lib/api/types';
+import { FunnelZenComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+const visitors: Item[] = data.items ?? [];
+---
+
+<zen-visitors-animation 
+  class="w-full flex justify-start items-start"
+  data-zen-visitors={JSON.stringify(visitors)}
+  data-zen-display-time="3000"
+  data-zen-flash-duration="800"
+>
+  <section id={FunnelZenComponents.ZenVisitors}>
+    <div class="zen-visitors-section flex justify-start items-center gap-4">
+      <!-- Single visitor display area -->
+      <div class="zen-visitor-display">
+        <div class="zen-visitor-image w-8 h-8 rounded-full opacity-0">
+          <img class="w-full rounded-full" src="" alt="Visitor" id="zen-visitor-img"/>
+        </div>
+        <p class="zen-visitor-description opacity-0" id="zen-visitor-desc"></p>
+      </div>
+    </div>
+  </section>
+</zen-visitors-animation>
+
+
+<script>
+  import "./ZenFakeVisitors";
+</script>

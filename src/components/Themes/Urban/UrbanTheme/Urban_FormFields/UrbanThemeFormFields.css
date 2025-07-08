@@ -1,0 +1,210 @@
+/* === Classic Form Components === */
+
+/* Main form container */
+.urban-form {
+    background-color: var(--urban-color-surface);
+    border-radius: var(--urban-section-radius);
+}
+
+/* Form title styling */
+.urban-form-title {
+    color: var(--urban-color-on-surface);
+}
+
+/* Section headers within form */
+.urban-form-section-title {
+    color: var(--urban-color-on-surface);
+}
+
+/* Improved Input Group */
+.urban-form-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Input field styling */
+.urban-form-input {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--urban-color-outline);
+    border-radius: 12px;
+    color: var(--urban-color-on-surface);
+    background-color: var(--urban-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Floating label styling */
+.urban-form-label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--urban-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--urban-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Focus and valid states for input */
+.urban-form-input:focus,
+.urban-form-input:valid {
+    border-color: var(--urban-color-primary);
+    box-shadow: var(--urban-section-shadow);
+}
+
+/* Floating label animation */
+.urban-form-input:focus~.urban-form-label,
+.urban-form-input:valid~.urban-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--urban-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.urban-form-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--urban-color-error);
+    min-height: 1.25rem;
+}
+
+
+
+.urban-form-input.text-right~.urban-form-label {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+.urban-form-input.text-left~.urban-form-label {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.urban-form-input.text-left:focus~.urban-form-label,
+.urban-form-input.text-left:valid~.urban-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+.urban-form-input.text-left:focus~.urban-form-label,
+.urban-form-input.text-left:valid~.urban-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+
+
+/* Payment and delivery option containers */
+.urban-form-payment-option {
+    padding: 0.75rem;
+    /* Tailwind: p-3 */
+    border: 1px solid var(--urban-color-outline);
+    border-radius: 0.5rem;
+    /* Tailwind: rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover state for payment options */
+.urban-form-payment-option:hover {
+    background-color: var(--urban-color-surface-variant);
+    border-color: var(--urban-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.urban-form-payment-option:focus-within {
+    border-color: var(--urban-color-primary);
+    outline: 2px solid var(--urban-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.urban-form-payment-option-label {
+    display: block;
+    color: var(--urban-color-on-surface);
+    cursor: pointer;
+}
+
+/* Payment option descriptions */
+.urban-form-payment-option-description {
+    display: block;
+    color: var(--urban-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.urban-form-radio {
+    accent-color: var(--urban-color-primary);
+    border-color: var(--urban-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator (if used) */
+.urban-form-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--urban-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Radio dot inside custom indicator */
+.urban-form-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.urban-form-payment-option input[type="radio"]:checked+.urban-form-payment-option-content .urban-form-radio-indicator {
+    border-color: var(--urban-color-primary);
+    background-color: var(--urban-color-primary);
+}
+
+.urban-form-payment-option input[type="radio"]:checked+.urban-form-payment-option-content .urban-form-radio-dot {
+    background-color: var(--urban-color-surface);
+}
+
+/* Validation state classes */
+.urban-border-error {
+    border-color: var(--urban-color-error) !important;
+}
+
+.urban-text-error {
+    color: var(--urban-color-error) !important;
+}
+
+.urban-border-success {
+    border-color: var(--urban-color-success) !important;
+}
+
+.urban-text-success {
+    color: var(--urban-color-success) !important;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .urban-form-input,
+    .urban-form-payment-option,
+    .urban-form-radio-indicator,
+    .urban-form-radio-dot {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .urban-form-input {
+        border-width: 2px;
+    }
+
+    .urban-form-payment-option {
+        border-width: 2px;
+    }
+}

@@ -1,0 +1,87 @@
+/* === Classic Product Preview === */
+
+/* Video container with responsive height */
+.arabictouch-product-preview-video-container {
+    border-color: var(--arabictouch-color-primary);
+    border-radius: var(--arabictouch-section-radius);
+    box-shadow: var(--arabictouch-section-shadow);
+    /* Responsive height */
+    height: 300px;
+}
+
+@media (min-width: 768px) {
+    .arabictouch-product-preview-video-container {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .arabictouch-product-preview-video-container {
+        height: 100%;
+        min-height: 450px;
+    }
+}
+
+/* Video title overlay */
+.arabictouch-product-preview-video-title {
+    color: var(--arabictouch-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Features container */
+.arabictouch-product-preview-features-container {
+    background-color: var(--arabictouch-color-surface-container-high);
+    border-radius: var(--arabictouch-section-radius);
+    padding: 2rem;
+    box-shadow: var(--arabictouch-section-shadow);
+}
+
+/* Features header */
+.arabictouch-product-preview-features-header {
+    border-color: var(--arabictouch-color-outline-variant);
+}
+
+.arabictouch-product-preview-features-title {
+    color: var(--arabictouch-color-on-surface);
+}
+
+/* Views badge */
+.arabictouch-product-preview-views-badge {
+    background-color: var(--arabictouch-color-surface-variant);
+    color: var(--arabictouch-color-on-surface-variant);
+    border-radius: 1rem;
+}
+
+/* Feature items */
+.arabictouch-product-preview-feature-icon {
+    background-color: var(--arabictouch-color-primary);
+    color: var(--arabictouch-color-on-primary);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.arabictouch-product-preview-feature-title {
+    color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-product-preview-feature-subtitle {
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .arabictouch-product-preview-video-container {
+        transition: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .arabictouch-product-preview-features-container {
+        border: 2px solid var(--arabictouch-color-outline);
+    }
+    
+    .arabictouch-product-preview-video-container {
+        border-width: 3px;
+    }
+}

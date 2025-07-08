@@ -1,0 +1,280 @@
+/* === Base Option Styles === */
+.zen-selection-options-without-bundles-option-title {
+    color: var(--zen-color-on-surface);
+}
+
+/* === Size/Text Options Base === */
+.zen-selection-options-without-bundles-size-option {
+    background-color: var(--zen-color-surface);
+    color: var(--zen-color-on-surface-variant);
+    border: 1px solid var(--zen-color-outline);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.zen-selection-options-without-bundles-size-option:hover {
+    background-color: var(--zen-color-secondary);
+    color: var(--zen-color-on-secondary);
+    border-color: var(--zen-color-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--zen-section-shadow);
+}
+
+/* === Size/Text Options Selected State === */
+.zen-selection-options-without-bundles-size-option--selected {
+    background-color: var(--zen-color-secondary);
+    color: var(--zen-color-on-secondary);
+    border-color: var(--zen-color-secondary-dark);
+    transform: translateY(-4px);
+    box-shadow: var(--zen-section-shadow);
+}
+
+.zen-selection-options-without-bundles-size-option--selected:hover {
+    background-color: var(--zen-color-secondary);
+    color: var(--zen-color-on-secondary);
+    border-color: var(--zen-color-secondary-dark);
+    transform: translateY(-4px);
+    box-shadow: var(--zen-section-shadow);
+}
+
+/* === Color Options Base === */
+.zen-selection-options-without-bundles-color-option {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.zen-selection-options-without-bundles-color-option:hover {
+    transform: scale(1.05);
+}
+
+.zen-selection-options-without-bundles-color-swatch {
+    background-color: var(--zen-color-surface);
+    border: 2px solid var(--zen-color-outline-variant);
+    box-shadow: var(--zen-section-shadow);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.zen-selection-options-without-bundles-color-name {
+    color: var(--zen-color-on-surface-variant);
+}
+
+/* === Color Options Selected State === */
+.zen-selection-options-without-bundles-color-option--selected {
+    transform: scale(1.1);
+}
+
+.zen-selection-options-without-bundles-color-option--selected .zen-selection-options-without-bundles-color-swatch {
+    border: 3px solid var(--zen-color-primary);
+    box-shadow: 0 0 0 2px var(--zen-color-surface),
+                0 0 0 4px var(--zen-color-primary),
+                0 6px 16px rgba(0, 150, 136, 0.25);
+}
+
+.zen-selection-options-without-bundles-color-option--selected .zen-selection-options-without-bundles-color-name {
+    color: var(--zen-color-secondary);
+}
+
+.zen-selection-options-without-bundles-color-option--selected:hover {
+    transform: scale(1.1);
+}
+
+/* === Generic Option Selected State === */
+.zen-selection-options-without-bundles-option--selected {
+    opacity: 1;
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 2px var(--zen-color-primary);
+}
+
+/* === Quantity Section === */
+.zen-selection-options-without-bundles-qty-label {
+    color: var(--zen-color-on-surface);
+}
+
+.zen-selection-options-without-bundles-qty-btn {
+    background-color: var(--zen-color-surface);
+    color: var(--zen-color-on-surface);
+    border: 1px solid var(--zen-color-outline);
+}
+
+.zen-selection-options-without-bundles-qty-btn:hover:not(:disabled) {
+    background-color: var(--zen-color-surface-variant);
+}
+
+.zen-selection-options-without-bundles-qty-btn:focus {
+    ring-color: var(--zen-color-primary);
+}
+
+.zen-selection-options-without-bundles-qty-btn:disabled {
+    background-color: var(--zen-color-surface-container);
+    color: var(--zen-color-on-surface-variant);
+}
+
+.zen-selection-options-without-bundles-qty-input {
+    background-color: var(--zen-color-surface);
+    color: var(--zen-color-on-surface);
+    border: 1px solid var(--zen-color-outline);
+}
+
+.zen-selection-options-without-bundles-qty-input:focus {
+    border-color: var(--zen-color-primary);
+    ring-color: var(--zen-color-primary);
+}
+
+.zen-selection-options-without-bundles-max-qty-text {
+    color: var(--zen-color-on-surface-variant);
+}
+
+.zen-selection-options-without-bundles-max-qty-value {
+    color: var(--zen-color-secondary);
+}
+
+/* === Option States === */
+
+/* Available Options */
+.zen-selection-options-without-bundles-option-available {
+    opacity: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.zen-selection-options-without-bundles-option-available:hover {
+    transform: scale(1.02);
+}
+
+/* Disabled Options */
+.zen-selection-options-without-bundles-option-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.zen-selection-options-without-bundles-option-disabled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 2px,
+        rgba(0, 0, 0, 0.1) 4px
+    );
+    border-radius: inherit;
+    z-index: 1;
+}
+
+/* Disabled Size Options */
+.zen-selection-options-without-bundles-size-option.zen-selection-options-without-bundles-option-disabled {
+    background-color: var(--zen-color-surface-variant);
+    color: var(--zen-color-on-surface-variant);
+    border-color: var(--zen-color-outline-variant);
+    box-shadow: none;
+}
+
+.zen-selection-options-without-bundles-size-option.zen-selection-options-without-bundles-option-disabled:hover {
+    background-color: var(--zen-color-surface-variant);
+    color: var(--zen-color-on-surface-variant);
+    transform: none;
+}
+
+/* Disabled Color Options */
+.zen-selection-options-without-bundles-color-option.zen-selection-options-without-bundles-option-disabled {
+    filter: grayscale(70%) brightness(0.8);
+}
+
+.zen-selection-options-without-bundles-color-option.zen-selection-options-without-bundles-option-disabled:hover {
+    transform: none;
+    filter: grayscale(70%) brightness(0.8);
+}
+
+.zen-selection-options-without-bundles-color-option.zen-selection-options-without-bundles-option-disabled .zen-selection-options-without-bundles-color-swatch {
+    border-color: var(--zen-color-outline-variant);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.zen-selection-options-without-bundles-color-option.zen-selection-options-without-bundles-option-disabled .zen-selection-options-without-bundles-color-name {
+    color: var(--zen-color-on-surface-variant);
+    text-decoration: line-through;
+}
+
+/* === Enhanced Hover States === */
+.zen-selection-options-without-bundles-size-option.zen-selection-options-without-bundles-option-available:hover:not(.zen-selection-options-without-bundles-size-option--selected) {
+    background-color: var(--zen-color-secondary-light);
+    color: var(--zen-color-on-secondary);
+    border-color: var(--zen-color-secondary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.zen-selection-options-without-bundles-color-option.zen-selection-options-without-bundles-option-available:hover:not(.zen-selection-options-without-bundles-color-option--selected) {
+    transform: scale(1.08);
+}
+
+.zen-selection-options-without-bundles-color-option.zen-selection-options-without-bundles-option-available:hover:not(.zen-selection-options-without-bundles-color-option--selected) .zen-selection-options-without-bundles-color-swatch {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* === Loading/Transition States === */
+.zen-selection-options-without-bundles-option-transitioning {
+    opacity: 0.7;
+    transform: scale(0.98);
+    transition: all 0.2s ease;
+}
+
+/* === Focus States for Accessibility === */
+.zen-selection-options-without-bundles-size-option:focus,
+.zen-selection-options-without-bundles-color-option:focus {
+    outline: 2px solid var(--zen-color-primary);
+    outline-offset: 2px;
+}
+
+.zen-selection-options-without-bundles-size-option.zen-selection-options-without-bundles-option-disabled:focus,
+.zen-selection-options-without-bundles-color-option.zen-selection-options-without-bundles-option-disabled:focus {
+    outline: 2px solid var(--zen-color-outline-variant);
+    outline-offset: 2px;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .zen-selection-options-without-bundles-option-disabled::before {
+        background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 0, 0, 0.15) 1px,
+            rgba(0, 0, 0, 0.15) 2px
+        );
+    }
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .zen-selection-options-without-bundles-option-disabled {
+        border: 2px dashed currentColor;
+        opacity: 0.5;
+    }
+    
+    .zen-selection-options-without-bundles-option-disabled::before {
+        display: none;
+    }
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+    .zen-selection-options-without-bundles-size-option,
+    .zen-selection-options-without-bundles-color-option,
+    .zen-selection-options-without-bundles-option-available,
+    .zen-selection-options-without-bundles-option-disabled {
+        transition: opacity 0.2s ease;
+    }
+    
+    .zen-selection-options-without-bundles-size-option:hover,
+    .zen-selection-options-without-bundles-color-option:hover,
+    .zen-selection-options-without-bundles-option-available:hover {
+        transform: none;
+    }
+}

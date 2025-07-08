@@ -1,0 +1,64 @@
+/* BoldFaq.css - Enhanced version */
+/* === Classic FAQ Component === */
+.bold-faq-item {
+    background-color: var(--bold-color-surface);
+    border-radius: var(--bold-section-radius);
+    border: 1px solid var(--bold-color-outline-variant);
+    transition: border-color 0.2s ease;
+}
+
+/* Add focus states for accessibility */
+.bold-faq-item:focus-within {
+    border-color: var(--bold-color-primary);
+    outline: 2px solid var(--bold-color-primary);
+    outline-offset: 2px;
+}
+
+.bold-faq-question {
+    transition: background-color 0.2s ease;
+}
+
+.bold-faq-question:hover {
+    background-color: var(--bold-color-surface-variant);
+}
+
+.bold-faq-question:focus {
+    background-color: var(--bold-color-surface-variant);
+    outline: none; /* Handled by parent */
+}
+
+.bold-faq-question-text {
+    color: var(--bold-color-on-surface);
+}
+
+.bold-faq-icon {
+    color: var(--bold-color-on-surface-variant);
+    transition: transform 0.3s ease, color 0.2s ease;
+}
+
+/* Add open state styling */
+.bold-faq-item[open] .bold-faq-icon {
+    color: var(--bold-color-primary);
+}
+
+.bold-faq-answer {
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.bold-faq-answer.open {
+    padding-bottom: 1.5rem;
+}
+
+.bold-faq-answer-content {
+    color: var(--bold-color-on-surface-variant);
+    line-height: 1.6;
+}
+
+/* Add animation polish */
+@media (prefers-reduced-motion: reduce) {
+    .bold-faq-icon,
+    .bold-faq-answer,
+    .bold-faq-question {
+        transition: none;
+    }
+}

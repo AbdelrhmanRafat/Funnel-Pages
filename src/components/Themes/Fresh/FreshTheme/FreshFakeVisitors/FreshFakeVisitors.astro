@@ -1,0 +1,32 @@
+---
+import "./FreshFakeVisitors.css";
+import type { BlockData, Item } from '../../../../../lib/api/types';
+import { FunnelFreshComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+const visitors: Item[] = data.items ?? [];
+---
+
+<fresh-visitors-animation 
+  class="w-full flex justify-start items-start"
+  data-fresh-visitors={JSON.stringify(visitors)}
+  data-fresh-display-time="3000"
+  data-fresh-flash-duration="800"
+>
+  <section id={FunnelFreshComponents.FreshVisitors}>
+    <div class="fresh-visitors-section flex justify-start items-center gap-4">
+      <!-- Single visitor display area -->
+      <div class="fresh-visitor-display">
+        <div class="fresh-visitor-image w-8 h-8 rounded-full opacity-0">
+          <img class="w-full rounded-full" src="" alt="Visitor" id="fresh-visitor-img"/>
+        </div>
+        <p class="fresh-visitor-description opacity-0" id="fresh-visitor-desc"></p>
+      </div>
+    </div>
+  </section>
+</fresh-visitors-animation>
+
+
+<script>
+  import "./FreshFakeVisitors";
+</script>

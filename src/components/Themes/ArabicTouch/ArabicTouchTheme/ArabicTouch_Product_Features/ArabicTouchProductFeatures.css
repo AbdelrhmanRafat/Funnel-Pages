@@ -1,0 +1,62 @@
+/* === Product Features Section === */
+.arabictouch-feature-card {
+    background-color: var(--arabictouch-color-surface);
+    border: 1px solid var(--arabictouch-color-outline-variant);
+    border-radius: var(--arabictouch-section-radius);
+    transition: all 0.3s ease;
+}
+
+.arabictouch-feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--arabictouch-color-primary);
+    box-shadow: var(--arabictouch-section-shadow);
+}
+
+.arabictouch-feature-icon-container {
+    width: 4rem; /* Keep in CSS for theme consistency */
+    height: 4rem;
+    background-color: var(--arabictouch-color-primary);
+    transition: all 0.3s ease;
+}
+
+.arabictouch-feature-card:hover .arabictouch-feature-icon-container {
+    background-color: var(--arabictouch-color-primary-dark);
+    transform: scale(1.05); /* Subtle scaling */
+}
+
+.arabictouch-feature-icon {
+    color: var(--arabictouch-color-on-primary);
+}
+
+.arabictouch-feature-title {
+    color: var(--arabictouch-color-on-surface);
+    font-weight: 600; /* font-semibold */
+    transition: color 0.3s ease;
+}
+
+.arabictouch-feature-card:hover .arabictouch-feature-title {
+    color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-feature-subtitle {
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .arabictouch-feature-card,
+    .arabictouch-feature-icon-container {
+        transition: none;
+    }
+    
+    .arabictouch-feature-card:hover,
+    .arabictouch-feature-card:hover .arabictouch-feature-icon-container {
+        transform: none;
+    }
+}
+
+/* Focus states for keyboard navigation */
+.arabictouch-feature-card:focus-within {
+    outline: 2px solid var(--arabictouch-color-primary);
+    outline-offset: 2px;
+}

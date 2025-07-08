@@ -1,0 +1,16 @@
+---
+import type { BlockData, Product } from "../../../../../lib/api/types";
+
+const data: BlockData[] = Astro.props.data;
+const product : Product = Astro.props.product;
+
+import { FunnelPopComponents } from "../../../../../lib/constants/themes";
+import PopProductCosts from "../UI/PopProductCosts/popProductCosts.astro";
+import PopBundleOptions from "../UI/PopBundleOptions/PopBundleOptions.astro";
+
+---
+
+<div id={FunnelPopComponents.PopProductFunnel} class="w-full flex flex-col gap-2">
+  <PopBundleOptions data={data} product={product} />
+  <PopProductCosts hasBundles="true" />
+</div>

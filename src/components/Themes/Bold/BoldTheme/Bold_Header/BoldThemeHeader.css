@@ -1,0 +1,235 @@
+/* ===== HEADER STYLES ===== */
+.bold-header {
+  background-color: var(--bold-color-surface);
+  box-shadow: var(--bold-section-shadow);
+}
+
+.bold-header-logo {
+  width: 100px;
+  max-height: 80px;
+  object-fit: cover;
+}
+
+.bold-header-title {
+  color: var(--bold-color-on-surface);
+  margin: 0;
+}
+
+.bold-header-subtitle {
+  color: var(--bold-color-on-surface-variant);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ===== MOBILE MENU BUTTON ===== */
+.bold-menu-button {
+  background-color: var(--bold-color-surface-variant);
+  border: 1px solid var(--bold-color-outline-variant);
+  color: var(--bold-color-on-surface);
+  position: relative;
+  z-index: 70;
+}
+
+.bold-menu-button:hover {
+  background-color: var(--bold-color-primary);
+  border-color: var(--bold-color-primary-light);
+  color: var(--bold-color-on-primary);
+  transform: scale(1.05);
+}
+
+.bold-menu-button.active {
+  background-color: var(--bold-color-primary);
+  color: var(--bold-color-on-primary);
+  border-color: var(--bold-color-primary);
+}
+
+/* Hamburger lines */
+.hamburger-line {
+  background-color: var(--bold-color-on-surface);
+}
+
+.bold-menu-button:hover .hamburger-line {
+  background-color: var(--bold-color-on-primary);
+}
+
+/* Hamburger Animation when Active */
+.bold-menu-button.active .hamburger-line:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.bold-menu-button.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.bold-menu-button.active .hamburger-line:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ===== MOBILE MENU OVERLAY ===== */
+.bold-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 60;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.bold-menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Menu Backdrop */
+.bold-menu-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Menu Content Container */
+.bold-menu-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: var(--bold-color-surface);
+  box-shadow: var(--bold-section-shadow);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+}
+
+.bold-menu-overlay.show .bold-menu-content {
+  transform: translateX(0);
+}
+
+/* Menu Header */
+.bold-menu-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--bold-color-outline-variant);
+}
+
+.bold-menu-title {
+  color: var(--bold-color-on-surface);
+  margin: 0;
+}
+
+.bold-menu-close {
+  background-color: var(--bold-color-surface-variant);
+  border: 1px solid var(--bold-color-outline-variant);
+  color: var(--bold-color-on-surface-variant);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bold-menu-close:hover {
+  background-color: var(--bold-color-error);
+  color: var(--bold-color-on-error);
+  border-color: var(--bold-color-error);
+}
+
+/* Menu Navigation */
+.bold-menu-nav {
+  flex: 1;
+}
+
+.bold-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bold-menu-item {
+  margin: 0;
+}
+
+.bold-menu-link {
+  display: block;
+  border-radius: 0.5rem;
+  color: var(--bold-color-on-surface-variant);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid var(--bold-color-outline-variant);
+  background-color: var(--bold-color-surface-variant);
+}
+
+.bold-menu-link:hover {
+  background-color: var(--bold-color-primary);
+  color: var(--bold-color-on-primary);
+  border-color: var(--bold-color-primary);
+  box-shadow: var(--bold-section-shadow);
+}
+
+.bold-menu-link:active {
+  background-color: var(--bold-color-primary-dark);
+  color: var(--bold-color-on-primary);
+}
+
+/* Active state for current section */
+.bold-menu-link.active {
+  background-color: var(--bold-color-primary);
+  color: var(--bold-color-on-primary);
+  border-color: var(--bold-color-primary);
+}
+
+/* ===== BODY SCROLL PREVENTION ===== */
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (min-width: 768px) {
+  .bold-menu-overlay {
+    display: none !important;
+  }
+  
+  .bold-menu-button {
+    display: none !important;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .bold-menu-overlay,
+  .bold-menu-content,
+  .bold-menu-button,
+  .hamburger-line,
+  .bold-header {
+    transition: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.bold-menu-button:focus,
+.bold-menu-close:focus,
+.bold-menu-link:focus {
+  outline: 2px solid var(--bold-color-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bold-menu-backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .bold-menu-content {
+    border: 2px solid var(--bold-color-outline);
+  }
+  
+  .bold-menu-link {
+    border: 2px solid var(--bold-color-outline);
+  }
+}

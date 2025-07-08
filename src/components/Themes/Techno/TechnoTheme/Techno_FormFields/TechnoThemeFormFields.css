@@ -1,0 +1,210 @@
+/* === Classic Form Components === */
+
+/* Main form container */
+.techno-form {
+    background-color: var(--techno-color-surface);
+    border-radius: var(--techno-section-radius);
+}
+
+/* Form title styling */
+.techno-form-title {
+    color: var(--techno-color-on-surface);
+}
+
+/* Section headers within form */
+.techno-form-section-title {
+    color: var(--techno-color-on-surface);
+}
+
+/* Improved Input Group */
+.techno-form-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Input field styling */
+.techno-form-input {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--techno-color-outline);
+    border-radius: 12px;
+    color: var(--techno-color-on-surface);
+    background-color: var(--techno-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Floating label styling */
+.techno-form-label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--techno-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--techno-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Focus and valid states for input */
+.techno-form-input:focus,
+.techno-form-input:valid {
+    border-color: var(--techno-color-primary);
+    box-shadow: var(--techno-section-shadow);
+}
+
+/* Floating label animation */
+.techno-form-input:focus~.techno-form-label,
+.techno-form-input:valid~.techno-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--techno-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.techno-form-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--techno-color-error);
+    min-height: 1.25rem;
+}
+
+
+
+.techno-form-input.text-right~.techno-form-label {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+.techno-form-input.text-left~.techno-form-label {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.techno-form-input.text-left:focus~.techno-form-label,
+.techno-form-input.text-left:valid~.techno-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+.techno-form-input.text-left:focus~.techno-form-label,
+.techno-form-input.text-left:valid~.techno-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+
+
+/* Payment and delivery option containers */
+.techno-form-payment-option {
+    padding: 0.75rem;
+    /* Tailwind: p-3 */
+    border: 1px solid var(--techno-color-outline);
+    border-radius: 0.5rem;
+    /* Tailwind: rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover state for payment options */
+.techno-form-payment-option:hover {
+    background-color: var(--techno-color-surface-variant);
+    border-color: var(--techno-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.techno-form-payment-option:focus-within {
+    border-color: var(--techno-color-primary);
+    outline: 2px solid var(--techno-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.techno-form-payment-option-label {
+    display: block;
+    color: var(--techno-color-on-surface);
+    cursor: pointer;
+}
+
+/* Payment option descriptions */
+.techno-form-payment-option-description {
+    display: block;
+    color: var(--techno-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.techno-form-radio {
+    accent-color: var(--techno-color-primary);
+    border-color: var(--techno-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator (if used) */
+.techno-form-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--techno-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Radio dot inside custom indicator */
+.techno-form-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.techno-form-payment-option input[type="radio"]:checked+.techno-form-payment-option-content .techno-form-radio-indicator {
+    border-color: var(--techno-color-primary);
+    background-color: var(--techno-color-primary);
+}
+
+.techno-form-payment-option input[type="radio"]:checked+.techno-form-payment-option-content .techno-form-radio-dot {
+    background-color: var(--techno-color-surface);
+}
+
+/* Validation state classes */
+.techno-border-error {
+    border-color: var(--techno-color-error) !important;
+}
+
+.techno-text-error {
+    color: var(--techno-color-error) !important;
+}
+
+.techno-border-success {
+    border-color: var(--techno-color-success) !important;
+}
+
+.techno-text-success {
+    color: var(--techno-color-success) !important;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .techno-form-input,
+    .techno-form-payment-option,
+    .techno-form-radio-indicator,
+    .techno-form-radio-dot {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .techno-form-input {
+        border-width: 2px;
+    }
+
+    .techno-form-payment-option {
+        border-width: 2px;
+    }
+}

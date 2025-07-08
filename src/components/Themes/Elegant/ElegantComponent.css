@@ -1,0 +1,77 @@
+/* === elegant Theme Reusable Classes === */
+.elegant-main-color {
+    background-color: var(--elegant-color-surface);
+    color: var(--elegant-color-on-surface);
+}
+
+.elegant-section {
+    background-color: var(--elegant-color-surface);
+    padding: var(--elegant-section-padding);
+    border-radius: var(--elegant-section-radius);
+    box-shadow: var(--elegant-section-shadow);
+}
+
+.elegant-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--elegant-header-gap);
+    margin-bottom: var(--elegant-header-margin-bottom);
+    font-size: var(--elegant-header-size);
+    font-weight: var(--elegant-header-weight);
+    color: var(--elegant-color-on-surface);
+}
+.elegant-middle-title {
+    text-align: center;
+    font-size: var(--elegant-header-center-size);
+    font-weight: var( --elegant-header-center-wight);
+    color: var(--elegant-color-on-surface);
+    margin-bottom: var(--elegant-header-center-margin-bottom);
+}
+.elegant-divider {
+    background: linear-gradient(to right, var(--elegant-color-tertiary), var(--elegant-color-secondary));
+}
+
+
+/* === Scroll to Top Button === */
+.elegant-scrollToTopBtn {
+    background-color: var(--elegant-color-primary);
+    color: var(--elegant-color-on-primary);
+    width: 3.5rem; /* w-14 */
+    height: 3.5rem; /* h-14 */
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem; /* text-xl */
+    box-shadow: var(--elegant-section-shadow);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.elegant-scrollToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.elegant-scrollToTopBtn:hover {
+    background-color: var(--elegant-color-primary-dark);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.elegant-scrollToTopBtn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Remove padding on small screens (mobile) */
+@media (max-width: 640px) {
+  .elegant-section {
+    padding: 8px;
+  }
+}

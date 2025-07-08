@@ -1,0 +1,27 @@
+/* === Classic Footer Component === */
+.urban-footer {
+    border-top-color: var(--urban-color-outline);
+}
+
+.urban-footer-title {
+    color: var(--urban-color-on-surface);
+}
+
+.urban-footer-link {
+    color: var(--urban-color-on-surface);
+    transition: color 0.2s ease;
+}
+
+.urban-footer-link:hover {
+    color: var(--urban-color-primary);
+}
+
+.urban-footer-social-link {
+    color: var(--urban-color-on-surface);
+    transition: all 0.2s ease;
+}
+
+.urban-footer-social-link:hover {
+    color: var(--urban-color-primary);
+    transform: scale(1.1);
+}

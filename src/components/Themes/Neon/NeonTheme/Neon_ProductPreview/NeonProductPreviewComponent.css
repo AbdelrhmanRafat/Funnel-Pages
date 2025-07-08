@@ -1,0 +1,87 @@
+/* === Classic Product Preview === */
+
+/* Video container with responsive height */
+.neon-product-preview-video-container {
+    border-color: var(--neon-color-primary);
+    border-radius: var(--neon-section-radius);
+    box-shadow: var(--neon-section-shadow);
+    /* Responsive height */
+    height: 300px;
+}
+
+@media (min-width: 768px) {
+    .neon-product-preview-video-container {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .neon-product-preview-video-container {
+        height: 100%;
+        min-height: 450px;
+    }
+}
+
+/* Video title overlay */
+.neon-product-preview-video-title {
+    color: var(--neon-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Features container */
+.neon-product-preview-features-container {
+    background-color: var(--neon-color-surface-container-high);
+    border-radius: var(--neon-section-radius);
+    padding: 2rem;
+    box-shadow: var(--neon-section-shadow);
+}
+
+/* Features header */
+.neon-product-preview-features-header {
+    border-color: var(--neon-color-outline-variant);
+}
+
+.neon-product-preview-features-title {
+    color: var(--neon-color-on-surface);
+}
+
+/* Views badge */
+.neon-product-preview-views-badge {
+    background-color: var(--neon-color-surface-variant);
+    color: var(--neon-color-on-surface-variant);
+    border-radius: 1rem;
+}
+
+/* Feature items */
+.neon-product-preview-feature-icon {
+    background-color: var(--neon-color-primary);
+    color: var(--neon-color-on-primary);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.neon-product-preview-feature-title {
+    color: var(--neon-color-on-surface);
+}
+
+.neon-product-preview-feature-subtitle {
+    color: var(--neon-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .neon-product-preview-video-container {
+        transition: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .neon-product-preview-features-container {
+        border: 2px solid var(--neon-color-outline);
+    }
+    
+    .neon-product-preview-video-container {
+        border-width: 3px;
+    }
+}

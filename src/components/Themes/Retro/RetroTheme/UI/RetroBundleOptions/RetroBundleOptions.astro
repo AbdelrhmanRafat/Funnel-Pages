@@ -1,0 +1,139 @@
+---
+import "./RetroBundleOptions.css";
+import type { PurchaseOption, Product } from "../../../../../../lib/api/types";
+import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
+import RetroBundleOptionsContainer from "../RetroBundleOptionsContainer/RetroBundleOptionsContainer.astro";
+
+const data: PurchaseOption[] = Astro.props.data;
+const product : Product = Astro.props.product;
+const isHaveVariant : Boolean = product.is_have_variant === "true";
+const name = "qty";
+---
+
+<offer-selector 
+  data-offer-name={name}
+>
+  <div id="retro-bundle-options">
+    <h3
+      class="retro-bundle-options-title text-2xl py-3"
+      data-translate="quantityOptions.chooseQuantity"
+    >
+      {getTranslation("quantityOptions.chooseQuantity")}
+    </h3>
+
+    <div class="space-y-3">
+      {
+        data.map((item, index) => (
+          <div>
+            <div class="retro-bundle-options-group border border-primary rounded-2xl p-1.5 sm:p-2">
+              <label
+                class="retro-bundle-options-label group relative overflow-hidden cursor-pointer block rounded-lg"
+                for={`${name}${index + 1}`}
+              >
+                <input
+                  type="radio"
+                  id={`${name}${index + 1}`}
+                  name={name}
+                  class="hidden"
+                  checked={index === 0}
+                  data-offer-radio
+                  data-offer-selected-item={JSON.stringify(item)}
+                  data-offer-items={item.items?.toString() || "0"}
+                />
+                <div class="retro-bundle-options-content p-1.5 sm:p-2">
+                  <div class="retro-bundle-options-header grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                    {/* Title and Details - Takes full width on mobile, 2 columns on desktop */}
+                    <div class="sm:col-span-2 space-y-1">
+                      <h3 class="retro-bundle-options-option-title font-bold text-xl leading-tight">
+                        {item.title}
+                      </h3>
+                      <div class="retro-bundle-options-option-details flex flex-wrap items-center gap-1 sm:gap-2 text-xs">
+                        <div class="retro-bundle-options-unit-badge py-0.5 px-2 rounded-full inline-block">
+                          <span>{item.items === 1 ? "" : item.items}</span>
+                          <span data-translate={"quantityOptions.itemUnit.singular"} />
+                        </div>
+                        <span class="hidden sm:inline text-gray-400">•</span>
+                        <div class="retro-bundle-options-price-info flex items-center gap-1 text-xs">
+                          <span>{item.price_per_item}</span>
+                          <span data-translate="productFunnel.currency" />
+                          <span data-translate="quantityOptions.pricePerItem" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Price Section - Right aligned on desktop, full width on mobile */}
+                    <div class="flex flex-col items-start sm:items-end justify-center">
+                      <div
+                        class={`retro-bundle-options-final-price text-lg sm:text-xl font-bold leading-tight ${
+                          item.discount > 0 ? "retro-bundle-options-price-discount" : "retro-bundle-options-price-regular"
+                        }`}
+                      >
+                        {item.final_total.toLocaleString()}{" "}
+                        {getTranslation("productFunnel.currency")}
+                      </div>
+                      
+                      {item.discount > 0 && (
+                        <div class="flex flex-col items-start sm:items-end mt-1">
+                          <div class="retro-bundle-options-original-price text-xs line-through text-gray-500">
+                            {item.original_total.toLocaleString()}{" "}
+                            {getTranslation("productFunnel.currency")}
+                          </div>
+                          <div class="retro-bundle-options-discount-badge inline-flex items-center text-xs font-medium py-0.5 px-1.5 rounded-full mt-0.5">
+                            <svg
+                              class="retro-bundle-options-discount-icon w-2.5 h-2.5"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd"
+                              />
+                            </svg>
+                            <span class="ml-1">
+                              {getTranslation("quantityOptions.saveDiscount")
+                                .replace(
+                                  "{discountAmount}",
+                                  item.discount.toLocaleString() +
+                                    " " +
+                                    getTranslation("productFunnel.currency"),
+                                )
+                                .replace(
+                                  "{discountPercent}",
+                                  item.discount_percent.toString(),
+                                )}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </label>
+              
+              {isHaveVariant && (
+                <div
+                  class={`flex flex-col gap-1 mt-2 ${index === 0 ? "" : "hidden"}`}
+                  data-offer-bundle-options-elements
+                  data-offer-option-id={`${name}${index + 1}`}
+                >
+                  {[...Array(item.items || 0)].map((_, panelIndex) => (
+                    <RetroBundleOptionsContainer
+                      product={product}
+                      key={panelIndex}
+                      panel-index={panelIndex + 1}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</offer-selector>
+
+<script>
+  import "./RetroBundleOptions";
+</script>

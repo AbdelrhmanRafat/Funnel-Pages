@@ -1,0 +1,210 @@
+/* === Classic Form Components === */
+
+/* Main form container */
+.fresh-form {
+    background-color: var(--fresh-color-surface);
+    border-radius: var(--fresh-section-radius);
+}
+
+/* Form title styling */
+.fresh-form-title {
+    color: var(--fresh-color-on-surface);
+}
+
+/* Section headers within form */
+.fresh-form-section-title {
+    color: var(--fresh-color-on-surface);
+}
+
+/* Improved Input Group */
+.fresh-form-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Input field styling */
+.fresh-form-input {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--fresh-color-outline);
+    border-radius: 12px;
+    color: var(--fresh-color-on-surface);
+    background-color: var(--fresh-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Floating label styling */
+.fresh-form-label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--fresh-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--fresh-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Focus and valid states for input */
+.fresh-form-input:focus,
+.fresh-form-input:valid {
+    border-color: var(--fresh-color-primary);
+    box-shadow: var(--fresh-section-shadow);
+}
+
+/* Floating label animation */
+.fresh-form-input:focus~.fresh-form-label,
+.fresh-form-input:valid~.fresh-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--fresh-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.fresh-form-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--fresh-color-error);
+    min-height: 1.25rem;
+}
+
+
+
+.fresh-form-input.text-right~.fresh-form-label {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+.fresh-form-input.text-left~.fresh-form-label {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.fresh-form-input.text-left:focus~.fresh-form-label,
+.fresh-form-input.text-left:valid~.fresh-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+.fresh-form-input.text-left:focus~.fresh-form-label,
+.fresh-form-input.text-left:valid~.fresh-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+
+
+/* Payment and delivery option containers */
+.fresh-form-payment-option {
+    padding: 0.75rem;
+    /* Tailwind: p-3 */
+    border: 1px solid var(--fresh-color-outline);
+    border-radius: 0.5rem;
+    /* Tailwind: rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover state for payment options */
+.fresh-form-payment-option:hover {
+    background-color: var(--fresh-color-surface-variant);
+    border-color: var(--fresh-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.fresh-form-payment-option:focus-within {
+    border-color: var(--fresh-color-primary);
+    outline: 2px solid var(--fresh-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.fresh-form-payment-option-label {
+    display: block;
+    color: var(--fresh-color-on-surface);
+    cursor: pointer;
+}
+
+/* Payment option descriptions */
+.fresh-form-payment-option-description {
+    display: block;
+    color: var(--fresh-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.fresh-form-radio {
+    accent-color: var(--fresh-color-primary);
+    border-color: var(--fresh-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator (if used) */
+.fresh-form-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--fresh-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Radio dot inside custom indicator */
+.fresh-form-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.fresh-form-payment-option input[type="radio"]:checked+.fresh-form-payment-option-content .fresh-form-radio-indicator {
+    border-color: var(--fresh-color-primary);
+    background-color: var(--fresh-color-primary);
+}
+
+.fresh-form-payment-option input[type="radio"]:checked+.fresh-form-payment-option-content .fresh-form-radio-dot {
+    background-color: var(--fresh-color-surface);
+}
+
+/* Validation state classes */
+.fresh-border-error {
+    border-color: var(--fresh-color-error) !important;
+}
+
+.fresh-text-error {
+    color: var(--fresh-color-error) !important;
+}
+
+.fresh-border-success {
+    border-color: var(--fresh-color-success) !important;
+}
+
+.fresh-text-success {
+    color: var(--fresh-color-success) !important;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .fresh-form-input,
+    .fresh-form-payment-option,
+    .fresh-form-radio-indicator,
+    .fresh-form-radio-dot {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .fresh-form-input {
+        border-width: 2px;
+    }
+
+    .fresh-form-payment-option {
+        border-width: 2px;
+    }
+}

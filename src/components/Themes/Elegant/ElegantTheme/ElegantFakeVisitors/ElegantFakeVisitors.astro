@@ -1,0 +1,32 @@
+---
+import "./ElegantFakeVisitors.css";
+import type { BlockData, Item } from '../../../../../lib/api/types';
+import { FunnelElegantComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+const visitors: Item[] = data.items ?? [];
+---
+
+<elegant-visitors-animation 
+  class="w-full flex justify-start items-start"
+  data-elegant-visitors={JSON.stringify(visitors)}
+  data-elegant-display-time="3000"
+  data-elegant-flash-duration="800"
+>
+  <section id={FunnelElegantComponents.ElegantVisitors}>
+    <div class="elegant-visitors-section flex justify-start items-center gap-4">
+      <!-- Single visitor display area -->
+      <div class="elegant-visitor-display">
+        <div class="elegant-visitor-image w-8 h-8 rounded-full opacity-0">
+          <img class="w-full rounded-full" src="" alt="Visitor" id="elegant-visitor-img"/>
+        </div>
+        <p class="elegant-visitor-description opacity-0" id="elegant-visitor-desc"></p>
+      </div>
+    </div>
+  </section>
+</elegant-visitors-animation>
+
+
+<script>
+  import "./ElegantFakeVisitors";
+</script>

@@ -1,0 +1,98 @@
+/* === Desktop Navigation === */
+.techno-desktop-nav {
+  border-top: 1px solid var(--techno-color-outline-variant);
+}
+
+/* Navigation links */
+.techno-desktop-nav-link {
+  background-color: var(--techno-color-surface-variant);
+  color: var(--techno-color-on-surface-variant);
+  text-decoration: none;
+  border: 1px solid var(--techno-color-outline-variant);
+}
+
+.techno-desktop-nav-link:hover {
+  background-color: var(--techno-color-primary);
+  color: var(--techno-color-on-primary);
+  border-color: var(--techno-color-primary);
+  box-shadow: var(--techno-section-shadow);
+}
+
+.techno-desktop-nav-link:focus {
+  outline: 2px solid var(--techno-color-primary);
+  outline-offset: 2px;
+}
+
+/* Navigation items */
+.techno-nav-item {
+  transition: all 0.3s ease;
+}
+
+/* === Overflow System === */
+
+/* Overflow toggle button */
+.techno-overflow-toggle {
+  background-color: var(--techno-color-surface-variant);
+  border: 1px solid var(--techno-color-outline-variant);
+  color: var(--techno-color-on-surface-variant);
+}
+
+.techno-overflow-toggle:hover {
+  background-color: var(--techno-color-primary);
+  border-color: var(--techno-color-primary);
+  color: var(--techno-color-on-primary);
+}
+
+.techno-overflow-toggle:focus {
+  outline: 2px solid var(--techno-color-primary);
+  outline-offset: 2px;
+}
+
+/* Overflow dropdown */
+.techno-overflow-dropdown {
+  background-color: var(--techno-color-surface);
+  border: 1px solid var(--techno-color-outline);
+  box-shadow: var(--techno-section-shadow);
+}
+
+/* Overflow dropdown links */
+.techno-overflow-dropdown-link {
+  color: var(--techno-color-on-surface);
+  text-decoration: none;
+}
+
+.techno-overflow-dropdown-link:hover {
+  background-color: var(--techno-color-surface-variant);
+  color: var(--techno-color-on-surface);
+}
+
+.techno-overflow-dropdown-link:focus {
+  outline: 2px solid var(--techno-color-primary);
+  outline-offset: 2px;
+  background-color: var(--techno-color-surface-variant);
+}
+
+/* Navigation dots indicator */
+.techno-nav-dots {
+  color: var(--techno-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .techno-desktop-nav-link,
+  .techno-nav-item,
+  .techno-overflow-toggle {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .techno-desktop-nav-link {
+    border: 2px solid var(--techno-color-outline);
+  }
+  
+  .techno-overflow-dropdown {
+    border: 2px solid var(--techno-color-outline);
+  }
+}

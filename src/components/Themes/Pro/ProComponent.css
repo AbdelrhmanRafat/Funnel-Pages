@@ -1,0 +1,77 @@
+/* === pro Theme Reusable Classes === */
+.pro-main-color {
+    background-color: var(--pro-color-surface);
+    color: var(--pro-color-on-surface);
+}
+
+.pro-section {
+    background-color: var(--pro-color-surface);
+    padding: var(--pro-section-padding);
+    border-radius: var(--pro-section-radius);
+    box-shadow: var(--pro-section-shadow);
+}
+
+.pro-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--pro-header-gap);
+    margin-bottom: var(--pro-header-margin-bottom);
+    font-size: var(--pro-header-size);
+    font-weight: var(--pro-header-weight);
+    color: var(--pro-color-on-surface);
+}
+.pro-middle-title {
+    text-align: center;
+    font-size: var(--pro-header-center-size);
+    font-weight: var( --pro-header-center-wight);
+    color: var(--pro-color-on-surface);
+    margin-bottom: var(--pro-header-center-margin-bottom);
+}
+.pro-divider {
+    background: linear-gradient(to right, var(--pro-color-tertiary), var(--pro-color-secondary));
+}
+
+
+/* === Scroll to Top Button === */
+.pro-scrollToTopBtn {
+    background-color: var(--pro-color-primary);
+    color: var(--pro-color-on-primary);
+    width: 3.5rem; /* w-14 */
+    height: 3.5rem; /* h-14 */
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem; /* text-xl */
+    box-shadow: var(--pro-section-shadow);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.pro-scrollToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.pro-scrollToTopBtn:hover {
+    background-color: var(--pro-color-primary-dark);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.pro-scrollToTopBtn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Remove padding on small screens (mobile) */
+@media (max-width: 640px) {
+  .pro-section {
+    padding: 8px;
+  }
+}

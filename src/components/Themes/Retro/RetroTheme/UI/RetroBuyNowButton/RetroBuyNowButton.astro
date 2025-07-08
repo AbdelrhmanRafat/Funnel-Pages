@@ -1,0 +1,22 @@
+---
+// Enhanced RetroBuyNowButton component with advanced animations
+// Optional props for button variations
+import { FunnelRetroComponents } from "../../../../../../lib/constants/themes";
+import LucideIcon from "../../../../../Shared/LucideIcon.astro";
+import "./RetroBuyNowButton.css";
+---
+
+<div>
+  <a
+    class="retro-buy-now-button"
+    href="#retro-product-details"
+  >
+    <div class="retro-buy-now-icon-wrapper">
+      <div class="retro-buy-now-icon-container">
+         <LucideIcon name="ShoppingCart" width="32" height="32" class="retro-buy-now-button-icon" />
+
+      </div>
+    </div>
+    <span class="retro-buy-now-text" data-translate="CTA.button">Buy Now</span>
+  </a>
+</div>

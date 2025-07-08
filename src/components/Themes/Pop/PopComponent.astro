@@ -1,0 +1,311 @@
+---
+// This component is the main entry point for the Pop theme.
+// It orchestrates the rendering of various sub-components based on the data received from the API.
+// Props:
+// - funnelPage: An object of type Data, containing all the information for the funnel page.
+import "./PopComponent.css";
+import PopThemeHeader from "./PopTheme/Pop_Header/PopThemeHeader.astro";
+import PopThemeProduct from "./PopTheme/PopThemeProduct/PopThemeProduct.astro";
+import PopThemeCountDown from "./PopTheme/PopThemeCountdown/PopThemeCountDown.astro";
+import PopFaq from "./PopTheme/Pop_Faq/PopFaq.astro";
+import PopProductPreviewComponent from "./PopTheme/Pop_ProductPreview/PopProductPreviewComponent.astro";
+import { getPopThemeComponent } from "../../../lib/utils/ThemeSelect";
+import type { BlockData, Data } from "../../../lib/api/types";
+import { FunnelPopComponents } from "../../../lib/constants/themes";
+import PopThemeFooter from "./PopTheme/PopThemeFooter/PopThemeFooter.astro";
+import PopThemeReviews from "./PopTheme/Pop_Theme_Reviews/PopThemeReviews.astro";
+import PopProductUsage from "./PopTheme/Pop_ProductUsage/PopProductUsage.astro";
+import PopDeliveryFeatures from "./PopTheme/Pop_Delivery_Features/PopDeliveryFeatures.astro";
+import PopProductFeatures from "./PopTheme/Pop_Product_Features/PopProductFeatures.astro";
+import PopThemeTodayStatistics from "./PopTheme/PopThemeTodayStatistics/PopThemeTodayStatistics.astro";
+import PopLogosCarousel from "./PopTheme/PopLogosCarousel/PopLogosCarousel.astro";
+import PopButtonWithLink from "./PopTheme/PopButtonWithLink/PopButtonWithLink.astro";
+import LucideIcon from "../../Shared/LucideIcon.astro";
+import PopGridImages from "./PopTheme/PopGridImagesComponent/popGridImages.astro";
+import PopThemeTextBar from "./PopTheme/Pop_Text_Bar/popThemeTextBar.astro";
+import PopImageTextOverlay from "./PopTheme/Pop_Image_Text_Overlay/popImageTextOverlay.astro";
+import PopImageTextBeside from "./PopTheme/Pop_Image_Text_Beside/popImageTextBeside.astro";
+import PopBeforeAfter from "./PopTheme/PopBefore&AfterImage/popBefore&After.astro";
+
+
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: BlockData | undefined;
+}
+
+const funnelPage: Data = Astro.props.funnelPage;
+
+// Maps the block names from the API response to their corresponding Pop theme components and data.
+const popComponentNames: [FunnelPopComponents, BlockData][] =
+  funnelPage.blocks
+    .map((block) => {
+      const component = getPopThemeComponent(block.name);
+      return component ? [component, block.data] : undefined;
+    })
+    .filter(
+      (tuple): tuple is [FunnelPopComponents, BlockData] =>
+        tuple !== undefined,
+    );
+
+// Checks if a specific component is present in the API response and returns its data if found.
+function isComponentFound(
+  componentName: FunnelPopComponents,
+): ComponentCheckResult {
+  const found = popComponentNames.find(([comp]) => comp === componentName);
+  return {
+    isComponentFound: !!found,
+    componentData: found?.[1],
+  };
+}
+
+// Define render order - just change this array to reorder components!
+const RENDER_ORDER = [
+  FunnelPopComponents.PopHeader,
+  FunnelPopComponents.PopProductFunnel, // Always render (required)
+  FunnelPopComponents.PopProductFeatures,
+  FunnelPopComponents.PopProductPreview,
+  FunnelPopComponents.PopProductUsage,
+  FunnelPopComponents.PopLogosCarousel,
+  FunnelPopComponents.PopButtonWithLink,
+  FunnelPopComponents.PopTodayStatistics,
+  FunnelPopComponents.PopGallery,
+  FunnelPopComponents.Pop_Before_After,
+  FunnelPopComponents.PopReviews,
+  FunnelPopComponents.PopTextBar,
+  FunnelPopComponents.PopImageTextOverLay,
+  FunnelPopComponents.PopImageTextBeside,
+  FunnelPopComponents.PopFaq,
+  FunnelPopComponents.PopDeliveryFeatures,
+  FunnelPopComponents.PopCountdown,
+  FunnelPopComponents.PopFooter,
+];
+
+// Extracts purchase options and other data
+const productFunnelData = isComponentFound(
+  FunnelPopComponents.PopProductFunnel,
+);
+
+const isFormFieldsDataFound = isComponentFound(
+  FunnelPopComponents.PopFormFields,
+);
+
+const isCuponDataFound = isComponentFound(
+  FunnelPopComponents.PopCoupon,
+);
+
+const isFakeVisitorsDataFound = isComponentFound(
+  FunnelPopComponents.PopVisitors,
+);
+
+const isOrderThroughWhatsappDataFound = isComponentFound(
+  FunnelPopComponents.PopOrderThroughWhatsapp,
+);
+
+const isOrderConfirmationNoticeFound = isComponentFound(
+  FunnelPopComponents.PopOrderConfirmationNotice,
+);
+const isRatingFound = isComponentFound(FunnelPopComponents.PopRates);
+
+const purchaseOptions = productFunnelData.isComponentFound
+  ? productFunnelData.componentData?.purchase_options
+  : undefined;
+
+const formFieldsData = isFormFieldsDataFound.isComponentFound
+  ? isFormFieldsDataFound.componentData
+  : undefined;
+
+const cuponData = isCuponDataFound.isComponentFound
+  ? isCuponDataFound.componentData
+  : undefined;
+
+const fakeVisitorsData = isFakeVisitorsDataFound.isComponentFound
+  ? isFakeVisitorsDataFound.componentData
+  : undefined;
+
+const ratingData = isRatingFound.isComponentFound
+  ? isRatingFound.componentData
+  : undefined;
+
+const orderConfirmationNoticeData =
+  isOrderConfirmationNoticeFound.isComponentFound
+    ? isOrderConfirmationNoticeFound.componentData
+    : undefined;
+
+const orderThroughWhatsappData =
+  isOrderThroughWhatsappDataFound.isComponentFound
+    ? isOrderThroughWhatsappDataFound.componentData
+    : undefined;
+
+---
+
+<main class="pop-main-color">
+  <section class="lg:container w-11/12 mx-auto flex flex-col gap-7">
+  {
+    RENDER_ORDER.map((componentName) => {
+      if (componentName === FunnelPopComponents.PopHeader) {
+        const headerData = isComponentFound(
+          FunnelPopComponents.PopHeader,
+        );
+        return headerData.isComponentFound ? (
+          <PopThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelPopComponents.PopProductFunnel) {
+        return (
+          <PopThemeProduct
+            formFieldsData={formFieldsData}
+            ratingData={ratingData}
+            fakeVisitorsData={fakeVisitorsData}
+            orderConfirmationNoticeData={orderConfirmationNoticeData}
+            orderThroughWhatsappData={orderThroughWhatsappData}
+            product={funnelPage.product}
+            cuponData={cuponData}
+            purchaseOptions={purchaseOptions}
+          />
+        );
+      }
+      if (componentName === FunnelPopComponents.PopCountdown) {
+        const countdownData = isComponentFound(
+          FunnelPopComponents.PopCountdown,
+        );
+        return countdownData.isComponentFound ? (
+          <PopThemeCountDown data={countdownData.componentData} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelPopComponents.PopFaq) {
+        const faqData = isComponentFound(FunnelPopComponents.PopFaq);
+        return faqData.isComponentFound ? (
+          <PopFaq data={faqData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopLogosCarousel) {
+        const logoscarouselData = isComponentFound(FunnelPopComponents.PopLogosCarousel);
+        return logoscarouselData.isComponentFound ? (
+          <PopLogosCarousel data={logoscarouselData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopProductPreview) {
+        const productPreviewData = isComponentFound(
+          FunnelPopComponents.PopProductPreview,
+        );
+        return productPreviewData.isComponentFound ? (
+          <PopProductPreviewComponent
+            data={productPreviewData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopButtonWithLink) {
+        const buttonWithLinkData = isComponentFound(
+          FunnelPopComponents.PopButtonWithLink,
+        );
+        return buttonWithLinkData.isComponentFound ? (
+          <PopButtonWithLink
+            data={buttonWithLinkData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopGallery) {
+        const galleryData = isComponentFound(
+          FunnelPopComponents.PopGallery,
+        );
+        return galleryData.isComponentFound ? (
+          <PopGridImages
+            data={galleryData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopTodayStatistics) {
+        const todayOrdersData = isComponentFound(
+          FunnelPopComponents.PopTodayStatistics,
+        );
+        return todayOrdersData.isComponentFound ? (
+          <PopThemeTodayStatistics
+            data={todayOrdersData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopDeliveryFeatures) {
+        const deliveryFeaturesData = isComponentFound(
+          FunnelPopComponents.PopDeliveryFeatures,
+        );
+        return deliveryFeaturesData.isComponentFound ? (
+          <PopDeliveryFeatures data={deliveryFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopProductFeatures) {
+        const ProductFeaturesData = isComponentFound(
+          FunnelPopComponents.PopProductFeatures,
+        );
+        return ProductFeaturesData.isComponentFound ? (
+          <PopProductFeatures data={ProductFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopReviews) {
+        const ReviewsData = isComponentFound(
+          FunnelPopComponents.PopReviews,
+        );
+        return ReviewsData.isComponentFound ? (
+          <PopThemeReviews data={ReviewsData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopTextBar) {
+        const TextBarData = isComponentFound(
+          FunnelPopComponents.PopTextBar,
+        );
+        return TextBarData.isComponentFound ? (
+          <PopThemeTextBar data={TextBarData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopImageTextOverLay) {
+        const ImageTextData = isComponentFound(
+          FunnelPopComponents.PopImageTextOverLay,
+        );
+        return ImageTextData.isComponentFound ? (
+          <PopImageTextOverlay data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopImageTextBeside) {
+        const ImageTextData = isComponentFound(
+          FunnelPopComponents.PopImageTextBeside,
+        );
+        return ImageTextData.isComponentFound ? (
+          <PopImageTextBeside data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopProductUsage) {
+        const productUsageData = isComponentFound(
+          FunnelPopComponents.PopProductUsage,
+        );
+        return productUsageData.isComponentFound ? (
+          <PopProductUsage data={productUsageData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.Pop_Before_After) {
+        const BeforeAfterData = isComponentFound(
+          FunnelPopComponents.Pop_Before_After,
+        );
+        return BeforeAfterData.isComponentFound ? (
+          <PopBeforeAfter data={BeforeAfterData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelPopComponents.PopFooter) {
+        const footerData = isComponentFound(
+          FunnelPopComponents.PopFooter,
+        );
+        return footerData.isComponentFound ? (
+          <PopThemeFooter data={footerData.componentData} />
+        ) : null;
+      }
+      return null;
+    })
+  }
+  <button id="scrollToTopBtn" class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 pop-scrollToTopBtn">
+   <LucideIcon name="MoveUp" width="32" height="32" />
+  </button>
+  </section>
+</main>
+<script>
+  import "./PopTheme.config"
+</script>

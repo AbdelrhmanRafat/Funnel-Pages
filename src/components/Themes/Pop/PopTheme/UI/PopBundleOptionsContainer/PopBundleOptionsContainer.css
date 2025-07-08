@@ -1,0 +1,237 @@
+/* === Bundle Options Container Section === */
+
+.pop-bundle-options-container-panel {
+  background-color: var(--pop-color-surface);
+  border-radius: var(--pop-section-radius);
+  border-color: var(--pop-color-primary-light);
+}
+
+.pop-bundle-options-container-header {
+  color: var(--pop-color-primary-dark);
+}
+
+.pop-bundle-options-container-selection-indicator {
+  background-color: var(--pop-color-secondary);
+  color: var(--pop-color-on-secondary);
+}
+
+.pop-bundle-options-container-selection-title {
+  color: var(--pop-color-on-surface-variant);
+}
+
+.pop-bundle-options-container-size-option {
+  border-color: var(--pop-color-outline);
+  transition: all 0.2s ease;
+  box-shadow: var(--pop-section-shadow);
+  color: var(--pop-color-on-surface-variant);
+}
+
+.pop-bundle-options-container-size-option:hover {
+  background-color: var(--pop-color-secondary);
+  color: var(--pop-color-on-secondary);
+}
+
+.pop-bundle-options-container-color-option {
+  transition: transform 0.2s ease;
+}
+
+.pop-bundle-options-container-color-option:hover {
+  transform: scale(1.05);
+}
+
+.pop-bundle-options-container-color-swatch {
+  border-color: var(--pop-color-surface);
+  box-shadow: var(--pop-section-shadow);
+}
+
+.pop-bundle-options-container-color-name {
+  color: var(--pop-color-on-surface-variant);
+}
+
+/* === Selection States === */
+.pop-bundle-options-container-selected-color {
+  transform: scale(1.1);
+}
+
+.pop-bundle-options-container-selected-color .pop-bundle-options-container-color-swatch {
+  border: 3px solid var(--pop-color-primary);
+  box-shadow: 0 0 0 2px var(--pop-color-surface),
+              0 0 0 4px var(--pop-color-primary),
+              0 6px 16px rgba(0, 150, 136, 0.25);
+}
+
+.pop-bundle-options-container-selected-color .pop-bundle-options-container-color-name {
+  color: var(--pop-color-secondary);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.pop-bundle-options-container-selected-size {
+  background-color: var(--pop-color-secondary);
+  color: var(--pop-color-on-secondary);
+  border-color: var(--pop-color-secondary-light);
+  box-shadow: var(--pop-section-shadow);
+  transform: translateY(-2px);
+  font-weight: 600;
+}
+
+/* === Enhanced Variant Filtering States === */
+
+/* Available Options (explicitly enabled) */
+.pop-bundle-options-container-option-available {
+  opacity: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pop-bundle-options-container-option-available:hover {
+  transform: scale(1.02);
+}
+
+/* Disabled Options (filtered out by variant logic) */
+.pop-bundle-options-container-option-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.pop-bundle-options-container-option-disabled::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px
+  );
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* Disabled Size Options */
+.pop-bundle-options-container-size-option.pop-bundle-options-container-option-disabled {
+  background-color: var(--pop-color-surface-variant);
+  color: var(--pop-color-on-surface-variant);
+  border-color: var(--pop-color-outline-variant);
+  box-shadow: none;
+}
+
+.pop-bundle-options-container-size-option.pop-bundle-options-container-option-disabled:hover {
+  background-color: var(--pop-color-surface-variant);
+  color: var(--pop-color-on-surface-variant);
+  transform: none;
+}
+
+/* Disabled Color Options */
+.pop-bundle-options-container-color-option.pop-bundle-options-container-option-disabled {
+  filter: grayscale(70%) brightness(0.8);
+}
+
+.pop-bundle-options-container-color-option.pop-bundle-options-container-option-disabled:hover {
+  transform: none;
+  filter: grayscale(70%) brightness(0.8);
+}
+
+.pop-bundle-options-container-color-option.pop-bundle-options-container-option-disabled .pop-bundle-options-container-color-swatch {
+  border-color: var(--pop-color-outline-variant);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.pop-bundle-options-container-color-option.pop-bundle-options-container-option-disabled .pop-bundle-options-container-color-name {
+  color: var(--pop-color-on-surface-variant);
+  text-decoration: line-through;
+}
+
+/* Variant-specific animations */
+.pop-bundle-options-container-panel[data-options-is-variant="true"] .pop-bundle-options-container-size-option,
+.pop-bundle-options-container-panel[data-options-is-variant="true"] .pop-bundle-options-container-color-option {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced hover states for available options */
+.pop-bundle-options-container-size-option.pop-bundle-options-container-option-available:hover {
+  background-color: var(--pop-color-secondary);
+  color: var(--pop-color-on-secondary);
+  border-color: var(--pop-color-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pop-bundle-options-container-color-option.pop-bundle-options-container-option-available:hover {
+  transform: scale(1.08);
+}
+
+.pop-bundle-options-container-color-option.pop-bundle-options-container-option-available:hover .pop-bundle-options-container-color-swatch {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading/transition states */
+.pop-bundle-options-container-option-transitioning {
+  opacity: 0.7;
+  transform: scale(0.98);
+  transition: all 0.2s ease;
+}
+
+/* Focus states for keyboard navigation */
+.pop-bundle-options-container-size-option:focus,
+.pop-bundle-options-container-color-option:focus {
+  outline: 2px solid var(--pop-color-primary);
+  outline-offset: 2px;
+}
+
+.pop-bundle-options-container-size-option.pop-bundle-options-container-option-disabled:focus,
+.pop-bundle-options-container-color-option.pop-bundle-options-container-option-disabled:focus {
+  outline: 2px solid var(--pop-color-outline-variant);
+  outline-offset: 2px;
+}
+
+/* Mobile responsiveness for variant filtering */
+@media (max-width: 640px) {
+  .pop-bundle-options-container-option-disabled::before {
+      background: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 1px,
+          rgba(0, 0, 0, 0.15) 1px,
+          rgba(0, 0, 0, 0.15) 2px
+      );
+  }
+  
+  .pop-bundle-options-container-color-option.pop-bundle-options-container-option-disabled .pop-bundle-options-container-color-name {
+      font-size: 0.7rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .pop-bundle-options-container-option-disabled {
+      opacity: 0.5;
+      border: 2px dashed currentColor;
+  }
+  
+  .pop-bundle-options-container-option-disabled::before {
+      display: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .pop-bundle-options-container-size-option,
+  .pop-bundle-options-container-color-option,
+  .pop-bundle-options-container-option-available,
+  .pop-bundle-options-container-option-disabled {
+      transition: opacity 0.2s ease;
+  }
+  
+  .pop-bundle-options-container-size-option:hover,
+  .pop-bundle-options-container-color-option:hover,
+  .pop-bundle-options-container-option-available:hover {
+      transform: none;
+  }
+}

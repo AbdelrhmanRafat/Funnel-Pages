@@ -1,0 +1,22 @@
+---
+import "./ElegantConfirmPurchaseButton.css";
+import { type Language } from "../../../../../../lib/utils/i18n/translations";
+import LucideIcon from "../../../../../Shared/LucideIcon.astro";
+
+// Get language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+---
+
+<button type="button" class="elegant-modal-confirm" elegant-confirm-purchase>
+  <span class="confirm-text">
+    {isArabic ? "تأكيد الطلب" : "Confirm Order"}
+  </span>
+  <span class="loading-spinner" style="display: none;">
+    <LucideIcon name="Loader" width="16" height="16" class="animate-spin" />
+  </span>
+</button>
+
+<script>
+  import "./ElegantConfirmPurchaseButton";
+</script>

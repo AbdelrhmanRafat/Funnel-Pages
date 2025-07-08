@@ -1,0 +1,48 @@
+.elegant-visitors-section {
+    color : var(--elegant-color-on-surface)
+}
+.elegant-visitor-display {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .elegant-visitor-image,
+  .elegant-visitor-description {
+    transition: all 0.3s ease;
+  }
+
+  .elegant-visitor-flash {
+    animation: elegantVisitorFlashEffect 0.8s ease-out;
+  }
+
+  @keyframes elegantVisitorFlashEffect {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8);
+    }
+    30% {
+      opacity: 1;
+      transform: scale(1.1);
+      box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.6);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+  }
+
+  .elegant-visitor-visible {
+    opacity: 1 !important;
+  }
+
+  .elegant-visitor-hidden {
+    opacity: 0 !important;
+  }

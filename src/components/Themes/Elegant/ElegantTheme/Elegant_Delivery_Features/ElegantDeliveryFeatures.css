@@ -1,0 +1,12 @@
+/* === Delivery Features Section Classes === */
+.elegant-delivery-feature-icon {
+    color: var(--elegant-color-primary);
+}
+
+.elegant-delivery-feature-title {
+    color: var(--elegant-color-on-surface);
+}
+
+.elegant-delivery-feature-subtitle {
+    color: var(--elegant-color-on-surface-variant);
+}

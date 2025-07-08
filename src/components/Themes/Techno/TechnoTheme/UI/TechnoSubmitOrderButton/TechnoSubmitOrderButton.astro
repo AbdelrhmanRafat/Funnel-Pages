@@ -1,0 +1,41 @@
+---
+import "./TechnoSubmitOrderButton.css";
+import TechnoModalPurchaseInfo from "../../TechnoModalPurchaseInfo/TechnoModalPurchaseInfo.astro";
+import type { BlockData, Product } from "../../../../../../lib/api/types";
+
+const isHaveVariant : string = Astro.props.isHaveVariant;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const product : Product = Astro.props.product;
+// Component configuration
+const validateOnSubmit =  true;
+const showValidationMessages =  true;
+const autoFocusFirstError =  true;
+const enableColorSizeValidation =  true;
+const isHaveBundles = !(purchaseOptions === undefined);
+---
+
+<techno-submit-order 
+  data-submit-validate-on-submit={validateOnSubmit}
+  data-submit-show-validation-messages={showValidationMessages}
+  data-submit-auto-focus-first-error={autoFocusFirstError}
+  data-submit-enable-color-size-validation={enableColorSizeValidation}
+  is-Have-Variant={isHaveVariant}
+  is-Have-Bundles={isHaveBundles}
+>
+  <div>
+    <button
+      type="button"
+      data-submit-order-button
+      class="techno-form-submit"
+      data-translate="form.submit"
+    >
+    </button>
+  </div>
+</techno-submit-order>
+
+<!-- Include the modal component -->
+<TechnoModalPurchaseInfo  isHaveVariant={isHaveVariant} purchaseOptions={purchaseOptions} product={product} />
+
+<script>
+  import "./TechnoSubmitOrderButton";
+</script>

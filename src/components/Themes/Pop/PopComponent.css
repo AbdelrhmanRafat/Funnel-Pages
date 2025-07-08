@@ -1,0 +1,77 @@
+/* === pop Theme Reusable Classes === */
+.pop-main-color {
+    background-color: var(--pop-color-surface);
+    color: var(--pop-color-on-surface);
+}
+
+.pop-section {
+    background-color: var(--pop-color-surface);
+    padding: var(--pop-section-padding);
+    border-radius: var(--pop-section-radius);
+    box-shadow: var(--pop-section-shadow);
+}
+
+.pop-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--pop-header-gap);
+    margin-bottom: var(--pop-header-margin-bottom);
+    font-size: var(--pop-header-size);
+    font-weight: var(--pop-header-weight);
+    color: var(--pop-color-on-surface);
+}
+.pop-middle-title {
+    text-align: center;
+    font-size: var(--pop-header-center-size);
+    font-weight: var( --pop-header-center-wight);
+    color: var(--pop-color-on-surface);
+    margin-bottom: var(--pop-header-center-margin-bottom);
+}
+.pop-divider {
+    background: linear-gradient(to right, var(--pop-color-tertiary), var(--pop-color-secondary));
+}
+
+
+/* === Scroll to Top Button === */
+.pop-scrollToTopBtn {
+    background-color: var(--pop-color-primary);
+    color: var(--pop-color-on-primary);
+    width: 3.5rem; /* w-14 */
+    height: 3.5rem; /* h-14 */
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem; /* text-xl */
+    box-shadow: var(--pop-section-shadow);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.pop-scrollToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.pop-scrollToTopBtn:hover {
+    background-color: var(--pop-color-primary-dark);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.pop-scrollToTopBtn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Remove padding on small screens (mobile) */
+@media (max-width: 640px) {
+  .pop-section {
+    padding: 8px;
+  }
+}

@@ -1,0 +1,87 @@
+/* === Classic Product Preview === */
+
+/* Video container with responsive height */
+.pop-product-preview-video-container {
+    border-color: var(--pop-color-primary);
+    border-radius: var(--pop-section-radius);
+    box-shadow: var(--pop-section-shadow);
+    /* Responsive height */
+    height: 300px;
+}
+
+@media (min-width: 768px) {
+    .pop-product-preview-video-container {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .pop-product-preview-video-container {
+        height: 100%;
+        min-height: 450px;
+    }
+}
+
+/* Video title overlay */
+.pop-product-preview-video-title {
+    color: var(--pop-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Features container */
+.pop-product-preview-features-container {
+    background-color: var(--pop-color-surface-container-high);
+    border-radius: var(--pop-section-radius);
+    padding: 2rem;
+    box-shadow: var(--pop-section-shadow);
+}
+
+/* Features header */
+.pop-product-preview-features-header {
+    border-color: var(--pop-color-outline-variant);
+}
+
+.pop-product-preview-features-title {
+    color: var(--pop-color-on-surface);
+}
+
+/* Views badge */
+.pop-product-preview-views-badge {
+    background-color: var(--pop-color-surface-variant);
+    color: var(--pop-color-on-surface-variant);
+    border-radius: 1rem;
+}
+
+/* Feature items */
+.pop-product-preview-feature-icon {
+    background-color: var(--pop-color-primary);
+    color: var(--pop-color-on-primary);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.pop-product-preview-feature-title {
+    color: var(--pop-color-on-surface);
+}
+
+.pop-product-preview-feature-subtitle {
+    color: var(--pop-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .pop-product-preview-video-container {
+        transition: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .pop-product-preview-features-container {
+        border: 2px solid var(--pop-color-outline);
+    }
+    
+    .pop-product-preview-video-container {
+        border-width: 3px;
+    }
+}

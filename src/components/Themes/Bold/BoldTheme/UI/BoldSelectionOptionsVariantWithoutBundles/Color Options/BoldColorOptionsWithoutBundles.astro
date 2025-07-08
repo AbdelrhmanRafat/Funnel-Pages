@@ -1,0 +1,26 @@
+---
+export interface Props {
+  option: {
+    value: string;
+    hex?: string;
+  };
+  index: number;
+  optionType: "first" | "second";
+  showLabel?: boolean;
+}
+
+const { option, index, optionType } = Astro.props;
+---
+
+<div
+  class="bold-selection-options-without-bundles-color-option cursor-pointer hover:scale-105 transition-transform"
+  data-option-type={optionType}
+  data-option-value={option.value}
+  data-option-index={index}
+>
+  <div
+    class="bold-selection-options-without-bundles-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+    style={`background-color: ${option.hex || "#ccc"}`}
+  >
+  </div>
+</div>

@@ -1,0 +1,210 @@
+/* === Classic Form Components === */
+
+/* Main form container */
+.retro-form {
+    background-color: var(--retro-color-surface);
+    border-radius: var(--retro-section-radius);
+}
+
+/* Form title styling */
+.retro-form-title {
+    color: var(--retro-color-on-surface);
+}
+
+/* Section headers within form */
+.retro-form-section-title {
+    color: var(--retro-color-on-surface);
+}
+
+/* Improved Input Group */
+.retro-form-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Input field styling */
+.retro-form-input {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--retro-color-outline);
+    border-radius: 12px;
+    color: var(--retro-color-on-surface);
+    background-color: var(--retro-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Floating label styling */
+.retro-form-label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--retro-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--retro-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Focus and valid states for input */
+.retro-form-input:focus,
+.retro-form-input:valid {
+    border-color: var(--retro-color-primary);
+    box-shadow: var(--retro-section-shadow);
+}
+
+/* Floating label animation */
+.retro-form-input:focus~.retro-form-label,
+.retro-form-input:valid~.retro-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--retro-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.retro-form-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--retro-color-error);
+    min-height: 1.25rem;
+}
+
+
+
+.retro-form-input.text-right~.retro-form-label {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+.retro-form-input.text-left~.retro-form-label {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.retro-form-input.text-left:focus~.retro-form-label,
+.retro-form-input.text-left:valid~.retro-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+.retro-form-input.text-left:focus~.retro-form-label,
+.retro-form-input.text-left:valid~.retro-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+
+
+/* Payment and delivery option containers */
+.retro-form-payment-option {
+    padding: 0.75rem;
+    /* Tailwind: p-3 */
+    border: 1px solid var(--retro-color-outline);
+    border-radius: 0.5rem;
+    /* Tailwind: rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover state for payment options */
+.retro-form-payment-option:hover {
+    background-color: var(--retro-color-surface-variant);
+    border-color: var(--retro-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.retro-form-payment-option:focus-within {
+    border-color: var(--retro-color-primary);
+    outline: 2px solid var(--retro-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.retro-form-payment-option-label {
+    display: block;
+    color: var(--retro-color-on-surface);
+    cursor: pointer;
+}
+
+/* Payment option descriptions */
+.retro-form-payment-option-description {
+    display: block;
+    color: var(--retro-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.retro-form-radio {
+    accent-color: var(--retro-color-primary);
+    border-color: var(--retro-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator (if used) */
+.retro-form-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--retro-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Radio dot inside custom indicator */
+.retro-form-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.retro-form-payment-option input[type="radio"]:checked+.retro-form-payment-option-content .retro-form-radio-indicator {
+    border-color: var(--retro-color-primary);
+    background-color: var(--retro-color-primary);
+}
+
+.retro-form-payment-option input[type="radio"]:checked+.retro-form-payment-option-content .retro-form-radio-dot {
+    background-color: var(--retro-color-surface);
+}
+
+/* Validation state classes */
+.retro-border-error {
+    border-color: var(--retro-color-error) !important;
+}
+
+.retro-text-error {
+    color: var(--retro-color-error) !important;
+}
+
+.retro-border-success {
+    border-color: var(--retro-color-success) !important;
+}
+
+.retro-text-success {
+    color: var(--retro-color-success) !important;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .retro-form-input,
+    .retro-form-payment-option,
+    .retro-form-radio-indicator,
+    .retro-form-radio-dot {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .retro-form-input {
+        border-width: 2px;
+    }
+
+    .retro-form-payment-option {
+        border-width: 2px;
+    }
+}

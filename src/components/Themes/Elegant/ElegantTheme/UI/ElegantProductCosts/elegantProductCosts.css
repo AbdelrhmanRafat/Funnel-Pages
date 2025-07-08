@@ -1,0 +1,130 @@
+/* === Product Costs Section === */
+.elegant-product-costs-container {
+    background-color: var(--elegant-color-surface);
+    padding: var(--elegant-section-padding);
+    border-radius: var(--elegant-section-radius);
+    overflow: hidden;
+    border: 1px solid var(--elegant-color-outline-variant);
+}
+
+.elegant-product-costs-body {
+    border-bottom: 1px solid var(--elegant-color-outline);
+}
+
+.elegant-product-costs-row {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--elegant-color-outline-variant);
+    transition: background-color 0.2s ease;
+}
+
+.elegant-product-costs-row:hover {
+    background-color: var(--elegant-color-surface-variant);
+}
+
+.elegant-product-costs-row:last-child {
+    border-bottom: none;
+}
+
+.elegant-product-costs-label {
+    color: var(--elegant-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.elegant-product-costs-value {
+    color: var(--elegant-color-on-surface);
+    font-weight: 600;
+}
+
+.elegant-product-costs-discount {
+    color: var(--elegant-color-success);
+    font-weight: 600;
+}
+
+.elegant-product-costs-total-section {
+    background-color: var(--elegant-color-primary-light);
+    padding: 1rem 1.5rem;
+    border-top: 2px solid var(--elegant-color-primary);
+    margin-top: 0.75rem;
+    border-radius: var(--elegant-section-radius);
+}
+
+.elegant-product-costs-total-label {
+    color: var(--elegant-color-on-primary);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.elegant-product-costs-total-value {
+    color: var(--elegant-color-on-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .elegant-product-costs-container {
+        padding: 0.75rem;
+    }
+    
+    .elegant-product-costs-total-section {
+        padding: 0.75rem 1rem;
+    }
+    
+    .elegant-product-costs-total-label,
+    .elegant-product-costs-total-value {
+        font-size: 1rem;
+    }
+}
+
+/* === Loading State === */
+.elegant-product-costs-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.elegant-product-costs-loading .elegant-product-costs-value,
+.elegant-product-costs-loading .elegant-product-costs-discount,
+.elegant-product-costs-loading .elegant-product-costs-total-value {
+    background-color: var(--elegant-color-surface-variant);
+    color: transparent;
+    border-radius: 4px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* === Error State === */
+.elegant-product-costs-error {
+    border-color: var(--elegant-color-error);
+    background-color: var(--elegant-color-error-light);
+}
+
+.elegant-product-costs-error .elegant-product-costs-label,
+.elegant-product-costs-error .elegant-product-costs-value {
+    color: var(--elegant-color-on-error);
+}
+
+/* === Focus States for Accessibility === */
+.elegant-product-costs-row:focus-within {
+    outline: 2px solid var(--elegant-color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .elegant-product-costs-container {
+        border: 2px solid var(--elegant-color-outline);
+    }
+    
+    .elegant-product-costs-total-section {
+        border-top: 3px solid var(--elegant-color-primary);
+    }
+}

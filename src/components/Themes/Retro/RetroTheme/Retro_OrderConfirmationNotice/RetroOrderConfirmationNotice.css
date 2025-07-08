@@ -1,0 +1,16 @@
+/* === Order Confirmation Notice === */
+.retro-order-confirmation-notice {
+    background-color: var(--retro-color-surface);
+    color: var(--retro-color-on-surface);
+    border-radius: var(--retro-section-radius);
+    box-shadow: var(--retro-section-shadow);
+}
+
+.retro-order-confirmation-title {
+    color: var(--retro-color-on-surface);
+}
+
+.retro-order-confirmation-icon {
+    background-color: var(--retro-color-secondary);
+    color: var(--retro-color-on-secondary);
+}

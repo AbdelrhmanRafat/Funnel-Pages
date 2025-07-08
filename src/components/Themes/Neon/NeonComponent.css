@@ -1,0 +1,77 @@
+/* === neon Theme Reusable Classes === */
+.neon-main-color {
+    background-color: var(--neon-color-surface);
+    color: var(--neon-color-on-surface);
+}
+
+.neon-section {
+    background-color: var(--neon-color-surface);
+    padding: var(--neon-section-padding);
+    border-radius: var(--neon-section-radius);
+    box-shadow: var(--neon-section-shadow);
+}
+
+.neon-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--neon-header-gap);
+    margin-bottom: var(--neon-header-margin-bottom);
+    font-size: var(--neon-header-size);
+    font-weight: var(--neon-header-weight);
+    color: var(--neon-color-on-surface);
+}
+.neon-middle-title {
+    text-align: center;
+    font-size: var(--neon-header-center-size);
+    font-weight: var( --neon-header-center-wight);
+    color: var(--neon-color-on-surface);
+    margin-bottom: var(--neon-header-center-margin-bottom);
+}
+.neon-divider {
+    background: linear-gradient(to right, var(--neon-color-tertiary), var(--neon-color-secondary));
+}
+
+
+/* === Scroll to Top Button === */
+.neon-scrollToTopBtn {
+    background-color: var(--neon-color-primary);
+    color: var(--neon-color-on-primary);
+    width: 3.5rem; /* w-14 */
+    height: 3.5rem; /* h-14 */
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem; /* text-xl */
+    box-shadow: var(--neon-section-shadow);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.neon-scrollToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.neon-scrollToTopBtn:hover {
+    background-color: var(--neon-color-primary-dark);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.neon-scrollToTopBtn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Remove padding on small screens (mobile) */
+@media (max-width: 640px) {
+  .neon-section {
+    padding: 8px;
+  }
+}

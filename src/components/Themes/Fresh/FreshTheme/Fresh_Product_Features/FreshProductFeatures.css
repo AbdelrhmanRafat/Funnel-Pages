@@ -1,0 +1,62 @@
+/* === Product Features Section === */
+.fresh-feature-card {
+    background-color: var(--fresh-color-surface);
+    border: 1px solid var(--fresh-color-outline-variant);
+    border-radius: var(--fresh-section-radius);
+    transition: all 0.3s ease;
+}
+
+.fresh-feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--fresh-color-primary);
+    box-shadow: var(--fresh-section-shadow);
+}
+
+.fresh-feature-icon-container {
+    width: 4rem; /* Keep in CSS for theme consistency */
+    height: 4rem;
+    background-color: var(--fresh-color-primary);
+    transition: all 0.3s ease;
+}
+
+.fresh-feature-card:hover .fresh-feature-icon-container {
+    background-color: var(--fresh-color-primary-dark);
+    transform: scale(1.05); /* Subtle scaling */
+}
+
+.fresh-feature-icon {
+    color: var(--fresh-color-on-primary);
+}
+
+.fresh-feature-title {
+    color: var(--fresh-color-on-surface);
+    font-weight: 600; /* font-semibold */
+    transition: color 0.3s ease;
+}
+
+.fresh-feature-card:hover .fresh-feature-title {
+    color: var(--fresh-color-primary);
+}
+
+.fresh-feature-subtitle {
+    color: var(--fresh-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .fresh-feature-card,
+    .fresh-feature-icon-container {
+        transition: none;
+    }
+    
+    .fresh-feature-card:hover,
+    .fresh-feature-card:hover .fresh-feature-icon-container {
+        transform: none;
+    }
+}
+
+/* Focus states for keyboard navigation */
+.fresh-feature-card:focus-within {
+    outline: 2px solid var(--fresh-color-primary);
+    outline-offset: 2px;
+}

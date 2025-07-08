@@ -1,0 +1,62 @@
+/* === Product Features Section === */
+.zen-feature-card {
+    background-color: var(--zen-color-surface);
+    border: 1px solid var(--zen-color-outline-variant);
+    border-radius: var(--zen-section-radius);
+    transition: all 0.3s ease;
+}
+
+.zen-feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--zen-color-primary);
+    box-shadow: var(--zen-section-shadow);
+}
+
+.zen-feature-icon-container {
+    width: 4rem; /* Keep in CSS for theme consistency */
+    height: 4rem;
+    background-color: var(--zen-color-primary);
+    transition: all 0.3s ease;
+}
+
+.zen-feature-card:hover .zen-feature-icon-container {
+    background-color: var(--zen-color-primary-dark);
+    transform: scale(1.05); /* Subtle scaling */
+}
+
+.zen-feature-icon {
+    color: var(--zen-color-on-primary);
+}
+
+.zen-feature-title {
+    color: var(--zen-color-on-surface);
+    font-weight: 600; /* font-semibold */
+    transition: color 0.3s ease;
+}
+
+.zen-feature-card:hover .zen-feature-title {
+    color: var(--zen-color-primary);
+}
+
+.zen-feature-subtitle {
+    color: var(--zen-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .zen-feature-card,
+    .zen-feature-icon-container {
+        transition: none;
+    }
+    
+    .zen-feature-card:hover,
+    .zen-feature-card:hover .zen-feature-icon-container {
+        transform: none;
+    }
+}
+
+/* Focus states for keyboard navigation */
+.zen-feature-card:focus-within {
+    outline: 2px solid var(--zen-color-primary);
+    outline-offset: 2px;
+}

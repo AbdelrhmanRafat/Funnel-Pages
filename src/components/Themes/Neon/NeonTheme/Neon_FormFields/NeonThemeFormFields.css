@@ -1,0 +1,210 @@
+/* === Classic Form Components === */
+
+/* Main form container */
+.neon-form {
+    background-color: var(--neon-color-surface);
+    border-radius: var(--neon-section-radius);
+}
+
+/* Form title styling */
+.neon-form-title {
+    color: var(--neon-color-on-surface);
+}
+
+/* Section headers within form */
+.neon-form-section-title {
+    color: var(--neon-color-on-surface);
+}
+
+/* Improved Input Group */
+.neon-form-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Input field styling */
+.neon-form-input {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--neon-color-outline);
+    border-radius: 12px;
+    color: var(--neon-color-on-surface);
+    background-color: var(--neon-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Floating label styling */
+.neon-form-label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--neon-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--neon-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Focus and valid states for input */
+.neon-form-input:focus,
+.neon-form-input:valid {
+    border-color: var(--neon-color-primary);
+    box-shadow: var(--neon-section-shadow);
+}
+
+/* Floating label animation */
+.neon-form-input:focus~.neon-form-label,
+.neon-form-input:valid~.neon-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--neon-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.neon-form-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--neon-color-error);
+    min-height: 1.25rem;
+}
+
+
+
+.neon-form-input.text-right~.neon-form-label {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+.neon-form-input.text-left~.neon-form-label {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.neon-form-input.text-left:focus~.neon-form-label,
+.neon-form-input.text-left:valid~.neon-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+.neon-form-input.text-left:focus~.neon-form-label,
+.neon-form-input.text-left:valid~.neon-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+
+
+/* Payment and delivery option containers */
+.neon-form-payment-option {
+    padding: 0.75rem;
+    /* Tailwind: p-3 */
+    border: 1px solid var(--neon-color-outline);
+    border-radius: 0.5rem;
+    /* Tailwind: rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover state for payment options */
+.neon-form-payment-option:hover {
+    background-color: var(--neon-color-surface-variant);
+    border-color: var(--neon-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.neon-form-payment-option:focus-within {
+    border-color: var(--neon-color-primary);
+    outline: 2px solid var(--neon-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.neon-form-payment-option-label {
+    display: block;
+    color: var(--neon-color-on-surface);
+    cursor: pointer;
+}
+
+/* Payment option descriptions */
+.neon-form-payment-option-description {
+    display: block;
+    color: var(--neon-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.neon-form-radio {
+    accent-color: var(--neon-color-primary);
+    border-color: var(--neon-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator (if used) */
+.neon-form-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--neon-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Radio dot inside custom indicator */
+.neon-form-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.neon-form-payment-option input[type="radio"]:checked+.neon-form-payment-option-content .neon-form-radio-indicator {
+    border-color: var(--neon-color-primary);
+    background-color: var(--neon-color-primary);
+}
+
+.neon-form-payment-option input[type="radio"]:checked+.neon-form-payment-option-content .neon-form-radio-dot {
+    background-color: var(--neon-color-surface);
+}
+
+/* Validation state classes */
+.neon-border-error {
+    border-color: var(--neon-color-error) !important;
+}
+
+.neon-text-error {
+    color: var(--neon-color-error) !important;
+}
+
+.neon-border-success {
+    border-color: var(--neon-color-success) !important;
+}
+
+.neon-text-success {
+    color: var(--neon-color-success) !important;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .neon-form-input,
+    .neon-form-payment-option,
+    .neon-form-radio-indicator,
+    .neon-form-radio-dot {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .neon-form-input {
+        border-width: 2px;
+    }
+
+    .neon-form-payment-option {
+        border-width: 2px;
+    }
+}

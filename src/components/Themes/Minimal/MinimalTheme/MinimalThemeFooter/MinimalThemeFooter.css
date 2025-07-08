@@ -1,0 +1,27 @@
+/* === Classic Footer Component === */
+.minimal-footer {
+    border-top-color: var(--minimal-color-outline);
+}
+
+.minimal-footer-title {
+    color: var(--minimal-color-on-surface);
+}
+
+.minimal-footer-link {
+    color: var(--minimal-color-on-surface);
+    transition: color 0.2s ease;
+}
+
+.minimal-footer-link:hover {
+    color: var(--minimal-color-primary);
+}
+
+.minimal-footer-social-link {
+    color: var(--minimal-color-on-surface);
+    transition: all 0.2s ease;
+}
+
+.minimal-footer-social-link:hover {
+    color: var(--minimal-color-primary);
+    transform: scale(1.1);
+}

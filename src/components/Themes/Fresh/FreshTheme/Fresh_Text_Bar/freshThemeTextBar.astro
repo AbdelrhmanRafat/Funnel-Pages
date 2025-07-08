@@ -1,0 +1,25 @@
+---
+import "./freshThemeTextBar.css";
+import type { BlockData } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { FunnelFreshComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+---
+
+<section 
+  id={FunnelFreshComponents.FreshTextBar} 
+  class="fresh-section py-12"
+>
+  <div class="fresh-text-bar-container flex justify-center items-center">
+    <div class="fresh-text-bar-animated-button">
+      <span class="fresh-text-bar-title">
+        {isArabic ? data.title_ar : data.title_en}
+      </span>
+    </div>
+  </div>
+</section>

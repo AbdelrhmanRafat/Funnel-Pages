@@ -1,0 +1,130 @@
+/* === Product Costs Section === */
+.techno-product-costs-container {
+    background-color: var(--techno-color-surface);
+    padding: var(--techno-section-padding);
+    border-radius: var(--techno-section-radius);
+    overflow: hidden;
+    border: 1px solid var(--techno-color-outline-variant);
+}
+
+.techno-product-costs-body {
+    border-bottom: 1px solid var(--techno-color-outline);
+}
+
+.techno-product-costs-row {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--techno-color-outline-variant);
+    transition: background-color 0.2s ease;
+}
+
+.techno-product-costs-row:hover {
+    background-color: var(--techno-color-surface-variant);
+}
+
+.techno-product-costs-row:last-child {
+    border-bottom: none;
+}
+
+.techno-product-costs-label {
+    color: var(--techno-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.techno-product-costs-value {
+    color: var(--techno-color-on-surface);
+    font-weight: 600;
+}
+
+.techno-product-costs-discount {
+    color: var(--techno-color-success);
+    font-weight: 600;
+}
+
+.techno-product-costs-total-section {
+    background-color: var(--techno-color-primary-light);
+    padding: 1rem 1.5rem;
+    border-top: 2px solid var(--techno-color-primary);
+    margin-top: 0.75rem;
+    border-radius: var(--techno-section-radius);
+}
+
+.techno-product-costs-total-label {
+    color: var(--techno-color-on-primary);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.techno-product-costs-total-value {
+    color: var(--techno-color-on-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .techno-product-costs-container {
+        padding: 0.75rem;
+    }
+    
+    .techno-product-costs-total-section {
+        padding: 0.75rem 1rem;
+    }
+    
+    .techno-product-costs-total-label,
+    .techno-product-costs-total-value {
+        font-size: 1rem;
+    }
+}
+
+/* === Loading State === */
+.techno-product-costs-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.techno-product-costs-loading .techno-product-costs-value,
+.techno-product-costs-loading .techno-product-costs-discount,
+.techno-product-costs-loading .techno-product-costs-total-value {
+    background-color: var(--techno-color-surface-variant);
+    color: transparent;
+    border-radius: 4px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* === Error State === */
+.techno-product-costs-error {
+    border-color: var(--techno-color-error);
+    background-color: var(--techno-color-error-light);
+}
+
+.techno-product-costs-error .techno-product-costs-label,
+.techno-product-costs-error .techno-product-costs-value {
+    color: var(--techno-color-on-error);
+}
+
+/* === Focus States for Accessibility === */
+.techno-product-costs-row:focus-within {
+    outline: 2px solid var(--techno-color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .techno-product-costs-container {
+        border: 2px solid var(--techno-color-outline);
+    }
+    
+    .techno-product-costs-total-section {
+        border-top: 3px solid var(--techno-color-primary);
+    }
+}

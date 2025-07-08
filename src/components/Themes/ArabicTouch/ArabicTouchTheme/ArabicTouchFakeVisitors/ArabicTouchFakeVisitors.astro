@@ -1,0 +1,32 @@
+---
+import "./ArabicTouchFakeVisitors.css";
+import type { BlockData, Item } from '../../../../../lib/api/types';
+import { FunnelArabicTouchComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+const visitors: Item[] = data.items ?? [];
+---
+
+<arabictouch-visitors-animation 
+  class="w-full flex justify-start items-start"
+  data-arabictouch-visitors={JSON.stringify(visitors)}
+  data-arabictouch-display-time="3000"
+  data-arabictouch-flash-duration="800"
+>
+  <section id={FunnelArabicTouchComponents.ArabicTouchVisitors}>
+    <div class="arabictouch-visitors-section flex justify-start items-center gap-4">
+      <!-- Single visitor display area -->
+      <div class="arabictouch-visitor-display">
+        <div class="arabictouch-visitor-image w-8 h-8 rounded-full opacity-0">
+          <img class="w-full rounded-full" src="" alt="Visitor" id="arabictouch-visitor-img"/>
+        </div>
+        <p class="arabictouch-visitor-description opacity-0" id="arabictouch-visitor-desc"></p>
+      </div>
+    </div>
+  </section>
+</arabictouch-visitors-animation>
+
+
+<script>
+  import "./ArabicTouchFakeVisitors";
+</script>

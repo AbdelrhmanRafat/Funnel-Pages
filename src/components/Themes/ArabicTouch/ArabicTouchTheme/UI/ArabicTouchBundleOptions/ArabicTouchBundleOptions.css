@@ -1,0 +1,67 @@
+/* === Bundle Options Section === */
+.arabictouch-bundle-options-title {
+    color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-bundle-options-group {
+    border-color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-bundle-options-label {
+    transition: all 0.3s ease;
+    border-radius: var(--arabictouch-section-radius);
+    background-color: var(--arabictouch-color-surface);
+}
+
+.arabictouch-bundle-options-label:hover {
+    box-shadow: var(--arabictouch-section-shadow);
+}
+
+.arabictouch-bundle-options-label:has(:checked) {
+    border-color: var(--arabictouch-color-primary);
+    background-color: var(--arabictouch-color-primary-light);
+    background-color: rgba(79, 182, 172, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.arabictouch-bundle-options-option-title {
+    color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-bundle-options-option-details {
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+.arabictouch-bundle-options-unit-badge {
+    background-color: var(--arabictouch-color-surface-variant);
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+.arabictouch-bundle-options-price-info {
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+.arabictouch-bundle-options-final-price {
+    color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-bundle-options-price-discount {
+    color: var(--arabictouch-color-success);
+}
+
+.arabictouch-bundle-options-price-regular {
+    color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-bundle-options-original-price {
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+.arabictouch-bundle-options-discount-badge {
+    background-color: var(--arabictouch-color-success-light);
+    color: var(--arabictouch-color-on-success);
+}
+
+.arabictouch-bundle-options-discount-icon {
+    color: var(--arabictouch-color-success);
+}

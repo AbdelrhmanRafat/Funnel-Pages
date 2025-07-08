@@ -1,0 +1,69 @@
+/* === Classic Product Usage Component === */
+
+/* Main card container */
+.techno-usage-card {
+    background-color: var(--techno-color-surface-container);
+    box-shadow: var(--techno-section-shadow);
+    border-radius: var(--techno-section-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.techno-usage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Video container */
+.techno-usage-video {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Video iframe */
+.techno-usage-iframe {
+    border-radius: var(--techno-section-radius) var(--techno-section-radius) 0 0;
+}
+
+/* Video placeholder for missing videos */
+.techno-usage-video-placeholder {
+    background-color: var(--techno-color-surface-variant);
+    color: var(--techno-color-on-surface-variant);
+    border-radius: var(--techno-section-radius) var(--techno-section-radius) 0 0;
+}
+
+/* Content area */
+.techno-usage-content {
+    background-color: var(--techno-color-surface);
+}
+
+/* Title styling */
+.techno-usage-title {
+    color: var(--techno-color-on-surface);
+}
+
+/* Subtitle styling */
+.techno-usage-subtitle {
+    color: var(--techno-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .techno-usage-card {
+        transition: none;
+    }
+    
+    .techno-usage-card:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .techno-usage-card {
+        border: 2px solid var(--techno-color-outline);
+    }
+    
+    .techno-usage-video-placeholder {
+        border: 2px solid var(--techno-color-outline);
+    }
+}

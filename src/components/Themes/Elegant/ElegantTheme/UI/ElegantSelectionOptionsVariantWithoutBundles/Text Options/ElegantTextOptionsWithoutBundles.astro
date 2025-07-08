@@ -1,0 +1,20 @@
+---
+export interface Props {
+  option: {
+    value: string;
+  };
+  index: number;
+  optionType: 'first' | 'second';
+}
+
+const { option, index, optionType } = Astro.props;
+---
+
+<div
+  class="elegant-selection-options-without-bundles-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+  data-option-type={optionType}
+  data-option-value={option.value}
+  data-option-index={index}
+>
+  {option.value}
+</div>

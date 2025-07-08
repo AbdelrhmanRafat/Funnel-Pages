@@ -1,0 +1,16 @@
+/* === Order Confirmation Notice === */
+.arabictouch-order-confirmation-notice {
+    background-color: var(--arabictouch-color-surface);
+    color: var(--arabictouch-color-on-surface);
+    border-radius: var(--arabictouch-section-radius);
+    box-shadow: var(--arabictouch-section-shadow);
+}
+
+.arabictouch-order-confirmation-title {
+    color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-order-confirmation-icon {
+    background-color: var(--arabictouch-color-secondary);
+    color: var(--arabictouch-color-on-secondary);
+}

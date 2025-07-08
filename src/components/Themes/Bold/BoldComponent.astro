@@ -1,0 +1,311 @@
+---
+// This component is the main entry point for the Bold theme.
+// It orchestrates the rendering of various sub-components based on the data received from the API.
+// Props:
+// - funnelPage: An object of type Data, containing all the information for the funnel page.
+import "./BoldComponent.css";
+import BoldThemeHeader from "./BoldTheme/Bold_Header/BoldThemeHeader.astro";
+import BoldThemeProduct from "./BoldTheme/BoldThemeProduct/BoldThemeProduct.astro";
+import BoldThemeCountDown from "./BoldTheme/BoldThemeCountdown/BoldThemeCountDown.astro";
+import BoldFaq from "./BoldTheme/Bold_Faq/BoldFaq.astro";
+import BoldProductPreviewComponent from "./BoldTheme/Bold_ProductPreview/BoldProductPreviewComponent.astro";
+import { getBoldThemeComponent } from "../../../lib/utils/ThemeSelect";
+import type { BlockData, Data } from "../../../lib/api/types";
+import { FunnelBoldComponents } from "../../../lib/constants/themes";
+import BoldThemeFooter from "./BoldTheme/BoldThemeFooter/BoldThemeFooter.astro";
+import BoldThemeReviews from "./BoldTheme/Bold_Theme_Reviews/BoldThemeReviews.astro";
+import BoldProductUsage from "./BoldTheme/Bold_ProductUsage/BoldProductUsage.astro";
+import BoldDeliveryFeatures from "./BoldTheme/Bold_Delivery_Features/BoldDeliveryFeatures.astro";
+import BoldProductFeatures from "./BoldTheme/Bold_Product_Features/BoldProductFeatures.astro";
+import BoldLogosCarousel from "./BoldTheme/BoldLogosCarousel/BoldLogosCarousel.astro";
+import BoldButtonWithLink from "./BoldTheme/BoldButtonWithLink/BoldButtonWithLink.astro";
+import LucideIcon from "../../Shared/LucideIcon.astro";
+import BoldGridImages from "./BoldTheme/BoldGridImagesComponent/boldGridImages.astro";
+import BoldThemeTodayStatistics from "./BoldTheme/BoldThemeTodayStatistics/BoldThemeTodayStatistics.astro";
+import BoldThemeTextBar from "./BoldTheme/Bold_Text_Bar/boldThemeTextBar.astro";
+import BoldImageTextOverlay from "./BoldTheme/Bold_Image_Text_Overlay/boldImageTextOverlay.astro";
+import BoldImageTextBeside from "./BoldTheme/Bold_Image_Text_Beside/boldImageTextBeside.astro";
+import BoldBeforeAfter from "./BoldTheme/BoldBefore&AfterImage/boldBefore&After.astro";
+
+
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: BlockData | undefined;
+}
+
+const funnelPage: Data = Astro.props.funnelPage;
+
+// Maps the block names from the API response to their corresponding Bold theme components and data.
+const boldComponentNames: [FunnelBoldComponents, BlockData][] =
+  funnelPage.blocks
+    .map((block) => {
+      const component = getBoldThemeComponent(block.name);
+      return component ? [component, block.data] : undefined;
+    })
+    .filter(
+      (tuple): tuple is [FunnelBoldComponents, BlockData] =>
+        tuple !== undefined,
+    );
+
+// Checks if a specific component is present in the API response and returns its data if found.
+function isComponentFound(
+  componentName: FunnelBoldComponents,
+): ComponentCheckResult {
+  const found = boldComponentNames.find(([comp]) => comp === componentName);
+  return {
+    isComponentFound: !!found,
+    componentData: found?.[1],
+  };
+}
+
+// Define render order - just change this array to reorder components!
+const RENDER_ORDER = [
+  FunnelBoldComponents.BoldHeader,
+  FunnelBoldComponents.BoldProductFunnel, // Always render (required)
+  FunnelBoldComponents.BoldProductFeatures,
+  FunnelBoldComponents.BoldProductPreview,
+  FunnelBoldComponents.BoldProductUsage,
+  FunnelBoldComponents.BoldLogosCarousel,
+  FunnelBoldComponents.BoldButtonWithLink,
+  FunnelBoldComponents.BoldTodayStatistics,
+  FunnelBoldComponents.BoldGallery,
+  FunnelBoldComponents.Bold_Before_After,
+  FunnelBoldComponents.BoldReviews,
+  FunnelBoldComponents.BoldTextBar,
+  FunnelBoldComponents.BoldImageTextOverLay,
+  FunnelBoldComponents.BoldImageTextBeside,
+  FunnelBoldComponents.BoldFaq,
+  FunnelBoldComponents.BoldDeliveryFeatures,
+  FunnelBoldComponents.BoldCountdown,
+  FunnelBoldComponents.BoldFooter,
+];
+
+// Extracts purchase options and other data
+const productFunnelData = isComponentFound(
+  FunnelBoldComponents.BoldProductFunnel,
+);
+
+const isFormFieldsDataFound = isComponentFound(
+  FunnelBoldComponents.BoldFormFields,
+);
+
+const isCuponDataFound = isComponentFound(
+  FunnelBoldComponents.BoldCoupon,
+);
+
+const isFakeVisitorsDataFound = isComponentFound(
+  FunnelBoldComponents.BoldVisitors,
+);
+
+const isOrderThroughWhatsappDataFound = isComponentFound(
+  FunnelBoldComponents.BoldOrderThroughWhatsapp,
+);
+
+const isOrderConfirmationNoticeFound = isComponentFound(
+  FunnelBoldComponents.BoldOrderConfirmationNotice,
+);
+const isRatingFound = isComponentFound(FunnelBoldComponents.BoldRates);
+
+const purchaseOptions = productFunnelData.isComponentFound
+  ? productFunnelData.componentData?.purchase_options
+  : undefined;
+
+const formFieldsData = isFormFieldsDataFound.isComponentFound
+  ? isFormFieldsDataFound.componentData
+  : undefined;
+
+const cuponData = isCuponDataFound.isComponentFound
+  ? isCuponDataFound.componentData
+  : undefined;
+
+const fakeVisitorsData = isFakeVisitorsDataFound.isComponentFound
+  ? isFakeVisitorsDataFound.componentData
+  : undefined;
+
+const ratingData = isRatingFound.isComponentFound
+  ? isRatingFound.componentData
+  : undefined;
+
+const orderConfirmationNoticeData =
+  isOrderConfirmationNoticeFound.isComponentFound
+    ? isOrderConfirmationNoticeFound.componentData
+    : undefined;
+
+const orderThroughWhatsappData =
+  isOrderThroughWhatsappDataFound.isComponentFound
+    ? isOrderThroughWhatsappDataFound.componentData
+    : undefined;
+
+---
+
+<main class="bold-main-color">
+  <section class="lg:container w-11/12 mx-auto flex flex-col gap-7">
+  {
+    RENDER_ORDER.map((componentName) => {
+      if (componentName === FunnelBoldComponents.BoldHeader) {
+        const headerData = isComponentFound(
+          FunnelBoldComponents.BoldHeader,
+        );
+        return headerData.isComponentFound ? (
+          <BoldThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelBoldComponents.BoldProductFunnel) {
+        return (
+          <BoldThemeProduct
+            formFieldsData={formFieldsData}
+            ratingData={ratingData}
+            fakeVisitorsData={fakeVisitorsData}
+            orderConfirmationNoticeData={orderConfirmationNoticeData}
+            orderThroughWhatsappData={orderThroughWhatsappData}
+            product={funnelPage.product}
+            cuponData={cuponData}
+            purchaseOptions={purchaseOptions}
+          />
+        );
+      }
+      if (componentName === FunnelBoldComponents.BoldCountdown) {
+        const countdownData = isComponentFound(
+          FunnelBoldComponents.BoldCountdown,
+        );
+        return countdownData.isComponentFound ? (
+          <BoldThemeCountDown data={countdownData.componentData} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelBoldComponents.BoldFaq) {
+        const faqData = isComponentFound(FunnelBoldComponents.BoldFaq);
+        return faqData.isComponentFound ? (
+          <BoldFaq data={faqData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldLogosCarousel) {
+        const logoscarouselData = isComponentFound(FunnelBoldComponents.BoldLogosCarousel);
+        return logoscarouselData.isComponentFound ? (
+          <BoldLogosCarousel data={logoscarouselData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldProductPreview) {
+        const productPreviewData = isComponentFound(
+          FunnelBoldComponents.BoldProductPreview,
+        );
+        return productPreviewData.isComponentFound ? (
+          <BoldProductPreviewComponent
+            data={productPreviewData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldButtonWithLink) {
+        const buttonWithLinkData = isComponentFound(
+          FunnelBoldComponents.BoldButtonWithLink,
+        );
+        return buttonWithLinkData.isComponentFound ? (
+          <BoldButtonWithLink
+            data={buttonWithLinkData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldGallery) {
+        const galleryData = isComponentFound(
+          FunnelBoldComponents.BoldGallery,
+        );
+        return galleryData.isComponentFound ? (
+          <BoldGridImages
+            data={galleryData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldTodayStatistics) {
+        const todayOrdersData = isComponentFound(
+          FunnelBoldComponents.BoldTodayStatistics,
+        );
+        return todayOrdersData.isComponentFound ? (
+          <BoldThemeTodayStatistics
+            data={todayOrdersData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldDeliveryFeatures) {
+        const deliveryFeaturesData = isComponentFound(
+          FunnelBoldComponents.BoldDeliveryFeatures,
+        );
+        return deliveryFeaturesData.isComponentFound ? (
+          <BoldDeliveryFeatures data={deliveryFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldProductFeatures) {
+        const ProductFeaturesData = isComponentFound(
+          FunnelBoldComponents.BoldProductFeatures,
+        );
+        return ProductFeaturesData.isComponentFound ? (
+          <BoldProductFeatures data={ProductFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldReviews) {
+        const ReviewsData = isComponentFound(
+          FunnelBoldComponents.BoldReviews,
+        );
+        return ReviewsData.isComponentFound ? (
+          <BoldThemeReviews data={ReviewsData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldTextBar) {
+        const TextBarData = isComponentFound(
+          FunnelBoldComponents.BoldTextBar,
+        );
+        return TextBarData.isComponentFound ? (
+          <BoldThemeTextBar data={TextBarData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldImageTextOverLay) {
+        const ImageTextData = isComponentFound(
+          FunnelBoldComponents.BoldImageTextOverLay,
+        );
+        return ImageTextData.isComponentFound ? (
+          <BoldImageTextOverlay data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldImageTextBeside) {
+        const ImageTextData = isComponentFound(
+          FunnelBoldComponents.BoldImageTextBeside,
+        );
+        return ImageTextData.isComponentFound ? (
+          <BoldImageTextBeside data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldProductUsage) {
+        const productUsageData = isComponentFound(
+          FunnelBoldComponents.BoldProductUsage,
+        );
+        return productUsageData.isComponentFound ? (
+          <BoldProductUsage data={productUsageData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.Bold_Before_After) {
+        const BeforeAfterData = isComponentFound(
+          FunnelBoldComponents.Bold_Before_After,
+        );
+        return BeforeAfterData.isComponentFound ? (
+          <BoldBeforeAfter data={BeforeAfterData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelBoldComponents.BoldFooter) {
+        const footerData = isComponentFound(
+          FunnelBoldComponents.BoldFooter,
+        );
+        return footerData.isComponentFound ? (
+          <BoldThemeFooter data={footerData.componentData} />
+        ) : null;
+      }
+      return null;
+    })
+  }
+  <button id="scrollToTopBtn" class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 bold-scrollToTopBtn">
+   <LucideIcon name="MoveUp" width="32" height="32" />
+  </button>
+  </section>
+</main>
+<script>
+  import "./BoldTheme.config"
+</script>

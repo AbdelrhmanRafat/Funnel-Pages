@@ -1,0 +1,235 @@
+/* ===== HEADER STYLES ===== */
+.pop-header {
+  background-color: var(--pop-color-surface);
+  box-shadow: var(--pop-section-shadow);
+}
+
+.pop-header-logo {
+  width: 100px;
+  max-height: 80px;
+  object-fit: cover;
+}
+
+.pop-header-title {
+  color: var(--pop-color-on-surface);
+  margin: 0;
+}
+
+.pop-header-subtitle {
+  color: var(--pop-color-on-surface-variant);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ===== MOBILE MENU BUTTON ===== */
+.pop-menu-button {
+  background-color: var(--pop-color-surface-variant);
+  border: 1px solid var(--pop-color-outline-variant);
+  color: var(--pop-color-on-surface);
+  position: relative;
+  z-index: 70;
+}
+
+.pop-menu-button:hover {
+  background-color: var(--pop-color-primary);
+  border-color: var(--pop-color-primary-light);
+  color: var(--pop-color-on-primary);
+  transform: scale(1.05);
+}
+
+.pop-menu-button.active {
+  background-color: var(--pop-color-primary);
+  color: var(--pop-color-on-primary);
+  border-color: var(--pop-color-primary);
+}
+
+/* Hamburger lines */
+.hamburger-line {
+  background-color: var(--pop-color-on-surface);
+}
+
+.pop-menu-button:hover .hamburger-line {
+  background-color: var(--pop-color-on-primary);
+}
+
+/* Hamburger Animation when Active */
+.pop-menu-button.active .hamburger-line:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.pop-menu-button.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.pop-menu-button.active .hamburger-line:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ===== MOBILE MENU OVERLAY ===== */
+.pop-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 60;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.pop-menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Menu Backdrop */
+.pop-menu-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Menu Content Container */
+.pop-menu-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: var(--pop-color-surface);
+  box-shadow: var(--pop-section-shadow);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+}
+
+.pop-menu-overlay.show .pop-menu-content {
+  transform: translateX(0);
+}
+
+/* Menu Header */
+.pop-menu-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--pop-color-outline-variant);
+}
+
+.pop-menu-title {
+  color: var(--pop-color-on-surface);
+  margin: 0;
+}
+
+.pop-menu-close {
+  background-color: var(--pop-color-surface-variant);
+  border: 1px solid var(--pop-color-outline-variant);
+  color: var(--pop-color-on-surface-variant);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pop-menu-close:hover {
+  background-color: var(--pop-color-error);
+  color: var(--pop-color-on-error);
+  border-color: var(--pop-color-error);
+}
+
+/* Menu Navigation */
+.pop-menu-nav {
+  flex: 1;
+}
+
+.pop-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pop-menu-item {
+  margin: 0;
+}
+
+.pop-menu-link {
+  display: block;
+  border-radius: 0.5rem;
+  color: var(--pop-color-on-surface-variant);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid var(--pop-color-outline-variant);
+  background-color: var(--pop-color-surface-variant);
+}
+
+.pop-menu-link:hover {
+  background-color: var(--pop-color-primary);
+  color: var(--pop-color-on-primary);
+  border-color: var(--pop-color-primary);
+  box-shadow: var(--pop-section-shadow);
+}
+
+.pop-menu-link:active {
+  background-color: var(--pop-color-primary-dark);
+  color: var(--pop-color-on-primary);
+}
+
+/* Active state for current section */
+.pop-menu-link.active {
+  background-color: var(--pop-color-primary);
+  color: var(--pop-color-on-primary);
+  border-color: var(--pop-color-primary);
+}
+
+/* ===== BODY SCROLL PREVENTION ===== */
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (min-width: 768px) {
+  .pop-menu-overlay {
+    display: none !important;
+  }
+  
+  .pop-menu-button {
+    display: none !important;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .pop-menu-overlay,
+  .pop-menu-content,
+  .pop-menu-button,
+  .hamburger-line,
+  .pop-header {
+    transition: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.pop-menu-button:focus,
+.pop-menu-close:focus,
+.pop-menu-link:focus {
+  outline: 2px solid var(--pop-color-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .pop-menu-backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .pop-menu-content {
+    border: 2px solid var(--pop-color-outline);
+  }
+  
+  .pop-menu-link {
+    border: 2px solid var(--pop-color-outline);
+  }
+}

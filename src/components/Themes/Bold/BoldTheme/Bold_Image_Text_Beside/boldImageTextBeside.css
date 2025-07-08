@@ -1,0 +1,44 @@
+/* Classic Image-Text Section */
+.bold-image-text-beside {
+  background-color: var(--bold-color-surface);
+  border-radius: var(--bold-section-radius);
+}
+
+.bold-image-text-beside-image {
+  border-radius: var(--bold-section-radius);
+  transition: transform 0.3s ease;
+}
+
+.bold-image-text-beside-image:hover {
+  transform: scale(1.02);
+}
+
+.bold-image-text-beside-content {
+  background-color: var(--bold-color-surface-container-high);
+  border-radius: var(--bold-section-radius);
+  box-shadow: var(--bold-section-shadow);
+  transition: all 0.3s ease;
+}
+
+.bold-image-text-beside-title {
+  color: var(--bold-color-on-surface);
+}
+
+.bold-image-text-beside-description {
+  color: var(--bold-color-on-surface-variant);
+}
+
+/* Image placeholder for missing images */
+.bold-image-placeholder {
+  background-color: var(--bold-color-surface-variant);
+  color: var(--bold-color-on-surface-variant);
+  border-radius: var(--bold-section-radius);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .bold-image-text-beside-image,
+  .bold-image-text-beside-content {
+    transition: none;
+  }
+}

@@ -1,0 +1,43 @@
+/* === Product Details Section Classes === */
+.retro-product-details-section {
+    background-color: var(--retro-color-background);
+}
+
+.retro-product-details-container {
+    background: linear-gradient(135deg, var(--retro-color-surface) 0%, var(--retro-color-surface-variant) 100%);
+    border-radius: var(--retro-section-radius);
+}
+
+.retro-product-details-badge-success {
+    background-color: var(--retro-color-success-light);
+    color: var(--retro-color-on-success);
+}
+
+.retro-product-details-badge-error {
+    background-color: var(--retro-color-error-light);
+    color: var(--retro-color-on-error);
+}
+
+.retro-product-details-sku {
+    color: var(--retro-color-on-surface-variant);
+}
+
+.retro-product-details-title {
+    color: var(--retro-color-on-surface);
+}
+
+.retro-product-details-price {
+    color: var(--retro-color-primary);
+}
+
+.retro-product-details-price--discount {
+    color: var(--retro-color-on-surface-variant);
+}
+
+.retro-product-details-description-header {
+    color: var(--retro-color-on-surface);
+}
+
+.retro-product-details-text-body {
+    color: var(--retro-color-on-surface-variant);
+}

@@ -1,0 +1,66 @@
+/* Classic Statistics Minimal Design - Matching the provided image */
+
+.pop-theme-today-order-count {
+    background: transparent;
+    color: var(--pop-color-on-surface);
+    box-shadow: none;
+    border-radius: 0;
+    transition: transform 0.3s ease;
+    padding: 0;
+    min-width: auto;
+    min-height: auto;
+}
+
+.pop-theme-today-order-count:hover {
+    transform: translateY(-2px);
+}
+
+.pop-order-counter {
+    transition: all 0.1s ease;
+    color: var(--pop-color-tertiary-dark);
+}
+
+/* Classic Statistics Container */
+.pop-statistics-minimal-container {
+    background: transparent;
+    padding: 3rem 0;
+}
+
+/* Classic Counter Item Styling */
+.pop-counter-minimal-item {
+    text-align: center;
+    position: relative;
+}
+
+/* Classic Counter Label - Green color like in image */
+.pop-counter-minimal-label {
+    color: var(--pop-color-success);
+}
+
+
+
+
+/* Classic Animation Effects */
+.pop-order-counter[data-pop-animating="true"] {
+    color: var(--pop-color-primary);
+}
+
+@media (max-width: 768px) {
+    .pop-order-counter {
+        font-size: 3rem;
+    }
+    
+    .pop-counter-minimal-item:not(:last-child)::after {
+        display: none;
+    }
+    
+    .pop-counter-minimal-label {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .pop-order-counter {
+        font-size: 2.5rem;
+    }
+}

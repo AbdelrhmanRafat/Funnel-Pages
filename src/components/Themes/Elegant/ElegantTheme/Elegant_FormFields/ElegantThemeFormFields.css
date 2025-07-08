@@ -1,0 +1,210 @@
+/* === Classic Form Components === */
+
+/* Main form container */
+.elegant-form {
+    background-color: var(--elegant-color-surface);
+    border-radius: var(--elegant-section-radius);
+}
+
+/* Form title styling */
+.elegant-form-title {
+    color: var(--elegant-color-on-surface);
+}
+
+/* Section headers within form */
+.elegant-form-section-title {
+    color: var(--elegant-color-on-surface);
+}
+
+/* Improved Input Group */
+.elegant-form-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Input field styling */
+.elegant-form-input {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--elegant-color-outline);
+    border-radius: 12px;
+    color: var(--elegant-color-on-surface);
+    background-color: var(--elegant-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Floating label styling */
+.elegant-form-label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--elegant-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--elegant-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Focus and valid states for input */
+.elegant-form-input:focus,
+.elegant-form-input:valid {
+    border-color: var(--elegant-color-primary);
+    box-shadow: var(--elegant-section-shadow);
+}
+
+/* Floating label animation */
+.elegant-form-input:focus~.elegant-form-label,
+.elegant-form-input:valid~.elegant-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--elegant-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.elegant-form-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--elegant-color-error);
+    min-height: 1.25rem;
+}
+
+
+
+.elegant-form-input.text-right~.elegant-form-label {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+.elegant-form-input.text-left~.elegant-form-label {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.elegant-form-input.text-left:focus~.elegant-form-label,
+.elegant-form-input.text-left:valid~.elegant-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+.elegant-form-input.text-left:focus~.elegant-form-label,
+.elegant-form-input.text-left:valid~.elegant-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+
+
+/* Payment and delivery option containers */
+.elegant-form-payment-option {
+    padding: 0.75rem;
+    /* Tailwind: p-3 */
+    border: 1px solid var(--elegant-color-outline);
+    border-radius: 0.5rem;
+    /* Tailwind: rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover state for payment options */
+.elegant-form-payment-option:hover {
+    background-color: var(--elegant-color-surface-variant);
+    border-color: var(--elegant-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.elegant-form-payment-option:focus-within {
+    border-color: var(--elegant-color-primary);
+    outline: 2px solid var(--elegant-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.elegant-form-payment-option-label {
+    display: block;
+    color: var(--elegant-color-on-surface);
+    cursor: pointer;
+}
+
+/* Payment option descriptions */
+.elegant-form-payment-option-description {
+    display: block;
+    color: var(--elegant-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.elegant-form-radio {
+    accent-color: var(--elegant-color-primary);
+    border-color: var(--elegant-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator (if used) */
+.elegant-form-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--elegant-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Radio dot inside custom indicator */
+.elegant-form-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.elegant-form-payment-option input[type="radio"]:checked+.elegant-form-payment-option-content .elegant-form-radio-indicator {
+    border-color: var(--elegant-color-primary);
+    background-color: var(--elegant-color-primary);
+}
+
+.elegant-form-payment-option input[type="radio"]:checked+.elegant-form-payment-option-content .elegant-form-radio-dot {
+    background-color: var(--elegant-color-surface);
+}
+
+/* Validation state classes */
+.elegant-border-error {
+    border-color: var(--elegant-color-error) !important;
+}
+
+.elegant-text-error {
+    color: var(--elegant-color-error) !important;
+}
+
+.elegant-border-success {
+    border-color: var(--elegant-color-success) !important;
+}
+
+.elegant-text-success {
+    color: var(--elegant-color-success) !important;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .elegant-form-input,
+    .elegant-form-payment-option,
+    .elegant-form-radio-indicator,
+    .elegant-form-radio-dot {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .elegant-form-input {
+        border-width: 2px;
+    }
+
+    .elegant-form-payment-option {
+        border-width: 2px;
+    }
+}

@@ -1,0 +1,87 @@
+/* === Classic Product Preview === */
+
+/* Video container with responsive height */
+.urban-product-preview-video-container {
+    border-color: var(--urban-color-primary);
+    border-radius: var(--urban-section-radius);
+    box-shadow: var(--urban-section-shadow);
+    /* Responsive height */
+    height: 300px;
+}
+
+@media (min-width: 768px) {
+    .urban-product-preview-video-container {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .urban-product-preview-video-container {
+        height: 100%;
+        min-height: 450px;
+    }
+}
+
+/* Video title overlay */
+.urban-product-preview-video-title {
+    color: var(--urban-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Features container */
+.urban-product-preview-features-container {
+    background-color: var(--urban-color-surface-container-high);
+    border-radius: var(--urban-section-radius);
+    padding: 2rem;
+    box-shadow: var(--urban-section-shadow);
+}
+
+/* Features header */
+.urban-product-preview-features-header {
+    border-color: var(--urban-color-outline-variant);
+}
+
+.urban-product-preview-features-title {
+    color: var(--urban-color-on-surface);
+}
+
+/* Views badge */
+.urban-product-preview-views-badge {
+    background-color: var(--urban-color-surface-variant);
+    color: var(--urban-color-on-surface-variant);
+    border-radius: 1rem;
+}
+
+/* Feature items */
+.urban-product-preview-feature-icon {
+    background-color: var(--urban-color-primary);
+    color: var(--urban-color-on-primary);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.urban-product-preview-feature-title {
+    color: var(--urban-color-on-surface);
+}
+
+.urban-product-preview-feature-subtitle {
+    color: var(--urban-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .urban-product-preview-video-container {
+        transition: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .urban-product-preview-features-container {
+        border: 2px solid var(--urban-color-outline);
+    }
+    
+    .urban-product-preview-video-container {
+        border-width: 3px;
+    }
+}

@@ -1,0 +1,207 @@
+/* === Classic Logos Carousel Component - Clean & Simple === */
+
+/* Section Divider */
+.pro-logos-carousel-divider {
+    background: linear-gradient(90deg, 
+        var(--pro-color-primary) 0%,
+        var(--pro-color-secondary) 50%,
+        var(--pro-color-primary) 100%
+    );
+}
+
+/* Logo Cards - Clean and minimal */
+.pro-logo-card {
+    /* No background, borders, or hover effects - just clean space for logos */
+    background: transparent;
+    transition: none;
+}
+
+/* Carousel Navigation Arrows - Clean design */
+.pro-carousel-left,
+.pro-carousel-right {
+    background-color: var(--pro-color-surface);
+    color: var(--pro-color-on-surface);
+    border: 1px solid var(--pro-color-outline-variant);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pro-carousel-left:hover,
+.pro-carousel-right:hover {
+    background-color: var(--pro-color-surface-variant);
+    border-color: var(--pro-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pro-carousel-left:disabled,
+.pro-carousel-right:disabled {
+    opacity: 0.3;
+    background-color: var(--pro-color-surface);
+    border-color: var(--pro-color-outline-variant);
+}
+
+.pro-carousel-left:active,
+.pro-carousel-right:active {
+    transform: scale(0.95);
+}
+
+/* Page Indicators - Simple dots */
+.pro-page-indicator {
+    background-color: var(--pro-color-outline);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.pro-page-indicator:hover {
+    background-color: var(--pro-color-primary-light);
+}
+
+.pro-page-indicator.active {
+    background-color: var(--pro-color-primary);
+}
+
+/* Focus states for accessibility */
+.pro-carousel-left:focus,
+.pro-carousel-right:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--pro-color-primary-light);
+    border-color: var(--pro-color-primary);
+}
+
+.pro-page-indicator:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--pro-color-primary-light);
+}
+
+/* Loading state - Simple skeleton */
+.pro-logo-card.animate-pulse {
+    background: linear-gradient(90deg, 
+        var(--pro-color-surface) 25%, 
+        var(--pro-color-surface-variant) 50%, 
+        var(--pro-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: pro-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes pro-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Trust indicator styling */
+.pro-trust-indicator {
+    color: var(--pro-color-on-surface-variant);
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* Responsive Design - Mobile-first approach */
+@media (max-width: 640px) {
+    .pro-carousel-left,
+    .pro-carousel-right {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .pro-logo-card {
+        min-height: 56px;
+        padding: 0.75rem;
+    }
+    
+    .pro-page-indicator {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .pro-page-indicator.active {
+        width: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pro-logo-card {
+        min-height: 48px;
+        padding: 0.5rem;
+    }
+    
+    .pro-carousel-left,
+    .pro-carousel-right {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Large screens - Enhanced spacing */
+@media (min-width: 1024px) {
+    .pro-logo-card {
+        min-height: 80px;
+        padding: 1.25rem;
+    }
+    
+    .pro-carousel-left,
+    .pro-carousel-right {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Motion preferences - Respect user settings */
+@media (prefers-reduced-motion: reduce) {
+    .pro-carousel-left,
+    .pro-carousel-right,
+    .pro-page-indicator {
+        transition: none;
+        animation: none;
+    }
+    
+    .pro-carousel-left:active,
+    .pro-carousel-right:active {
+        transform: none;
+    }
+}
+
+/* High contrast mode - Better accessibility */
+@media (prefers-contrast: high) {
+    .pro-carousel-left,
+    .pro-carousel-right {
+        border-width: 2px;
+        border-color: var(--pro-color-on-surface);
+    }
+    
+    .pro-page-indicator {
+        border: 2px solid var(--pro-color-on-surface);
+    }
+    
+    .pro-page-indicator.active {
+        background: var(--pro-color-on-surface);
+        border-color: var(--pro-color-primary);
+    }
+}
+
+/* RTL Support - Ensure proper visual direction */
+[dir="rtl"] .pro-carousel-left {
+    /* In RTL, the left button should visually point right */
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .pro-carousel-right {
+    /* In RTL, the right button should visually point left */
+    transform: scaleX(-1);
+}
+
+/* Dark mode support (if applicable) */
+@media (prefers-color-scheme: dark) {
+    .pro-carousel-left,
+    .pro-carousel-right {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--pro-color-on-surface);
+    }
+    
+    .pro-carousel-left:hover,
+    .pro-carousel-right:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}

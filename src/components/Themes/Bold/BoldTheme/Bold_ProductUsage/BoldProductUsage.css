@@ -1,0 +1,69 @@
+/* === Classic Product Usage Component === */
+
+/* Main card container */
+.bold-usage-card {
+    background-color: var(--bold-color-surface-container);
+    box-shadow: var(--bold-section-shadow);
+    border-radius: var(--bold-section-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bold-usage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Video container */
+.bold-usage-video {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Video iframe */
+.bold-usage-iframe {
+    border-radius: var(--bold-section-radius) var(--bold-section-radius) 0 0;
+}
+
+/* Video placeholder for missing videos */
+.bold-usage-video-placeholder {
+    background-color: var(--bold-color-surface-variant);
+    color: var(--bold-color-on-surface-variant);
+    border-radius: var(--bold-section-radius) var(--bold-section-radius) 0 0;
+}
+
+/* Content area */
+.bold-usage-content {
+    background-color: var(--bold-color-surface);
+}
+
+/* Title styling */
+.bold-usage-title {
+    color: var(--bold-color-on-surface);
+}
+
+/* Subtitle styling */
+.bold-usage-subtitle {
+    color: var(--bold-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .bold-usage-card {
+        transition: none;
+    }
+    
+    .bold-usage-card:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .bold-usage-card {
+        border: 2px solid var(--bold-color-outline);
+    }
+    
+    .bold-usage-video-placeholder {
+        border: 2px solid var(--bold-color-outline);
+    }
+}

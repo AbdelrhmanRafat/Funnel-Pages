@@ -1,0 +1,17 @@
+/* This file is intended for CSS styles specific to the TechnoThemeCountdown component. */
+/* Currently, it is empty as the component's styling is handled by Tailwind CSS classes in the .astro file. */
+/* However, this file can be used for more complex or component-specific styling if needed in the future. */
+/* === Classic Countdown Component === */
+
+.techno-countdown-block {
+    background-color: var(--techno-color-surface-variant);
+    color: var(--techno-color-primary-dark);
+    border-color: var(--techno-color-secondary);
+    box-shadow: var(--techno-section-shadow);
+    transition: all 0.3s ease;
+}
+
+.techno-countdown-block:hover {
+    box-shadow: var(--techno-section-shadow);
+    transform: scale(1.05);
+}

@@ -1,0 +1,98 @@
+/* === Desktop Navigation === */
+.neon-desktop-nav {
+  border-top: 1px solid var(--neon-color-outline-variant);
+}
+
+/* Navigation links */
+.neon-desktop-nav-link {
+  background-color: var(--neon-color-surface-variant);
+  color: var(--neon-color-on-surface-variant);
+  text-decoration: none;
+  border: 1px solid var(--neon-color-outline-variant);
+}
+
+.neon-desktop-nav-link:hover {
+  background-color: var(--neon-color-primary);
+  color: var(--neon-color-on-primary);
+  border-color: var(--neon-color-primary);
+  box-shadow: var(--neon-section-shadow);
+}
+
+.neon-desktop-nav-link:focus {
+  outline: 2px solid var(--neon-color-primary);
+  outline-offset: 2px;
+}
+
+/* Navigation items */
+.neon-nav-item {
+  transition: all 0.3s ease;
+}
+
+/* === Overflow System === */
+
+/* Overflow toggle button */
+.neon-overflow-toggle {
+  background-color: var(--neon-color-surface-variant);
+  border: 1px solid var(--neon-color-outline-variant);
+  color: var(--neon-color-on-surface-variant);
+}
+
+.neon-overflow-toggle:hover {
+  background-color: var(--neon-color-primary);
+  border-color: var(--neon-color-primary);
+  color: var(--neon-color-on-primary);
+}
+
+.neon-overflow-toggle:focus {
+  outline: 2px solid var(--neon-color-primary);
+  outline-offset: 2px;
+}
+
+/* Overflow dropdown */
+.neon-overflow-dropdown {
+  background-color: var(--neon-color-surface);
+  border: 1px solid var(--neon-color-outline);
+  box-shadow: var(--neon-section-shadow);
+}
+
+/* Overflow dropdown links */
+.neon-overflow-dropdown-link {
+  color: var(--neon-color-on-surface);
+  text-decoration: none;
+}
+
+.neon-overflow-dropdown-link:hover {
+  background-color: var(--neon-color-surface-variant);
+  color: var(--neon-color-on-surface);
+}
+
+.neon-overflow-dropdown-link:focus {
+  outline: 2px solid var(--neon-color-primary);
+  outline-offset: 2px;
+  background-color: var(--neon-color-surface-variant);
+}
+
+/* Navigation dots indicator */
+.neon-nav-dots {
+  color: var(--neon-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .neon-desktop-nav-link,
+  .neon-nav-item,
+  .neon-overflow-toggle {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .neon-desktop-nav-link {
+    border: 2px solid var(--neon-color-outline);
+  }
+  
+  .neon-overflow-dropdown {
+    border: 2px solid var(--neon-color-outline);
+  }
+}

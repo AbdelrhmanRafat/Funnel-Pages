@@ -1,0 +1,59 @@
+/* === Confirm Purchase Button === */
+.pop-modal-confirm {
+  flex: 1;
+  background-color: var(--pop-color-primary);
+  color: var(--pop-color-on-primary);
+  padding: 0.75rem 1rem;
+  border-radius: var(--pop-section-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.pop-modal-confirm:hover:not(.loading) {
+  background-color: var(--pop-color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Loading state styles */
+.pop-modal-confirm.loading {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.pop-modal-confirm.loading .confirm-text {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.pop-modal-confirm.loading .loading-spinner {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pop-modal-confirm .loading-spinner {
+  display: none;
+  transition: all 0.3s ease;
+}
+
+.pop-modal-confirm .confirm-text {
+  transition: all 0.3s ease;
+}
+
+/* Spinner animation enhancement */
+.loading-spinner .fa-spinner {
+  font-size: 1rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

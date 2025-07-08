@@ -1,0 +1,41 @@
+---
+import "./NeonSubmitOrderButton.css";
+import NeonModalPurchaseInfo from "../../NeonModalPurchaseInfo/NeonModalPurchaseInfo.astro";
+import type { BlockData, Product } from "../../../../../../lib/api/types";
+
+const isHaveVariant : string = Astro.props.isHaveVariant;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const product : Product = Astro.props.product;
+// Component configuration
+const validateOnSubmit =  true;
+const showValidationMessages =  true;
+const autoFocusFirstError =  true;
+const enableColorSizeValidation =  true;
+const isHaveBundles = !(purchaseOptions === undefined);
+---
+
+<neon-submit-order 
+  data-submit-validate-on-submit={validateOnSubmit}
+  data-submit-show-validation-messages={showValidationMessages}
+  data-submit-auto-focus-first-error={autoFocusFirstError}
+  data-submit-enable-color-size-validation={enableColorSizeValidation}
+  is-Have-Variant={isHaveVariant}
+  is-Have-Bundles={isHaveBundles}
+>
+  <div>
+    <button
+      type="button"
+      data-submit-order-button
+      class="neon-form-submit"
+      data-translate="form.submit"
+    >
+    </button>
+  </div>
+</neon-submit-order>
+
+<!-- Include the modal component -->
+<NeonModalPurchaseInfo  isHaveVariant={isHaveVariant} purchaseOptions={purchaseOptions} product={product} />
+
+<script>
+  import "./NeonSubmitOrderButton";
+</script>

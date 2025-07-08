@@ -1,0 +1,51 @@
+/* === Classic Language Switcher === */
+.neon-lang-switcher {
+  color: var(--neon-color-on-surface);
+  background-color: var(--neon-color-surface-variant);
+  border-color: var(--neon-color-outline-variant);
+}
+
+.neon-lang-switcher:hover {
+  background-color: var(--neon-color-primary);
+  color: var(--neon-color-on-primary);
+  border-color: var(--neon-color-primary);
+  transform: scale(1.05);
+  box-shadow: var(--neon-section-shadow);
+}
+
+.neon-lang-switcher:active {
+  transform: scale(0.98);
+}
+
+/* Loading state for transition */
+.neon-lang-switcher.switching {
+  opacity: 0.6;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .neon-lang-switcher {
+    transition: none;
+  }
+  
+  .neon-lang-switcher:hover {
+    transform: none;
+  }
+  
+  .neon-lang-switcher:active {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .neon-lang-switcher {
+    border: 2px solid var(--neon-color-outline);
+  }
+  
+  .neon-lang-switcher:hover {
+    border: 2px solid var(--neon-color-primary);
+  }
+}

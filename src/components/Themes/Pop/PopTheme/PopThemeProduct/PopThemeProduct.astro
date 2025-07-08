@@ -1,0 +1,278 @@
+---
+import "./PopThemeProduct.css";
+import type {
+  BlockData,
+  Product,
+} from "../../../../../lib/api/types";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { PopProductInfoComponents } from "../../../../../lib/constants/themes";
+import PopThemeRates from "../PopThemeRates/PopThemeRates.astro";
+import PopSelectionOptionsWithoutBundles from "../UI/PopSelectionOptionsVariantWithoutBundles/popSelectionOptionsWithoutBundles.astro";
+import PopProductCosts from "../UI/PopProductCosts/popProductCosts.astro";
+import PopProductGalleryComponent from "../UI/PopProductGallery/PopProductGalleryComponent.astro";
+import PopOrderThroughWhatsapp from "../PopOrderThroughWhatsapp/popOrderThroughWhatsapp.astro";
+import PopFakeVisitors from "../PopFakeVisitors/PopFakeVisitors.astro";
+import PopCoupon from "../PopCoupon/PopCoupon.astro";
+import PopProductBundles from "../PopProductBundles/PopProductBundles.astro";
+import PopThemeFormFields from "../Pop_FormFields/PopThemeFormFields.astro";
+import PopOrderConfirmationNotice from "../Pop_OrderConfirmationNotice/PopOrderConfirmationNotice.astro";
+
+// Define render order for product info section - reorder as needed!
+const PRODUCT_INFO_RENDER_ORDER = [
+  PopProductInfoComponents.Visitores,
+  PopProductInfoComponents.ProductHeader,
+  PopProductInfoComponents.ProductDescription,
+  PopProductInfoComponents.PurchaseOptions,
+  PopProductInfoComponents.coupon,
+  PopProductInfoComponents.FormFields,
+  PopProductInfoComponents.OrderConfirmation,
+  PopProductInfoComponents.OrderThroghWhatsapp
+];
+
+// Retrieves product and purchaseOptions from Astro's props.
+const product: Product = Astro.props.product;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const formFieldsData: BlockData = Astro.props.formFieldsData;
+const ratingData : BlockData = Astro.props.ratingData;
+const orderThroughWhatsappData : BlockData = Astro.props.orderThroughWhatsappData;
+const fakeVisitorsData : BlockData = Astro.props.fakeVisitorsData;
+const cuponData : BlockData = Astro.props.cuponData;
+const orderConfirmationNoticeData: BlockData =
+  Astro.props.orderConfirmationNoticeData;
+
+// Extracts color and size options from the product data
+const isHaveVariant = product.is_have_variant;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
+
+// Helper function to check if component data is available
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: any;
+}
+
+function isComponentDataAvailable(
+  componentType: PopProductInfoComponents,
+): ComponentCheckResult {
+  switch (componentType) {
+    case PopProductInfoComponents.ProductHeader:
+      return {
+        isComponentFound: !!product,
+        componentData: product,
+      };
+    case PopProductInfoComponents.ProductDescription:
+      return {
+        isComponentFound:
+          !!product && (!!product.description_ar || !!product.description_en),
+        componentData: product,
+      };
+    case PopProductInfoComponents.PurchaseOptions:
+      return {
+        isComponentFound: !!purchaseOptions,
+        componentData: purchaseOptions,
+      };
+    case PopProductInfoComponents.FormFields:
+      return {
+        isComponentFound: !!formFieldsData,
+        componentData: formFieldsData,
+      };
+    case PopProductInfoComponents.OrderConfirmation:
+      return {
+        isComponentFound: !!orderConfirmationNoticeData,
+        componentData: orderConfirmationNoticeData,
+      };
+    case PopProductInfoComponents.OrderThroghWhatsapp:
+      return {
+        isComponentFound: !!orderThroughWhatsappData,
+        componentData: orderThroughWhatsappData,
+      };
+    case PopProductInfoComponents.coupon:
+      return {
+        isComponentFound: !!cuponData,
+        componentData: cuponData,
+      };
+    case PopProductInfoComponents.Visitores:
+      return {
+        isComponentFound: !!fakeVisitorsData,
+        componentData: fakeVisitorsData,
+      };
+    default:
+      return {
+        isComponentFound: false,
+        componentData: null,
+      };
+  }
+}
+---
+
+<section id="pop-product-details" class="pop-product-details-section">
+  <div class="flex flex-col lg:flex-row gap-5">
+    <!-- Gallery Section -->
+    {<PopProductGalleryComponent product={product} />}
+
+    <!-- Product Info Section with Array-Based Rendering -->
+       <div class="lg:w-1/2 pop-product-details-container flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl">
+      {
+        PRODUCT_INFO_RENDER_ORDER.map((componentType) => {
+          const componentCheck = isComponentDataAvailable(componentType);
+
+          if (!componentCheck.isComponentFound) {
+            return null;
+          }
+
+          // Product Header Component with Observer Web Component
+          if (componentType === PopProductInfoComponents.ProductHeader) {
+            return (
+              <pop-product-header class="w-full"
+                data-purchase-options={(!purchaseOptions).toString()}
+                data-is-have-variant={isHaveVariant.toString()}
+                data-initial-price={product.price.toString()}
+                data-initial-price-discount={product.price_after_discount.toString()}
+                data-initial-sku={product.sku_code}
+                data-current-lang={currentLang}
+              >
+                <div class="flex flex-col justify-start items-start gap-2">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class={
+                        product.is_active
+                          ? "pop-product-details-badge-success text-xs py-1 px-3 rounded-full font-medium"
+                          : "pop-product-details-badge-error text-xs py-1 px-3 rounded-full font-medium"
+                      }
+                      data-translate={
+                        product.is_active
+                          ? "product.available"
+                          : "product.notAvailable"
+                      }
+                    >
+                      {product.is_active
+                        ? getTranslation("product.available", currentLang)
+                        : getTranslation("product.notAvailable", currentLang)}
+                    </span>
+                    { (!purchaseOptions || isHaveVariant === "false") &&
+                    <div class="pop-product-details-sku text-sm">
+                      <span data-translate="product.productCode">
+                        {getTranslation("product.productCode", currentLang)}
+                      </span>
+                      <span>: <span data-product-sku>{product.sku_code}</span></span>
+                    </div>
+                    }
+                  </div>
+                  <div class="w-full flex justify-start items-center gap-4">
+                    <h2 class="pop-product-details-title text-3xl lg:text-4xl font-bold leading-tight">
+                      {isArabic ? product.name_ar : product.name_en}
+                    </h2>
+                    {ratingData && <PopThemeRates ratingData={ratingData} />}
+                  </div>
+                  <div class="flex justify-start items-center gap-4">
+                    <div class="pop-product-details-price pop-product-details-price--discount flex justify-center line-through items-center gap-2 text-4xl font-bold">
+                      <span data-product-price>{product.price}</span>
+                    </div>
+                    <div class="pop-product-details-price flex justify-center items-center gap-2 text-4xl font-bold">
+                      <span data-product-price-discount>{product.price_after_discount}</span>
+                      <span data-translate="productFunnel.currency" />
+                    </div>
+                  </div>
+                </div>
+              </pop-product-header>
+            );
+          }
+          
+          // Product Description Component
+          if (componentType === PopProductInfoComponents.ProductDescription) {
+            return (
+              <>
+                <div class="w-full">
+                  <h3 class="pop-product-details-description-header text-2xl font-bold pb-3" data-translate="product.description">
+                    {getTranslation("product.description", currentLang)}
+                  </h3>
+                  <p
+                    class="pop-product-details-text-body leading-relaxed"
+                    set:html={isArabic ? product.description_ar : product.description_en}
+                  />
+                </div>
+                {!purchaseOptions && (
+                  <>
+                    <div class="w-full py-3">
+                      <PopSelectionOptionsWithoutBundles product={product} />
+                    </div>
+                    <div class="w-full">
+                      <PopProductCosts hasBundles="false" />
+                    </div>
+                  </>
+                )}
+              </>
+            );
+          }
+
+          // Purchase Options Component
+          if (componentType === PopProductInfoComponents.PurchaseOptions) {
+            return (
+              <PopProductBundles
+                product={product}
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Coupon Component
+          if (componentType === PopProductInfoComponents.coupon) {
+            return (
+              <PopCoupon
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Form Fields Component
+          if (componentType === PopProductInfoComponents.FormFields) {
+            return (
+              <PopThemeFormFields
+                product={product}
+                data={componentCheck.componentData}
+                purchaseOptions={purchaseOptions}
+                isHaveVariant={isHaveVariant}
+              />
+            );
+          }
+
+          // Order Confirmation Component
+          if (componentType === PopProductInfoComponents.OrderConfirmation) {
+            return (
+              <PopOrderConfirmationNotice
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Visitors Component
+          if (componentType === PopProductInfoComponents.Visitores) {
+            return (
+              <PopFakeVisitors
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Order Through WhatsApp Component
+          if (componentType === PopProductInfoComponents.OrderThroghWhatsapp) {
+            return (
+              <PopOrderThroughWhatsapp
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          return null;
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "./PopThemeProduct";
+</script>

@@ -1,0 +1,44 @@
+/* === Gallery Section Classes === */
+
+.retro-gallery-main {
+    background: linear-gradient(135deg, var(--retro-color-surface-variant) 0%, var(--retro-color-surface-container) 100%);
+    border-radius: var(--retro-section-radius);
+}
+
+.retro-gallery-nav {
+    background-color: var(--retro-color-surface);
+    box-shadow: var(--retro-section-shadow);
+    color: var(--retro-color-on-surface-variant);
+    transition: all 0.3s ease;
+}
+
+.retro-gallery-nav:hover {
+    color: var(--retro-color-primary);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.retro-gallery-counter {
+    background-color: var(--retro-color-primary);
+    backdrop-filter: blur(10px);
+    color: var(--retro-color-on-primary);
+    border-color: var(--retro-color-outline-variant);
+}
+
+.retro-thumbnail-container {
+    scrollbar-width: auto;
+}
+
+.retro-thumbnail {
+    border-radius: var(--retro-section-radius);
+    transition: all 0.3s ease;
+}
+
+.retro-thumbnail:hover {
+    border-color: var(--retro-color-primary-light);
+    transform: scale(1.05);
+}
+
+.retro-thumbnail-active {
+    border-color: var(--retro-color-primary);
+    box-shadow: 0 0 0 2px var(--retro-color-primary-light);
+}

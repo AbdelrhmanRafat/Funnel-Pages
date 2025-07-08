@@ -1,0 +1,311 @@
+---
+// This component is the main entry point for the Pro theme.
+// It orchestrates the rendering of various sub-components based on the data received from the API.
+// Props:
+// - funnelPage: An object of type Data, containing all the information for the funnel page.
+import "./ProComponent.css";
+import ProThemeHeader from "./ProTheme/Pro_Header/ProThemeHeader.astro";
+import ProThemeProduct from "./ProTheme/ProThemeProduct/ProThemeProduct.astro";
+import ProThemeCountDown from "./ProTheme/ProThemeCountdown/ProThemeCountDown.astro";
+import ProFaq from "./ProTheme/Pro_Faq/ProFaq.astro";
+import ProProductPreviewComponent from "./ProTheme/Pro_ProductPreview/ProProductPreviewComponent.astro";
+import { getProThemeComponent } from "../../../lib/utils/ThemeSelect";
+import type { BlockData, Data } from "../../../lib/api/types";
+import { FunnelProComponents } from "../../../lib/constants/themes";
+import ProThemeFooter from "./ProTheme/ProThemeFooter/ProThemeFooter.astro";
+import ProThemeReviews from "./ProTheme/Pro_Theme_Reviews/ProThemeReviews.astro";
+import ProProductUsage from "./ProTheme/Pro_ProductUsage/ProProductUsage.astro";
+import ProDeliveryFeatures from "./ProTheme/Pro_Delivery_Features/ProDeliveryFeatures.astro";
+import ProProductFeatures from "./ProTheme/Pro_Product_Features/ProProductFeatures.astro";
+import ProThemeTodayStatistics from "./ProTheme/ProThemeTodayStatistics/ProThemeTodayStatistics.astro";
+import ProLogosCarousel from "./ProTheme/ProLogosCarousel/ProLogosCarousel.astro";
+import ProButtonWithLink from "./ProTheme/ProButtonWithLink/ProButtonWithLink.astro";
+import LucideIcon from "../../Shared/LucideIcon.astro";
+import ProGridImages from "./ProTheme/ProGridImagesComponent/proGridImages.astro";
+import ProThemeTextBar from "./ProTheme/Pro_Text_Bar/proThemeTextBar.astro";
+import ProImageTextOverlay from "./ProTheme/Pro_Image_Text_Overlay/proImageTextOverlay.astro";
+import ProImageTextBeside from "./ProTheme/Pro_Image_Text_Beside/proImageTextBeside.astro";
+import ProBeforeAfter from "./ProTheme/ProBefore&AfterImage/proBefore&After.astro";
+
+
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: BlockData | undefined;
+}
+
+const funnelPage: Data = Astro.props.funnelPage;
+
+// Maps the block names from the API response to their corresponding Pro theme components and data.
+const ProComponentNames: [FunnelProComponents, BlockData][] =
+  funnelPage.blocks
+    .map((block) => {
+      const component = getProThemeComponent(block.name);
+      return component ? [component, block.data] : undefined;
+    })
+    .filter(
+      (tuple): tuple is [FunnelProComponents, BlockData] =>
+        tuple !== undefined,
+    );
+
+// Checks if a specific component is present in the API response and returns its data if found.
+function isComponentFound(
+  componentName: FunnelProComponents,
+): ComponentCheckResult {
+  const found = ProComponentNames.find(([comp]) => comp === componentName);
+  return {
+    isComponentFound: !!found,
+    componentData: found?.[1],
+  };
+}
+
+// Define render order - just change this array to reorder components!
+const RENDER_ORDER = [
+  FunnelProComponents.ProHeader,
+  FunnelProComponents.ProProductFunnel, // Always render (required)
+  FunnelProComponents.ProProductFeatures,
+  FunnelProComponents.ProProductPreview,
+  FunnelProComponents.ProProductUsage,
+  FunnelProComponents.ProLogosCarousel,
+  FunnelProComponents.ProButtonWithLink,
+  FunnelProComponents.ProTodayStatistics,
+  FunnelProComponents.ProGallery,
+  FunnelProComponents.Pro_Before_After,
+  FunnelProComponents.ProReviews,
+  FunnelProComponents.ProTextBar,
+  FunnelProComponents.ProImageTextOverLay,
+  FunnelProComponents.ProImageTextBeside,
+  FunnelProComponents.ProFaq,
+  FunnelProComponents.ProDeliveryFeatures,
+  FunnelProComponents.ProCountdown,
+  FunnelProComponents.ProFooter,
+];
+
+// Extracts purchase options and other data
+const productFunnelData = isComponentFound(
+  FunnelProComponents.ProProductFunnel,
+);
+
+const isFormFieldsDataFound = isComponentFound(
+  FunnelProComponents.ProFormFields,
+);
+
+const isCuponDataFound = isComponentFound(
+  FunnelProComponents.ProCoupon,
+);
+
+const isFakeVisitorsDataFound = isComponentFound(
+  FunnelProComponents.ProVisitors,
+);
+
+const isOrderThroughWhatsappDataFound = isComponentFound(
+  FunnelProComponents.ProOrderThroughWhatsapp,
+);
+
+const isOrderConfirmationNoticeFound = isComponentFound(
+  FunnelProComponents.ProOrderConfirmationNotice,
+);
+const isRatingFound = isComponentFound(FunnelProComponents.ProRates);
+
+const purchaseOptions = productFunnelData.isComponentFound
+  ? productFunnelData.componentData?.purchase_options
+  : undefined;
+
+const formFieldsData = isFormFieldsDataFound.isComponentFound
+  ? isFormFieldsDataFound.componentData
+  : undefined;
+
+const cuponData = isCuponDataFound.isComponentFound
+  ? isCuponDataFound.componentData
+  : undefined;
+
+const fakeVisitorsData = isFakeVisitorsDataFound.isComponentFound
+  ? isFakeVisitorsDataFound.componentData
+  : undefined;
+
+const ratingData = isRatingFound.isComponentFound
+  ? isRatingFound.componentData
+  : undefined;
+
+const orderConfirmationNoticeData =
+  isOrderConfirmationNoticeFound.isComponentFound
+    ? isOrderConfirmationNoticeFound.componentData
+    : undefined;
+
+const orderThroughWhatsappData =
+  isOrderThroughWhatsappDataFound.isComponentFound
+    ? isOrderThroughWhatsappDataFound.componentData
+    : undefined;
+
+---
+
+<main class="Pro-main-color">
+  <section class="lg:container w-11/12 mx-auto flex flex-col gap-7">
+  {
+    RENDER_ORDER.map((componentName) => {
+      if (componentName === FunnelProComponents.ProHeader) {
+        const headerData = isComponentFound(
+          FunnelProComponents.ProHeader,
+        );
+        return headerData.isComponentFound ? (
+          <ProThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelProComponents.ProProductFunnel) {
+        return (
+          <ProThemeProduct
+            formFieldsData={formFieldsData}
+            ratingData={ratingData}
+            fakeVisitorsData={fakeVisitorsData}
+            orderConfirmationNoticeData={orderConfirmationNoticeData}
+            orderThroughWhatsappData={orderThroughWhatsappData}
+            product={funnelPage.product}
+            cuponData={cuponData}
+            purchaseOptions={purchaseOptions}
+          />
+        );
+      }
+      if (componentName === FunnelProComponents.ProCountdown) {
+        const countdownData = isComponentFound(
+          FunnelProComponents.ProCountdown,
+        );
+        return countdownData.isComponentFound ? (
+          <ProThemeCountDown data={countdownData.componentData} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelProComponents.ProFaq) {
+        const faqData = isComponentFound(FunnelProComponents.ProFaq);
+        return faqData.isComponentFound ? (
+          <ProFaq data={faqData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProLogosCarousel) {
+        const logoscarouselData = isComponentFound(FunnelProComponents.ProLogosCarousel);
+        return logoscarouselData.isComponentFound ? (
+          <ProLogosCarousel data={logoscarouselData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProProductPreview) {
+        const productPreviewData = isComponentFound(
+          FunnelProComponents.ProProductPreview,
+        );
+        return productPreviewData.isComponentFound ? (
+          <ProProductPreviewComponent
+            data={productPreviewData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProButtonWithLink) {
+        const buttonWithLinkData = isComponentFound(
+          FunnelProComponents.ProButtonWithLink,
+        );
+        return buttonWithLinkData.isComponentFound ? (
+          <ProButtonWithLink
+            data={buttonWithLinkData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProGallery) {
+        const galleryData = isComponentFound(
+          FunnelProComponents.ProGallery,
+        );
+        return galleryData.isComponentFound ? (
+          <ProGridImages
+            data={galleryData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProTodayStatistics) {
+        const todayOrdersData = isComponentFound(
+          FunnelProComponents.ProTodayStatistics,
+        );
+        return todayOrdersData.isComponentFound ? (
+          <ProThemeTodayStatistics
+            data={todayOrdersData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProDeliveryFeatures) {
+        const deliveryFeaturesData = isComponentFound(
+          FunnelProComponents.ProDeliveryFeatures,
+        );
+        return deliveryFeaturesData.isComponentFound ? (
+          <ProDeliveryFeatures data={deliveryFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProProductFeatures) {
+        const ProductFeaturesData = isComponentFound(
+          FunnelProComponents.ProProductFeatures,
+        );
+        return ProductFeaturesData.isComponentFound ? (
+          <ProProductFeatures data={ProductFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProReviews) {
+        const ReviewsData = isComponentFound(
+          FunnelProComponents.ProReviews,
+        );
+        return ReviewsData.isComponentFound ? (
+          <ProThemeReviews data={ReviewsData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProTextBar) {
+        const TextBarData = isComponentFound(
+          FunnelProComponents.ProTextBar,
+        );
+        return TextBarData.isComponentFound ? (
+          <ProThemeTextBar data={TextBarData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProImageTextOverLay) {
+        const ImageTextData = isComponentFound(
+          FunnelProComponents.ProImageTextOverLay,
+        );
+        return ImageTextData.isComponentFound ? (
+          <ProImageTextOverlay data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProImageTextBeside) {
+        const ImageTextData = isComponentFound(
+          FunnelProComponents.ProImageTextBeside,
+        );
+        return ImageTextData.isComponentFound ? (
+          <ProImageTextBeside data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProProductUsage) {
+        const productUsageData = isComponentFound(
+          FunnelProComponents.ProProductUsage,
+        );
+        return productUsageData.isComponentFound ? (
+          <ProProductUsage data={productUsageData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.Pro_Before_After) {
+        const BeforeAfterData = isComponentFound(
+          FunnelProComponents.Pro_Before_After,
+        );
+        return BeforeAfterData.isComponentFound ? (
+          <ProBeforeAfter data={BeforeAfterData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelProComponents.ProFooter) {
+        const footerData = isComponentFound(
+          FunnelProComponents.ProFooter,
+        );
+        return footerData.isComponentFound ? (
+          <ProThemeFooter data={footerData.componentData} />
+        ) : null;
+      }
+      return null;
+    })
+  }
+  <button id="scrollToTopBtn" class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 Pro-scrollToTopBtn">
+   <LucideIcon name="MoveUp" width="32" height="32" />
+  </button>
+  </section>
+</main>
+<script>
+  import "./ProTheme.config"
+</script>

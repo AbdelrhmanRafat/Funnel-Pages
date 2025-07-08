@@ -1,0 +1,92 @@
+---
+import "./popProductCosts.css";
+import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
+
+const hasBundles : string = Astro.props.hasBundles;
+// Component configuration - no longer dependent on external data
+const autoUpdate = Astro.props.autoUpdate ?? true;
+const showDiscountWhenZero = Astro.props.showDiscountWhenZero ?? false;
+const currency = Astro.props.currency ?? getTranslation('productFunnel.currency');
+---
+
+<pop-product-funnel
+  data-funnel-auto-update={autoUpdate.toString()}
+  data-funnel-show-discount-when-zero={showDiscountWhenZero.toString()}
+  data-funnel-currency={currency}
+  data-funnel-has-bundles={hasBundles}
+>
+  <div class="pop-product-costs-container">
+    <div class="pop-product-costs-body">
+      <div class="pop-product-costs-content space-y-3">
+        <div class="pop-product-costs-row flex justify-between items-center">
+          <span class="pop-product-costs-label" data-translate="productFunnel.quantity">
+            {getTranslation('productFunnel.quantity')}
+          </span>
+          <div>
+            <span class="pop-product-costs-value" data-funnel-price-quantity>0</span>
+            <span data-translate="productFunnel.piece">
+              {getTranslation('productFunnel.piece')}
+            </span>
+          </div>
+        </div>
+        
+        <div class="pop-product-costs-row flex justify-between items-center">
+          <span class="pop-product-costs-label" data-translate="productFunnel.unitPrice">
+            {getTranslation('productFunnel.unitPrice')}
+          </span>
+          <span class="pop-product-costs-value" data-funnel-price-unit>
+            0 {getTranslation('productFunnel.currency')}
+          </span>
+        </div>
+        
+        <div class="pop-product-costs-row flex justify-between items-center">
+          <span class="pop-product-costs-label" data-translate="productFunnel.subtotal">
+            {getTranslation('productFunnel.subtotal')}
+          </span>
+          <span class="pop-product-costs-value" data-funnel-price-subtotal>
+            0 {getTranslation('productFunnel.currency')}
+          </span>
+        </div>
+        { hasBundles === "true" && 
+        <div class="pop-product-costs-row flex justify-between items-center">
+          <span class="pop-product-costs-label" data-translate="productFunnel.shippingCost">
+            {getTranslation('productFunnel.shippingCost')}
+          </span>
+          <span class="pop-product-costs-value" data-funnel-price-shipping>
+            0 {getTranslation('productFunnel.currency')}
+          </span>
+        </div>
+        }
+        <div
+          class:list={[
+            "pop-product-costs-row flex justify-between items-center",
+            { "hidden": !showDiscountWhenZero }
+          ]}
+          data-funnel-discount-container
+        >
+          <span class="pop-product-costs-label" data-translate="productFunnel.discount">
+            {getTranslation('productFunnel.discount')}
+          </span>
+          <span class="pop-product-costs-discount" data-funnel-price-discount>
+            - 0 {getTranslation('productFunnel.currency')}
+          </span>
+        </div>
+      </div>
+      
+      <div class="pop-product-costs-total-section">
+        <div class="flex justify-between items-center">
+          <span class="pop-product-costs-total-label" data-translate="productFunnel.total">
+            {getTranslation('productFunnel.total')}
+          </span>
+          <span class="pop-product-costs-total-value" data-funnel-price-total>
+            0 {getTranslation('productFunnel.currency')}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</pop-product-funnel>
+
+<script>
+  import "./popProductCosts";
+</script>

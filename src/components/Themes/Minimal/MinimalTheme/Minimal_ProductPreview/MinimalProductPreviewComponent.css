@@ -1,0 +1,87 @@
+/* === Classic Product Preview === */
+
+/* Video container with responsive height */
+.minimal-product-preview-video-container {
+    border-color: var(--minimal-color-primary);
+    border-radius: var(--minimal-section-radius);
+    box-shadow: var(--minimal-section-shadow);
+    /* Responsive height */
+    height: 300px;
+}
+
+@media (min-width: 768px) {
+    .minimal-product-preview-video-container {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .minimal-product-preview-video-container {
+        height: 100%;
+        min-height: 450px;
+    }
+}
+
+/* Video title overlay */
+.minimal-product-preview-video-title {
+    color: var(--minimal-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Features container */
+.minimal-product-preview-features-container {
+    background-color: var(--minimal-color-surface-container-high);
+    border-radius: var(--minimal-section-radius);
+    padding: 2rem;
+    box-shadow: var(--minimal-section-shadow);
+}
+
+/* Features header */
+.minimal-product-preview-features-header {
+    border-color: var(--minimal-color-outline-variant);
+}
+
+.minimal-product-preview-features-title {
+    color: var(--minimal-color-on-surface);
+}
+
+/* Views badge */
+.minimal-product-preview-views-badge {
+    background-color: var(--minimal-color-surface-variant);
+    color: var(--minimal-color-on-surface-variant);
+    border-radius: 1rem;
+}
+
+/* Feature items */
+.minimal-product-preview-feature-icon {
+    background-color: var(--minimal-color-primary);
+    color: var(--minimal-color-on-primary);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.minimal-product-preview-feature-title {
+    color: var(--minimal-color-on-surface);
+}
+
+.minimal-product-preview-feature-subtitle {
+    color: var(--minimal-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .minimal-product-preview-video-container {
+        transition: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .minimal-product-preview-features-container {
+        border: 2px solid var(--minimal-color-outline);
+    }
+    
+    .minimal-product-preview-video-container {
+        border-width: 3px;
+    }
+}

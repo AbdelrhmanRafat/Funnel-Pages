@@ -1,0 +1,278 @@
+---
+import "./TechnoThemeProduct.css";
+import type {
+  BlockData,
+  Product,
+} from "../../../../../lib/api/types";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { TechnoProductInfoComponents } from "../../../../../lib/constants/themes";
+import TechnoThemeRates from "../TechnoThemeRates/TechnoThemeRates.astro";
+import TechnoSelectionOptionsWithoutBundles from "../UI/TechnoSelectionOptionsVariantWithoutBundles/technoSelectionOptionsWithoutBundles.astro";
+import TechnoProductCosts from "../UI/TechnoProductCosts/technoProductCosts.astro";
+import TechnoProductGalleryComponent from "../UI/TechnoProductGallery/TechnoProductGalleryComponent.astro";
+import TechnoOrderThroughWhatsapp from "../TechnoOrderThroughWhatsapp/technoOrderThroughWhatsapp.astro";
+import TechnoFakeVisitors from "../TechnoFakeVisitors/TechnoFakeVisitors.astro";
+import TechnoCoupon from "../TechnoCoupon/TechnoCoupon.astro";
+import TechnoProductBundles from "../TechnoProductBundles/TechnoProductBundles.astro";
+import TechnoThemeFormFields from "../Techno_FormFields/TechnoThemeFormFields.astro";
+import TechnoOrderConfirmationNotice from "../Techno_OrderConfirmationNotice/TechnoOrderConfirmationNotice.astro";
+
+// Define render order for product info section - reorder as needed!
+const PRODUCT_INFO_RENDER_ORDER = [
+  TechnoProductInfoComponents.Visitores,
+  TechnoProductInfoComponents.ProductHeader,
+  TechnoProductInfoComponents.ProductDescription,
+  TechnoProductInfoComponents.PurchaseOptions,
+  TechnoProductInfoComponents.coupon,
+  TechnoProductInfoComponents.FormFields,
+  TechnoProductInfoComponents.OrderConfirmation,
+  TechnoProductInfoComponents.OrderThroghWhatsapp
+];
+
+// Retrieves product and purchaseOptions from Astro's props.
+const product: Product = Astro.props.product;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const formFieldsData: BlockData = Astro.props.formFieldsData;
+const ratingData : BlockData = Astro.props.ratingData;
+const orderThroughWhatsappData : BlockData = Astro.props.orderThroughWhatsappData;
+const fakeVisitorsData : BlockData = Astro.props.fakeVisitorsData;
+const cuponData : BlockData = Astro.props.cuponData;
+const orderConfirmationNoticeData: BlockData =
+  Astro.props.orderConfirmationNoticeData;
+
+// Extracts color and size options from the product data
+const isHaveVariant = product.is_have_variant;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
+
+// Helper function to check if component data is available
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: any;
+}
+
+function isComponentDataAvailable(
+  componentType: TechnoProductInfoComponents,
+): ComponentCheckResult {
+  switch (componentType) {
+    case TechnoProductInfoComponents.ProductHeader:
+      return {
+        isComponentFound: !!product,
+        componentData: product,
+      };
+    case TechnoProductInfoComponents.ProductDescription:
+      return {
+        isComponentFound:
+          !!product && (!!product.description_ar || !!product.description_en),
+        componentData: product,
+      };
+    case TechnoProductInfoComponents.PurchaseOptions:
+      return {
+        isComponentFound: !!purchaseOptions,
+        componentData: purchaseOptions,
+      };
+    case TechnoProductInfoComponents.FormFields:
+      return {
+        isComponentFound: !!formFieldsData,
+        componentData: formFieldsData,
+      };
+    case TechnoProductInfoComponents.OrderConfirmation:
+      return {
+        isComponentFound: !!orderConfirmationNoticeData,
+        componentData: orderConfirmationNoticeData,
+      };
+    case TechnoProductInfoComponents.OrderThroghWhatsapp:
+      return {
+        isComponentFound: !!orderThroughWhatsappData,
+        componentData: orderThroughWhatsappData,
+      };
+    case TechnoProductInfoComponents.coupon:
+      return {
+        isComponentFound: !!cuponData,
+        componentData: cuponData,
+      };
+    case TechnoProductInfoComponents.Visitores:
+      return {
+        isComponentFound: !!fakeVisitorsData,
+        componentData: fakeVisitorsData,
+      };
+    default:
+      return {
+        isComponentFound: false,
+        componentData: null,
+      };
+  }
+}
+---
+
+<section id="techno-product-details" class="techno-product-details-section">
+  <div class="flex flex-col lg:flex-row gap-5">
+    <!-- Gallery Section -->
+    {<TechnoProductGalleryComponent product={product} />}
+
+    <!-- Product Info Section with Array-Based Rendering -->
+       <div class="lg:w-1/2 techno-product-details-container flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl">
+      {
+        PRODUCT_INFO_RENDER_ORDER.map((componentType) => {
+          const componentCheck = isComponentDataAvailable(componentType);
+
+          if (!componentCheck.isComponentFound) {
+            return null;
+          }
+
+          // Product Header Component with Observer Web Component
+          if (componentType === TechnoProductInfoComponents.ProductHeader) {
+            return (
+              <techno-product-header class="w-full"
+                data-purchase-options={(!purchaseOptions).toString()}
+                data-is-have-variant={isHaveVariant.toString()}
+                data-initial-price={product.price.toString()}
+                data-initial-price-discount={product.price_after_discount.toString()}
+                data-initial-sku={product.sku_code}
+                data-current-lang={currentLang}
+              >
+                <div class="flex flex-col justify-start items-start gap-2">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class={
+                        product.is_active
+                          ? "techno-product-details-badge-success text-xs py-1 px-3 rounded-full font-medium"
+                          : "techno-product-details-badge-error text-xs py-1 px-3 rounded-full font-medium"
+                      }
+                      data-translate={
+                        product.is_active
+                          ? "product.available"
+                          : "product.notAvailable"
+                      }
+                    >
+                      {product.is_active
+                        ? getTranslation("product.available", currentLang)
+                        : getTranslation("product.notAvailable", currentLang)}
+                    </span>
+                    { (!purchaseOptions || isHaveVariant === "false") &&
+                    <div class="techno-product-details-sku text-sm">
+                      <span data-translate="product.productCode">
+                        {getTranslation("product.productCode", currentLang)}
+                      </span>
+                      <span>: <span data-product-sku>{product.sku_code}</span></span>
+                    </div>
+                    }
+                  </div>
+                  <div class="w-full flex justify-start items-center gap-4">
+                    <h2 class="techno-product-details-title text-3xl lg:text-4xl font-bold leading-tight">
+                      {isArabic ? product.name_ar : product.name_en}
+                    </h2>
+                    {ratingData && <TechnoThemeRates ratingData={ratingData} />}
+                  </div>
+                  <div class="flex justify-start items-center gap-4">
+                    <div class="techno-product-details-price techno-product-details-price--discount flex justify-center line-through items-center gap-2 text-4xl font-bold">
+                      <span data-product-price>{product.price}</span>
+                    </div>
+                    <div class="techno-product-details-price flex justify-center items-center gap-2 text-4xl font-bold">
+                      <span data-product-price-discount>{product.price_after_discount}</span>
+                      <span data-translate="productFunnel.currency" />
+                    </div>
+                  </div>
+                </div>
+              </techno-product-header>
+            );
+          }
+          
+          // Product Description Component
+          if (componentType === TechnoProductInfoComponents.ProductDescription) {
+            return (
+              <>
+                <div class="w-full">
+                  <h3 class="techno-product-details-description-header text-2xl font-bold pb-3" data-translate="product.description">
+                    {getTranslation("product.description", currentLang)}
+                  </h3>
+                  <p
+                    class="techno-product-details-text-body leading-relaxed"
+                    set:html={isArabic ? product.description_ar : product.description_en}
+                  />
+                </div>
+                {!purchaseOptions && (
+                  <>
+                    <div class="w-full py-3">
+                      <TechnoSelectionOptionsWithoutBundles product={product} />
+                    </div>
+                    <div class="w-full">
+                      <TechnoProductCosts hasBundles="false" />
+                    </div>
+                  </>
+                )}
+              </>
+            );
+          }
+
+          // Purchase Options Component
+          if (componentType === TechnoProductInfoComponents.PurchaseOptions) {
+            return (
+              <TechnoProductBundles
+                product={product}
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Coupon Component
+          if (componentType === TechnoProductInfoComponents.coupon) {
+            return (
+              <TechnoCoupon
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Form Fields Component
+          if (componentType === TechnoProductInfoComponents.FormFields) {
+            return (
+              <TechnoThemeFormFields
+                product={product}
+                data={componentCheck.componentData}
+                purchaseOptions={purchaseOptions}
+                isHaveVariant={isHaveVariant}
+              />
+            );
+          }
+
+          // Order Confirmation Component
+          if (componentType === TechnoProductInfoComponents.OrderConfirmation) {
+            return (
+              <TechnoOrderConfirmationNotice
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Visitors Component
+          if (componentType === TechnoProductInfoComponents.Visitores) {
+            return (
+              <TechnoFakeVisitors
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Order Through WhatsApp Component
+          if (componentType === TechnoProductInfoComponents.OrderThroghWhatsapp) {
+            return (
+              <TechnoOrderThroughWhatsapp
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          return null;
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "./TechnoThemeProduct";
+</script>

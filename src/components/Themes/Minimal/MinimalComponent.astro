@@ -1,0 +1,311 @@
+---
+// This component is the main entry point for the Minimal theme.
+// It orchestrates the rendering of various sub-components based on the data received from the API.
+// Props:
+// - funnelPage: An object of type Data, containing all the information for the funnel page.
+import "./MinimalComponent.css";
+import MinimalThemeHeader from "./MinimalTheme/Minimal_Header/MinimalThemeHeader.astro";
+import MinimalThemeProduct from "./MinimalTheme/MinimalThemeProduct/MinimalThemeProduct.astro";
+import MinimalThemeCountDown from "./MinimalTheme/MinimalThemeCountdown/MinimalThemeCountDown.astro";
+import MinimalFaq from "./MinimalTheme/Minimal_Faq/MinimalFaq.astro";
+import MinimalProductPreviewComponent from "./MinimalTheme/Minimal_ProductPreview/MinimalProductPreviewComponent.astro";
+import { getMinimalThemeComponent } from "../../../lib/utils/ThemeSelect";
+import type { BlockData, Data } from "../../../lib/api/types";
+import { FunnelMinimalComponents } from "../../../lib/constants/themes";
+import MinimalThemeFooter from "./MinimalTheme/MinimalThemeFooter/MinimalThemeFooter.astro";
+import MinimalThemeReviews from "./MinimalTheme/Minimal_Theme_Reviews/MinimalThemeReviews.astro";
+import MinimalProductUsage from "./MinimalTheme/Minimal_ProductUsage/MinimalProductUsage.astro";
+import MinimalDeliveryFeatures from "./MinimalTheme/Minimal_Delivery_Features/MinimalDeliveryFeatures.astro";
+import MinimalProductFeatures from "./MinimalTheme/Minimal_Product_Features/MinimalProductFeatures.astro";
+import MinimalThemeTodayStatistics from "./MinimalTheme/MinimalThemeTodayStatistics/MinimalThemeTodayStatistics.astro";
+import MinimalLogosCarousel from "./MinimalTheme/MinimalLogosCarousel/MinimalLogosCarousel.astro";
+import MinimalButtonWithLink from "./MinimalTheme/MinimalButtonWithLink/MinimalButtonWithLink.astro";
+import LucideIcon from "../../Shared/LucideIcon.astro";
+import MinimalGridImages from "./MinimalTheme/MinimalGridImagesComponent/minimalGridImages.astro";
+import MinimalThemeTextBar from "./MinimalTheme/Minimal_Text_Bar/minimalThemeTextBar.astro";
+import MinimalImageTextOverlay from "./MinimalTheme/Minimal_Image_Text_Overlay/minimalImageTextOverlay.astro";
+import MinimalImageTextBeside from "./MinimalTheme/Minimal_Image_Text_Beside/minimalImageTextBeside.astro";
+import MinimalBeforeAfter from "./MinimalTheme/MinimalBefore&AfterImage/minimalBefore&After.astro";
+
+
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: BlockData | undefined;
+}
+
+const funnelPage: Data = Astro.props.funnelPage;
+
+// Maps the block names from the API response to their corresponding Minimal theme components and data.
+const minimalComponentNames: [FunnelMinimalComponents, BlockData][] =
+  funnelPage.blocks
+    .map((block) => {
+      const component = getMinimalThemeComponent(block.name);
+      return component ? [component, block.data] : undefined;
+    })
+    .filter(
+      (tuple): tuple is [FunnelMinimalComponents, BlockData] =>
+        tuple !== undefined,
+    );
+
+// Checks if a specific component is present in the API response and returns its data if found.
+function isComponentFound(
+  componentName: FunnelMinimalComponents,
+): ComponentCheckResult {
+  const found = minimalComponentNames.find(([comp]) => comp === componentName);
+  return {
+    isComponentFound: !!found,
+    componentData: found?.[1],
+  };
+}
+
+// Define render order - just change this array to reorder components!
+const RENDER_ORDER = [
+  FunnelMinimalComponents.MinimalHeader,
+  FunnelMinimalComponents.MinimalProductFunnel, // Always render (required)
+  FunnelMinimalComponents.MinimalProductFeatures,
+  FunnelMinimalComponents.MinimalProductPreview,
+  FunnelMinimalComponents.MinimalProductUsage,
+  FunnelMinimalComponents.MinimalLogosCarousel,
+  FunnelMinimalComponents.MinimalButtonWithLink,
+  FunnelMinimalComponents.MinimalTodayStatistics,
+  FunnelMinimalComponents.MinimalGallery,
+  FunnelMinimalComponents.Minimal_Before_After,
+  FunnelMinimalComponents.MinimalReviews,
+  FunnelMinimalComponents.MinimalTextBar,
+  FunnelMinimalComponents.MinimalImageTextOverLay,
+  FunnelMinimalComponents.MinimalImageTextBeside,
+  FunnelMinimalComponents.MinimalFaq,
+  FunnelMinimalComponents.MinimalDeliveryFeatures,
+  FunnelMinimalComponents.MinimalCountdown,
+  FunnelMinimalComponents.MinimalFooter,
+];
+
+// Extracts purchase options and other data
+const productFunnelData = isComponentFound(
+  FunnelMinimalComponents.MinimalProductFunnel,
+);
+
+const isFormFieldsDataFound = isComponentFound(
+  FunnelMinimalComponents.MinimalFormFields,
+);
+
+const isCuponDataFound = isComponentFound(
+  FunnelMinimalComponents.MinimalCoupon,
+);
+
+const isFakeVisitorsDataFound = isComponentFound(
+  FunnelMinimalComponents.MinimalVisitors,
+);
+
+const isOrderThroughWhatsappDataFound = isComponentFound(
+  FunnelMinimalComponents.MinimalOrderThroughWhatsapp,
+);
+
+const isOrderConfirmationNoticeFound = isComponentFound(
+  FunnelMinimalComponents.MinimalOrderConfirmationNotice,
+);
+const isRatingFound = isComponentFound(FunnelMinimalComponents.MinimalRates);
+
+const purchaseOptions = productFunnelData.isComponentFound
+  ? productFunnelData.componentData?.purchase_options
+  : undefined;
+
+const formFieldsData = isFormFieldsDataFound.isComponentFound
+  ? isFormFieldsDataFound.componentData
+  : undefined;
+
+const cuponData = isCuponDataFound.isComponentFound
+  ? isCuponDataFound.componentData
+  : undefined;
+
+const fakeVisitorsData = isFakeVisitorsDataFound.isComponentFound
+  ? isFakeVisitorsDataFound.componentData
+  : undefined;
+
+const ratingData = isRatingFound.isComponentFound
+  ? isRatingFound.componentData
+  : undefined;
+
+const orderConfirmationNoticeData =
+  isOrderConfirmationNoticeFound.isComponentFound
+    ? isOrderConfirmationNoticeFound.componentData
+    : undefined;
+
+const orderThroughWhatsappData =
+  isOrderThroughWhatsappDataFound.isComponentFound
+    ? isOrderThroughWhatsappDataFound.componentData
+    : undefined;
+
+---
+
+<main class="minimal-main-color">
+  <section class="lg:container w-11/12 mx-auto flex flex-col gap-7">
+  {
+    RENDER_ORDER.map((componentName) => {
+      if (componentName === FunnelMinimalComponents.MinimalHeader) {
+        const headerData = isComponentFound(
+          FunnelMinimalComponents.MinimalHeader,
+        );
+        return headerData.isComponentFound ? (
+          <MinimalThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelMinimalComponents.MinimalProductFunnel) {
+        return (
+          <MinimalThemeProduct
+            formFieldsData={formFieldsData}
+            ratingData={ratingData}
+            fakeVisitorsData={fakeVisitorsData}
+            orderConfirmationNoticeData={orderConfirmationNoticeData}
+            orderThroughWhatsappData={orderThroughWhatsappData}
+            product={funnelPage.product}
+            cuponData={cuponData}
+            purchaseOptions={purchaseOptions}
+          />
+        );
+      }
+      if (componentName === FunnelMinimalComponents.MinimalCountdown) {
+        const countdownData = isComponentFound(
+          FunnelMinimalComponents.MinimalCountdown,
+        );
+        return countdownData.isComponentFound ? (
+          <MinimalThemeCountDown data={countdownData.componentData} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelMinimalComponents.MinimalFaq) {
+        const faqData = isComponentFound(FunnelMinimalComponents.MinimalFaq);
+        return faqData.isComponentFound ? (
+          <MinimalFaq data={faqData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalLogosCarousel) {
+        const logoscarouselData = isComponentFound(FunnelMinimalComponents.MinimalLogosCarousel);
+        return logoscarouselData.isComponentFound ? (
+          <MinimalLogosCarousel data={logoscarouselData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalProductPreview) {
+        const productPreviewData = isComponentFound(
+          FunnelMinimalComponents.MinimalProductPreview,
+        );
+        return productPreviewData.isComponentFound ? (
+          <MinimalProductPreviewComponent
+            data={productPreviewData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalButtonWithLink) {
+        const buttonWithLinkData = isComponentFound(
+          FunnelMinimalComponents.MinimalButtonWithLink,
+        );
+        return buttonWithLinkData.isComponentFound ? (
+          <MinimalButtonWithLink
+            data={buttonWithLinkData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalGallery) {
+        const galleryData = isComponentFound(
+          FunnelMinimalComponents.MinimalGallery,
+        );
+        return galleryData.isComponentFound ? (
+          <MinimalGridImages
+            data={galleryData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalTodayStatistics) {
+        const todayOrdersData = isComponentFound(
+          FunnelMinimalComponents.MinimalTodayStatistics,
+        );
+        return todayOrdersData.isComponentFound ? (
+          <MinimalThemeTodayStatistics
+            data={todayOrdersData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalDeliveryFeatures) {
+        const deliveryFeaturesData = isComponentFound(
+          FunnelMinimalComponents.MinimalDeliveryFeatures,
+        );
+        return deliveryFeaturesData.isComponentFound ? (
+          <MinimalDeliveryFeatures data={deliveryFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalProductFeatures) {
+        const ProductFeaturesData = isComponentFound(
+          FunnelMinimalComponents.MinimalProductFeatures,
+        );
+        return ProductFeaturesData.isComponentFound ? (
+          <MinimalProductFeatures data={ProductFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalReviews) {
+        const ReviewsData = isComponentFound(
+          FunnelMinimalComponents.MinimalReviews,
+        );
+        return ReviewsData.isComponentFound ? (
+          <MinimalThemeReviews data={ReviewsData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalTextBar) {
+        const TextBarData = isComponentFound(
+          FunnelMinimalComponents.MinimalTextBar,
+        );
+        return TextBarData.isComponentFound ? (
+          <MinimalThemeTextBar data={TextBarData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalImageTextOverLay) {
+        const ImageTextData = isComponentFound(
+          FunnelMinimalComponents.MinimalImageTextOverLay,
+        );
+        return ImageTextData.isComponentFound ? (
+          <MinimalImageTextOverlay data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalImageTextBeside) {
+        const ImageTextData = isComponentFound(
+          FunnelMinimalComponents.MinimalImageTextBeside,
+        );
+        return ImageTextData.isComponentFound ? (
+          <MinimalImageTextBeside data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalProductUsage) {
+        const productUsageData = isComponentFound(
+          FunnelMinimalComponents.MinimalProductUsage,
+        );
+        return productUsageData.isComponentFound ? (
+          <MinimalProductUsage data={productUsageData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.Minimal_Before_After) {
+        const BeforeAfterData = isComponentFound(
+          FunnelMinimalComponents.Minimal_Before_After,
+        );
+        return BeforeAfterData.isComponentFound ? (
+          <MinimalBeforeAfter data={BeforeAfterData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelMinimalComponents.MinimalFooter) {
+        const footerData = isComponentFound(
+          FunnelMinimalComponents.MinimalFooter,
+        );
+        return footerData.isComponentFound ? (
+          <MinimalThemeFooter data={footerData.componentData} />
+        ) : null;
+      }
+      return null;
+    })
+  }
+  <button id="scrollToTopBtn" class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 minimal-scrollToTopBtn">
+   <LucideIcon name="MoveUp" width="32" height="32" />
+  </button>
+  </section>
+</main>
+<script>
+  import "./MinimalTheme.config"
+</script>

@@ -1,0 +1,207 @@
+/* === Classic Logos Carousel Component - Clean & Simple === */
+
+/* Section Divider */
+.techno-logos-carousel-divider {
+    background: linear-gradient(90deg, 
+        var(--techno-color-primary) 0%,
+        var(--techno-color-secondary) 50%,
+        var(--techno-color-primary) 100%
+    );
+}
+
+/* Logo Cards - Clean and minimal */
+.techno-logo-card {
+    /* No background, borders, or hover effects - just clean space for logos */
+    background: transparent;
+    transition: none;
+}
+
+/* Carousel Navigation Arrows - Clean design */
+.techno-carousel-left,
+.techno-carousel-right {
+    background-color: var(--techno-color-surface);
+    color: var(--techno-color-on-surface);
+    border: 1px solid var(--techno-color-outline-variant);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.techno-carousel-left:hover,
+.techno-carousel-right:hover {
+    background-color: var(--techno-color-surface-variant);
+    border-color: var(--techno-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.techno-carousel-left:disabled,
+.techno-carousel-right:disabled {
+    opacity: 0.3;
+    background-color: var(--techno-color-surface);
+    border-color: var(--techno-color-outline-variant);
+}
+
+.techno-carousel-left:active,
+.techno-carousel-right:active {
+    transform: scale(0.95);
+}
+
+/* Page Indicators - Simple dots */
+.techno-page-indicator {
+    background-color: var(--techno-color-outline);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.techno-page-indicator:hover {
+    background-color: var(--techno-color-primary-light);
+}
+
+.techno-page-indicator.active {
+    background-color: var(--techno-color-primary);
+}
+
+/* Focus states for accessibility */
+.techno-carousel-left:focus,
+.techno-carousel-right:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--techno-color-primary-light);
+    border-color: var(--techno-color-primary);
+}
+
+.techno-page-indicator:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--techno-color-primary-light);
+}
+
+/* Loading state - Simple skeleton */
+.techno-logo-card.animate-pulse {
+    background: linear-gradient(90deg, 
+        var(--techno-color-surface) 25%, 
+        var(--techno-color-surface-variant) 50%, 
+        var(--techno-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: techno-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes techno-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Trust indicator styling */
+.techno-trust-indicator {
+    color: var(--techno-color-on-surface-variant);
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* Responsive Design - Mobile-first approach */
+@media (max-width: 640px) {
+    .techno-carousel-left,
+    .techno-carousel-right {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .techno-logo-card {
+        min-height: 56px;
+        padding: 0.75rem;
+    }
+    
+    .techno-page-indicator {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .techno-page-indicator.active {
+        width: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .techno-logo-card {
+        min-height: 48px;
+        padding: 0.5rem;
+    }
+    
+    .techno-carousel-left,
+    .techno-carousel-right {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Large screens - Enhanced spacing */
+@media (min-width: 1024px) {
+    .techno-logo-card {
+        min-height: 80px;
+        padding: 1.25rem;
+    }
+    
+    .techno-carousel-left,
+    .techno-carousel-right {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Motion preferences - Respect user settings */
+@media (prefers-reduced-motion: reduce) {
+    .techno-carousel-left,
+    .techno-carousel-right,
+    .techno-page-indicator {
+        transition: none;
+        animation: none;
+    }
+    
+    .techno-carousel-left:active,
+    .techno-carousel-right:active {
+        transform: none;
+    }
+}
+
+/* High contrast mode - Better accessibility */
+@media (prefers-contrast: high) {
+    .techno-carousel-left,
+    .techno-carousel-right {
+        border-width: 2px;
+        border-color: var(--techno-color-on-surface);
+    }
+    
+    .techno-page-indicator {
+        border: 2px solid var(--techno-color-on-surface);
+    }
+    
+    .techno-page-indicator.active {
+        background: var(--techno-color-on-surface);
+        border-color: var(--techno-color-primary);
+    }
+}
+
+/* RTL Support - Ensure proper visual direction */
+[dir="rtl"] .techno-carousel-left {
+    /* In RTL, the left button should visually point right */
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .techno-carousel-right {
+    /* In RTL, the right button should visually point left */
+    transform: scaleX(-1);
+}
+
+/* Dark mode support (if applicable) */
+@media (prefers-color-scheme: dark) {
+    .techno-carousel-left,
+    .techno-carousel-right {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--techno-color-on-surface);
+    }
+    
+    .techno-carousel-left:hover,
+    .techno-carousel-right:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}

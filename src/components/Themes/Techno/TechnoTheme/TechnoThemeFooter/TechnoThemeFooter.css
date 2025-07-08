@@ -1,0 +1,27 @@
+/* === Classic Footer Component === */
+.techno-footer {
+    border-top-color: var(--techno-color-outline);
+}
+
+.techno-footer-title {
+    color: var(--techno-color-on-surface);
+}
+
+.techno-footer-link {
+    color: var(--techno-color-on-surface);
+    transition: color 0.2s ease;
+}
+
+.techno-footer-link:hover {
+    color: var(--techno-color-primary);
+}
+
+.techno-footer-social-link {
+    color: var(--techno-color-on-surface);
+    transition: all 0.2s ease;
+}
+
+.techno-footer-social-link:hover {
+    color: var(--techno-color-primary);
+    transform: scale(1.1);
+}

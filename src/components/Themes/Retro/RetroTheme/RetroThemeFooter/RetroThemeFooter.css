@@ -1,0 +1,27 @@
+/* === Classic Footer Component === */
+.retro-footer {
+    border-top-color: var(--retro-color-outline);
+}
+
+.retro-footer-title {
+    color: var(--retro-color-on-surface);
+}
+
+.retro-footer-link {
+    color: var(--retro-color-on-surface);
+    transition: color 0.2s ease;
+}
+
+.retro-footer-link:hover {
+    color: var(--retro-color-primary);
+}
+
+.retro-footer-social-link {
+    color: var(--retro-color-on-surface);
+    transition: all 0.2s ease;
+}
+
+.retro-footer-social-link:hover {
+    color: var(--retro-color-primary);
+    transform: scale(1.1);
+}

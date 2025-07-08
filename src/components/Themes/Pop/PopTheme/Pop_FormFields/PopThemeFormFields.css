@@ -1,0 +1,210 @@
+/* === Classic Form Components === */
+
+/* Main form container */
+.pop-form {
+    background-color: var(--pop-color-surface);
+    border-radius: var(--pop-section-radius);
+}
+
+/* Form title styling */
+.pop-form-title {
+    color: var(--pop-color-on-surface);
+}
+
+/* Section headers within form */
+.pop-form-section-title {
+    color: var(--pop-color-on-surface);
+}
+
+/* Improved Input Group */
+.pop-form-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Input field styling */
+.pop-form-input {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--pop-color-outline);
+    border-radius: 12px;
+    color: var(--pop-color-on-surface);
+    background-color: var(--pop-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Floating label styling */
+.pop-form-label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--pop-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--pop-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Focus and valid states for input */
+.pop-form-input:focus,
+.pop-form-input:valid {
+    border-color: var(--pop-color-primary);
+    box-shadow: var(--pop-section-shadow);
+}
+
+/* Floating label animation */
+.pop-form-input:focus~.pop-form-label,
+.pop-form-input:valid~.pop-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--pop-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.pop-form-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--pop-color-error);
+    min-height: 1.25rem;
+}
+
+
+
+.pop-form-input.text-right~.pop-form-label {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+.pop-form-input.text-left~.pop-form-label {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.pop-form-input.text-left:focus~.pop-form-label,
+.pop-form-input.text-left:valid~.pop-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+.pop-form-input.text-left:focus~.pop-form-label,
+.pop-form-input.text-left:valid~.pop-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+
+
+/* Payment and delivery option containers */
+.pop-form-payment-option {
+    padding: 0.75rem;
+    /* Tailwind: p-3 */
+    border: 1px solid var(--pop-color-outline);
+    border-radius: 0.5rem;
+    /* Tailwind: rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover state for payment options */
+.pop-form-payment-option:hover {
+    background-color: var(--pop-color-surface-variant);
+    border-color: var(--pop-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.pop-form-payment-option:focus-within {
+    border-color: var(--pop-color-primary);
+    outline: 2px solid var(--pop-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.pop-form-payment-option-label {
+    display: block;
+    color: var(--pop-color-on-surface);
+    cursor: pointer;
+}
+
+/* Payment option descriptions */
+.pop-form-payment-option-description {
+    display: block;
+    color: var(--pop-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.pop-form-radio {
+    accent-color: var(--pop-color-primary);
+    border-color: var(--pop-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator (if used) */
+.pop-form-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--pop-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Radio dot inside custom indicator */
+.pop-form-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.pop-form-payment-option input[type="radio"]:checked+.pop-form-payment-option-content .pop-form-radio-indicator {
+    border-color: var(--pop-color-primary);
+    background-color: var(--pop-color-primary);
+}
+
+.pop-form-payment-option input[type="radio"]:checked+.pop-form-payment-option-content .pop-form-radio-dot {
+    background-color: var(--pop-color-surface);
+}
+
+/* Validation state classes */
+.pop-border-error {
+    border-color: var(--pop-color-error) !important;
+}
+
+.pop-text-error {
+    color: var(--pop-color-error) !important;
+}
+
+.pop-border-success {
+    border-color: var(--pop-color-success) !important;
+}
+
+.pop-text-success {
+    color: var(--pop-color-success) !important;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .pop-form-input,
+    .pop-form-payment-option,
+    .pop-form-radio-indicator,
+    .pop-form-radio-dot {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .pop-form-input {
+        border-width: 2px;
+    }
+
+    .pop-form-payment-option {
+        border-width: 2px;
+    }
+}

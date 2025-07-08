@@ -1,0 +1,317 @@
+---
+// This component is the main entry point for the Techno theme.
+// It orchestrates the rendering of various sub-components based on the data received from the API.
+// Props:
+// - funnelPage: An object of type Data, containing all the information for the funnel page.
+import "./TechnoComponent.css";
+import TechnoThemeHeader from "./TechnoTheme/Techno_Header/TechnoThemeHeader.astro";
+import TechnoThemeProduct from "./TechnoTheme/TechnoThemeProduct/TechnoThemeProduct.astro";
+import TechnoThemeCountDown from "./TechnoTheme/TechnoThemeCountdown/TechnoThemeCountDown.astro";
+import TechnoFaq from "./TechnoTheme/Techno_Faq/TechnoFaq.astro";
+import TechnoProductPreviewComponent from "./TechnoTheme/Techno_ProductPreview/TechnoProductPreviewComponent.astro";
+import { getTechnoThemeComponent } from "../../../lib/utils/ThemeSelect";
+import type { BlockData, Data } from "../../../lib/api/types";
+import { FunnelTechnoComponents } from "../../../lib/constants/themes";
+import TechnoThemeFooter from "./TechnoTheme/TechnoThemeFooter/TechnoThemeFooter.astro";
+import TechnoThemeReviews from "./TechnoTheme/Techno_Theme_Reviews/TechnoThemeReviews.astro";
+import TechnoProductUsage from "./TechnoTheme/Techno_ProductUsage/TechnoProductUsage.astro";
+import TechnoDeliveryFeatures from "./TechnoTheme/Techno_Delivery_Features/TechnoDeliveryFeatures.astro";
+import TechnoProductFeatures from "./TechnoTheme/Techno_Product_Features/TechnoProductFeatures.astro";
+import TechnoThemeTodayStatistics from "./TechnoTheme/TechnoThemeTodayStatistics/TechnoThemeTodayStatistics.astro";
+import TechnoLogosCarousel from "./TechnoTheme/TechnoLogosCarousel/TechnoLogosCarousel.astro";
+import TechnoButtonWithLink from "./TechnoTheme/TechnoButtonWithLink/TechnoButtonWithLink.astro";
+import LucideIcon from "../../Shared/LucideIcon.astro";
+import TechnoGridImages from "./TechnoTheme/TechnoGridImagesComponent/technoGridImages.astro";
+import TechnoThemeTextBar from "./TechnoTheme/Techno_Text_Bar/technoThemeTextBar.astro";
+import TechnoImageTextOverlay from "./TechnoTheme/Techno_Image_Text_Overlay/technoImageTextOverlay.astro";
+import TechnoImageTextBeside from "./TechnoTheme/Techno_Image_Text_Beside/technoImageTextBeside.astro";
+import TechnoBeforeAfter from "./TechnoTheme/TechnoBefore&AfterImage/technoBefore&After.astro";
+
+
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: BlockData | undefined;
+}
+
+const funnelPage: Data = Astro.props.funnelPage;
+
+// Maps the block names from the API response to their corresponding Techno theme components and data.
+const TechnoComponentNames: [FunnelTechnoComponents, BlockData][] =
+  funnelPage.blocks
+    .map((block) => {
+      const component = getTechnoThemeComponent(block.name);
+      return component ? [component, block.data] : undefined;
+    })
+    .filter(
+      (tuple): tuple is [FunnelTechnoComponents, BlockData] =>
+        tuple !== undefined,
+    );
+
+// Checks if a specific component is present in the API response and returns its data if found.
+function isComponentFound(
+  componentName: FunnelTechnoComponents,
+): ComponentCheckResult {
+  const found = TechnoComponentNames.find(([comp]) => comp === componentName);
+  return {
+    isComponentFound: !!found,
+    componentData: found?.[1],
+  };
+}
+
+// Define render order - just change this array to reorder components!
+const RENDER_ORDER = [
+  FunnelTechnoComponents.TechnoHeader,
+  FunnelTechnoComponents.TechnoProductFunnel, // Always render (required)
+  FunnelTechnoComponents.TechnoProductFeatures,
+  FunnelTechnoComponents.TechnoProductPreview,
+  FunnelTechnoComponents.TechnoProductUsage,
+  FunnelTechnoComponents.TechnoLogosCarousel,
+  FunnelTechnoComponents.TechnoButtonWithLink,
+  FunnelTechnoComponents.TechnoTodayStatistics,
+  FunnelTechnoComponents.TechnoGallery,
+  FunnelTechnoComponents.Techno_Before_After,
+  FunnelTechnoComponents.TechnoReviews,
+  FunnelTechnoComponents.TechnoTextBar,
+  FunnelTechnoComponents.TechnoImageTextOverLay,
+  FunnelTechnoComponents.TechnoImageTextBeside,
+  FunnelTechnoComponents.TechnoFaq,
+  FunnelTechnoComponents.TechnoDeliveryFeatures,
+  FunnelTechnoComponents.TechnoCountdown,
+  FunnelTechnoComponents.TechnoFooter,
+];
+
+// Extracts purchase options and other data
+const productFunnelData = isComponentFound(
+  FunnelTechnoComponents.TechnoProductFunnel,
+);
+
+const isFormFieldsDataFound = isComponentFound(
+  FunnelTechnoComponents.TechnoFormFields,
+);
+
+
+const isCuponDataFound = isComponentFound(
+  FunnelTechnoComponents.TechnoCoupon,
+);
+
+const isFakeVisitorsDataFound = isComponentFound(
+  FunnelTechnoComponents.TechnoVisitors,
+);
+
+const isOrderThroughWhatsappDataFound = isComponentFound(
+  FunnelTechnoComponents.TechnoOrderThroughWhatsapp,
+);
+
+
+const isOrderConfirmationNoticeFound = isComponentFound(
+  FunnelTechnoComponents.TechnoOrderConfirmationNotice,
+);
+const isRatingFound = isComponentFound(FunnelTechnoComponents.TechnoRates);
+
+const purchaseOptions = productFunnelData.isComponentFound
+  ? productFunnelData.componentData?.purchase_options
+  : undefined;
+
+
+const formFieldsData = isFormFieldsDataFound.isComponentFound
+  ? isFormFieldsDataFound.componentData
+  : undefined;
+
+  const cuponData = isCuponDataFound.isComponentFound
+  ? isCuponDataFound.componentData
+  : undefined;
+
+  const fakeVisitorsData = isFakeVisitorsDataFound.isComponentFound
+  ? isFakeVisitorsDataFound.componentData
+  : undefined;
+  
+
+const ratingData = isRatingFound.isComponentFound
+  ? isRatingFound.componentData
+  : undefined;
+
+const orderConfirmationNoticeData =
+  isOrderConfirmationNoticeFound.isComponentFound
+    ? isOrderConfirmationNoticeFound.componentData
+    : undefined;
+
+const orderThroughWhatsappData =
+  isOrderThroughWhatsappDataFound.isComponentFound
+    ? isOrderThroughWhatsappDataFound.componentData
+    : undefined;
+
+---
+
+<main class="techno-main-color">
+  <section class="lg:container w-11/12 mx-auto flex flex-col gap-7">
+  {
+    RENDER_ORDER.map((componentName) => {
+      if (componentName === FunnelTechnoComponents.TechnoHeader) {
+        const headerData = isComponentFound(
+          FunnelTechnoComponents.TechnoHeader,
+        );
+        return headerData.isComponentFound ? (
+          <TechnoThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
+        ) : null;
+      }
+      
+      if (componentName === FunnelTechnoComponents.TechnoProductFunnel) {
+        return (
+          <TechnoThemeProduct
+            formFieldsData={formFieldsData}
+            ratingData={ratingData}
+            fakeVisitorsData={fakeVisitorsData}
+            orderConfirmationNoticeData={orderConfirmationNoticeData}
+            orderThroughWhatsappData={orderThroughWhatsappData}
+            product={funnelPage.product}
+            cuponData={cuponData}
+            purchaseOptions={purchaseOptions}
+          />
+        );
+      }
+      if (componentName === FunnelTechnoComponents.TechnoCountdown) {
+        const countdownData = isComponentFound(
+          FunnelTechnoComponents.TechnoCountdown,
+        );
+        return countdownData.isComponentFound ? (
+          <TechnoThemeCountDown data={countdownData.componentData} />
+        ) : null;
+      }
+      
+      
+      if (componentName === FunnelTechnoComponents.TechnoFaq) {
+        const faqData = isComponentFound(FunnelTechnoComponents.TechnoFaq);
+        return faqData.isComponentFound ? (
+          <TechnoFaq data={faqData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoLogosCarousel) {
+        const logoscarouselData = isComponentFound(FunnelTechnoComponents.TechnoLogosCarousel);
+        return logoscarouselData.isComponentFound ? (
+          <TechnoLogosCarousel data={logoscarouselData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoProductPreview) {
+        const productPreviewData = isComponentFound(
+          FunnelTechnoComponents.TechnoProductPreview,
+        );
+        return productPreviewData.isComponentFound ? (
+          <TechnoProductPreviewComponent
+            data={productPreviewData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoButtonWithLink) {
+        const buttonWithLinkData = isComponentFound(
+          FunnelTechnoComponents.TechnoButtonWithLink,
+        );
+        return buttonWithLinkData.isComponentFound ? (
+          <TechnoButtonWithLink
+            data={buttonWithLinkData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoGallery) {
+        const galleryData = isComponentFound(
+          FunnelTechnoComponents.TechnoGallery,
+        );
+        return galleryData.isComponentFound ? (
+          <TechnoGridImages
+            data={galleryData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoTodayStatistics) {
+        const todayOrdersData = isComponentFound(
+          FunnelTechnoComponents.TechnoTodayStatistics,
+        );
+        return todayOrdersData.isComponentFound ? (
+          <TechnoThemeTodayStatistics
+            data={todayOrdersData.componentData}
+          />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoDeliveryFeatures) {
+        const deliveryFeaturesData = isComponentFound(
+          FunnelTechnoComponents.TechnoDeliveryFeatures,
+        );
+        return deliveryFeaturesData.isComponentFound ? (
+          <TechnoDeliveryFeatures data={deliveryFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoProductFeatures) {
+        const ProductFeaturesData = isComponentFound(
+          FunnelTechnoComponents.TechnoProductFeatures,
+        );
+        return ProductFeaturesData.isComponentFound ? (
+          <TechnoProductFeatures data={ProductFeaturesData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoReviews) {
+        const ReviewsData = isComponentFound(
+          FunnelTechnoComponents.TechnoReviews,
+        );
+        return ReviewsData.isComponentFound ? (
+          <TechnoThemeReviews data={ReviewsData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoTextBar) {
+        const TextBarData = isComponentFound(
+          FunnelTechnoComponents.TechnoTextBar,
+        );
+        return TextBarData.isComponentFound ? (
+          <TechnoThemeTextBar data={TextBarData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoImageTextOverLay) {
+        const ImageTextData = isComponentFound(
+          FunnelTechnoComponents.TechnoImageTextOverLay,
+        );
+        return ImageTextData.isComponentFound ? (
+          <TechnoImageTextOverlay data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoImageTextBeside) {
+        const ImageTextData = isComponentFound(
+          FunnelTechnoComponents.TechnoImageTextBeside,
+        );
+        return ImageTextData.isComponentFound ? (
+          <TechnoImageTextBeside data={ImageTextData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoProductUsage) {
+        const productUsageData = isComponentFound(
+          FunnelTechnoComponents.TechnoProductUsage,
+        );
+        return productUsageData.isComponentFound ? (
+          <TechnoProductUsage data={productUsageData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.Techno_Before_After) {
+        const BeforeAfterData = isComponentFound(
+          FunnelTechnoComponents.Techno_Before_After,
+        );
+        return BeforeAfterData.isComponentFound ? (
+          <TechnoBeforeAfter data={BeforeAfterData.componentData} />
+        ) : null;
+      }
+      if (componentName === FunnelTechnoComponents.TechnoFooter) {
+        const footerData = isComponentFound(
+          FunnelTechnoComponents.TechnoFooter,
+        );
+        return footerData.isComponentFound ? (
+          <TechnoThemeFooter data={footerData.componentData} />
+        ) : null;
+      }
+      return null;
+    })
+  }
+  <button id="scrollToTopBtn" class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 Techno-scrollToTopBtn">
+   <LucideIcon name="MoveUp" width="32" height="32" />
+
+  </button>
+  </section>
+</main>
+<script>
+  import "./TechnoTheme.config"
+</script>

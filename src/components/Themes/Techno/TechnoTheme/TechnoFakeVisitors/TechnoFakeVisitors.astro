@@ -1,0 +1,32 @@
+---
+import "./TechnoFakeVisitors.css";
+import type { BlockData, Item } from '../../../../../lib/api/types';
+import { FunnelTechnoComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+const visitors: Item[] = data.items ?? [];
+---
+
+<techno-visitors-animation 
+  class="w-full flex justify-start items-start"
+  data-techno-visitors={JSON.stringify(visitors)}
+  data-techno-display-time="3000"
+  data-techno-flash-duration="800"
+>
+  <section id={FunnelTechnoComponents.TechnoVisitors}>
+    <div class="techno-visitors-section flex justify-start items-center gap-4">
+      <!-- Single visitor display area -->
+      <div class="techno-visitor-display">
+        <div class="techno-visitor-image w-8 h-8 rounded-full opacity-0">
+          <img class="w-full rounded-full" src="" alt="Visitor" id="techno-visitor-img"/>
+        </div>
+        <p class="techno-visitor-description opacity-0" id="techno-visitor-desc"></p>
+      </div>
+    </div>
+  </section>
+</techno-visitors-animation>
+
+
+<script>
+  import "./TechnoFakeVisitors";
+</script>

@@ -1,0 +1,51 @@
+/* === Rates Section Classes === */
+.elegant-rates {
+    font-size: 1.5rem;
+    color: var(--elegant-color-on-surface);
+}
+
+.elegant-rating-display {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 600;
+}
+
+.elegant-rating-star-full {
+    color: var(--elegant-color-warning);
+    font-size: 1.25rem;
+}
+
+.elegant-rating-star-half {
+    color: var(--elegant-color-warning);
+    font-size: 1.25rem;
+}
+
+.elegant-rating-star-empty {
+    color: var(--elegant-color-outline);
+    font-size: 1.25rem;
+}
+
+.elegant-rating-number {
+    color: var(--elegant-color-on-surface-variant);
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    font-weight: 500;
+}
+
+.elegant-rating-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.elegant-rating-label {
+    color: var(--elegant-color-on-surface-variant);
+    display: inline-block;
+    margin: 0;
+}
+.elegant-rating-star-full {
+    color: var(--elegant-color-warning);
+    font-size: 1.25rem;
+  }
+  

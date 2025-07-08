@@ -1,0 +1,16 @@
+/* === Order Confirmation Notice === */
+.urban-order-confirmation-notice {
+    background-color: var(--urban-color-surface);
+    color: var(--urban-color-on-surface);
+    border-radius: var(--urban-section-radius);
+    box-shadow: var(--urban-section-shadow);
+}
+
+.urban-order-confirmation-title {
+    color: var(--urban-color-on-surface);
+}
+
+.urban-order-confirmation-icon {
+    background-color: var(--urban-color-secondary);
+    color: var(--urban-color-on-secondary);
+}

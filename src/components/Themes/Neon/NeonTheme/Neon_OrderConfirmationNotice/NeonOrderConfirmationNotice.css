@@ -1,0 +1,16 @@
+/* === Order Confirmation Notice === */
+.neon-order-confirmation-notice {
+    background-color: var(--neon-color-surface);
+    color: var(--neon-color-on-surface);
+    border-radius: var(--neon-section-radius);
+    box-shadow: var(--neon-section-shadow);
+}
+
+.neon-order-confirmation-title {
+    color: var(--neon-color-on-surface);
+}
+
+.neon-order-confirmation-icon {
+    background-color: var(--neon-color-secondary);
+    color: var(--neon-color-on-secondary);
+}

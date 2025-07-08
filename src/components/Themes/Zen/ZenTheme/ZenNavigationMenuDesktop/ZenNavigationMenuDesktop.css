@@ -1,0 +1,98 @@
+/* === Desktop Navigation === */
+.zen-desktop-nav {
+  border-top: 1px solid var(--zen-color-outline-variant);
+}
+
+/* Navigation links */
+.zen-desktop-nav-link {
+  background-color: var(--zen-color-surface-variant);
+  color: var(--zen-color-on-surface-variant);
+  text-decoration: none;
+  border: 1px solid var(--zen-color-outline-variant);
+}
+
+.zen-desktop-nav-link:hover {
+  background-color: var(--zen-color-primary);
+  color: var(--zen-color-on-primary);
+  border-color: var(--zen-color-primary);
+  box-shadow: var(--zen-section-shadow);
+}
+
+.zen-desktop-nav-link:focus {
+  outline: 2px solid var(--zen-color-primary);
+  outline-offset: 2px;
+}
+
+/* Navigation items */
+.zen-nav-item {
+  transition: all 0.3s ease;
+}
+
+/* === Overflow System === */
+
+/* Overflow toggle button */
+.zen-overflow-toggle {
+  background-color: var(--zen-color-surface-variant);
+  border: 1px solid var(--zen-color-outline-variant);
+  color: var(--zen-color-on-surface-variant);
+}
+
+.zen-overflow-toggle:hover {
+  background-color: var(--zen-color-primary);
+  border-color: var(--zen-color-primary);
+  color: var(--zen-color-on-primary);
+}
+
+.zen-overflow-toggle:focus {
+  outline: 2px solid var(--zen-color-primary);
+  outline-offset: 2px;
+}
+
+/* Overflow dropdown */
+.zen-overflow-dropdown {
+  background-color: var(--zen-color-surface);
+  border: 1px solid var(--zen-color-outline);
+  box-shadow: var(--zen-section-shadow);
+}
+
+/* Overflow dropdown links */
+.zen-overflow-dropdown-link {
+  color: var(--zen-color-on-surface);
+  text-decoration: none;
+}
+
+.zen-overflow-dropdown-link:hover {
+  background-color: var(--zen-color-surface-variant);
+  color: var(--zen-color-on-surface);
+}
+
+.zen-overflow-dropdown-link:focus {
+  outline: 2px solid var(--zen-color-primary);
+  outline-offset: 2px;
+  background-color: var(--zen-color-surface-variant);
+}
+
+/* Navigation dots indicator */
+.zen-nav-dots {
+  color: var(--zen-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .zen-desktop-nav-link,
+  .zen-nav-item,
+  .zen-overflow-toggle {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .zen-desktop-nav-link {
+    border: 2px solid var(--zen-color-outline);
+  }
+  
+  .zen-overflow-dropdown {
+    border: 2px solid var(--zen-color-outline);
+  }
+}
