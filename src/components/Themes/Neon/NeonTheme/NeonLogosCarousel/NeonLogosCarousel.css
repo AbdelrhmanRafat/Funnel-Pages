@@ -1,207 +1,233 @@
-/* === Classic Logos Carousel Component - Clean & Simple === */
+/* This file contains minimal CSS styles for Neon Theme Logos Carousel - Variation 5 (Stacked Card Style) */
+/* Following the improved design strategy: Tailwind-first with custom colors only */
 
-/* Section Divider */
-.neon-logos-carousel-divider {
-    background: linear-gradient(90deg, 
-        var(--neon-color-primary) 0%,
-        var(--neon-color-secondary) 50%,
-        var(--neon-color-primary) 100%
-    );
+/* === Neon Logos Carousel Component - Variation 5 === */
+/* Only color-related styles using custom color schema */
+
+
+
+/* Variation 5: Stacked Card Style */
+.neon-carousel-card {
+  background-color: var(--neon-color-surface-variant);
+  box-shadow: var(--neon-section-shadow);
+  /* Layout, spacing, and transitions handled by Tailwind */
 }
 
-/* Logo Cards - Clean and minimal */
-.neon-logo-card {
-    /* No background, borders, or hover effects - just clean space for logos */
-    background: transparent;
-    transition: none;
+.neon-carousel-card:hover {
+  box-shadow: 
+    var(--neon-section-shadow-hover, var(--neon-section-shadow)),
+    0 0 20px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.2);
+  /* Transform handled by Tailwind hover:scale-105 */
 }
 
-/* Carousel Navigation Arrows - Clean design */
-.neon-carousel-left,
-.neon-carousel-right {
-    background-color: var(--neon-color-surface);
-    color: var(--neon-color-on-surface);
-    border: 1px solid var(--neon-color-outline-variant);
-    cursor: pointer;
-    transition: all 0.3s ease;
+.neon-carousel-logo {
+  background-color: var(--neon-color-surface);
+  border: 2px solid var(--neon-color-outline-variant);
+  /* Layout handled by Tailwind classes */
 }
 
-.neon-carousel-left:hover,
-.neon-carousel-right:hover {
-    background-color: var(--neon-color-surface-variant);
-    border-color: var(--neon-color-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.neon-carousel-name {
+  color: var(--neon-color-on-surface);
+  /* Typography handled by Tailwind classes */
 }
 
-.neon-carousel-left:disabled,
-.neon-carousel-right:disabled {
-    opacity: 0.3;
-    background-color: var(--neon-color-surface);
-    border-color: var(--neon-color-outline-variant);
+.neon-carousel-accent {
+  background: linear-gradient(
+    90deg,
+    var(--neon-color-primary),
+    var(--neon-color-secondary),
+    var(--neon-color-primary)
+  );
+  /* Layout handled by Tailwind classes */
 }
 
-.neon-carousel-left:active,
-.neon-carousel-right:active {
-    transform: scale(0.95);
+/* Enhanced neon glow for card hover */
+.neon-carousel-card:hover .neon-carousel-logo {
+  border-color: var(--neon-color-primary);
+  box-shadow: 
+    0 0 15px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.3),
+    inset 0 0 10px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.1);
 }
 
-/* Page Indicators - Simple dots */
-.neon-page-indicator {
-    background-color: var(--neon-color-outline);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
+.neon-carousel-card:hover .neon-carousel-accent {
+  box-shadow: 0 0 10px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.5);
 }
 
-.neon-page-indicator:hover {
-    background-color: var(--neon-color-primary-light);
+/* Navigation Buttons */
+.neon-carousel-nav-left,
+.neon-carousel-nav-right {
+  background-color: var(--neon-color-surface);
+  color: var(--neon-color-on-surface);
+  border: 1px solid var(--neon-color-outline-variant);
+  cursor: pointer;
+  /* Layout and transitions handled by Tailwind */
 }
 
-.neon-page-indicator.active {
-    background-color: var(--neon-color-primary);
+.neon-carousel-nav-left:hover,
+.neon-carousel-nav-right:hover {
+  background-color: var(--neon-color-surface-variant);
+  border-color: var(--neon-color-primary);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    0 0 15px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.3);
+}
+
+.neon-carousel-nav-left:disabled,
+.neon-carousel-nav-right:disabled {
+  opacity: 0.3;
+  background-color: var(--neon-color-surface);
+  border-color: var(--neon-color-outline-variant);
+  box-shadow: none;
+}
+
+.neon-carousel-nav-left:active,
+.neon-carousel-nav-right:active {
+  transform: scale(0.95);
+}
+
+/* Page Indicators */
+.neon-carousel-indicator {
+  background-color: var(--neon-color-outline);
+  cursor: pointer;
+  border: none;
+  /* Layout and transitions handled by Tailwind */
+}
+
+.neon-carousel-indicator:hover {
+  background-color: var(--neon-color-primary-light, var(--neon-color-primary));
+  box-shadow: 0 0 8px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.4);
+}
+
+.neon-carousel-indicator.active {
+  background: linear-gradient(
+    90deg,
+    var(--neon-color-primary),
+    var(--neon-color-secondary)
+  );
+  box-shadow: 0 0 10px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.6);
+}
+
+/* Progress Bar */
+.neon-carousel-progress {
+  background-color: var(--neon-color-outline);
+  /* Layout handled by Tailwind classes */
+}
+
+.neon-carousel-progress-fill {
+  background: linear-gradient(
+    90deg,
+    var(--neon-color-primary),
+    var(--neon-color-secondary),
+    var(--neon-color-primary)
+  );
+  box-shadow: 0 0 8px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.4);
 }
 
 /* Focus states for accessibility */
-.neon-carousel-left:focus,
-.neon-carousel-right:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--neon-color-primary-light);
-    border-color: var(--neon-color-primary);
+.neon-carousel-nav-left:focus,
+.neon-carousel-nav-right:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--neon-color-primary-light, var(--neon-color-primary));
+  border-color: var(--neon-color-primary);
 }
 
-.neon-page-indicator:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--neon-color-primary-light);
+.neon-carousel-indicator:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--neon-color-primary-light, var(--neon-color-primary));
 }
 
-/* Loading state - Simple skeleton */
-.neon-logo-card.animate-pulse {
-    background: linear-gradient(90deg, 
-        var(--neon-color-surface) 25%, 
-        var(--neon-color-surface-variant) 50%, 
-        var(--neon-color-surface) 75%
-    );
-    background-size: 200% 100%;
-    animation: neon-skeleton-pulse 1.5s infinite;
+/* Loading state - Neon skeleton */
+.neon-carousel-card.animate-pulse {
+  background: linear-gradient(90deg, 
+    var(--neon-color-surface) 25%, 
+    var(--neon-color-surface-variant) 50%, 
+    var(--neon-color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: neon-skeleton-pulse 1.5s infinite;
 }
 
 @keyframes neon-skeleton-pulse {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
-/* Trust indicator styling */
-.neon-trust-indicator {
-    color: var(--neon-color-on-surface-variant);
-    font-weight: 500;
-    opacity: 0.8;
+/* Neon glow animation for urgent attention */
+@keyframes neon-card-glow {
+  0%, 100% { 
+    box-shadow: var(--neon-section-shadow);
+  }
+  50% { 
+    box-shadow: 
+      var(--neon-section-shadow),
+      0 0 25px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.4),
+      0 0 50px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.2);
+  }
 }
 
-/* Responsive Design - Mobile-first approach */
-@media (max-width: 640px) {
-    .neon-carousel-left,
-    .neon-carousel-right {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .neon-logo-card {
-        min-height: 56px;
-        padding: 0.75rem;
-    }
-    
-    .neon-page-indicator {
-        width: 6px;
-        height: 6px;
-    }
-    
-    .neon-page-indicator.active {
-        width: 20px;
-    }
+.neon-carousel-urgent .neon-carousel-card {
+  animation: neon-card-glow 3s ease-in-out infinite;
 }
 
-@media (max-width: 480px) {
-    .neon-logo-card {
-        min-height: 48px;
-        padding: 0.5rem;
-    }
-    
-    .neon-carousel-left,
-    .neon-carousel-right {
-        width: 36px;
-        height: 36px;
-    }
+/* RTL Support */
+[dir="rtl"] .neon-carousel-nav-left {
+  transform: scaleX(-1);
 }
 
-/* Large screens - Enhanced spacing */
-@media (min-width: 1024px) {
-    .neon-logo-card {
-        min-height: 80px;
-        padding: 1.25rem;
-    }
-    
-    .neon-carousel-left,
-    .neon-carousel-right {
-        width: 48px;
-        height: 48px;
-    }
+[dir="rtl"] .neon-carousel-nav-right {
+  transform: scaleX(-1);
 }
 
-/* Motion preferences - Respect user settings */
+/* Motion preferences */
 @media (prefers-reduced-motion: reduce) {
-    .neon-carousel-left,
-    .neon-carousel-right,
-    .neon-page-indicator {
-        transition: none;
-        animation: none;
-    }
-    
-    .neon-carousel-left:active,
-    .neon-carousel-right:active {
-        transform: none;
-    }
+  .neon-carousel-card,
+  .neon-carousel-nav-left,
+  .neon-carousel-nav-right,
+  .neon-carousel-indicator {
+    transition: none;
+    animation: none;
+  }
+  
+  .neon-carousel-nav-left:active,
+  .neon-carousel-nav-right:active {
+    transform: none;
+  }
 }
 
-/* High contrast mode - Better accessibility */
+/* High contrast mode */
 @media (prefers-contrast: high) {
-    .neon-carousel-left,
-    .neon-carousel-right {
-        border-width: 2px;
-        border-color: var(--neon-color-on-surface);
-    }
-    
-    .neon-page-indicator {
-        border: 2px solid var(--neon-color-on-surface);
-    }
-    
-    .neon-page-indicator.active {
-        background: var(--neon-color-on-surface);
-        border-color: var(--neon-color-primary);
-    }
-}
-
-/* RTL Support - Ensure proper visual direction */
-[dir="rtl"] .neon-carousel-left {
-    /* In RTL, the left button should visually point right */
-    transform: scaleX(-1);
-}
-
-[dir="rtl"] .neon-carousel-right {
-    /* In RTL, the right button should visually point left */
-    transform: scaleX(-1);
-}
-
-/* Dark mode support (if applicable) */
-@media (prefers-color-scheme: dark) {
-    .neon-carousel-left,
-    .neon-carousel-right {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: var(--neon-color-on-surface);
-    }
-    
-    .neon-carousel-left:hover,
-    .neon-carousel-right:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
-}
+  .neon-carousel-nav-left,
+  .neon-carousel-nav-right {
+    border-width: 2px;
+    border-color: var(--neon-color-on-surface);
+  }
+  
+  .neon-carousel-indicator {
+    border: 2px solid var(--neon-color-on-surface);
+  }
+  
+  .neon-carousel-indicator.active {
+    background: var(--neon-color-on-surface);
+    border-color: var(--neon-color-primary);
+  }
+  
+  .neon-carousel-logo {
+    border-width: 3px;
+  }
+}eon-carousel-nav-right {
+    border-width: 2px;
+    border-color: var(--neon-color-on-surface);
+  }
+  
+  .neon-carousel-indicator {
+    border: 2px solid var(--neon-color-on-surface);
+  }
+  
+  .neon-carousel-indicator.active {
+    background: var(--neon-color-on-surface);
+    border-color: var(--neon-color-primary);
+  }
+  
+  .neon-carousel-logo {
+    border-width: 3px;
+  }

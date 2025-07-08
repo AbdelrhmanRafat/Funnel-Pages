@@ -5,7 +5,7 @@ interface LogosCarouselProps {
   logos: Item[];
 }
 
-const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
+const ArabicTouchLogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
   const [isRTL, setIsRTL] = useState(false);
@@ -23,10 +23,9 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
     const updateItemsPerView = () => {
       if (typeof window !== 'undefined') {
         const width = window.innerWidth;
-        if (width < 480) setItemsPerView(2);
-        else if (width < 768) setItemsPerView(3);
-        else if (width < 1024) setItemsPerView(4);
-        else setItemsPerView(5);
+        if (width < 640) setItemsPerView(2);
+        else if (width < 1024) setItemsPerView(3);
+        else setItemsPerView(4);
       }
     };
 
@@ -144,24 +143,33 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
   // If few logos, show in a grid without carousel
   if (logos.length <= itemsPerView) {
     return (
-      <div className="w-full max-w-6xl mx-auto px-4" data-component="logos-static">
-        <div className="flex justify-center items-center gap-6 sm:gap-8 lg:gap-12 flex-wrap">
+      <div className="arabictouch-carousel-container w-full mx-auto" data-component="arabictouch-logos-static">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
           {logos.map((logo, index) => (
             <div 
               key={index} 
-              className="classic-logo-card w-20 sm:w-24 lg:w-28 h-14 sm:h-16 lg:h-20 flex items-center justify-center p-3"
+              className="arabictouch-carousel-flip-container"
               style={{ 
                 animationDelay: `${index * 100}ms`,
                 animation: 'fadeInUp 0.6s ease-out forwards'
               }}
             >
-              <img 
-                src={logo.image} 
-                alt={logo.label || `Trusted partner ${index + 1}`}
-                className="max-w-full max-h-full object-contain"
-                loading="lazy"
-                data-logo-image
-              />
+              <div className="arabictouch-carousel-card rounded-lg overflow-hidden shadow-lg border-2">
+                <div className="p-4 sm:p-6 bg-white text-center">
+                  <div className="arabictouch-carousel-logo w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 rounded-lg overflow-hidden flex items-center justify-center">
+                    <img 
+                      src={logo.image} 
+                      alt={logo.label || `Trusted partner ${index + 1}`}
+                      className="object-contain w-full h-full p-2"
+                      loading="lazy"
+                      data-logo-image
+                    />
+                  </div>
+                </div>
+                <div className="arabictouch-carousel-header py-3 px-4 text-center">
+                  <span className="arabictouch-carousel-name text-sm font-medium">{logo.label || `Partner ${index + 1}`}</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -172,14 +180,23 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
   // SSR placeholder with skeleton loading
   if (!isMounted) {
     return (
-      <div className="w-full max-w-6xl mx-auto px-4" data-component="logos-loading">
-        <div className="flex justify-center items-center gap-6 sm:gap-8 lg:gap-12">
+      <div className="arabictouch-carousel-container w-full max-w-6xl mx-auto px-4 sm:px-6" data-component="arabictouch-logos-loading">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
           {Array.from({ length: itemsPerView }).map((_, index) => (
             <div 
               key={index} 
-              className="classic-logo-card w-20 sm:w-24 lg:w-28 h-14 sm:h-16 lg:h-20 animate-pulse"
+              className="arabictouch-carousel-flip-container animate-pulse"
               style={{ animationDelay: `${index * 150}ms` }}
-            />
+            >
+              <div className="arabictouch-carousel-card rounded-lg overflow-hidden shadow-lg border-2">
+                <div className="p-4 sm:p-6 bg-white text-center">
+                  <div className="w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 rounded-lg bg-gray-300"></div>
+                </div>
+                <div className="arabictouch-carousel-header py-3 px-4 text-center">
+                  <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto"></div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -192,18 +209,17 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
 
   return (
     <div 
-      className="w-full max-w-6xl mx-auto px-4" 
-      data-component="logos-carousel"
+      className="arabictouch-carousel-container w-full max-w-6xl mx-auto px-4 sm:px-6" 
+      data-component="arabictouch-logos-carousel"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-
       <div className="relative">
         {/* Navigation buttons - only show if needed */}
         {logos.length > itemsPerView && (
           <>
             <button 
-              className="classic-carousel-left absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg z-10"
+              className="arabictouch-carousel-nav-left absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg z-10"
               onClick={goToPrev}
               disabled={isRTL ? currentIndex >= maxIndex : currentIndex === 0}
               type="button"
@@ -216,7 +232,7 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
             </button>
 
             <button 
-              className="classic-carousel-right absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg z-10"
+              className="arabictouch-carousel-nav-right absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg z-10"
               onClick={goToNext}
               disabled={isRTL ? currentIndex === 0 : currentIndex >= maxIndex}
               type="button"
@@ -249,17 +265,26 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
             {logos.map((logo, index) => (
               <div 
                 key={index} 
-                className="flex-shrink-0 px-3 sm:px-4 lg:px-6 py-4"
+                className="flex-shrink-0 px-2 sm:px-3 py-4"
                 style={{ width: `${itemWidth}%` }}
               >
-                <div className="classic-logo-card w-full h-16 sm:h-20 lg:h-24 flex items-center justify-center p-3 sm:p-4">
-                  <img 
-                    src={logo.image} 
-                    alt={logo.label || `Partner company ${index + 1}`}
-                    className="max-w-full max-h-full object-contain"
-                    loading="lazy"
-                    data-logo-image
-                  />
+                <div className="arabictouch-carousel-flip-container">
+                  <div className="arabictouch-carousel-card rounded-lg overflow-hidden shadow-lg border-2 transition-all duration-300 hover:scale-105">
+                    <div className="p-3 sm:p-4 bg-white text-center">
+                      <div className="arabictouch-carousel-logo w-14 sm:w-16 lg:w-20 h-14 sm:h-16 lg:h-20 mx-auto mb-2 sm:mb-3 rounded-lg overflow-hidden flex items-center justify-center">
+                        <img 
+                          src={logo.image} 
+                          alt={logo.label || `Partner company ${index + 1}`}
+                          className="object-contain w-full h-full p-1 sm:p-2"
+                          loading="lazy"
+                          data-logo-image
+                        />
+                      </div>
+                    </div>
+                    <div className="arabictouch-carousel-header py-2 sm:py-3 px-3 sm:px-4 text-center">
+                      <span className="arabictouch-carousel-name text-xs sm:text-sm font-medium truncate block">{logo.label || `Partner ${index + 1}`}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -275,7 +300,7 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
                 {Array.from({ length: maxIndex + 1 }).map((_, index) => (
                   <button
                     key={index}
-                    className={`classic-page-indicator w-2 h-2 rounded-full transition-all duration-300 ${
+                    className={`arabictouch-carousel-indicator w-2 h-2 rounded-full transition-all duration-300 ${
                       index === currentIndex ? 'active w-6' : ''
                     }`}
                     onClick={() => navigateToIndex(index)}
@@ -289,9 +314,9 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
             ) : (
               // Progress bar for larger carousels
               <div className="flex justify-center">
-                <div className="w-32 sm:w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
+                <div className="arabictouch-carousel-progress w-32 sm:w-48 h-1 rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-700 ease-out"
+                    className="arabictouch-carousel-progress-fill h-full rounded-full transition-all duration-700 ease-out"
                     style={{ width: `${((currentIndex + 1) / (maxIndex + 1)) * 100}%` }}
                   />
                 </div>
@@ -304,4 +329,4 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
   );
 };
 
-export default LogosCarousel;
+export default ArabicTouchLogosCarousel;

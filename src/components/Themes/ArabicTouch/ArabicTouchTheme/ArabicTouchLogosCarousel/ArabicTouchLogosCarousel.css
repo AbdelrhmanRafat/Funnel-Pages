@@ -1,207 +1,210 @@
-/* === Classic Logos Carousel Component - Clean & Simple === */
+/* This file contains minimal CSS styles for ArabicTouch Theme Logos Carousel - Flip Card Style */
+/* Following the improved design strategy: Tailwind-first with custom colors only */
 
-/* Section Divider */
-.arabictouch-logos-carousel-divider {
-    background: linear-gradient(90deg, 
-        var(--arabictouch-color-primary) 0%,
-        var(--arabictouch-color-secondary) 50%,
-        var(--arabictouch-color-primary) 100%
-    );
+/* === ArabicTouch Logos Carousel Component === */
+/* Only color-related styles using custom color schema */
+
+
+
+/* Flip Card Style */
+.arabictouch-carousel-card {
+  background-color: var(--arabictouch-color-surface-variant);
+  border-color: var(--arabictouch-color-outline-variant);
+  box-shadow: var(--arabictouch-section-shadow);
+  /* Layout, spacing, and transitions handled by Tailwind */
 }
 
-/* Logo Cards - Clean and minimal */
-.arabictouch-logo-card {
-    /* No background, borders, or hover effects - just clean space for logos */
-    background: transparent;
-    transition: none;
+.arabictouch-carousel-card:hover {
+  box-shadow: 
+    var(--arabictouch-section-shadow-hover, var(--arabictouch-section-shadow)),
+    0 8px 25px rgba(0, 0, 0, 0.15);
+  /* Transform handled by Tailwind hover:scale-105 */
 }
 
-/* Carousel Navigation Arrows - Clean design */
-.arabictouch-carousel-left,
-.arabictouch-carousel-right {
-    background-color: var(--arabictouch-color-surface);
-    color: var(--arabictouch-color-on-surface);
-    border: 1px solid var(--arabictouch-color-outline-variant);
-    cursor: pointer;
-    transition: all 0.3s ease;
+.arabictouch-carousel-logo {
+  background-color: var(--arabictouch-color-surface-variant);
+  border: 1px solid var(--arabictouch-color-outline-variant);
+  /* Layout handled by Tailwind classes */
 }
 
-.arabictouch-carousel-left:hover,
-.arabictouch-carousel-right:hover {
-    background-color: var(--arabictouch-color-surface-variant);
-    border-color: var(--arabictouch-color-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.arabictouch-carousel-header {
+  background-color: var(--arabictouch-color-primary);
+  /* Layout handled by Tailwind classes */
 }
 
-.arabictouch-carousel-left:disabled,
-.arabictouch-carousel-right:disabled {
-    opacity: 0.3;
-    background-color: var(--arabictouch-color-surface);
-    border-color: var(--arabictouch-color-outline-variant);
+.arabictouch-carousel-name {
+  color: var(--arabictouch-color-on-primary);
+  /* Typography handled by Tailwind classes */
 }
 
-.arabictouch-carousel-left:active,
-.arabictouch-carousel-right:active {
-    transform: scale(0.95);
+
+
+/* Enhanced flip effect for Arabic theme */
+.arabictouch-carousel-flip-container:hover {
+  transform: perspective(1000px) rotateY(10deg);
+  transition: transform 0.3s ease;
 }
 
-/* Page Indicators - Simple dots */
-.arabictouch-page-indicator {
-    background-color: var(--arabictouch-color-outline);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
+/* Navigation Buttons */
+.arabictouch-carousel-nav-left,
+.arabictouch-carousel-nav-right {
+  background-color: var(--arabictouch-color-surface);
+  color: var(--arabictouch-color-on-surface);
+  border: 1px solid var(--arabictouch-color-outline-variant);
+  cursor: pointer;
+  /* Layout and transitions handled by Tailwind */
 }
 
-.arabictouch-page-indicator:hover {
-    background-color: var(--arabictouch-color-primary-light);
+.arabictouch-carousel-nav-left:hover,
+.arabictouch-carousel-nav-right:hover {
+  background-color: var(--arabictouch-color-surface-variant);
+  border-color: var(--arabictouch-color-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.arabictouch-page-indicator.active {
-    background-color: var(--arabictouch-color-primary);
+.arabictouch-carousel-nav-left:disabled,
+.arabictouch-carousel-nav-right:disabled {
+  opacity: 0.3;
+  background-color: var(--arabictouch-color-surface);
+  border-color: var(--arabictouch-color-outline-variant);
+  box-shadow: none;
+}
+
+.arabictouch-carousel-nav-left:active,
+.arabictouch-carousel-nav-right:active {
+  transform: scale(0.95);
+}
+
+/* Page Indicators */
+.arabictouch-carousel-indicator {
+  background-color: var(--arabictouch-color-outline);
+  cursor: pointer;
+  border: none;
+  /* Layout and transitions handled by Tailwind */
+}
+
+.arabictouch-carousel-indicator:hover {
+  background-color: var(--arabictouch-color-primary-light, var(--arabictouch-color-primary));
+}
+
+.arabictouch-carousel-indicator.active {
+  background-color: var(--arabictouch-color-primary);
+}
+
+/* Progress Bar */
+.arabictouch-carousel-progress {
+  background-color: var(--arabictouch-color-outline);
+  /* Layout handled by Tailwind classes */
+}
+
+.arabictouch-carousel-progress-fill {
+  background: linear-gradient(
+    90deg,
+    var(--arabictouch-color-primary),
+    var(--arabictouch-color-secondary),
+    var(--arabictouch-color-primary)
+  );
 }
 
 /* Focus states for accessibility */
-.arabictouch-carousel-left:focus,
-.arabictouch-carousel-right:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--arabictouch-color-primary-light);
-    border-color: var(--arabictouch-color-primary);
+.arabictouch-carousel-nav-left:focus,
+.arabictouch-carousel-nav-right:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--arabictouch-color-primary-light, var(--arabictouch-color-primary));
+  border-color: var(--arabictouch-color-primary);
 }
 
-.arabictouch-page-indicator:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--arabictouch-color-primary-light);
+.arabictouch-carousel-indicator:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--arabictouch-color-primary-light, var(--arabictouch-color-primary));
 }
 
-/* Loading state - Simple skeleton */
-.arabictouch-logo-card.animate-pulse {
-    background: linear-gradient(90deg, 
-        var(--arabictouch-color-surface) 25%, 
-        var(--arabictouch-color-surface-variant) 50%, 
-        var(--arabictouch-color-surface) 75%
-    );
-    background-size: 200% 100%;
-    animation: arabictouch-skeleton-pulse 1.5s infinite;
+/* Loading state - Arabic skeleton */
+.arabictouch-carousel-card.animate-pulse {
+  background: linear-gradient(90deg, 
+    var(--arabictouch-color-surface) 25%, 
+    var(--arabictouch-color-surface-variant) 50%, 
+    var(--arabictouch-color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: arabictouch-skeleton-pulse 1.5s infinite;
 }
 
 @keyframes arabictouch-skeleton-pulse {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
-/* Trust indicator styling */
-.arabictouch-trust-indicator {
-    color: var(--arabictouch-color-on-surface-variant);
-    font-weight: 500;
-    opacity: 0.8;
+/* Arabic calligraphy-inspired flowing animation */
+@keyframes arabictouch-card-flow {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% { 
+    transform: translateY(-2px) rotate(0.5deg);
+  }
 }
 
-/* Responsive Design - Mobile-first approach */
-@media (max-width: 640px) {
-    .arabictouch-carousel-left,
-    .arabictouch-carousel-right {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .arabictouch-logo-card {
-        min-height: 56px;
-        padding: 0.75rem;
-    }
-    
-    .arabictouch-page-indicator {
-        width: 6px;
-        height: 6px;
-    }
-    
-    .arabictouch-page-indicator.active {
-        width: 20px;
-    }
+.arabictouch-carousel-urgent .arabictouch-carousel-card {
+  animation: arabictouch-card-flow 4s ease-in-out infinite;
 }
 
-@media (max-width: 480px) {
-    .arabictouch-logo-card {
-        min-height: 48px;
-        padding: 0.5rem;
-    }
-    
-    .arabictouch-carousel-left,
-    .arabictouch-carousel-right {
-        width: 36px;
-        height: 36px;
-    }
+/* RTL Support */
+[dir="rtl"] .arabictouch-carousel-nav-left {
+  transform: scaleX(-1);
 }
 
-/* Large screens - Enhanced spacing */
-@media (min-width: 1024px) {
-    .arabictouch-logo-card {
-        min-height: 80px;
-        padding: 1.25rem;
-    }
-    
-    .arabictouch-carousel-left,
-    .arabictouch-carousel-right {
-        width: 48px;
-        height: 48px;
-    }
+[dir="rtl"] .arabictouch-carousel-nav-right {
+  transform: scaleX(-1);
 }
 
-/* Motion preferences - Respect user settings */
+[dir="rtl"] .arabictouch-carousel-flip-container:hover {
+  transform: perspective(1000px) rotateY(-10deg);
+}
+
+/* Motion preferences */
 @media (prefers-reduced-motion: reduce) {
-    .arabictouch-carousel-left,
-    .arabictouch-carousel-right,
-    .arabictouch-page-indicator {
-        transition: none;
-        animation: none;
-    }
-    
-    .arabictouch-carousel-left:active,
-    .arabictouch-carousel-right:active {
-        transform: none;
-    }
+  .arabictouch-carousel-card,
+  .arabictouch-carousel-nav-left,
+  .arabictouch-carousel-nav-right,
+  .arabictouch-carousel-indicator,
+  .arabictouch-carousel-flip-container {
+    transition: none;
+    animation: none;
+  }
+  
+  .arabictouch-carousel-nav-left:active,
+  .arabictouch-carousel-nav-right:active {
+    transform: none;
+  }
+  
+  .arabictouch-carousel-flip-container:hover {
+    transform: none;
+  }
 }
 
-/* High contrast mode - Better accessibility */
+/* High contrast mode */
 @media (prefers-contrast: high) {
-    .arabictouch-carousel-left,
-    .arabictouch-carousel-right {
-        border-width: 2px;
-        border-color: var(--arabictouch-color-on-surface);
-    }
-    
-    .arabictouch-page-indicator {
-        border: 2px solid var(--arabictouch-color-on-surface);
-    }
-    
-    .arabictouch-page-indicator.active {
-        background: var(--arabictouch-color-on-surface);
-        border-color: var(--arabictouch-color-primary);
-    }
-}
-
-/* RTL Support - Ensure proper visual direction */
-[dir="rtl"] .arabictouch-carousel-left {
-    /* In RTL, the left button should visually point right */
-    transform: scaleX(-1);
-}
-
-[dir="rtl"] .arabictouch-carousel-right {
-    /* In RTL, the right button should visually point left */
-    transform: scaleX(-1);
-}
-
-/* Dark mode support (if applicable) */
-@media (prefers-color-scheme: dark) {
-    .arabictouch-carousel-left,
-    .arabictouch-carousel-right {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: var(--arabictouch-color-on-surface);
-    }
-    
-    .arabictouch-carousel-left:hover,
-    .arabictouch-carousel-right:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
+  .arabictouch-carousel-nav-left,
+  .arabictouch-carousel-nav-right {
+    border-width: 2px;
+    border-color: var(--arabictouch-color-on-surface);
+  }
+  
+  .arabictouch-carousel-indicator {
+    border: 2px solid var(--arabictouch-color-on-surface);
+  }
+  
+  .arabictouch-carousel-indicator.active {
+    background: var(--arabictouch-color-on-surface);
+    border-color: var(--arabictouch-color-primary);
+  }
+  
+  .arabictouch-carousel-card {
+    border-width: 3px;
+  }
+  
+  .arabictouch-carousel-logo {
+    border-width: 2px;
+  }
 }
