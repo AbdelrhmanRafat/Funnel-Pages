@@ -1,0 +1,77 @@
+---
+// This component displays a countdown timer for the Troy theme using circular design (Variation 2).
+// It takes hours, minutes, and seconds from the API data and renders a visual timer.
+// Props:
+// - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
+import "./TroyThemeCountDown.css";
+import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+const items: Item[] = data.items ?? [];
+
+function getValue(name: string): number {
+  const item = items.find(i => i.name?.toLocaleLowerCase() === name);
+  return parseInt(item?.number || '0') || 0;
+}
+
+const hours = getValue("hours");
+const minutes = getValue("minutes");
+const seconds = getValue("seconds");
+
+const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+---
+
+<!-- Circular Countdown Timer (Variation 2) with proper spacing for fixed header -->
+<section id={FunnelTroyComponents.TroyCountdown} class="troy-section">
+  <div class="troy-countdown-container px-6 text-center">
+    <div class="troy-middle-title">
+      <h2 data-translate="countdown.offerEndsIn">
+        {isArabic ? data.title_ar : data.title_en}
+      </h2>
+    </div>
+    
+    <countdown-timer
+      class="troy-countdown-display flex justify-center gap-6 sm:gap-10 items-center my-7"
+      data-total-seconds={totalSeconds}
+    >
+      <!-- Hours display circle -->
+      <div class="troy-countdown-circle w-24 h-24 rounded-full border-4 troy-countdown-circle-primary flex flex-col justify-center items-center relative overflow-hidden">
+        <div class="troy-countdown-number text-2xl font-extrabold" data-countdown-hours>--</div>
+        <div class="troy-countdown-label text-xs font-medium" data-translate="countdown.hours">
+          {getTranslation('countdown.hours')}
+        </div>
+      </div>
+      
+      <div class="text-2xl troy-countdown-separator font-bold">:</div>
+      
+      <!-- Minutes display circle -->
+      <div class="troy-countdown-circle w-24 h-24 rounded-full border-4 troy-countdown-circle-secondary flex flex-col justify-center items-center relative overflow-hidden">
+        <div class="troy-countdown-number text-2xl font-extrabold" data-countdown-minutes>--</div>
+        <div class="troy-countdown-label text-xs font-medium" data-translate="countdown.minutes">
+          {getTranslation('countdown.minutes')}
+        </div>
+      </div>
+      
+      <div class="text-2xl troy-countdown-separator font-bold">:</div>
+      
+      <!-- Seconds display circle -->
+      <div class="troy-countdown-circle w-24 h-24 rounded-full border-4 troy-countdown-circle-tertiary flex flex-col justify-center items-center relative overflow-hidden">
+        <div class="troy-countdown-number text-2xl font-extrabold" data-countdown-seconds>--</div>
+        <div class="troy-countdown-label text-xs font-medium" data-translate="countdown.seconds">
+          {getTranslation('countdown.seconds')}
+        </div>
+      </div>
+    </countdown-timer>
+  </div>
+</section>
+
+<script>
+  import "./TroyThemeCountDown"
+</script>

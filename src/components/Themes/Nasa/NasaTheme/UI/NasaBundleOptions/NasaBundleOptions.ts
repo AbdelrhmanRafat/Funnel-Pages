@@ -151,7 +151,6 @@ class OfferSelector extends HTMLElement {
 
     this.dispatchSelectionStartEvent(selectedRadio, items, selectedOffer);
     this.updateBundleOptionsState(items, selectedOffer);
-    this.saveToStorage();
     this.initializeCustomOptionBundles(items);
     this.updateUIVisibility(selectedRadio);
     this.dispatchSelectionCompleteEvent(selectedRadio, items, selectedOffer);
@@ -190,16 +189,7 @@ class OfferSelector extends HTMLElement {
     });
   }
 
-  private saveToStorage(): void {
-    if (!this.config.enableStorage) return;
-
-    try {
-      const updatedselectedOffer = this.bundleOptionsSubject.getState().selectedOffer;
-      localStorage.setItem(this.config.storageKey, JSON.stringify(updatedselectedOffer));
-    } catch (error) {
-      console.warn('OfferSelector: Failed to save to localStorage', error);
-    }
-  }
+  
 
   private initializeCustomOptionBundles(items: number): void {
     this.customOptionBundlesSubject.initializeBundle(items);
@@ -300,15 +290,7 @@ class OfferSelector extends HTMLElement {
     return true;
   }
 
-  public clearStorage(): void {
-    if (!this.config.enableStorage) return;
-
-    try {
-      localStorage.removeItem(this.config.storageKey);
-    } catch (error) {
-      console.warn('OfferSelector: Failed to clear localStorage', error);
-    }
-  }
+  
 
   public setStorageEnabled(enabled: boolean): void {
     this.config.enableStorage = enabled;

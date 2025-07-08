@@ -1,4 +1,6 @@
-/* === Product Features Section === */
+/* === NASA Product Features Section === */
+
+/* Original feature card styles (for other variations if needed) */
 .nasa-feature-card {
     background-color: var(--nasa-color-surface);
     border: 1px solid var(--nasa-color-outline-variant);
@@ -42,15 +44,90 @@
     color: var(--nasa-color-on-surface-variant);
 }
 
+/* === Variation 6: Minimal Icon-Only Layout === */
+
+/* NASA Theme Background Color Classes */
+.nasa-primary-bg {
+    background-color: var(--nasa-color-primary);
+}
+
+.nasa-secondary-bg {
+    background-color: var(--nasa-color-secondary);
+}
+
+.nasa-tertiary-bg {
+    background-color: var(--nasa-color-tertiary);
+}
+
+.nasa-info-bg {
+    background-color: var(--nasa-color-info);
+}
+
+.nasa-success-bg {
+    background-color: var(--nasa-color-success);
+}
+
+.nasa-warning-bg {
+    background-color: var(--nasa-color-warning);
+}
+
+.nasa-error-bg {
+    background-color: var(--nasa-color-error);
+}
+
+/* NASA Delivery/Feature Text Classes */
+.nasa-delivery-title {
+    color: var(--nasa-color-on-surface);
+}
+
+.nasa-delivery-subtitle {
+    color: var(--nasa-color-on-surface-variant);
+}
+
+/* Minimal icon container for Variation 6 */
+.nasa-feature-icon-minimal {
+    transition: transform 0.3s ease;
+}
+
+.nasa-feature-icon-minimal:hover {
+    transform: scale(1.1);
+}
+
+.nasa-feature-icon-minimal .nasa-feature-icon {
+    color: var(--nasa-color-on-primary);
+}
+
+/* Section header styling */
+.nasa-section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--nasa-header-gap);
+    margin-bottom: var(--nasa-header-margin-bottom);
+    justify-content: center;
+}
+
+.nasa-section-header h5 {
+    font-size: var(--nasa-header-size);
+    font-weight: var(--nasa-header-weight);
+    color: var(--nasa-color-on-surface);
+    margin: 0;
+}
+
+.nasa-section-header .fill-current {
+    color: var(--nasa-color-primary);
+}
+
 /* === Accessibility === */
 @media (prefers-reduced-motion: reduce) {
     .nasa-feature-card,
-    .nasa-feature-icon-container {
+    .nasa-feature-icon-container,
+    .nasa-feature-icon-minimal {
         transition: none;
     }
     
     .nasa-feature-card:hover,
-    .nasa-feature-card:hover .nasa-feature-icon-container {
+    .nasa-feature-card:hover .nasa-feature-icon-container,
+    .nasa-feature-icon-minimal:hover {
         transform: none;
     }
 }
@@ -59,4 +136,30 @@
 .nasa-feature-card:focus-within {
     outline: 2px solid var(--nasa-color-primary);
     outline-offset: 2px;
+}
+
+.nasa-feature-icon-minimal:focus-within {
+    outline: 2px solid var(--nasa-color-primary);
+    outline-offset: 2px;
+    border-radius: 1rem;
+}
+
+/* Responsive adjustments for Variation 6 */
+@media (max-width: 768px) {
+    .nasa-section {
+        padding: 1rem;
+    }
+    
+    .nasa-feature-icon-minimal {
+        width: 3.5rem; /* Slightly smaller on mobile */
+        height: 3.5rem;
+    }
+    
+    .nasa-delivery-title {
+        font-size: 0.75rem; /* text-xs */
+    }
+    
+    .nasa-delivery-subtitle {
+        font-size: 0.625rem; /* even smaller */
+    }
 }

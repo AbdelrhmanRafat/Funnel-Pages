@@ -1,0 +1,25 @@
+---
+import "./troyThemeTextBar.css";
+import type { BlockData } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+---
+
+<section 
+  id={FunnelTroyComponents.TroyTextBar} 
+  class="troy-section py-12"
+>
+  <div class="troy-text-bar-container flex justify-center items-center">
+    <div class="troy-text-bar-animated-button">
+      <span class="troy-text-bar-title">
+        {isArabic ? data.title_ar : data.title_en}
+      </span>
+    </div>
+  </div>
+</section>

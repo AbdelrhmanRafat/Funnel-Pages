@@ -1,0 +1,64 @@
+/* TroyFaq.css - Enhanced version */
+/* === Classic FAQ Component === */
+.troy-faq-item {
+    background-color: var(--troy-color-surface);
+    border-radius: var(--troy-section-radius);
+    border: 1px solid var(--troy-color-outline-variant);
+    transition: border-color 0.2s ease;
+}
+
+/* Add focus states for accessibility */
+.troy-faq-item:focus-within {
+    border-color: var(--troy-color-primary);
+    outline: 2px solid var(--troy-color-primary);
+    outline-offset: 2px;
+}
+
+.troy-faq-question {
+    transition: background-color 0.2s ease;
+}
+
+.troy-faq-question:hover {
+    background-color: var(--troy-color-surface-variant);
+}
+
+.troy-faq-question:focus {
+    background-color: var(--troy-color-surface-variant);
+    outline: none; /* Handled by parent */
+}
+
+.troy-faq-question-text {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-faq-icon {
+    color: var(--troy-color-on-surface-variant);
+    transition: transform 0.3s ease, color 0.2s ease;
+}
+
+/* Add open state styling */
+.troy-faq-item[open] .troy-faq-icon {
+    color: var(--troy-color-primary);
+}
+
+.troy-faq-answer {
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.troy-faq-answer.open {
+    padding-bottom: 1.5rem;
+}
+
+.troy-faq-answer-content {
+    color: var(--troy-color-on-surface-variant);
+    line-height: 1.6;
+}
+
+/* Add animation polish */
+@media (prefers-reduced-motion: reduce) {
+    .troy-faq-icon,
+    .troy-faq-answer,
+    .troy-faq-question {
+        transition: none;
+    }
+}

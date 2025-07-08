@@ -1,0 +1,98 @@
+/* === Desktop Navigation === */
+.troy-desktop-nav {
+  border-top: 1px solid var(--troy-color-outline-variant);
+}
+
+/* Navigation links */
+.troy-desktop-nav-link {
+  background-color: var(--troy-color-surface-variant);
+  color: var(--troy-color-on-surface-variant);
+  text-decoration: none;
+  border: 1px solid var(--troy-color-outline-variant);
+}
+
+.troy-desktop-nav-link:hover {
+  background-color: var(--troy-color-primary);
+  color: var(--troy-color-on-primary);
+  border-color: var(--troy-color-primary);
+  box-shadow: var(--troy-section-shadow);
+}
+
+.troy-desktop-nav-link:focus {
+  outline: 2px solid var(--troy-color-primary);
+  outline-offset: 2px;
+}
+
+/* Navigation items */
+.troy-nav-item {
+  transition: all 0.3s ease;
+}
+
+/* === Overflow System === */
+
+/* Overflow toggle button */
+.troy-overflow-toggle {
+  background-color: var(--troy-color-surface-variant);
+  border: 1px solid var(--troy-color-outline-variant);
+  color: var(--troy-color-on-surface-variant);
+}
+
+.troy-overflow-toggle:hover {
+  background-color: var(--troy-color-primary);
+  border-color: var(--troy-color-primary);
+  color: var(--troy-color-on-primary);
+}
+
+.troy-overflow-toggle:focus {
+  outline: 2px solid var(--troy-color-primary);
+  outline-offset: 2px;
+}
+
+/* Overflow dropdown */
+.troy-overflow-dropdown {
+  background-color: var(--troy-color-surface);
+  border: 1px solid var(--troy-color-outline);
+  box-shadow: var(--troy-section-shadow);
+}
+
+/* Overflow dropdown links */
+.troy-overflow-dropdown-link {
+  color: var(--troy-color-on-surface);
+  text-decoration: none;
+}
+
+.troy-overflow-dropdown-link:hover {
+  background-color: var(--troy-color-surface-variant);
+  color: var(--troy-color-on-surface);
+}
+
+.troy-overflow-dropdown-link:focus {
+  outline: 2px solid var(--troy-color-primary);
+  outline-offset: 2px;
+  background-color: var(--troy-color-surface-variant);
+}
+
+/* Navigation dots indicator */
+.troy-nav-dots {
+  color: var(--troy-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .troy-desktop-nav-link,
+  .troy-nav-item,
+  .troy-overflow-toggle {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .troy-desktop-nav-link {
+    border: 2px solid var(--troy-color-outline);
+  }
+  
+  .troy-overflow-dropdown {
+    border: 2px solid var(--troy-color-outline);
+  }
+}

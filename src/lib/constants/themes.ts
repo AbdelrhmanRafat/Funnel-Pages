@@ -50,6 +50,47 @@ export enum ClassicProductInfoComponents {
   coupon = "coupon" 
 }
 
+// Defines the component names for the Troy theme.
+export enum FunnelTroyComponents {
+  TroyHeader = "troy_header",
+  TroyFormFields = "troy_form_fields",
+  TroyCountdown = "troy_countdown",
+  troyTodayStatistics = "troy_today_statistics",
+  troyLogosCarousel = "troy_logos_carousel",
+  TroyRates = "troy_rates",
+  TroyProductFunnel = "troy_product_funnel",
+  TroyFooter = "troy_footer",
+  TroyOrderConfirmationNotice = "troy_order_confirmation_notice",
+  TroyOrderThroughWhatsapp = "troy_order_through_whatsapp",
+  TroyFaq = "troy_faq",
+  TroyVisitors = "troy_visitors",
+  TroyProductPreview = "troy_product_preview",
+  TroyProductUsage = "troy_product_usage",
+  TroyProductFeatures = "troy_product_features",
+  TroyDeliveryFeatures = "troy_delivery_features",
+  TroyButtonWithLink = "troy_button_with_link",
+  TroyCoupon = "troy_coupon",
+  TroyReviews = "troy_Reviews",
+  TroyTextBar = "troy_TextBar",
+  TroyGallery = "troy_Gallery",
+  Troy_Before_After = "troy_before_&_after",
+  TroyImageTextOverLay = "troy_Image_Text_overlay",
+  TroyImageTextBeside = "troy_Image_Text_beside"
+}
+
+// Define the available product info section components for the Troy theme
+export enum TroyProductInfoComponents {
+  Rating = "rating",
+  ProductHeader = "productHeader",
+  ProductDescription = "productDescription",
+  PurchaseOptions = "purchaseOptions",
+  FormFields = "formFields",
+  OrderConfirmation = "orderConfirmation",
+  OrderThroghWhatsapp = "orderThroghWhatsapp",
+  Visitores = "visitors",
+  coupon = "coupon" 
+}
+
 // Defines the component names for the NASA theme.
 export enum FunnelNasaComponents {
   NasaHeader = "nasa_header",

@@ -1,0 +1,27 @@
+/* === Classic Footer Component === */
+.troy-footer {
+    border-top-color: var(--troy-color-outline);
+}
+
+.troy-footer-title {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-footer-link {
+    color: var(--troy-color-on-surface);
+    transition: color 0.2s ease;
+}
+
+.troy-footer-link:hover {
+    color: var(--troy-color-primary);
+}
+
+.troy-footer-social-link {
+    color: var(--troy-color-on-surface);
+    transition: all 0.2s ease;
+}
+
+.troy-footer-social-link:hover {
+    color: var(--troy-color-primary);
+    transform: scale(1.1);
+}

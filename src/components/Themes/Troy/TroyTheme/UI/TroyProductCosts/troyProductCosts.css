@@ -1,0 +1,130 @@
+/* === Product Costs Section === */
+.troy-product-costs-container {
+    background-color: var(--troy-color-surface);
+    padding: var(--troy-section-padding);
+    border-radius: var(--troy-section-radius);
+    overflow: hidden;
+    border: 1px solid var(--troy-color-outline-variant);
+}
+
+.troy-product-costs-body {
+    border-bottom: 1px solid var(--troy-color-outline);
+}
+
+.troy-product-costs-row {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--troy-color-outline-variant);
+    transition: background-color 0.2s ease;
+}
+
+.troy-product-costs-row:hover {
+    background-color: var(--troy-color-surface-variant);
+}
+
+.troy-product-costs-row:last-child {
+    border-bottom: none;
+}
+
+.troy-product-costs-label {
+    color: var(--troy-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.troy-product-costs-value {
+    color: var(--troy-color-on-surface);
+    font-weight: 600;
+}
+
+.troy-product-costs-discount {
+    color: var(--troy-color-success);
+    font-weight: 600;
+}
+
+.troy-product-costs-total-section {
+    background-color: var(--troy-color-primary-light);
+    padding: 1rem 1.5rem;
+    border-top: 2px solid var(--troy-color-primary);
+    margin-top: 0.75rem;
+    border-radius: var(--troy-section-radius);
+}
+
+.troy-product-costs-total-label {
+    color: var(--troy-color-on-primary);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.troy-product-costs-total-value {
+    color: var(--troy-color-on-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .troy-product-costs-container {
+        padding: 0.75rem;
+    }
+    
+    .troy-product-costs-total-section {
+        padding: 0.75rem 1rem;
+    }
+    
+    .troy-product-costs-total-label,
+    .troy-product-costs-total-value {
+        font-size: 1rem;
+    }
+}
+
+/* === Loading State === */
+.troy-product-costs-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.troy-product-costs-loading .troy-product-costs-value,
+.troy-product-costs-loading .troy-product-costs-discount,
+.troy-product-costs-loading .troy-product-costs-total-value {
+    background-color: var(--troy-color-surface-variant);
+    color: transparent;
+    border-radius: 4px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* === Error State === */
+.troy-product-costs-error {
+    border-color: var(--troy-color-error);
+    background-color: var(--troy-color-error-light);
+}
+
+.troy-product-costs-error .troy-product-costs-label,
+.troy-product-costs-error .troy-product-costs-value {
+    color: var(--troy-color-on-error);
+}
+
+/* === Focus States for Accessibility === */
+.troy-product-costs-row:focus-within {
+    outline: 2px solid var(--troy-color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .troy-product-costs-container {
+        border: 2px solid var(--troy-color-outline);
+    }
+    
+    .troy-product-costs-total-section {
+        border-top: 3px solid var(--troy-color-primary);
+    }
+}

@@ -1,0 +1,83 @@
+/* === Classic Reviews Component === */
+.troy-review-card {
+    background-color: var(--troy-color-surface-variant);
+    border-radius: var(--troy-section-radius);
+    border-left-color: var(--troy-color-primary);
+    padding: var(--troy-section-padding);
+    box-shadow: var(--troy-section-shadow);
+    
+    /* Add these enhancements */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+/* Add hover effect */
+.troy-review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--troy-section-shadow-hover, 0 8px 25px rgba(0,0,0,0.1));
+}
+
+/* Add focus-within for accessibility */
+.troy-review-card:focus-within {
+    outline: 2px solid var(--troy-color-primary);
+    outline-offset: 2px;
+}
+
+.troy-review-description {
+    color: var(--troy-color-on-surface);
+    /* Add quotation marks for better visual hierarchy */
+}
+
+.troy-review-description::before {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--troy-color-primary);
+    position: absolute;
+    top: var(--troy-section-padding);
+    left: calc(var(--troy-section-padding) - 0.5rem);
+    line-height: 1;
+}
+
+.troy-review-description::after {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--troy-color-primary);
+}
+
+.troy-review-name {
+    color: var(--troy-color-primary);
+}
+
+.troy-review-author-image {
+    background-color: var(--troy-color-primary);
+    box-shadow: var(--troy-section-shadow);
+    /* Add smooth image loading */
+    overflow: hidden;
+}
+
+.troy-review-author-image img {
+    transition: transform 0.3s ease;
+}
+
+.troy-review-author-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Add responsive improvements */
+@media (max-width: 640px) {
+    .troy-review-card {
+        padding: calc(var(--troy-section-padding) * 0.75);
+    }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .troy-review-card,
+    .troy-review-author-image img {
+        transition: none;
+    }
+    
+    .troy-review-card:hover {
+        transform: none;
+    }
+}

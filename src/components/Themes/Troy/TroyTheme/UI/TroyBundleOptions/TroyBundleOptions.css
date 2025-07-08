@@ -1,0 +1,67 @@
+/* === Bundle Options Section === */
+.troy-bundle-options-title {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-bundle-options-group {
+    border-color: var(--troy-color-primary);
+}
+
+.troy-bundle-options-label {
+    transition: all 0.3s ease;
+    border-radius: var(--troy-section-radius);
+    background-color: var(--troy-color-surface);
+}
+
+.troy-bundle-options-label:hover {
+    box-shadow: var(--troy-section-shadow);
+}
+
+.troy-bundle-options-label:has(:checked) {
+    border-color: var(--troy-color-primary);
+    background-color: var(--troy-color-primary-light);
+    background-color: rgba(79, 182, 172, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.troy-bundle-options-option-title {
+    color: var(--troy-color-on-surface);
+}
+
+.troy-bundle-options-option-details {
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-bundle-options-unit-badge {
+    background-color: var(--troy-color-surface-variant);
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-bundle-options-price-info {
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-bundle-options-final-price {
+    color: var(--troy-color-primary);
+}
+
+.troy-bundle-options-price-discount {
+    color: var(--troy-color-success);
+}
+
+.troy-bundle-options-price-regular {
+    color: var(--troy-color-primary);
+}
+
+.troy-bundle-options-original-price {
+    color: var(--troy-color-on-surface-variant);
+}
+
+.troy-bundle-options-discount-badge {
+    background-color: var(--troy-color-success-light);
+    color: var(--troy-color-on-success);
+}
+
+.troy-bundle-options-discount-icon {
+    color: var(--troy-color-success);
+}

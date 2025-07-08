@@ -1,0 +1,51 @@
+/* === Rates Section Classes === */
+.troy-rates {
+    font-size: 1.5rem;
+    color: var(--troy-color-on-surface);
+}
+
+.troy-rating-display {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 600;
+}
+
+.troy-rating-star-full {
+    color: var(--troy-color-warning);
+    font-size: 1.25rem;
+}
+
+.troy-rating-star-half {
+    color: var(--troy-color-warning);
+    font-size: 1.25rem;
+}
+
+.troy-rating-star-empty {
+    color: var(--troy-color-outline);
+    font-size: 1.25rem;
+}
+
+.troy-rating-number {
+    color: var(--troy-color-on-surface-variant);
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    font-weight: 500;
+}
+
+.troy-rating-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.troy-rating-label {
+    color: var(--troy-color-on-surface-variant);
+    display: inline-block;
+    margin: 0;
+}
+.troy-rating-star-full {
+    color: var(--troy-color-warning);
+    font-size: 1.25rem;
+  }
+  

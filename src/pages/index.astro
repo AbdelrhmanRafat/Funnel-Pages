@@ -7,6 +7,7 @@ import { FunnelDataType, getFunnelPage } from "../lib/api/funnel";
 import { Theme } from "../lib/constants/themes";
 import type { FunnelRes } from "../lib/api/types";
 import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
+import TroyComponent from "../components/Themes/Troy/TroyComponent.astro";
 
 // 1. Get 'type' from query param
 const urlParams = Astro.url.searchParams;
@@ -47,6 +48,8 @@ const tiktokPixelID = funnelPage.data.tiktokPixelId;
           return <ClassicComponent funnelPage={funnelPage.data} />;
           case Theme.Nasa:
           return <NasaComponent funnelPage={funnelPage.data} />;
+          case Theme.Troy:
+          return <TroyComponent funnelPage={funnelPage.data} />;
         default:
           return <p>Theme not found</p>;
       }

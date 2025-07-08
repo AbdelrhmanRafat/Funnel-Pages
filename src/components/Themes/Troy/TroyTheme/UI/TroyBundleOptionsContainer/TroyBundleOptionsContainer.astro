@@ -1,0 +1,229 @@
+---
+import "./TroyBundleOptionsContainer.css";
+import type { CustomOptions, Product } from "../../../../../../lib/api/types";
+import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
+
+const product: Product = Astro.props.product;
+const panelIndex: number = Astro.props["panel-index"] || 1;
+const isHaveVariant = product.is_have_variant;
+const customOptions: CustomOptions = product.custom_options;
+const nOfOptions: number = Object.keys(customOptions).length;
+// Component configuration
+const allowMultipleSelection = Astro.props.allowMultipleSelection ?? false;
+const showSelectionIndicators = true;
+const enableAutoSelect = Astro.props.enableAutoSelect ?? false;
+
+// 🆕 Clean data extraction
+let optionData: any = null;
+const skuNoVariant = product.sku_code;
+
+if (isHaveVariant === "true" && customOptions) {
+  // Extract options in original JSON order
+  const optionEntries = Object.entries(customOptions);
+
+  const firstOption = optionEntries[0]
+    ? {
+        key: optionEntries[0][0],
+        title: optionEntries[0][0],
+        values: optionEntries[0][1],
+      }
+    : null;
+
+  const secondOption = optionEntries[1]
+    ? {
+        key: optionEntries[1][0],
+        title: optionEntries[1][0],
+        values: optionEntries[1][1],
+      }
+    : null;
+
+  const colorDetection = detectColorOption(firstOption, secondOption);
+
+  // 🆕 Build associations for filtering (first → second only)
+  const associations: any = {};
+  if (firstOption && secondOption) {
+    firstOption.values.forEach((firstValue : any) => {
+      const availableSecondOptions =
+        firstValue.available_options?.[secondOption.key];
+      if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
+        associations[firstValue.value] = availableSecondOptions.map((item) => ({
+          value: item.value,
+          sku_id: item.sku_id,
+          hex: item.hex,
+        }));
+      }
+    });
+  }
+
+  // 🆕 Create clean data structure
+  optionData = {
+    firstOption: firstOption
+      ? {
+          ...firstOption,
+          hasColors: colorDetection.firstHasColors,
+        }
+      : null,
+    secondOption: secondOption
+      ? {
+          ...secondOption,
+          hasColors: colorDetection.secondHasColors,
+        }
+      : null,
+    associations, // firstOption.value → secondOption items with sku_id
+  };
+}
+---
+
+<div id="troy-bundle-options-container" class="troy-bundle-options-container">
+  <troy-select-options-bundles
+    data-options-panel-index={panelIndex}
+    data-options-allow-multiple={allowMultipleSelection}
+    data-options-show-indicators={showSelectionIndicators}
+    data-options-auto-select={enableAutoSelect}
+    data-options-is-variant={isHaveVariant}
+    data-option-data={optionData ? JSON.stringify(optionData) : ""}
+    data-sku-no-variant={skuNoVariant}
+    data-no-of-options={nOfOptions}
+  >
+    <div class="troy-bundle-options-container-panel p-4 border">
+      <!-- Header with Selection Indicators -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 pb-3">
+        <div class="troy-bundle-options-container-header font-bold text-lg sm:text-xl">
+          <p class="inline" data-translate="dynamicPanel.selectOptionsForProduct">
+          </p>
+          <span data-options-panel-index-display>{panelIndex}</span>
+        </div>
+
+        {
+          showSelectionIndicators && optionData && (
+            <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              {optionData.firstOption && (
+                <div class="troy-bundle-options-container-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
+                  <span>{optionData.firstOption.title}</span>
+                  <span data-selected-first-option="" />
+                </div>
+              )}
+              {optionData.secondOption && (
+                <div class="troy-bundle-options-container-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
+                  <span>{optionData.secondOption.title}</span>
+                  <span data-selected-second-option="" />
+                </div>
+              )}
+            </div>
+          )
+        }
+      </div>
+      <div class="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6 md:gap-0">
+        {
+          optionData?.firstOption && (
+            <div class="select-option-section md:w-1/2 space-y-2">
+              <p class="troy-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
+                {optionData.firstOption.title}
+              </p>
+
+              {optionData.firstOption.hasColors ? (
+                /* Color options with swatches */
+                <div class="flex flex-wrap justify-start content-center gap-2">
+                  {optionData.firstOption.values.map((option : any, index : number) => (
+                    <div
+                      class="troy-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                      data-option-type="first"
+                      data-option-value={option.value}
+                      data-option-index={index}
+                    >
+                      <div
+                        class="troy-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                        style={`background-color: ${option.hex || "#ccc"}`}
+                      />
+                      <span class="troy-bundle-options-container-color-name text-xs sm:text-sm text-center">
+                        {option.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                /* Text-only options */
+                <div class="md:w-full grid grid-cols-3 gap-2 sm:gap-4 p-1">
+                  {optionData.firstOption.values.map((option : any, index : number) => (
+                    <div
+                      class="troy-bundle-options-container-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                      data-option-type="first"
+                      data-option-value={option.value}
+                      data-option-index={index}
+                    >
+                      {option.value}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )
+        }
+
+        {/* Second Option Rendering */}
+        {
+          optionData?.secondOption && (
+            <div class="md:w-1/2 select-option-section space-y-2">
+              <p class="troy-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
+                {optionData.secondOption.title}
+              </p>
+
+              {optionData.secondOption.hasColors ? (
+                /* Color options with swatches */
+                <div class="flex flex-wrap justify-start content-center gap-2">
+                  {optionData.secondOption.values.map((option : any, index : number) => (
+                    <div
+                      class="troy-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"
+                      data-option-type="second"
+                      data-option-value={option.value}
+                      data-option-index={index}
+                    >
+                      <div
+                        class="troy-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+                        style={`background-color: ${option.hex || "#ccc"}`}
+                      />
+                      <span class="troy-bundle-options-container-color-name text-xs sm:text-sm text-center">
+                        {option.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                /* Text-only options */
+                <div class="w-full grid grid-cols-3 gap-2 p-1">
+                  {optionData.secondOption.values.map((option : any, index : number) => (
+                    <div
+                      class="troy-bundle-options-container-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
+                      data-option-type="second"
+                      data-option-value={option.value}
+                      data-option-index={index}
+                    >
+                      {option.value}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )
+        }
+
+        {/* Non-variant fallback */}
+        {
+          !isHaveVariant && (
+            <div class="select-option-section space-y-2">
+              <p class="troy-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
+                Single Product
+              </p>
+              <div class="py-2 px-4 border rounded-lg bg-gray-50">
+                <span class="text-sm">SKU: {skuNoVariant}</span>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </troy-select-options-bundles>
+</div>
+<script>
+  import "./TroyBundleOptionsContainer";
+</script>

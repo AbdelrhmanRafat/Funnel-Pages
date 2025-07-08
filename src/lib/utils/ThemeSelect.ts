@@ -1,5 +1,5 @@
 // This file contains functions to convert theme strings to `Theme` enum values and to get theme-specific component names.
-import { FunnelClassicComponents, FunnelNasaComponents, Theme } from "../constants/themes";
+import { FunnelClassicComponents, FunnelNasaComponents, FunnelTroyComponents, Theme } from "../constants/themes";
 
 // Converts a theme string to a Theme enum value.
 export function getThemeFromString(themeName: string): Theme | undefined {
@@ -75,6 +75,62 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
   }
 }
 
+// Gets the available components for the Troy theme.
+export function getTroyThemeComponent(name: string): FunnelTroyComponents | undefined {
+  switch (name.toLowerCase()) {
+    case "troy_header":
+      return FunnelTroyComponents.TroyHeader;
+    case "troy_form_fields":
+      return FunnelTroyComponents.TroyFormFields;
+    case "troy_countdown":
+      return FunnelTroyComponents.TroyCountdown;
+    case "troy_today_statistics":
+      return FunnelTroyComponents.troyTodayStatistics;
+    case "troy_logos_carousel":
+      return FunnelTroyComponents.troyLogosCarousel;
+    case "troy_rates":
+      return FunnelTroyComponents.TroyRates;
+    case "troy_visitors":
+      return FunnelTroyComponents.TroyVisitors;
+    case "troy_product_funnel":
+      return FunnelTroyComponents.TroyProductFunnel;
+    case "troy_footer":
+      return FunnelTroyComponents.TroyFooter;
+    case "troy_order_confirmation_notice":
+      return FunnelTroyComponents.TroyOrderConfirmationNotice;
+    case "troy_order_through_whatsapp":
+      return FunnelTroyComponents.TroyOrderThroughWhatsapp;
+    case "troy_faq":
+      return FunnelTroyComponents.TroyFaq;
+    case "troy_product_preview":
+      return FunnelTroyComponents.TroyProductPreview;
+    case "troy_product_usage":
+      return FunnelTroyComponents.TroyProductUsage;
+    case "troy_product_features":
+      return FunnelTroyComponents.TroyProductFeatures;
+    case "troy_delivery_features":
+      return FunnelTroyComponents.TroyDeliveryFeatures;
+    case "troy_button_with_link":
+      return FunnelTroyComponents.TroyButtonWithLink;
+    case "troy_coupon":
+      return FunnelTroyComponents.TroyCoupon;
+    case "troy_reviews":
+      return FunnelTroyComponents.TroyReviews;
+    case "troy_textbar":
+      return FunnelTroyComponents.TroyTextBar;
+    case "troy_image_text_overlay":
+      return FunnelTroyComponents.TroyImageTextOverLay;
+    case "troy_image_text_beside":
+      return FunnelTroyComponents.TroyImageTextBeside;
+    case "troy_before_&_after":
+      return FunnelTroyComponents.Troy_Before_After;
+    case "troy_gallery":
+      return FunnelTroyComponents.TroyGallery;
+    default:
+      return undefined;
+  }
+}
+
 // Gets the available components for the Nasa theme.
 export function getNasaThemeComponent(name: string): FunnelNasaComponents | undefined {
   switch (name.toLowerCase()) {
@@ -135,11 +191,13 @@ export function getNasaThemeComponent(name: string): FunnelNasaComponents | unde
 export function getThemeComponent(
   themeName: string,
   componentName: string
-): FunnelClassicComponents | FunnelNasaComponents | undefined {
+): FunnelClassicComponents | FunnelNasaComponents | FunnelTroyComponents | undefined {
   const theme = getThemeFromString(themeName);
   switch (theme) {
     case Theme.Classic:
       return getClassicThemeComponent(componentName);
+    case Theme.Troy:
+      return getTroyThemeComponent(componentName);
     case Theme.Nasa:
       return getNasaThemeComponent(componentName);
     default:

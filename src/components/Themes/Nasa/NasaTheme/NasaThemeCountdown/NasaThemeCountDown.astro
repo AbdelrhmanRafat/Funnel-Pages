@@ -1,5 +1,5 @@
 ---
-// This component displays a countdown timer for the Classic theme.
+// This component displays a countdown timer for the NASA theme using Variation 6 (Minimal Inline Style).
 // It takes hours, minutes, and seconds from the API data and renders a visual timer.
 // Props:
 // - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
@@ -15,6 +15,7 @@ const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const items: Item[] = data.items ?? [];
+
 function getValue(name: string): number {
   const item = items.find(i => i.name?.toLocaleLowerCase() === name);
   return parseInt(item?.number || '0') || 0;
@@ -27,40 +28,43 @@ const seconds = getValue("seconds");
 const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 ---
 
-<!-- Elegant Countdown Timer with proper spacing for fixed header -->
+<!-- Minimal Inline Style Countdown Timer (Variation 6) -->
 <section id={FunnelNasaComponents.NasaCountdown} class="nasa-section">
   <div class="nasa-countdown-container px-6 text-center">
     <div class="nasa-middle-title">
-    <h2 data-translate="countdown.offerEndsIn">
-     {isArabic ? data.title_ar : data.title_en}
-    </h2>
+      <h2 data-translate="countdown.offerEndsIn">
+        {isArabic ? data.title_ar : data.title_en}
+      </h2>
     </div>
-             
+    
     <countdown-timer
-      class="nasa-countdown-display flex justify-center gap-4 sm:gap-8 items-center my-7"
+      class="nasa-countdown-display my-7"
       data-total-seconds={totalSeconds}
     >
-      {/* Hours display block */}
-      <div class="nasa-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
-        <div class="nasa-countdown-number text-4xl font-extrabold" data-countdown-hours>--</div>
-        <div class="nasa-countdown-label text-sm font-serif" data-translate="countdown.hours">
-          {getTranslation('countdown.hours')}
+      <div class="nasa-countdown-inline-container">
+        <div class="nasa-countdown-inline-item">
+          <span class="nasa-countdown-number" data-countdown-hours>--</span>
+          <span class="nasa-countdown-label" data-translate="countdown.hours">
+            {getTranslation('countdown.hours')}
+          </span>
         </div>
-      </div>
-                   
-      {/* Minutes display block */}
-      <div class="nasa-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
-        <div class="nasa-countdown-number text-4xl font-extrabold" data-countdown-minutes>--</div>
-        <div class="nasa-countdown-label text-sm font-serif" data-translate="countdown.minutes">
-          {getTranslation('countdown.minutes')}
+        
+        <div class="nasa-countdown-separator"></div>
+        
+        <div class="nasa-countdown-inline-item">
+          <span class="nasa-countdown-number" data-countdown-minutes>--</span>
+          <span class="nasa-countdown-label" data-translate="countdown.minutes">
+            {getTranslation('countdown.minutes')}
+          </span>
         </div>
-      </div>
-                   
-      {/* Seconds display block */}
-      <div class="nasa-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
-        <div class="nasa-countdown-number text-4xl font-extrabold" data-countdown-seconds>--</div>
-        <div class="nasa-countdown-label text-sm font-serif" data-translate="countdown.seconds">
-          {getTranslation('countdown.seconds')}
+        
+        <div class="nasa-countdown-separator"></div>
+        
+        <div class="nasa-countdown-inline-item">
+          <span class="nasa-countdown-number" data-countdown-seconds>--</span>
+          <span class="nasa-countdown-label" data-translate="countdown.seconds">
+            {getTranslation('countdown.seconds')}
+          </span>
         </div>
       </div>
     </countdown-timer>
@@ -68,5 +72,5 @@ const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 </section>
 
 <script>
-       import "./NasaThemeCountDown"
+  import "./NasaThemeCountDown"
 </script>

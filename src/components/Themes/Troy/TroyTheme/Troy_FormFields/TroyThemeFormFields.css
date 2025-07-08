@@ -1,0 +1,210 @@
+/* === Classic Form Components === */
+
+/* Main form container */
+.troy-form {
+    background-color: var(--troy-color-surface);
+    border-radius: var(--troy-section-radius);
+}
+
+/* Form title styling */
+.troy-form-title {
+    color: var(--troy-color-on-surface);
+}
+
+/* Section headers within form */
+.troy-form-section-title {
+    color: var(--troy-color-on-surface);
+}
+
+/* Improved Input Group */
+.troy-form-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Input field styling */
+.troy-form-input {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--troy-color-outline);
+    border-radius: 12px;
+    color: var(--troy-color-on-surface);
+    background-color: var(--troy-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Floating label styling */
+.troy-form-label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--troy-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--troy-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Focus and valid states for input */
+.troy-form-input:focus,
+.troy-form-input:valid {
+    border-color: var(--troy-color-primary);
+    box-shadow: var(--troy-section-shadow);
+}
+
+/* Floating label animation */
+.troy-form-input:focus~.troy-form-label,
+.troy-form-input:valid~.troy-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--troy-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.troy-form-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--troy-color-error);
+    min-height: 1.25rem;
+}
+
+
+
+.troy-form-input.text-right~.troy-form-label {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+.troy-form-input.text-left~.troy-form-label {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.troy-form-input.text-left:focus~.troy-form-label,
+.troy-form-input.text-left:valid~.troy-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+.troy-form-input.text-left:focus~.troy-form-label,
+.troy-form-input.text-left:valid~.troy-form-label {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+
+
+/* Payment and delivery option containers */
+.troy-form-payment-option {
+    padding: 0.75rem;
+    /* Tailwind: p-3 */
+    border: 1px solid var(--troy-color-outline);
+    border-radius: 0.5rem;
+    /* Tailwind: rounded-lg */
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Hover state for payment options */
+.troy-form-payment-option:hover {
+    background-color: var(--troy-color-surface-variant);
+    border-color: var(--troy-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.troy-form-payment-option:focus-within {
+    border-color: var(--troy-color-primary);
+    outline: 2px solid var(--troy-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.troy-form-payment-option-label {
+    display: block;
+    color: var(--troy-color-on-surface);
+    cursor: pointer;
+}
+
+/* Payment option descriptions */
+.troy-form-payment-option-description {
+    display: block;
+    color: var(--troy-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.troy-form-radio {
+    accent-color: var(--troy-color-primary);
+    border-color: var(--troy-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator (if used) */
+.troy-form-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--troy-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Radio dot inside custom indicator */
+.troy-form-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.troy-form-payment-option input[type="radio"]:checked+.troy-form-payment-option-content .troy-form-radio-indicator {
+    border-color: var(--troy-color-primary);
+    background-color: var(--troy-color-primary);
+}
+
+.troy-form-payment-option input[type="radio"]:checked+.troy-form-payment-option-content .troy-form-radio-dot {
+    background-color: var(--troy-color-surface);
+}
+
+/* Validation state classes */
+.troy-border-error {
+    border-color: var(--troy-color-error) !important;
+}
+
+.troy-text-error {
+    color: var(--troy-color-error) !important;
+}
+
+.troy-border-success {
+    border-color: var(--troy-color-success) !important;
+}
+
+.troy-text-success {
+    color: var(--troy-color-success) !important;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .troy-form-input,
+    .troy-form-payment-option,
+    .troy-form-radio-indicator,
+    .troy-form-radio-dot {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .troy-form-input {
+        border-width: 2px;
+    }
+
+    .troy-form-payment-option {
+        border-width: 2px;
+    }
+}

@@ -1,0 +1,74 @@
+---
+import "./TroyProductFeatures.css"
+import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { FunnelTroyComponents } from "../../../../../lib/constants/themes";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+const productFeatures: Item[] = data.items ?? [];
+const title = isArabic ? data.title_ar : data.title_en;
+
+// Define color variants for feature icons
+const iconVariants = ['primary', 'secondary', 'tertiary', 'success'];
+---
+
+<section 
+  id={FunnelTroyComponents.TroyProductFeatures}
+  class="troy-section"
+>
+  <!-- Header -->
+  <div class="troy-section-header flex items-center justify-center gap-3 mb-6 sm:mb-8">
+    {data.icon && (
+      <LucideIcon 
+        name={data.icon as any} 
+        width="32" 
+        height="32" 
+        class="w-8 h-8 sm:w-12 sm:h-12 fill-current troy-header-icon" 
+      />
+    )}
+    <h5 class="text-lg sm:text-xl md:text-2xl font-bold troy-section-title">{title}</h5>
+  </div>
+    
+  <!-- Features Grid - Enhanced Mobile Responsive Layout -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+    {productFeatures.map((feature, index) => (
+      <div class="troy-feature-item flex items-start gap-3 sm:gap-4 p-3 sm:p-4 md:p-6 rounded-lg sm:rounded-xl">
+        <!-- Feature Icon -->
+        <div class="flex-shrink-0">
+          <div class={`troy-feature-icon-compact w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl flex items-center justify-center troy-icon-variant-${iconVariants[index % iconVariants.length]}`}>
+            {feature.icon ? (
+              <LucideIcon 
+                name={feature.icon as any} 
+                width="16" 
+                height="16" 
+                class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 troy-feature-icon" 
+              />
+            ) : (
+              <LucideIcon 
+                name={data.icon as any} 
+                width="16" 
+                height="16" 
+                class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 troy-feature-icon" 
+              />
+            )}
+          </div>
+        </div>
+                
+        <!-- Feature Content -->
+        <div class="flex-1 min-w-0">
+          <h3 class="troy-feature-title font-semibold text-sm sm:text-base md:text-lg leading-tight mb-1 sm:mb-2">
+            {feature.label}
+          </h3>
+          <p class="troy-feature-subtitle text-xs sm:text-sm md:text-base leading-relaxed">
+            {feature.content}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

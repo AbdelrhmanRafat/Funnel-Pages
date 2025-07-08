@@ -1,0 +1,7 @@
+/* === Order Confirmation Notice === */
+.troy-order-through-whatsapp {
+    background-color: var(--troy-color-surface);
+    color: var(--troy-color-on-surface);
+    border-radius: var(--troy-section-radius);
+    padding: var(--troy-section-padding);
+}
