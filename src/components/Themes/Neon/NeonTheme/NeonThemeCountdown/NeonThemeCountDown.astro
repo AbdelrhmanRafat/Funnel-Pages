@@ -1,5 +1,5 @@
 ---
-// This component displays a countdown timer for the Classic theme.
+// This component displays a countdown timer for the Neon theme using improved design strategy.
 // It takes hours, minutes, and seconds from the API data and renders a visual timer.
 // Props:
 // - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
@@ -15,6 +15,7 @@ const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const items: Item[] = data.items ?? [];
+
 function getValue(name: string): number {
   const item = items.find(i => i.name?.toLocaleLowerCase() === name);
   return parseInt(item?.number || '0') || 0;
@@ -27,39 +28,43 @@ const seconds = getValue("seconds");
 const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 ---
 
-<!-- Elegant Countdown Timer with proper spacing for fixed header -->
+<!-- Neon Theme Countdown Timer with Tailwind-First Approach -->
 <section id={FunnelNeonComponents.NeonCountdown} class="neon-section">
-  <div class="neon-countdown-container px-6 text-center">
-    <div class="neon-middle-title">
-    <h2 data-translate="countdown.offerEndsIn">
-     {isArabic ? data.title_ar : data.title_en}
-    </h2>
+  <div class="neon-countdown-container max-w-2xl mx-auto px-6 text-center">
+    <div class="neon-middle-title mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold" data-translate="countdown.offerEndsIn">
+        {isArabic ? data.title_ar : data.title_en}
+      </h2>
     </div>
-             
+    
     <countdown-timer
-      class="neon-countdown-display flex justify-center gap-4 sm:gap-8 items-center my-7"
+      class="neon-countdown-v2-display flex justify-center gap-4 sm:gap-6 md:gap-10 items-center my-7"
       data-total-seconds={totalSeconds}
     >
-      {/* Hours display block */}
-      <div class="neon-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
-        <div class="neon-countdown-number text-4xl font-extrabold" data-countdown-hours>--</div>
-        <div class="neon-countdown-label text-sm font-serif" data-translate="countdown.hours">
+      <!-- Hours display circle -->
+      <div class="neon-countdown-v2-circle w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 rounded-full border-4 flex flex-col justify-center items-center relative overflow-hidden transition-all duration-300 ease-in-out hover:scale-110">
+        <div class="neon-countdown-number text-lg sm:text-xl md:text-2xl font-extrabold font-mono" data-countdown-hours>--</div>
+        <div class="neon-countdown-label text-xs font-medium opacity-90" data-translate="countdown.hours">
           {getTranslation('countdown.hours')}
         </div>
       </div>
-                   
-      {/* Minutes display block */}
-      <div class="neon-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
-        <div class="neon-countdown-number text-4xl font-extrabold" data-countdown-minutes>--</div>
-        <div class="neon-countdown-label text-sm font-serif" data-translate="countdown.minutes">
+      
+      <div class="neon-separator text-xl sm:text-2xl font-bold">:</div>
+      
+      <!-- Minutes display circle -->
+      <div class="neon-countdown-v2-circle w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 rounded-full border-4 flex flex-col justify-center items-center relative overflow-hidden transition-all duration-300 ease-in-out hover:scale-110">
+        <div class="neon-countdown-number text-lg sm:text-xl md:text-2xl font-extrabold font-mono" data-countdown-minutes>--</div>
+        <div class="neon-countdown-label text-xs font-medium opacity-90" data-translate="countdown.minutes">
           {getTranslation('countdown.minutes')}
         </div>
       </div>
-                   
-      {/* Seconds display block */}
-      <div class="neon-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
-        <div class="neon-countdown-number text-4xl font-extrabold" data-countdown-seconds>--</div>
-        <div class="neon-countdown-label text-sm font-serif" data-translate="countdown.seconds">
+      
+      <div class="neon-separator text-xl sm:text-2xl font-bold">:</div>
+      
+      <!-- Seconds display circle -->
+      <div class="neon-countdown-v2-circle w-20 sm:w-24 md:w-28 h-20 sm:h-24 md:h-28 rounded-full border-4 flex flex-col justify-center items-center relative overflow-hidden transition-all duration-300 ease-in-out hover:scale-110">
+        <div class="neon-countdown-number text-lg sm:text-xl md:text-2xl font-extrabold font-mono" data-countdown-seconds>--</div>
+        <div class="neon-countdown-label text-xs font-medium opacity-90" data-translate="countdown.seconds">
           {getTranslation('countdown.seconds')}
         </div>
       </div>
@@ -68,5 +73,5 @@ const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 </section>
 
 <script>
-       import "./NeonThemeCountDown"
+  import "./NeonThemeCountDown"
 </script>
