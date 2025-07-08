@@ -1,8 +1,8 @@
 // stores/customOptionBundleStore.ts
 import { create } from 'zustand';
 
-export interface CustomOption {
-  panelIndex: number;
+export interface CustomOptionBundle {
+  bundleIndex: number;
   firstOption: string | null;
   secondOption: string | null;
   numberOfOptions: number | null;
@@ -11,13 +11,13 @@ export interface CustomOption {
 }
 
 interface CustomOptionBundlesState {
-  options: CustomOption[];
+  options: CustomOptionBundle[];
 }
 
 interface CustomOptionActions {
   initializeBundle: (quantity: number) => void;
-  updatePanelOption: (panelIndex: number, updates: Partial<CustomOption>) => void;
-  getPanelOption: (panelIndex: number) => CustomOption | undefined;
+  updatePanelOption: (panelIndex: number, updates: Partial<CustomOptionBundle>) => void;
+  getPanelOption: (panelIndex: number) => CustomOptionBundle | undefined;
 }
 
 export const useCustomOptionStore = create<CustomOptionBundlesState & CustomOptionActions>((set, get) => ({
@@ -26,10 +26,10 @@ export const useCustomOptionStore = create<CustomOptionBundlesState & CustomOpti
   
   // Actions
   initializeBundle: (quantity) => {
-    const options: CustomOption[] = [];
+    const options: CustomOptionBundle[] = [];
     for (let i = 1; i <= quantity; i++) {
       options.push({
-        panelIndex: i,
+        bundleIndex: i,
         firstOption: null,
         numberOfOptions: null,
         secondOption: null,
@@ -40,19 +40,19 @@ export const useCustomOptionStore = create<CustomOptionBundlesState & CustomOpti
     set({ options });
   },
   
-  updatePanelOption: (panelIndex, updates) => {
+  updatePanelOption: (bundleIndex, updates) => {
     const updated = get().options.map(opt =>
-      opt.panelIndex === panelIndex ? { ...opt, ...updates } : opt
+      opt.bundleIndex === bundleIndex ? { ...opt, ...updates } : opt
     );
     set({ options: updated });
   },
   
-  getPanelOption: (panelIndex) => {
-    return get().options.find(opt => opt.panelIndex === panelIndex);
+  getPanelOption: (bundleIndex) => {
+    return get().options.find(opt => opt.bundleIndex === bundleIndex);
   },
 }));
 
 // Simple selector hooks
 export const useAllOptions = () => useCustomOptionStore((state) => state.options);
-export const usePanelOption = (panelIndex: number) => 
-  useCustomOptionStore((state) => state.options.find(opt => opt.panelIndex === panelIndex));
+export const usePanelOption = (bundleIndex: number) => 
+  useCustomOptionStore((state) => state.options.find(opt => opt.bundleIndex === bundleIndex));

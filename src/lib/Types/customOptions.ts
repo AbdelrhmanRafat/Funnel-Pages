@@ -19,7 +19,7 @@ export interface AvailableOption {
   price_after_discount?: number;
 }
 
-export interface YourOptionData {
+export interface UserOptionData {
   firstOption?: {
     key: string;
     title: string;
