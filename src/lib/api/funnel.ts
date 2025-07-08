@@ -8,18 +8,6 @@ import classic_WithVariantsWithBundles from "../../Mock Data/classic_WithVariant
 import classic_WithVariantsWithoutBundles from "../../Mock Data/classic_WithVariantsWithoutBundles.json";
 import classic from "../../Mock Data/classic.json";
 
-// === NASA Theme Mock Data ===
-import nasa_WithoutVariantsWithBundles from "../../Mock Data/nasa_WithoutVariantsWithBundles.json";
-import nasa_WithoutVariantsWithoutBundles from "../../Mock Data/nasa_WithoutVariantsWithoutBundles.json";
-import nasa_WithVariantsWithBundles from "../../Mock Data/nasa_WithVariantsWithBundles.json";
-import nasa_WithVariantsWithoutBundles from "../../Mock Data/nasa_WithVariantsWithoutBundles.json";
-
-// === TROY Theme Mock Data ===
-import troy_WithoutVariantsWithBundles from "../../Mock Data/troy_WithoutVariantsWithBundles.json";
-import troy_WithoutVariantsWithoutBundles from "../../Mock Data/troy_WithoutVariantsWithoutBundles.json";
-import troy_WithVariantsWithBundles from "../../Mock Data/troy_WithVariantsWithBundles.json";
-import troy_WithVariantsWithoutBundles from "../../Mock Data/troy_WithVariantsWithoutBundles.json";
-
 // === Enum for Funnel Data Types ===
 export enum FunnelDataType {
   // Classic
@@ -51,17 +39,6 @@ const mockDataMap = {
   [FunnelDataType.CLASSIC_WITH_VARIANTS_WITHOUT_BUNDLES]: classic_WithVariantsWithoutBundles,
   [FunnelDataType.CLASSIC_DEFAULT]: classic,
 
-  // NASA
-  [FunnelDataType.NASA_WITHOUT_VARIANTS_WITH_BUNDLES]: nasa_WithoutVariantsWithBundles,
-  [FunnelDataType.NASA_WITHOUT_VARIANTS_WITHOUT_BUNDLES]: nasa_WithoutVariantsWithoutBundles,
-  [FunnelDataType.NASA_WITH_VARIANTS_WITH_BUNDLES]: nasa_WithVariantsWithBundles,
-  [FunnelDataType.NASA_WITH_VARIANTS_WITHOUT_BUNDLES]: nasa_WithVariantsWithoutBundles,
-
-  // TROY
-  [FunnelDataType.TROY_WITHOUT_VARIANTS_WITH_BUNDLES]: troy_WithoutVariantsWithBundles,
-  [FunnelDataType.TROY_WITHOUT_VARIANTS_WITHOUT_BUNDLES]: troy_WithoutVariantsWithoutBundles,
-  [FunnelDataType.TROY_WITH_VARIANTS_WITH_BUNDLES]: troy_WithVariantsWithBundles,
-  [FunnelDataType.TROY_WITH_VARIANTS_WITHOUT_BUNDLES]: troy_WithVariantsWithoutBundles,
 };
 
 /**

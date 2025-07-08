@@ -46,10 +46,6 @@ const tiktokPixelID = funnelPage.data.tiktokPixelId;
       switch (enumTheme) {
         case Theme.Classic:
           return <ClassicComponent funnelPage={funnelPage.data} />;
-          case Theme.Nasa:
-          return <NasaComponent funnelPage={funnelPage.data} />;
-          case Theme.Troy:
-          return <TroyComponent funnelPage={funnelPage.data} />;
         default:
           return <p>Theme not found</p>;
       }
