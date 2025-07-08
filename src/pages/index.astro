@@ -2,26 +2,21 @@
 import "../styles/global.css";
 import Layout from "../layouts/Layout.astro";
 import ClassicComponent from "../components/Themes/Classic/ClassicComponent.astro";
+
+import { getFunnelPage } from "../lib/api/funnel";
 import { getThemeFromString } from "../lib/utils/ThemeSelect";
-import { FunnelDataType, getFunnelPage } from "../lib/api/funnel";
-import { Theme } from "../lib/constants/themes";
 import type { FunnelRes } from "../lib/api/types";
-import NasaComponent from "../components/Themes/Nasa/NasaComponent.astro";
-import TroyComponent from "../components/Themes/Troy/TroyComponent.astro";
+import { Theme } from "../lib/constants/themes";
 
-// 1. Get 'type' from query param
+// === 1. Read query params ===
 const urlParams = Astro.url.searchParams;
-const typeParam = urlParams.get("type") as FunnelDataType | null;
+const themeName = urlParams.get("themeName") ?? "classic";
+const page = urlParams.get("page") ?? "classic_WithVariantsWithBundles";
 
-// 2. Validate the param or fallback
-const dataType: FunnelDataType = Object.values(FunnelDataType).includes(typeParam as FunnelDataType)
-  ? (typeParam as FunnelDataType)
-  : FunnelDataType.CLASSIC_DEFAULT;
+// === 2. Fetch data from API ===
+const funnelPage: FunnelRes = await getFunnelPage(themeName, page);
 
-// 3. Fetch the funnel data based on query param
-const funnelPage: FunnelRes = await getFunnelPage(dataType);
-
-// 4. Prepare required values
+// === 3. Prepare required values ===
 const strTheme: string = funnelPage.data.theme;
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
 const meta = funnelPage.data.product.meta;
@@ -29,7 +24,6 @@ const facebookPixelID = funnelPage.data.facebookPixelId;
 const twitterPixelID = funnelPage.data.twitterPixelId;
 const snapchatPixelID = funnelPage.data.snapchatPixelId;
 const tiktokPixelID = funnelPage.data.tiktokPixelId;
-
 ---
 
 <Layout
@@ -47,7 +41,7 @@ const tiktokPixelID = funnelPage.data.tiktokPixelId;
         case Theme.Classic:
           return <ClassicComponent funnelPage={funnelPage.data} />;
         default:
-          return <p>Theme not found</p>;
+          return <p>🚫 Theme not supported</p>;
       }
     })()
   }
