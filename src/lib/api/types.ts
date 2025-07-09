@@ -56,7 +56,7 @@ export interface Item {
   name? : string;
   label? : string;
   content? : string;
-  number : Number,
+  number? : Number,
   link? : string;
   icon? : string;
   image? : string;
