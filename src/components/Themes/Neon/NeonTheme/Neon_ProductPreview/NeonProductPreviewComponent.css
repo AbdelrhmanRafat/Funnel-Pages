@@ -1,25 +1,9 @@
-/* === Classic Product Preview === */
+/* === Neon Product Preview Colors === */
 
-/* Video container with responsive height */
+/* Video container */
 .neon-product-preview-video-container {
     border-color: var(--neon-color-primary);
-    border-radius: var(--neon-section-radius);
     box-shadow: var(--neon-section-shadow);
-    /* Responsive height */
-    height: 300px;
-}
-
-@media (min-width: 768px) {
-    .neon-product-preview-video-container {
-        height: 400px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .neon-product-preview-video-container {
-        height: 100%;
-        min-height: 450px;
-    }
 }
 
 /* Video title overlay */
@@ -30,9 +14,7 @@
 
 /* Features container */
 .neon-product-preview-features-container {
-    background-color: var(--neon-color-surface-container-high);
-    border-radius: var(--neon-section-radius);
-    padding: 2rem;
+    background-color: var(--neon-color-surface-variant);
     box-shadow: var(--neon-section-shadow);
 }
 
@@ -47,17 +29,14 @@
 
 /* Views badge */
 .neon-product-preview-views-badge {
-    background-color: var(--neon-color-surface-variant);
-    color: var(--neon-color-on-surface-variant);
-    border-radius: 1rem;
+    background-color: var(--neon-color-primary);
+    color: var(--neon-color-on-primary);
 }
 
 /* Feature items */
 .neon-product-preview-feature-icon {
     background-color: var(--neon-color-primary);
     color: var(--neon-color-on-primary);
-    width: 2.5rem;
-    height: 2.5rem;
 }
 
 .neon-product-preview-feature-title {
@@ -66,13 +45,6 @@
 
 .neon-product-preview-feature-subtitle {
     color: var(--neon-color-on-surface-variant);
-}
-
-/* === Accessibility === */
-@media (prefers-reduced-motion: reduce) {
-    .neon-product-preview-video-container {
-        transition: none;
-    }
 }
 
 /* High contrast mode */

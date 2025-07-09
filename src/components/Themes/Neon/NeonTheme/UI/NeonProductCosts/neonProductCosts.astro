@@ -15,70 +15,72 @@ const currency = Astro.props.currency ?? getTranslation('productFunnel.currency'
   data-funnel-currency={currency}
   data-funnel-has-bundles={hasBundles}
 >
-  <div class="neon-product-costs-container">
+<div class="neon-product-costs-container">
     <div class="neon-product-costs-body">
-      <div class="neon-product-costs-content space-y-3">
-        <div class="neon-product-costs-row flex justify-between items-center">
-          <span class="neon-product-costs-label" data-translate="productFunnel.quantity">
-            {getTranslation('productFunnel.quantity')}
+      <div class="neon-product-costs-content flex flex-wrap gap-x-6 gap-y-1">
+        <div class="neon-product-costs flex flex-col gap-1 md:flex-1">
+          <span class="neon-product-costs-label text-lg font-medium" data-translate="productFunnel.quantity">
+            {getTranslation('productFunnel.quantity')}:
           </span>
-          <div>
-            <span class="neon-product-costs-value" data-funnel-price-quantity>0</span>
-            <span data-translate="productFunnel.piece">
+          <div class="flex flex-row gap-2">
+            <span class="neon-product-costs-value text-lg font-bold" data-funnel-price-quantity>0</span>
+            <span class="text-lg" data-translate="productFunnel.piece">
               {getTranslation('productFunnel.piece')}
             </span>
           </div>
         </div>
-        
-        <div class="neon-product-costs-row flex justify-between items-center">
-          <span class="neon-product-costs-label" data-translate="productFunnel.unitPrice">
-            {getTranslation('productFunnel.unitPrice')}
+                 
+        <div class="neon-product-costs flex flex-col gap-1 md:flex-1">
+          <span class="neon-product-costs-label text-lg font-medium" data-translate="productFunnel.unitPrice">
+            {getTranslation('productFunnel.unitPrice')}:
           </span>
-          <span class="neon-product-costs-value" data-funnel-price-unit>
+          <span class="neon-product-costs-value text-lg font-bold" data-funnel-price-unit>
+            0 {getTranslation('productFunnel.currency')}
+          </span>
+        </div>
+                 
+        <div class="neon-product-costs flex flex-col gap-1 md:flex-1">
+          <span class="neon-product-costs-label text-lg font-medium" data-translate="productFunnel.subtotal">
+            {getTranslation('productFunnel.subtotal')}:
+          </span>
+          <span class="neon-product-costs-value text-lg font-bold" data-funnel-price-subtotal>
             0 {getTranslation('productFunnel.currency')}
           </span>
         </div>
         
-        <div class="neon-product-costs-row flex justify-between items-center">
-          <span class="neon-product-costs-label" data-translate="productFunnel.subtotal">
-            {getTranslation('productFunnel.subtotal')}
+        { hasBundles === "true" &&
+         <div class="neon-product-costs flex flex-col gap-1 md:flex-1">
+          <span class="neon-product-costs-label text-lg font-medium" data-translate="productFunnel.shippingCost">
+            {getTranslation('productFunnel.shippingCost')}:
           </span>
-          <span class="neon-product-costs-value" data-funnel-price-subtotal>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-        { hasBundles === "true" && 
-        <div class="neon-product-costs-row flex justify-between items-center">
-          <span class="neon-product-costs-label" data-translate="productFunnel.shippingCost">
-            {getTranslation('productFunnel.shippingCost')}
-          </span>
-          <span class="neon-product-costs-value" data-funnel-price-shipping>
+          <span class="neon-product-costs-value text-lg font-bold" data-funnel-price-shipping>
             0 {getTranslation('productFunnel.currency')}
           </span>
         </div>
         }
+        
         <div
           class:list={[
-            "neon-product-costs-row flex justify-between items-center",
+            "neon-product-costs flex flex-col gap-1 md:flex-1",
             { "hidden": !showDiscountWhenZero }
           ]}
           data-funnel-discount-container
         >
-          <span class="neon-product-costs-label" data-translate="productFunnel.discount">
-            {getTranslation('productFunnel.discount')}
+          <span class="neon-product-costs-label text-lg font-medium" data-translate="productFunnel.discount">
+            {getTranslation('productFunnel.discount')}:
           </span>
-          <span class="neon-product-costs-discount" data-funnel-price-discount>
+          <span class="neon-product-costs-discount text-lg font-bold" data-funnel-price-discount>
             - 0 {getTranslation('productFunnel.currency')}
           </span>
         </div>
       </div>
-      
-      <div class="neon-product-costs-total-section">
-        <div class="flex justify-between items-center">
-          <span class="neon-product-costs-total-label" data-translate="productFunnel.total">
-            {getTranslation('productFunnel.total')}
+             
+      <div class="neon-product-costs-total-section mt-3 pt-2 border-t">
+        <div class="flex justify-center items-center gap-3">
+          <span class="neon-product-costs-total-label text-base font-bold" data-translate="productFunnel.total">
+            {getTranslation('productFunnel.total')}:
           </span>
-          <span class="neon-product-costs-total-value" data-funnel-price-total>
+          <span class="neon-product-costs-total-value text-base font-black" data-funnel-price-total>
             0 {getTranslation('productFunnel.currency')}
           </span>
         </div>

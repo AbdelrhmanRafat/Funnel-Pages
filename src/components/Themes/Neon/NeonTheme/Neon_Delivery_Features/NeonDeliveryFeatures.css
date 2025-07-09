@@ -1,12 +1,110 @@
-/* === Delivery Features Section Classes === */
-.neon-delivery-feature-icon {
-    color: var(--neon-color-primary);
+/* This file contains minimal CSS styles for neon Delivery Features - Variation 2 (Card-Based Layout) */
+/* Following the improved design strategy: Tailwind-first with custom colors only */
+
+/* === neon Delivery Features Component === */
+/* Only color-related styles using custom color schema */
+
+/* Card-Based Layout */
+.neon-delivery-card {
+  background-color: var(--neon-color-surface-variant);
+  box-shadow: var(--neon-section-shadow);
+  /* Layout, spacing, and transitions handled by Tailwind */
 }
 
-.neon-delivery-feature-title {
-    color: var(--neon-color-on-surface);
+.neon-delivery-card:hover {
+  box-shadow: var(--neon-section-shadow-hover, var(--neon-section-shadow));
+  /* Transform and other effects handled by Tailwind */
 }
 
-.neon-delivery-feature-subtitle {
-    color: var(--neon-color-on-surface-variant);
+/* Feature Icons */
+.neon-delivery-icon {
+  background-color: var(--neon-color-primary);
+  /* Layout handled by Tailwind classes */
+}
+
+.neon-delivery-icon-symbol {
+  color: var(--neon-color-on-primary);
+  /* Typography handled by Tailwind classes */
+}
+
+.neon-delivery-title {
+  color: var(--neon-color-on-surface);
+  /* Typography handled by Tailwind classes */
+}
+
+.neon-delivery-subtitle {
+  color: var(--neon-color-on-surface-variant);
+  /* Typography handled by Tailwind classes */
+}
+
+/* Enhanced hover effects for Arabic theme */
+.neon-delivery-card:hover .neon-delivery-title {
+  color: var(--neon-color-primary);
+}
+
+.neon-delivery-card:hover .neon-delivery-icon {
+  box-shadow: 0 4px 15px rgba(var(--neon-color-primary-rgb, 0, 0, 0), 0.3);
+  transform: scale(1.05);
+}
+
+/* Arabic calligraphy-inspired subtle animation */
+@keyframes neon-delivery-flow {
+  0%, 100% { 
+    transform: translateY(0px);
+  }
+  50% { 
+    transform: translateY(-2px);
+  }
+}
+
+.neon-delivery-urgent .neon-delivery-card {
+  animation: neon-delivery-flow 3s ease-in-out infinite;
+}
+
+/* RTL Support */
+[dir="rtl"] .neon-delivery-urgent .neon-delivery-card {
+  animation: neon-delivery-flow-rtl 3s ease-in-out infinite;
+}
+
+@keyframes neon-delivery-flow-rtl {
+  0%, 100% { 
+    transform: translateY(0px) rotateY(0deg);
+  }
+  50% { 
+    transform: translateY(-2px) rotateY(1deg);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .neon-delivery-card,
+  .neon-delivery-icon {
+    transition: none;
+    animation: none;
+  }
+  
+  .neon-delivery-card:hover .neon-delivery-icon {
+    transform: none;
+  }
+}
+
+/* Focus states for keyboard navigation */
+.neon-delivery-card:focus-within {
+  outline: 2px solid var(--neon-color-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .neon-delivery-card {
+    border: 2px solid var(--neon-color-outline-variant);
+  }
+  
+  .neon-delivery-icon {
+    border: 2px solid var(--neon-color-on-surface);
+  }
+  
+  .neon-delivery-title {
+    font-weight: 700;
+  }
 }

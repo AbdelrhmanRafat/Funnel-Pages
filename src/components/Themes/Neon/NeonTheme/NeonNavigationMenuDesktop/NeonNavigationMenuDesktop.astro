@@ -39,9 +39,9 @@ const RENDER_ORDER = [
   FunnelNeonComponents.NeonProductFeatures,
   FunnelNeonComponents.NeonProductPreview,
   FunnelNeonComponents.NeonProductUsage,
-  FunnelNeonComponents.neonTodayStatistics,
+  FunnelNeonComponents.NeonTodayStatistics,
   FunnelNeonComponents.NeonGallery,
-  FunnelNeonComponents.Classic_Before_After,
+  FunnelNeonComponents.Neon_Before_After,
   FunnelNeonComponents.NeonReviews,
   FunnelNeonComponents.NeonTextBar,
   FunnelNeonComponents.NeonImageTextOverLay,
@@ -79,7 +79,7 @@ const orderedAnchors = RENDER_ORDER
 <!-- Enhanced Desktop Navigation with Optimized Overflow -->
 {orderedAnchors && orderedAnchors.length > 0 && (
   <desktop-navigation 
-    class="neon-desktop-nav hidden md:block w-full mt-4 pt-4"
+    class="neon-desktop-nav hidden md:block"
     data-navigation-items={JSON.stringify(orderedAnchors.map(anchor => ({
       id: anchor.component,
       title: isArabic ? anchor.componentData.title_ar : anchor.componentData.title_en})))}

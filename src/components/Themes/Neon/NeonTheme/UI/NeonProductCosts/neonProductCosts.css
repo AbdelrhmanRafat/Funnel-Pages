@@ -11,7 +11,7 @@
     border-bottom: 1px solid var(--neon-color-outline);
 }
 
-.neon-product-costs-row {
+.neon-product-costs {
     padding: 0.5rem 0;
     border-bottom: 1px solid var(--neon-color-outline-variant);
     transition: background-color 0.2s ease;

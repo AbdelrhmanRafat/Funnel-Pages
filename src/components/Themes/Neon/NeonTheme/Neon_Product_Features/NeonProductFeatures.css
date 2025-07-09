@@ -1,62 +1,108 @@
-/* === Product Features Section === */
-.neon-feature-card {
-    background-color: var(--neon-color-surface);
-    border: 1px solid var(--neon-color-outline-variant);
-    border-radius: var(--neon-section-radius);
-    transition: all 0.3s ease;
+/* This file contains minimal CSS styles for neon Product Features - Variation 4 (Compact Icon & Text) */
+/* Following the improved design strategy: Tailwind-first with custom colors only */
+
+/* === neon Product Features Component === */
+/* Only color-related styles using custom color schema */
+
+/* Header Styling */
+.neon-features-header-icon {
+  color: var(--neon-color-primary);
+  /* Layout handled by Tailwind classes */
 }
 
-.neon-feature-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--neon-color-primary);
-    box-shadow: var(--neon-section-shadow);
+.neon-features-header-title {
+  color: var(--neon-color-on-surface);
+  /* Typography handled by Tailwind classes */
 }
 
-.neon-feature-icon-container {
-    width: 4rem; /* Keep in CSS for theme consistency */
-    height: 4rem;
-    background-color: var(--neon-color-primary);
-    transition: all 0.3s ease;
+
+
+/* Feature Icons - Single primary color for all icons */
+.neon-features-icon {
+  background-color: var(--neon-color-primary);
+  /* Layout handled by Tailwind classes */
 }
 
-.neon-feature-card:hover .neon-feature-icon-container {
-    background-color: var(--neon-color-primary-dark);
-    transform: scale(1.05); /* Subtle scaling */
+.neon-features-icon-symbol {
+  color: var(--neon-color-on-primary);
+  /* Typography handled by Tailwind classes */
 }
 
-.neon-feature-icon {
-    color: var(--neon-color-on-primary);
+.neon-features-title {
+  color: var(--neon-color-on-surface);
+  /* Typography handled by Tailwind classes */
 }
 
-.neon-feature-title {
-    color: var(--neon-color-on-surface);
-    font-weight: 600; /* font-semibold */
-    transition: color 0.3s ease;
+.neon-features-subtitle {
+  color: var(--neon-color-on-surface-variant);
+  /* Typography handled by Tailwind classes */
 }
 
-.neon-feature-card:hover .neon-feature-title {
-    color: var(--neon-color-primary);
+
+
+/* Enhanced hover effect for Arabic theme */
+.neon-features-item:hover .neon-features-title {
+  color: var(--neon-color-primary);
 }
 
-.neon-feature-subtitle {
-    color: var(--neon-color-on-surface-variant);
+.neon-features-item:hover .neon-features-icon {
+  box-shadow: 0 4px 15px rgba(var(--neon-color-primary-rgb, 0, 0, 0), 0.2);
 }
 
-/* === Accessibility === */
+/* Arabic calligraphy-inspired subtle animation */
+@keyframes neon-feature-flow {
+  0%, 100% { 
+    transform: translateX(0px);
+  }
+  50% { 
+    transform: translateX(2px);
+  }
+}
+
+.neon-features-urgent .neon-features-item {
+  animation: neon-feature-flow 3s ease-in-out infinite;
+}
+
+
+[dir="rtl"] .neon-features-urgent .neon-features-item {
+  animation: neon-feature-flow-rtl 3s ease-in-out infinite;
+}
+
+@keyframes neon-feature-flow-rtl {
+  0%, 100% { 
+    transform: translateX(0px);
+  }
+  50% { 
+    transform: translateX(-2px);
+  }
+}
+
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-    .neon-feature-card,
-    .neon-feature-icon-container {
-        transition: none;
-    }
-    
-    .neon-feature-card:hover,
-    .neon-feature-card:hover .neon-feature-icon-container {
-        transform: none;
-    }
+  .neon-features-item {
+    transition: none;
+    animation: none;
+  }
+  
+  .neon-features-item:hover {
+    transform: none;
+  }
 }
 
 /* Focus states for keyboard navigation */
-.neon-feature-card:focus-within {
-    outline: 2px solid var(--neon-color-primary);
-    outline-offset: 2px;
+.neon-features-item:focus-within {
+  outline: 2px solid var(--neon-color-primary);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .neon-features-icon {
+    border: 2px solid var(--neon-color-on-surface);
+  }
+  
+  .neon-features-title {
+    font-weight: 700;
+  }
 }

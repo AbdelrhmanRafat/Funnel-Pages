@@ -49,14 +49,12 @@
 }
 
 /* === Selection States === */
-.neon-bundle-options-container-selected-color {
-  transform: scale(1.1);
-}
+
 
 .neon-bundle-options-container-selected-color .neon-bundle-options-container-color-swatch {
-  border: 3px solid var(--neon-color-primary);
+  border: 3px solid var(--neon-color-secondary);
   box-shadow: 0 0 0 2px var(--neon-color-surface),
-              0 0 0 4px var(--neon-color-primary),
+              0 0 0 4px var(--neon-color-secondary),
               0 6px 16px rgba(0, 150, 136, 0.25);
 }
 
@@ -71,7 +69,6 @@
   color: var(--neon-color-on-secondary);
   border-color: var(--neon-color-secondary-light);
   box-shadow: var(--neon-section-shadow);
-  transform: translateY(-2px);
   font-weight: 600;
 }
 
