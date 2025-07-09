@@ -1,43 +1,35 @@
-/* This file contains minimal CSS styles for ArabicTouch Theme Logos Carousel - Flip Card Style */
-/* Following the improved design strategy: Tailwind-first with custom colors only */
-
 /* === ArabicTouch Logos Carousel Component === */
 /* Only color-related styles using custom color schema */
-
-
 
 /* Flip Card Style */
 .arabictouch-carousel-card {
   background-color: var(--arabictouch-color-surface-variant);
   border-color: var(--arabictouch-color-outline-variant);
   box-shadow: var(--arabictouch-section-shadow);
-  /* Layout, spacing, and transitions handled by Tailwind */
 }
 
 .arabictouch-carousel-card:hover {
   box-shadow: 
     var(--arabictouch-section-shadow-hover, var(--arabictouch-section-shadow)),
     0 8px 25px rgba(0, 0, 0, 0.15);
-  /* Transform handled by Tailwind hover:scale-105 */
+}
+
+.arabictouch-carousel-card-body {
+  background-color: var(--arabictouch-color-surface);
 }
 
 .arabictouch-carousel-logo {
   background-color: var(--arabictouch-color-surface-variant);
   border: 1px solid var(--arabictouch-color-outline-variant);
-  /* Layout handled by Tailwind classes */
 }
 
 .arabictouch-carousel-header {
   background-color: var(--arabictouch-color-primary);
-  /* Layout handled by Tailwind classes */
 }
 
 .arabictouch-carousel-name {
   color: var(--arabictouch-color-on-primary);
-  /* Typography handled by Tailwind classes */
 }
-
-
 
 /* Enhanced flip effect for Arabic theme */
 .arabictouch-carousel-flip-container:hover {
@@ -52,7 +44,6 @@
   color: var(--arabictouch-color-on-surface);
   border: 1px solid var(--arabictouch-color-outline-variant);
   cursor: pointer;
-  /* Layout and transitions handled by Tailwind */
 }
 
 .arabictouch-carousel-nav-left:hover,
@@ -80,7 +71,6 @@
   background-color: var(--arabictouch-color-outline);
   cursor: pointer;
   border: none;
-  /* Layout and transitions handled by Tailwind */
 }
 
 .arabictouch-carousel-indicator:hover {
@@ -94,7 +84,6 @@
 /* Progress Bar */
 .arabictouch-carousel-progress {
   background-color: var(--arabictouch-color-outline);
-  /* Layout handled by Tailwind classes */
 }
 
 .arabictouch-carousel-progress-fill {
@@ -119,7 +108,15 @@
   box-shadow: 0 0 0 2px var(--arabictouch-color-primary-light, var(--arabictouch-color-primary));
 }
 
-/* Loading state - Arabic skeleton */
+/* Loading state skeleton */
+.arabictouch-carousel-skeleton-logo {
+  background-color: var(--arabictouch-color-surface-variant);
+}
+
+.arabictouch-carousel-skeleton-text {
+  background-color: var(--arabictouch-color-surface-variant);
+}
+
 .arabictouch-carousel-card.animate-pulse {
   background: linear-gradient(90deg, 
     var(--arabictouch-color-surface) 25%, 

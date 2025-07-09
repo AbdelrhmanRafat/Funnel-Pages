@@ -30,7 +30,7 @@ const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 
 <!-- ArabicTouch Theme Countdown Timer - Variation 6: Minimal Inline Style -->
 <section id={FunnelArabicTouchComponents.ArabicTouchCountdown} class="arabictouch-section">
-  <div class="arabictouch-countdown-container max-w-2xl mx-auto px-6 text-center">
+  <div class="arabictouch-countdown-container mx-auto px-6 text-center">
     <div class="arabictouch-middle-title mb-8">
       <h2 class="text-2xl md:text-3xl font-bold" data-translate="countdown.offerEndsIn">
         {isArabic ? data.title_ar : data.title_en}
@@ -38,10 +38,10 @@ const totalSeconds = hours * 3600 + minutes * 60 + seconds;
     </div>
     
     <countdown-timer
-      class="arabictouch-countdown-v6-display my-7"
+      class="arabictouch-countdown-display my-7 flex justify-center items-center"
       data-total-seconds={totalSeconds}
     >
-      <div class="arabictouch-countdown-v6-inline inline-flex items-center gap-4 sm:gap-6 rounded-full px-6 sm:px-8 py-4 sm:py-6 transition-all duration-300 hover:scale-105">
+      <div class="arabictouch-countdown-inline inline-flex items-center gap-4 sm:gap-6 rounded-full px-6 sm:px-8 py-4 sm:py-6 transition-all duration-300 hover:scale-105">
         <!-- Hours -->
         <div class="arabictouch-countdown-item flex items-baseline gap-2">
           <span class="arabictouch-countdown-number text-2xl sm:text-3xl font-bold font-mono" data-countdown-hours>--</span>

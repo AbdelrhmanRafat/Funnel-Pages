@@ -20,13 +20,13 @@
 }
 
 /* Variation 6: Minimal Inline Style */
-.arabictouch-countdown-v6-inline {
+.arabictouch-countdown-inline {
   background-color: var(--arabictouch-color-surface-variant);
   box-shadow: var(--arabictouch-section-shadow);
   /* Layout, spacing, and transitions handled by Tailwind */
 }
 
-.arabictouch-countdown-v6-inline:hover {
+.arabictouch-countdown-inline:hover {
   box-shadow: 
     var(--arabictouch-section-shadow-hover, var(--arabictouch-section-shadow)),
     0 10px 35px rgba(0, 0, 0, 0.1);
@@ -54,12 +54,12 @@
 }
 
 /* Enhanced hover effects for Arabic touch theme */
-.arabictouch-countdown-v6-inline:hover .arabictouch-countdown-number {
+.arabictouch-countdown-inline:hover .arabictouch-countdown-number {
   color: var(--arabictouch-color-primary-light, var(--arabictouch-color-primary));
 }
 
 /* Arabic calligraphy-inspired subtle animation */
-.arabictouch-countdown-v6-inline:hover {
+.arabictouch-countdown-inline:hover {
   background: linear-gradient(
     45deg, 
     var(--arabictouch-color-surface-variant), 
@@ -79,7 +79,7 @@
   }
 }
 
-.arabictouch-countdown-urgent .arabictouch-countdown-v6-inline {
+.arabictouch-countdown-urgent .arabictouch-countdown-inline {
   animation: arabictouch-flow 3s ease-in-out infinite;
 }
 
@@ -100,7 +100,7 @@
 }
 
 /* Subtle geometric pattern effect on hover */
-.arabictouch-countdown-v6-inline:hover .arabictouch-countdown-separator {
+.arabictouch-countdown-inline:hover .arabictouch-countdown-separator {
   background: linear-gradient(
     to bottom,
     transparent,

@@ -2,8 +2,7 @@
 import "./arabictouchProductCosts.css";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 
-const hasBundles : string = Astro.props.hasBundles;
-// Component configuration - no longer dependent on external data
+const hasBundles: string = Astro.props.hasBundles;
 const autoUpdate = Astro.props.autoUpdate ?? true;
 const showDiscountWhenZero = Astro.props.showDiscountWhenZero ?? false;
 const currency = Astro.props.currency ?? getTranslation('productFunnel.currency');
@@ -15,70 +14,99 @@ const currency = Astro.props.currency ?? getTranslation('productFunnel.currency'
   data-funnel-currency={currency}
   data-funnel-has-bundles={hasBundles}
 >
-  <div class="arabictouch-product-costs-container">
+  <div class="arabictouch-product-costs-container p-6 rounded-2xl border shadow-sm">
     <div class="arabictouch-product-costs-body">
-      <div class="arabictouch-product-costs-content space-y-3">
-        <div class="arabictouch-product-costs-row flex justify-between items-center">
-          <span class="arabictouch-product-costs-label" data-translate="productFunnel.quantity">
-            {getTranslation('productFunnel.quantity')}
-          </span>
+      <!-- Elegant Grid Layout for Cost Items -->
+      <div class="arabictouch-product-costs-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-8">
+        
+        <!-- Quantity Card -->
+        <div class="arabictouch-product-costs-card group relative p-5 rounded-xl border-2 min-h-24 sm:min-h-28 flex flex-col justify-between transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg">
+          <div class="mb-2">
+            <span class="arabictouch-product-costs-label block text-sm font-medium mb-1" data-translate="productFunnel.quantity">
+              {getTranslation('productFunnel.quantity')}
+            </span>
+          </div>
           <div>
-            <span class="arabictouch-product-costs-value" data-funnel-price-quantity>0</span>
-            <span data-translate="productFunnel.piece">
+            <span class="arabictouch-product-costs-value text-2xl font-bold" data-funnel-price-quantity>0</span>
+            <span class="arabictouch-product-costs-unit text-sm font-medium opacity-75 ml-1" data-translate="productFunnel.piece">
               {getTranslation('productFunnel.piece')}
             </span>
           </div>
         </div>
-        
-        <div class="arabictouch-product-costs-row flex justify-between items-center">
-          <span class="arabictouch-product-costs-label" data-translate="productFunnel.unitPrice">
-            {getTranslation('productFunnel.unitPrice')}
-          </span>
-          <span class="arabictouch-product-costs-value" data-funnel-price-unit>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
+
+        <!-- Unit Price Card -->
+        <div class="arabictouch-product-costs-card group relative p-5 rounded-xl border-2 min-h-24 sm:min-h-28 flex flex-col justify-between transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg">
+          <div class="mb-2">
+            <span class="arabictouch-product-costs-label block text-sm font-medium mb-1" data-translate="productFunnel.unitPrice">
+              {getTranslation('productFunnel.unitPrice')}
+            </span>
+          </div>
+          <div>
+            <span class="arabictouch-product-costs-value text-2xl font-bold" data-funnel-price-unit>
+              0 {getTranslation('productFunnel.currency')}
+            </span>
+          </div>
         </div>
-        
-        <div class="arabictouch-product-costs-row flex justify-between items-center">
-          <span class="arabictouch-product-costs-label" data-translate="productFunnel.subtotal">
-            {getTranslation('productFunnel.subtotal')}
-          </span>
-          <span class="arabictouch-product-costs-value" data-funnel-price-subtotal>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
+
+        <!-- Subtotal Card -->
+        <div class="arabictouch-product-costs-card group relative p-5 rounded-xl border-2 min-h-24 sm:min-h-28 flex flex-col justify-between transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg">
+          <div class="mb-2">
+            <span class="arabictouch-product-costs-label block text-sm font-medium mb-1" data-translate="productFunnel.subtotal">
+              {getTranslation('productFunnel.subtotal')}
+            </span>
+          </div>
+          <div>
+            <span class="arabictouch-product-costs-value text-2xl font-bold" data-funnel-price-subtotal>
+              0 {getTranslation('productFunnel.currency')}
+            </span>
+          </div>
         </div>
-        { hasBundles === "true" && 
-        <div class="arabictouch-product-costs-row flex justify-between items-center">
-          <span class="arabictouch-product-costs-label" data-translate="productFunnel.shippingCost">
-            {getTranslation('productFunnel.shippingCost')}
-          </span>
-          <span class="arabictouch-product-costs-value" data-funnel-price-shipping>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-        }
+
+        <!-- Shipping Cost Card (conditional) -->
+        {hasBundles === "true" && (
+          <div class="arabictouch-product-costs-card group relative p-5 rounded-xl border-2 min-h-24 sm:min-h-28 flex flex-col justify-between transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg">
+            <div class="mb-2">
+              <span class="arabictouch-product-costs-label block text-sm font-medium mb-1" data-translate="productFunnel.shippingCost">
+                {getTranslation('productFunnel.shippingCost')}
+              </span>
+            </div>
+            <div>
+              <span class="arabictouch-product-costs-value text-2xl font-bold" data-funnel-price-shipping>
+                0 {getTranslation('productFunnel.currency')}
+              </span>
+            </div>
+          </div>
+        )}
+
+        <!-- Discount Card (conditional) -->
         <div
           class:list={[
-            "arabictouch-product-costs-row flex justify-between items-center",
+            "arabictouch-product-costs-card group relative p-5 rounded-xl border-2 min-h-24 sm:min-h-28 flex flex-col justify-between transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg",
             { "hidden": !showDiscountWhenZero }
           ]}
           data-funnel-discount-container
         >
-          <span class="arabictouch-product-costs-label" data-translate="productFunnel.discount">
-            {getTranslation('productFunnel.discount')}
-          </span>
-          <span class="arabictouch-product-costs-discount" data-funnel-price-discount>
-            - 0 {getTranslation('productFunnel.currency')}
-          </span>
+          <div class="mb-2">
+            <span class="arabictouch-product-costs-label block text-sm font-medium mb-1" data-translate="productFunnel.discount">
+              {getTranslation('productFunnel.discount')}
+            </span>
+          </div>
+          <div>
+            <span class="arabictouch-product-costs-discount text-2xl font-bold" data-funnel-price-discount>
+              - 0 {getTranslation('productFunnel.currency')}
+            </span>
+          </div>
         </div>
+
       </div>
-      
-      <div class="arabictouch-product-costs-total-section">
-        <div class="flex justify-between items-center">
-          <span class="arabictouch-product-costs-total-label" data-translate="productFunnel.total">
+
+      <!-- Total Section -->
+      <div class="arabictouch-product-costs-total-section p-6 sm:p-8 rounded-2xl border-2">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-2">
+          <span class="arabictouch-product-costs-total-label text-xl font-bold" data-translate="productFunnel.total">
             {getTranslation('productFunnel.total')}
           </span>
-          <span class="arabictouch-product-costs-total-value" data-funnel-price-total>
+          <span class="arabictouch-product-costs-total-value text-3xl sm:text-4xl lg:text-5xl font-bold" data-funnel-price-total>
             0 {getTranslation('productFunnel.currency')}
           </span>
         </div>

@@ -1,102 +1,128 @@
-/* === Product Costs Section === */
+/* === Product Costs Section - Elegant Design === */
 .arabictouch-product-costs-container {
     background-color: var(--arabictouch-color-surface);
-    padding: var(--arabictouch-section-padding);
-    border-radius: var(--arabictouch-section-radius);
-    overflow: hidden;
-    border: 1px solid var(--arabictouch-color-outline-variant);
+    border-color: var(--arabictouch-color-outline-variant);
 }
 
-.arabictouch-product-costs-body {
-    border-bottom: 1px solid var(--arabictouch-color-outline);
+.arabictouch-product-costs-card {
+    background-color: var(--arabictouch-color-surface);
+    border-color: var(--arabictouch-color-outline-variant);
+    position: relative;
 }
 
-.arabictouch-product-costs-row {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--arabictouch-color-outline-variant);
-    transition: background-color 0.2s ease;
+.arabictouch-product-costs-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        var(--arabictouch-color-primary),
+        var(--arabictouch-color-secondary)
+    );
+    border-radius: 12px 12px 0 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.arabictouch-product-costs-row:hover {
+.arabictouch-product-costs-card:hover {
     background-color: var(--arabictouch-color-surface-variant);
+    border-color: var(--arabictouch-color-primary);
 }
 
-.arabictouch-product-costs-row:last-child {
-    border-bottom: none;
+.arabictouch-product-costs-card:hover::before {
+    opacity: 1;
 }
+
+
+
+.arabictouch-product-costs-icon-wrapper {
+    background-color: var(--arabictouch-color-primary-light);
+}
+
+.arabictouch-product-costs-icon {
+    color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-product-costs-badge {
+    background-color: var(--arabictouch-color-surface-variant);
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+.arabictouch-product-costs-discount-badge {
+    background-color: var(--arabictouch-color-success-light);
+    color: var(--arabictouch-color-success);
+}
+
+
 
 .arabictouch-product-costs-label {
     color: var(--arabictouch-color-on-surface-variant);
-    font-weight: 500;
 }
 
 .arabictouch-product-costs-value {
     color: var(--arabictouch-color-on-surface);
-    font-weight: 600;
+}
+
+.arabictouch-product-costs-unit {
+    color: var(--arabictouch-color-on-surface-variant);
 }
 
 .arabictouch-product-costs-discount {
     color: var(--arabictouch-color-success);
-    font-weight: 600;
 }
 
+/* === Elegant Total Section === */
 .arabictouch-product-costs-total-section {
     background-color: var(--arabictouch-color-primary-light);
-    padding: 1rem 1.5rem;
-    border-top: 2px solid var(--arabictouch-color-primary);
-    margin-top: 0.75rem;
-    border-radius: var(--arabictouch-section-radius);
+    border-color: var(--arabictouch-color-primary);
 }
 
 .arabictouch-product-costs-total-label {
     color: var(--arabictouch-color-on-primary);
-    font-weight: 700;
-    font-size: 1.125rem;
 }
 
 .arabictouch-product-costs-total-value {
     color: var(--arabictouch-color-on-primary);
-    font-weight: 700;
-    font-size: 1.25rem;
 }
 
-/* === Responsive Design === */
-@media (max-width: 640px) {
-    .arabictouch-product-costs-container {
-        padding: 0.75rem;
-    }
-    
-    .arabictouch-product-costs-total-section {
-        padding: 0.75rem 1rem;
-    }
-    
-    .arabictouch-product-costs-total-label,
-    .arabictouch-product-costs-total-value {
-        font-size: 1rem;
-    }
+/* === Enhanced Hover Effects === */
+.arabictouch-product-costs-card:hover .arabictouch-product-costs-icon-wrapper {
+    background-color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-product-costs-card:hover .arabictouch-product-costs-icon {
+    color: var(--arabictouch-color-on-primary);
+}
+
+.arabictouch-product-costs-card:hover .arabictouch-product-costs-badge {
+    background-color: var(--arabictouch-color-primary);
+    color: var(--arabictouch-color-on-primary);
+}
+
+.arabictouch-product-costs-card:hover .arabictouch-product-costs-value {
+    color: var(--arabictouch-color-primary);
 }
 
 /* === Loading State === */
-.arabictouch-product-costs-loading {
-    opacity: 0.7;
-    pointer-events: none;
-}
-
 .arabictouch-product-costs-loading .arabictouch-product-costs-value,
 .arabictouch-product-costs-loading .arabictouch-product-costs-discount,
 .arabictouch-product-costs-loading .arabictouch-product-costs-total-value {
     background-color: var(--arabictouch-color-surface-variant);
     color: transparent;
-    border-radius: 4px;
-    animation: pulse 1.5s ease-in-out infinite;
+    border-radius: 8px;
+    animation: arabictouch-elegant-pulse 2s ease-in-out infinite;
 }
 
-@keyframes pulse {
+@keyframes arabictouch-elegant-pulse {
     0%, 100% {
         opacity: 1;
+        transform: scale(1);
     }
     50% {
-        opacity: 0.5;
+        opacity: 0.7;
+        transform: scale(1.02);
     }
 }
 
@@ -106,25 +132,91 @@
     background-color: var(--arabictouch-color-error-light);
 }
 
+.arabictouch-product-costs-error .arabictouch-product-costs-card {
+    border-color: var(--arabictouch-color-error);
+    background-color: var(--arabictouch-color-error-light);
+}
+
+.arabictouch-product-costs-error .arabictouch-product-costs-card::before {
+    background: var(--arabictouch-color-error);
+    opacity: 1;
+}
+
+.arabictouch-product-costs-error .arabictouch-product-costs-icon-wrapper {
+    background-color: var(--arabictouch-color-error);
+}
+
+.arabictouch-product-costs-error .arabictouch-product-costs-icon {
+    color: var(--arabictouch-color-on-error);
+}
+
 .arabictouch-product-costs-error .arabictouch-product-costs-label,
 .arabictouch-product-costs-error .arabictouch-product-costs-value {
     color: var(--arabictouch-color-on-error);
 }
 
 /* === Focus States for Accessibility === */
-.arabictouch-product-costs-row:focus-within {
-    outline: 2px solid var(--arabictouch-color-primary);
+.arabictouch-product-costs-card:focus-within {
+    outline: 3px solid var(--arabictouch-color-primary);
     outline-offset: 2px;
-    border-radius: 4px;
+    border-color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-product-costs-card:focus-within::before {
+    opacity: 1;
+}
+
+.arabictouch-product-costs-total-section:focus-within {
+    outline: 3px solid var(--arabictouch-color-primary);
+    outline-offset: 2px;
 }
 
 /* === High Contrast Mode === */
 @media (prefers-contrast: high) {
     .arabictouch-product-costs-container {
-        border: 2px solid var(--arabictouch-color-outline);
+        border: 3px solid var(--arabictouch-color-outline);
+    }
+    
+    .arabictouch-product-costs-card {
+        border: 3px solid var(--arabictouch-color-outline);
+    }
+    
+    .arabictouch-product-costs-card::before {
+        height: 4px;
+        opacity: 1;
     }
     
     .arabictouch-product-costs-total-section {
-        border-top: 3px solid var(--arabictouch-color-primary);
+        border: 4px solid var(--arabictouch-color-primary);
+    }
+    
+    .arabictouch-product-costs-total-bg {
+        opacity: 0.1;
+    }
+}
+
+/* === Reduced Motion Support === */
+@media (prefers-reduced-motion: reduce) {
+    .arabictouch-product-costs-card {
+        transition: none;
+    }
+    
+    .arabictouch-product-costs-card::before {
+        transition: none;
+    }
+    
+    .arabictouch-product-costs-card:hover {
+        transform: none;
+    }
+    
+    @keyframes arabictouch-elegant-pulse {
+        0%, 100% {
+            opacity: 1;
+            transform: none;
+        }
+        50% {
+            opacity: 0.7;
+            transform: none;
+        }
     }
 }

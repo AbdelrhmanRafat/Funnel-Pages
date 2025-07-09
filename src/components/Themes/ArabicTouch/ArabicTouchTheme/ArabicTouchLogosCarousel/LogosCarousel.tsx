@@ -155,7 +155,7 @@ const ArabicTouchLogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
               }}
             >
               <div className="arabictouch-carousel-card rounded-lg overflow-hidden shadow-lg border-2">
-                <div className="p-4 sm:p-6 bg-white text-center">
+                <div className="arabictouch-carousel-card-body p-4 sm:p-6 text-center">
                   <div className="arabictouch-carousel-logo w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 rounded-lg overflow-hidden flex items-center justify-center">
                     <img 
                       src={logo.image} 
@@ -189,11 +189,11 @@ const ArabicTouchLogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
               style={{ animationDelay: `${index * 150}ms` }}
             >
               <div className="arabictouch-carousel-card rounded-lg overflow-hidden shadow-lg border-2">
-                <div className="p-4 sm:p-6 bg-white text-center">
-                  <div className="w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 rounded-lg bg-gray-300"></div>
+                <div className="arabictouch-carousel-card-body p-4 sm:p-6 text-center">
+                  <div className="arabictouch-carousel-skeleton-logo w-16 sm:w-20 h-16 sm:h-20 mx-auto mb-3 rounded-lg"></div>
                 </div>
                 <div className="arabictouch-carousel-header py-3 px-4 text-center">
-                  <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto"></div>
+                  <div className="arabictouch-carousel-skeleton-text h-4 rounded w-3/4 mx-auto"></div>
                 </div>
               </div>
             </div>
@@ -270,7 +270,7 @@ const ArabicTouchLogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
               >
                 <div className="arabictouch-carousel-flip-container">
                   <div className="arabictouch-carousel-card rounded-lg overflow-hidden shadow-lg border-2 transition-all duration-300 hover:scale-105">
-                    <div className="p-3 sm:p-4 bg-white text-center">
+                    <div className="arabictouch-carousel-card-body p-3 sm:p-4 text-center">
                       <div className="arabictouch-carousel-logo w-14 sm:w-16 lg:w-20 h-14 sm:h-16 lg:h-20 mx-auto mb-2 sm:mb-3 rounded-lg overflow-hidden flex items-center justify-center">
                         <img 
                           src={logo.image} 
