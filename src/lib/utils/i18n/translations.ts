@@ -176,7 +176,15 @@ export const translations = {
     Headers : {
       more : "more"
     },
-    
+    faq: {
+    question: "Question",
+    answer: "Answer", 
+    readMore: "Read More",
+    close: "Close",
+    noResults: "No results found",
+    searchPlaceholder: "Search FAQ...",
+    selectQuestion: "Select a question to view the answer"
+  }
     
   },
   ar: {
@@ -186,6 +194,15 @@ export const translations = {
       minutes: "دقيقة",
       seconds: "ثانية",
     },
+     faq: {
+    question: "سؤال",
+    answer: "الإجابة",
+    readMore: "اقرأ المزيد", 
+    close: "إغلاق",
+    noResults: "لم يتم العثور على نتائج",
+    searchPlaceholder: "ابحث في الأسئلة الشائعة...",
+    selectQuestion: "اختر سؤالاً لعرض الإجابة"
+  },
     CTA : {
      button : "شراء المنتج الآن",
     },
