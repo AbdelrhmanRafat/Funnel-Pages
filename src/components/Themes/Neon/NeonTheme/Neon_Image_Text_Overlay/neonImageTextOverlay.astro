@@ -1,6 +1,5 @@
 ---
-// ProductImageSection.astro
-import "./neonImageTextOverlay.css";
+import "./NeonImageTextOverlay.css";
 import type { BlockData, Item } from "../../../../../lib/api/types";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 import NeonBuyNowButton from "../UI/NeonBuyNowButton/NeonBuyNowButton.astro";
@@ -14,8 +13,9 @@ const isArabic = currentLang === "ar";
 const data: BlockData = Astro.props.data;
 const ImageTextData: Item | undefined = data.items?.[0];
 ---
-<section 
-  id={FunnelNeonComponents.NeonImageTextOverLay} 
+
+<section
+  id={FunnelNeonComponents.NeonImageTextOverLay}
   class="neon-section py-12 px-4 sm:px-6 lg:px-12"
   aria-labelledby="floating-card-heading"
 >
@@ -25,34 +25,42 @@ const ImageTextData: Item | undefined = data.items?.[0];
     <h5>{isArabic ? data.title_ar : data.title_en}</h5>
   </div>
 
-  <!-- Floating Banner Container -->
-  <div class="relative h-96 sm:h-[500px] rounded-2xl overflow-hidden neon-floating-card-wrapper">
+  <!-- Container Query Wrapper -->
+  <div class="container-query-wrapper">
+<div class="p-0 sm:p-4">
+  <div
+    class="flex min-h-[480px] flex-col bg-cover bg-center bg-no-repeat sm:rounded-xl px-4 pt-10 sm:px-10 relative overflow-hidden neon-hero-banner"
+  >
     <!-- Background Image -->
     {ImageTextData?.image ? (
       <img 
         src={ImageTextData.image}
         alt={ImageTextData.label || 'Product image'}
-        class="w-full h-full object-cover"
+        class="absolute inset-0 w-full h-full object-cover brightness-75 z-0"
         loading="lazy"
       />
     ) : (
-      <div class="w-full h-full bg-gradient-to-br from-gray-400 to-gray-600"></div>
+      <div class="absolute inset-0 w-full h-full bg-gradient-to-br opacity-30 z-0"></div>
     )}
 
-    <!-- Floating Card -->
-    <div class="absolute top-8 right-8 left-8 lg:left-auto lg:w-96">
-      <div class="neon-floating-card p-8 rounded-2xl backdrop-blur-lg">
-        <h2 
-          id="floating-card-heading"
-          class="neon-floating-title text-2xl font-bold mb-4"
-        >
-          {ImageTextData?.label || 'Why this product is the best?'}
-        </h2>
-        <p class="neon-floating-description text-base leading-relaxed mb-6">
-          {ImageTextData?.content || 'This product is specially designed to meet your daily needs with high quality and superior durability.'}
-        </p>
-        <NeonBuyNowButton />
-      </div>
+    <!-- Gradient Overlay -->
+    <div class="neon-hero-overlay"></div>
+
+    <!-- Main Content -->
+    <div class="relative z-10 flex flex-col gap-4 flex-1 justify-start">
+      <h1 id="floating-card-heading" class="text-4xl font-black neon-hero-title">
+        {ImageTextData?.label}
+      </h1>
+      <h2 class="text-base font-normal neon-hero-subtitle">
+        {ImageTextData?.content}
+      </h2>
     </div>
+
+    <!-- Button at Bottom -->
+    <div class="relative z-10 mt-auto mb-6 w-fit">
+      <NeonBuyNowButton />
+    </div>
+  </div>
+</div>
   </div>
 </section>

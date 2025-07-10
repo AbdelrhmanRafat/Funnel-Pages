@@ -1,20 +1,50 @@
-/* === Floating Card Design === */
-.neon-floating-card-wrapper {
-  box-shadow: var(--neon-section-shadow);
+/* === Neon Hero Component - Using Available Theme Variables === */
+
+/* Container Colors */
+.neon-hero-container {
+  background-color: var(--neon-color-background);
+}
+
+/* Header Colors */
+.neon-hero-header {
+  color: var(--neon-color-primary);
+}
+
+/* Banner Container */
+.neon-hero-banner {
   border-radius: var(--neon-section-radius);
-}
-
-.neon-floating-card {
-  background-color: var(--neon-color-surface-variant); /* Light surface feel */
-  border: 1px solid var(--neon-color-primary-light);
   box-shadow: var(--neon-section-shadow);
-  transition: all 0.3s ease;
+  position: relative;
 }
 
-.neon-floating-title {
+/* Gradient Overlay */
+.neon-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* Title Colors */
+.neon-hero-title {
+  color: var(--neon-color-on-surface);
+}
+
+/* Subtitle Colors */
+.neon-hero-subtitle {
   color: var(--neon-color-on-surface-variant);
 }
 
-.neon-floating-description {
-  color: var(--neon-color-on-surface-variant);
+/* Container Query Support */
+.container-query-wrapper {
+  container-type: inline-size;
+}
+
+/* Responsive Design using Container Queries */
+@container (min-width: 480px) {
+  .neon-hero-banner {
+    border-radius: var(--neon-section-radius);
+  }
 }
