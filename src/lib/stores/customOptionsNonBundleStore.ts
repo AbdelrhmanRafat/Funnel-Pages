@@ -1,182 +1,128 @@
 import { create } from 'zustand';
-import type { UserOptionData, AvailableOption } from '../Types/customOptions';
 
-interface State {
-  // Current selected option and its details
-  option: CustomOption;
-
-  // Full data for the product options (variant structure)
-  optionData: UserOptionData | null;
-
-  // Available selections for the first and second options
-  availableFirstOptions: AvailableOption[];
-  availableSecondOptions: AvailableOption[];
-
-  // Flags for state logic
-  hasSecondOption: boolean;
-  isSelectionComplete: boolean;
-}
-
-// Structure representing the selected option
 interface CustomOption {
   firstOption: string | null;
   secondOption: string | null;
   sku_id: number | null;
-  hex: string | null;
   price: number | null;
   price_after_discount: number | null;
   qty: number;
   image: string | null;
 }
 
-interface Actions {
-  initialize: (data: UserOptionData | null, isVariant: boolean) => void;
-  updateFirstOption: (value: string | null) => void;
-  updateSecondOption: (value: string | null) => void;
-  updateQuantity: (qty: number) => void;
-  clear: () => void;
+interface ProductStore {
+  isHaveVariant: boolean;
+  hasSecondOption: boolean;
+  selectedOption: CustomOption;
+
+  // 🔹 Set config manually from API or logic
+  setVariantConfig: (config: { isHaveVariant: boolean; hasSecondOption: boolean }) => void;
+
+  // 🔹 Set options manually
+  setFirstOptionLabel: (label: string) => void;
+  setSecondOptionLabel: (label: string) => void;
+
+  // 🔹 Set final SKU when complete (e.g. for 1 or 2 options)
+  setFullSkuData: (sku_id: number, price: number, price_after_discount: number, image: string, qty?: number) => void;
+
+  // 🔹 Set for no-variant products
+  setNoVariantProduct: (payload: Omit<CustomOption, 'firstOption' | 'secondOption' | 'qty'> & { qty?: number }) => void;
+
+  // 🔹 Adjust qty only
+  setQty: (qty: number) => void;
+
+  // 🔹 Full reset with optional config override
+  reset: (config?: { isHaveVariant?: boolean; hasSecondOption?: boolean }) => void;
 }
 
-// Helper to create a base CustomOption with default values
-const getBaseOption = (data: UserOptionData | null): CustomOption => ({
-  firstOption: null,
-  secondOption: null,
-  sku_id: null,
-  hex: null,
-  price: data?.basePrice ?? null,
-  price_after_discount: data?.basePriceAfterDiscount ?? null,
-  qty: 1,
-  image: data?.baseImage ?? null,
-});
-
-// Helper to map option values into AvailableOption objects
-const mapOptions = (values: any[] | undefined): AvailableOption[] =>
-  values?.map((opt) => ({
-    value: opt.value,
-    hex: opt.hex ?? null,
-    disabled: false,
-  })) ?? [];
-
-// Zustand store setup
-export const useCustomOptionsStore = create<State & Actions>((set, get) => ({
-  // Initial state setup
-  option: getBaseOption(null),
-  optionData: null,
-  availableFirstOptions: [],
-  availableSecondOptions: [],
+export const useProductStore = create<ProductStore>((set) => ({
+  isHaveVariant: false,
   hasSecondOption: false,
-  isSelectionComplete: false,
+  selectedOption: {
+    firstOption: null,
+    secondOption: null,
+    sku_id: null,
+    price: null,
+    price_after_discount: null,
+    qty: 1,
+    image: null,
+  },
 
-  // Initializes the store based on the variant data structure
-  initialize: (data, isVariant) => {
-    if (!isVariant || !data) {
-      // Static product: no options needed
-      set({
-        option: getBaseOption(data),
-        availableFirstOptions: [],
-        availableSecondOptions: [],
-        hasSecondOption: false,
-        optionData: data,
-        isSelectionComplete: true,
-      });
-      return;
-    }
+  setVariantConfig: ({ isHaveVariant, hasSecondOption }) =>
+    set(() => ({
+      isHaveVariant,
+      hasSecondOption,
+    })),
 
-    // Product has one or more variant options
-    const hasSecond = !!data.secondOption?.values?.length;
+  setFirstOptionLabel: (label) =>
+    set((state) => ({
+      selectedOption: {
+        ...state.selectedOption,
+        firstOption: label,
+        secondOption: null, // reset second option
+        sku_id: null,
+        price: null,
+        price_after_discount: null,
+        qty: 1,
+        image: null,
+      },
+    })),
 
-    set({
-      option: {
-        ...getBaseOption(data),
+  setSecondOptionLabel: (label) =>
+    set((state) => ({
+      selectedOption: {
+        ...state.selectedOption,
+        secondOption: label
+      },
+    })),
+
+  setFullSkuData: (sku_id, price, price_after_discount, image, qty = 1) =>
+    set((state) => ({
+      selectedOption: {
+        ...state.selectedOption,
+        sku_id,
+        price,
+        price_after_discount,
+        image,
+        qty,
+      },
+    })),
+
+  setNoVariantProduct: ({ sku_id, price, price_after_discount, image, qty = 1 }) =>
+    set(() => ({
+      isHaveVariant: false,
+      hasSecondOption: false,
+      selectedOption: {
         firstOption: null,
         secondOption: null,
+        sku_id,
+        price,
+        price_after_discount,
+        qty,
+        image,
       },
-      availableFirstOptions: mapOptions(data.firstOption?.values),
-      availableSecondOptions: hasSecond ? mapOptions(data.secondOption?.values) : [],
-      hasSecondOption: hasSecond,
-      optionData: data,
-      isSelectionComplete: false,
-    });
-  },
+    })),
 
-  // Updates the selected first option and optionally resets the second
-  updateFirstOption: (value) => {
-    const { optionData, hasSecondOption, option } = get();
-    if (!optionData) return;
-
-    const firstMatch = optionData.associations[value ?? '']?.[0] ?? null;
-    const updatedSecondOptions = hasSecondOption
-      ? mapOptions(optionData.associations[value ?? ''] || [])
-      : [];
-
-    set({
-      option: {
-        ...option,
-        firstOption: value,
-        secondOption: hasSecondOption ? null : option.secondOption,
-        sku_id: firstMatch?.sku_id ?? null,
-        hex: firstMatch?.hex ?? null,
-        price: firstMatch?.price ?? optionData.basePrice ?? null,
-        price_after_discount: firstMatch?.price_after_discount ?? optionData.basePriceAfterDiscount ?? null,
-        image: firstMatch?.image ?? optionData.baseImage ?? null,
+  setQty: (qty) =>
+    set((state) => ({
+      selectedOption: {
+        ...state.selectedOption,
+        qty,
       },
-      availableSecondOptions: updatedSecondOptions,
-      isSelectionComplete: hasSecondOption ? false : !!value,
-    });
-  },
+    })),
 
-  // Updates the selected second option and applies full data from matched variant
-  updateSecondOption: (value) => {
-    const { optionData, option, hasSecondOption } = get();
-    if (!optionData || !hasSecondOption || !option.firstOption || !value) return;
-
-    const match = optionData.associations[option.firstOption]?.find(opt => opt.value === value) ?? null;
-
-    set({
-      option: {
-        ...option,
-        secondOption: value,
-        sku_id: match?.sku_id ?? null,
-        hex: match?.hex ?? null,
-        price: match?.price ?? optionData.basePrice ?? null,
-        price_after_discount: match?.price_after_discount ?? optionData.basePriceAfterDiscount ?? null,
-        image: match?.image ?? optionData.baseImage ?? null,
+  reset: (config) =>
+    set(() => ({
+      isHaveVariant: config?.isHaveVariant ?? false,
+      hasSecondOption: config?.hasSecondOption ?? false,
+      selectedOption: {
+        firstOption: null,
+        secondOption: null,
+        sku_id: null,
+        price: null,
+        price_after_discount: null,
+        qty: 1,
+        image: null,
       },
-      isSelectionComplete: true,
-    });
-  },
-
-  // Updates selected quantity (min = 1)
-  updateQuantity: (qty) => {
-    const { option } = get();
-    set({
-      option: {
-        ...option,
-        qty: Math.max(1, qty),
-      },
-    });
-  },
-
-  // Clears all user selections but keeps base data
-  clear: () => {
-    const { optionData } = get();
-    set({
-      option: getBaseOption(optionData),
-      isSelectionComplete: false,
-    });
-  },
+    })),
 }));
-
-// === Hooks (Selectors) ===
-
-// Get the full selected option data
-export const useOption = () => useCustomOptionsStore((state) => state.option);
-
-// Get available first option list
-export const useFirstOptions = () => useCustomOptionsStore((state) => state.availableFirstOptions);
-
-// Get available second option list (if exists)
-export const useSecondOptions = () => useCustomOptionsStore((state) => state.availableSecondOptions);
-
-// Check if all necessary selections are completed
-export const useIsComplete = () => useCustomOptionsStore((state) => state.isSelectionComplete);

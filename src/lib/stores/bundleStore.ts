@@ -1,9 +1,10 @@
 // stores/bundleStore.ts
 import { create } from 'zustand';
+import type { PurchaseOption } from '../api/types';
 
 interface BundleState {
   quantity: number;
-  selectedOffer: any | null;
+  selectedOffer: PurchaseOption | null;
 }
 
 interface BundleActions {
