@@ -24,13 +24,26 @@ import ElegantComponent from "../components/Themes/Elegant/ElegantComponent.astr
 const urlParams = Astro.url.searchParams;
 const themeName = urlParams.get("themeName") ?? "classic";
 let page = urlParams.get("page") ?? "WithVariantsWithBundles";
-// === 1.1 Normalize page to include themeName prefix if not present ===
+const blocksParam = urlParams.get("blocks");
+
+//  Normalize page to include themeName prefix if not present ===
 if (!page.startsWith(themeName + "_")) {
   page = `${themeName}_${page}`;
 }
 
+//  Parse blocks parameter and normalize with theme prefix ===
+const blocks = blocksParam 
+  ? blocksParam.split(',').map(block => {
+      const trimmedBlock = block.trim();
+      // Add theme prefix if not already present
+      return trimmedBlock.startsWith(themeName + "_") 
+        ? trimmedBlock 
+        : `${themeName}_${trimmedBlock}`;
+    })
+  : undefined;
+
 // === 2. Fetch data from API ===
-const funnelPage: FunnelRes = await getFunnelPage(themeName, page);
+const funnelPage: FunnelRes = await getFunnelPage(themeName, page, blocks);
 
 // === 3. Prepare required values ===
 const strTheme: string = funnelPage.data.theme;
