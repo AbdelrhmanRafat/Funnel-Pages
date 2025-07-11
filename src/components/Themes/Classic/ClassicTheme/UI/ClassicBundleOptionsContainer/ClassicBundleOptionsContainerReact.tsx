@@ -32,12 +32,9 @@ interface ClassicBundleOptionsContainerReactProps {
   nOfOptions: number;
   showSelectionIndicators?: boolean;
   currentLang: Language;
-  getTranslation: (key: string, lang?: Language, vars?: Record<string, string | number>) | undefined;
+  getTranslation: (key: string, lang?: Language, vars?: Record<string, string | number>) => string | undefined;
 
-  // Props to reflect current selection state (to be handled by interactivity layer later)
-  selectedFirstOptionValue?: string;
-  selectedSecondOptionValue?: string;
-  // availableSecondOptionValues?: Set<string>; // To control disabled state of second options
+
 }
 
 const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainerReactProps> = ({

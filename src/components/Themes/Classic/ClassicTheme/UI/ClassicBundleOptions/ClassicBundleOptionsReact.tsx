@@ -1,6 +1,6 @@
 import React from 'react';
 import type { PurchaseOption, Product } from "../../../../../../lib/api/types";
-import type { Language } from "../../../../../../lib/utils/i18n/translations";
+import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
 // Import the actual ClassicBundleOptionsContainerReact component and its types
 import ClassicBundleOptionsContainerReact, {
   type ProcessedOptionData,
@@ -14,7 +14,6 @@ interface ClassicBundleOptionsReactProps {
   isHaveVariant: boolean;
   name: string; // Corresponds to the radio button group name, e.g., "qty"
   currentLang: Language; // For translations if needed directly
-  getTranslation: (key: string, lang?: Language, vars?: Record<string, string | number>) => string;
   initialSelectedIndex?: number; // To control which item is initially "selected" visually
 }
 
@@ -24,21 +23,20 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
   isHaveVariant,
   name,
   currentLang,
-  getTranslation,
   initialSelectedIndex = 0, // Default to the first item being selected
 }) => {
+  console.log("helllo",ClassicBundleOptionsReact);
   return (
     <div id="classic-bundle-options">
       <h3
         className="classic-bundle-options-title text-2xl py-3"
-        // data-translate="quantityOptions.chooseQuantity" // Astro's i18n will handle this if text is static
       >
         {getTranslation("quantityOptions.chooseQuantity", currentLang)}
       </h3>
 
       <div className="space-y-3">
         {data.map((item, index) => (
-          <div key={item.id || index}> {/* Use item.id if available and unique, otherwise index */}
+          <div key={index}> {/* Use item.id if available and unique, otherwise index */}
             <div className="classic-bundle-options-group border border-primary rounded-2xl p-1.5 sm:p-2">
               <label
                 className="classic-bundle-options-label group relative overflow-hidden cursor-pointer block rounded-lg"
@@ -104,10 +102,8 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
                               />
                             </svg>
                             <span className="ml-1">
-                              {getTranslation("quantityOptions.saveDiscount", currentLang, {
-                                discountAmount: item.discount.toLocaleString() + " " + getTranslation("productFunnel.currency", currentLang),
-                                discountPercent: item.discount_percent.toString(),
-                              })}
+                              {getTranslation("quantityOptions.saveDiscount", currentLang)}
+                         
                             </span>
                           </div>
                         </div>
@@ -125,8 +121,8 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
                 >
                   {/* Render placeholders for ClassicBundleOptionsContainerReact */}
                   {Array.from({ length: item.items || 0 }).map((_, panelIndex) => (
-                    <ClassicBundleOptionsContainerReactPlaceholder
-                      product={product}
+                    <ClassicBundleOptionsContainerReact
+                      
                       key={panelIndex}
                       panelIndex={panelIndex + 1}
                       currentLang={currentLang}

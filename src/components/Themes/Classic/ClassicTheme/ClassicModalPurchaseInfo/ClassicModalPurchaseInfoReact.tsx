@@ -73,7 +73,7 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
   return (
     <div
       // data-modal-container // This was used by .ts, may not be needed for pure presentation
-      className="classic-modal fixed inset-0 z-[1000] flex justify-center items-center" // Default to visible for storybook/dev
+      className="classic-modal hidden fixed inset-0 z-[1000]  justify-center items-center" // Default to visible for storybook/dev
       // style={{ display: 'flex' }} // Or use a prop to control visibility
     >
       <div
