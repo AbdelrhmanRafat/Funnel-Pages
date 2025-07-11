@@ -1,14 +1,17 @@
-import React from 'react';
-import type { Product } from "../../../../../../lib/api/types"; // Assuming CustomOptions is part of Product or defined elsewhere
+import React, { useMemo, useEffect } from 'react';
+import type { Product } from "../../../../../../lib/api/types";
 import type { Language } from "../../../../../../lib/utils/i18n/translations";
+import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
+import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
+import { useCustomOptionStore, usePanelOption } from "../../../../../../lib/stores/customOptionBundleStore";
 
-// Define interfaces for the optionData structure for clarity
+// Types
 interface OptionValue {
   value: string;
-  sku_id?: number; // If applicable
-  hex?: string;    // For color swatches
-  image?: string;  // If there's an image associated
-  available_options?: any; // For nested available options if any
+  sku_id?: number;
+  hex?: string;
+  image?: string;
+  available_options?: any;
 }
 
 interface OptionDetail {
@@ -26,42 +29,150 @@ interface ProcessedOptionData {
 
 interface ClassicBundleOptionsContainerReactProps {
   panelIndex: number;
-  isHaveVariant: boolean; // Derived from product.is_have_variant
-  optionData: ProcessedOptionData | null;
-  skuNoVariant?: string; // product.sku_code
-  nOfOptions: number;
-  showSelectionIndicators?: boolean;
+  product: Product;
   currentLang: Language;
-  getTranslation: (key: string, lang?: Language, vars?: Record<string, string | number>) => string | undefined;
-
-
 }
 
 const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainerReactProps> = ({
   panelIndex,
-  isHaveVariant,
-  optionData,
-  skuNoVariant,
-  nOfOptions,
-  showSelectionIndicators = true,
+  product,
   currentLang,
-  getTranslation,
-  selectedFirstOptionValue,
-  selectedSecondOptionValue,
-  // availableSecondOptionValues = new Set(),
 }) => {
+  // Zustand store hooks
+  const { updatePanelOption } = useCustomOptionStore();
+  const panelOption = usePanelOption(panelIndex);
 
-  // Helper to determine if a second option should be disabled
-  const isSecondOptionDisabled = (secondOptValue: string): boolean => {
-    if (!optionData || !selectedFirstOptionValue || !optionData.associations[selectedFirstOptionValue]) {
-      // If no first option selected, or no associations, all second options might be considered disabled or enabled based on desired default
-      return !optionData?.secondOption; // Disable if no second option data at all
+  // Process option data
+  const processedData = useMemo((): ProcessedOptionData | null => {
+    const isHaveVariant = product.is_have_variant === "true";
+    const customOptions = product.custom_options;
+
+    if (!isHaveVariant || !customOptions) return null;
+
+    const optionEntries = Object.entries(customOptions);
+
+    const firstOptionEntry = optionEntries[0];
+    const firstOption: OptionDetail | null = firstOptionEntry
+      ? {
+          key: firstOptionEntry[0],
+          title: firstOptionEntry[0],
+          values: firstOptionEntry[1] as OptionValue[],
+          hasColors: false,
+        }
+      : null;
+
+    const secondOptionEntry = optionEntries[1];
+    const secondOption: OptionDetail | null = secondOptionEntry
+      ? {
+          key: secondOptionEntry[0],
+          title: secondOptionEntry[0],
+          values: secondOptionEntry[1] as OptionValue[],
+          hasColors: false,
+        }
+      : null;
+
+    // Detect colors
+    const colorDetection = detectColorOption(firstOption, secondOption);
+    if (firstOption) firstOption.hasColors = colorDetection.firstHasColors;
+    if (secondOption) secondOption.hasColors = colorDetection.secondHasColors;
+
+    // Build associations
+    const associations: { [firstValue: string]: Array<{value: string, sku_id?: number, hex?: string, image?: string}> } = {};
+    if (firstOption && secondOption) {
+      firstOption.values.forEach((firstValueObj: OptionValue) => {
+        const firstVal = firstValueObj.value;
+        if (firstValueObj.available_options && firstValueObj.available_options[secondOption.key]) {
+          const availableSecondOptions = firstValueObj.available_options[secondOption.key];
+          if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
+            associations[firstVal] = availableSecondOptions.map((item: any) => ({
+              value: item.value,
+              sku_id: item.sku_id,
+              hex: item.hex,
+              image: item.image,
+            }));
+          }
+        }
+      });
     }
-    return !optionData.associations[selectedFirstOptionValue].some(assoc => assoc.value === secondOptValue);
+
+    return {
+      firstOption,
+      secondOption,
+      associations,
+    };
+  }, [product]);
+
+  // Initialize panel option
+  useEffect(() => {
+    const nOfOptions = product.custom_options ? Object.keys(product.custom_options).length : 0;
+    
+    if (product.is_have_variant !== "true") {
+      // Single product without variants
+      updatePanelOption(panelIndex, {
+        bundleIndex: panelIndex,
+        sku_id: parseInt(product.sku_code || '0'),
+        numberOfOptions: nOfOptions,
+      });
+    } else {
+      // Product with variants
+      updatePanelOption(panelIndex, {
+        bundleIndex: panelIndex,
+        numberOfOptions: nOfOptions,
+      });
+    }
+  }, [panelIndex, product, updatePanelOption]);
+
+  // Helper functions
+  const isSecondOptionDisabled = (secondOptValue: string): boolean => {
+    if (!processedData || !panelOption?.firstOption || !processedData.associations[panelOption.firstOption]) {
+      return !processedData?.secondOption;
+    }
+    return !processedData.associations[panelOption.firstOption].some(assoc => assoc.value === secondOptValue);
   };
 
-  const translatedSelectOptionsText = getTranslation ? getTranslation("dynamicPanel.selectOptionsForProduct", currentLang) : `Select Options for Product`;
+  const findSkuId = (firstValue: string, secondValue: string): number | null => {
+    if (!processedData?.associations[firstValue]) return null;
+    const matchingOption = processedData.associations[firstValue].find(opt => opt.value === secondValue);
+    return matchingOption?.sku_id || null;
+  };
 
+  const findImageUrl = (firstValue: string, secondValue: string): string | null => {
+    if (!processedData?.associations[firstValue]) return null;
+    const matchingOption = processedData.associations[firstValue].find(opt => opt.value === secondValue);
+    return matchingOption?.image || null;
+  };
+
+  // Event handlers
+  const handleFirstOptionSelect = (value: string) => {
+    updatePanelOption(panelIndex, {
+      bundleIndex: panelIndex,
+      firstOption: value,
+      secondOption: null, // Clear second option when first changes
+      sku_id: null,
+      image: null,
+    });
+  };
+
+  const handleSecondOptionSelect = (value: string) => {
+    const firstValue = panelOption?.firstOption;
+    if (!firstValue) return;
+
+    const skuId = findSkuId(firstValue, value);
+    const imageUrl = findImageUrl(firstValue, value);
+
+    updatePanelOption(panelIndex, {
+      bundleIndex: panelIndex,
+      firstOption: firstValue,
+      secondOption: value,
+      sku_id: skuId,
+      image: imageUrl,
+    });
+  };
+
+  // Component state
+  const isHaveVariant = product.is_have_variant === "true";
+  const showSelectionIndicators = true;
+  const translatedSelectOptionsText = getTranslation("dynamicPanel.selectOptionsForProduct", currentLang) || "Select Options for Product";
 
   return (
     <div className="classic-bundle-options-container-panel p-4 border">
@@ -69,47 +180,46 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 pb-3">
         <div className="classic-bundle-options-container-header font-bold text-lg sm:text-xl">
           <p className="inline">
-            {translatedSelectOptionsText} {/* Using translated text */}
+            {translatedSelectOptionsText}{" "}
           </p>
-          <span /* data-options-panel-index-display */>{panelIndex}</span>
+          <span>{panelIndex}</span>
         </div>
 
-        {showSelectionIndicators && optionData && (
+        {showSelectionIndicators && processedData && (
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            {optionData.firstOption && (
+            {processedData.firstOption && (
               <div className="classic-bundle-options-container-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-                <span>{optionData.firstOption.title}</span>
-                <span /* data-selected-first-option */>{selectedFirstOptionValue || '-'}</span>
+                <span>{processedData.firstOption.title}</span>
+                <span>{panelOption?.firstOption || '-'}</span>
               </div>
             )}
-            {optionData.secondOption && (
+            {processedData.secondOption && (
               <div className="classic-bundle-options-container-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-                <span>{optionData.secondOption.title}</span>
-                <span /* data-selected-second-option */>{selectedSecondOptionValue || '-'}</span>
+                <span>{processedData.secondOption.title}</span>
+                <span>{panelOption?.secondOption || '-'}</span>
               </div>
             )}
           </div>
         )}
       </div>
+
       <div className="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6 md:gap-0">
-        {isHaveVariant && optionData?.firstOption && (
+        {/* First Option Rendering */}
+        {isHaveVariant && processedData?.firstOption && (
           <div className="select-option-section md:w-1/2 space-y-2">
             <p className="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
-              {optionData.firstOption.title}
+              {processedData.firstOption.title}
             </p>
 
-            {optionData.firstOption.hasColors ? (
+            {processedData.firstOption.hasColors ? (
               <div className="flex flex-wrap justify-start content-center gap-2">
-                {optionData.firstOption.values.map((option, index) => (
+                {processedData.firstOption.values.map((option, index) => (
                   <div
                     key={option.value}
                     className={`classic-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform ${
-                      selectedFirstOptionValue === option.value ? 'classic-bundle-options-container-selected-color' : ''
+                      panelOption?.firstOption === option.value ? 'classic-bundle-options-container-selected-color' : ''
                     }`}
-                    // data-option-type="first" // For .ts
-                    // data-option-value={option.value}
-                    // data-option-index={index}
-                    // onClick={() => handleFirstOptionSelect(option.value)} // Interactivity later
+                    onClick={() => handleFirstOptionSelect(option.value)}
                   >
                     <div
                       className="classic-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
@@ -123,13 +233,13 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
               </div>
             ) : (
               <div className="md:w-full grid grid-cols-3 gap-2 sm:gap-4 p-1">
-                {optionData.firstOption.values.map((option, index) => (
+                {processedData.firstOption.values.map((option, index) => (
                   <div
                     key={option.value}
                     className={`classic-bundle-options-container-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center ${
-                      selectedFirstOptionValue === option.value ? 'classic-bundle-options-container-selected-size' : ''
+                      panelOption?.firstOption === option.value ? 'classic-bundle-options-container-selected-size' : ''
                     }`}
-                    // onClick={() => handleFirstOptionSelect(option.value)} // Interactivity later
+                    onClick={() => handleFirstOptionSelect(option.value)}
                   >
                     {option.value}
                   </div>
@@ -139,25 +249,26 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
           </div>
         )}
 
-        {isHaveVariant && optionData?.secondOption && (
+        {/* Second Option Rendering */}
+        {isHaveVariant && processedData?.secondOption && (
           <div className="md:w-1/2 select-option-section space-y-2">
             <p className="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
-              {optionData.secondOption.title}
+              {processedData.secondOption.title}
             </p>
 
-            {optionData.secondOption.hasColors ? (
+            {processedData.secondOption.hasColors ? (
               <div className="flex flex-wrap justify-start content-center gap-2">
-                {optionData.secondOption.values.map((option, index) => {
+                {processedData.secondOption.values.map((option, index) => {
                   const isDisabled = isSecondOptionDisabled(option.value);
                   return (
                     <div
                       key={option.value}
                       className={`classic-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 transition-transform ${
-                        isDisabled ? 'classic-bundle-options-container-option-disabled' : 'cursor-pointer hover:scale-105'
+                        isDisabled ? 'classic-bundle-options-container-option-disabled opacity-30 pointer-events-none' : 'cursor-pointer hover:scale-105'
                       } ${
-                        selectedSecondOptionValue === option.value && !isDisabled ? 'classic-bundle-options-container-selected-color' : ''
+                        panelOption?.secondOption === option.value && !isDisabled ? 'classic-bundle-options-container-selected-color' : ''
                       }`}
-                      // onClick={() => !isDisabled && handleSecondOptionSelect(option.value)} // Interactivity later
+                      onClick={() => !isDisabled && handleSecondOptionSelect(option.value)}
                     >
                       <div
                         className="classic-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
@@ -172,20 +283,20 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
               </div>
             ) : (
               <div className="w-full grid grid-cols-3 gap-2 p-1">
-                {optionData.secondOption.values.map((option, index) => {
+                {processedData.secondOption.values.map((option, index) => {
                   const isDisabled = isSecondOptionDisabled(option.value);
                   return (
-                  <div
-                    key={option.value}
-                    className={`classic-bundle-options-container-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium text-center ${
-                      isDisabled ? 'classic-bundle-options-container-option-disabled' : 'cursor-pointer'
-                    } ${
-                      selectedSecondOptionValue === option.value && !isDisabled ? 'classic-bundle-options-container-selected-size' : ''
-                    }`}
-                    // onClick={() => !isDisabled && handleSecondOptionSelect(option.value)} // Interactivity later
-                  >
-                    {option.value}
-                  </div>
+                    <div
+                      key={option.value}
+                      className={`classic-bundle-options-container-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium text-center ${
+                        isDisabled ? 'classic-bundle-options-container-option-disabled opacity-30 pointer-events-none' : 'cursor-pointer'
+                      } ${
+                        panelOption?.secondOption === option.value && !isDisabled ? 'classic-bundle-options-container-selected-size' : ''
+                      }`}
+                      onClick={() => !isDisabled && handleSecondOptionSelect(option.value)}
+                    >
+                      {option.value}
+                    </div>
                   );
                 })}
               </div>
@@ -193,13 +304,14 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
           </div>
         )}
 
+        {/* Non-variant fallback */}
         {!isHaveVariant && (
           <div className="select-option-section space-y-2">
             <p className="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
               Single Product
             </p>
             <div className="py-2 px-4 border rounded-lg bg-gray-50">
-              <span className="text-sm">SKU: {skuNoVariant}</span>
+              <span className="text-sm">SKU: {product.sku_code}</span>
             </div>
           </div>
         )}
@@ -209,4 +321,4 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
 };
 
 export default ClassicBundleOptionsContainerReact;
-export type { ProcessedOptionData, OptionDetail, OptionValue }; // Export types for Astro
+export type { ProcessedOptionData, OptionDetail, OptionValue };

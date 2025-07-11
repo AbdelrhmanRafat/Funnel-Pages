@@ -1,42 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import type { PurchaseOption, Product } from "../../../../../../lib/api/types";
 import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
-// Import the actual ClassicBundleOptionsContainerReact component and its types
-import ClassicBundleOptionsContainerReact, {
-  type ProcessedOptionData,
-  // We don't need OptionDetail, OptionValue here, they are internal to Container's props
-} from "../ClassicBundleOptionsContainer/ClassicBundleOptionsContainerReact.tsx";
-
+import { useBundleStore } from "../../../../../../lib/stores/bundleStore";
+import { useCustomOptionStore } from "../../../../../../lib/stores/customOptionBundleStore";
+import ClassicBundleOptionsContainerReact from "../ClassicBundleOptionsContainer/ClassicBundleOptionsContainerReact.tsx";
 
 interface ClassicBundleOptionsReactProps {
   data: PurchaseOption[];
   product: Product;
-  isHaveVariant: boolean;
-  name: string; // Corresponds to the radio button group name, e.g., "qty"
-  currentLang: Language; // For translations if needed directly
-  initialSelectedIndex?: number; // To control which item is initially "selected" visually
+  name: string;
+  currentLang: Language;
 }
 
 const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
   data,
   product,
-  isHaveVariant,
   name,
   currentLang,
-  initialSelectedIndex = 0, // Default to the first item being selected
 }) => {
-  console.log("helllo",ClassicBundleOptionsReact);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const isHaveVariant = product.is_have_variant === "true";
+  
+  // Zustand stores
+  const { setQuantity, setSelectedOffer } = useBundleStore();
+  const { initializeBundle } = useCustomOptionStore();
+
+  // Initialize bundle with first option on mount
+  useEffect(() => {
+    if (data.length > 0) {
+      const firstItem = data[0];
+      handleOfferSelection(firstItem, 0);
+    }
+  }, [data]);
+
+  const handleOfferSelection = (item: PurchaseOption, index: number) => {
+    // Update Zustand stores
+    setSelectedOffer(item);
+    setQuantity(item.items || 1);
+    initializeBundle(item.items || 1);
+    
+    // Update local state for UI
+    setSelectedIndex(index);
+  };
+
+  const handleRadioChange = (item: PurchaseOption, index: number) => {
+    handleOfferSelection(item, index);
+  };
+
   return (
     <div id="classic-bundle-options">
-      <h3
-        className="classic-bundle-options-title text-2xl py-3"
-      >
+      <h3 className="classic-bundle-options-title text-2xl py-3">
         {getTranslation("quantityOptions.chooseQuantity", currentLang)}
       </h3>
 
       <div className="space-y-3">
         {data.map((item, index) => (
-          <div key={index}> {/* Use item.id if available and unique, otherwise index */}
+          <div key={index}>
             <div className="classic-bundle-options-group border border-primary rounded-2xl p-1.5 sm:p-2">
               <label
                 className="classic-bundle-options-label group relative overflow-hidden cursor-pointer block rounded-lg"
@@ -47,10 +66,8 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
                   id={`${name}${index + 1}`}
                   name={name}
                   className="hidden"
-                  defaultChecked={index === initialSelectedIndex}
-                  // data-offer-radio // These data attributes were for the .ts file
-                  // data-offer-selected-item={JSON.stringify(item)}
-                  // data-offer-items={item.items?.toString() || "0"}
+                  checked={index === selectedIndex}
+                  onChange={() => handleRadioChange(item, index)}
                 />
                 <div className="classic-bundle-options-content p-1.5 sm:p-2">
                   <div className="classic-bundle-options-header grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
@@ -61,7 +78,6 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
                       <div className="classic-bundle-options-option-details flex flex-wrap items-center gap-1 sm:gap-2 text-xs">
                         <div className="classic-bundle-options-unit-badge py-0.5 px-2 rounded-full inline-block">
                           <span>{item.items === 1 ? "" : item.items}</span>
-                          {/* Using getTranslation directly here */}
                           <span> {getTranslation("quantityOptions.itemUnit.singular", currentLang)}</span>
                         </div>
                         <span className="hidden sm:inline text-gray-400">•</span>
@@ -102,8 +118,17 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
                               />
                             </svg>
                             <span className="ml-1">
-                              {getTranslation("quantityOptions.saveDiscount", currentLang)}
-                         
+                              {getTranslation("quantityOptions.saveDiscount", currentLang)
+                                ?.replace(
+                                  "{discountAmount}",
+                                  item.discount.toLocaleString() +
+                                    " " +
+                                    getTranslation("productFunnel.currency", currentLang),
+                                )
+                                ?.replace(
+                                  "{discountPercent}",
+                                  item.discount_percent.toString(),
+                                )}
                             </span>
                           </div>
                         </div>
@@ -115,16 +140,13 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
 
               {isHaveVariant && (
                 <div
-                  className={`flex flex-col gap-1 mt-2 ${index === initialSelectedIndex ? "" : "hidden"}`}
-                  // data-offer-bundle-options-elements // For .ts file
-                  // data-offer-option-id={`${name}${index + 1}`} // For .ts file
+                  className={`flex flex-col gap-1 mt-2 ${index === selectedIndex ? "" : "hidden"}`}
                 >
-                  {/* Render placeholders for ClassicBundleOptionsContainerReact */}
                   {Array.from({ length: item.items || 0 }).map((_, panelIndex) => (
                     <ClassicBundleOptionsContainerReact
-                      
                       key={panelIndex}
                       panelIndex={panelIndex + 1}
+                      product={product}
                       currentLang={currentLang}
                     />
                   ))}
