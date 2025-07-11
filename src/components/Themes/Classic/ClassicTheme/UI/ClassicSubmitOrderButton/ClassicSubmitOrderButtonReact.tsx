@@ -1,34 +1,34 @@
 import React from 'react';
+import { getTranslation, type Language } from '../../../../../../lib/utils/i18n/translations';
+import type { BlockData, Product } from '../../../../../../lib/api/types';
 
-interface ClassicSubmitOrderButtonDesignProps {
-  buttonText: string;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void; // Allow event pass-through
-  disabled?: boolean;
-  // Data attributes from the original button if they need to be preserved for the custom element
-  dataSubmitOrderButton?: boolean;
+interface ClassicSubmitOrderButtonReactProps {
+  purchaseOptions: BlockData;
+  isHaveVariant: string;
+  product: Product;
+  isFormValid: boolean;
+  currentLang?: Language;
 }
 
-const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonDesignProps> = ({
-  buttonText,
-  onClick,
-  disabled = false,
-  dataSubmitOrderButton = true, // Keep the attribute by default
+const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps> = ({
+  purchaseOptions,
+  isHaveVariant,
+  product,
+  isFormValid,
+  currentLang = "en",
 }) => {
-  const dataAttrs: { [key: string]: any } = {};
-  if (dataSubmitOrderButton) {
-    dataAttrs['data-submit-order-button'] = ''; // Attribute without a value
-  }
-
   return (
-    <button
-      type="button" // Original was type="button"
-      className="classic-form-submit" // Style from ClassicSubmitOrderButton.css
-      onClick={onClick}
-      disabled={disabled}
-      {...dataAttrs}
-    >
-      {buttonText}
-    </button>
+    <div>
+      <button
+        type="button"
+        data-submit-order-button
+        className="classic-form-submit"
+        data-translate="form.submit"
+        disabled={!isFormValid}
+      >
+        {getTranslation("form.submit", currentLang)}
+      </button>
+    </div>
   );
 };
 

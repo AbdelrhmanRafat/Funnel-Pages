@@ -1,83 +1,26 @@
 ---
-import "./ClassicThemeFormFields.css"; // Keep CSS import
-import {
-  type Language,
-} from "../../../../../lib/utils/i18n/translations";
-import type { BlockData, PaymentOption, DeliveryOption, Product } from "../../../../../lib/api/types";
-import ClassicSubmitOrderButton from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButton.astro";
+import "./ClassicThemeFormFields.css";
+import { type Language } from "../../../../../lib/utils/i18n/translations";
+import type { BlockData, Product } from "../../../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
-
-// Import the new React component
 import ClassicThemeFormFieldsReact from "./ClassicThemeFormFieldsReact.tsx";
 
-// DATA INITIALIZATION & PROCESSING (Remains the same)
+// DATA INITIALIZATION & PROCESSING
 const data: BlockData = Astro.props.data;
-const purchaseOptions: BlockData = Astro.props.purchaseOptions; // For Submit button
-const isHaveVariant: string = Astro.props.isHaveVariant; // For Submit button
-const product: Product = Astro.props.product; // For Submit button
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const isHaveVariant: string = Astro.props.isHaveVariant;
+const product: Product = Astro.props.product;
 
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value ||
-  "en") as Language;
-const isArabic = currentLang === "ar";
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
 
-const formInputs = data.FormInputs;
-// Initialize arrays for cities and payment options
-let cities: string[] = [];
-let paymentOptions: PaymentOption[] = [];
-let deliveryOptions: DeliveryOption[] = [];
-
-if (formInputs?.cities !== null) cities = formInputs?.cities ?? [];
-if (formInputs?.PaymentOptions !== null) paymentOptions = formInputs?.PaymentOptions ?? [];
-if (formInputs?.DeliveryOptions !== null) deliveryOptions = formInputs?.DeliveryOptions ?? [];
-
-// Props for the React component - Renaming to avoid conflict if 'reactProps' was used differently before.
-const classicThemeFormFieldsReactProps = {
+const reactProps = {
   data,
-  isArabic,
-  cities,
-  paymentOptions,
-  deliveryOptions,
+  purchaseOptions,
+  isHaveVariant,
+  product,
   currentLang,
 };
 ---
 
-<section 
-  id={FunnelClassicComponents.ClassicFormFields} 
-  class="classic-form w-full p-3"
-  aria-labelledby="form-heading" {/* The element with id="form-heading" is inside ClassicThemeFormFieldsReact */}
->
-  <form
-    id="form-personal-payment-data"
-    form-personal-payment-data {/* This attribute was for the .ts file, can be kept or removed. Keeping for now. */}
-    class="w-full"
-    novalidate
-    onSubmit={(e) => {
-      e.preventDefault();
-      // Form submission logic will be handled by the user later.
-      console.log("Astro form submitted, default prevented.");
-    }}
-  >
-    {/* Render the React component for form fields.
-        The React component renders the div.mx-auto, header, and field groups.
-    */}
-    <ClassicThemeFormFieldsReact {...classicThemeFormFieldsReactProps} client:visible />
-    
-    {/* Render the Astro component for the submit button, inside the same form */}
-    {/* The original Astro file had this button directly inside the form, after field groups. */}
-    <div class="w-full px-3"> {/* submit button was not wrapped originally but often is, adding wrapper for consistency */}
-      <ClassicSubmitOrderButton 
-        purchaseOptions={purchaseOptions} 
-        isHaveVariant={isHaveVariant} 
-        product={product} 
-      />
-    </div>
-  </form>
-</section>
-
-<!-- CLIENT-SIDE SCRIPTS (validation, etc.) are removed as per plan. User will handle interactivity later. -->
-<!--
-<script>
-  import "./ClassicThemeFormFields";
-</script>
--->
+<ClassicThemeFormFieldsReact {...reactProps} client:visible />

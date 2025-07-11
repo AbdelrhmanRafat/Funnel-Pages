@@ -8,7 +8,7 @@ export interface FormFieldData {
   errorMessage: string;
 }
 
-interface FormState {
+export interface FormState {
   fullName: FormFieldData;
   phone: FormFieldData;
   email: FormFieldData;
