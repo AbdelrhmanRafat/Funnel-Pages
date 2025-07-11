@@ -6,7 +6,6 @@ export interface FormFieldData {
   value: string;
   isValid: boolean;
   errorMessage: string;
-  touched: boolean;
 }
 
 interface FormState {
@@ -32,7 +31,6 @@ const createInitialField = (id: string): FormFieldData => ({
   value: '',
   isValid: false,
   errorMessage: '',
-  touched: false,
 });
 
 export const useFormStore = create<FormState & FormActions>((set, get) => ({

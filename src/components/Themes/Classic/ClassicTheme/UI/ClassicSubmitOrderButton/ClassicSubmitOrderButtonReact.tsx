@@ -8,7 +8,7 @@ interface ClassicSubmitOrderButtonDesignProps {
   dataSubmitOrderButton?: boolean;
 }
 
-const ClassicSubmitOrderButtonDesign: React.FC<ClassicSubmitOrderButtonDesignProps> = ({
+const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonDesignProps> = ({
   buttonText,
   onClick,
   disabled = false,
@@ -32,4 +32,4 @@ const ClassicSubmitOrderButtonDesign: React.FC<ClassicSubmitOrderButtonDesignPro
   );
 };
 
-export default ClassicSubmitOrderButtonDesign;
+export default ClassicSubmitOrderButtonReact;
