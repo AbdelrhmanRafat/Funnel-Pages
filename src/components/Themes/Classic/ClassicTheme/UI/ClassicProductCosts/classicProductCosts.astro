@@ -1,92 +1,39 @@
 ---
 import "./classicProductCosts.css";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
+import ClassicProductCostsReact from "./ClassicProductCostsReact.tsx";
 
-const hasBundles : string = Astro.props.hasBundles;
-// Component configuration - no longer dependent on external data
-const autoUpdate = Astro.props.autoUpdate ?? true;
+const hasBundlesStr: string = Astro.props.hasBundles;
+const hasBundlesBool: boolean = hasBundlesStr === "true";
+
+// Component configuration from original props
 const showDiscountWhenZero = Astro.props.showDiscountWhenZero ?? false;
-const currency = Astro.props.currency ?? getTranslation('productFunnel.currency');
+const currencySymbol = Astro.props.currency ?? getTranslation('productFunnel.currency');
+
+// Prepare props for the React component
+// For dynamic values, we'll pass placeholders for now.
+// The user will connect these to actual data sources later.
+const reactProps = {
+  hasBundles: hasBundlesBool,
+  showDiscountWhenZero,
+  currencySymbol,
+  getTranslation: (key: string) => getTranslation(key, undefined, undefined), // Pass a simplified getTranslation
+
+  // Placeholder data
+  quantity: "0",
+  unitPrice: "0",
+  subtotal: "0",
+  shippingCost: hasBundlesBool ? "0" : undefined, // Only if hasBundles
+  discount: "0",
+  total: "0",
+  isLoading: false, // Default, not actively used for styling in React yet
+};
 ---
 
-<classic-product-funnel
-  data-funnel-auto-update={autoUpdate.toString()}
-  data-funnel-show-discount-when-zero={showDiscountWhenZero.toString()}
-  data-funnel-currency={currency}
-  data-funnel-has-bundles={hasBundles}
->
-  <div class="classic-product-costs-container">
-    <div class="classic-product-costs-body">
-      <div class="classic-product-costs-content space-y-3">
-        <div class="classic-product-costs-row flex justify-between items-center">
-          <span class="classic-product-costs-label" data-translate="productFunnel.quantity">
-            {getTranslation('productFunnel.quantity')}
-          </span>
-          <div>
-            <span class="classic-product-costs-value" data-funnel-price-quantity>0</span>
-            <span data-translate="productFunnel.piece">
-              {getTranslation('productFunnel.piece')}
-            </span>
-          </div>
-        </div>
-        
-        <div class="classic-product-costs-row flex justify-between items-center">
-          <span class="classic-product-costs-label" data-translate="productFunnel.unitPrice">
-            {getTranslation('productFunnel.unitPrice')}
-          </span>
-          <span class="classic-product-costs-value" data-funnel-price-unit>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-        
-        <div class="classic-product-costs-row flex justify-between items-center">
-          <span class="classic-product-costs-label" data-translate="productFunnel.subtotal">
-            {getTranslation('productFunnel.subtotal')}
-          </span>
-          <span class="classic-product-costs-value" data-funnel-price-subtotal>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-        { hasBundles === "true" && 
-        <div class="classic-product-costs-row flex justify-between items-center">
-          <span class="classic-product-costs-label" data-translate="productFunnel.shippingCost">
-            {getTranslation('productFunnel.shippingCost')}
-          </span>
-          <span class="classic-product-costs-value" data-funnel-price-shipping>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-        }
-        <div
-          class:list={[
-            "classic-product-costs-row flex justify-between items-center",
-            { "hidden": !showDiscountWhenZero }
-          ]}
-          data-funnel-discount-container
-        >
-          <span class="classic-product-costs-label" data-translate="productFunnel.discount">
-            {getTranslation('productFunnel.discount')}
-          </span>
-          <span class="classic-product-costs-discount" data-funnel-price-discount>
-            - 0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-      </div>
-      
-      <div class="classic-product-costs-total-section">
-        <div class="flex justify-between items-center">
-          <span class="classic-product-costs-total-label" data-translate="productFunnel.total">
-            {getTranslation('productFunnel.total')}
-          </span>
-          <span class="classic-product-costs-total-value" data-funnel-price-total>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</classic-product-funnel>
+<ClassicProductCostsReact {...reactProps} client:visible />
 
-<script>
-  import "./classicProductCosts";
-</script>
+{/*
+  The <classic-product-funnel> custom element is removed.
+  The <script> import for "./classicProductCosts.ts" is removed.
+  The .ts file (classicProductCosts.ts) will be deleted.
+*/}

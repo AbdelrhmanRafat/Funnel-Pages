@@ -1,22 +1,26 @@
 ---
 import "./ClassicConfirmPurchaseButton.css";
 import { type Language } from "../../../../../../lib/utils/i18n/translations";
-import LucideIcon from "../../../../../Shared/LucideIcon.astro";
+// LucideIcon.astro is not directly used here anymore, the React component handles its icon.
+
+import ClassicConfirmPurchaseButtonReact from "./ClassicConfirmPurchaseButtonReact.tsx";
 
 // Get language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
 const isArabic = currentLang === "ar";
+
+// Props for the React component
+// isLoading and onClick will be managed by the user when re-adding interactivity.
+const reactProps = {
+  isArabic: isArabic,
+  isLoading: false, // Default static state
+  // onClick: () => { console.log("Confirm button clicked - logic to be implemented by user"); }
+};
 ---
 
-<button type="button" class="classic-modal-confirm" classic-confirm-purchase>
-  <span class="confirm-text">
-    {isArabic ? "تأكيد الطلب" : "Confirm Order"}
-  </span>
-  <span class="loading-spinner" style="display: none;">
-    <LucideIcon name="Loader" width="16" height="16" class="animate-spin" />
-  </span>
-</button>
+<ClassicConfirmPurchaseButtonReact {...reactProps} client:visible />
 
-<script>
-  import "./ClassicConfirmPurchaseButton";
-</script>
+{/*
+  The <script> import for "./ClassicConfirmPurchaseButton.ts" is removed.
+  The .ts file (ClassicConfirmPurchaseButton.ts) will be deleted.
+*/}

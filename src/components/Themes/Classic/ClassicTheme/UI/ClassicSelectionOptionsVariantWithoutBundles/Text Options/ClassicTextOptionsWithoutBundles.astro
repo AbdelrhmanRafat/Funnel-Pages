@@ -1,20 +1,36 @@
 ---
+import ClassicTextOptionsWithoutBundlesReact from "./ClassicTextOptionsWithoutBundlesReact.tsx";
+
 export interface Props {
   option: {
     value: string;
+    // Potentially other fields if the 'option' object is richer in practice
   };
   index: number;
   optionType: 'first' | 'second';
+  // These would be passed by the parent component that uses this option
+  isSelected?: boolean;
+  onClick?: () => void;
 }
 
-const { option, index, optionType } = Astro.props;
+const {
+  option,
+  index,
+  optionType,
+  isSelected = false, // Default to false if not provided by parent
+  onClick = () => {}   // Default to no-op if not provided
+} = Astro.props;
+
+const reactProps = {
+  option,
+  index,
+  optionType,
+  isSelected,
+  onClick,
+};
 ---
 
-<div
-  class="classic-selection-options-without-bundles-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center"
-  data-option-type={optionType}
-  data-option-value={option.value}
-  data-option-index={index}
->
-  {option.value}
-</div>
+<ClassicTextOptionsWithoutBundlesReact {...reactProps} client:load />
+{/* Using client:load as these are small, numerous, and part of initial UI.
+    Consider client:visible if performance becomes an issue with many options.
+*/}

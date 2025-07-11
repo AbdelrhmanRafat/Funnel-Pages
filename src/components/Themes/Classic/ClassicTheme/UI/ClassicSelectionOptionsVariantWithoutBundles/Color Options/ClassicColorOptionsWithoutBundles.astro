@@ -1,4 +1,6 @@
 ---
+import ClassicColorOptionsWithoutBundlesReact from "./ClassicColorOptionsWithoutBundlesReact.tsx";
+
 export interface Props {
   option: {
     value: string;
@@ -6,21 +8,29 @@ export interface Props {
   };
   index: number;
   optionType: "first" | "second";
-  showLabel?: boolean;
+  showLabel?: boolean; // Kept for interface consistency, though not used in original template
+  // These would be passed by the parent component that uses this option
+  isSelected?: boolean;
+  onClick?: () => void;
 }
 
-const { option, index, optionType } = Astro.props;
+const {
+  option,
+  index,
+  optionType,
+  showLabel, // Prop exists but not used in original visual output
+  isSelected = false,
+  onClick = () => {}
+} = Astro.props;
+
+const reactProps = {
+  option,
+  index,
+  optionType,
+  isSelected,
+  onClick,
+  // showLabel // Not passed to React unless React component uses it
+};
 ---
 
-<div
-  class="classic-selection-options-without-bundles-color-option cursor-pointer hover:scale-105 transition-transform"
-  data-option-type={optionType}
-  data-option-value={option.value}
-  data-option-index={index}
->
-  <div
-    class="classic-selection-options-without-bundles-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-    style={`background-color: ${option.hex || "#ccc"}`}
-  >
-  </div>
-</div>
+<ClassicColorOptionsWithoutBundlesReact {...reactProps} client:load />

@@ -1,5 +1,5 @@
 ---
-import "./ClassicThemeFormFields.css";
+import "./ClassicThemeFormFields.css"; // Keep CSS import
 import {
   type Language,
 } from "../../../../../lib/utils/i18n/translations";
@@ -7,11 +7,14 @@ import type { BlockData, PaymentOption, DeliveryOption, Product } from "../../..
 import ClassicSubmitOrderButton from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButton.astro";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
 
-// DATA INITIALIZATION & PROCESSING
+// Import the new React component
+import ClassicThemeFormFieldsReact from "./ClassicThemeFormFieldsReact.tsx";
+
+// DATA INITIALIZATION & PROCESSING (Remains the same)
 const data: BlockData = Astro.props.data;
-const purchaseOptions: BlockData = Astro.props.purchaseOptions;
-const isHaveVariant: string = Astro.props.isHaveVariant;
-const product: Product = Astro.props.product;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions; // For Submit button
+const isHaveVariant: string = Astro.props.isHaveVariant; // For Submit button
+const product: Product = Astro.props.product; // For Submit button
 
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value ||
@@ -27,327 +30,54 @@ let deliveryOptions: DeliveryOption[] = [];
 if (formInputs?.cities !== null) cities = formInputs?.cities ?? [];
 if (formInputs?.PaymentOptions !== null) paymentOptions = formInputs?.PaymentOptions ?? [];
 if (formInputs?.DeliveryOptions !== null) deliveryOptions = formInputs?.DeliveryOptions ?? [];
+
+// Props for the React component - Renaming to avoid conflict if 'reactProps' was used differently before.
+const classicThemeFormFieldsReactProps = {
+  data,
+  isArabic,
+  cities,
+  paymentOptions,
+  deliveryOptions,
+  currentLang,
+};
 ---
 
-<!-- MAIN FORM SECTION -->
 <section 
   id={FunnelClassicComponents.ClassicFormFields} 
   class="classic-form w-full p-3"
-  aria-labelledby="form-heading"
+  aria-labelledby="form-heading" {/* The element with id="form-heading" is inside ClassicThemeFormFieldsReact */}
 >
-  <div class="mx-auto py-2 flex flex-col justify-center items-center gap-2">
+  <form
+    id="form-personal-payment-data"
+    form-personal-payment-data {/* This attribute was for the .ts file, can be kept or removed. Keeping for now. */}
+    class="w-full"
+    novalidate
+    onSubmit={(e) => {
+      e.preventDefault();
+      // Form submission logic will be handled by the user later.
+      console.log("Astro form submitted, default prevented.");
+    }}
+  >
+    {/* Render the React component for form fields.
+        The React component renders the div.mx-auto, header, and field groups.
+    */}
+    <ClassicThemeFormFieldsReact {...classicThemeFormFieldsReactProps} client:visible />
     
-    <!-- FORM HEADER -->
-    <div class="text-center">
-      <h5 
-        id="form-heading" 
-        class="classic-form-title text-2xl font-semibold" 
-      >
-      {data.title}
-      </h5>
-    </div>
-
-    <!-- MAIN FORM -->
-    <form 
-      id="form-personal-payment-data" 
-      form-personal-payment-data 
-      class="w-full"
-      novalidate
-    >
-      <div class="mb-8">
-        <!-- PERSONAL INFORMATION SECTION -->
-        <h2
-          class="classic-form-section-title mb-6 text-xl font-semibold"
-          data-translate="form.personalInfo"
-        >
-        </h2>
-        
-        <div class="space-y-4">
-          <!-- FULL NAME INPUT FIELD -->
-          <div class="classic-form-group">
-             <input
-              type="text"
-              id="form-fullName"
-              class=`classic-form-input  ${isArabic ? "text-right" : "text-left"}  text-sm`
-              aria-describedby="form-fullName-error"
-              required
-            />
-            <label
-              for="form-fullName"
-              class="classic-form-label"
-              data-translate="form.fullName"
-            >
-            </label>
-            <span
-              id="form-fullName-error"
-              class="classic-form-error text-xs"
-              role="alert"
-              style="display: none;"
-            ></span>
-          </div>
-          
-          <!-- PHONE NUMBER INPUT FIELD -->
-          <div class="classic-form-group">
-          <input
-              type="tel"
-              id="form-phone"
-              class=`classic-form-input ${isArabic ? "text-right" : "text-left"}  text-sm`
-              aria-describedby="form-phone-error"
-              required
-            />
-            <label
-              for="form-phone"
-              class="classic-form-label"
-              data-translate="form.phoneNumber"
-            >
-            </label>
-            
-            <span
-              id="form-phone-error"
-              class="classic-form-error text-xs"
-              role="alert"
-              style="display: none;"
-            ></span>
-          </div>
-          
-          <!-- EMAIL INPUT FIELD -->
-          <div class="classic-form-group">
-             <input
-              type="email"
-              id="form-email"
-              class=`classic-form-input ${isArabic ? "text-right" : "text-left"} text-sm`
-              aria-describedby="form-email-error"
-              required
-            />
-            <label
-              for="form-email"
-              class="classic-form-label block mb-2 text-sm font-medium"
-              data-translate="form.email"
-            >
-            </label>
-            <span
-              id="form-email-error"
-              class="classic-form-error text-xs"
-              role="alert"
-              style="display: none;"
-            ></span>
-          </div>
-          
-          <!-- ADDRESS TEXTAREA FIELD -->
-          <div class="classic-form-group">
-              <textarea
-              id="form-address"
-              class=`classic-form-input ${isArabic ? "text-right" : "text-left"} min-h-[80px] resize-y text-sm`
-              aria-describedby="form-address-error"
-              required
-            ></textarea>
-            <label
-              for="form-address"
-              class="classic-form-label block mb-2 text-sm font-medium"
-              data-translate="form.address"
-            >
-            </label>
-
-            <span
-              id="form-address-error"
-              class="classic-form-error text-xs"
-              role="alert"
-              style="display: none;"
-            ></span>
-          </div>
-          
-          <!-- CITY SELECTION DROPDOWN -->
-          <div>
-            <label
-              for="form-city"
-              class="classic-form-label block mb-2 text-sm font-medium"
-              data-translate="form.city"
-            >
-            </label>
-            <select 
-              id="form-city" 
-              class=`classic-form-input ${isArabic ? "text-right" : "text-left"}  text-sm`
-              aria-describedby="form-city-error"
-              required
-            >
-              <option value="" data-translate="form.selectCity">
-              </option>
-              {
-                cities.map((city: string) => (
-                  <option value={city.toLowerCase().replace(/\s+/g, "")}>
-                    {city}
-                  </option>
-                ))
-              }
-            </select>
-            <span
-              id="form-city-error"
-              class="classic-form-error text-xs"
-              role="alert"
-              style="display: none;"
-            ></span>
-          </div>
-          
-          <!-- PAYMENT OPTIONS SECTION -->
-          {paymentOptions.length > 0 && (
-          <div>
-            <label
-              class="classic-form-label block mb-2 text-sm font-medium"
-              data-translate="form.paymentOptions"
-            >
-            </label>
-            <div
-              class="space-y-3"
-              role="radiogroup"
-              aria-label="Payment Method"
-              aria-describedby="form-payment-error"
-            >
-              {
-                paymentOptions.map((option, index) => {
-                  const value = isArabic ? option.label.ar : option.label.en;
-                  const id = `payment-${option.id}`;
-                  const isChecked = index === 0;
-                  return (
-                    <label class="classic-form-payment-option flex items-start gap-2" for={id}>
-                      <input
-                        type="radio"
-                        id={id}
-                        name="payment-option"
-                        value={value}
-                        class="classic-form-radio w-4 h-4"
-                        checked={isChecked}
-                      />
-                      <div class="classic-form-payment-option-content flex-1 ml-3">
-                        <div class="flex justify-between items-center">
-                          <div class="flex-1 flex flex-col justify-start items-start gap-2">
-                            <span class="classic-form-payment-option-label font-medium">
-                              {option.label[currentLang]}
-                            </span>
-                            <span class="classic-form-payment-option-description text-sm">
-                              {option.description[currentLang]}
-                            </span>
-
-                            {/* Payment method images */}
-                            {option.images && option.images.length > 0 && (
-                              <div class="flex justify-start items-center flex-wrap gap-4">
-                                {option.images.map((imageSrc) => (
-                                  <div class="w-8 h-8 flex justify-center items-center">
-                                    <img
-                                      src={imageSrc}
-                                      alt={option.label[currentLang]}
-                                      class="w-full"
-                                    />
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </label>
-                  );
-                })
-              }
-            </div>
-            <span
-              id="form-payment-error"
-              class="classic-form-error text-xs"
-              role="alert"
-              style="display: none;"
-            ></span>
-          </div>
-          )}
-          
-          <!-- DELIVERY OPTIONS SECTION -->
-          {deliveryOptions.length > 0 && (
-          <div>
-            <label
-              class="classic-form-label block mb-2 text-sm font-medium"
-              data-translate="form.deliveryOptions"
-            >
-            </label>
-            <div
-              class="space-y-3"
-              role="radiogroup"
-              aria-label="Delivery Method"
-              aria-describedby="form-delivery-error"
-            >
-              {
-                deliveryOptions.map((option, index) => {
-                  const value = isArabic ? option.label.ar : option.label.en;
-                  const id = `delivery-${option.id}`;
-                  const isChecked = index === 0;
-                  return (
-                    <label class="classic-form-payment-option flex items-start gap-2" for={id}>
-                      <input
-                        type="radio"
-                        id={id}
-                        name="delivery-option"
-                        value={value}
-                        class="classic-form-radio w-4 h-4"
-                        checked={isChecked}
-                      />
-                      <div class="classic-form-payment-option-content flex-1 ml-3">
-                        <div class="flex justify-between items-center">
-                          <div class="flex-1 flex flex-col justify-start items-start gap-2">
-                            <span class="classic-form-payment-option-label font-medium">
-                              {option.label[currentLang]}
-                            </span>
-                            <span class="classic-form-payment-option-description text-sm">
-                              {option.description[currentLang]}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </label>
-                  );
-                })
-              }
-            </div>
-            <span
-              id="form-delivery-error"
-              class="classic-form-error text-xs"
-              role="alert"
-              style="display: none;"
-            ></span>
-          </div>
-          )}
-          
-          <!-- NOTES TEXTAREA FIELD -->
-          <div class="classic-form-group">
-              <textarea
-              id="form-notes"
-              placeholder=""
-              class=`classic-form-input ${isArabic ? "text-right" : "text-left"} min-h-[100px] resize-y text-sm`
-              aria-describedby="form-notes-error"
-            ></textarea>
-            <label
-              for="form-notes"
-              class="classic-form-label block mb-2 text-sm font-medium"
-              data-translate="form.notes"
-            >
-            </label>
-            <span
-              id="form-notes-error"
-              class="classic-form-error text-xs"
-              role="alert"
-              style="display: none;"
-            ></span>
-          </div>
-        </div>
-      </div>
-      
-      <!-- SUBMIT BUTTON SECTION -->
+    {/* Render the Astro component for the submit button, inside the same form */}
+    {/* The original Astro file had this button directly inside the form, after field groups. */}
+    <div class="w-full px-3"> {/* submit button was not wrapped originally but often is, adding wrapper for consistency */}
       <ClassicSubmitOrderButton 
         purchaseOptions={purchaseOptions} 
         isHaveVariant={isHaveVariant} 
         product={product} 
       />
-    </form>
-  </div>
+    </div>
+  </form>
 </section>
 
-<!-- CLIENT-SIDE SCRIPTS -->
+<!-- CLIENT-SIDE SCRIPTS (validation, etc.) are removed as per plan. User will handle interactivity later. -->
+<!--
 <script>
   import "./ClassicThemeFormFields";
 </script>
+-->

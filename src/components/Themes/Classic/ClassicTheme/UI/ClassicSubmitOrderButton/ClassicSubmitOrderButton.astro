@@ -2,40 +2,40 @@
 import "./ClassicSubmitOrderButton.css";
 import ClassicModalPurchaseInfo from "../../ClassicModalPurchaseInfo/ClassicModalPurchaseInfo.astro";
 import type { BlockData, Product } from "../../../../../../lib/api/types";
+import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 
+import ClassicSubmitOrderButtonDesign from "./ClassicSubmitOrderButtonDesign.tsx";
+
+// Props passed to this Astro component, some were for the custom element, others for the modal.
 const isHaveVariant : string = Astro.props.isHaveVariant;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const product : Product = Astro.props.product;
-// Component configuration
-const validateOnSubmit =  true;
-const showValidationMessages =  true;
-const autoFocusFirstError =  true;
-const enableColorSizeValidation =  true;
-const isHaveBundles = !(purchaseOptions === undefined);
+
+// Get button text using i18n
+const buttonText = getTranslation("form.submit", Astro.cookies.get("lang")?.value || "en");
+
+// Props for the React button component.
+// onClick and disabled state will be handled by the user later.
+const buttonReactProps = {
+  buttonText: buttonText,
+  disabled: false, // Default static state
+  // dataSubmitOrderButton: true, // This attribute was for the custom element's JS. Not needed if custom element is gone.
+};
+
 ---
+{/*
+  The <classic-submit-order> custom element wrapper is removed.
+  The validation logic from ClassicSubmitOrderButton.ts will be handled by the user later.
+  We directly render the React button and the Modal.
+*/}
+<div>
+  <ClassicSubmitOrderButtonDesign {...buttonReactProps} client:load />
+</div>
 
-<classic-submit-order 
-  data-submit-validate-on-submit={validateOnSubmit}
-  data-submit-show-validation-messages={showValidationMessages}
-  data-submit-auto-focus-first-error={autoFocusFirstError}
-  data-submit-enable-color-size-validation={enableColorSizeValidation}
-  is-Have-Variant={isHaveVariant}
-  is-Have-Bundles={isHaveBundles}
->
-  <div>
-    <button
-      type="button"
-      data-submit-order-button
-      class="classic-form-submit"
-      data-translate="form.submit"
-    >
-    </button>
-  </div>
-</classic-submit-order>
+{/* The modal component is still included as part of this component's output. */}
+<ClassicModalPurchaseInfo isHaveVariant={isHaveVariant} purchaseOptions={purchaseOptions} product={product} />
 
-<!-- Include the modal component -->
-<ClassicModalPurchaseInfo  isHaveVariant={isHaveVariant} purchaseOptions={purchaseOptions} product={product} />
-
-<script>
-  import "./ClassicSubmitOrderButton";
-</script>
+{/*
+  The <script> import for "./ClassicSubmitOrderButton.ts" is removed as per the new instruction.
+  The .ts file will be deleted next.
+*/}
