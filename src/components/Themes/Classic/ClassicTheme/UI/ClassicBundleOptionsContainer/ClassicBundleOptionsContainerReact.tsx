@@ -1,3 +1,4 @@
+import "./ClassicBundleOptionsContainer.css";
 import React, { useMemo, useEffect } from 'react';
 import type { Product } from "../../../../../../lib/api/types";
 import type { Language } from "../../../../../../lib/utils/i18n/translations";
