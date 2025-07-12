@@ -1,17 +1,19 @@
-// ClassicModalPurchaseInfoReact.tsx
 import "./ClassicModalPurchaseInfo.css";
 import React, { useState, useEffect, useMemo } from 'react';
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import { useBundleStore } from '../../../../../lib/stores/bundleStore';
-import { useProductStore } from '../../../../../lib/stores/customOptionsNonBundleStore';
 import { useCustomOptionBundleStore } from '../../../../../lib/stores/customOptionBundleStore';
 import { useFormStore } from '../../../../../lib/stores/formStore';
 import { usePaymentStore } from '../../../../../lib/stores/paymentStore';
 import { useDeliveryStore } from '../../../../../lib/stores/deliveryStore';
 import ClassicConfirmPurchaseButtonReact from "../UI/ClassicConfirmPurchaseButton/ClassicConfirmPurchaseButtonReact";
+import { useProductStore } from "../../../../../lib/stores/customOptionsNonBundleStore";
+import type { Product } from "../../../../../lib/api/types";
+import CelebrationView from "./CelebrationView";
 
 interface ClassicModalPurchaseInfoReactProps {
+  product: Product;
   isArabic: boolean;
   currentLang: Language;
   hasVariants: boolean;
@@ -21,6 +23,7 @@ interface ClassicModalPurchaseInfoReactProps {
 }
 
 const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps> = ({
+  product,
   isArabic,
   currentLang,
   hasVariants,
@@ -30,228 +33,90 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
 }) => {
   const [currentView, setCurrentView] = useState<'purchase' | 'celebration'>('purchase');
   const [orderNumber, setOrderNumber] = useState<string>('');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [invoiceNumber] = useState(() => 'INV-' + Date.now().toString().slice(-6));
+  const [invoiceDate] = useState(() => new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US'));
 
   // Store hooks
   const bundle = useBundleStore();
-  const product = useProductStore();
+  const productOptions = useProductStore();
   const customOptions = useCustomOptionBundleStore((state) => state.options);
   const form = useFormStore();
   const payment = usePaymentStore();
   const delivery = useDeliveryStore();
 
-  // Debug function - comprehensive store state logging
-  const debugStoreStates = () => {
-    console.group('🔍 === COMPLETE STORE STATE DEBUG ===');
-    
-    console.group('📦 Bundle Store');
-    console.log('Selected Offer:', bundle.selectedOffer);
-    console.log('Quantity:', bundle.quantity);
-    console.groupEnd();
+  // Calculate pricing details
+  const pricingDetails = useMemo(() => {
+    let subtotal = 0;
+    let discount = 0;
+    let shipping = 0;
+    let quantity = 1;
 
-    console.group('🛍️ Product Store');
-    console.log('Has Variant:', product.isHaveVariant);
-    console.log('Has Second Option:', product.hasSecondOption);
-    console.log('Selected Option:', product.selectedOption);
-    console.groupEnd();
-
-    console.group('🎨 Custom Options (Bundle)');
-    console.log('Options Array:', customOptions);
-    console.log('Options Count:', customOptions.length);
-    customOptions.forEach((opt, idx) => {
-      console.log(`Option ${idx + 1}:`, {
-        bundleIndex: opt.bundleIndex,
-        firstOption: opt.firstOption,
-        secondOption: opt.secondOption,
-        numberOfOptions: opt.numberOfOptions,
-        sku_id: opt.sku_id
-      });
-    });
-    console.groupEnd();
-
-    console.group('📝 Form Store');
-    console.log('Form Valid:', form.areAllFieldsValid());
-    console.log('Form Fields:', {
-      fullName: { value: form.fullName.value, isValid: form.fullName.isValid },
-      phone: { value: form.phone.value, isValid: form.phone.isValid },
-      email: { value: form.email.value, isValid: form.email.isValid },
-      address: { value: form.address.value, isValid: form.address.isValid },
-      city: { value: form.city.value, isValid: form.city.isValid },
-      notes: { value: form.notes.value, isValid: form.notes.isValid }
-    });
-    console.groupEnd();
-
-    console.group('💳 Payment Store');
-    console.log('Selected Payment ID:', payment.selectedPaymentOptionId);
-    console.log('Selected Payment Value:', payment.selectedPaymentOptionValue);
-    console.groupEnd();
-
-    console.group('🚚 Delivery Store');
-    console.log('Selected Delivery ID:', delivery.selectedDeliveryOptionId);
-    console.log('Selected Delivery Value:', delivery.selectedDeliveryOptionValue);
-    console.groupEnd();
-
-    console.groupEnd();
-  };
-
-  // Calculate final total with detailed logging
-  const finalTotal = useMemo(() => {
-    console.group('💰 === PRICE CALCULATION DEBUG ===');
-    
-    let total = 0;
-    
     if (hasBundles && bundle.selectedOffer) {
-      console.log('Bundle Calculation:');
-      console.log('  Base Total:', bundle.selectedOffer.final_total);
-      console.log('  Shipping Price:', bundle.selectedOffer.shipping_price);
-      console.log('  Is Pickup:', delivery.selectedDeliveryOptionId === 'delivery-pickup');
+      subtotal = bundle.selectedOffer.final_total + bundle.selectedOffer.discount;
+      discount = bundle.selectedOffer.discount;
+      shipping = delivery.selectedDeliveryOptionId === 'delivery-pickup' ? 0 : bundle.selectedOffer.shipping_price;
+      quantity = bundle.quantity;
+    } else if (productOptions.selectedOption) {
+      const option = productOptions.selectedOption;
+      quantity = option.qty || 1;
+      const unitPrice = option.price || 0;
+      const unitDiscountPrice = option.price_after_discount || unitPrice;
       
-      total = delivery.selectedDeliveryOptionId === 'delivery-pickup'
-        ? bundle.selectedOffer.final_total - bundle.selectedOffer.shipping_price
-        : bundle.selectedOffer.final_total;
-      
-      console.log('  Final Bundle Total:', total);
-    } else if (product.selectedOption) {
-      console.log('Direct Product Calculation:');
-      console.log('  Price After Discount:', product.selectedOption.price_after_discount);
-      console.log('  Quantity:', product.selectedOption.qty);
-      
-      total = (product.selectedOption.price_after_discount || 0) * product.selectedOption.qty;
-      
-      console.log('  Final Product Total:', total);
+      subtotal = unitPrice * quantity;
+      discount = (unitPrice - unitDiscountPrice) * quantity;
+      shipping = 0; // Add shipping logic if needed
     }
-    
-    console.log('🎯 CALCULATED FINAL TOTAL:', total);
-    console.groupEnd();
-    
-    return total;
-  }, [bundle.selectedOffer, product.selectedOption, delivery.selectedDeliveryOptionId, hasBundles]);
 
-  // Generate order processing data
-  const generateOrderData = () => {
-    console.group('📋 === ORDER DATA GENERATION ===');
-    
-    const orderData = {
-      type: hasBundles ? 'bundle' : 'direct',
-      timestamp: new Date().toISOString(),
-      
-      // Bundle specific data
-      ...(hasBundles && {
-        bundle: {
-          offer: bundle.selectedOffer,
-          quantity: bundle.quantity,
-          customOptions: customOptions
-        }
-      }),
-      
-      // Direct product data
-      ...(!hasBundles && {
-        product: {
-          selectedOption: product.selectedOption,
-          hasVariants: product.isHaveVariant,
-          hasSecondOption: product.hasSecondOption
-        }
-      }),
-      
-      // Customer data
-      customer: {
-        fullName: form.fullName.value,
-        phone: form.phone.value,
-        email: form.email.value,
-        address: form.address.value,
-        city: form.city.value,
-        notes: form.notes.value
-      },
-      
-      // Order details
-      payment: {
-        id: payment.selectedPaymentOptionId,
-        value: payment.selectedPaymentOptionValue
-      },
-      delivery: {
-        id: delivery.selectedDeliveryOptionId,
-        value: delivery.selectedDeliveryOptionValue
-      },
-      
-      // Totals
-      finalTotal: finalTotal
-    };
-    
-    console.log('Generated Order Data:', orderData);
-    console.groupEnd();
-    
-    return orderData;
-  };
+    const total = subtotal - discount + shipping;
 
-  // Create direct purchase item HTML
-  const createDirectItemHTML = () => {
-    if (!product.selectedOption) return '';
-    
-    const option = product.selectedOption;
-    const quantity = option.qty || 1;
-    const price = option.price || 0;
-    const discountPrice = option.price_after_discount || price;
-    const hasDiscount = price > discountPrice;
-    
-    console.log('🏷️ Direct Item HTML Generation:', {
-      option,
-      quantity,
-      price,
-      discountPrice,
-      hasDiscount
-    });
-    
-    const optionTags = [];
-    if (option.firstOption) optionTags.push(`<span class="classic-direct-option-tag">${option.firstOption}</span>`);
-    if (option.secondOption) optionTags.push(`<span class="classic-direct-option-tag">${option.secondOption}</span>`);
+    return { subtotal, discount, shipping, total, quantity };
+  }, [bundle.selectedOffer, bundle.quantity, productOptions.selectedOption, delivery.selectedDeliveryOptionId, hasBundles]);
 
-    return `
-      <div class="classic-direct-item">
-        <div class="classic-direct-item-info">
-          <div class="classic-direct-item-title">المنتج المحدد</div>
-          ${optionTags.length > 0 ? `<div class="classic-direct-item-options">${optionTags.join('')}</div>` : ''}
-        </div>
-        <div class="classic-direct-item-pricing">
-          <div class="classic-direct-item-price">${discountPrice} $</div>
-          ${hasDiscount ? `<div class="classic-direct-item-original-price">${price} $</div>` : ''}
-          ${hasDiscount ? `<div class="classic-direct-item-discount">وفر ${price - discountPrice} $</div>` : ''}
-        </div>
-        <div class="classic-direct-item-quantity">${quantity}</div>
-      </div>
-    `;
+  // Create line items for invoice table
+  const createLineItems = () => {
+    const items = [];
+
+    if (hasBundles && bundle.selectedOffer) {
+      items.push({
+        description: bundle.selectedOffer.title,
+        sku: `BUNDLE-${bundle.selectedOffer || 'PKG'}`,
+        quantity: bundle.quantity,
+        unitPrice: bundle.selectedOffer.final_total / bundle.quantity,
+        discount: bundle.selectedOffer.discount,
+        total: bundle.selectedOffer.final_total
+      });
+    } else if (productOptions.selectedOption) {
+      const option = productOptions.selectedOption;
+      const productName = isArabic ? product.name_ar : product.name_en;
+      
+      items.push({
+        description: productName,
+        sku: product.sku_code,
+        quantity: option.qty || 1,
+        unitPrice: option.price || 0,
+        discount: ((option.price || 0) - (option.price_after_discount || 0)) * (option.qty || 1),
+        total: (option.price_after_discount || 0) * (option.qty || 1),
+        variants: [option.firstOption, option.secondOption].filter(Boolean)
+      });
+    }
+
+    return items;
   };
 
   // Handle order confirmation
   const handleOrderConfirm = async () => {
-    console.group('🚀 === ORDER CONFIRMATION PROCESS ===');
-    
-    // Debug all stores before processing
-    debugStoreStates();
-    
-    // Generate order data
-    const orderData = generateOrderData();
+    setIsProcessing(true);
     
     try {
-      console.log('Processing order...');
-      
-      // TODO: Replace with actual API call
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Generate order number
       const newOrderNumber = '#' + Math.floor(Math.random() * 900000 + 100000);
       setOrderNumber(newOrderNumber);
-      
-      console.log('✅ Order processed successfully!');
-      console.log('Order Number:', newOrderNumber);
-      
-      // Switch to celebration view
       setCurrentView('celebration');
-      
-      console.groupEnd();
-      
     } catch (error) {
-      console.error('❌ Order processing failed:', error);
-      console.groupEnd();
-      throw error;
+      // Handle error
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -264,322 +129,342 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
 
   // Handle continue shopping
   const handleContinue = () => {
-    // Reset modal state and close
     handleClose();
-    // Optionally reload page or reset stores
     window.location.reload();
   };
 
-  // Debug on modal open
+  // Focus management for accessibility
   useEffect(() => {
     if (isOpen) {
-      console.log('🔓 Modal opened - triggering debug');
-      debugStoreStates();
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
 
-  return (
-    <div className="classic-modal fixed inset-0 z-[1000] flex justify-center items-center">
-      <div className="classic-modal-overlay absolute inset-0 z-[1001]" onClick={handleClose}></div>
-      <div className="classic-modal-container relative container md:w-8/12 lg:w-6/12 max-h-[92vh] overflow-y-auto z-[1002] m-4">
-        
-        {/* Purchase Info View */}
-        {currentView === 'purchase' && (
-          <div className="modal-view w-full">
-            <div className="classic-modal-header flex justify-between items-center">
-              <div className="classic-header-content flex justify-start items-center gap-2">
-                <div className="classic-header-accent"></div>
-                <h3 className="classic-modal-title">
-                  {getTranslation('modal.purchaseInfo', currentLang)}
-                </h3>
-              </div>
-            </div>
+  const lineItems = createLineItems();
 
-            <div className="classic-modal-body">
-              <div className="classic-modal-content">
-                <div className="classic-purchase-summary">
-                  <div className="classic-section-header">
-                    <div className="classic-section-icon classic-icon-summary">
+  return (
+    <div 
+      className="fixed inset-0 z-[1000] flex justify-center items-center transition-opacity duration-300"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="invoice-title"
+    >
+      {/* Overlay */}
+      <div 
+        className="classic-modal-overlay absolute inset-0 z-[1001] transition-opacity duration-300" 
+        onClick={handleClose}
+        aria-hidden="true"
+      />
+      
+      {/* Invoice Container */}
+      <div className="relative container md:w-10/12 lg:w-8/12 xl:w-6/12 max-h-[95vh] overflow-y-auto z-[1002] m-4 transition-all duration-300 transform">
+        <div className="classic-invoice-container rounded-xl shadow-2xl">
+          
+          {/* Purchase Invoice View */}
+          {currentView === 'purchase' && (
+            <div className="w-full">
+              {/* Invoice Header */}
+              <div className="classic-invoice-header p-8 rounded-t-xl">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                  <div>
+                    <h1 id="invoice-title" className="classic-invoice-title text-2xl md:text-3xl font-bold mb-2">
+                      {getTranslation('modal.purchaseInfo', currentLang)}
+                    </h1>
+                    <p className="classic-invoice-subtitle text-sm opacity-80">
+                      {getTranslation('modal.secureEncrypted', currentLang)}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <div className="classic-invoice-number text-lg font-bold mb-1">
+                      {invoiceNumber}
+                    </div>
+                    <div className="classic-invoice-date text-sm opacity-75">
+                      {invoiceDate}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Invoice Body */}
+              <div className="p-6 md:p-8 space-y-8">
+                
+                {/* Product Information Section */}
+                <div className="classic-product-details-section">
+                  <h2 className="classic-section-title text-xl font-bold mb-4 flex items-center gap-3">
+                    <div className="classic-section-icon p-2 rounded-lg">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                       </svg>
                     </div>
-                    <h4 className="classic-section-title">
-                      {getTranslation('modal.orderSummary', currentLang)}
-                    </h4>
-                  </div>
-
-                  {/* Bundle Information */}
-                  {hasBundles && bundle.selectedOffer ? (
-                    <div className="classic-summary-section">
-                      <div className="classic-summary-grid">
-                        <div className="classic-summary-column">
-                          <div className="classic-summary-item">
-                            <span className="classic-summary-label">{getTranslation('modal.orderType', currentLang)}</span>
-                            <span className="classic-summary-value">{bundle.selectedOffer.title}</span>
+                    {getTranslation('modal.orderSummary', currentLang)}
+                  </h2>
+                  
+                  <div className="classic-product-info-card rounded-lg p-6 mb-6">
+                    <div className="flex flex-col md:flex-row gap-4 justify-between">
+                      <div className="flex-1">
+                        <h3 className="classic-product-name text-lg font-bold mb-2">
+                          {isArabic ? product.name_ar : product.name_en}
+                        </h3>
+                        <div className="flex flex-wrap gap-4 text-sm">
+                          <div className="classic-product-sku">
+                            <span className="font-medium">{getTranslation('product.productCode', currentLang)}:</span>
+                            <span className="ml-2">{product.sku_code}</span>
                           </div>
-                          <div className="classic-summary-item">
-                            <span className="classic-summary-label">{getTranslation('modal.itemsCount', currentLang)}</span>
-                            <span className="classic-summary-value">{bundle.selectedOffer.items}</span>
-                          </div>
-                        </div>
-                        <div className="classic-summary-column">
-                          <div className="classic-summary-item">
-                            <span className="classic-summary-label">{getTranslation('modal.pricePerItem', currentLang)}</span>
-                            <span className="classic-summary-value">{bundle.selectedOffer.price_per_item} $</span>
-                          </div>
-                          <div className="classic-summary-item">
-                            <span className="classic-summary-label">{getTranslation('modal.discount', currentLang)}</span>
-                            <span className="classic-summary-value classic-discount-info">
-                              {bundle.selectedOffer.discount > 0 
-                                ? `${bundle.selectedOffer.discount} $ (${bundle.selectedOffer.discount_percent}%)`
-                                : getTranslation('modal.noDiscount', currentLang)
+                          <div className="classic-product-status">
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              product.is_active 
+                                ? 'classic-status-active' 
+                                : 'classic-status-inactive'
+                            }`}>
+                              {product.is_active 
+                                ? getTranslation('product.available', currentLang)
+                                : getTranslation('product.notAvailable', currentLang)
                               }
                             </span>
                           </div>
                         </div>
                       </div>
                     </div>
-                  ) : (
-                    /* Direct Purchase Information */
-                    <div className="classic-summary-section classic-direct-purchase-section">
-                      <div className="classic-section-header">
-                        <div className="classic-section-icon classic-icon-direct">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                          </svg>
-                        </div>
-                        <h5 className="classic-subsection-title">{getTranslation('modal.directPurchaseDetails', currentLang)}</h5>
-                      </div>
+                  </div>
+                </div>
 
-                      <div className="classic-direct-items-list" dangerouslySetInnerHTML={{ __html: createDirectItemHTML() }}></div>
-
-                      <div className="classic-direct-summary">
-                        <div className="classic-direct-summary-item">
-                          <span className="classic-summary-label">{getTranslation('modal.totalQuantity', currentLang)}</span>
-                          <span className="classic-summary-value">{product.selectedOption?.qty || 1}</span>
-                        </div>
-                        <div className="classic-direct-summary-item">
-                          <span className="classic-summary-label">{getTranslation('modal.subtotal', currentLang)}</span>
-                          <span className="classic-summary-value">{((product.selectedOption?.price || 0) * (product.selectedOption?.qty || 1))} $</span>
-                        </div>
-                        <div className="classic-direct-summary-item">
-                          <span className="classic-summary-label">{getTranslation('modal.totalDiscount', currentLang)}</span>
-                          <span className="classic-summary-value classic-discount-info">
-                            {((product.selectedOption?.price || 0) - (product.selectedOption?.price_after_discount || 0)) * (product.selectedOption?.qty || 1)} $
-                          </span>
-                        </div>
-                        <div className="classic-direct-summary-item">
-                          <span className="classic-summary-label">{getTranslation('modal.finalTotal', currentLang)}</span>
-                          <span className="classic-summary-value">{finalTotal} $</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Custom Options Section */}
-                  {hasVariants && hasBundles && customOptions.length > 0 && (
-                    <div className="classic-summary-section classic-options-section">
-                      <div className="classic-section-header">
-                        <div className="classic-section-icon classic-icon-options">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
-                          </svg>
-                        </div>
-                        <h5 className="classic-subsection-title">
-                          {getTranslation('modal.bundleOptions', currentLang)}
-                        </h5>
-                      </div>
-                      
-                      <div className="classic-selection-items flex flex-col gap-2">
-                        {customOptions.map((option, index) => (
-                          <div className="classic-selection-item" key={index}>
-                            <div className="classic-panel-info">{getTranslation('modal.item', currentLang)} {option.bundleIndex}</div>
-                            <div className="classic-selection-display"><span>{option.firstOption}</span></div>
-                            {option.secondOption && <div className="classic-selection-display"><span>{option.secondOption}</span></div>}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Customer Information */}
-                  <div className="classic-summary-section classic-customer-section">
-                    <div className="classic-section-header">
-                      <div className="classic-section-icon classic-icon-customer">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
-                      </div>
-                      <h5 className="classic-section-title">{getTranslation('modal.customerInfo', currentLang)}</h5>
+                {/* Line Items Table */}
+                <div className="classic-line-items-section">
+                  <h3 className="classic-section-title text-lg font-bold mb-4">
+                    {getTranslation('modal.itemsCount', currentLang)}
+                  </h3>
+                  
+                  <div className="classic-line-items-table rounded-lg overflow-hidden">
+                    {/* Table Header */}
+                    <div className="classic-table-header grid grid-cols-12 gap-4 p-4 text-sm font-bold">
+                      <div className="col-span-5">{getTranslation('modal.item', currentLang)}</div>
+                      <div className="col-span-2 text-center">{getTranslation('modal.totalQuantity', currentLang)}</div>
+                      <div className="col-span-2 text-right">{getTranslation('modal.pricePerItem', currentLang)}</div>
+                      <div className="col-span-2 text-right">{getTranslation('modal.discount', currentLang)}</div>
+                      <div className="col-span-1 text-right">{getTranslation('modal.subtotal', currentLang)}</div>
                     </div>
                     
-                    <div className="classic-customer-details">
-                      <div className="classic-customer-grid">
-                        <div className="classic-customer-column">
-                          <div className="classic-customer-field">
-                            <span className="classic-field-label">{getTranslation('modal.fullName', currentLang)}</span>
-                            <span className="classic-field-value">{form.fullName.value || '-'}</span>
+                    {/* Table Body */}
+                    <div className="classic-table-body">
+                      {lineItems.map((item, index) => (
+                        <div key={index} className="classic-line-item-row grid grid-cols-12 gap-4 p-4 border-t">
+                          <div className="col-span-5">
+                            <div className="classic-line-item-description">
+                              <div className="font-medium mb-1">{item.description}</div>
+                              <div className="text-xs opacity-75 mb-2">SKU: {item.sku}</div>
+                              {item.variants && item.variants.length > 0 && (
+                                <div className="flex gap-2 flex-wrap">
+                                  {item.variants.map((variant, idx) => (
+                                    <span key={idx} className="classic-variant-tag px-2 py-1 rounded-full text-xs">
+                                      {variant}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
                           </div>
-                          <div className="classic-customer-field">
-                            <span className="classic-field-label">{getTranslation('modal.phone', currentLang)}</span>
-                            <span className="classic-field-value">{form.phone.value || '-'}</span>
+                          <div className="col-span-2 text-center">
+                            <span className="classic-line-item-quantity px-3 py-1 rounded-lg text-sm font-bold">
+                              {item.quantity}
+                            </span>
                           </div>
-                          <div className="classic-customer-field">
-                            <span className="classic-field-label">{getTranslation('modal.email', currentLang)}</span>
-                            <span className="classic-field-value">{form.email.value || '-'}</span>
+                          <div className="col-span-2 text-right">
+                            <div className="classic-line-item-price font-medium">
+                              ${item.unitPrice.toFixed(2)}
+                            </div>
+                          </div>
+                          <div className="col-span-2 text-right">
+                            <div className="classic-line-item-discount font-medium">
+                              {item.discount > 0 ? `-$${item.discount.toFixed(2)}` : '$0.00'}
+                            </div>
+                          </div>
+                          <div className="col-span-1 text-right">
+                            <div className="classic-line-item-total font-bold">
+                              ${item.total.toFixed(2)}
+                            </div>
                           </div>
                         </div>
-                        <div className="classic-customer-column">
-                          <div className="classic-customer-field">
-                            <span className="classic-field-label">{getTranslation('modal.address', currentLang)}</span>
-                            <span className="classic-field-value">{form.address.value || '-'}</span>
-                          </div>
-                          <div className="classic-customer-field">
-                            <span className="classic-field-label">{getTranslation('modal.city', currentLang)}</span>
-                            <span className="classic-field-value">{form.city.value || '-'}</span>
-                          </div>
-                          <div className="classic-customer-field">
-                            <span className="classic-field-label">{getTranslation('modal.paymentMethod', currentLang)}</span>
-                            <span className="classic-field-value">{payment.selectedPaymentOptionValue || '-'}</span>
-                          </div>
-                          <div className="classic-customer-field">
-                            <span className="classic-field-label">{getTranslation('modal.deliveryMethod', currentLang)}</span>
-                            <span className="classic-field-value">{delivery.selectedDeliveryOptionValue || '-'}</span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {form.notes.value && (
-                        <div className="classic-customer-field classic-notes-field">
-                          <span className="classic-field-label">{getTranslation('modal.notes', currentLang)}</span>
-                          <span className="classic-field-value">{form.notes.value}</span>
-                        </div>
-                      )}
+                      ))}
                     </div>
                   </div>
+                </div>
 
-                  {/* Total Section */}
-                  <div className="classic-summary-total">
-                    <div className="classic-total-content">
-                      <div className="classic-total-icon">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                {/* Custom Options Section */}
+                {hasVariants && hasBundles && customOptions.length > 0 && (
+                  <div className="classic-bundle-options-section">
+                    <h3 className="classic-section-title text-lg font-bold mb-4 flex items-center gap-3">
+                      <div className="classic-section-icon p-2 rounded-lg">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
                         </svg>
                       </div>
-                      <span className="classic-total-label">{getTranslation('modal.finalTotal', currentLang)}</span>
-                      <span className="classic-total-value">{finalTotal} $</span>
+                      {getTranslation('modal.bundleOptions', currentLang)}
+                    </h3>
+                    
+                    <div className="classic-options-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {customOptions.map((option, index) => (
+                        <div key={index} className="classic-option-item rounded-lg p-4">
+                          <div className="classic-option-header text-sm font-bold mb-2">
+                            {getTranslation('modal.item', currentLang)} {option.bundleIndex}
+                          </div>
+                          <div className="classic-option-details space-y-2">
+                            <div className="classic-option-selection">
+                              <span className="classic-selection-tag px-3 py-1 rounded-full text-xs font-medium">
+                                {option.firstOption}
+                              </span>
+                            </div>
+                            {option.secondOption && (
+                              <div className="classic-option-selection">
+                                <span className="classic-selection-tag px-3 py-1 rounded-full text-xs font-medium">
+                                  {option.secondOption}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Billing Information Section */}
+                <div className="classic-billing-section">
+                  <h3 className="classic-section-title text-lg font-bold mb-4 flex items-center gap-3">
+                    <div className="classic-section-icon p-2 rounded-lg">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                      </svg>
+                    </div>
+                    {getTranslation('modal.customerInfo', currentLang)}
+                  </h3>
+                  
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Bill To */}
+                    <div className="classic-billing-address">
+                      <h4 className="classic-address-title text-base font-bold mb-4">
+                        {getTranslation('modal.billTo', currentLang)}
+                      </h4>
+                      <div className="classic-address-details space-y-3">
+                        <div className="classic-field-row">
+                          <span className="classic-field-label">{getTranslation('modal.fullName', currentLang)}</span>
+                          <span className="classic-field-value">{form.fullName.value || '-'}</span>
+                        </div>
+                        <div className="classic-field-row">
+                          <span className="classic-field-label">{getTranslation('modal.email', currentLang)}</span>
+                          <span className="classic-field-value">{form.email.value || '-'}</span>
+                        </div>
+                        <div className="classic-field-row">
+                          <span className="classic-field-label">{getTranslation('modal.phone', currentLang)}</span>
+                          <span className="classic-field-value">{form.phone.value || '-'}</span>
+                        </div>
+                        <div className="classic-field-row">
+                          <span className="classic-field-label">{getTranslation('modal.address', currentLang)}</span>
+                          <span className="classic-field-value">{form.address.value || '-'}</span>
+                        </div>
+                        <div className="classic-field-row">
+                          <span className="classic-field-label">{getTranslation('modal.city', currentLang)}</span>
+                          <span className="classic-field-value">{form.city.value || '-'}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Delivery & Payment Info */}
+                    <div className="classic-delivery-info">
+                      <h4 className="classic-address-title text-base font-bold mb-4">
+                        {getTranslation('modal.orderDetails', currentLang)}
+                      </h4>
+                      <div className="classic-delivery-details space-y-3">
+                        <div className="classic-field-row">
+                          <span className="classic-field-label">{getTranslation('modal.deliveryMethod', currentLang)}</span>
+                          <span className="classic-field-value">{delivery.selectedDeliveryOptionValue || '-'}</span>
+                        </div>
+                        <div className="classic-field-row">
+                          <span className="classic-field-label">{getTranslation('modal.paymentMethod', currentLang)}</span>
+                          <span className="classic-field-value">{payment.selectedPaymentOptionValue || '-'}</span>
+                        </div>
+                        {form.notes.value && (
+                          <div className="classic-field-row">
+                            <span className="classic-field-label">{getTranslation('modal.notes', currentLang)}</span>
+                            <span className="classic-field-value">{form.notes.value}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment Summary Section */}
+                <div className="classic-payment-summary">
+                  <h3 className="classic-section-title text-lg font-bold mb-4">
+                    {getTranslation('modal.paymentSummary', currentLang)}
+                  </h3>
+                  
+                  <div className="classic-summary-table rounded-lg p-6">
+                    <div className="space-y-4">
+                      <div className="classic-subtotal-row flex justify-between items-center">
+                        <span className="text-base">{getTranslation('modal.subtotal', currentLang)}</span>
+                        <span className="font-medium">${pricingDetails.subtotal.toFixed(2)}</span>
+                      </div>
+                      
+                      {pricingDetails.discount > 0 && (
+                        <div className="classic-discount-row flex justify-between items-center">
+                          <span className="text-base">{getTranslation('modal.totalDiscount', currentLang)}</span>
+                          <span className="classic-discount-amount font-medium">-${pricingDetails.discount.toFixed(2)}</span>
+                        </div>
+                      )}
+                      
+                      {pricingDetails.shipping > 0 && (
+                        <div className="classic-shipping-row flex justify-between items-center">
+                          <span className="text-base">{getTranslation('modal.shipping', currentLang)}</span>
+                          <span className="font-medium">${pricingDetails.shipping.toFixed(2)}</span>
+                        </div>
+                      )}
+                      
+                      <div className="classic-divider my-4"></div>
+                      
+                      <div className="classic-total-row flex justify-between items-center">
+                        <span className="text-xl font-bold">{getTranslation('modal.finalTotal', currentLang)}</span>
+                        <span className="classic-total-amount text-2xl font-bold">${pricingDetails.total.toFixed(2)}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="classic-modal-actions">
+                <div className="classic-invoice-actions flex flex-col sm:flex-row gap-4 pt-6">
                   <ClassicConfirmPurchaseButtonReact 
                     isArabic={isArabic}
                     onClick={handleOrderConfirm}
+                    disabled={isProcessing}
                   />
                   <button
                     type="button"
-                    className="classic-modal-cancel"
+                    className="classic-cancel-button flex-1 px-6 py-4 rounded-xl font-semibold border-2 transition-all duration-300 hover:transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                     onClick={handleClose}
+                    disabled={isProcessing}
                   >
                     {getTranslation('modal.cancel', currentLang)}
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Celebration View */}
-        {currentView === 'celebration' && (
-          <div className="modal-view classic-celebration-view">
-            <div className="classic-modal-header classic-celebration-header">
-              <div className="classic-celebration-header-content">
-                <div className="classic-celebration-icon">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                </div>
-                <h3 className="classic-celebration-title">
-                  {getTranslation('celebration.orderConfirmed', currentLang)}
-                </h3>
-              </div>
-            </div>
-
-            <div className="classic-modal-body">
-              <div className="classic-celebration-content">
-                <div className="classic-celebration-animation">
-                  <div className="classic-success-checkmark">
-                    <div className="classic-check-icon"></div>
-                  </div>
-                </div>
-
-                <div className="classic-celebration-message">
-                  <h2 className="classic-celebration-main-title">
-                    {getTranslation('celebration.thankYou', currentLang)}
-                  </h2>
-                  <p className="classic-celebration-subtitle">
-                    {getTranslation('celebration.detailsMessage', currentLang)}
-                  </p>
-                </div>
-
-                <div className="classic-celebration-summary">
-                  <div className="classic-celebration-items">
-                    <div className="classic-celebration-summary-item">
-                      <div className="classic-celebration-item-icon classic-icon-order">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                        </svg>
-                      </div>
-                      <div className="classic-celebration-item-text">
-                        <strong>{getTranslation('celebration.orderNumber', currentLang)}</strong>
-                        <span>{orderNumber}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="classic-celebration-summary-item">
-                      <div className="classic-celebration-item-icon classic-icon-delivery">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                      </div>
-                      <div className="classic-celebration-item-text">
-                        <strong>{getTranslation('celebration.expectedDelivery', currentLang)}</strong>
-                        <span>{getTranslation('celebration.deliveryTime', currentLang)}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="classic-celebration-summary-item">
-                      <div className="classic-celebration-item-icon classic-icon-contact">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                        </svg>
-                      </div>
-                      <div className="classic-celebration-item-text">
-                        <strong>{getTranslation('celebration.contactYou', currentLang)}</strong>
-                        <span>{getTranslation('celebration.contactTime', currentLang)}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="classic-celebration-actions">
-                  <button
-                    type="button"
-                    className="classic-celebration-primary-button"
-                    onClick={handleContinue}
-                  >
-                    {getTranslation('celebration.continueShopping', currentLang)}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+          {/* Celebration View */}
+          {currentView === 'celebration' && (
+            <CelebrationView
+              currentLang={currentLang}
+              orderNumber={orderNumber}
+              onContinue={handleContinue}
+              onClose={handleClose}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ interface ClassicSubmitOrderButtonReactProps {
 }
 
 const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps> = ({
+  product,
   purchaseOptions,
   isHaveVariant,
   currentLang = "en",
@@ -176,7 +177,8 @@ const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps
         hasBundles={hasBundles}
         isOpen={isModalOpen}
         onClose={handleModalClose}
-      />
+        product={product}   
+           />
     </>
   );
 };

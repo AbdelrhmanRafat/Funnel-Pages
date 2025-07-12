@@ -25,9 +25,11 @@ interface ClassicConfirmPurchaseButtonReactProps {
   onClick?: () => Promise<void> | void;
   confirmTextOverride?: string;
   loadingTextOverride?: string;
+  disabled : boolean;
 }
 
 const ClassicConfirmPurchaseButtonReact: React.FC<ClassicConfirmPurchaseButtonReactProps> = ({
+  disabled,
   isArabic,
   onClick,
   confirmTextOverride,
