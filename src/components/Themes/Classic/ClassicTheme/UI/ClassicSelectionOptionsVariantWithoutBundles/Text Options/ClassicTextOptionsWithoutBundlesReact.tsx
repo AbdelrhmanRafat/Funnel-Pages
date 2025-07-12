@@ -1,4 +1,4 @@
-import "../classicSelectionOptionsWithoutBundles.css";
+import "./ClassicTextOptionsWithoutBundles.css";
 import React from 'react';
 
 interface Option {

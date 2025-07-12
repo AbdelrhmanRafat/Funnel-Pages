@@ -1,39 +1,26 @@
 ---
 import "./classicProductCosts.css";
-import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
+import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
 import ClassicProductCostsReact from "./ClassicProductCostsReact.tsx";
 
 const hasBundlesStr: string = Astro.props.hasBundles;
 const hasBundlesBool: boolean = hasBundlesStr === "true";
 
+// Get current language
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+
 // Component configuration from original props
 const showDiscountWhenZero = Astro.props.showDiscountWhenZero ?? false;
-const currencySymbol = Astro.props.currency ?? getTranslation('productFunnel.currency');
+const currencySymbol = Astro.props.currency ?? getTranslation('productFunnel.currency', currentLang);
 
 // Prepare props for the React component
-// For dynamic values, we'll pass placeholders for now.
-// The user will connect these to actual data sources later.
 const reactProps = {
   hasBundles: hasBundlesBool,
   showDiscountWhenZero,
   currencySymbol,
-  getTranslation: (key: string) => getTranslation(key, undefined, undefined), // Pass a simplified getTranslation
-
-  // Placeholder data
-  quantity: "0",
-  unitPrice: "0",
-  subtotal: "0",
-  shippingCost: hasBundlesBool ? "0" : undefined, // Only if hasBundles
-  discount: "0",
-  total: "0",
-  isLoading: false, // Default, not actively used for styling in React yet
+  currentLang,
+  isLoading: false,
 };
 ---
 
 <ClassicProductCostsReact {...reactProps} client:visible />
-
-{/*
-  The <classic-product-funnel> custom element is removed.
-  The <script> import for "./classicProductCosts.ts" is removed.
-  The .ts file (classicProductCosts.ts) will be deleted.
-*/}
