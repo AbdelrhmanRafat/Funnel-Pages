@@ -43,16 +43,24 @@ const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps
 
   const needsOptionValidation = isHaveVariant === 'true';
 
-  const isProductSelectionComplete = !needsOptionValidation ? true : (
-    purchaseOptions ?
-      customOptions?.every(opt =>
-        opt.firstOption && (opt.numberOfOptions && opt.numberOfOptions <= 1 || opt.secondOption))
-      : (
-        productStoreState.hasSecondOption
-          ? productStoreState.selectedOption.firstOption && productStoreState.selectedOption.secondOption
-          : productStoreState.selectedOption.firstOption
-      )
-  );
+ const isProductSelectionComplete = !needsOptionValidation ? true : (
+  purchaseOptions ?
+    customOptions?.every(opt => {
+      if (!opt.numberOfOptions || opt.numberOfOptions === 0) {
+        return true; // No options needed
+      } else if (opt.numberOfOptions === 1) {
+        return opt.firstOption !== null;
+      } else if (opt.numberOfOptions === 2) {
+        return opt.firstOption !== null && opt.secondOption !== null;
+      }
+      return false; // Handle unexpected cases (3+ options)
+    }) ?? false // Handle case where customOptions is null/undefined
+    : (
+      productStoreState.hasSecondOption
+        ? productStoreState.selectedOption.firstOption && productStoreState.selectedOption.secondOption
+        : productStoreState.selectedOption.firstOption
+    )
+);
 
   const canSubmit = areAllFieldsValid() && isProductSelectionComplete;
 
@@ -103,7 +111,7 @@ const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps
 
   const handleClick = async () => {
     await forceAllTouchedAndValidate();
-
+    console.log("Pusadhusad",customOptions);
     const finalFormValid = areAllFieldsValid();
     const finalCanSubmit = finalFormValid && isProductSelectionComplete;
 

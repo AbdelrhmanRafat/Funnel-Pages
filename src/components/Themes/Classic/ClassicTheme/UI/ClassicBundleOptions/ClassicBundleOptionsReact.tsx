@@ -23,7 +23,10 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
   
   // Zustand stores
   const { setQuantity, setSelectedOffer } = useBundleStore();
-  const { initializeBundle } = useCustomOptionBundleStore();
+  const { initializeBundle, updatePanelOption } = useCustomOptionBundleStore();
+
+  // Calculate numberOfOptions once for this product
+  const numberOfOptions = product.custom_options ? Object.keys(product.custom_options).length : 0;
 
   // Initialize bundle with first option on mount
   useEffect(() => {
@@ -34,10 +37,40 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
   }, [data]);
 
   const handleOfferSelection = (item: PurchaseOption, index: number) => {
+    console.log("=== BUNDLE INITIALIZATION ===");
+    console.log("Quantity:", item.items || 1);
+    console.log("Product custom_options:", product.custom_options);
+    console.log("Calculated numberOfOptions:", numberOfOptions);
+    
     // Update Zustand stores
     setSelectedOffer(item);
     setQuantity(item.items || 1);
     initializeBundle(item.items || 1);
+    
+    // Initialize numberOfOptions for all panels
+    const quantity = item.items || 1;
+    for (let i = 1; i <= quantity; i++) {
+      if (product.is_have_variant !== "true") {
+        // Single product without variants
+        updatePanelOption(i, {
+          bundleIndex: i,
+          sku_id: parseInt(product.sku_code || '0'),
+          numberOfOptions: numberOfOptions,
+        });
+      } else {
+        // Product with variants
+        updatePanelOption(i, {
+          bundleIndex: i,
+          numberOfOptions: numberOfOptions,
+        });
+      }
+    }
+    
+    // Debug: Check what was set
+    setTimeout(() => {
+      const allOptions = useCustomOptionBundleStore.getState().options;
+      console.log("All options after initialization:", allOptions);
+    }, 100);
     
     // Update local state for UI
     setSelectedIndex(index);

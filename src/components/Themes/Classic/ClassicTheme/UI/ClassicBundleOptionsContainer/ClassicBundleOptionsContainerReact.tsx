@@ -1,5 +1,5 @@
 import "./ClassicBundleOptionsContainer.css";
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import type { Product } from "../../../../../../lib/api/types";
 import type { Language } from "../../../../../../lib/utils/i18n/translations";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
@@ -102,26 +102,6 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
       associations,
     };
   }, [product]);
-
-  // Initialize panel option
-  useEffect(() => {
-    const nOfOptions = product.custom_options ? Object.keys(product.custom_options).length : 0;
-    
-    if (product.is_have_variant !== "true") {
-      // Single product without variants
-      updatePanelOption(panelIndex, {
-        bundleIndex: panelIndex,
-        sku_id: parseInt(product.sku_code || '0'),
-        numberOfOptions: nOfOptions,
-      });
-    } else {
-      // Product with variants
-      updatePanelOption(panelIndex, {
-        bundleIndex: panelIndex,
-        numberOfOptions: nOfOptions,
-      });
-    }
-  }, [panelIndex, product, updatePanelOption]);
 
   // Helper functions
   const isSecondOptionDisabled = (secondOptValue: string): boolean => {
