@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import type { PurchaseOption, Product } from "../../../../../../lib/api/types";
 import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
 import { useBundleStore } from "../../../../../../lib/stores/bundleStore";
-import { useCustomOptionStore } from "../../../../../../lib/stores/customOptionBundleStore";
 import ClassicBundleOptionsContainerReact from "../ClassicBundleOptionsContainer/ClassicBundleOptionsContainerReact.tsx";
+import { useCustomOptionBundleStore } from '../../../../../../lib/stores/customOptionBundleStore.ts';
 
 interface ClassicBundleOptionsReactProps {
   data: PurchaseOption[];
@@ -23,7 +23,7 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
   
   // Zustand stores
   const { setQuantity, setSelectedOffer } = useBundleStore();
-  const { initializeBundle } = useCustomOptionStore();
+  const { initializeBundle } = useCustomOptionBundleStore();
 
   // Initialize bundle with first option on mount
   useEffect(() => {

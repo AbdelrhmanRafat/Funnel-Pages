@@ -20,7 +20,7 @@ interface CustomOptionActions {
   getPanelOption: (panelIndex: number) => CustomOptionBundle | undefined;
 }
 
-export const useCustomOptionStore = create<CustomOptionBundlesState & CustomOptionActions>((set, get) => ({
+export const useCustomOptionBundleStore = create<CustomOptionBundlesState & CustomOptionActions>((set, get) => ({
   // Initial state
   options: [],
   
@@ -53,6 +53,6 @@ export const useCustomOptionStore = create<CustomOptionBundlesState & CustomOpti
 }));
 
 // Simple selector hooks
-export const useAllOptions = () => useCustomOptionStore((state) => state.options);
+export const useAllOptions = () => useCustomOptionBundleStore((state) => state.options);
 export const usePanelOption = (bundleIndex: number) => 
-  useCustomOptionStore((state) => state.options.find(opt => opt.bundleIndex === bundleIndex));
+  useCustomOptionBundleStore((state) => state.options.find(opt => opt.bundleIndex === bundleIndex));

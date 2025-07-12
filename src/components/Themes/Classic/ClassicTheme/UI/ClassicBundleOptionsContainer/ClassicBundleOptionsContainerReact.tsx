@@ -4,7 +4,7 @@ import type { Product } from "../../../../../../lib/api/types";
 import type { Language } from "../../../../../../lib/utils/i18n/translations";
 import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
-import { useCustomOptionStore, usePanelOption } from "../../../../../../lib/stores/customOptionBundleStore";
+import { useCustomOptionBundleStore, usePanelOption } from "../../../../../../lib/stores/customOptionBundleStore";
 
 // Types
 interface OptionValue {
@@ -40,7 +40,7 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
   currentLang,
 }) => {
   // Zustand store hooks
-  const { updatePanelOption } = useCustomOptionStore();
+  const { updatePanelOption } = useCustomOptionBundleStore();
   const panelOption = usePanelOption(panelIndex);
 
   // Process option data

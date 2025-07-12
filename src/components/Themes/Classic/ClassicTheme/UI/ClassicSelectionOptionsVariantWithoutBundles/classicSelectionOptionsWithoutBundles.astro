@@ -1,5 +1,5 @@
 ---
-// ClassicSelectionOptionsWithoutBundles.astro - Enhanced with new observer
+// ClassicSelectionOptionsWithoutBundles.astro - Enhanced with Zustand integration
 import "./classicSelectionOptionsWithoutBundles.css";
 import type { CustomOptions, Product } from "../../../../../../lib/api/types";
 import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
@@ -11,10 +11,6 @@ import ClassicSelectionOptionsWithoutBundlesReact, {
     type OptionDetailReact,
     type OptionValueReact
 } from "./ClassicSelectionOptionsWithoutBundlesReact.tsx";
-
-// These were previously imported for direct use in template, now data is passed to React
-// import ClassicColorOptionsWithoutBundles from "./Color Options/ClassicColorOptionsWithoutBundles.astro";
-// import ClassicTextOptionsWithoutBundles from "./Text Options/ClassicTextOptionsWithoutBundles.astro";
 
 const product: Product = Astro.props.product;
 const qty_NonVariant = product.qty;
@@ -33,7 +29,7 @@ if (isHaveVariantBool && customOptions) {
     const firstOptionEntry = optionEntries[0];
     const firstOptionAstro: OptionDetailReact | null = firstOptionEntry ? {
         key: firstOptionEntry[0],
-        title: firstOptionEntry[0], // Consider making titles more user-friendly if possible
+        title: firstOptionEntry[0],
         values: firstOptionEntry[1] as OptionValueReact[],
         hasColors: false, // Will be updated by detectColorOption
     } : null;
@@ -46,7 +42,7 @@ if (isHaveVariantBool && customOptions) {
         hasColors: false,
     } : null;
     
-    const colorDetection = detectColorOption(firstOptionAstro as any, secondOptionAstro as any); // Cast as any for detectColorOption if its types are different
+    const colorDetection = detectColorOption(firstOptionAstro as any, secondOptionAstro as any);
     if (firstOptionAstro) firstOptionAstro.hasColors = colorDetection.firstHasColors;
     if (secondOptionAstro) secondOptionAstro.hasColors = colorDetection.secondHasColors;
 
@@ -62,7 +58,7 @@ if (isHaveVariantBool && customOptions) {
                         price_after_discount: item.price_after_discount, image: item.image, qty: item.qty, ...item
                     }));
                 }
-            } else if (skus) { // Handling for only one option type, using skus for details
+            } else if (skus) {
                 const matchingSku = skus.find(sku => sku.options?.some(opt => opt.value === firstValue));
                 associations[firstValue] = [{
                     value: firstValue, sku_id: matchingSku?.id, hex: matchingSku?.options?.find(opt => opt.value === firstValue)?.hex,
@@ -84,25 +80,17 @@ const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Lang
 
 const reactProps = {
     isHaveVariant: isHaveVariantBool,
+    hasSecondOption: !!processedOptionData?.secondOption,
     processedOptionData,
-    initialQty: 1, // Default quantity
-    maxQty: isHaveVariantBool ? undefined : qty_NonVariant, // Max qty for non-variant, undefined for variant until selection
-    currentQuantity: 1, // Initial display quantity
     qtyNonVariant: qty_NonVariant || 1,
-    selectedFirstOptionValue: undefined, // No initial selection
-    selectedSecondOptionValue: undefined,
-    getTranslation: (key: string, lang?: Language, vars?: Record<string, string | number>) => getTranslation(key, lang, vars),
-    currentLang,
-    // onFirstOptionSelect, onSecondOptionSelect, onQuantityChange will be handled by user later
+    skuNoVariant,
+    basePrice: product.price,
+    basePriceAfterDiscount: product.price_after_discount,
+    baseImage: product.image,
+    currentLang
 };
 ---
 
 <div id="classic-selection-options-without-bundles" class="classic-selection-options-without-bundles w-full">
-  {/* The <classic-select-options> custom element is removed. React component handles the UI. */}
   <ClassicSelectionOptionsWithoutBundlesReact {...reactProps} client:load />
 </div>
-
-{/*
-  The <script> import for "./classicSelectionOptionsWithoutBundles.ts" is removed.
-  The .ts file will be deleted.
-*/}

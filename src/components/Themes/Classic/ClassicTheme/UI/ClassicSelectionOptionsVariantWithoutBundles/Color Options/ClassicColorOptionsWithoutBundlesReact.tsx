@@ -1,3 +1,4 @@
+import "../classicSelectionOptionsWithoutBundles.css";
 import React from 'react';
 
 interface Option {
@@ -10,8 +11,8 @@ interface ClassicColorOptionsWithoutBundlesReactProps {
   index: number;
   optionType: 'first' | 'second';
   isSelected?: boolean;
+  isDisabled?: boolean;
   onClick?: () => void;
-  // showLabel?: boolean; // Prop from Astro, but not used in its template. Include if needed.
 }
 
 const ClassicColorOptionsWithoutBundlesReact: React.FC<ClassicColorOptionsWithoutBundlesReactProps> = ({
@@ -19,39 +20,69 @@ const ClassicColorOptionsWithoutBundlesReact: React.FC<ClassicColorOptionsWithou
   index,
   optionType,
   isSelected = false,
+  isDisabled = false,
   onClick,
 }) => {
   const baseClasses = "classic-selection-options-without-bundles-color-option cursor-pointer hover:scale-105 transition-transform";
-  // todo: The selected styles (e.g., `classic-selection-options-without-bundles-selected-color`)
-  // were likely defined in `classicSelectionOptionsWithoutBundles.css` or a similar parent CSS.
-  // For now, we'll just add a generic 'selected' class name if applicable.
-  // The parent component `classicSelectionOptionsWithoutBundles.css` has:
-  // .classic-selection-options-without-bundles-selected-color
-  const selectedClass = isSelected ? "classic-selection-options-without-bundles-selected-color" : "";
+  
+  // Apply selection styles
+  const selectedClass = isSelected ? "classic-selection-options-without-bundles-selected-color classic-selection-options-without-bundles-selected" : "";
+  
+  // Apply disabled styles
+  const disabledClasses = isDisabled ? "opacity-30 pointer-events-none" : "";
+  
+  const combinedClasses = `${baseClasses} ${selectedClass} ${disabledClasses}`.trim();
+
+  const handleClick = () => {
+    if (!isDisabled && onClick) {
+      onClick();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.key === 'Enter' || e.key === ' ') && !isDisabled && onClick) {
+      e.preventDefault();
+      onClick();
+    }
+  };
 
   return (
     <div
-      className={`${baseClasses} ${selectedClass}`}
+      className={combinedClasses}
       data-option-type={optionType}
       data-option-value={option.value}
       data-option-index={index}
-      onClick={onClick}
+      onClick={handleClick}
       role="option"
       aria-selected={isSelected}
-      tabIndex={0} // Make it focusable
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick?.(); }}
-      title={option.value} // Show value on hover for accessibility
+      aria-disabled={isDisabled}
+      tabIndex={isDisabled ? -1 : 0}
+      onKeyDown={handleKeyDown}
+      title={option.value}
     >
       <div
         className="classic-selection-options-without-bundles-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
         style={{ backgroundColor: option.hex || "#ccc" }}
-        aria-label={option.value} // Accessibility for the color itself
+        aria-label={option.value}
       >
-        {/* Optional: Could add a checkmark icon here when selected */}
+        {/* Optional: Add checkmark icon when selected */}
+        {isSelected && (
+          <div className="w-full h-full flex items-center justify-center">
+            <svg 
+              className="w-4 h-4 text-white drop-shadow-md" 
+              fill="currentColor" 
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+            >
+              <path 
+                fillRule="evenodd" 
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
+                clipRule="evenodd" 
+              />
+            </svg>
+          </div>
+        )}
       </div>
-      {/* Astro component had showLabel prop but didn't use it to render a label.
-          If a visible label is needed, it would be added here.
-      */}
     </div>
   );
 };

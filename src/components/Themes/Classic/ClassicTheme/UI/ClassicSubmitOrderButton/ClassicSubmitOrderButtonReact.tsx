@@ -5,8 +5,9 @@ import type { BlockData, Product } from '../../../../../../lib/api/types';
 import { usePaymentStore } from '../../../../../../lib/stores/paymentStore';
 import { useDeliveryStore } from '../../../../../../lib/stores/deliveryStore';
 import { useBundleStore } from '../../../../../../lib/stores/bundleStore';
-import { useCustomOptionStore } from '../../../../../../lib/stores/customOptionBundleStore';
+import { useCustomOptionBundleStore } from '../../../../../../lib/stores/customOptionBundleStore';
 import { useFormStore } from '../../../../../../lib/stores/formStore';
+import { useProductStore } from "../../../../../../lib/stores/customOptionsNonBundleStore";
 
 interface ClassicSubmitOrderButtonReactProps {
   purchaseOptions: BlockData;
@@ -36,7 +37,10 @@ const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps
   const bundleSelectedOffer = useBundleStore((state) => state.selectedOffer);
 
   // Custom Options Store - stable selectors
-  const customOptions = useCustomOptionStore((state) => state.options);
+  const customOptions = useCustomOptionBundleStore((state) => state.options);
+
+  // Product Store - stable selectors (for non-bundle products)
+  const productStoreState = useProductStore((state) => state);
 
   // Form Store - stable selectors
   const formFullName = useFormStore((state) => state.fullName);
@@ -61,9 +65,49 @@ const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps
     console.log('  Quantity:', bundleQuantity || 'Not selected');
     console.log('  Selected Offer:', bundleSelectedOffer || 'Not selected');
     
-    console.log('\n⚙️ CUSTOM OPTIONS STORE:');
-    console.log('  Options Count:', customOptions?.length || 0);
-    console.log('  Options Array:', customOptions || []);
+    // Conditional logging based on purchaseOptions
+    if (!purchaseOptions || purchaseOptions === null || purchaseOptions === undefined) {
+      console.log('\n🛍️ PRODUCT STORE (Non-Bundle Product):');
+      console.log('  Is Have Variant:', productStoreState.isHaveVariant);
+      console.log('  Has Second Option:', productStoreState.hasSecondOption);
+      console.log('  Selected Option:', {
+        firstOption: productStoreState.selectedOption.firstOption || 'Not selected',
+        secondOption: productStoreState.selectedOption.secondOption || 'Not selected',
+        sku_id: productStoreState.selectedOption.sku_id || 'Not set',
+        price: productStoreState.selectedOption.price || 'Not set',
+        price_after_discount: productStoreState.selectedOption.price_after_discount || 'Not set',
+        qty: productStoreState.selectedOption.qty || 1,
+        image: productStoreState.selectedOption.image || 'Not set'
+      });
+      
+      // Check if selection is complete for product store
+      const isProductSelectionComplete = productStoreState.isHaveVariant ? 
+        (productStoreState.hasSecondOption ? 
+          productStoreState.selectedOption.firstOption && productStoreState.selectedOption.secondOption :
+          productStoreState.selectedOption.firstOption) :
+        true;
+      
+      console.log('  Selection Complete:', isProductSelectionComplete);
+      console.log('  SKU Data Available:', !!(productStoreState.selectedOption.sku_id && productStoreState.selectedOption.price));
+    } else {
+      console.log('\n⚙️ CUSTOM OPTIONS STORE (Bundle Product):');
+      console.log('  Options Count:', customOptions?.length || 0);
+      console.log('  Options Array:', customOptions || []);
+      
+      if (customOptions && customOptions.length > 0) {
+        customOptions.forEach((option, index) => {
+          console.log(`  Option ${index + 1}:`, {
+            firstOption: option.firstOption || 'Not selected',
+            secondOption: option.secondOption || 'Not selected',
+            numberOfOptions: option.numberOfOptions || 0,
+            sku_id: option.sku_id || 'Not set',
+            price: option.price || 'Not set',
+            qty: option.qty || 1,
+            isComplete: option.firstOption && (option.numberOfOptions <= 1 || option.secondOption)
+          });
+        });
+      }
+    }
     
     console.log('\n📝 FORM STORE:');
     console.log('  Full Name:', {
@@ -102,9 +146,20 @@ const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps
     console.log('  Has Payment:', !!(paymentOptionId && paymentOptionValue));
     console.log('  Has Delivery:', !!(deliveryOptionId && deliveryOptionValue));
     console.log('  Has Bundle:', !!(bundleQuantity && bundleSelectedOffer));
-    console.log('  Custom Options Complete:', customOptions?.every(opt => 
-      opt.firstOption && (opt.numberOfOptions <= 1 || opt.secondOption)
-    ) || false);
+    
+    // Conditional completion check
+    if (!purchaseOptions || purchaseOptions === null || purchaseOptions === undefined) {
+      const isProductSelectionComplete = productStoreState.isHaveVariant ? 
+        (productStoreState.hasSecondOption ? 
+          productStoreState.selectedOption.firstOption && productStoreState.selectedOption.secondOption :
+          productStoreState.selectedOption.firstOption) :
+        true;
+      console.log('  Product Selection Complete:', isProductSelectionComplete);
+    } else {
+      console.log('  Custom Options Complete:', customOptions?.every(opt => 
+        opt.firstOption && (opt.numberOfOptions <= 1 || opt.secondOption)
+      ) || false);
+    }
     
     console.log('\n=== END STORE DUMP ===');
   };
