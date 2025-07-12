@@ -26,10 +26,10 @@ const ClassicColorOptionsWithoutBundlesReact: React.FC<ClassicColorOptionsWithou
   const baseClasses = "classic-selection-options-without-bundles-color-option cursor-pointer hover:scale-105 transition-transform";
   
   // Apply selection styles
-  const selectedClass = isSelected ? "classic-selection-options-without-bundles-selected-color classic-selection-options-without-bundles-selected" : "";
+  const selectedClass = isSelected ? "classic-selection-options-without-bundles-color-option--selected" : "";
   
   // Apply disabled styles
-  const disabledClasses = isDisabled ? "opacity-30 pointer-events-none" : "";
+  const disabledClasses = isDisabled ? "classic-selection-options-without-bundles-option-disabled" : "classic-selection-options-without-bundles-option-available";
   
   const combinedClasses = `${baseClasses} ${selectedClass} ${disabledClasses}`.trim();
 

@@ -3,89 +3,6 @@
     color: var(--classic-color-on-surface);
 }
 
-/* === Size/Text Options Base === */
-.classic-selection-options-without-bundles-size-option {
-    background-color: var(--classic-color-surface);
-    color: var(--classic-color-on-surface-variant);
-    border: 1px solid var(--classic-color-outline);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.classic-selection-options-without-bundles-size-option:hover {
-    background-color: var(--classic-color-secondary);
-    color: var(--classic-color-on-secondary);
-    border-color: var(--classic-color-secondary);
-    transform: translateY(-2px);
-    box-shadow: var(--classic-section-shadow);
-}
-
-/* === Size/Text Options Selected State === */
-.classic-selection-options-without-bundles-size-option--selected {
-    background-color: var(--classic-color-secondary);
-    color: var(--classic-color-on-secondary);
-    border-color: var(--classic-color-secondary-dark);
-    transform: translateY(-4px);
-    box-shadow: var(--classic-section-shadow);
-}
-
-.classic-selection-options-without-bundles-size-option--selected:hover {
-    background-color: var(--classic-color-secondary);
-    color: var(--classic-color-on-secondary);
-    border-color: var(--classic-color-secondary-dark);
-    transform: translateY(-4px);
-    box-shadow: var(--classic-section-shadow);
-}
-
-/* === Color Options Base === */
-.classic-selection-options-without-bundles-color-option {
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.classic-selection-options-without-bundles-color-option:hover {
-    transform: scale(1.05);
-}
-
-.classic-selection-options-without-bundles-color-swatch {
-    background-color: var(--classic-color-surface);
-    border: 2px solid var(--classic-color-outline-variant);
-    box-shadow: var(--classic-section-shadow);
-    width: 2.5rem;
-    height: 2.5rem;
-}
-
-.classic-selection-options-without-bundles-color-name {
-    color: var(--classic-color-on-surface-variant);
-}
-
-/* === Color Options Selected State === */
-.classic-selection-options-without-bundles-color-option--selected {
-    transform: scale(1.1);
-}
-
-.classic-selection-options-without-bundles-color-option--selected .classic-selection-options-without-bundles-color-swatch {
-    border: 3px solid var(--classic-color-primary);
-    box-shadow: 0 0 0 2px var(--classic-color-surface),
-                0 0 0 4px var(--classic-color-primary),
-                0 6px 16px rgba(0, 150, 136, 0.25);
-}
-
-.classic-selection-options-without-bundles-color-option--selected .classic-selection-options-without-bundles-color-name {
-    color: var(--classic-color-secondary);
-}
-
-.classic-selection-options-without-bundles-color-option--selected:hover {
-    transform: scale(1.1);
-}
-
-/* === Generic Option Selected State === */
-.classic-selection-options-without-bundles-option--selected {
-    opacity: 1;
-    filter: brightness(1.1);
-    box-shadow: 0 0 0 2px var(--classic-color-primary);
-}
-
 /* === Quantity Section === */
 .classic-selection-options-without-bundles-qty-label {
     color: var(--classic-color-on-surface);
@@ -129,7 +46,12 @@
     color: var(--classic-color-secondary);
 }
 
-/* === Option States === */
+/* === Generic Option States === */
+.classic-selection-options-without-bundles-option--selected {
+    opacity: 1;
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 2px var(--classic-color-primary);
+}
 
 /* Available Options */
 .classic-selection-options-without-bundles-option-available {
@@ -168,74 +90,11 @@
     z-index: 1;
 }
 
-/* Disabled Size Options */
-.classic-selection-options-without-bundles-size-option.classic-selection-options-without-bundles-option-disabled {
-    background-color: var(--classic-color-surface-variant);
-    color: var(--classic-color-on-surface-variant);
-    border-color: var(--classic-color-outline-variant);
-    box-shadow: none;
-}
-
-.classic-selection-options-without-bundles-size-option.classic-selection-options-without-bundles-option-disabled:hover {
-    background-color: var(--classic-color-surface-variant);
-    color: var(--classic-color-on-surface-variant);
-    transform: none;
-}
-
-/* Disabled Color Options */
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-disabled {
-    filter: grayscale(70%) brightness(0.8);
-}
-
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-disabled:hover {
-    transform: none;
-    filter: grayscale(70%) brightness(0.8);
-}
-
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-disabled .classic-selection-options-without-bundles-color-swatch {
-    border-color: var(--classic-color-outline-variant);
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-disabled .classic-selection-options-without-bundles-color-name {
-    color: var(--classic-color-on-surface-variant);
-    text-decoration: line-through;
-}
-
-/* === Enhanced Hover States === */
-.classic-selection-options-without-bundles-size-option.classic-selection-options-without-bundles-option-available:hover:not(.classic-selection-options-without-bundles-size-option--selected) {
-    background-color: var(--classic-color-secondary-light);
-    color: var(--classic-color-on-secondary);
-    border-color: var(--classic-color-secondary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-available:hover:not(.classic-selection-options-without-bundles-color-option--selected) {
-    transform: scale(1.08);
-}
-
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-available:hover:not(.classic-selection-options-without-bundles-color-option--selected) .classic-selection-options-without-bundles-color-swatch {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
 /* === Loading/Transition States === */
 .classic-selection-options-without-bundles-option-transitioning {
     opacity: 0.7;
     transform: scale(0.98);
     transition: all 0.2s ease;
-}
-
-/* === Focus States for Accessibility === */
-.classic-selection-options-without-bundles-size-option:focus,
-.classic-selection-options-without-bundles-color-option:focus {
-    outline: 2px solid var(--classic-color-primary);
-    outline-offset: 2px;
-}
-
-.classic-selection-options-without-bundles-size-option.classic-selection-options-without-bundles-option-disabled:focus,
-.classic-selection-options-without-bundles-color-option.classic-selection-options-without-bundles-option-disabled:focus {
-    outline: 2px solid var(--classic-color-outline-variant);
-    outline-offset: 2px;
 }
 
 /* === Responsive Design === */
@@ -265,15 +124,11 @@
 
 /* === Reduced Motion === */
 @media (prefers-reduced-motion: reduce) {
-    .classic-selection-options-without-bundles-size-option,
-    .classic-selection-options-without-bundles-color-option,
     .classic-selection-options-without-bundles-option-available,
     .classic-selection-options-without-bundles-option-disabled {
         transition: opacity 0.2s ease;
     }
     
-    .classic-selection-options-without-bundles-size-option:hover,
-    .classic-selection-options-without-bundles-color-option:hover,
     .classic-selection-options-without-bundles-option-available:hover {
         transform: none;
     }

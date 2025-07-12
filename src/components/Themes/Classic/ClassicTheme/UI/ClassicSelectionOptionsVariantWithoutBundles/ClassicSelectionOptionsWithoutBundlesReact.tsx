@@ -1,10 +1,11 @@
+import "./classicSelectionOptionsWithoutBundles.css";
 import React, { useEffect } from 'react';
 import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
 
 // Import the option components
 import ClassicColorOptionsWithoutBundlesReact from "./Color Options/ClassicColorOptionsWithoutBundlesReact.tsx";
 import ClassicTextOptionsWithoutBundlesReact from "./Text Options/ClassicTextOptionsWithoutBundlesReact.tsx";
-import { useProductStore } from '../../../../../../lib/stores/customOptionsNonBundleStore.ts';
+import { useProductStore } from "../../../../../../lib/stores/customOptionsNonBundleStore.ts";
 
 // Types for processedOptionData
 interface OptionValueReact {
@@ -85,14 +86,14 @@ const ClassicSelectionOptionsWithoutBundlesReact: React.FC<ClassicSelectionOptio
       hasSecondOption
     });
 
-    // If no variant, set the base product data
+    // If no variant, set the base product data with qty = 1
     if (!isHaveVariant) {
       setNoVariantProduct({
         sku_id: parseInt(skuNoVariant) || null,
         price: basePrice,
         price_after_discount: basePriceAfterDiscount,
         image: baseImage,
-        qty: qtyNonVariant
+        qty: 1  // Start with qty = 1, not qtyNonVariant
       });
     }
   }, [isHaveVariant, hasSecondOption, skuNoVariant, basePrice, basePriceAfterDiscount, baseImage, qtyNonVariant]);

@@ -25,10 +25,10 @@ const ClassicTextOptionsWithoutBundlesReact: React.FC<ClassicTextOptionsWithoutB
   const baseClasses = "classic-selection-options-without-bundles-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center transition-all duration-200";
   
   // Apply selection styles
-  const selectedClass = isSelected ? "classic-selection-options-without-bundles-selected-size classic-selection-options-without-bundles-selected" : "";
+  const selectedClass = isSelected ? "classic-selection-options-without-bundles-size-option--selected" : "";
   
   // Apply disabled styles
-  const disabledClasses = isDisabled ? "opacity-30 pointer-events-none cursor-not-allowed" : "hover:bg-gray-50";
+  const disabledClasses = isDisabled ? "classic-selection-options-without-bundles-option-disabled" : "classic-selection-options-without-bundles-option-available";
   
   const combinedClasses = `${baseClasses} ${selectedClass} ${disabledClasses}`.trim();
 
