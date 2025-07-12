@@ -2,9 +2,9 @@ import React from 'react';
 import type { BlockData, PaymentOption, DeliveryOption, Product } from "../../../../../lib/api/types";
 import { getTranslation, type Language } from "../../../../../lib/utils/i18n/translations";
 import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
-import { 
-  useFormStore, 
-  useFormField, 
+import {
+  useFormStore,
+  useFormField,
   useFormValid,
   type FormState
 } from "../../../../../lib/stores/formStore";
@@ -18,7 +18,7 @@ import {
   isValidNotes,
   isValidAddress,
 } from '../../../../../lib/utils/validation';
-import ClassicSubmitOrderButtonReact from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButtonReact.tsx";
+import ClassicSubmitOrderButtonReact from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButtonReact";
 
 interface ClassicThemeFormFieldsReactProps {
   data: BlockData;
@@ -42,7 +42,11 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
   const deliveryOptions: DeliveryOption[] = formInputs?.DeliveryOptions ?? [];
 
   // Form store hooks
-  const { updateField, setFieldValue } = useFormStore();
+  const {
+    updateField,
+    setFieldValue,
+    setFieldTouched
+  } = useFormStore();
   const fullNameField = useFormField('fullName');
   const phoneField = useFormField('phone');
   const emailField = useFormField('email');
@@ -51,7 +55,7 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
   const notesField = useFormField('notes');
   const isFormValid = useFormValid();
 
-  // Payment and delivery store hooks
+  // Payment & delivery hooks
   const { setPaymentOption } = usePaymentStore();
   const { setDeliveryOption } = useDeliveryStore();
 
@@ -89,6 +93,11 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
   const handleInputChange = (fieldName: FormFieldName, value: string) => {
     setFieldValue(fieldName, value);
     validateField(fieldName, value);
+  };
+
+  // Blur handler to set touched state
+  const handleBlur = (fieldName: FormFieldName) => {
+    setFieldTouched(fieldName, true);
   };
 
   // Payment option change handler
@@ -157,8 +166,10 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-fullName"
                   value={fullNameField.value}
                   onChange={(e) => handleInputChange('fullName', e.target.value)}
+                  onBlur={() => handleBlur('fullName')}
                   className={`classic-form-input ${isArabic ? "text-right" : "text-left"} text-sm ${
-                    fullNameField.errorMessage ? 'classic-form-input-invalid' : fullNameField.isValid ? 'classic-form-input-valid' : ''
+                    fullNameField.touched && fullNameField.errorMessage ? 'classic-form-input-invalid' : 
+                    fullNameField.touched && fullNameField.isValid ? 'classic-form-input-valid' : ''
                   }`}
                   aria-describedby="form-fullName-error"
                   required
@@ -174,7 +185,7 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-fullName-error"
                   className="classic-form-error text-xs"
                   role="alert"
-                  style={{ display: fullNameField.errorMessage ? 'block' : 'none' }}
+                  style={{ display: fullNameField.touched && fullNameField.errorMessage ? 'block' : 'none' }}
                 >
                   {fullNameField.errorMessage}
                 </span>
@@ -187,8 +198,10 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-phone"
                   value={phoneField.value}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
+                  onBlur={() => handleBlur('phone')}
                   className={`classic-form-input ${isArabic ? "text-right" : "text-left"} text-sm ${
-                    phoneField.errorMessage ? 'classic-form-input-invalid' : phoneField.isValid ? 'classic-form-input-valid' : ''
+                    phoneField.touched && phoneField.errorMessage ? 'classic-form-input-invalid' : 
+                    phoneField.touched && phoneField.isValid ? 'classic-form-input-valid' : ''
                   }`}
                   aria-describedby="form-phone-error"
                   required
@@ -204,7 +217,7 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-phone-error"
                   className="classic-form-error text-xs"
                   role="alert"
-                  style={{ display: phoneField.errorMessage ? 'block' : 'none' }}
+                  style={{ display: phoneField.touched && phoneField.errorMessage ? 'block' : 'none' }}
                 >
                   {phoneField.errorMessage}
                 </span>
@@ -217,8 +230,10 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-email"
                   value={emailField.value}
                   onChange={(e) => handleInputChange('email', e.target.value)}
+                  onBlur={() => handleBlur('email')}
                   className={`classic-form-input ${isArabic ? "text-right" : "text-left"} text-sm ${
-                    emailField.errorMessage ? 'classic-form-input-invalid' : emailField.isValid ? 'classic-form-input-valid' : ''
+                    emailField.touched && emailField.errorMessage ? 'classic-form-input-invalid' : 
+                    emailField.touched && emailField.isValid ? 'classic-form-input-valid' : ''
                   }`}
                   aria-describedby="form-email-error"
                   required
@@ -234,7 +249,7 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-email-error"
                   className="classic-form-error text-xs"
                   role="alert"
-                  style={{ display: emailField.errorMessage ? 'block' : 'none' }}
+                  style={{ display: emailField.touched && emailField.errorMessage ? 'block' : 'none' }}
                 >
                   {emailField.errorMessage}
                 </span>
@@ -246,8 +261,10 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-address"
                   value={addressField.value}
                   onChange={(e) => handleInputChange('address', e.target.value)}
+                  onBlur={() => handleBlur('address')}
                   className={`classic-form-input ${isArabic ? "text-right" : "text-left"} min-h-[80px] resize-y text-sm ${
-                    addressField.errorMessage ? 'classic-form-input-invalid' : addressField.isValid ? 'classic-form-input-valid' : ''
+                    addressField.touched && addressField.errorMessage ? 'classic-form-input-invalid' : 
+                    addressField.touched && addressField.isValid ? 'classic-form-input-valid' : ''
                   }`}
                   aria-describedby="form-address-error"
                   required
@@ -263,7 +280,7 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-address-error"
                   className="classic-form-error text-xs"
                   role="alert"
-                  style={{ display: addressField.errorMessage ? 'block' : 'none' }}
+                  style={{ display: addressField.touched && addressField.errorMessage ? 'block' : 'none' }}
                 >
                   {addressField.errorMessage}
                 </span>
@@ -282,8 +299,10 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-city"
                   value={cityField.value}
                   onChange={(e) => handleInputChange('city', e.target.value)}
+                  onBlur={() => handleBlur('city')}
                   className={`classic-form-input ${isArabic ? "text-right" : "text-left"} text-sm ${
-                    cityField.errorMessage ? 'classic-form-input-invalid' : cityField.isValid ? 'classic-form-input-valid' : ''
+                    cityField.touched && cityField.errorMessage ? 'classic-form-input-invalid' : 
+                    cityField.touched && cityField.isValid ? 'classic-form-input-valid' : ''
                   }`}
                   aria-describedby="form-city-error"
                   required
@@ -301,7 +320,7 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-city-error"
                   className="classic-form-error text-xs"
                   role="alert"
-                  style={{ display: cityField.errorMessage ? 'block' : 'none' }}
+                  style={{ display: cityField.touched && cityField.errorMessage ? 'block' : 'none' }}
                 >
                   {cityField.errorMessage}
                 </span>
@@ -438,9 +457,11 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-notes"
                   value={notesField.value}
                   onChange={(e) => handleInputChange('notes', e.target.value)}
+                  onBlur={() => handleBlur('notes')}
                   placeholder=""
                   className={`classic-form-input ${isArabic ? "text-right" : "text-left"} min-h-[100px] resize-y text-sm ${
-                    notesField.errorMessage ? 'classic-form-input-invalid' : notesField.isValid ? 'classic-form-input-valid' : ''
+                    notesField.touched && notesField.errorMessage ? 'classic-form-input-invalid' : 
+                    notesField.touched && notesField.isValid ? 'classic-form-input-valid' : ''
                   }`}
                   aria-describedby="form-notes-error"
                 />
@@ -455,7 +476,7 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
                   id="form-notes-error"
                   className="classic-form-error text-xs"
                   role="alert"
-                  style={{ display: notesField.errorMessage ? 'block' : 'none' }}
+                  style={{ display: notesField.touched && notesField.errorMessage ? 'block' : 'none' }}
                 >
                   {notesField.errorMessage}
                 </span>
