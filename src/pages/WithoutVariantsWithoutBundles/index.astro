@@ -1,12 +1,12 @@
 ---
 // This file is the main page that fetches data, determines the theme, and renders the appropriate theme component.
-import "../styles/global.css"
-import Layout from "../layouts/Layout.astro";
-import ClassicComponent from "../components/Themes/Classic/ClassicComponent.astro";
-import { getThemeFromString } from "../lib/utils/ThemeSelect";
-import { FunnelDataType, getFunnelPage } from "../lib/api/funnel";
-import { Theme } from "../lib/constants/themes";
-import type { FunnelRes } from "../lib/api/types";
+import "../../styles/global.css"
+import Layout from "../../layouts/Layout.astro";
+import ClassicComponent from "../../components/Themes/Classic/ClassicComponent.astro";
+import { getThemeFromString } from "../../lib/utils/ThemeSelect";
+import { FunnelDataType, getFunnelPage } from "../../lib/api/funnel";
+import { Theme } from "../../lib/constants/themes";
+import type { FunnelRes } from "../../lib/api/types";
 
 // Fetches the funnel page data from the API.
 const funnelPage: FunnelRes = await getFunnelPage(FunnelDataType.PRODUCT_WITHOUT_VARIANTS_AND_BUNDLES);
@@ -14,7 +14,7 @@ const funnelPage: FunnelRes = await getFunnelPage(FunnelDataType.PRODUCT_WITHOUT
 const strTheme: string = funnelPage.data.theme;
 // Converts the theme string to a Theme enum value.
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
-const meta = funnelPage.data.product.meta;
+const meta = funnelPage.data.product.meta; 
 const facebookPixelID = funnelPage.data.facebookPixelId;
 const twitterPixelID = funnelPage.data.twitterPixelId;
 const snapchatPixelID = funnelPage.data.snapchatPixelId;
@@ -33,4 +33,3 @@ const tiktokPixelID = funnelPage.data.tiktokPixelId;
     })()
   }
 </Layout>
-
