@@ -1,6 +1,8 @@
-import React from 'react';
+// ClassicConfirmPurchaseButtonReact.tsx
+import "./ClassicConfirmPurchaseButton.css";
+import React, { useState } from 'react';
 
-// Placeholder for LucideIcon functionality if it's not available as a React component
+// Loader Icon Component
 const LoaderIcon = ({ width = "16", height = "16", className = "" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -18,45 +20,64 @@ const LoaderIcon = ({ width = "16", height = "16", className = "" }) => (
   </svg>
 );
 
-
 interface ClassicConfirmPurchaseButtonReactProps {
   isArabic: boolean;
-  isLoading?: boolean;
-  onClick?: () => void; // The actual async logic and state update will be handled by parent
-  // Any other props like text overrides if needed
+  onClick?: () => Promise<void> | void;
   confirmTextOverride?: string;
-  loadingTextOverride?: string; // Though current design hides text on load
+  loadingTextOverride?: string;
 }
 
 const ClassicConfirmPurchaseButtonReact: React.FC<ClassicConfirmPurchaseButtonReactProps> = ({
   isArabic,
-  isLoading = false,
   onClick,
   confirmTextOverride,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const buttonText = confirmTextOverride
     ? confirmTextOverride
     : (isArabic ? "تأكيد الطلب" : "Confirm Order");
+
+  const handleClick = async () => {
+    if (isLoading || !onClick) return;
+
+    try {
+      setIsLoading(true);
+      await onClick();
+    } catch (error) {
+      console.error('Order confirmation failed:', error);
+      // Error handling can be enhanced here (e.g., show error message)
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <button
       type="button"
       className={`classic-modal-confirm ${isLoading ? 'loading' : ''}`}
-      onClick={onClick}
+      onClick={handleClick}
       disabled={isLoading}
       aria-busy={isLoading}
     >
-      <span className="confirm-text" style={{ opacity: isLoading ? 0 : 1, transform: isLoading ? 'translateY(-10px)' : 'translateY(0)' }}>
+      <span 
+        className="confirm-text" 
+        style={{ 
+          opacity: isLoading ? 0 : 1,
+          transform: isLoading ? 'translateY(-10px)' : 'translateY(0)',
+          transition: 'all 0.2s ease'
+        }}
+      >
         {buttonText}
       </span>
       <span
         className="loading-spinner"
         style={{
           display: isLoading ? 'inline-flex' : 'none',
-          opacity: isLoading ? 1 : 0, // Added for transition if any
-         }}
+          opacity: isLoading ? 1 : 0,
+          transition: 'opacity 0.2s ease'
+        }}
       >
-        {/* Using the placeholder LoaderIcon */}
         <LoaderIcon width="16" height="16" className="animate-spin" />
       </span>
     </button>
