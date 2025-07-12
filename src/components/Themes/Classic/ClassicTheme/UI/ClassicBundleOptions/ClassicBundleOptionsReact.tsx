@@ -37,10 +37,6 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
   }, [data]);
 
   const handleOfferSelection = (item: PurchaseOption, index: number) => {
-    console.log("=== BUNDLE INITIALIZATION ===");
-    console.log("Quantity:", item.items || 1);
-    console.log("Product custom_options:", product.custom_options);
-    console.log("Calculated numberOfOptions:", numberOfOptions);
     
     // Update Zustand stores
     setSelectedOffer(item);
@@ -66,11 +62,7 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
       }
     }
     
-    // Debug: Check what was set
-    setTimeout(() => {
-      const allOptions = useCustomOptionBundleStore.getState().options;
-      console.log("All options after initialization:", allOptions);
-    }, 100);
+
     
     // Update local state for UI
     setSelectedIndex(index);

@@ -4,315 +4,703 @@
   "errors": null,
   "message": "messages.success",
   "data": {
-        "product": {
-        "id": 37,
-        "category_id": 13,
-        "ware_house_id": 2,
-        "image": "https://backend.dev.baseet.co/uploads/Product/DNQLgzvMFVhc5tWZ41PNkfjUeZuoopte6nh1fg83.webp",
-        "name": "Red tishert",
-        "name_ar": "تيشيرت أحمر",
-        "name_en": "Red tishert",
-        "slug": "Red Tishert",
-        "slug_ar": "تيشيرت أحمر",
-        "slug_en": "Red Tishert",
-        "description": "<p>Red Basic T-Shirt – Simplicity &amp; Style for a Perfect Everyday Look!</p>",
-        "description_ar": "<p>تيشيرت بيزك أحمر – بساطة وأناقة لإطلالة يومية مثالية</p>",
-        "description_en": "<p>Red Basic T-Shirt – Simplicity &amp; Style for a Perfect Everyday Look!</p>",
+    "product": {
+      "id": 57,
+      "category_id": 24,
+      "ware_house_id": 2,
+      "image": "https://backend.dev.baseet.co/uploads/Product/ChA4pPwZWUzrrfg5Ib7wOPNmHzwrrVx0yMpgdSbw.jpg",
+      "name": "Pyjama",
+      "name_ar": "بيجامة",
+      "name_en": "Pyjama",
+      "slug": "pyjama",
+      "slug_ar": "بيجامة",
+      "slug_en": "pyjama",
+      "description": "\u003Cp\u003EMaterial: 100% soft and comfortable cotton\u003Cbr\u003EDesign: Long or short sleeve top with elastic waist pants\u003Cbr\u003EUse: Perfect for sleep or daily home wear\u003Cbr\u003ECare: Easy to wash and keeps its quality\u003Cbr\u003ESizes: Available from S to XXL\u003Cbr\u003EColors: Available in multiple elegant colors\u003C/p\u003E",
+      "description_ar": "\u003Cp\u003Eالخامة: قطن 100% ناعم ومريح\u003Cbr\u003Eالتصميم: بلوزة بأكمام طويلة أو قصيرة مع بنطال بخصر مطاطي\u003Cbr\u003Eالاستخدام: مثالية للنوم أو الاستخدام اليومي في المنزل\u003Cbr\u003Eالصيانة: سهلة الغسيل وتحافظ على جودتها\u003Cbr\u003Eالمقاسات: متوفرة من S حتى XXL\u003Cbr\u003Eالألوان: متوفرة بألوان متعددة أنيقة\u003C/p\u003E",
+      "description_en": "\u003Cp\u003EMaterial: 100% soft and comfortable cotton\u003Cbr\u003EDesign: Long or short sleeve top with elastic waist pants\u003Cbr\u003EUse: Perfect for sleep or daily home wear\u003Cbr\u003ECare: Easy to wash and keeps its quality\u003Cbr\u003ESizes: Available from S to XXL\u003Cbr\u003EColors: Available in multiple elegant colors\u003C/p\u003E",
+      "is_active": 1,
+      "qty": 37,
+      "sku_code": null,
+      "price": 500,
+      "price_after_discount": 350,
+      "weight": null,
+      "weight_type": null,
+      "options": [
+        {
+          "options": [
+            {
+              "name": "color",
+              "value": [
+                {
+                  "name": "Minty Paradise",
+                  "hex": "#00FFBF"
+                }
+              ]
+            },
+            {
+              "name": "size",
+              "value": [
+                {
+                  "display": "XL",
+                  "value": "XL"
+                },
+                {
+                  "display": "M",
+                  "value": "M"
+                },
+                {
+                  "display": "L",
+                  "value": "L"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "category": {
+        "id": 24,
+        "parent_id": 0,
+        "name_ar": "جيب حريمي",
+        "name_en": "Jeep",
         "is_active": 1,
-        "qty": 10,
-        "sku_code": null,
-        "price": 500,
-        "price_after_discount": 0,
-        "weight": null,
-        "weight_type": null,
-        "category": {
-            "id": 13,
-            "parent_id": 0,
-            "name_ar": "تيشيرت",
-            "name_en": "tishert",
-            "is_active": 1,
-            "slug_en": "tishert",
-            "slug_ar": "تيشيرت"
+        "slug_en": "jeep",
+        "slug_ar": "جيب-حريمي"
+      },
+      "skus": [
+        {
+          "id": 120,
+          "category_id": 24,
+          "product_id": 57,
+          "store_id": 9,
+          "ware_house_id": 2,
+          "SKU_code": "431",
+          "quantity": 7,
+          "price": 500,
+          "price_after_discount": 350,
+          "options": [
+            {
+              "name": "size",
+              "value": "L",
+              "hex": null
+            },
+            {
+              "name": "color",
+              "value": "Strawberry Buttercream",
+              "hex": "#f9adf9"
+            }
+          ],
+          "weight": 0,
+          "weight_type": "gram",
+          "image": "https://backend.dev.baseet.co/uploads/Product/CiHmH8VUWXX0pYY5OYsBRPQR4HCudhLmd6wiwFjT.jpg",
+          "deleted_at": null,
+          "created_at": "2025-05-11T09:26:26.000000Z",
+          "updated_at": "2025-05-11T10:14:59.000000Z",
+          "qty": 7,
+          "ware_house": {
+            "id": 2,
+            "store_id": 2,
+            "name": "Elnozha",
+            "contact_person": "developer",
+            "phone": "501669804",
+            "place_number": "5555",
+            "area": "elnozha",
+            "zip_code": "11604",
+            "city": "cairo",
+            "region": "Egypt",
+            "deleted_at": null,
+            "created_at": "2024-12-08T19:25:43.000000Z",
+            "updated_at": "2024-12-08T19:28:29.000000Z"
+          }
         },
-        "skus": [
+        {
+          "id": 122,
+          "category_id": 24,
+          "product_id": 57,
+          "store_id": 9,
+          "ware_house_id": 2,
+          "SKU_code": "433",
+          "quantity": 5,
+          "price": 500,
+          "price_after_discount": 250,
+          "options": [
             {
-                "id": 126,
-                "category_id": 13,
-                "product_id": 37,
-                "store_id": 9,
-                "ware_house_id": 2,
-                "SKU_code": "6333",
-                "quantity": 4,
-                "price": 500,
-                "price_after_discount": 0,
-                "options": [
-                    {
-                        "name": "size",
-                        "value": "S",
-                        "hex": null
-                    }
-                ],
-                "weight": 0,
-                "weight_type": "gram",
-                "image": "https://backend.dev.baseet.co/uploads/Product/fr3DjDncccNc63VRh4hFx5aW7FLucyKS063Dy3Dr.webp",
-                "deleted_at": null,
-                "created_at": "2025-05-12T08:23:53.000000Z",
-                "updated_at": "2025-06-09T13:56:07.000000Z",
-                "qty": 4,
-                "ware_house": {
-                    "id": 2,
-                    "store_id": 2,
-                    "name": "Elnozha",
-                    "contact_person": "developer",
-                    "phone": "501669804",
-                    "place_number": "5555",
-                    "area": "elnozha",
-                    "zip_code": "11604",
-                    "city": "cairo",
-                    "region": "Egypt",
-                    "deleted_at": null,
-                    "created_at": "2024-12-08T19:25:43.000000Z",
-                    "updated_at": "2024-12-08T19:28:29.000000Z"
-                }
+              "name": "size",
+              "value": "XS",
+              "hex": null
             },
             {
-                "id": 127,
-                "category_id": 13,
-                "product_id": 37,
-                "store_id": 9,
-                "ware_house_id": 2,
-                "SKU_code": "334",
-                "quantity": 3,
-                "price": 400,
-                "price_after_discount": 0,
-                "options": [
-                    {
-                        "name": "size",
-                        "value": "M",
-                        "hex": null
-                    }
-                ],
-                "weight": 0,
-                "weight_type": "gram",
-                "image": "https://backend.dev.baseet.co/uploads/Product/rFFLIVzJhQqlYNTqKtVouQsslj1DvQ9oTcqQ5FlB.webp",
-                "deleted_at": null,
-                "created_at": "2025-05-12T08:23:53.000000Z",
-                "updated_at": "2025-06-09T13:56:07.000000Z",
-                "qty": 3,
-                "ware_house": {
-                    "id": 2,
-                    "store_id": 2,
-                    "name": "Elnozha",
-                    "contact_person": "developer",
-                    "phone": "501669804",
-                    "place_number": "5555",
-                    "area": "elnozha",
-                    "zip_code": "11604",
-                    "city": "cairo",
-                    "region": "Egypt",
-                    "deleted_at": null,
-                    "created_at": "2024-12-08T19:25:43.000000Z",
-                    "updated_at": "2024-12-08T19:28:29.000000Z"
-                }
-            },
-            {
-                "id": 128,
-                "category_id": 13,
-                "product_id": 37,
-                "store_id": 9,
-                "ware_house_id": 2,
-                "SKU_code": "335",
-                "quantity": 3,
-                "price": 300,
-                "price_after_discount": 0,
-                "options": [
-                    {
-                        "name": "size",
-                        "value": "L",
-                        "hex": null
-                    }
-                ],
-                "weight": 0,
-                "weight_type": "gram",
-                "image": "https://backend.dev.baseet.co/uploads/Product/HuauNXy3TJakyU5TgEX2KghyiUaA2dVBsEk8DK7C.webp",
-                "deleted_at": null,
-                "created_at": "2025-05-12T08:23:53.000000Z",
-                "updated_at": "2025-06-09T13:56:07.000000Z",
-                "qty": 3,
-                "ware_house": {
-                    "id": 2,
-                    "store_id": 2,
-                    "name": "Elnozha",
-                    "contact_person": "developer",
-                    "phone": "501669804",
-                    "place_number": "5555",
-                    "area": "elnozha",
-                    "zip_code": "11604",
-                    "city": "cairo",
-                    "region": "Egypt",
-                    "deleted_at": null,
-                    "created_at": "2024-12-08T19:25:43.000000Z",
-                    "updated_at": "2024-12-08T19:28:29.000000Z"
-                }
+              "name": "color",
+              "value": "Perrywinkle",
+              "hex": "#8c92e3"
             }
-        ],
-        "meta": {
-            "id": 34,
-            "title": "تيشيرت أحمر",
-            "description": "تيشيرت بيزك أحمر – بساطة وأناقة لإطلالة يومية مثالية",
-            "image": "https://backend.dev.baseet.co/uploads/Meta/Grh9eyt666xh0huTsxtgo6pbsRPtGiqSwYxPAADd.webp",
-            "metaable_type": "App\\Models\\Product\\Product",
-            "metaable_id": 37,
-            "created_at": "2025-03-12T13:33:20.000000Z",
-            "updated_at": "2025-03-12T13:33:20.000000Z"
+          ],
+          "weight": 0,
+          "weight_type": "gram",
+          "image": "https://backend.dev.baseet.co/uploads/Product/H92wQzDHsGuXKTePiB90d1JN2zSFOwvptrXm21xm.avif",
+          "deleted_at": null,
+          "created_at": "2025-05-11T09:26:26.000000Z",
+          "updated_at": "2025-05-11T10:14:59.000000Z",
+          "qty": 5,
+          "ware_house": {
+            "id": 2,
+            "store_id": 2,
+            "name": "Elnozha",
+            "contact_person": "developer",
+            "phone": "501669804",
+            "place_number": "5555",
+            "area": "elnozha",
+            "zip_code": "11604",
+            "city": "cairo",
+            "region": "Egypt",
+            "deleted_at": null,
+            "created_at": "2024-12-08T19:25:43.000000Z",
+            "updated_at": "2024-12-08T19:28:29.000000Z"
+          }
         },
-        "attachment": [
+        {
+          "id": 124,
+          "category_id": 24,
+          "product_id": 57,
+          "store_id": 9,
+          "ware_house_id": 2,
+          "SKU_code": "434",
+          "quantity": 9,
+          "price": 500,
+          "price_after_discount": 450,
+          "options": [
             {
-                "id": 58,
-                "path": "https://backend.dev.baseet.co/uploads/attachments/ywewQd9GEq5dN1ZCWVMTSArfAaQ7bvnkZpimYFuz.webp",
-                "attachmentable_type": "App\\Models\\Product\\Product",
-                "attachmentable_id": 37,
-                "order": 0,
-                "created_at": "2025-03-12T13:33:17.000000Z",
-                "updated_at": "2025-03-12T13:33:17.000000Z"
-            }
-        ],
-        "reviews": [
-            {
-                "id": 15,
-                "store_id": 9,
-                "product_id": 37,
-                "rate": 4,
-                "title": "wow",
-                "description": "good material",
-                "deleted_at": null,
-                "created_at": "2025-06-09T11:25:22.000000Z",
-                "updated_at": "2025-06-09T11:25:22.000000Z"
+              "name": "size",
+              "value": "XS",
+              "hex": null
             },
             {
-                "id": 16,
-                "store_id": 9,
-                "product_id": 37,
-                "rate": 5,
-                "title": "ahmed",
-                "description": "good quality",
-                "deleted_at": null,
-                "created_at": "2025-06-09T11:26:19.000000Z",
-                "updated_at": "2025-06-09T11:26:19.000000Z"
+              "name": "color",
+              "value": "Strawberry Buttercream",
+              "hex": "#f9adf9"
+            }
+          ],
+          "weight": 0,
+          "weight_type": "gram",
+          "image": "https://backend.dev.baseet.co/uploads/Product/phoVfbU4z0Fxw9vgHSmolv2SMuW6kNYwvIaWajDe.jpg",
+          "deleted_at": null,
+          "created_at": "2025-05-11T10:14:59.000000Z",
+          "updated_at": "2025-05-11T11:42:47.000000Z",
+          "qty": 9,
+          "ware_house": {
+            "id": 2,
+            "store_id": 2,
+            "name": "Elnozha",
+            "contact_person": "developer",
+            "phone": "501669804",
+            "place_number": "5555",
+            "area": "elnozha",
+            "zip_code": "11604",
+            "city": "cairo",
+            "region": "Egypt",
+            "deleted_at": null,
+            "created_at": "2024-12-08T19:25:43.000000Z",
+            "updated_at": "2024-12-08T19:28:29.000000Z"
+          }
+        },
+        {
+          "id": 135,
+          "category_id": 24,
+          "product_id": 57,
+          "store_id": 9,
+          "ware_house_id": 2,
+          "SKU_code": "200",
+          "quantity": 5,
+          "price": 600,
+          "price_after_discount": 430,
+          "options": [
+            {
+              "name": "size",
+              "value": "XL",
+              "hex": null
             },
             {
-                "id": 17,
-                "store_id": 9,
-                "product_id": 37,
-                "rate": 5,
-                "title": "ahmed",
-                "description": "good quality",
-                "deleted_at": null,
-                "created_at": "2025-06-09T11:32:44.000000Z",
-                "updated_at": "2025-06-09T11:32:44.000000Z"
+              "name": "color",
+              "value": "Minty Paradise",
+              "hex": "#00FFBF"
             }
-        ],
-        "reviews_count": [
+          ],
+          "weight": 0,
+          "weight_type": "gram",
+          "image": "https://backend.dev.baseet.co/uploads/Product/x6Npy3gIYVT8LASgNKNA4EKO0JE9VnbDSaVodx0p.webp",
+          "deleted_at": null,
+          "created_at": "2025-05-13T11:04:41.000000Z",
+          "updated_at": "2025-05-28T12:27:59.000000Z",
+          "qty": 5,
+          "ware_house": {
+            "id": 2,
+            "store_id": 2,
+            "name": "Elnozha",
+            "contact_person": "developer",
+            "phone": "501669804",
+            "place_number": "5555",
+            "area": "elnozha",
+            "zip_code": "11604",
+            "city": "cairo",
+            "region": "Egypt",
+            "deleted_at": null,
+            "created_at": "2024-12-08T19:25:43.000000Z",
+            "updated_at": "2024-12-08T19:28:29.000000Z"
+          }
+        },
+        {
+          "id": 136,
+          "category_id": 24,
+          "product_id": 57,
+          "store_id": 9,
+          "ware_house_id": 2,
+          "SKU_code": "5666",
+          "quantity": 6,
+          "price": 432,
+          "price_after_discount": 400,
+          "options": [
             {
-                "product_id": 37,
-                "rate": 4,
-                "total": 1
+              "name": "size",
+              "value": "M",
+              "hex": null
             },
             {
-                "product_id": 37,
-                "rate": 5,
-                "total": 2
+              "name": "color",
+              "value": "Minty Paradise",
+              "hex": "#00FFBF"
             }
-        ],
-        "is_have_variant": "true",
-        "is_featured": 0,
-        "is_best_sales": 1,
-        "rate": 4.67,
-        "total_rates": 3,
-        "shipping": "\n\"سيتم شحن طلبك خلال 2 إلى 4 أيام عمل باستخدام شركة الشحن المعتمدة.\"\n\n\"الشحن مجاني للطلبات التي تتجاوز 500 جنيه.\"\n\n\"رقم التتبع الخاص بطلبك سيكون متاحًا بمجرد تجهيز الطلب للشحن.\"\n\n\"خدمة التوصيل متوفرة في جميع محافظات مصر.\"\n\n\"تأكد من كتابة عنوانك بدقة لضمان وصول الطلب بأسرع وقت.\"\n\n\"رسوم الشحن ثابتة بقيمة 50 جنيه لأي مكان داخل الجمهورية.\"\n\n\"مدة التوصيل المتوقعة: من 3 إلى 5 أيام عمل.\"\n\n\"توصيل سريع خلال 24 ساعة داخل القاهرة والجيزة.\"",
-        "return_policies": "\n\"يُسمح بإرجاع المنتجات خلال 14 يوم من تاريخ الاستلام بشرط أن تكون بحالتها الأصلية ولم تُستخدم.\"\n\n\"لا يمكن استرجاع المنتجات التالفة أو التي تم استخدامها إلا إذا كانت بها عيوب تصنيع.\"\n\n\"يتم استرداد المبلغ بنفس وسيلة الدفع المستخدمة في الطلب خلال 7 أيام عمل.\"\n\n\"يجب إرفاق فاتورة الشراء الأصلية عند طلب الاسترجاع.\"\n\n\"بعض المنتجات غير قابلة للإرجاع مثل الملابس الداخلية أو المنتجات الشخصية.\"\n            ",
-        "estimated_delivery_times": "2-4 days",
-        "return_within": "7 days",
-        "custom_options": {
-            "size": [
+          ],
+          "weight": 0,
+          "weight_type": "gram",
+          "image": "https://backend.dev.baseet.co/uploads/null",
+          "deleted_at": null,
+          "created_at": "2025-05-13T11:04:41.000000Z",
+          "updated_at": "2025-05-28T12:27:59.000000Z",
+          "qty": 6,
+          "ware_house": {
+            "id": 2,
+            "store_id": 2,
+            "name": "Elnozha",
+            "contact_person": "developer",
+            "phone": "501669804",
+            "place_number": "5555",
+            "area": "elnozha",
+            "zip_code": "11604",
+            "city": "cairo",
+            "region": "Egypt",
+            "deleted_at": null,
+            "created_at": "2024-12-08T19:25:43.000000Z",
+            "updated_at": "2024-12-08T19:28:29.000000Z"
+          }
+        },
+        {
+          "id": 137,
+          "category_id": 24,
+          "product_id": 57,
+          "store_id": 9,
+          "ware_house_id": 2,
+          "SKU_code": "786",
+          "quantity": 5,
+          "price": 650,
+          "price_after_discount": 422,
+          "options": [
+            {
+              "name": "size",
+              "value": "L",
+              "hex": null
+            },
+            {
+              "name": "color",
+              "value": "Minty Paradise",
+              "hex": "#00FFBF"
+            }
+          ],
+          "weight": 0,
+          "weight_type": "gram",
+          "image": "https://backend.dev.baseet.co/uploads/null",
+          "deleted_at": null,
+          "created_at": "2025-05-13T11:04:41.000000Z",
+          "updated_at": "2025-05-28T12:27:59.000000Z",
+          "qty": 5,
+          "ware_house": {
+            "id": 2,
+            "store_id": 2,
+            "name": "Elnozha",
+            "contact_person": "developer",
+            "phone": "501669804",
+            "place_number": "5555",
+            "area": "elnozha",
+            "zip_code": "11604",
+            "city": "cairo",
+            "region": "Egypt",
+            "deleted_at": null,
+            "created_at": "2024-12-08T19:25:43.000000Z",
+            "updated_at": "2024-12-08T19:28:29.000000Z"
+          }
+        }
+      ],
+      "meta": {
+        "id": 59,
+        "title": "بيجامة",
+        "description": "التصميم: بلوزة بأكمام طويلة أو قصيرة مع بنطال بخصر مطاطي",
+        "image": "https://backend.dev.baseet.co/uploads/Meta/0pveSRTcrNCuZiTyn9mM6JUtY0GNEnEvcFdv5aUr.jpg",
+        "metaable_type": "App\\Models\\Product\\Product",
+        "metaable_id": 57,
+        "created_at": "2025-04-17T13:06:48.000000Z",
+        "updated_at": "2025-05-29T12:43:52.000000Z"
+      },
+      "attachment": [
+        {
+          "id": 69,
+          "path": "https://backend.dev.baseet.co/uploads/attachments/tz2ulxcqxkBRhcptSxONHsG0fJf2TcGJiMdH2yc8.jpg",
+          "attachmentable_type": "App\\Models\\Product\\Product",
+          "attachmentable_id": 57,
+          "order": 0,
+          "created_at": "2025-05-11T13:20:41.000000Z",
+          "updated_at": "2025-05-11T13:20:41.000000Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": 2,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 4,
+          "title": "high quality",
+          "description": "tonight we hunt",
+          "deleted_at": null,
+          "created_at": "2025-05-13T14:52:47.000000Z",
+          "updated_at": "2025-05-13T14:52:47.000000Z"
+        },
+        {
+          "id": 3,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 5,
+          "title": "good product",
+          "description": "very good quality and material",
+          "deleted_at": null,
+          "created_at": "2025-05-14T06:58:53.000000Z",
+          "updated_at": "2025-05-14T06:58:53.000000Z"
+        },
+        {
+          "id": 5,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 4,
+          "title": "good",
+          "description": "high",
+          "deleted_at": null,
+          "created_at": "2025-06-01T06:48:47.000000Z",
+          "updated_at": "2025-06-01T06:48:47.000000Z"
+        },
+        {
+          "id": 6,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 4,
+          "title": "good",
+          "description": "high quality",
+          "deleted_at": null,
+          "created_at": "2025-06-01T06:49:35.000000Z",
+          "updated_at": "2025-06-01T06:49:35.000000Z"
+        },
+        {
+          "id": 7,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 5,
+          "title": "high quality",
+          "description": "good",
+          "deleted_at": null,
+          "created_at": "2025-06-01T06:51:07.000000Z",
+          "updated_at": "2025-06-01T06:51:07.000000Z"
+        },
+        {
+          "id": 8,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 5,
+          "title": "good",
+          "description": "good",
+          "deleted_at": null,
+          "created_at": "2025-06-01T07:12:10.000000Z",
+          "updated_at": "2025-06-01T07:12:10.000000Z"
+        },
+        {
+          "id": 9,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 4,
+          "title": "Superb quality apparel that exceeds expectations",
+          "description": "Great theme - we were looking for a theme with lots of built in features and flexibility and this was perfect. We expected to need to employ a developer to add a few finishing touches. But we actually managed to do everything ourselves. We did have one small query and the support given was swift and helpful.",
+          "deleted_at": null,
+          "created_at": "2025-06-01T07:37:03.000000Z",
+          "updated_at": "2025-06-01T07:37:03.000000Z"
+        },
+        {
+          "id": 10,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 4,
+          "title": "good",
+          "description": "good",
+          "deleted_at": null,
+          "created_at": "2025-06-01T12:48:01.000000Z",
+          "updated_at": "2025-06-01T12:48:01.000000Z"
+        },
+        {
+          "id": 13,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 4,
+          "title": "good",
+          "description": "high",
+          "deleted_at": null,
+          "created_at": "2025-06-09T08:49:36.000000Z",
+          "updated_at": "2025-06-09T08:49:36.000000Z"
+        },
+        {
+          "id": 14,
+          "store_id": 9,
+          "product_id": 57,
+          "rate": 3,
+          "title": "high",
+          "description": "good",
+          "deleted_at": null,
+          "created_at": "2025-06-09T08:50:05.000000Z",
+          "updated_at": "2025-06-09T08:50:05.000000Z"
+        }
+      ],
+      "reviews_count": [
+        {
+          "product_id": 57,
+          "rate": 3,
+          "total": 1
+        },
+        {
+          "product_id": 57,
+          "rate": 4,
+          "total": 6
+        },
+        {
+          "product_id": 57,
+          "rate": 5,
+          "total": 3
+        }
+      ],
+      "is_have_variant": "true",
+      "is_featured": 1,
+      "is_best_sales": 1,
+      "rate": 4.21,
+      "total_rates": 10,
+      "shipping": "\n\"سيتم شحن طلبك خلال 2 إلى 4 أيام عمل باستخدام شركة الشحن المعتمدة.\"\n\n\"الشحن مجاني للطلبات التي تتجاوز 500 جنيه.\"\n\n\"رقم التتبع الخاص بطلبك سيكون متاحًا بمجرد تجهيز الطلب للشحن.\"\n\n\"خدمة التوصيل متوفرة في جميع محافظات مصر.\"\n\n\"تأكد من كتابة عنوانك بدقة لضمان وصول الطلب بأسرع وقت.\"\n\n\"رسوم الشحن ثابتة بقيمة 50 جنيه لأي مكان داخل الجمهورية.\"\n\n\"مدة التوصيل المتوقعة: من 3 إلى 5 أيام عمل.\"\n\n\"توصيل سريع خلال 24 ساعة داخل القاهرة والجيزة.\"",
+      "return_policies": "\n\"يُسمح بإرجاع المنتجات خلال 14 يوم من تاريخ الاستلام بشرط أن تكون بحالتها الأصلية ولم تُستخدم.\"\n\n\"لا يمكن استرجاع المنتجات التالفة أو التي تم استخدامها إلا إذا كانت بها عيوب تصنيع.\"\n\n\"يتم استرداد المبلغ بنفس وسيلة الدفع المستخدمة في الطلب خلال 7 أيام عمل.\"\n\n\"يجب إرفاق فاتورة الشراء الأصلية عند طلب الاسترجاع.\"\n\n\"بعض المنتجات غير قابلة للإرجاع مثل الملابس الداخلية أو المنتجات الشخصية.\"\n            ",
+      "estimated_delivery_times": "2-4 days",
+      "return_within": "7 days",
+      "custom_options": {
+        "color": [
+          {
+            "value": "Strawberry Buttercream",
+            "hex": "#f9adf9",
+            "available_options": {
+              "size": [
                 {
-                    "value": "S",
-                    "hex": null,
-                    "available_options": []
+                  "sku_id": 120,
+                  "value": "L",
+                  "hex": null,
+                  "price": 500,
+                  "price_after_discount": 350,
+                  "qty": 7,
+                  "image": "https://backend.dev.baseet.co/uploads/Product/CiHmH8VUWXX0pYY5OYsBRPQR4HCudhLmd6wiwFjT.jpg"
                 },
                 {
-                    "value": "M",
-                    "hex": null,
-                    "available_options": []
+                  "sku_id": 124,
+                  "value": "XS",
+                  "hex": null,
+                  "price": 500,
+                  "price_after_discount": 450,
+                  "qty": 9,
+                  "image": "https://backend.dev.baseet.co/uploads/Product/phoVfbU4z0Fxw9vgHSmolv2SMuW6kNYwvIaWajDe.jpg"
+                }
+              ]
+            }
+          },
+          {
+            "value": "Perrywinkle",
+            "hex": "#8c92e3",
+            "available_options": {
+              "size": [
+                {
+                  "sku_id": 122,
+                  "value": "XS",
+                  "hex": null,
+                  "price": 500,
+                  "price_after_discount": 250,
+                  "qty": 5,
+                  "image": "https://backend.dev.baseet.co/uploads/Product/H92wQzDHsGuXKTePiB90d1JN2zSFOwvptrXm21xm.avif"
+                }
+              ]
+            }
+          },
+          {
+            "value": "Minty Paradise",
+            "hex": "#00FFBF",
+            "available_options": {
+              "size": [
+                {
+                  "sku_id": 135,
+                  "value": "XL",
+                  "hex": null,
+                  "price": 600,
+                  "price_after_discount": 430,
+                  "qty": 5,
+                  "image": "https://backend.dev.baseet.co/uploads/Product/x6Npy3gIYVT8LASgNKNA4EKO0JE9VnbDSaVodx0p.webp"
                 },
                 {
-                    "value": "L",
-                    "hex": null,
-                    "available_options": []
+                  "sku_id": 136,
+                  "value": "M",
+                  "hex": null,
+                  "price": 432,
+                  "price_after_discount": 400,
+                  "qty": 6,
+                  "image": "https://backend.dev.baseet.co/uploads/null"
+                },
+                {
+                  "sku_id": 137,
+                  "value": "L",
+                  "hex": null,
+                  "price": 650,
+                  "price_after_discount": 422,
+                  "qty": 5,
+                  "image": "https://backend.dev.baseet.co/uploads/null"
                 }
-            ]
-        },
-        "related_products": [
-            {
-                "id": 41,
-                "store_id": 9,
-                "category_id": 13,
-                "ware_house_id": 2,
-                "image": "https://backend.dev.baseet.co/uploads/Product/xF1aF8c1nK9T3gskY2gOcvMktNSjHqIIxkeINRye.webp",
-                "name_ar": "تيشرت ابيض",
-                "name_en": "white Tishert",
-                "slug_ar": "تيشيرت ابيض",
-                "slug_en": "White Tishert",
-                "description_ar": "<p>تيشيرت ابيض بيزك راوند قطن</p>",
-                "description_en": "<p>White Tishert basic</p>",
-                "is_active": 1,
-                "qty": 4,
-                "sku_code": "316497",
-                "price": 400,
-                "price_after_discount": 200,
-                "weight": null,
-                "weight_type": null,
-                "options": [
-                    {
-                        "options": [
-                            {
-                                "name": "color",
-                                "value": [
-                                    {
-                                        "name": "White",
-                                        "hex": "#ffffff"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "size",
-                                "value": [
-                                    {
-                                        "display": "m",
-                                        "value": "m"
-                                    },
-                                    {
-                                        "display": "l",
-                                        "value": "l"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                "is_have_variant": 0,
-                "is_featured": 0,
-                "is_best_sales": 1,
-                "rate": 5,
-                "total_rates": 2,
-                "deleted_at": null,
-                "created_at": "2025-03-13T12:04:22.000000Z",
-                "updated_at": "2025-06-24T08:13:53.000000Z",
-                "name": "white Tishert",
-                "description": "<p>White Tishert basic</p>",
-                "slug": "White Tishert"
+              ]
             }
+          }
+        ],
+        "size": [
+          {
+            "value": "L",
+            "hex": null,
+            "available_options": {
+              "color": [
+                {
+                  "sku_id": 120,
+                  "value": "Strawberry Buttercream",
+                  "hex": "#f9adf9",
+                  "price": 500,
+                  "price_after_discount": 350,
+                  "qty": 7,
+                  "image": "https://backend.dev.baseet.co/uploads/Product/CiHmH8VUWXX0pYY5OYsBRPQR4HCudhLmd6wiwFjT.jpg"
+                },
+                {
+                  "sku_id": 137,
+                  "value": "Minty Paradise",
+                  "hex": "#00FFBF",
+                  "price": 650,
+                  "price_after_discount": 422,
+                  "qty": 5,
+                  "image": "https://backend.dev.baseet.co/uploads/null"
+                }
+              ]
+            }
+          },
+          {
+            "value": "XS",
+            "hex": null,
+            "available_options": {
+              "color": [
+                {
+                  "sku_id": 122,
+                  "value": "Perrywinkle",
+                  "hex": "#8c92e3",
+                  "price": 500,
+                  "price_after_discount": 250,
+                  "qty": 5,
+                  "image": "https://backend.dev.baseet.co/uploads/Product/H92wQzDHsGuXKTePiB90d1JN2zSFOwvptrXm21xm.avif"
+                },
+                {
+                  "sku_id": 124,
+                  "value": "Strawberry Buttercream",
+                  "hex": "#f9adf9",
+                  "price": 500,
+                  "price_after_discount": 450,
+                  "qty": 9,
+                  "image": "https://backend.dev.baseet.co/uploads/Product/phoVfbU4z0Fxw9vgHSmolv2SMuW6kNYwvIaWajDe.jpg"
+                }
+              ]
+            }
+          },
+          {
+            "value": "XL",
+            "hex": null,
+            "available_options": {
+              "color": [
+                {
+                  "sku_id": 135,
+                  "value": "Minty Paradise",
+                  "hex": "#00FFBF",
+                  "price": 600,
+                  "price_after_discount": 430,
+                  "qty": 5,
+                  "image": "https://backend.dev.baseet.co/uploads/Product/x6Npy3gIYVT8LASgNKNA4EKO0JE9VnbDSaVodx0p.webp"
+                }
+              ]
+            }
+          },
+          {
+            "value": "M",
+            "hex": null,
+            "available_options": {
+              "color": [
+                {
+                  "sku_id": 136,
+                  "value": "Minty Paradise",
+                  "hex": "#00FFBF",
+                  "price": 432,
+                  "price_after_discount": 400,
+                  "qty": 6,
+                  "image": "https://backend.dev.baseet.co/uploads/null"
+                }
+              ]
+            }
+          }
         ]
+      },
+      "related_products": [
+        {
+          "id": 56,
+          "store_id": 9,
+          "category_id": 24,
+          "ware_house_id": 2,
+          "image": "https://backend.dev.baseet.co/uploads/Product/YJoarvs33o2IUuRAoYZrOR9XFrIUgKfol9WVEzU8.jpg",
+          "name_ar": "توب",
+          "name_en": "Ripped tank top",
+          "slug_ar": "توب",
+          "slug_en": "ripped-tank-top",
+          "description_ar": "\u003Cp style=\"margin-left:0.0px;text-align:right;\"\u003Eتوب كاجوال أنيق بخامة قطن مريحة وناعمة، بستايل بسيط يناسب الخروجات اليومية والمشاوير السريعة. تصميم عملي بفتحة رقبة ناعمة وقَصّة تلائم كل الأجسام\u003C/p\u003E",
+          "description_en": "\u003Cp\u003Ebest tops ever\u003C/p\u003E",
+          "is_active": 1,
+          "qty": 44,
+          "sku_code": "5454545",
+          "price": 555,
+          "price_after_discount": 500,
+          "weight": null,
+          "weight_type": null,
+          "options": null,
+          "is_have_variant": 0,
+          "is_featured": 1,
+          "is_best_sales": 1,
+          "rate": 4.5,
+          "total_rates": 2,
+          "deleted_at": null,
+          "created_at": "2025-04-17T13:02:16.000000Z",
+          "updated_at": "2025-06-03T16:30:39.000000Z",
+          "name": "Ripped tank top",
+          "description": "\u003Cp\u003Ebest tops ever\u003C/p\u003E",
+          "slug": "ripped-tank-top"
+        }
+      ]
     },
     "theme": "classic",
     "facebookPixelId": "705238185361326",

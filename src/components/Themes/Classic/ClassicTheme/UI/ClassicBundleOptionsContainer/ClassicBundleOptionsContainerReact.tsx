@@ -79,18 +79,45 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
 
     // Build associations
     const associations: { [firstValue: string]: Array<{value: string, sku_id?: number, hex?: string, image?: string}> } = {};
-    if (firstOption && secondOption) {
+    if (firstOption) {
       firstOption.values.forEach((firstValueObj: OptionValue) => {
         const firstVal = firstValueObj.value;
-        if (firstValueObj.available_options && firstValueObj.available_options[secondOption.key]) {
-          const availableSecondOptions = firstValueObj.available_options[secondOption.key];
-          if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
-            associations[firstVal] = availableSecondOptions.map((item: any) => ({
-              value: item.value,
-              sku_id: item.sku_id,
-              hex: item.hex,
-              image: item.image,
-            }));
+        
+        if (secondOption) {
+          // Two options: use available_options structure
+          if (firstValueObj.available_options && firstValueObj.available_options[secondOption.key]) {
+            const availableSecondOptions = firstValueObj.available_options[secondOption.key];
+            if (availableSecondOptions && Array.isArray(availableSecondOptions)) {
+              associations[firstVal] = availableSecondOptions.map((item: any) => ({
+                value: item.value,
+                sku_id: item.sku_id,
+                hex: item.hex,
+                image: item.image,
+              }));
+            }
+          }
+        } else {
+          // Single option: create association with the option itself
+          // For single options, SKU data should be directly in the option or found via product.skus
+          const skus = product.skus;
+          if (skus) {
+            const matchingSku = skus.find(sku => 
+              sku.options?.some(opt => opt.value === firstVal)
+            );
+            associations[firstVal] = [{
+              value: firstVal,
+              sku_id: matchingSku?.id,
+              hex: firstValueObj.hex || matchingSku?.options?.find(opt => opt.value === firstVal)?.hex,
+              image: matchingSku?.image || firstValueObj.image,
+            }];
+          } else {
+            // Fallback: use data directly from the option
+            associations[firstVal] = [{
+              value: firstVal,
+              sku_id: firstValueObj.sku_id,
+              hex: firstValueObj.hex,
+              image: firstValueObj.image,
+            }];
           }
         }
       });
@@ -112,8 +139,34 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
   };
 
   const findSkuId = (firstValue: string, secondValue: string): number | null => {
-    if (!processedData?.associations[firstValue]) return null;
-    const matchingOption = processedData.associations[firstValue].find(opt => opt.value === secondValue);
+    console.log("=== FIND SKU ID DEBUG ===");
+    console.log("Looking for firstValue:", firstValue);
+    console.log("Looking for secondValue:", secondValue);
+    console.log("Available associations:", processedData?.associations);
+    
+    if (!processedData?.associations[firstValue]) {
+      console.log("❌ No associations found for firstValue:", firstValue);
+      
+      // Fallback: Check if SKU is directly in second option values
+      if (processedData?.secondOption) {
+        const directOption = processedData.secondOption.values.find(opt => opt.value === secondValue);
+        console.log("Fallback: Direct option search result:", directOption);
+        if (directOption?.sku_id) {
+          console.log("✅ Found SKU in direct option:", directOption.sku_id);
+          return directOption.sku_id;
+        }
+      }
+      
+      return null;
+    }
+    
+    const availableOptions = processedData.associations[firstValue];
+    console.log("Available options for", firstValue, ":", availableOptions);
+    
+    const matchingOption = availableOptions.find(opt => opt.value === secondValue);
+    console.log("Matching option:", matchingOption);
+    console.log("SKU ID from matching option:", matchingOption?.sku_id);
+    
     return matchingOption?.sku_id || null;
   };
 
@@ -125,12 +178,30 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
 
   // Event handlers
   const handleFirstOptionSelect = (value: string) => {
+    console.log("=== FIRST OPTION SELECT ===");
+    console.log("Selected value:", value);
+    console.log("Number of options:", panelOption?.numberOfOptions);
+    console.log("Associations:", processedData?.associations);
+    
+    // For single option products, get SKU from associations
+    let skuId = null;
+    let imageUrl = null;
+    
+    if (panelOption?.numberOfOptions === 1 && processedData?.associations) {
+      const skuData = processedData.associations[value]?.[0];
+      if (skuData) {
+        skuId = skuData.sku_id;
+        imageUrl = skuData.image;
+        console.log("Single option SKU data:", skuData);
+      }
+    }
+
     updatePanelOption(panelIndex, {
       bundleIndex: panelIndex,
       firstOption: value,
       secondOption: null, // Clear second option when first changes
-      sku_id: null,
-      image: null,
+      sku_id: skuId, // Set SKU for single options
+      image: imageUrl, // Set image for single options
     });
   };
 
@@ -141,6 +212,13 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
     const skuId = findSkuId(firstValue, value);
     const imageUrl = findImageUrl(firstValue, value);
 
+    console.log("=== SKU ID DEBUG ===");
+    console.log("First option:", firstValue);
+    console.log("Second option:", value);
+    console.log("Associations:", processedData?.associations);
+    console.log("Found SKU ID:", skuId);
+    console.log("Found Image URL:", imageUrl);
+
     updatePanelOption(panelIndex, {
       bundleIndex: panelIndex,
       firstOption: firstValue,
@@ -148,6 +226,12 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
       sku_id: skuId,
       image: imageUrl,
     });
+
+    // Check what was actually saved
+    setTimeout(() => {
+      const updatedPanel = useCustomOptionBundleStore.getState().options.find(opt => opt.bundleIndex === panelIndex);
+      console.log("Updated panel after SKU save:", updatedPanel);
+    }, 100);
   };
 
   // Component state

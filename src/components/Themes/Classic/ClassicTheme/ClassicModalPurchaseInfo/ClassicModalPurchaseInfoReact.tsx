@@ -22,6 +22,29 @@ interface ClassicModalPurchaseInfoReactProps {
   onClose: () => void;
 }
 
+// Enhanced interfaces for line items
+interface LineItem {
+  description: string;
+  sku: string;
+  quantity: number;
+  unitPrice: number;
+  discountAmount: number;
+  total: number;
+  variants?: string[];
+  type: 'bundle-main' | 'bundle-item' | 'direct-purchase';
+  parentBundle?: string;
+}
+
+interface PricingDetails {
+  subtotal: number;
+  discount: number;
+  shipping: number;
+  total: number;
+  quantity: number;
+  itemCount?: number;
+  pricePerItem?: number;
+}
+
 const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps> = ({
   product,
   isArabic,
@@ -45,63 +68,167 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
   const payment = usePaymentStore();
   const delivery = useDeliveryStore();
 
-  // Calculate pricing details
-  const pricingDetails = useMemo(() => {
-    let subtotal = 0;
-    let discount = 0;
-    let shipping = 0;
-    let quantity = 1;
+  // Enhanced SKU management
+  const getDisplaySKU = (item: any, fallback: string): string => {
+    return item?.sku_id?.toString() || fallback || `TEMP-${Date.now()}`;
+  };
 
-    if (hasBundles && bundle.selectedOffer) {
-      subtotal = bundle.selectedOffer.final_total + bundle.selectedOffer.discount;
-      discount = bundle.selectedOffer.discount;
-      shipping = delivery.selectedDeliveryOptionId === 'delivery-pickup' ? 0 : bundle.selectedOffer.shipping_price;
-      quantity = bundle.quantity;
-    } else if (productOptions.selectedOption) {
-      const option = productOptions.selectedOption;
-      quantity = option.qty || 1;
-      const unitPrice = option.price || 0;
-      const unitDiscountPrice = option.price_after_discount || unitPrice;
-      
-      subtotal = unitPrice * quantity;
-      discount = (unitPrice - unitDiscountPrice) * quantity;
-      shipping = 0; // Add shipping logic if needed
+  // Enhanced Bundle Pricing Calculation
+  const calculateBundlePricing = useMemo((): PricingDetails => {
+    if (!bundle.selectedOffer) {
+      return { subtotal: 0, discount: 0, shipping: 0, total: 0, quantity: 0 };
     }
 
-    const total = subtotal - discount + shipping;
+    const offer = bundle.selectedOffer;
+    const isPickup = delivery.selectedDeliveryOptionId === 'delivery-pickup';
+    
+    const subtotal = offer.final_total + offer.discount;
+    const discount = offer.discount;
+    const shipping = isPickup ? 0 : offer.shipping_price;
+    const total = offer.final_total - (isPickup ? offer.shipping_price : 0);
 
-    return { subtotal, discount, shipping, total, quantity };
-  }, [bundle.selectedOffer, bundle.quantity, productOptions.selectedOption, delivery.selectedDeliveryOptionId, hasBundles]);
+    return {
+      subtotal,
+      discount,
+      shipping,
+      total,
+      quantity: bundle.quantity,
+      itemCount: offer.items,
+      pricePerItem: offer.price_per_item
+    };
+  }, [bundle.selectedOffer, bundle.quantity, delivery.selectedDeliveryOptionId]);
 
-  // Create line items for invoice table
-  const createLineItems = () => {
-    const items = [];
+  // Enhanced Direct Purchase Pricing Calculation
+  const calculateDirectPricing = useMemo((): PricingDetails => {
+    if (!productOptions.selectedOption) {
+      return { subtotal: 0, discount: 0, shipping: 0, total: 0, quantity: 0 };
+    }
 
-    if (hasBundles && bundle.selectedOffer) {
-      items.push({
-        description: bundle.selectedOffer.title,
-        sku: `BUNDLE-${bundle.selectedOffer || 'PKG'}`,
-        quantity: bundle.quantity,
-        unitPrice: bundle.selectedOffer.final_total / bundle.quantity,
-        discount: bundle.selectedOffer.discount,
-        total: bundle.selectedOffer.final_total
-      });
-    } else if (productOptions.selectedOption) {
-      const option = productOptions.selectedOption;
-      const productName = isArabic ? product.name_ar : product.name_en;
-      
-      items.push({
-        description: productName,
-        sku: product.sku_code,
-        quantity: option.qty || 1,
-        unitPrice: option.price || 0,
-        discount: ((option.price || 0) - (option.price_after_discount || 0)) * (option.qty || 1),
-        total: (option.price_after_discount || 0) * (option.qty || 1),
-        variants: [option.firstOption, option.secondOption].filter(Boolean)
-      });
+    const option = productOptions.selectedOption;
+    const quantity = option.qty || 1;
+    const unitPrice = option.price || 0;
+    const unitDiscountPrice = option.price_after_discount || unitPrice;
+    
+    const subtotal = unitPrice * quantity;
+    const discount = (unitPrice - unitDiscountPrice) * quantity;
+    const shipping = 0; // Add shipping logic if needed
+    const total = unitDiscountPrice * quantity;
+
+    return {
+      subtotal,
+      discount,
+      shipping,
+      total,
+      quantity
+    };
+  }, [productOptions.selectedOption]);
+
+  // Main pricing details selector
+  const pricingDetails = useMemo((): PricingDetails => {
+    return hasBundles ? calculateBundlePricing : calculateDirectPricing;
+  }, [hasBundles, calculateBundlePricing, calculateDirectPricing]);
+
+  // Enhanced Bundle Line Items Generation
+  const createBundleLineItems = (): LineItem[] => {
+    if (!bundle.selectedOffer) return [];
+
+    const offer = bundle.selectedOffer;
+    const items: LineItem[] = [];
+
+    // Main bundle line item
+    const bundleMainItem: LineItem = {
+      description: offer.title,
+      sku: `BUNDLE-${offer || 'PKG'}`,
+      quantity: bundle.quantity,
+      unitPrice: offer.final_total / bundle.quantity,
+      discountAmount: offer.discount,
+      total: offer.final_total,
+      type: 'bundle-main'
+    };
+    items.push(bundleMainItem);
+
+    // Individual bundle items with their SKUs from customOptions
+    if (hasVariants && customOptions.length > 0) {
+      const individualItems = customOptions.map(option => ({
+        description: `${offer.title} - ${getTranslation('modal.item', currentLang)} ${option.bundleIndex}`,
+        sku: getDisplaySKU(option, `BUNDLE-ITEM-${option.bundleIndex}`),
+        quantity: 1,
+        unitPrice: offer.price_per_item,
+        discountAmount: 0,
+        total: offer.price_per_item,
+        variants: [option.firstOption, option.secondOption].filter(Boolean),
+        type: 'bundle-item' as const,
+        parentBundle: offer?.toString()
+      }));
+      items.push(...individualItems);
     }
 
     return items;
+  };
+
+  // Enhanced Direct Purchase Line Items Generation
+  const createDirectLineItems = (): LineItem[] => {
+    if (!productOptions.selectedOption) return [];
+
+    const option = productOptions.selectedOption;
+    const productName = isArabic ? product.name_ar : product.name_en;
+    const quantity = option.qty || 1;
+    const unitPrice = option.price || 0;
+    const unitDiscountPrice = option.price_after_discount || unitPrice;
+    const discountAmount = (unitPrice - unitDiscountPrice) * quantity;
+    const total = unitDiscountPrice * quantity;
+
+    return [{
+      description: productName,
+      sku: getDisplaySKU(option, product.sku_code),
+      quantity,
+      unitPrice,
+      discountAmount,
+      total,
+      variants: [option.firstOption, option.secondOption].filter(Boolean),
+      type: 'direct-purchase'
+    }];
+  };
+
+  // Main line items generator
+  const createLineItems = (): LineItem[] => {
+    return hasBundles ? createBundleLineItems() : createDirectLineItems();
+  };
+
+  // Validation functions
+  const validatePricing = (pricing: PricingDetails): boolean => {
+    const requiredFields: (keyof PricingDetails)[] = ['subtotal', 'total'];
+    return requiredFields.every(field => 
+      typeof pricing[field] === 'number' && 
+      pricing[field] >= 0
+    );
+  };
+
+  // Enhanced Invoice Data Generation
+  const getInvoiceData = () => {
+    const pricing = pricingDetails;
+    
+    if (!validatePricing(pricing)) {
+      console.error('Invalid pricing data:', pricing);
+      return null;
+    }
+
+    if (hasBundles) {
+      return {
+        type: 'bundle',
+        mainItem: bundle.selectedOffer,
+        bundleItems: customOptions,
+        pricing,
+        lineItems: createBundleLineItems()
+      };
+    } else {
+      return {
+        type: 'direct',
+        item: productOptions.selectedOption,
+        pricing,
+        lineItems: createDirectLineItems()
+      };
+    }
   };
 
   // Handle order confirmation
@@ -109,12 +236,21 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
     setIsProcessing(true);
     
     try {
+      // Get comprehensive invoice data for processing
+      const invoiceData = getInvoiceData();
+      if (!invoiceData) {
+        throw new Error('Invalid invoice data');
+      }
+
+      // Simulate API call with invoice data
       await new Promise(resolve => setTimeout(resolve, 2000));
+      
       const newOrderNumber = '#' + Math.floor(Math.random() * 900000 + 100000);
       setOrderNumber(newOrderNumber);
       setCurrentView('celebration');
     } catch (error) {
-      // Handle error
+      console.error('Order confirmation failed:', error);
+      // Handle error appropriately
     } finally {
       setIsProcessing(false);
     }
@@ -227,38 +363,69 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
                               }
                             </span>
                           </div>
+                          {/* Enhanced Type Display */}
+                          <div className="classic-product-type">
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              hasBundles ? 'classic-type-bundle' : 'classic-type-direct'
+                            }`}>
+                              {hasBundles 
+                                ? 'Bundle Product'
+                                : 'Direct Product'
+                              }
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Line Items Table */}
+                {/* Enhanced Line Items Table */}
                 <div className="classic-line-items-section">
-                  <h3 className="classic-section-title text-lg font-bold mb-4">
-                    {getTranslation('modal.itemsCount', currentLang)}
+                  <h3 className="classic-section-title text-lg font-bold mb-4 flex items-center justify-between">
+                    <span>{getTranslation('modal.itemsCount', currentLang)}</span>
+                    <span className="text-sm font-normal opacity-75">
+                      {lineItems.length} Items
+                    </span>
                   </h3>
                   
                   <div className="classic-line-items-table rounded-lg overflow-hidden">
-                    {/* Table Header */}
+                    {/* Enhanced Table Header */}
                     <div className="classic-table-header grid grid-cols-12 gap-4 p-4 text-sm font-bold">
-                      <div className="col-span-5">{getTranslation('modal.item', currentLang)}</div>
-                      <div className="col-span-2 text-center">{getTranslation('modal.totalQuantity', currentLang)}</div>
-                      <div className="col-span-2 text-right">{getTranslation('modal.pricePerItem', currentLang)}</div>
+                      <div className="col-span-4">Item Description</div>
+                      <div className="col-span-2 text-center">SKU</div>
+                      <div className="col-span-1 text-center">Qty</div>
+                      <div className="col-span-2 text-right">Unit Price</div>
                       <div className="col-span-2 text-right">{getTranslation('modal.discount', currentLang)}</div>
-                      <div className="col-span-1 text-right">{getTranslation('modal.subtotal', currentLang)}</div>
+                      <div className="col-span-1 text-right">Total</div>
                     </div>
                     
-                    {/* Table Body */}
+                    {/* Enhanced Table Body */}
                     <div className="classic-table-body">
                       {lineItems.map((item, index) => (
-                        <div key={index} className="classic-line-item-row grid grid-cols-12 gap-4 p-4 border-t">
-                          <div className="col-span-5">
+                        <div key={index} className={`classic-line-item-row grid grid-cols-12 gap-4 p-4 border-t ${
+                          item.type === 'bundle-main' ? 'classic-bundle-main-row' : 
+                          item.type === 'bundle-item' ? 'classic-bundle-item-row' : 
+                          'classic-direct-row'
+                        }`}>
+                          {/* Item Description */}
+                          <div className="col-span-4">
                             <div className="classic-line-item-description">
-                              <div className="font-medium mb-1">{item.description}</div>
-                              <div className="text-xs opacity-75 mb-2">SKU: {item.sku}</div>
+                              <div className="font-medium mb-1 flex items-center gap-2">
+                                {item.type === 'bundle-main' && (
+                                  <span className="classic-bundle-main-badge px-2 py-1 rounded text-xs font-bold">
+                                    Bundle Main
+                                  </span>
+                                )}
+                                {item.type === 'bundle-item' && (
+                                  <span className="classic-bundle-item-badge px-2 py-1 rounded text-xs">
+                                    Bundle Item
+                                  </span>
+                                )}
+                                <span>{item.description}</span>
+                              </div>
                               {item.variants && item.variants.length > 0 && (
-                                <div className="flex gap-2 flex-wrap">
+                                <div className="flex gap-2 flex-wrap mt-2">
                                   {item.variants.map((variant, idx) => (
                                     <span key={idx} className="classic-variant-tag px-2 py-1 rounded-full text-xs">
                                       {variant}
@@ -268,21 +435,36 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
                               )}
                             </div>
                           </div>
+                          
+                          {/* SKU */}
                           <div className="col-span-2 text-center">
+                            <span className="classic-sku-display text-xs font-mono px-2 py-1 rounded">
+                              {item.sku}
+                            </span>
+                          </div>
+                          
+                          {/* Quantity */}
+                          <div className="col-span-1 text-center">
                             <span className="classic-line-item-quantity px-3 py-1 rounded-lg text-sm font-bold">
                               {item.quantity}
                             </span>
                           </div>
+                          
+                          {/* Unit Price */}
                           <div className="col-span-2 text-right">
                             <div className="classic-line-item-price font-medium">
                               ${item.unitPrice.toFixed(2)}
                             </div>
                           </div>
+                          
+                          {/* Discount */}
                           <div className="col-span-2 text-right">
                             <div className="classic-line-item-discount font-medium">
-                              {item.discount > 0 ? `-$${item.discount.toFixed(2)}` : '$0.00'}
+                              {item.discountAmount > 0 ? `-$${item.discountAmount.toFixed(2)}` : '$0.00'}
                             </div>
                           </div>
+                          
+                          {/* Total */}
                           <div className="col-span-1 text-right">
                             <div className="classic-line-item-total font-bold">
                               ${item.total.toFixed(2)}
@@ -294,7 +476,7 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
                   </div>
                 </div>
 
-                {/* Custom Options Section */}
+                {/* Enhanced Custom Options Section - Only for Bundle Items */}
                 {hasVariants && hasBundles && customOptions.length > 0 && (
                   <div className="classic-bundle-options-section">
                     <h3 className="classic-section-title text-lg font-bold mb-4 flex items-center gap-3">
@@ -309,8 +491,11 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
                     <div className="classic-options-grid grid grid-cols-1 md:grid-cols-2 gap-4">
                       {customOptions.map((option, index) => (
                         <div key={index} className="classic-option-item rounded-lg p-4">
-                          <div className="classic-option-header text-sm font-bold mb-2">
-                            {getTranslation('modal.item', currentLang)} {option.bundleIndex}
+                          <div className="classic-option-header text-sm font-bold mb-3 flex items-center justify-between">
+                            <span>{getTranslation('modal.item', currentLang)} {option.bundleIndex}</span>
+                            <span className="classic-option-sku text-xs font-mono opacity-75">
+                              SKU: {getDisplaySKU(option, `ITEM-${option.bundleIndex}`)}
+                            </span>
                           </div>
                           <div className="classic-option-details space-y-2">
                             <div className="classic-option-selection">
@@ -347,7 +532,7 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
                     {/* Bill To */}
                     <div className="classic-billing-address">
                       <h4 className="classic-address-title text-base font-bold mb-4">
-                        {getTranslation('modal.billTo', currentLang)}
+                        Bill To
                       </h4>
                       <div className="classic-address-details space-y-3">
                         <div className="classic-field-row">
@@ -376,7 +561,7 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
                     {/* Delivery & Payment Info */}
                     <div className="classic-delivery-info">
                       <h4 className="classic-address-title text-base font-bold mb-4">
-                        {getTranslation('modal.orderDetails', currentLang)}
+                        Order Details
                       </h4>
                       <div className="classic-delivery-details space-y-3">
                         <div className="classic-field-row">
@@ -398,10 +583,10 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
                   </div>
                 </div>
 
-                {/* Payment Summary Section */}
+                {/* Enhanced Payment Summary Section */}
                 <div className="classic-payment-summary">
                   <h3 className="classic-section-title text-lg font-bold mb-4">
-                    {getTranslation('modal.paymentSummary', currentLang)}
+                    Payment Summary
                   </h3>
                   
                   <div className="classic-summary-table rounded-lg p-6">
@@ -420,8 +605,23 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
                       
                       {pricingDetails.shipping > 0 && (
                         <div className="classic-shipping-row flex justify-between items-center">
-                          <span className="text-base">{getTranslation('modal.shipping', currentLang)}</span>
+                          <span className="text-base">Shipping</span>
                           <span className="font-medium">${pricingDetails.shipping.toFixed(2)}</span>
+                        </div>
+                      )}
+                      
+                      {/* Enhanced Bundle-specific Information */}
+                      {hasBundles && pricingDetails.itemCount && (
+                        <div className="classic-bundle-info-row flex justify-between items-center text-sm opacity-75">
+                          <span>Bundle Item Count</span>
+                          <span>{pricingDetails.itemCount} Items</span>
+                        </div>
+                      )}
+                      
+                      {hasBundles && pricingDetails.pricePerItem && (
+                        <div className="classic-bundle-info-row flex justify-between items-center text-sm opacity-75">
+                          <span>{getTranslation('modal.pricePerItem', currentLang)}</span>
+                          <span>${pricingDetails.pricePerItem.toFixed(2)}</span>
                         </div>
                       )}
                       
