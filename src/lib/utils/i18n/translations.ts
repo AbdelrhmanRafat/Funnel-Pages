@@ -36,6 +36,7 @@ export const translations = {
         }
       },
       submit: "Submit Order",
+      validating: "Validating...",
       validation: {
         valid: "Valid",
         invalidFullName: "Please enter a valid full name",
@@ -47,7 +48,10 @@ export const translations = {
         invalidNotes: "Notes cannot exceed 500 characters",
         invalidPayment: "Please select a payment option",
         invalidInput: "Invalid input",
-        required: "This field is required"
+        required: "This field is required",
+        incompleteForm: "Please complete all required fields",
+        bundleIncomplete: "Please select all required product options",
+        productIncomplete: "Please select all required product options"
       }
     },
     ratings: {
@@ -268,6 +272,7 @@ export const translations = {
         }
       },
       submit: "تأكيد الطلب",
+      validating: "جاري التحقق...",
       validation: {
         valid: "صالح",
         invalidFullName: "الرجاء إدخال اسم كامل صحيح",
@@ -279,7 +284,10 @@ export const translations = {
         invalidNotes: "يجب ألا تتجاوز الملاحظات 500 حرف",
         invalidPayment: "الرجاء اختيار طريقة الدفع",
         invalidInput: "إدخال غير صالح",
-        required: "هذا الحقل مطلوب"
+        required: "هذا الحقل مطلوب",
+        incompleteForm: "يرجى إكمال جميع الحقول المطلوبة",
+        bundleIncomplete: "يرجى اختيار جميع خيارات المنتج المطلوبة",
+        productIncomplete: "يرجى اختيار جميع خيارات المنتج المطلوبة"
       }
     },
     ratings: {
