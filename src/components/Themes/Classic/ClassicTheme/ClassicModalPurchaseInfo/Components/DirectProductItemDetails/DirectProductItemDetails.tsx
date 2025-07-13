@@ -49,14 +49,6 @@ const DirectProductItemDetails: React.FC<DirectProductItemDetailsProps> = ({
 
   return (
     <div className="classic-directproduct-div-container">
-      <h3 className="classic-directproduct-h3-title text-lg md:text-xl font-bold mb-4 md:mb-6 pb-2 border-b-2 flex items-center gap-3">
-        <div className="classic-directproduct-div-icon p-2 rounded-lg">
-          <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
-        </div>
-        {getTranslation('modal.directPurchaseDetails', currentLang)}
-      </h3>
       
       <div className="classic-directproduct-div-card rounded-lg border border-l-4 p-4 md:p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">

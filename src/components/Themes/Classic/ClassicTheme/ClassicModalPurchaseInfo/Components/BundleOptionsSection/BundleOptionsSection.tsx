@@ -24,15 +24,6 @@ const BundleOptionsSection: React.FC<BundleOptionsSectionProps> = ({
 
   return (
     <div className="classic-bundle-options-section">
-      <h3 className="classic-section-title text-lg font-bold mb-4 flex items-center gap-3">
-        <div className="classic-section-icon p-2 rounded-lg">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
-          </svg>
-        </div>
-        {getTranslation('modal.bundleOptions', currentLang)}
-      </h3>
-      
       <div className="classic-options-grid grid grid-cols-1 md:grid-cols-2 gap-4">
         {customOptions.map((option, index) => (
           <div key={index} className="classic-option-item rounded-lg p-4">
