@@ -34,13 +34,13 @@ const ClassicPaymentOptionsSection: React.FC<ClassicPaymentOptionsSectionProps> 
   return (
     <div className='w-full'>
       <label
-        className="classic-form-label block mb-2 text-sm font-medium"
+        className="classic-form-label-static block mb-2 text-sm font-medium md:text-base md:mb-3"
         data-translate="form.paymentOptions"
       >
         {getTranslation("form.paymentOptions", currentLang)}
       </label>
       <div
-        className="space-y-3"
+        className="space-y-3 md:space-y-4"
         role="radiogroup"
         aria-label="Payment Method"
         aria-describedby="form-payment-error"
@@ -50,35 +50,35 @@ const ClassicPaymentOptionsSection: React.FC<ClassicPaymentOptionsSectionProps> 
           const id = `payment-${option.id}`;
           const isChecked = index === 0;
           return (
-            <label key={option.id} className="classic-form-payment-option flex items-start gap-2" htmlFor={id}>
+            <label key={option.id} className="classic-form-div-payment flex items-start gap-2 md:gap-3" htmlFor={id}>
               <input
                 type="radio"
                 id={id}
                 name="payment-option"
                 value={value}
-                className="classic-form-radio w-4 h-4"
+                className="classic-form-input-radio w-4 h-4 md:w-5 md:h-5"
                 defaultChecked={isChecked}
                 onChange={() => handlePaymentChange(id, value)}
               />
-              <div className="classic-form-payment-option-content flex-1 ml-3">
+              <div className="classic-form-div-content flex-1 ml-3 md:ml-4">
                 <div className="flex justify-between items-center">
                   <div className="flex-1 flex flex-col justify-start items-start gap-2">
-                    <span className="classic-form-payment-option-label font-medium">
+                    <span className="classic-form-span-payment-label font-medium text-sm md:text-base">
                       {option.label[currentLang]}
                     </span>
-                    <span className="classic-form-payment-option-description text-sm">
+                    <span className="classic-form-span-payment-description text-xs md:text-sm">
                       {option.description[currentLang]}
                     </span>
-
+                     
                     {/* Payment method images */}
                     {option.images && option.images.length > 0 && (
-                      <div className="flex justify-start items-center flex-wrap gap-4">
+                      <div className="flex justify-start items-center flex-wrap gap-2 md:gap-4">
                         {option.images.map((imageSrc) => (
-                          <div key={imageSrc} className="w-8 h-8 flex justify-center items-center">
+                          <div key={imageSrc} className="w-6 h-6 md:w-8 md:h-8 flex justify-center items-center">
                             <img
                               src={imageSrc}
                               alt={option.label[currentLang]}
-                              className="w-full"
+                              className="w-full h-full object-contain"
                             />
                           </div>
                         ))}
@@ -93,7 +93,7 @@ const ClassicPaymentOptionsSection: React.FC<ClassicPaymentOptionsSectionProps> 
       </div>
       <span
         id="form-payment-error"
-        className="classic-form-error text-xs"
+        className="classic-form-span-error text-xs md:text-sm"
         role="alert"
         style={{ display: 'none' }}
       />

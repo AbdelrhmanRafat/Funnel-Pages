@@ -34,13 +34,13 @@ const ClassicDeliveryOptionsSection: React.FC<ClassicDeliveryOptionsSectionProps
   return (
     <div className='w-full'>
       <label
-        className="classic-form-label block mb-2 text-sm font-medium"
+        className="classic-form-label-static block mb-2 text-sm font-medium md:text-base md:mb-3"
         data-translate="form.deliveryOptions"
       >
         {getTranslation("form.deliveryOptions", currentLang)}
       </label>
       <div
-        className="space-y-3"
+        className="space-y-3 md:space-y-4"
         role="radiogroup"
         aria-label="Delivery Method"
         aria-describedby="form-delivery-error"
@@ -50,23 +50,23 @@ const ClassicDeliveryOptionsSection: React.FC<ClassicDeliveryOptionsSectionProps
           const id = `delivery-${option.id}`;
           const isChecked = index === 0;
           return (
-            <label key={option.id} className="classic-form-payment-option flex items-start gap-2" htmlFor={id}>
+            <label key={option.id} className="classic-form-div-payment flex items-start gap-2 md:gap-3" htmlFor={id}>
               <input
                 type="radio"
                 id={id}
                 name="delivery-option"
                 value={value}
-                className="classic-form-radio w-4 h-4"
+                className="classic-form-input-radio w-4 h-4 md:w-5 md:h-5"
                 defaultChecked={isChecked}
                 onChange={() => handleDeliveryChange(id, value)}
               />
-              <div className="classic-form-payment-option-content flex-1 ml-3">
+              <div className="classic-form-div-content flex-1 ml-3 md:ml-4">
                 <div className="flex justify-between items-center">
                   <div className="flex-1 flex flex-col justify-start items-start gap-2">
-                    <span className="classic-form-payment-option-label font-medium">
+                    <span className="classic-form-span-payment-label font-medium text-sm md:text-base">
                       {option.label[currentLang]}
                     </span>
-                    <span className="classic-form-payment-option-description text-sm">
+                    <span className="classic-form-span-payment-description text-xs md:text-sm">
                       {option.description[currentLang]}
                     </span>
                   </div>
@@ -78,7 +78,7 @@ const ClassicDeliveryOptionsSection: React.FC<ClassicDeliveryOptionsSectionProps
       </div>
       <span
         id="form-delivery-error"
-        className="classic-form-error text-xs"
+        className="classic-form-span-error text-xs md:text-sm"
         role="alert"
         style={{ display: 'none' }}
       />
