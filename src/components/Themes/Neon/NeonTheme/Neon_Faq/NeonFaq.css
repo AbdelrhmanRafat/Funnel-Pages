@@ -1,64 +1,73 @@
-/* NeonFaq.css - Enhanced version */
-/* === Classic FAQ Component === */
-.neon-faq-item {
-    background-color: var(--neon-color-surface);
-    border-radius: var(--neon-section-radius);
-    border: 1px solid var(--neon-color-outline-variant);
-    transition: border-color 0.2s ease;
+/* === Neon FAQ Split Layout === */
+/* Following naming convention: neon-faq-[function] */
+
+/* === Questions List === */
+.neon-faq-splitQuestion {
+    background-color: var(--neon-color-surface-variant);
 }
 
-/* Add focus states for accessibility */
-.neon-faq-item:focus-within {
+.neon-faq-splitQuestion:hover {
+    background-color: var(--neon-color-surface-variant);
+}
+
+.neon-faq-splitQuestion.selected {
+    background-color: var(--neon-color-primary);
+}
+
+.neon-faq-splitQuestion:focus {
     border-color: var(--neon-color-primary);
-    outline: 2px solid var(--neon-color-primary);
-    outline-offset: 2px;
 }
 
-.neon-faq-question {
-    transition: background-color 0.2s ease;
+/* === Question Number Badge === */
+.neon-faq-splitNumber {
+    background-color: var(--neon-color-primary);
+    color: var(--neon-color-on-primary);
 }
 
-.neon-faq-question:hover {
-    background-color: var(--neon-color-surface-variant);
-}
-
-.neon-faq-question:focus {
-    background-color: var(--neon-color-surface-variant);
-    outline: none; /* Handled by parent */
-}
-
-.neon-faq-question-text {
-    color: var(--neon-color-on-surface);
-}
-
-.neon-faq-icon {
-    color: var(--neon-color-on-surface-variant);
-    transition: transform 0.3s ease, color 0.2s ease;
-}
-
-/* Add open state styling */
-.neon-faq-item[open] .neon-faq-icon {
+.neon-faq-splitQuestion.selected .neon-faq-splitNumber {
+    background-color: var(--neon-color-on-primary);
     color: var(--neon-color-primary);
 }
 
-.neon-faq-answer {
-    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+/* === Question Text === */
+.neon-faq-splitQuestionText {
+    color: var(--neon-color-on-surface);
 }
 
-.neon-faq-answer.open {
-    padding-bottom: 1.5rem;
+.neon-faq-splitQuestion.selected .neon-faq-splitQuestionText {
+    color: var(--neon-color-on-primary);
 }
 
-.neon-faq-answer-content {
+/* === Answer Panel === */
+.neon-faq-splitAnswer {
+    background-color: var(--neon-color-surface);
+}
+
+.neon-faq-splitIcon {
+    background-color: var(--neon-color-primary);
+}
+
+.neon-faq-splitIconColor {
+    color: var(--neon-color-on-primary);
+}
+
+.neon-faq-splitLabel {
     color: var(--neon-color-on-surface-variant);
-    line-height: 1.6;
 }
 
-/* Add animation polish */
-@media (prefers-reduced-motion: reduce) {
-    .neon-faq-icon,
-    .neon-faq-answer,
-    .neon-faq-question {
-        transition: none;
-    }
+.neon-faq-splitTitle {
+    color: var(--neon-color-on-surface);
+}
+
+.neon-faq-splitContent {
+    color: var(--neon-color-on-surface-variant);
+}
+
+/* === Placeholder State === */
+.neon-faq-splitPlaceholderIcon {
+    color: var(--neon-color-on-surface-variant);
+}
+
+.neon-faq-splitPlaceholderText {
+    color: var(--neon-color-on-surface-variant);
 }

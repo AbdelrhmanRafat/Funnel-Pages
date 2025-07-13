@@ -23,9 +23,9 @@
 
 /* ===== MOBILE MENU BUTTON ===== */
 .neon-menu-button {
-  background-color: var(--neon-color-surface-variant);
-  border: 1px solid var(--neon-color-outline-variant);
   color: var(--neon-color-on-surface);
+  background-color: var(--neon-color-surface-variant);
+  border-color: var(--neon-color-outline-variant);
   position: relative;
   z-index: 70;
 }
@@ -43,25 +43,26 @@
   border-color: var(--neon-color-primary);
 }
 
-/* Hamburger lines */
-.hamburger-line {
+/* neon-Hamburger lines */
+
+.neon-hamburger-line {
   background-color: var(--neon-color-on-surface);
 }
 
-.neon-menu-button:hover .hamburger-line {
+.neon-menu-button:hover .neon-hamburger-line {
   background-color: var(--neon-color-on-primary);
 }
 
-/* Hamburger Animation when Active */
-.neon-menu-button.active .hamburger-line:nth-child(1) {
+/* neon-Hamburger Animation when Active */
+.neon-menu-button.active .neon-hamburger-line:nth-child(1) {
   transform: translateY(6px) rotate(45deg);
 }
 
-.neon-menu-button.active .hamburger-line:nth-child(2) {
+.neon-menu-button.active .neon-hamburger-line:nth-child(2) {
   opacity: 0;
 }
 
-.neon-menu-button.active .hamburger-line:nth-child(3) {
+.neon-menu-button.active .neon-hamburger-line:nth-child(3) {
   transform: translateY(-6px) rotate(-45deg);
 }
 
@@ -205,7 +206,7 @@ body.menu-open {
   .neon-menu-overlay,
   .neon-menu-content,
   .neon-menu-button,
-  .hamburger-line,
+  .neon-hamburger-line,
   .neon-header {
     transition: none;
   }

@@ -1,66 +1,73 @@
-/* Classic Statistics Minimal Design - Matching the provided image */
+/* This file contains minimal CSS styles for Neon Today Statistics - Variation 3 (Horizontal Progress Style) */
+/* Following the improved design strategy: Tailwind-first with custom colors only */
 
-.neon-theme-today-order-count {
-    background: transparent;
-    color: var(--neon-color-on-surface);
-    box-shadow: none;
-    border-radius: 0;
-    transition: transform 0.3s ease;
-    padding: 0;
-    min-width: auto;
-    min-height: auto;
+/* === Neon Today Statistics Component === */
+/* Only color-related styles using custom color schema */
+
+/* Header Styling */
+.neon-statistics-title {
+  color: var(--neon-color-on-surface);
 }
 
-.neon-theme-today-order-count:hover {
-    transform: translateY(-2px);
+.neon-statistics-divider {
+  background: linear-gradient(to right, 
+    var(--neon-color-primary), 
+    var(--neon-color-secondary)
+  );
 }
 
+/* Horizontal Progress Style */
+.neon-statistics-row {
+  background-color: var(--neon-color-surface-variant);
+  box-shadow: var(--neon-section-shadow);
+}
+
+.neon-statistics-row:hover {
+  box-shadow: var(--neon-section-shadow-hover, var(--neon-section-shadow));
+}
+
+/* Statistics Icons */
+.neon-statistics-icon {
+  background-color: var(--neon-color-primary);
+}
+
+.neon-statistics-icon-symbol {
+  color: var(--neon-color-on-primary);
+}
+
+/* Statistics Numbers - Keep original class for animations */
 .neon-order-counter {
-    transition: all 0.1s ease;
-    color: var(--neon-color-tertiary-dark);
+  color: var(--neon-color-on-surface);
+  transition: all 0.1s ease;
 }
 
-/* Classic Statistics Container */
-.neon-statistics-minimal-container {
-    background: transparent;
-    padding: 3rem 0;
-}
-
-/* Classic Counter Item Styling */
-.neon-counter-minimal-item {
-    text-align: center;
-    position: relative;
-}
-
-/* Classic Counter Label - Green color like in image */
-.neon-counter-minimal-label {
-    color: var(--neon-color-success);
-}
-
-
-
-
-/* Classic Animation Effects */
 .neon-order-counter[data-neon-animating="true"] {
-    color: var(--neon-color-primary);
+  color: var(--neon-color-primary);
 }
 
-@media (max-width: 768px) {
-    .neon-order-counter {
-        font-size: 3rem;
-    }
-    
-    .neon-counter-minimal-item:not(:last-child)::after {
-        display: none;
-    }
-    
-    .neon-counter-minimal-label {
-        font-size: 1rem;
-    }
+/* Statistics Labels */
+.neon-statistics-label {
+  color: var(--neon-color-on-surface);
 }
 
-@media (max-width: 640px) {
-    .neon-order-counter {
-        font-size: 2.5rem;
-    }
+/* Progress Bar */
+.neon-statistics-progress-bg {
+  background-color: var(--neon-color-surface);
+}
+
+.neon-statistics-progress-fill {
+  background: linear-gradient(90deg, 
+    var(--neon-color-primary), 
+    var(--neon-color-secondary)
+  );
+  box-shadow: 0 0 10px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.5);
+}
+
+/* Enhanced hover effects for neon theme */
+.neon-statistics-row:hover .neon-order-counter {
+  color: var(--neon-color-primary);
+}
+
+.neon-statistics-row:hover .neon-statistics-progress-fill {
+  box-shadow: 0 0 15px rgba(var(--neon-color-primary-rgb, 0, 255, 255), 0.8);
 }

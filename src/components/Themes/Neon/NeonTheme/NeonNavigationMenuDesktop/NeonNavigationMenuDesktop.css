@@ -1,8 +1,3 @@
-/* === Desktop Navigation === */
-.neon-desktop-nav {
-  border-top: 1px solid var(--neon-color-outline-variant);
-}
-
 /* Navigation links */
 .neon-desktop-nav-link {
   background-color: var(--neon-color-surface-variant);

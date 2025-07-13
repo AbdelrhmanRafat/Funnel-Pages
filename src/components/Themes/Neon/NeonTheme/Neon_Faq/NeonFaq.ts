@@ -1,151 +1,49 @@
-// NeonFaq.ts - Enhanced version
-class FaqItem extends HTMLElement {
-    private button: HTMLButtonElement | null = null;
-    private answer: HTMLDivElement | null = null;
-    private icon: HTMLSpanElement | null = null;
-    private isInitialized: boolean = false;
+// NeonFaq-SplitLayout.ts - Simple Split Layout
+class NeonFaqSplit {
+    private questions: NodeListOf<HTMLElement>;
+    private selectedQuestionEl: HTMLElement | null;
+    private selectedAnswerEl: HTMLElement | null;
+    private answerContentEl: HTMLElement | null;
+    private noSelectionEl: HTMLElement | null;
+    private currentIndex: number = 0;
 
     constructor() {
-        super();
+        this.questions = document.querySelectorAll('[data-faq-question]');
+        this.selectedQuestionEl = document.querySelector('[data-selected-question]');
+        this.selectedAnswerEl = document.querySelector('[data-selected-answer]');
+        this.answerContentEl = document.querySelector('[data-faq-answer-content]');
+        this.noSelectionEl = document.querySelector('[data-faq-no-selection]');
     }
 
-    connectedCallback() {
-        // Prevent double initialization
-        if (this.isInitialized) return;
-        
-        this.initializeElements();
+    init(): void {
         this.attachEventListeners();
-        this.setupAccessibility();
-        this.isInitialized = true;
-    }
-
-    disconnectedCallback() {
-        // Cleanup when element is removed
-        this.removeEventListeners();
-        this.isInitialized = false;
-    }
-
-    private initializeElements(): void {
-        this.button = this.querySelector('[data-faq-button]') as HTMLButtonElement;
-        this.answer = this.querySelector('[data-faq-answer]') as HTMLDivElement;
-        this.icon = this.querySelector('[data-faq-icon]') as HTMLSpanElement;
-
-        if (!this.button || !this.answer || !this.icon) {
-            console.warn('FAQ Item: Required elements not found', this);
-            return;
-        }
-    }
-
-    private setupAccessibility(): void {
-        if (!this.button || !this.answer) return;
-
-        // Generate unique IDs for ARIA relationships
-        const answerId = `faq-answer-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-        
-        this.answer.id = answerId;
-        this.button.setAttribute('aria-controls', answerId);
-        this.button.setAttribute('aria-expanded', 'false');
+        this.selectQuestion(0); // Select first question by default
     }
 
     private attachEventListeners(): void {
-        if (!this.button) return;
-        
-        this.button.addEventListener('click', this.handleClick);
-        this.button.addEventListener('keydown', this.handleKeydown);
+        this.questions.forEach((question, index) => {
+            question.addEventListener('click', () => this.selectQuestion(index));
+            question.addEventListener('keydown', (e) => this.handleKeydown(e, index));
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => this.handleGlobalKeydown(e));
     }
 
-    private removeEventListeners(): void {
-        if (!this.button) return;
-        
-        this.button.removeEventListener('click', this.handleClick);
-        this.button.removeEventListener('keydown', this.handleKeydown);
-    }
-
-    private handleClick = (): void => {
-        this.toggleFaq();
-    }
-
-    private handleKeydown = (event: KeyboardEvent): void => {
-        // Handle Enter and Space keys
+    private handleKeydown(event: KeyboardEvent, index: number): void {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            this.toggleFaq();
+            this.selectQuestion(index);
         }
     }
 
-    private toggleFaq(): void {
-        const accordion = this.closest('faq-accordion') as FaqAccordion;
-        const isOpen = this.hasAttribute('open');
-
-        if (accordion) {
-            accordion.closeAllItems(this);
-        }
-
-        if (isOpen) {
-            this.close();
-        } else {
-            this.open();
-        }
-    }
-
-    public open(): void {
-        if (!this.answer || !this.icon || !this.button) return;
-
-        this.setAttribute('open', '');
-        this.button.setAttribute('aria-expanded', 'true');
+    private handleGlobalKeydown(event: KeyboardEvent): void {
+        const focusedElement = document.activeElement as HTMLElement;
+        const isFaqQuestion = focusedElement?.hasAttribute('data-faq-question');
         
-        // Calculate and set max-height for smooth animation
-        this.answer.style.maxHeight = this.answer.scrollHeight + 'px';
-        this.answer.classList.add('open');
+        if (!isFaqQuestion) return;
 
-        this.icon.classList.remove('rotate-0');
-        this.icon.classList.add('rotate-45');
-
-        // Dispatch custom event for potential tracking
-        this.dispatchEvent(new CustomEvent('faq:opened', {
-            bubbles: true,
-            detail: { faqItem: this }
-        }));
-    }
-
-    public close(): void {
-        if (!this.answer || !this.icon || !this.button) return;
-
-        this.removeAttribute('open');
-        this.button.setAttribute('aria-expanded', 'false');
-        
-        this.answer.style.maxHeight = '0';
-        this.answer.classList.remove('open');
-
-        this.icon.classList.remove('rotate-45');
-        this.icon.classList.add('rotate-0');
-
-        // Dispatch custom event
-        this.dispatchEvent(new CustomEvent('faq:closed', {
-            bubbles: true,
-            detail: { faqItem: this }
-        }));
-    }
-}
-
-class FaqAccordion extends HTMLElement {
-    constructor() {
-        super();
-    }
-
-    connectedCallback() {
-        // Add keyboard navigation
-        this.addEventListener('keydown', this.handleKeyboardNavigation);
-    }
-
-    disconnectedCallback() {
-        this.removeEventListener('keydown', this.handleKeyboardNavigation);
-    }
-
-    private handleKeyboardNavigation = (event: KeyboardEvent): void => {
-        const buttons = Array.from(this.querySelectorAll('[data-faq-button]')) as HTMLButtonElement[];
-        const currentIndex = buttons.indexOf(event.target as HTMLButtonElement);
-
+        const currentIndex = Array.from(this.questions).indexOf(focusedElement);
         if (currentIndex === -1) return;
 
         let nextIndex: number;
@@ -153,58 +51,86 @@ class FaqAccordion extends HTMLElement {
         switch (event.key) {
             case 'ArrowDown':
                 event.preventDefault();
-                nextIndex = (currentIndex + 1) % buttons.length;
-                buttons[nextIndex].focus();
+                nextIndex = (currentIndex + 1) % this.questions.length;
+                (this.questions[nextIndex] as HTMLElement).focus();
                 break;
             case 'ArrowUp':
                 event.preventDefault();
-                nextIndex = currentIndex === 0 ? buttons.length - 1 : currentIndex - 1;
-                buttons[nextIndex].focus();
+                nextIndex = currentIndex === 0 ? this.questions.length - 1 : currentIndex - 1;
+                (this.questions[nextIndex] as HTMLElement).focus();
                 break;
             case 'Home':
                 event.preventDefault();
-                buttons[0].focus();
+                (this.questions[0] as HTMLElement).focus();
                 break;
             case 'End':
                 event.preventDefault();
-                buttons[buttons.length - 1].focus();
+                (this.questions[this.questions.length - 1] as HTMLElement).focus();
                 break;
         }
     }
 
-    public closeAllItems(except?: FaqItem): void {
-        const items = this.querySelectorAll('faq-item') as NodeListOf<FaqItem>;
-        items.forEach(item => {
-            if (item !== except) {
-                item.close();
-            }
+    private selectQuestion(index: number): void {
+        if (index < 0 || index >= this.questions.length) return;
+
+        // Remove selected class from all questions
+        this.questions.forEach((q, i) => {
+            q.classList.remove('selected');
+            q.setAttribute('aria-pressed', 'false');
         });
+
+        // Add selected class to current question
+        this.questions[index].classList.add('selected');
+        this.questions[index].setAttribute('aria-pressed', 'true');
+
+        // Update answer content
+        this.updateAnswerContent(index);
+        this.currentIndex = index;
+
+        // Show answer content, hide placeholder
+        if (this.answerContentEl && this.noSelectionEl) {
+            this.answerContentEl.classList.remove('hidden');
+            this.noSelectionEl.classList.add('hidden');
+        }
+    }
+
+    private updateAnswerContent(index: number): void {
+        const questionEl = this.questions[index];
+        const questionText = questionEl.querySelector('.neon-faq-splitQuestionText')?.textContent || '';
+        
+        // Get answer content from data attribute or find it in the original data
+        const answerContent = this.getAnswerContent(index);
+
+        if (this.selectedQuestionEl) {
+            this.selectedQuestionEl.textContent = questionText;
+        }
+
+        if (this.selectedAnswerEl) {
+            this.selectedAnswerEl.textContent = answerContent;
+        }
+    }
+
+    private getAnswerContent(index: number): string {
+        // Get answer from data attribute
+        const questionEl = this.questions[index];
+        return questionEl.dataset.answer || `Answer for question ${index + 1}`;
     }
 }
 
-// Enhanced registration with error handling
-const registerComponents = (): void => {
-    try {
-        if (!customElements.get('faq-item')) {
-            customElements.define('faq-item', FaqItem);
-        }
-
-        if (!customElements.get('faq-accordion')) {
-            customElements.define('faq-accordion', FaqAccordion);
-        }
-    } catch (error) {
-        console.error('Failed to register FAQ components:', error);
-    }
+// Simple initialization
+const initNeonFaqSplit = (): void => {
+    const faqSplit = new NeonFaqSplit();
+    faqSplit.init();
 };
 
-// Multiple registration strategies
+// Initialize when DOM is ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', registerComponents);
+    document.addEventListener('DOMContentLoaded', initNeonFaqSplit);
 } else {
-    registerComponents();
+    initNeonFaqSplit();
 }
 
-// Astro-specific handling
-document.addEventListener('astro:page-load', registerComponents);
+// Astro page load handling
+document.addEventListener('astro:page-load', initNeonFaqSplit);
 
-export { FaqItem, FaqAccordion };
+export { NeonFaqSplit };

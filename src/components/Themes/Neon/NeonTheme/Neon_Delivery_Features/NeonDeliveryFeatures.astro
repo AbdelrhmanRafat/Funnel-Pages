@@ -16,27 +16,32 @@ const deliveryFeatures: Item[] = data.items ?? [];
 <section id={FunnelNeonComponents.NeonDeliveryFeatures} class="neon-section">
   <!-- Header -->
   <div class="neon-section-header">
-    {data.icon && <LucideIcon name={data.icon as any} width="48" height="48"  />} 
-     <h5>{isArabic ? data.title_ar : data.title_en}</h5>
+    {data.icon && <LucideIcon name={data.icon as any} width="48" height="48" />}
+    <h5>{isArabic ? data.title_ar : data.title_en}</h5>
   </div>
-  <!-- Delivery Features Grid -->
+  
+  <!-- Delivery Features Grid - Variation 2: Card-Based Layout with Backgrounds -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     {
       deliveryFeatures.map((feature) => (
-        <div class="flex flex-col justify-center items-center gap-2 p-4">
+        <div class="neon-delivery-card rounded-2xl p-6 flex flex-col justify-center items-center gap-4 transition-all duration-300 hover:shadow-lg">
           <!-- Feature Icon -->
-          <div>
-            {data.icon && <LucideIcon name={data.icon as any} width="43" height="43" class="text-2xl neon-delivery-feature-icon" />} 
+          <div class="neon-delivery-icon w-16 h-16 rounded-full flex items-center justify-center">
+            {feature.icon ? 
+              <LucideIcon name={feature.icon as any} width="32" height="32" class="neon-delivery-icon-symbol" /> :
+              <LucideIcon name={data.icon as any} width="32" height="32" class="neon-delivery-icon-symbol" />
+            }
           </div>
+          
           <!-- Feature Content -->
-          <h3 class="neon-delivery-feature-title font-semibold text-lg leading-tight">
+          <h3 class="neon-delivery-title font-semibold text-lg leading-tight text-center">
             {feature.label}
           </h3>
-          <p class="neon-delivery-feature-subtitle text-sm leading-relaxed">
+          <p class="neon-delivery-subtitle text-sm leading-relaxed text-center">
             {feature.content}
           </p>
         </div>
       ))
     }
   </div>
-</section> 
+</section>

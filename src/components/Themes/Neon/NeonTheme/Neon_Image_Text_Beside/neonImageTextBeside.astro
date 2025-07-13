@@ -24,11 +24,22 @@ const ImageTextData: Item | undefined = data.items?.[0];
     {data.icon && <LucideIcon name={data.icon as any} width="48" height="48" />}
     <h5 id="image-text-heading">{isArabic ? data.title_ar : data.title_en}</h5>
   </div>
-  
-  <!-- Product Grid -->
-  <article class="neon-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start overflow-hidden">
-    <!-- Image Section -->
-    <figure class="h-64 sm:h-96 overflow-hidden">
+
+  <!-- Product Section: Content then Image -->
+  <article class="neon-image-text-beside flex flex-col gap-6 items-start overflow-hidden">
+    
+    <!-- Text Section -->
+    <div class="flex flex-col justify-start items-start w-full gap-2 p-0 text-right h-full">
+      <h2 class="neon-image-text-beside-title text-3xl font-bold">
+        {ImageTextData?.label || 'Product'}
+      </h2>
+      <p class="neon-image-text-beside-description text-base leading-relaxed">
+        {ImageTextData?.content || 'No description available'}
+      </p>
+    </div>
+
+    <!-- Image Section with Overlay Button -->
+    <div class="relative w-full h-64 sm:h-96 overflow-hidden">
       {ImageTextData?.image ? (
         <img 
           src={ImageTextData.image}
@@ -41,18 +52,11 @@ const ImageTextData: Item | undefined = data.items?.[0];
           <span class="text-gray-400">No image available</span>
         </div>
       )}
-    </figure>
-    
-    <!-- Text Section -->
-    <div class="neon-image-text-beside-content flex flex-col justify-start items-start w-full gap-2 p-6 sm:p-10 space-y-6 text-right h-full">
-      <h2 class="neon-image-text-beside-title text-3xl font-bold">
-        {ImageTextData?.label || 'Product'}
-      </h2>
-      <p class="neon-image-text-beside-description text-base leading-relaxed">
-        {ImageTextData?.content || 'No description available'}
-      </p>
-      <div class="flex-1"></div>
-      <NeonBuyNowButton />
+
+      <!-- Overlay Button -->
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-2/3 md:w-fit">
+        <NeonBuyNowButton />
+      </div>
     </div>
   </article>
 </section>

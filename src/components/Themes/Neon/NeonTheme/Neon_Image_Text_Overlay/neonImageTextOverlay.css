@@ -1,69 +1,50 @@
-/* === Classic Image Text Overlay === */
+/* === Neon Hero Component - Using Available Theme Variables === */
 
-/* Main container */
-.neon-image-text-overlay-card {
+/* Container Colors */
+.neon-hero-container {
+  background-color: var(--neon-color-background);
+}
+
+/* Header Colors */
+.neon-hero-header {
+  color: var(--neon-color-primary);
+}
+
+/* Banner Container */
+.neon-hero-banner {
+  border-radius: var(--neon-section-radius);
+  box-shadow: var(--neon-section-shadow);
+  position: relative;
+}
+
+/* Gradient Overlay */
+.neon-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* Title Colors */
+.neon-hero-title {
+  color: var(--neon-color-on-surface);
+}
+
+/* Subtitle Colors */
+.neon-hero-subtitle {
+  color: var(--neon-color-on-surface-variant);
+}
+
+/* Container Query Support */
+.container-query-wrapper {
+  container-type: inline-size;
+}
+
+/* Responsive Design using Container Queries */
+@container (min-width: 480px) {
+  .neon-hero-banner {
     border-radius: var(--neon-section-radius);
-    background-color: var(--neon-color-surface-container); /* Fallback if image fails */
-    box-shadow: var(--neon-section-shadow);
-}
-
-/* Content overlay with backdrop for better readability */
-.neon-image-text-overlay-content {
-    background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent overlay */
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    transition: all 0.3s ease;
-}
-
-.neon-image-text-overlay-content:hover {
-    background-color: rgba(0, 0, 0, 0.6);
-    transform: translateY(-2px);
-    box-shadow: var(--neon-section-shadow);
-}
-
-/* Title text optimized for dark overlay */
-.neon-image-text-overlay-title {
-    color: var(--neon-color-surface); /* White/light text for dark backgrounds */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Strong shadow for readability */
-}
-
-/* Subtitle text with better contrast */
-.neon-image-text-overlay-subtitle {
-    color: var(--neon-color-surface-variant); /* Slightly dimmed white */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* Shadow for readability */
-}
-
-/* === Accessibility Improvements === */
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-    .neon-image-text-overlay-content {
-        transition: none;
-    }
-    
-    .neon-image-text-overlay-content:hover {
-        transform: none;
-    }
-}
-
-/* High contrast mode for better accessibility */
-@media (prefers-contrast: high) {
-    .neon-image-text-overlay-content {
-        background-color: rgba(0, 0, 0, 0.8); /* More opaque overlay */
-        border: 2px solid rgba(255, 255, 255, 0.4);
-    }
-    
-    .neon-image-text-overlay-title {
-        text-shadow: 0 2px 6px rgba(0, 0, 0, 1); /* Stronger shadow */
-    }
-    
-    .neon-image-text-overlay-subtitle {
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 1);
-    }
-}
-
-/* Focus states for keyboard navigation */
-.neon-image-text-overlay-content:focus-within {
-    outline: 2px solid var(--neon-color-primary);
-    outline-offset: 4px;
+  }
 }
