@@ -299,14 +299,14 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
     >
       {/* Overlay */}
       <div 
-        className="classic-modal-overlay absolute inset-0 z-[1001] transition-opacity duration-300" 
+        className="classic-modal-div-overlay absolute inset-0 z-[1001] transition-opacity duration-300" 
         onClick={handleClose}
         aria-hidden="true"
       />
       
       {/* Invoice Container */}
       <div className="relative container md:w-10/12 lg:w-8/12 xl:w-6/12 max-h-[95vh] overflow-y-auto z-[1002] m-4 transition-all duration-300 transform">
-        <div className="classic-invoice-container rounded-xl shadow-2xl">
+        <div className="classic-modal-div-invoice rounded-xl">
           
           {/* Purchase Invoice View */}
           {currentView === 'purchase' && (
@@ -322,13 +322,13 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
                   product={product}
                   isArabic={isArabic}
                   currentLang={currentLang}
-                  hasBundles={hasBundles}
                 />
-
+               { hasBundles === false &&
                 <LineItemsSection 
                   lineItems={lineItems}
                   currentLang={currentLang}
                 />
+               }
 
                 <BundleOptionsSection 
                   hasVariants={hasVariants}

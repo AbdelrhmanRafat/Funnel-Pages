@@ -1,54 +1,11 @@
-/* === Invoice Header Styles === */
+/* === Invoice Header Component (Colors & Shadows Only) === */
 
-.classic-invoice-header {
+.classic-invoiceheader-div-container {
   background: linear-gradient(135deg, var(--classic-color-primary) 0%, var(--classic-color-primary-dark) 100%);
   color: var(--classic-color-on-primary);
   border-bottom: 3px solid var(--classic-color-primary-dark);
 }
 
-.classic-invoice-title {
+.classic-invoiceheader-h3-title {
   color: var(--classic-color-on-primary);
-}
-
-.classic-invoice-subtitle {
-  color: var(--classic-color-on-primary);
-}
-
-.classic-invoice-number {
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--classic-color-on-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.classic-invoice-date {
-  color: var(--classic-color-on-primary);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .classic-invoice-header {
-    padding: 1.5rem;
-  }
-  
-  .classic-invoice-title {
-    font-size: 1.5rem;
-  }
-}
-
-/* Print Styles */
-@media print {
-  .classic-invoice-header {
-    background: none !important;
-    color: var(--classic-color-on-surface) !important;
-    border-bottom: 2px solid var(--classic-color-outline);
-  }
-  
-  .classic-invoice-title,
-  .classic-invoice-subtitle,
-  .classic-invoice-number,
-  .classic-invoice-date {
-    color: var(--classic-color-on-surface) !important;
-  }
 }
