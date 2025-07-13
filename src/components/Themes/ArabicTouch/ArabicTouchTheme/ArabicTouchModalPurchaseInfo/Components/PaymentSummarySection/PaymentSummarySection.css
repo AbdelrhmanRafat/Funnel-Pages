@@ -1,0 +1,28 @@
+/* === Payment Summary Section Component (Colors & Shadows Only) === */
+
+.arabictouch-paymentsummary-h3-title {
+  color: var(--arabictouch-color-on-surface);
+  border-bottom-color: var(--arabictouch-color-success);
+}
+
+.arabictouch-paymentsummary-div-table {
+  background: var(--arabictouch-color-surface);
+  border: 2px solid var(--arabictouch-color-success);
+  box-shadow: 0 4px 12px -4px rgba(34, 197, 94, 0.2);
+}
+
+.arabictouch-paymentsummary-div-totalrow {
+  background: linear-gradient(135deg, 
+    var(--arabictouch-color-success) 0%, 
+    var(--arabictouch-color-success-dark) 100%
+  );
+  color: var(--arabictouch-color-on-success);
+}
+
+.arabictouch-paymentsummary-span-totallabel {
+  color: var(--arabictouch-color-on-success);
+}
+
+.arabictouch-paymentsummary-span-totalamount {
+  color: var(--arabictouch-color-on-success);
+}

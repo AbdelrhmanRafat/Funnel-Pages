@@ -1,0 +1,11 @@
+/* === Invoice Header Component (Colors & Shadows Only) === */
+
+.arabictouch-invoiceheader-div-container {
+  background: linear-gradient(135deg, var(--arabictouch-color-primary) 0%, var(--arabictouch-color-primary-dark) 100%);
+  color: var(--arabictouch-color-on-primary);
+  border-bottom: 3px solid var(--arabictouch-color-primary-dark);
+}
+
+.arabictouch-invoiceheader-h3-title {
+  color: var(--arabictouch-color-on-primary);
+}

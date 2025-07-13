@@ -1,0 +1,77 @@
+/* === Size/Text Options Base === */
+.elegant-selection-options-without-bundles-size-option {
+    background-color: var(--elegant-color-surface);
+    color: var(--elegant-color-on-surface-variant);
+    border: 1px solid var(--elegant-color-outline);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.elegant-selection-options-without-bundles-size-option:hover {
+    background-color: var(--elegant-color-secondary);
+    color: var(--elegant-color-on-secondary);
+    border-color: var(--elegant-color-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--elegant-section-shadow);
+}
+
+/* === Size/Text Options Selected State === */
+.elegant-selection-options-without-bundles-size-option--selected {
+    background-color: var(--elegant-color-secondary);
+    color: var(--elegant-color-on-secondary);
+    border-color: var(--elegant-color-secondary-dark);
+    transform: translateY(-4px);
+    box-shadow: var(--elegant-section-shadow);
+}
+
+.elegant-selection-options-without-bundles-size-option--selected:hover {
+    background-color: var(--elegant-color-secondary);
+    color: var(--elegant-color-on-secondary);
+    border-color: var(--elegant-color-secondary-dark);
+    transform: translateY(-4px);
+    box-shadow: var(--elegant-section-shadow);
+}
+
+/* === Disabled Size Options === */
+.elegant-selection-options-without-bundles-size-option.elegant-selection-options-without-bundles-option-disabled {
+    background-color: var(--elegant-color-surface-variant);
+    color: var(--elegant-color-on-surface-variant);
+    border-color: var(--elegant-color-outline-variant);
+    box-shadow: none;
+}
+
+.elegant-selection-options-without-bundles-size-option.elegant-selection-options-without-bundles-option-disabled:hover {
+    background-color: var(--elegant-color-surface-variant);
+    color: var(--elegant-color-on-surface-variant);
+    transform: none;
+}
+
+/* === Enhanced Hover States === */
+.elegant-selection-options-without-bundles-size-option.elegant-selection-options-without-bundles-option-available:hover:not(.elegant-selection-options-without-bundles-size-option--selected) {
+    background-color: var(--elegant-color-secondary-light);
+    color: var(--elegant-color-on-secondary);
+    border-color: var(--elegant-color-secondary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* === Focus States for Accessibility === */
+.elegant-selection-options-without-bundles-size-option:focus {
+    outline: 2px solid var(--elegant-color-primary);
+    outline-offset: 2px;
+}
+
+.elegant-selection-options-without-bundles-size-option.elegant-selection-options-without-bundles-option-disabled:focus {
+    outline: 2px solid var(--elegant-color-outline-variant);
+    outline-offset: 2px;
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+    .elegant-selection-options-without-bundles-size-option {
+        transition: opacity 0.2s ease;
+    }
+    
+    .elegant-selection-options-without-bundles-size-option:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,67 @@
+/* === Bundle Options Section === */
+.techno-bundle-options-title {
+    color: var(--techno-color-on-surface);
+}
+
+.techno-bundle-options-group {
+    border-color: var(--techno-color-primary);
+}
+
+.techno-bundle-options-label {
+    transition: all 0.3s ease;
+    border-radius: var(--techno-section-radius);
+    background-color: var(--techno-color-surface);
+}
+
+.techno-bundle-options-label:hover {
+    box-shadow: var(--techno-section-shadow);
+}
+
+.techno-bundle-options-label:has(:checked) {
+    border-color: var(--techno-color-primary);
+    background-color: var(--techno-color-primary-light);
+    background-color: rgba(79, 182, 172, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.techno-bundle-options-option-title {
+    color: var(--techno-color-on-surface);
+}
+
+.techno-bundle-options-option-details {
+    color: var(--techno-color-on-surface-variant);
+}
+
+.techno-bundle-options-unit-badge {
+    background-color: var(--techno-color-surface-variant);
+    color: var(--techno-color-on-surface-variant);
+}
+
+.techno-bundle-options-price-info {
+    color: var(--techno-color-on-surface-variant);
+}
+
+.techno-bundle-options-final-price {
+    color: var(--techno-color-primary);
+}
+
+.techno-bundle-options-price-discount {
+    color: var(--techno-color-success);
+}
+
+.techno-bundle-options-price-regular {
+    color: var(--techno-color-primary);
+}
+
+.techno-bundle-options-original-price {
+    color: var(--techno-color-on-surface-variant);
+}
+
+.techno-bundle-options-discount-badge {
+    background-color: var(--techno-color-success-light);
+    color: var(--techno-color-on-success);
+}
+
+.techno-bundle-options-discount-icon {
+    color: var(--techno-color-success);
+}

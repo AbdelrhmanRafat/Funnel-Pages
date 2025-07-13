@@ -1,0 +1,94 @@
+/* === Celebration View Component (Colors & Shadows Only) === */
+
+/* Celebration Header */
+.minimal-celebration-header {
+  background: linear-gradient(135deg, 
+    var(--minimal-color-success) 0%, 
+    var(--minimal-color-success-dark) 100%
+  );
+  color: var(--minimal-color-on-success);
+}
+
+.minimal-celebration-icon {
+  background: var(--minimal-color-success-light);
+  color: var(--minimal-color-on-success);
+}
+
+/* Success Checkmark Animation */
+.minimal-success-checkmark {
+  border-color: var(--minimal-color-success);
+  background: var(--minimal-color-surface);
+}
+
+.minimal-check-icon {
+  background: var(--minimal-color-success);
+}
+
+.minimal-check-icon::after {
+  background: var(--minimal-color-on-success);
+}
+
+/* Celebration Content */
+.minimal-celebration-main-title {
+  color: var(--minimal-color-on-surface);
+}
+
+.minimal-celebration-subtitle {
+  color: var(--minimal-color-on-surface-variant);
+}
+
+/* Celebration Summary */
+.minimal-celebration-summary {
+  background: var(--minimal-color-surface);
+  border-color: var(--minimal-color-success);
+  box-shadow: var(--minimal-section-shadow);
+}
+
+.minimal-celebration-summary-item {
+  background: var(--minimal-color-surface-variant);
+  border-color: var(--minimal-color-outline);
+}
+
+.minimal-celebration-summary-item:hover {
+  background: var(--minimal-color-surface-container);
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Item Icons */
+.minimal-celebration-item-icon {
+  color: var(--minimal-color-on-primary);
+}
+
+.minimal-icon-order {
+  background: var(--minimal-color-primary-light);
+}
+
+.minimal-icon-delivery {
+  background: var(--minimal-color-secondary-light);
+}
+
+.minimal-icon-contact {
+  background: var(--minimal-color-tertiary-light);
+}
+
+/* Primary Button */
+.minimal-celebration-primary-button {
+  background: linear-gradient(135deg, 
+    var(--minimal-color-primary) 0%, 
+    var(--minimal-color-primary-dark) 100%
+  );
+  color: var(--minimal-color-on-primary);
+  box-shadow: var(--minimal-section-shadow);
+}
+
+.minimal-celebration-primary-button:hover {
+  background: linear-gradient(135deg, 
+    var(--minimal-color-primary-light) 0%, 
+    var(--minimal-color-primary) 100%
+  );
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.25);
+}
+
+.minimal-celebration-primary-button:active {
+  background: var(--minimal-color-primary-dark);
+}

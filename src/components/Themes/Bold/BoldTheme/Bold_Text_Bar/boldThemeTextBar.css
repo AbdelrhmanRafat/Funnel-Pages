@@ -1,0 +1,155 @@
+/* === Classic Text Bar Component === */
+
+/* Container for the animated text bar */
+.bold-text-bar-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Animated button-style text bar with subtle commercial effect */
+.bold-text-bar-animated-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--bold-section-radius);
+  background: var(--bold-color-tertiary);
+  overflow: hidden;
+  width: 100%;
+  min-height: 80px;
+  padding: 1rem 2rem;
+  animation: bold-text-bar-breathe 3s ease-in-out infinite;
+}
+
+/* Moving shine effect overlay */
+.bold-text-bar-animated-button::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: bold-text-bar-shine 2.5s ease-in-out infinite;
+}
+
+/* Title text styling */
+.bold-text-bar-title {
+  text-align: center;
+  width: 100%;
+  color: var(--bold-color-on-primary);
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  z-index: 20;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: bold-text-bar-pulse 3s ease-in-out infinite;
+}
+
+/* === Keyframe Animations === */
+
+/* Shine sweep effect */
+@keyframes bold-text-bar-shine {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* Text pulse animation with subtle scale */
+@keyframes bold-text-bar-pulse {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.03);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Container breathing animation with commercial appeal */
+@keyframes bold-text-bar-breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 
+      0 4px 15px rgba(30, 64, 175, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    transform: scale(1.01);
+    box-shadow: 
+      0 8px 25px rgba(30, 64, 175, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .bold-text-bar-title {
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+  
+  .bold-text-bar-animated-button {
+    min-height: 70px;
+    padding: 0.875rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bold-text-bar-title {
+    font-size: 1.25rem;
+  }
+  
+  .bold-text-bar-animated-button {
+    min-height: 60px;
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .bold-text-bar-animated-button,
+  .bold-text-bar-animated-button::after,
+  .bold-text-bar-title {
+    animation: none;
+  }
+  
+  .bold-text-bar-animated-button {
+    background-color: var(--bold-color-primary);
+  }
+  
+  .bold-text-bar-title {
+    color: var(--bold-color-on-primary);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .bold-text-bar-animated-button {
+    border: 3px solid var(--bold-color-outline);
+  }
+  
+  .bold-text-bar-title {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+}

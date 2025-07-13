@@ -1,0 +1,85 @@
+/* === Direct Product Item Details Component (Colors & Shadows Only) === */
+
+.elegant-directproduct-h3-title {
+  color: var(--elegant-color-on-surface);
+  border-bottom-color: var(--elegant-color-primary);
+}
+
+.elegant-directproduct-div-icon {
+  background: var(--elegant-color-primary-light);
+  color: var(--elegant-color-on-primary);
+}
+
+.elegant-directproduct-div-card {
+  background: var(--elegant-color-surface);
+  border-color: var(--elegant-color-outline);
+  border-left-color: var(--elegant-color-primary);
+  box-shadow: var(--elegant-section-shadow);
+}
+
+.elegant-directproduct-img-product {
+  background: var(--elegant-color-surface-variant);
+  border-color: var(--elegant-color-outline);
+}
+
+.elegant-directproduct-h4-name {
+  color: var(--elegant-color-on-surface);
+}
+
+.elegant-directproduct-p-sku {
+  color: var(--elegant-color-on-surface-variant);
+  background: var(--elegant-color-surface-container);
+}
+
+.elegant-directproduct-span-variantlabel {
+  color: var(--elegant-color-on-surface-variant);
+}
+
+.elegant-directproduct-span-variant {
+  background: var(--elegant-color-surface-container);
+  color: var(--elegant-color-on-surface);
+  border-color: var(--elegant-color-outline);
+}
+
+.elegant-directproduct-div-note {
+  background: var(--elegant-color-surface-container);
+  border-color: var(--elegant-color-primary);
+}
+
+.elegant-directproduct-p-note {
+  color: var(--elegant-color-on-surface-variant);
+}
+
+.elegant-directproduct-div-pricing {
+  background: var(--elegant-color-surface-variant);
+  border-color: var(--elegant-color-outline);
+}
+
+.elegant-directproduct-h5-pricingtitle {
+  color: var(--elegant-color-on-surface);
+}
+
+.elegant-directproduct-span-label {
+  color: var(--elegant-color-on-surface-variant);
+}
+
+.elegant-directproduct-span-quantity {
+  background: var(--elegant-color-primary-light);
+  color: var(--elegant-color-on-primary);
+}
+
+.elegant-directproduct-span-unitprice {
+  color: var(--elegant-color-on-surface);
+}
+
+.elegant-directproduct-span-discount {
+  color: var(--elegant-color-success);
+}
+
+.elegant-directproduct-div-divider {
+  background: var(--elegant-color-outline);
+}
+
+.elegant-directproduct-span-total {
+  color: var(--elegant-color-on-surface);
+}

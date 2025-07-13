@@ -1,0 +1,48 @@
+/* === Billing Section Component (Colors & Shadows Only) === */
+
+.arabictouch-billingsection-h3-title {
+  color: var(--arabictouch-color-on-surface);
+  border-bottom-color: var(--arabictouch-color-tertiary);
+}
+
+.arabictouch-billingsection-div-icon {
+  background: var(--arabictouch-color-tertiary-light);
+  color: var(--arabictouch-color-on-tertiary);
+}
+
+.arabictouch-billingsection-div-customercard,
+.arabictouch-billingsection-div-ordercard {
+  background: var(--arabictouch-color-surface);
+  border-color: var(--arabictouch-color-outline);
+  box-shadow: var(--arabictouch-section-shadow);
+}
+
+.arabictouch-billingsection-div-customercard:hover,
+.arabictouch-billingsection-div-ordercard:hover {
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+}
+
+.arabictouch-billingsection-span-label {
+  color: var(--arabictouch-color-on-surface-variant);
+}
+
+.arabictouch-billingsection-span-value {
+  color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-billingsection-div-notes {
+  background: var(--arabictouch-color-surface-container);
+  border-color: var(--arabictouch-color-outline);
+}
+
+.arabictouch-billingsection-span-notesvalue {
+  color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-billingsection-div-empty {
+  background: var(--arabictouch-color-surface-variant);
+}
+
+.arabictouch-billingsection-span-empty {
+  color: var(--arabictouch-color-on-surface-variant);
+}

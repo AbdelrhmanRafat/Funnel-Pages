@@ -1,0 +1,31 @@
+/* === Product Details Section Component (Colors & Shadows Only) === */
+
+.elegant-productdetails-h2-title {
+  color: var(--elegant-color-on-surface);
+  border-bottom-color: var(--elegant-color-primary);
+}
+
+.elegant-productdetails-div-icon {
+  background: var(--elegant-color-primary-light);
+  color: var(--elegant-color-on-primary);
+}
+
+.elegant-productdetails-div-card {
+  background: var(--elegant-color-surface);
+  border-color: var(--elegant-color-outline);
+  border-left-color: var(--elegant-color-primary);
+  box-shadow: var(--elegant-section-shadow);
+}
+
+.elegant-productdetails-img-product {
+  background: var(--elegant-color-surface-variant);
+  border: 1px solid var(--elegant-color-outline);
+}
+
+.elegant-productdetails-h3-name {
+  color: var(--elegant-color-on-surface);
+}
+
+.elegant-productdetails-p-description {
+  color: var(--elegant-color-on-surface-variant);
+}

@@ -1,0 +1,15 @@
+/* === Selection Indicators Styles === */
+
+.neon-bundle-options-container-selection-indicator {
+  background: var(--neon-color-surface-variant);
+  color: var(--neon-color-on-surface);
+  border: 1px solid var(--neon-color-outline);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .neon-bundle-options-container-selection-indicator {
+    justify-content: center;
+    width: 100%;
+  }
+}

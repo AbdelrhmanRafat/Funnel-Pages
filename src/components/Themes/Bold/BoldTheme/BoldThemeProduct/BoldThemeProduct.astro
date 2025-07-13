@@ -1,0 +1,241 @@
+---
+import "./BoldThemeProduct.css";
+import type { BlockData, Product } from "../../../../../lib/api/types";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { BoldProductInfoComponents } from "../../../../../lib/constants/themes";
+import BoldSelectionOptionsWithoutBundles from "../UI/BoldSelectionOptionsVariantWithoutBundles/boldSelectionOptionsWithoutBundles.astro";
+import BoldProductCosts from "../UI/BoldProductCosts/boldProductCosts.astro";
+import BoldProductGalleryComponent from "../UI/BoldProductGallery/BoldProductGalleryComponent.astro";
+import BoldOrderThroughWhatsapp from "../BoldOrderThroughWhatsapp/boldOrderThroughWhatsapp.astro";
+import BoldFakeVisitors from "../BoldFakeVisitors/BoldFakeVisitors.astro";
+import BoldCoupon from "../BoldCoupon/BoldCoupon.astro";
+import BoldProductBundles from "../BoldProductBundles/BoldProductBundles.astro";
+import BoldProductHeaderReact from "./BoldProductHeaderReact";
+import BoldThemeFormFields from "../Bold_FormFields/BoldThemeFormFields.astro";
+import BoldOrderConfirmationNotice from "../Bold_OrderConfirmationNotice/BoldOrderConfirmationNotice.astro";
+
+// Define render order for product info section - reorder as needed!
+const PRODUCT_INFO_RENDER_ORDER = [
+  BoldProductInfoComponents.Visitores,
+  BoldProductInfoComponents.ProductHeader,
+  BoldProductInfoComponents.ProductDescription,
+  BoldProductInfoComponents.PurchaseOptions,
+  BoldProductInfoComponents.coupon,
+  BoldProductInfoComponents.FormFields,
+  BoldProductInfoComponents.OrderConfirmation,
+  BoldProductInfoComponents.OrderThroghWhatsapp,
+];
+
+// Retrieves product and purchaseOptions from Astro's props.
+const product: Product = Astro.props.product;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const formFieldsData: BlockData = Astro.props.formFieldsData;
+const ratingData: BlockData = Astro.props.ratingData;
+const orderThroughWhatsappData: BlockData =
+  Astro.props.orderThroughWhatsappData;
+const fakeVisitorsData: BlockData = Astro.props.fakeVisitorsData;
+const cuponData: BlockData = Astro.props.cuponData;
+const orderConfirmationNoticeData: BlockData =
+  Astro.props.orderConfirmationNoticeData;
+
+// Extracts color and size options from the product data
+const isHaveVariant = product.is_have_variant;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
+
+// Helper function to check if component data is available
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: any;
+}
+
+function isComponentDataAvailable(
+  componentType: BoldProductInfoComponents,
+): ComponentCheckResult {
+  switch (componentType) {
+    case BoldProductInfoComponents.ProductHeader:
+      return {
+        isComponentFound: !!product,
+        componentData: product,
+      };
+    case BoldProductInfoComponents.ProductDescription:
+      return {
+        isComponentFound:
+          !!product && (!!product.description_ar || !!product.description_en),
+        componentData: product,
+      };
+    case BoldProductInfoComponents.PurchaseOptions:
+      return {
+        isComponentFound: !!purchaseOptions,
+        componentData: purchaseOptions,
+      };
+    case BoldProductInfoComponents.FormFields:
+      return {
+        isComponentFound: !!formFieldsData,
+        componentData: formFieldsData,
+      };
+    case BoldProductInfoComponents.OrderConfirmation:
+      return {
+        isComponentFound: !!orderConfirmationNoticeData,
+        componentData: orderConfirmationNoticeData,
+      };
+    case BoldProductInfoComponents.OrderThroghWhatsapp:
+      return {
+        isComponentFound: !!orderThroughWhatsappData,
+        componentData: orderThroughWhatsappData,
+      };
+    case BoldProductInfoComponents.coupon:
+      return {
+        isComponentFound: !!cuponData,
+        componentData: cuponData,
+      };
+    case BoldProductInfoComponents.Visitores:
+      return {
+        isComponentFound: !!fakeVisitorsData,
+        componentData: fakeVisitorsData,
+      };
+    default:
+      return {
+        isComponentFound: false,
+        componentData: null,
+      };
+  }
+}
+---
+
+<section id="bold-product-details" class="bold-product-details-section">
+  <div class="flex flex-col lg:flex-row gap-5">
+    <!-- Gallery Section -->
+    {(<BoldProductGalleryComponent product={product} />)}
+
+    <!-- Product Info Section with Array-Based Rendering -->
+    <div
+      class="lg:w-1/2 bold-product-details-container flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl"
+    >
+      {
+        PRODUCT_INFO_RENDER_ORDER.map((componentType) => {
+          const componentCheck = isComponentDataAvailable(componentType);
+
+          if (!componentCheck.isComponentFound) {
+            return null;
+          }
+
+          // Product Header Component with Observer Web Component
+          if (componentType === BoldProductInfoComponents.ProductHeader) {
+            return (
+              <div class="w-full">
+                <BoldProductHeaderReact
+                  product={product}
+                  purchaseOptions={purchaseOptions}
+                  isHaveVariant={isHaveVariant}
+                  currentLang={currentLang}
+                  ratingData={ratingData}
+                  client:load
+                />
+              </div>
+            );
+          }
+
+          // Product Description Component
+          if (
+            componentType === BoldProductInfoComponents.ProductDescription
+          ) {
+            return (
+              <>
+                <div class="w-full">
+                  <h3
+                    class="bold-product-details-description-header text-2xl font-bold pb-3"
+                    data-translate="product.description"
+                  >
+                    {getTranslation("product.description", currentLang)}
+                  </h3>
+                  <p
+                    class="bold-product-details-text-body leading-relaxed"
+                    set:html={
+                      isArabic ? product.description_ar : product.description_en
+                    }
+                  />
+                </div>
+                {!purchaseOptions && (
+                  <>
+                    <div class="w-full py-3">
+                      <BoldSelectionOptionsWithoutBundles
+                        product={product}
+                      />
+                    </div>
+                    <div class="w-full">
+                      <BoldProductCosts hasBundles="false" />
+                    </div>
+                  </>
+                )}
+              </>
+            );
+          }
+
+          // Purchase Options Component
+          if (componentType === BoldProductInfoComponents.PurchaseOptions) {
+            return (
+              <BoldProductBundles
+                product={product}
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Coupon Component
+          if (componentType === BoldProductInfoComponents.coupon) {
+            return <BoldCoupon data={componentCheck.componentData} />;
+          }
+
+          // Form Fields Component
+          if (componentType === BoldProductInfoComponents.FormFields) {
+            return (
+              <BoldThemeFormFields
+                product={product}
+                data={componentCheck.componentData}
+                purchaseOptions={purchaseOptions}
+                isHaveVariant={isHaveVariant}
+              />
+            );
+          }
+
+          // Order Confirmation Component
+          if (
+            componentType === BoldProductInfoComponents.OrderConfirmation
+          ) {
+            return (
+              <BoldOrderConfirmationNotice
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Visitors Component
+          if (componentType === BoldProductInfoComponents.Visitores) {
+            return <BoldFakeVisitors data={componentCheck.componentData} />;
+          }
+
+          // Order Through WhatsApp Component
+          if (
+            componentType === BoldProductInfoComponents.OrderThroghWhatsapp
+          ) {
+            return (
+              <BoldOrderThroughWhatsapp
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          return null;
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "./BoldThemeProduct";
+</script>

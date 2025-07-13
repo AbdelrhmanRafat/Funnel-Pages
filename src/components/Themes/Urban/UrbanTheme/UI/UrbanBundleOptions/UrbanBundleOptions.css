@@ -1,0 +1,67 @@
+/* === Bundle Options Section === */
+.urban-bundle-options-title {
+    color: var(--urban-color-on-surface);
+}
+
+.urban-bundle-options-group {
+    border-color: var(--urban-color-primary);
+}
+
+.urban-bundle-options-label {
+    transition: all 0.3s ease;
+    border-radius: var(--urban-section-radius);
+    background-color: var(--urban-color-surface);
+}
+
+.urban-bundle-options-label:hover {
+    box-shadow: var(--urban-section-shadow);
+}
+
+.urban-bundle-options-label:has(:checked) {
+    border-color: var(--urban-color-primary);
+    background-color: var(--urban-color-primary-light);
+    background-color: rgba(79, 182, 172, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.urban-bundle-options-option-title {
+    color: var(--urban-color-on-surface);
+}
+
+.urban-bundle-options-option-details {
+    color: var(--urban-color-on-surface-variant);
+}
+
+.urban-bundle-options-unit-badge {
+    background-color: var(--urban-color-surface-variant);
+    color: var(--urban-color-on-surface-variant);
+}
+
+.urban-bundle-options-price-info {
+    color: var(--urban-color-on-surface-variant);
+}
+
+.urban-bundle-options-final-price {
+    color: var(--urban-color-primary);
+}
+
+.urban-bundle-options-price-discount {
+    color: var(--urban-color-success);
+}
+
+.urban-bundle-options-price-regular {
+    color: var(--urban-color-primary);
+}
+
+.urban-bundle-options-original-price {
+    color: var(--urban-color-on-surface-variant);
+}
+
+.urban-bundle-options-discount-badge {
+    background-color: var(--urban-color-success-light);
+    color: var(--urban-color-on-success);
+}
+
+.urban-bundle-options-discount-icon {
+    color: var(--urban-color-success);
+}

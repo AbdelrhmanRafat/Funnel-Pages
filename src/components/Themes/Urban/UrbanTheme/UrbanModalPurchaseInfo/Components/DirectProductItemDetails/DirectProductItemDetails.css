@@ -1,0 +1,85 @@
+/* === Direct Product Item Details Component (Colors & Shadows Only) === */
+
+.urban-directproduct-h3-title {
+  color: var(--urban-color-on-surface);
+  border-bottom-color: var(--urban-color-primary);
+}
+
+.urban-directproduct-div-icon {
+  background: var(--urban-color-primary-light);
+  color: var(--urban-color-on-primary);
+}
+
+.urban-directproduct-div-card {
+  background: var(--urban-color-surface);
+  border-color: var(--urban-color-outline);
+  border-left-color: var(--urban-color-primary);
+  box-shadow: var(--urban-section-shadow);
+}
+
+.urban-directproduct-img-product {
+  background: var(--urban-color-surface-variant);
+  border-color: var(--urban-color-outline);
+}
+
+.urban-directproduct-h4-name {
+  color: var(--urban-color-on-surface);
+}
+
+.urban-directproduct-p-sku {
+  color: var(--urban-color-on-surface-variant);
+  background: var(--urban-color-surface-container);
+}
+
+.urban-directproduct-span-variantlabel {
+  color: var(--urban-color-on-surface-variant);
+}
+
+.urban-directproduct-span-variant {
+  background: var(--urban-color-surface-container);
+  color: var(--urban-color-on-surface);
+  border-color: var(--urban-color-outline);
+}
+
+.urban-directproduct-div-note {
+  background: var(--urban-color-surface-container);
+  border-color: var(--urban-color-primary);
+}
+
+.urban-directproduct-p-note {
+  color: var(--urban-color-on-surface-variant);
+}
+
+.urban-directproduct-div-pricing {
+  background: var(--urban-color-surface-variant);
+  border-color: var(--urban-color-outline);
+}
+
+.urban-directproduct-h5-pricingtitle {
+  color: var(--urban-color-on-surface);
+}
+
+.urban-directproduct-span-label {
+  color: var(--urban-color-on-surface-variant);
+}
+
+.urban-directproduct-span-quantity {
+  background: var(--urban-color-primary-light);
+  color: var(--urban-color-on-primary);
+}
+
+.urban-directproduct-span-unitprice {
+  color: var(--urban-color-on-surface);
+}
+
+.urban-directproduct-span-discount {
+  color: var(--urban-color-success);
+}
+
+.urban-directproduct-div-divider {
+  background: var(--urban-color-outline);
+}
+
+.urban-directproduct-span-total {
+  color: var(--urban-color-on-surface);
+}

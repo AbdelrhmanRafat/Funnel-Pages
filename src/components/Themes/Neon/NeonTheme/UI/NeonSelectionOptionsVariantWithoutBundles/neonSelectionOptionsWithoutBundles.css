@@ -1,0 +1,135 @@
+/* === Base Option Styles === */
+.neon-selection-options-without-bundles-option-title {
+    color: var(--neon-color-on-surface);
+}
+
+/* === Quantity Section === */
+.neon-selection-options-without-bundles-qty-label {
+    color: var(--neon-color-on-surface);
+}
+
+.neon-selection-options-without-bundles-qty-btn {
+    background-color: var(--neon-color-surface);
+    color: var(--neon-color-on-surface);
+    border: 1px solid var(--neon-color-outline);
+}
+
+.neon-selection-options-without-bundles-qty-btn:hover:not(:disabled) {
+    background-color: var(--neon-color-surface-variant);
+}
+
+.neon-selection-options-without-bundles-qty-btn:focus {
+    ring-color: var(--neon-color-primary);
+}
+
+.neon-selection-options-without-bundles-qty-btn:disabled {
+    background-color: var(--neon-color-surface-container);
+    color: var(--neon-color-on-surface-variant);
+}
+
+.neon-selection-options-without-bundles-qty-input {
+    background-color: var(--neon-color-surface);
+    color: var(--neon-color-on-surface);
+    border: 1px solid var(--neon-color-outline);
+}
+
+.neon-selection-options-without-bundles-qty-input:focus {
+    border-color: var(--neon-color-primary);
+    ring-color: var(--neon-color-primary);
+}
+
+.neon-selection-options-without-bundles-max-qty-text {
+    color: var(--neon-color-on-surface-variant);
+}
+
+.neon-selection-options-without-bundles-max-qty-value {
+    color: var(--neon-color-secondary);
+}
+
+/* === Generic Option States === */
+.neon-selection-options-without-bundles-option--selected {
+    opacity: 1;
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 2px var(--neon-color-primary);
+}
+
+/* Available Options */
+.neon-selection-options-without-bundles-option-available {
+    opacity: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.neon-selection-options-without-bundles-option-available:hover {
+    transform: scale(1.02);
+}
+
+/* Disabled Options */
+.neon-selection-options-without-bundles-option-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.neon-selection-options-without-bundles-option-disabled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 2px,
+        rgba(0, 0, 0, 0.1) 4px
+    );
+    border-radius: inherit;
+    z-index: 1;
+}
+
+/* === Loading/Transition States === */
+.neon-selection-options-without-bundles-option-transitioning {
+    opacity: 0.7;
+    transform: scale(0.98);
+    transition: all 0.2s ease;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .neon-selection-options-without-bundles-option-disabled::before {
+        background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 0, 0, 0.15) 1px,
+            rgba(0, 0, 0, 0.15) 2px
+        );
+    }
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .neon-selection-options-without-bundles-option-disabled {
+        border: 2px dashed currentColor;
+        opacity: 0.5;
+    }
+    
+    .neon-selection-options-without-bundles-option-disabled::before {
+        display: none;
+    }
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+    .neon-selection-options-without-bundles-option-available,
+    .neon-selection-options-without-bundles-option-disabled {
+        transition: opacity 0.2s ease;
+    }
+    
+    .neon-selection-options-without-bundles-option-available:hover {
+        transform: none;
+    }
+}

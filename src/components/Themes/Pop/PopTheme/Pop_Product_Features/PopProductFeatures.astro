@@ -1,0 +1,46 @@
+---
+import "./PopProductFeatures.css"
+import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { FunnelPopComponents } from "../../../../../lib/constants/themes";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+const productFeatures: Item[] = data.items ?? [];
+const title = isArabic ? data.title_ar : data.title_en;
+---
+
+<section 
+  id={FunnelPopComponents.PopProductFeatures} 
+  class="pop-section"
+>
+  <!-- Header -->
+  <div class="pop-section-header">
+    {data.icon && <LucideIcon name={data.icon as any} width="48" height="48" class="fill-current" />}
+    <h5>{title}</h5>
+  </div>
+  
+  <!-- Features Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {productFeatures.map((feature) => (
+      <div class="pop-feature-card p-6 text-center">
+        <!-- Feature Icon -->
+        <div class="pop-feature-icon-container rounded-full flex items-center justify-center mx-auto mb-4">
+          {data.icon && <LucideIcon name={data.icon as any} width="32" height="32" class="text-2xl fill-current pop-feature-icon" />} 
+        </div>
+        
+        <!-- Feature Content -->
+        <h3 class="pop-feature-title text-lg mb-2">
+          {feature.label}
+        </h3>
+        <p class="pop-feature-subtitle text-sm leading-relaxed">
+          {feature.content}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,55 @@
+/* === Bundle Options Section Styles === */
+
+.urban-bundle-options-section .urban-section-title {
+  color: var(--urban-color-on-surface);
+  border-bottom: 2px solid var(--urban-color-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.urban-bundle-options-section .urban-section-icon {
+  background: var(--urban-color-secondary-light);
+  color: var(--urban-color-on-secondary);
+}
+
+.urban-option-item {
+  background: var(--urban-color-surface);
+  border: 1px solid var(--urban-color-outline);
+  border-left: 3px solid var(--urban-color-secondary);
+  transition: all 0.3s ease;
+}
+
+.urban-option-item:hover {
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.urban-option-header {
+  color: var(--urban-color-secondary);
+}
+
+.urban-option-sku {
+  color: var(--urban-color-on-surface-variant);
+}
+
+.urban-selection-tag {
+  background: var(--urban-color-secondary-light);
+  color: var(--urban-color-on-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .urban-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .urban-option-item {
+    transition: none;
+  }
+  
+  .urban-option-item:hover {
+    transform: none;
+  }
+}

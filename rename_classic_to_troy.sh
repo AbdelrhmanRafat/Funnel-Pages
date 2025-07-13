@@ -1,7 +1,13 @@
+
 #!/bin/bash
 
 # Set the base directory
-BASE_DIR="/Users/macbook/Desktop/Astro/FunelPage/src/components/Themes/Zen/ZenTheme"
+
+# Set the base directory
+#!/bin/bash
+
+# Set the base directory
+BASE_DIR="/Users/macbook/Desktop/Astro Test/FunelPage Test React/src/components/Themes/Zen/ZenTheme"
 
 # Step 1: Create a backup of the directory
 BACKUP_DIR="/Users/macbook/Desktop/Astro/FunelPage/ClassicToZen_backup_$(date +%Y%m%d_%H%M%S)"

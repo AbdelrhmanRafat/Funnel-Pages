@@ -1,0 +1,83 @@
+/* === Classic Reviews Component === */
+.pro-review-card {
+    background-color: var(--pro-color-surface-variant);
+    border-radius: var(--pro-section-radius);
+    border-left-color: var(--pro-color-primary);
+    padding: var(--pro-section-padding);
+    box-shadow: var(--pro-section-shadow);
+    
+    /* Add these enhancements */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+/* Add hover effect */
+.pro-review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pro-section-shadow-hover, 0 8px 25px rgba(0,0,0,0.1));
+}
+
+/* Add focus-within for accessibility */
+.pro-review-card:focus-within {
+    outline: 2px solid var(--pro-color-primary);
+    outline-offset: 2px;
+}
+
+.pro-review-description {
+    color: var(--pro-color-on-surface);
+    /* Add quotation marks for better visual hierarchy */
+}
+
+.pro-review-description::before {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--pro-color-primary);
+    position: absolute;
+    top: var(--pro-section-padding);
+    left: calc(var(--pro-section-padding) - 0.5rem);
+    line-height: 1;
+}
+
+.pro-review-description::after {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--pro-color-primary);
+}
+
+.pro-review-name {
+    color: var(--pro-color-primary);
+}
+
+.pro-review-author-image {
+    background-color: var(--pro-color-primary);
+    box-shadow: var(--pro-section-shadow);
+    /* Add smooth image loading */
+    overflow: hidden;
+}
+
+.pro-review-author-image img {
+    transition: transform 0.3s ease;
+}
+
+.pro-review-author-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Add responsive improvements */
+@media (max-width: 640px) {
+    .pro-review-card {
+        padding: calc(var(--pro-section-padding) * 0.75);
+    }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .pro-review-card,
+    .pro-review-author-image img {
+        transition: none;
+    }
+    
+    .pro-review-card:hover {
+        transform: none;
+    }
+}

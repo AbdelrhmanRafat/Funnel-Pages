@@ -1,0 +1,70 @@
+/* === Classic Product Preview (Refactored with Custom Variables) === */
+
+/* Video container */
+.bold-productpreview-div-video {
+    border-color: var(--bold-color-primary);
+    box-shadow: var(--bold-section-shadow);
+}
+
+/* Video placeholder */
+.bold-productpreview-div-placeholder {
+    background-color: var(--bold-color-surface-variant);
+}
+
+.bold-productpreview-span-notvideo {
+    color: var(--bold-color-on-surface-variant);
+}
+
+/* Video title overlay */
+.bold-productpreview-div-videotitle {
+    color: var(--bold-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.bold-productpreview-p-title {
+    color: var(--bold-color-surface);
+}
+
+/* Features container */
+.bold-productpreview-div-features {
+    background-color: var(--bold-color-surface-container-high);
+    box-shadow: var(--bold-section-shadow);
+}
+
+/* Features header */
+.bold-productpreview-div-header {
+    border-color: var(--bold-color-outline-variant);
+}
+
+.bold-productpreview-h2-title {
+    color: var(--bold-color-on-surface);
+}
+
+/* Views badge */
+.bold-productpreview-div-viewsbadge {
+    background-color: var(--bold-color-surface-variant);
+}
+
+.bold-productpreview-span-views {
+    color: var(--bold-color-on-surface-variant);
+}
+
+/* Feature icon */
+.bold-productpreview-div-featureicon {
+    background-color: var(--bold-color-primary);
+    color: var(--bold-color-on-primary);
+}
+
+/* Feature content */
+.bold-productpreview-div-featuretitle {
+    color: var(--bold-color-on-surface);
+}
+
+.bold-productpreview-div-featuresubtitle {
+    color: var(--bold-color-on-surface-variant);
+}
+
+/* Button container */
+.bold-productpreview-div-buttoncontainer {
+    border-color: var(--bold-color-outline-variant);
+}

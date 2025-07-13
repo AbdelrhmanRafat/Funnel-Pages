@@ -1,0 +1,22 @@
+---
+// Enhanced TechnoBuyNowButton component with advanced animations
+// Optional props for button variations
+import { FunnelTechnoComponents } from "../../../../../../lib/constants/themes";
+import LucideIcon from "../../../../../Shared/LucideIcon.astro";
+import "./TechnoBuyNowButton.css";
+---
+
+<div>
+  <a
+    class="techno-buy-now-button"
+    href="#techno-product-details"
+  >
+    <div class="techno-buy-now-icon-wrapper">
+      <div class="techno-buy-now-icon-container">
+         <LucideIcon name="ShoppingCart" width="32" height="32" class="techno-buy-now-button-icon" />
+
+      </div>
+    </div>
+    <span class="techno-buy-now-text" data-translate="CTA.button">Buy Now</span>
+  </a>
+</div>

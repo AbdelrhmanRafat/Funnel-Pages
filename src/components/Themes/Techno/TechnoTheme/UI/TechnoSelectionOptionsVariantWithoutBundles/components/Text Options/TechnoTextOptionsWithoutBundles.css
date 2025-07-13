@@ -1,0 +1,77 @@
+/* === Size/Text Options Base === */
+.techno-selection-options-without-bundles-size-option {
+    background-color: var(--techno-color-surface);
+    color: var(--techno-color-on-surface-variant);
+    border: 1px solid var(--techno-color-outline);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.techno-selection-options-without-bundles-size-option:hover {
+    background-color: var(--techno-color-secondary);
+    color: var(--techno-color-on-secondary);
+    border-color: var(--techno-color-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--techno-section-shadow);
+}
+
+/* === Size/Text Options Selected State === */
+.techno-selection-options-without-bundles-size-option--selected {
+    background-color: var(--techno-color-secondary);
+    color: var(--techno-color-on-secondary);
+    border-color: var(--techno-color-secondary-dark);
+    transform: translateY(-4px);
+    box-shadow: var(--techno-section-shadow);
+}
+
+.techno-selection-options-without-bundles-size-option--selected:hover {
+    background-color: var(--techno-color-secondary);
+    color: var(--techno-color-on-secondary);
+    border-color: var(--techno-color-secondary-dark);
+    transform: translateY(-4px);
+    box-shadow: var(--techno-section-shadow);
+}
+
+/* === Disabled Size Options === */
+.techno-selection-options-without-bundles-size-option.techno-selection-options-without-bundles-option-disabled {
+    background-color: var(--techno-color-surface-variant);
+    color: var(--techno-color-on-surface-variant);
+    border-color: var(--techno-color-outline-variant);
+    box-shadow: none;
+}
+
+.techno-selection-options-without-bundles-size-option.techno-selection-options-without-bundles-option-disabled:hover {
+    background-color: var(--techno-color-surface-variant);
+    color: var(--techno-color-on-surface-variant);
+    transform: none;
+}
+
+/* === Enhanced Hover States === */
+.techno-selection-options-without-bundles-size-option.techno-selection-options-without-bundles-option-available:hover:not(.techno-selection-options-without-bundles-size-option--selected) {
+    background-color: var(--techno-color-secondary-light);
+    color: var(--techno-color-on-secondary);
+    border-color: var(--techno-color-secondary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* === Focus States for Accessibility === */
+.techno-selection-options-without-bundles-size-option:focus {
+    outline: 2px solid var(--techno-color-primary);
+    outline-offset: 2px;
+}
+
+.techno-selection-options-without-bundles-size-option.techno-selection-options-without-bundles-option-disabled:focus {
+    outline: 2px solid var(--techno-color-outline-variant);
+    outline-offset: 2px;
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+    .techno-selection-options-without-bundles-size-option {
+        transition: opacity 0.2s ease;
+    }
+    
+    .techno-selection-options-without-bundles-size-option:hover {
+        transform: none;
+    }
+}

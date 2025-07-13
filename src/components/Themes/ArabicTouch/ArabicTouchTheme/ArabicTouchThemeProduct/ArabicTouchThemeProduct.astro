@@ -1,0 +1,241 @@
+---
+import "./ArabicTouchThemeProduct.css";
+import type { BlockData, Product } from "../../../../../lib/api/types";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { ArabicTouchProductInfoComponents } from "../../../../../lib/constants/themes";
+import ArabicTouchSelectionOptionsWithoutBundles from "../UI/ArabicTouchSelectionOptionsVariantWithoutBundles/arabictouchSelectionOptionsWithoutBundles.astro";
+import ArabicTouchProductCosts from "../UI/ArabicTouchProductCosts/arabictouchProductCosts.astro";
+import ArabicTouchProductGalleryComponent from "../UI/ArabicTouchProductGallery/ArabicTouchProductGalleryComponent.astro";
+import ArabicTouchOrderThroughWhatsapp from "../ArabicTouchOrderThroughWhatsapp/arabictouchOrderThroughWhatsapp.astro";
+import ArabicTouchFakeVisitors from "../ArabicTouchFakeVisitors/ArabicTouchFakeVisitors.astro";
+import ArabicTouchCoupon from "../ArabicTouchCoupon/ArabicTouchCoupon.astro";
+import ArabicTouchProductBundles from "../ArabicTouchProductBundles/ArabicTouchProductBundles.astro";
+import ArabicTouchProductHeaderReact from "./ArabicTouchProductHeaderReact";
+import ArabicTouchThemeFormFields from "../ArabicTouch_FormFields/ArabicTouchThemeFormFields.astro";
+import ArabicTouchOrderConfirmationNotice from "../ArabicTouch_OrderConfirmationNotice/ArabicTouchOrderConfirmationNotice.astro";
+
+// Define render order for product info section - reorder as needed!
+const PRODUCT_INFO_RENDER_ORDER = [
+  ArabicTouchProductInfoComponents.Visitores,
+  ArabicTouchProductInfoComponents.ProductHeader,
+  ArabicTouchProductInfoComponents.ProductDescription,
+  ArabicTouchProductInfoComponents.PurchaseOptions,
+  ArabicTouchProductInfoComponents.coupon,
+  ArabicTouchProductInfoComponents.FormFields,
+  ArabicTouchProductInfoComponents.OrderConfirmation,
+  ArabicTouchProductInfoComponents.OrderThroghWhatsapp,
+];
+
+// Retrieves product and purchaseOptions from Astro's props.
+const product: Product = Astro.props.product;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const formFieldsData: BlockData = Astro.props.formFieldsData;
+const ratingData: BlockData = Astro.props.ratingData;
+const orderThroughWhatsappData: BlockData =
+  Astro.props.orderThroughWhatsappData;
+const fakeVisitorsData: BlockData = Astro.props.fakeVisitorsData;
+const cuponData: BlockData = Astro.props.cuponData;
+const orderConfirmationNoticeData: BlockData =
+  Astro.props.orderConfirmationNoticeData;
+
+// Extracts color and size options from the product data
+const isHaveVariant = product.is_have_variant;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
+
+// Helper function to check if component data is available
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: any;
+}
+
+function isComponentDataAvailable(
+  componentType: ArabicTouchProductInfoComponents,
+): ComponentCheckResult {
+  switch (componentType) {
+    case ArabicTouchProductInfoComponents.ProductHeader:
+      return {
+        isComponentFound: !!product,
+        componentData: product,
+      };
+    case ArabicTouchProductInfoComponents.ProductDescription:
+      return {
+        isComponentFound:
+          !!product && (!!product.description_ar || !!product.description_en),
+        componentData: product,
+      };
+    case ArabicTouchProductInfoComponents.PurchaseOptions:
+      return {
+        isComponentFound: !!purchaseOptions,
+        componentData: purchaseOptions,
+      };
+    case ArabicTouchProductInfoComponents.FormFields:
+      return {
+        isComponentFound: !!formFieldsData,
+        componentData: formFieldsData,
+      };
+    case ArabicTouchProductInfoComponents.OrderConfirmation:
+      return {
+        isComponentFound: !!orderConfirmationNoticeData,
+        componentData: orderConfirmationNoticeData,
+      };
+    case ArabicTouchProductInfoComponents.OrderThroghWhatsapp:
+      return {
+        isComponentFound: !!orderThroughWhatsappData,
+        componentData: orderThroughWhatsappData,
+      };
+    case ArabicTouchProductInfoComponents.coupon:
+      return {
+        isComponentFound: !!cuponData,
+        componentData: cuponData,
+      };
+    case ArabicTouchProductInfoComponents.Visitores:
+      return {
+        isComponentFound: !!fakeVisitorsData,
+        componentData: fakeVisitorsData,
+      };
+    default:
+      return {
+        isComponentFound: false,
+        componentData: null,
+      };
+  }
+}
+---
+
+<section id="arabictouch-product-details" class="arabictouch-product-details-section">
+  <div class="flex flex-col lg:flex-row gap-5">
+    <!-- Gallery Section -->
+    {(<ArabicTouchProductGalleryComponent product={product} />)}
+
+    <!-- Product Info Section with Array-Based Rendering -->
+    <div
+      class="lg:w-1/2 arabictouch-product-details-container flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl"
+    >
+      {
+        PRODUCT_INFO_RENDER_ORDER.map((componentType) => {
+          const componentCheck = isComponentDataAvailable(componentType);
+
+          if (!componentCheck.isComponentFound) {
+            return null;
+          }
+
+          // Product Header Component with Observer Web Component
+          if (componentType === ArabicTouchProductInfoComponents.ProductHeader) {
+            return (
+              <div class="w-full">
+                <ArabicTouchProductHeaderReact
+                  product={product}
+                  purchaseOptions={purchaseOptions}
+                  isHaveVariant={isHaveVariant}
+                  currentLang={currentLang}
+                  ratingData={ratingData}
+                  client:load
+                />
+              </div>
+            );
+          }
+
+          // Product Description Component
+          if (
+            componentType === ArabicTouchProductInfoComponents.ProductDescription
+          ) {
+            return (
+              <>
+                <div class="w-full">
+                  <h3
+                    class="arabictouch-product-details-description-header text-2xl font-bold pb-3"
+                    data-translate="product.description"
+                  >
+                    {getTranslation("product.description", currentLang)}
+                  </h3>
+                  <p
+                    class="arabictouch-product-details-text-body leading-relaxed"
+                    set:html={
+                      isArabic ? product.description_ar : product.description_en
+                    }
+                  />
+                </div>
+                {!purchaseOptions && (
+                  <>
+                    <div class="w-full py-3">
+                      <ArabicTouchSelectionOptionsWithoutBundles
+                        product={product}
+                      />
+                    </div>
+                    <div class="w-full">
+                      <ArabicTouchProductCosts hasBundles="false" />
+                    </div>
+                  </>
+                )}
+              </>
+            );
+          }
+
+          // Purchase Options Component
+          if (componentType === ArabicTouchProductInfoComponents.PurchaseOptions) {
+            return (
+              <ArabicTouchProductBundles
+                product={product}
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Coupon Component
+          if (componentType === ArabicTouchProductInfoComponents.coupon) {
+            return <ArabicTouchCoupon data={componentCheck.componentData} />;
+          }
+
+          // Form Fields Component
+          if (componentType === ArabicTouchProductInfoComponents.FormFields) {
+            return (
+              <ArabicTouchThemeFormFields
+                product={product}
+                data={componentCheck.componentData}
+                purchaseOptions={purchaseOptions}
+                isHaveVariant={isHaveVariant}
+              />
+            );
+          }
+
+          // Order Confirmation Component
+          if (
+            componentType === ArabicTouchProductInfoComponents.OrderConfirmation
+          ) {
+            return (
+              <ArabicTouchOrderConfirmationNotice
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Visitors Component
+          if (componentType === ArabicTouchProductInfoComponents.Visitores) {
+            return <ArabicTouchFakeVisitors data={componentCheck.componentData} />;
+          }
+
+          // Order Through WhatsApp Component
+          if (
+            componentType === ArabicTouchProductInfoComponents.OrderThroghWhatsapp
+          ) {
+            return (
+              <ArabicTouchOrderThroughWhatsapp
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          return null;
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "./ArabicTouchThemeProduct";
+</script>

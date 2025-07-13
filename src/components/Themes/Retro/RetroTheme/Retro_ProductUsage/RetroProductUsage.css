@@ -1,0 +1,69 @@
+/* === Classic Product Usage Component === */
+
+/* Main card container */
+.retro-usage-card {
+    background-color: var(--retro-color-surface-container);
+    box-shadow: var(--retro-section-shadow);
+    border-radius: var(--retro-section-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.retro-usage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Video container */
+.retro-usage-video {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Video iframe */
+.retro-usage-iframe {
+    border-radius: var(--retro-section-radius) var(--retro-section-radius) 0 0;
+}
+
+/* Video placeholder for missing videos */
+.retro-usage-video-placeholder {
+    background-color: var(--retro-color-surface-variant);
+    color: var(--retro-color-on-surface-variant);
+    border-radius: var(--retro-section-radius) var(--retro-section-radius) 0 0;
+}
+
+/* Content area */
+.retro-usage-content {
+    background-color: var(--retro-color-surface);
+}
+
+/* Title styling */
+.retro-usage-title {
+    color: var(--retro-color-on-surface);
+}
+
+/* Subtitle styling */
+.retro-usage-subtitle {
+    color: var(--retro-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .retro-usage-card {
+        transition: none;
+    }
+    
+    .retro-usage-card:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .retro-usage-card {
+        border: 2px solid var(--retro-color-outline);
+    }
+    
+    .retro-usage-video-placeholder {
+        border: 2px solid var(--retro-color-outline);
+    }
+}

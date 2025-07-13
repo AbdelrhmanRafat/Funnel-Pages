@@ -1,0 +1,69 @@
+/* === Classic Product Usage Component === */
+
+/* Main card container */
+.minimal-usage-card {
+    background-color: var(--minimal-color-surface-container);
+    box-shadow: var(--minimal-section-shadow);
+    border-radius: var(--minimal-section-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.minimal-usage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Video container */
+.minimal-usage-video {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Video iframe */
+.minimal-usage-iframe {
+    border-radius: var(--minimal-section-radius) var(--minimal-section-radius) 0 0;
+}
+
+/* Video placeholder for missing videos */
+.minimal-usage-video-placeholder {
+    background-color: var(--minimal-color-surface-variant);
+    color: var(--minimal-color-on-surface-variant);
+    border-radius: var(--minimal-section-radius) var(--minimal-section-radius) 0 0;
+}
+
+/* Content area */
+.minimal-usage-content {
+    background-color: var(--minimal-color-surface);
+}
+
+/* Title styling */
+.minimal-usage-title {
+    color: var(--minimal-color-on-surface);
+}
+
+/* Subtitle styling */
+.minimal-usage-subtitle {
+    color: var(--minimal-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .minimal-usage-card {
+        transition: none;
+    }
+    
+    .minimal-usage-card:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .minimal-usage-card {
+        border: 2px solid var(--minimal-color-outline);
+    }
+    
+    .minimal-usage-video-placeholder {
+        border: 2px solid var(--minimal-color-outline);
+    }
+}

@@ -1,0 +1,69 @@
+/* === Classic Image Text Overlay === */
+
+/* Main container */
+.techno-image-text-overlay-card {
+    border-radius: var(--techno-section-radius);
+    background-color: var(--techno-color-surface-container); /* Fallback if image fails */
+    box-shadow: var(--techno-section-shadow);
+}
+
+/* Content overlay with backdrop for better readability */
+.techno-image-text-overlay-content {
+    background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent overlay */
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+.techno-image-text-overlay-content:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    transform: translateY(-2px);
+    box-shadow: var(--techno-section-shadow);
+}
+
+/* Title text optimized for dark overlay */
+.techno-image-text-overlay-title {
+    color: var(--techno-color-surface); /* White/light text for dark backgrounds */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Strong shadow for readability */
+}
+
+/* Subtitle text with better contrast */
+.techno-image-text-overlay-subtitle {
+    color: var(--techno-color-surface-variant); /* Slightly dimmed white */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* Shadow for readability */
+}
+
+/* === Accessibility Improvements === */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .techno-image-text-overlay-content {
+        transition: none;
+    }
+    
+    .techno-image-text-overlay-content:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode for better accessibility */
+@media (prefers-contrast: high) {
+    .techno-image-text-overlay-content {
+        background-color: rgba(0, 0, 0, 0.8); /* More opaque overlay */
+        border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+    
+    .techno-image-text-overlay-title {
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 1); /* Stronger shadow */
+    }
+    
+    .techno-image-text-overlay-subtitle {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+    }
+}
+
+/* Focus states for keyboard navigation */
+.techno-image-text-overlay-content:focus-within {
+    outline: 2px solid var(--techno-color-primary);
+    outline-offset: 4px;
+}

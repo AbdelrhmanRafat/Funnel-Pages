@@ -1,0 +1,17 @@
+/* This file is intended for CSS styles specific to the FreshThemeCountdown component. */
+/* Currently, it is empty as the component's styling is handled by Tailwind CSS classes in the .astro file. */
+/* However, this file can be used for more complex or component-specific styling if needed in the future. */
+/* === Classic Countdown Component === */
+
+.fresh-countdown-block {
+    background-color: var(--fresh-color-surface-variant);
+    color: var(--fresh-color-primary-dark);
+    border-color: var(--fresh-color-secondary);
+    box-shadow: var(--fresh-section-shadow);
+    transition: all 0.3s ease;
+}
+
+.fresh-countdown-block:hover {
+    box-shadow: var(--fresh-section-shadow);
+    transform: scale(1.05);
+}

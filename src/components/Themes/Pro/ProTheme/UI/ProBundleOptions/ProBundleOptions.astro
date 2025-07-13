@@ -1,0 +1,22 @@
+---
+import "./ProBundleOptions.css";
+import type { PurchaseOption, Product } from "../../../../../../lib/api/types";
+import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
+import ProBundleOptionsReact from "./ProBundleOptionsReact.tsx";
+
+const data: PurchaseOption[] = Astro.props.data;
+const product: Product = Astro.props.product;
+const name = "qty";
+
+// Get current language for translations
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+
+const reactProps = {
+  data,
+  product,
+  name,
+  currentLang,
+};
+---
+
+<ProBundleOptionsReact {...reactProps} client:visible />

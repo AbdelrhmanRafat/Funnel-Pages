@@ -1,0 +1,92 @@
+/* === Color Options Base === */
+.neon-selection-options-without-bundles-color-option {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.neon-selection-options-without-bundles-color-option:hover {
+    transform: scale(1.05);
+}
+
+.neon-selection-options-without-bundles-color-swatch {
+    background-color: var(--neon-color-surface);
+    border: 2px solid var(--neon-color-outline-variant);
+    box-shadow: var(--neon-section-shadow);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.neon-selection-options-without-bundles-color-name {
+    color: var(--neon-color-on-surface-variant);
+}
+
+/* === Color Options Selected State === */
+.neon-selection-options-without-bundles-color-option--selected {
+    transform: scale(1.1);
+}
+
+.neon-selection-options-without-bundles-color-option--selected .neon-selection-options-without-bundles-color-swatch {
+    border: 3px solid var(--neon-color-primary);
+    box-shadow: 0 0 0 2px var(--neon-color-surface),
+                0 0 0 4px var(--neon-color-primary),
+                0 6px 16px rgba(0, 150, 136, 0.25);
+}
+
+.neon-selection-options-without-bundles-color-option--selected .neon-selection-options-without-bundles-color-name {
+    color: var(--neon-color-secondary);
+}
+
+.neon-selection-options-without-bundles-color-option--selected:hover {
+    transform: scale(1.1);
+}
+
+/* === Disabled Color Options === */
+.neon-selection-options-without-bundles-color-option.neon-selection-options-without-bundles-option-disabled {
+    filter: grayscale(70%) brightness(0.8);
+}
+
+.neon-selection-options-without-bundles-color-option.neon-selection-options-without-bundles-option-disabled:hover {
+    transform: none;
+    filter: grayscale(70%) brightness(0.8);
+}
+
+.neon-selection-options-without-bundles-color-option.neon-selection-options-without-bundles-option-disabled .neon-selection-options-without-bundles-color-swatch {
+    border-color: var(--neon-color-outline-variant);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.neon-selection-options-without-bundles-color-option.neon-selection-options-without-bundles-option-disabled .neon-selection-options-without-bundles-color-name {
+    color: var(--neon-color-on-surface-variant);
+    text-decoration: line-through;
+}
+
+/* === Enhanced Hover States === */
+.neon-selection-options-without-bundles-color-option.neon-selection-options-without-bundles-option-available:hover:not(.neon-selection-options-without-bundles-color-option--selected) {
+    transform: scale(1.08);
+}
+
+.neon-selection-options-without-bundles-color-option.neon-selection-options-without-bundles-option-available:hover:not(.neon-selection-options-without-bundles-color-option--selected) .neon-selection-options-without-bundles-color-swatch {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* === Focus States for Accessibility === */
+.neon-selection-options-without-bundles-color-option:focus {
+    outline: 2px solid var(--neon-color-primary);
+    outline-offset: 2px;
+}
+
+.neon-selection-options-without-bundles-color-option.neon-selection-options-without-bundles-option-disabled:focus {
+    outline: 2px solid var(--neon-color-outline-variant);
+    outline-offset: 2px;
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+    .neon-selection-options-without-bundles-color-option {
+        transition: opacity 0.2s ease;
+    }
+    
+    .neon-selection-options-without-bundles-color-option:hover {
+        transform: none;
+    }
+}

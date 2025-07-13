@@ -1,0 +1,44 @@
+/* Classic Image-Text Section */
+.elegant-image-text-beside {
+  background-color: var(--elegant-color-surface);
+  border-radius: var(--elegant-section-radius);
+}
+
+.elegant-image-text-beside-image {
+  border-radius: var(--elegant-section-radius);
+  transition: transform 0.3s ease;
+}
+
+.elegant-image-text-beside-image:hover {
+  transform: scale(1.02);
+}
+
+.elegant-image-text-beside-content {
+  background-color: var(--elegant-color-surface-container-high);
+  border-radius: var(--elegant-section-radius);
+  box-shadow: var(--elegant-section-shadow);
+  transition: all 0.3s ease;
+}
+
+.elegant-image-text-beside-title {
+  color: var(--elegant-color-on-surface);
+}
+
+.elegant-image-text-beside-description {
+  color: var(--elegant-color-on-surface-variant);
+}
+
+/* Image placeholder for missing images */
+.elegant-image-placeholder {
+  background-color: var(--elegant-color-surface-variant);
+  color: var(--elegant-color-on-surface-variant);
+  border-radius: var(--elegant-section-radius);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .elegant-image-text-beside-image,
+  .elegant-image-text-beside-content {
+    transition: none;
+  }
+}

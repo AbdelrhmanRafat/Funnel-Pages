@@ -1,0 +1,83 @@
+/* === Classic Reviews Component === */
+.urban-review-card {
+    background-color: var(--urban-color-surface-variant);
+    border-radius: var(--urban-section-radius);
+    border-left-color: var(--urban-color-primary);
+    padding: var(--urban-section-padding);
+    box-shadow: var(--urban-section-shadow);
+    
+    /* Add these enhancements */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+/* Add hover effect */
+.urban-review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--urban-section-shadow-hover, 0 8px 25px rgba(0,0,0,0.1));
+}
+
+/* Add focus-within for accessibility */
+.urban-review-card:focus-within {
+    outline: 2px solid var(--urban-color-primary);
+    outline-offset: 2px;
+}
+
+.urban-review-description {
+    color: var(--urban-color-on-surface);
+    /* Add quotation marks for better visual hierarchy */
+}
+
+.urban-review-description::before {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--urban-color-primary);
+    position: absolute;
+    top: var(--urban-section-padding);
+    left: calc(var(--urban-section-padding) - 0.5rem);
+    line-height: 1;
+}
+
+.urban-review-description::after {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--urban-color-primary);
+}
+
+.urban-review-name {
+    color: var(--urban-color-primary);
+}
+
+.urban-review-author-image {
+    background-color: var(--urban-color-primary);
+    box-shadow: var(--urban-section-shadow);
+    /* Add smooth image loading */
+    overflow: hidden;
+}
+
+.urban-review-author-image img {
+    transition: transform 0.3s ease;
+}
+
+.urban-review-author-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Add responsive improvements */
+@media (max-width: 640px) {
+    .urban-review-card {
+        padding: calc(var(--urban-section-padding) * 0.75);
+    }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .urban-review-card,
+    .urban-review-author-image img {
+        transition: none;
+    }
+    
+    .urban-review-card:hover {
+        transform: none;
+    }
+}

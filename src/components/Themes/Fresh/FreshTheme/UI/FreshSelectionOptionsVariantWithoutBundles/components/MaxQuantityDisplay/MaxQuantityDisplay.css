@@ -1,0 +1,16 @@
+/* === Max Quantity Display Styles === */
+
+.fresh-selection-options-without-bundles-max-qty-display {
+  color: var(--fresh-color-on-surface);
+}
+
+.fresh-selection-options-without-bundles-max-qty-value {
+  color: var(--fresh-color-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .fresh-selection-options-without-bundles-max-qty-display {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,62 @@
+/* === Product Features Section === */
+.elegant-feature-card {
+    background-color: var(--elegant-color-surface);
+    border: 1px solid var(--elegant-color-outline-variant);
+    border-radius: var(--elegant-section-radius);
+    transition: all 0.3s ease;
+}
+
+.elegant-feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--elegant-color-primary);
+    box-shadow: var(--elegant-section-shadow);
+}
+
+.elegant-feature-icon-container {
+    width: 4rem; /* Keep in CSS for theme consistency */
+    height: 4rem;
+    background-color: var(--elegant-color-primary);
+    transition: all 0.3s ease;
+}
+
+.elegant-feature-card:hover .elegant-feature-icon-container {
+    background-color: var(--elegant-color-primary-dark);
+    transform: scale(1.05); /* Subtle scaling */
+}
+
+.elegant-feature-icon {
+    color: var(--elegant-color-on-primary);
+}
+
+.elegant-feature-title {
+    color: var(--elegant-color-on-surface);
+    font-weight: 600; /* font-semibold */
+    transition: color 0.3s ease;
+}
+
+.elegant-feature-card:hover .elegant-feature-title {
+    color: var(--elegant-color-primary);
+}
+
+.elegant-feature-subtitle {
+    color: var(--elegant-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .elegant-feature-card,
+    .elegant-feature-icon-container {
+        transition: none;
+    }
+    
+    .elegant-feature-card:hover,
+    .elegant-feature-card:hover .elegant-feature-icon-container {
+        transform: none;
+    }
+}
+
+/* Focus states for keyboard navigation */
+.elegant-feature-card:focus-within {
+    outline: 2px solid var(--elegant-color-primary);
+    outline-offset: 2px;
+}

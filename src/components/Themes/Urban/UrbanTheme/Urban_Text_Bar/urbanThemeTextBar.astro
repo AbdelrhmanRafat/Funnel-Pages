@@ -1,0 +1,25 @@
+---
+import "./urbanThemeTextBar.css";
+import type { BlockData } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { FunnelUrbanComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+---
+
+<section 
+  id={FunnelUrbanComponents.UrbanTextBar} 
+  class="urban-section py-12"
+>
+  <div class="urban-text-bar-container flex justify-center items-center">
+    <div class="urban-text-bar-animated-button">
+      <span class="urban-text-bar-title">
+        {isArabic ? data.title_ar : data.title_en}
+      </span>
+    </div>
+  </div>
+</section>

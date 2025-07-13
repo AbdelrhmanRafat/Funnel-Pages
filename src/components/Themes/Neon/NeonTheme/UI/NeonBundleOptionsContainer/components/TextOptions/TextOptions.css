@@ -1,0 +1,41 @@
+/* === Text Options Styles === */
+
+.neon-bundle-options-container-text-option {
+  background: var(--neon-color-surface);
+  border-color: var(--neon-color-outline);
+  color: var(--neon-color-on-surface);
+  transition: all 0.2s ease;
+}
+
+.neon-bundle-options-container-text-option:hover:not(.neon-bundle-options-container-option-disabled) {
+  background: var(--neon-color-surface-variant);
+  border-color: var(--neon-color-primary);
+}
+
+.neon-bundle-options-container-selected-text {
+  background: var(--neon-color-primary-light);
+  border-color: var(--neon-color-primary);
+  color: var(--neon-color-on-primary);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.neon-bundle-options-container-option-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .neon-bundle-options-container-text-option {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .neon-bundle-options-container-text-option {
+    transition: none;
+  }
+}

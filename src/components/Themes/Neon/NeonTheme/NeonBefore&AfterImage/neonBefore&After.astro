@@ -1,0 +1,113 @@
+---
+import "./neonBefore&After.css"
+import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import NeonBuyNowButton from "../UI/NeonBuyNowButton/NeonBuyNowButton.astro";
+import { FunnelNeonComponents } from "../../../../../lib/constants/themes";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+const items: Item[] = data.items ?? [];
+
+const beforeItemData: Item | undefined = items.find(item => item.name?.toLocaleLowerCase() == "before");
+const afterItemData: Item | undefined = items.find(item => item.name?.toLocaleLowerCase() == "after");
+---
+
+<section 
+    id={FunnelNeonComponents.Classic_Before_After} 
+    class="neon-section"
+    aria-labelledby="before-after-heading"
+>
+    <!-- Section Header -->
+    <header class="neon-middle-title flex flex-col justify-center items-center gap-3">
+        <h2 id="before-after-heading">
+            {isArabic ? data.title_ar : data.title_en}
+        </h2>
+        <p class="text-lg sm:text-xl text-center font-medium neon-before-after-section-description max-w-2xl mx-auto">
+            {data.description}
+        </p>
+        <div class="w-24 h-1 neon-divider mx-auto rounded-full" role="presentation"></div>
+    </header>
+
+        <div class="flex flex-col justify-center items-center gap-8 sm:gap-10 max-w-6xl mx-auto px-4">
+            <!-- Before and After Images Container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 w-full max-w-6xl">
+
+                <!-- Before Card -->
+                <article class="flex flex-col gap-3 justify-center items-center">
+                    <!-- Before Image -->
+                    <figure class="neon-before-after-image-card relative overflow-hidden rounded-lg shadow-lg bg-white">
+                        <!-- Badge -->
+                        <div class="neon-badge-before absolute top-3 sm:top-4 lg:top-6 right-3 sm:right-4 lg:right-6 z-10 px-3 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-lg shadow-lg">
+                            <span class="neon-badge-content" aria-label="Before state" data-translate="BeforeAfter.Before">
+                            </span>
+                        </div>
+                                    
+                        <!-- Image -->
+                        <div class="aspect-[4/3]">
+                            <img
+                                class="w-full h-full object-cover"
+                                src={beforeItemData?.image}
+                                alt={beforeItemData?.label || "Before transformation"}
+                                loading="lazy"
+                            />
+                        </div>
+                                    
+                        <!-- Overlay Effect -->
+                        <div class="neon-overlay-before absolute inset-0" aria-hidden="true"></div>
+                    </figure>
+                    
+                    <!-- Before Description -->
+                    <div class="mt-4 sm:mt-6 text-center">
+                        <h3 class="text-xl sm:text-2xl font-bold neon-before-after-card-title mb-2">
+                            {beforeItemData?.label}
+                        </h3>
+                        <p class="neon-before-after-card-description text-sm sm:text-base max-w-sm mx-auto">
+                            {beforeItemData?.content}
+                        </p>
+                    </div>
+                </article>   
+
+                <!-- After Card -->
+                <article class="flex flex-col gap-3 justify-center items-center">
+                    <!-- After Image -->
+                    <figure class="neon-before-after-image-card relative overflow-hidden rounded-lg shadow-lg bg-white">
+                        <!-- Badge -->
+                        <div class="neon-badge-after absolute top-3 sm:top-4 lg:top-6 right-3 sm:right-4 lg:right-6 z-10 px-3 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 rounded-full font-bold text-xs sm:text-sm lg:text-lg shadow-lg">
+                            <span class="neon-badge-content" aria-label="After state" data-translate="BeforeAfter.After">
+                            </span>
+                        </div>
+                                    
+                        <!-- Image -->
+                        <div class="aspect-[4/3]">
+                            <img
+                                class="w-full h-full object-cover"
+                                src={afterItemData?.image}
+                                alt={afterItemData?.label || "After transformation"}
+                                loading="lazy"
+                            />
+                        </div>
+                                    
+                        <!-- Overlay Effect -->
+                        <div class="neon-overlay-after absolute inset-0" aria-hidden="true"></div>
+                    </figure>
+                    
+                    <!-- After Description -->
+                    <div class="mt-4 sm:mt-6 text-center">
+                        <h3 class="text-xl sm:text-2xl font-bold neon-before-after-card-title mb-2">
+                            {afterItemData?.label}
+                        </h3>
+                        <p class="neon-before-after-card-description text-sm sm:text-base max-w-sm mx-auto">
+                            {afterItemData?.content}
+                        </p>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Call to Action -->
+            <NeonBuyNowButton />
+        </div>
+</section>

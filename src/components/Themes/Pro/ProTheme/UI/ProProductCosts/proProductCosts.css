@@ -1,0 +1,130 @@
+/* === Product Costs Section === */
+.pro-product-costs-container {
+    background-color: var(--pro-color-surface);
+    padding: var(--pro-section-padding);
+    border-radius: var(--pro-section-radius);
+    overflow: hidden;
+    border: 1px solid var(--pro-color-outline-variant);
+}
+
+.pro-product-costs-body {
+    border-bottom: 1px solid var(--pro-color-outline);
+}
+
+.pro-product-costs-row {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--pro-color-outline-variant);
+    transition: background-color 0.2s ease;
+}
+
+.pro-product-costs-row:hover {
+    background-color: var(--pro-color-surface-variant);
+}
+
+.pro-product-costs-row:last-child {
+    border-bottom: none;
+}
+
+.pro-product-costs-label {
+    color: var(--pro-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.pro-product-costs-value {
+    color: var(--pro-color-on-surface);
+    font-weight: 600;
+}
+
+.pro-product-costs-discount {
+    color: var(--pro-color-success);
+    font-weight: 600;
+}
+
+.pro-product-costs-total-section {
+    background-color: var(--pro-color-primary-light);
+    padding: 1rem 1.5rem;
+    border-top: 2px solid var(--pro-color-primary);
+    margin-top: 0.75rem;
+    border-radius: var(--pro-section-radius);
+}
+
+.pro-product-costs-total-label {
+    color: var(--pro-color-on-primary);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.pro-product-costs-total-value {
+    color: var(--pro-color-on-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .pro-product-costs-container {
+        padding: 0.75rem;
+    }
+    
+    .pro-product-costs-total-section {
+        padding: 0.75rem 1rem;
+    }
+    
+    .pro-product-costs-total-label,
+    .pro-product-costs-total-value {
+        font-size: 1rem;
+    }
+}
+
+/* === Loading State === */
+.pro-product-costs-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.pro-product-costs-loading .pro-product-costs-value,
+.pro-product-costs-loading .pro-product-costs-discount,
+.pro-product-costs-loading .pro-product-costs-total-value {
+    background-color: var(--pro-color-surface-variant);
+    color: transparent;
+    border-radius: 4px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* === Error State === */
+.pro-product-costs-error {
+    border-color: var(--pro-color-error);
+    background-color: var(--pro-color-error-light);
+}
+
+.pro-product-costs-error .pro-product-costs-label,
+.pro-product-costs-error .pro-product-costs-value {
+    color: var(--pro-color-on-error);
+}
+
+/* === Focus States for Accessibility === */
+.pro-product-costs-row:focus-within {
+    outline: 2px solid var(--pro-color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .pro-product-costs-container {
+        border: 2px solid var(--pro-color-outline);
+    }
+    
+    .pro-product-costs-total-section {
+        border-top: 3px solid var(--pro-color-primary);
+    }
+}

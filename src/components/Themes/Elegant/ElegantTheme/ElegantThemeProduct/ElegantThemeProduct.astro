@@ -1,0 +1,241 @@
+---
+import "./ElegantThemeProduct.css";
+import type { BlockData, Product } from "../../../../../lib/api/types";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { ElegantProductInfoComponents } from "../../../../../lib/constants/themes";
+import ElegantSelectionOptionsWithoutBundles from "../UI/ElegantSelectionOptionsVariantWithoutBundles/elegantSelectionOptionsWithoutBundles.astro";
+import ElegantProductCosts from "../UI/ElegantProductCosts/elegantProductCosts.astro";
+import ElegantProductGalleryComponent from "../UI/ElegantProductGallery/ElegantProductGalleryComponent.astro";
+import ElegantOrderThroughWhatsapp from "../ElegantOrderThroughWhatsapp/elegantOrderThroughWhatsapp.astro";
+import ElegantFakeVisitors from "../ElegantFakeVisitors/ElegantFakeVisitors.astro";
+import ElegantCoupon from "../ElegantCoupon/ElegantCoupon.astro";
+import ElegantProductBundles from "../ElegantProductBundles/ElegantProductBundles.astro";
+import ElegantProductHeaderReact from "./ElegantProductHeaderReact";
+import ElegantThemeFormFields from "../Elegant_FormFields/ElegantThemeFormFields.astro";
+import ElegantOrderConfirmationNotice from "../Elegant_OrderConfirmationNotice/ElegantOrderConfirmationNotice.astro";
+
+// Define render order for product info section - reorder as needed!
+const PRODUCT_INFO_RENDER_ORDER = [
+  ElegantProductInfoComponents.Visitores,
+  ElegantProductInfoComponents.ProductHeader,
+  ElegantProductInfoComponents.ProductDescription,
+  ElegantProductInfoComponents.PurchaseOptions,
+  ElegantProductInfoComponents.coupon,
+  ElegantProductInfoComponents.FormFields,
+  ElegantProductInfoComponents.OrderConfirmation,
+  ElegantProductInfoComponents.OrderThroghWhatsapp,
+];
+
+// Retrieves product and purchaseOptions from Astro's props.
+const product: Product = Astro.props.product;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const formFieldsData: BlockData = Astro.props.formFieldsData;
+const ratingData: BlockData = Astro.props.ratingData;
+const orderThroughWhatsappData: BlockData =
+  Astro.props.orderThroughWhatsappData;
+const fakeVisitorsData: BlockData = Astro.props.fakeVisitorsData;
+const cuponData: BlockData = Astro.props.cuponData;
+const orderConfirmationNoticeData: BlockData =
+  Astro.props.orderConfirmationNoticeData;
+
+// Extracts color and size options from the product data
+const isHaveVariant = product.is_have_variant;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
+
+// Helper function to check if component data is available
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: any;
+}
+
+function isComponentDataAvailable(
+  componentType: ElegantProductInfoComponents,
+): ComponentCheckResult {
+  switch (componentType) {
+    case ElegantProductInfoComponents.ProductHeader:
+      return {
+        isComponentFound: !!product,
+        componentData: product,
+      };
+    case ElegantProductInfoComponents.ProductDescription:
+      return {
+        isComponentFound:
+          !!product && (!!product.description_ar || !!product.description_en),
+        componentData: product,
+      };
+    case ElegantProductInfoComponents.PurchaseOptions:
+      return {
+        isComponentFound: !!purchaseOptions,
+        componentData: purchaseOptions,
+      };
+    case ElegantProductInfoComponents.FormFields:
+      return {
+        isComponentFound: !!formFieldsData,
+        componentData: formFieldsData,
+      };
+    case ElegantProductInfoComponents.OrderConfirmation:
+      return {
+        isComponentFound: !!orderConfirmationNoticeData,
+        componentData: orderConfirmationNoticeData,
+      };
+    case ElegantProductInfoComponents.OrderThroghWhatsapp:
+      return {
+        isComponentFound: !!orderThroughWhatsappData,
+        componentData: orderThroughWhatsappData,
+      };
+    case ElegantProductInfoComponents.coupon:
+      return {
+        isComponentFound: !!cuponData,
+        componentData: cuponData,
+      };
+    case ElegantProductInfoComponents.Visitores:
+      return {
+        isComponentFound: !!fakeVisitorsData,
+        componentData: fakeVisitorsData,
+      };
+    default:
+      return {
+        isComponentFound: false,
+        componentData: null,
+      };
+  }
+}
+---
+
+<section id="elegant-product-details" class="elegant-product-details-section">
+  <div class="flex flex-col lg:flex-row gap-5">
+    <!-- Gallery Section -->
+    {(<ElegantProductGalleryComponent product={product} />)}
+
+    <!-- Product Info Section with Array-Based Rendering -->
+    <div
+      class="lg:w-1/2 elegant-product-details-container flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl"
+    >
+      {
+        PRODUCT_INFO_RENDER_ORDER.map((componentType) => {
+          const componentCheck = isComponentDataAvailable(componentType);
+
+          if (!componentCheck.isComponentFound) {
+            return null;
+          }
+
+          // Product Header Component with Observer Web Component
+          if (componentType === ElegantProductInfoComponents.ProductHeader) {
+            return (
+              <div class="w-full">
+                <ElegantProductHeaderReact
+                  product={product}
+                  purchaseOptions={purchaseOptions}
+                  isHaveVariant={isHaveVariant}
+                  currentLang={currentLang}
+                  ratingData={ratingData}
+                  client:load
+                />
+              </div>
+            );
+          }
+
+          // Product Description Component
+          if (
+            componentType === ElegantProductInfoComponents.ProductDescription
+          ) {
+            return (
+              <>
+                <div class="w-full">
+                  <h3
+                    class="elegant-product-details-description-header text-2xl font-bold pb-3"
+                    data-translate="product.description"
+                  >
+                    {getTranslation("product.description", currentLang)}
+                  </h3>
+                  <p
+                    class="elegant-product-details-text-body leading-relaxed"
+                    set:html={
+                      isArabic ? product.description_ar : product.description_en
+                    }
+                  />
+                </div>
+                {!purchaseOptions && (
+                  <>
+                    <div class="w-full py-3">
+                      <ElegantSelectionOptionsWithoutBundles
+                        product={product}
+                      />
+                    </div>
+                    <div class="w-full">
+                      <ElegantProductCosts hasBundles="false" />
+                    </div>
+                  </>
+                )}
+              </>
+            );
+          }
+
+          // Purchase Options Component
+          if (componentType === ElegantProductInfoComponents.PurchaseOptions) {
+            return (
+              <ElegantProductBundles
+                product={product}
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Coupon Component
+          if (componentType === ElegantProductInfoComponents.coupon) {
+            return <ElegantCoupon data={componentCheck.componentData} />;
+          }
+
+          // Form Fields Component
+          if (componentType === ElegantProductInfoComponents.FormFields) {
+            return (
+              <ElegantThemeFormFields
+                product={product}
+                data={componentCheck.componentData}
+                purchaseOptions={purchaseOptions}
+                isHaveVariant={isHaveVariant}
+              />
+            );
+          }
+
+          // Order Confirmation Component
+          if (
+            componentType === ElegantProductInfoComponents.OrderConfirmation
+          ) {
+            return (
+              <ElegantOrderConfirmationNotice
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Visitors Component
+          if (componentType === ElegantProductInfoComponents.Visitores) {
+            return <ElegantFakeVisitors data={componentCheck.componentData} />;
+          }
+
+          // Order Through WhatsApp Component
+          if (
+            componentType === ElegantProductInfoComponents.OrderThroghWhatsapp
+          ) {
+            return (
+              <ElegantOrderThroughWhatsapp
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          return null;
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "./ElegantThemeProduct";
+</script>

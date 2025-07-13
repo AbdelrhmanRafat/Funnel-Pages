@@ -1,0 +1,66 @@
+/* Classic Statistics Minimal Design - Matching the provided image */
+
+.retro-theme-today-order-count {
+    background: transparent;
+    color: var(--retro-color-on-surface);
+    box-shadow: none;
+    border-radius: 0;
+    transition: transform 0.3s ease;
+    padding: 0;
+    min-width: auto;
+    min-height: auto;
+}
+
+.retro-theme-today-order-count:hover {
+    transform: translateY(-2px);
+}
+
+.retro-order-counter {
+    transition: all 0.1s ease;
+    color: var(--retro-color-tertiary-dark);
+}
+
+/* Classic Statistics Container */
+.retro-statistics-minimal-container {
+    background: transparent;
+    padding: 3rem 0;
+}
+
+/* Classic Counter Item Styling */
+.retro-counter-minimal-item {
+    text-align: center;
+    position: relative;
+}
+
+/* Classic Counter Label - Green color like in image */
+.retro-counter-minimal-label {
+    color: var(--retro-color-success);
+}
+
+
+
+
+/* Classic Animation Effects */
+.retro-order-counter[data-retro-animating="true"] {
+    color: var(--retro-color-primary);
+}
+
+@media (max-width: 768px) {
+    .retro-order-counter {
+        font-size: 3rem;
+    }
+    
+    .retro-counter-minimal-item:not(:last-child)::after {
+        display: none;
+    }
+    
+    .retro-counter-minimal-label {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .retro-order-counter {
+        font-size: 2.5rem;
+    }
+}

@@ -1,0 +1,306 @@
+/* === Classic Form Components (Refactored with Custom Variables) === */
+
+/* Main form container */
+.fresh-form-div-container {
+    background-color: var(--fresh-color-surface);
+    border-radius: var(--fresh-section-radius);
+    box-shadow: var(--fresh-section-shadow);
+}
+
+/* Form title styling */
+.fresh-form-h1-title {
+    color: var(--fresh-color-on-surface);
+    font-size: var(--fresh-header-size);
+    font-weight: var(--fresh-header-weight);
+    margin-bottom: var(--fresh-header-margin-bottom);
+}
+
+/* Section headers within form */
+.fresh-form-h2-title {
+    color: var(--fresh-color-on-surface);
+    font-size: var(--fresh-header-center-size);
+    font-weight: var(--fresh-header-center-weight);
+    margin-bottom: var(--fresh-header-center-margin-bottom);
+}
+
+/* Form group container */
+.fresh-form-div-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Base input field styling */
+.fresh-form-input-base {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--fresh-color-outline);
+    border-radius: 12px;
+    color: var(--fresh-color-on-surface);
+    background-color: var(--fresh-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Responsive input sizing */
+.fresh-form-input-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .fresh-form-input-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Textarea specific responsive styling */
+.fresh-form-textarea-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .fresh-form-textarea-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Select base styling */
+.fresh-form-select-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--fresh-color-outline);
+    border-radius: 12px;
+    color: var(--fresh-color-on-surface);
+    background-color: var(--fresh-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Select responsive styling */
+.fresh-form-select-responsive {
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .fresh-form-select-responsive {
+        padding: 1rem;
+    }
+}
+
+/* Floating label styling */
+.fresh-form-label-floating {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--fresh-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--fresh-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Static label styling */
+.fresh-form-label-static {
+    color: var(--fresh-color-on-surface);
+    font-weight: 500;
+}
+
+/* Focus and valid states for input */
+.fresh-form-input-base:focus,
+.fresh-form-input-base:valid {
+    border-color: var(--fresh-color-primary);
+    box-shadow: var(--fresh-section-shadow);
+}
+
+.fresh-form-select-base:focus {
+    border-color: var(--fresh-color-primary);
+    box-shadow: var(--fresh-section-shadow);
+}
+
+/* Floating label animation */
+.fresh-form-input-base:focus ~ .fresh-form-label-floating,
+.fresh-form-input-base:valid ~ .fresh-form-label-floating,
+.fresh-form-textarea-responsive:focus ~ .fresh-form-label-floating,
+.fresh-form-textarea-responsive:valid ~ .fresh-form-label-floating {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--fresh-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.fresh-form-span-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--fresh-color-error);
+    min-height: 1.25rem;
+    margin-top: 0.25rem;
+}
+
+/* Input validation states */
+.fresh-form-input-error {
+    border-color: var(--fresh-color-error) !important;
+}
+
+.fresh-form-input-success {
+    border-color: var(--fresh-color-success) !important;
+}
+
+/* RTL support for floating labels */
+.fresh-form-input-base.text-right ~ .fresh-form-label-floating,
+.fresh-form-textarea-responsive.text-right ~ .fresh-form-label-floating {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+
+.fresh-form-input-base.text-left ~ .fresh-form-label-floating,
+.fresh-form-textarea-responsive.text-left ~ .fresh-form-label-floating {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.fresh-form-input-base.text-right:focus ~ .fresh-form-label-floating,
+.fresh-form-input-base.text-right:valid ~ .fresh-form-label-floating,
+.fresh-form-textarea-responsive.text-right:focus ~ .fresh-form-label-floating,
+.fresh-form-textarea-responsive.text-right:valid ~ .fresh-form-label-floating {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+/* Payment and delivery option containers */
+.fresh-form-div-payment {
+    padding: 0.75rem;
+    border: 1px solid var(--fresh-color-outline);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    background-color: var(--fresh-color-surface);
+}
+
+@media (min-width: 768px) {
+    .fresh-form-div-payment {
+        padding: 1rem;
+    }
+}
+
+/* Hover state for payment options */
+.fresh-form-div-payment:hover {
+    background-color: var(--fresh-color-surface-variant);
+    border-color: var(--fresh-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.fresh-form-div-payment:focus-within {
+    border-color: var(--fresh-color-primary);
+    outline: 2px solid var(--fresh-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.fresh-form-span-payment-label {
+    display: block;
+    color: var(--fresh-color-on-surface);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Payment option descriptions */
+.fresh-form-span-payment-description {
+    display: block;
+    color: var(--fresh-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.fresh-form-input-radio {
+    accent-color: var(--fresh-color-primary);
+    border-color: var(--fresh-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator */
+.fresh-form-div-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--fresh-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: var(--fresh-color-surface);
+}
+
+/* Radio dot inside custom indicator */
+.fresh-form-div-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.fresh-form-input-radio:checked + .fresh-form-div-content .fresh-form-div-radio-indicator {
+    border-color: var(--fresh-color-primary);
+    background-color: var(--fresh-color-primary);
+}
+
+.fresh-form-input-radio:checked + .fresh-form-div-content .fresh-form-div-radio-dot {
+    background-color: var(--fresh-color-surface);
+}
+
+/* Notes section specific styling */
+.fresh-form-div-notes {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+    .fresh-form-div-notes {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Button section styling */
+.fresh-form-div-button-container {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .fresh-form-div-button-container {
+        margin-top: 2rem;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .fresh-form-input-base,
+    .fresh-form-select-base,
+    .fresh-form-div-payment,
+    .fresh-form-div-radio-indicator,
+    .fresh-form-div-radio-dot,
+    .fresh-form-label-floating {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .fresh-form-input-base,
+    .fresh-form-select-base {
+        border-width: 3px;
+    }
+
+    .fresh-form-div-payment {
+        border-width: 2px;
+    }
+    
+    .fresh-form-div-radio-indicator {
+        border-width: 3px;
+    }
+}

@@ -1,0 +1,128 @@
+/* === Classic Coupon Component === */
+
+/* Icon container for smooth transitions */
+.copy-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-icon,
+.check-icon {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Coupon card styling */
+.bold-coupon-card {
+    background-color: var(--bold-color-surface-variant);
+    border-color: var(--bold-color-primary);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bold-coupon-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Coupon code text */
+.bold-coupon-code {
+    color: var(--bold-color-primary-dark);
+    user-select: all; /* Allow easy text selection */
+}
+
+/* Copy button styling */
+.bold-coupon-copy {
+    background-color: var(--bold-color-secondary);
+    color: var(--bold-color-on-secondary);
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.bold-coupon-copy:hover {
+    background-color: var(--bold-color-secondary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bold-coupon-copy:focus {
+    outline: none;
+    border-color: var(--bold-color-primary);
+    box-shadow: 0 0 0 2px var(--bold-color-primary-light);
+}
+
+.bold-coupon-copy:active {
+    transform: translateY(0);
+}
+
+/* Copied state */
+.bold-coupon-copy.copied {
+    background-color: var(--bold-color-success);
+    color: var(--bold-color-on-success);
+    transform: scale(1.02);
+}
+
+.bold-coupon-copy.copied:hover {
+    background-color: var(--bold-color-success);
+    transform: scale(1.02);
+}
+
+/* Screen reader only class */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Loading state (optional enhancement) */
+.bold-coupon-copy[disabled] {
+    opacity: 0.6;
+    transform: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .bold-coupon-card {
+        border-width: 3px;
+        border-style: solid;
+    }
+    
+    .bold-coupon-copy {
+        border-width: 2px;
+        border-style: solid;
+        border-color: var(--bold-color-on-secondary);
+    }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .bold-coupon-card,
+    .bold-coupon-copy {
+        transition: none;
+    }
+    
+    .bold-coupon-card:hover,
+    .bold-coupon-copy:hover,
+    .bold-coupon-copy.copied {
+        transform: none;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .bold-coupon-card {
+        min-width: 100%;
+    }
+    
+    .bold-coupon-copy {
+        width: 100%;
+        justify-content: center;
+    }
+}

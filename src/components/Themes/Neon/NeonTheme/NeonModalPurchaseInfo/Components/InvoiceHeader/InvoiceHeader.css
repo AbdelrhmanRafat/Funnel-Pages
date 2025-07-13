@@ -1,0 +1,11 @@
+/* === Invoice Header Component (Colors & Shadows Only) === */
+
+.neon-invoiceheader-div-container {
+  background: linear-gradient(135deg, var(--neon-color-primary) 0%, var(--neon-color-primary-dark) 100%);
+  color: var(--neon-color-on-primary);
+  border-bottom: 3px solid var(--neon-color-primary-dark);
+}
+
+.neon-invoiceheader-h3-title {
+  color: var(--neon-color-on-primary);
+}

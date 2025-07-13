@@ -1,0 +1,43 @@
+/* === Product Details Section Classes === */
+.pop-product-details-section {
+    background-color: var(--pop-color-background);
+}
+
+.pop-product-details-container {
+    background: linear-gradient(135deg, var(--pop-color-surface) 0%, var(--pop-color-surface-variant) 100%);
+    border-radius: var(--pop-section-radius);
+}
+
+.pop-product-details-badge-success {
+    background-color: var(--pop-color-success-light);
+    color: var(--pop-color-on-success);
+}
+
+.pop-product-details-badge-error {
+    background-color: var(--pop-color-error-light);
+    color: var(--pop-color-on-error);
+}
+
+.pop-product-details-sku {
+    color: var(--pop-color-on-surface-variant);
+}
+
+.pop-product-details-title {
+    color: var(--pop-color-on-surface);
+}
+
+.pop-product-details-price {
+    color: var(--pop-color-primary);
+}
+
+.pop-product-details-price--discount {
+    color: var(--pop-color-on-surface-variant);
+}
+
+.pop-product-details-description-header {
+    color: var(--pop-color-on-surface);
+}
+
+.pop-product-details-text-body {
+    color: var(--pop-color-on-surface-variant);
+}

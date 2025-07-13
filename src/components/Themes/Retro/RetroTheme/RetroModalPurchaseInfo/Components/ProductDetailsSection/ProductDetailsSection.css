@@ -1,0 +1,31 @@
+/* === Product Details Section Component (Colors & Shadows Only) === */
+
+.retro-productdetails-h2-title {
+  color: var(--retro-color-on-surface);
+  border-bottom-color: var(--retro-color-primary);
+}
+
+.retro-productdetails-div-icon {
+  background: var(--retro-color-primary-light);
+  color: var(--retro-color-on-primary);
+}
+
+.retro-productdetails-div-card {
+  background: var(--retro-color-surface);
+  border-color: var(--retro-color-outline);
+  border-left-color: var(--retro-color-primary);
+  box-shadow: var(--retro-section-shadow);
+}
+
+.retro-productdetails-img-product {
+  background: var(--retro-color-surface-variant);
+  border: 1px solid var(--retro-color-outline);
+}
+
+.retro-productdetails-h3-name {
+  color: var(--retro-color-on-surface);
+}
+
+.retro-productdetails-p-description {
+  color: var(--retro-color-on-surface-variant);
+}

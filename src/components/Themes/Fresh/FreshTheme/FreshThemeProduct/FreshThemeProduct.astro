@@ -1,0 +1,241 @@
+---
+import "./FreshThemeProduct.css";
+import type { BlockData, Product } from "../../../../../lib/api/types";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { FreshProductInfoComponents } from "../../../../../lib/constants/themes";
+import FreshSelectionOptionsWithoutBundles from "../UI/FreshSelectionOptionsVariantWithoutBundles/freshSelectionOptionsWithoutBundles.astro";
+import FreshProductCosts from "../UI/FreshProductCosts/freshProductCosts.astro";
+import FreshProductGalleryComponent from "../UI/FreshProductGallery/FreshProductGalleryComponent.astro";
+import FreshOrderThroughWhatsapp from "../FreshOrderThroughWhatsapp/freshOrderThroughWhatsapp.astro";
+import FreshFakeVisitors from "../FreshFakeVisitors/FreshFakeVisitors.astro";
+import FreshCoupon from "../FreshCoupon/FreshCoupon.astro";
+import FreshProductBundles from "../FreshProductBundles/FreshProductBundles.astro";
+import FreshProductHeaderReact from "./FreshProductHeaderReact";
+import FreshThemeFormFields from "../Fresh_FormFields/FreshThemeFormFields.astro";
+import FreshOrderConfirmationNotice from "../Fresh_OrderConfirmationNotice/FreshOrderConfirmationNotice.astro";
+
+// Define render order for product info section - reorder as needed!
+const PRODUCT_INFO_RENDER_ORDER = [
+  FreshProductInfoComponents.Visitores,
+  FreshProductInfoComponents.ProductHeader,
+  FreshProductInfoComponents.ProductDescription,
+  FreshProductInfoComponents.PurchaseOptions,
+  FreshProductInfoComponents.coupon,
+  FreshProductInfoComponents.FormFields,
+  FreshProductInfoComponents.OrderConfirmation,
+  FreshProductInfoComponents.OrderThroghWhatsapp,
+];
+
+// Retrieves product and purchaseOptions from Astro's props.
+const product: Product = Astro.props.product;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const formFieldsData: BlockData = Astro.props.formFieldsData;
+const ratingData: BlockData = Astro.props.ratingData;
+const orderThroughWhatsappData: BlockData =
+  Astro.props.orderThroughWhatsappData;
+const fakeVisitorsData: BlockData = Astro.props.fakeVisitorsData;
+const cuponData: BlockData = Astro.props.cuponData;
+const orderConfirmationNoticeData: BlockData =
+  Astro.props.orderConfirmationNoticeData;
+
+// Extracts color and size options from the product data
+const isHaveVariant = product.is_have_variant;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
+const isArabic = currentLang === "ar";
+
+// Helper function to check if component data is available
+interface ComponentCheckResult {
+  isComponentFound: boolean;
+  componentData: any;
+}
+
+function isComponentDataAvailable(
+  componentType: FreshProductInfoComponents,
+): ComponentCheckResult {
+  switch (componentType) {
+    case FreshProductInfoComponents.ProductHeader:
+      return {
+        isComponentFound: !!product,
+        componentData: product,
+      };
+    case FreshProductInfoComponents.ProductDescription:
+      return {
+        isComponentFound:
+          !!product && (!!product.description_ar || !!product.description_en),
+        componentData: product,
+      };
+    case FreshProductInfoComponents.PurchaseOptions:
+      return {
+        isComponentFound: !!purchaseOptions,
+        componentData: purchaseOptions,
+      };
+    case FreshProductInfoComponents.FormFields:
+      return {
+        isComponentFound: !!formFieldsData,
+        componentData: formFieldsData,
+      };
+    case FreshProductInfoComponents.OrderConfirmation:
+      return {
+        isComponentFound: !!orderConfirmationNoticeData,
+        componentData: orderConfirmationNoticeData,
+      };
+    case FreshProductInfoComponents.OrderThroghWhatsapp:
+      return {
+        isComponentFound: !!orderThroughWhatsappData,
+        componentData: orderThroughWhatsappData,
+      };
+    case FreshProductInfoComponents.coupon:
+      return {
+        isComponentFound: !!cuponData,
+        componentData: cuponData,
+      };
+    case FreshProductInfoComponents.Visitores:
+      return {
+        isComponentFound: !!fakeVisitorsData,
+        componentData: fakeVisitorsData,
+      };
+    default:
+      return {
+        isComponentFound: false,
+        componentData: null,
+      };
+  }
+}
+---
+
+<section id="fresh-product-details" class="fresh-product-details-section">
+  <div class="flex flex-col lg:flex-row gap-5">
+    <!-- Gallery Section -->
+    {(<FreshProductGalleryComponent product={product} />)}
+
+    <!-- Product Info Section with Array-Based Rendering -->
+    <div
+      class="lg:w-1/2 fresh-product-details-container flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl"
+    >
+      {
+        PRODUCT_INFO_RENDER_ORDER.map((componentType) => {
+          const componentCheck = isComponentDataAvailable(componentType);
+
+          if (!componentCheck.isComponentFound) {
+            return null;
+          }
+
+          // Product Header Component with Observer Web Component
+          if (componentType === FreshProductInfoComponents.ProductHeader) {
+            return (
+              <div class="w-full">
+                <FreshProductHeaderReact
+                  product={product}
+                  purchaseOptions={purchaseOptions}
+                  isHaveVariant={isHaveVariant}
+                  currentLang={currentLang}
+                  ratingData={ratingData}
+                  client:load
+                />
+              </div>
+            );
+          }
+
+          // Product Description Component
+          if (
+            componentType === FreshProductInfoComponents.ProductDescription
+          ) {
+            return (
+              <>
+                <div class="w-full">
+                  <h3
+                    class="fresh-product-details-description-header text-2xl font-bold pb-3"
+                    data-translate="product.description"
+                  >
+                    {getTranslation("product.description", currentLang)}
+                  </h3>
+                  <p
+                    class="fresh-product-details-text-body leading-relaxed"
+                    set:html={
+                      isArabic ? product.description_ar : product.description_en
+                    }
+                  />
+                </div>
+                {!purchaseOptions && (
+                  <>
+                    <div class="w-full py-3">
+                      <FreshSelectionOptionsWithoutBundles
+                        product={product}
+                      />
+                    </div>
+                    <div class="w-full">
+                      <FreshProductCosts hasBundles="false" />
+                    </div>
+                  </>
+                )}
+              </>
+            );
+          }
+
+          // Purchase Options Component
+          if (componentType === FreshProductInfoComponents.PurchaseOptions) {
+            return (
+              <FreshProductBundles
+                product={product}
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Coupon Component
+          if (componentType === FreshProductInfoComponents.coupon) {
+            return <FreshCoupon data={componentCheck.componentData} />;
+          }
+
+          // Form Fields Component
+          if (componentType === FreshProductInfoComponents.FormFields) {
+            return (
+              <FreshThemeFormFields
+                product={product}
+                data={componentCheck.componentData}
+                purchaseOptions={purchaseOptions}
+                isHaveVariant={isHaveVariant}
+              />
+            );
+          }
+
+          // Order Confirmation Component
+          if (
+            componentType === FreshProductInfoComponents.OrderConfirmation
+          ) {
+            return (
+              <FreshOrderConfirmationNotice
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          // Visitors Component
+          if (componentType === FreshProductInfoComponents.Visitores) {
+            return <FreshFakeVisitors data={componentCheck.componentData} />;
+          }
+
+          // Order Through WhatsApp Component
+          if (
+            componentType === FreshProductInfoComponents.OrderThroghWhatsapp
+          ) {
+            return (
+              <FreshOrderThroughWhatsapp
+                data={componentCheck.componentData}
+              />
+            );
+          }
+
+          return null;
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "./FreshThemeProduct";
+</script>

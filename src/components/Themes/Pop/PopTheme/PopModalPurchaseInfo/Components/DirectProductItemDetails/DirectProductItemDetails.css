@@ -1,0 +1,85 @@
+/* === Direct Product Item Details Component (Colors & Shadows Only) === */
+
+.pop-directproduct-h3-title {
+  color: var(--pop-color-on-surface);
+  border-bottom-color: var(--pop-color-primary);
+}
+
+.pop-directproduct-div-icon {
+  background: var(--pop-color-primary-light);
+  color: var(--pop-color-on-primary);
+}
+
+.pop-directproduct-div-card {
+  background: var(--pop-color-surface);
+  border-color: var(--pop-color-outline);
+  border-left-color: var(--pop-color-primary);
+  box-shadow: var(--pop-section-shadow);
+}
+
+.pop-directproduct-img-product {
+  background: var(--pop-color-surface-variant);
+  border-color: var(--pop-color-outline);
+}
+
+.pop-directproduct-h4-name {
+  color: var(--pop-color-on-surface);
+}
+
+.pop-directproduct-p-sku {
+  color: var(--pop-color-on-surface-variant);
+  background: var(--pop-color-surface-container);
+}
+
+.pop-directproduct-span-variantlabel {
+  color: var(--pop-color-on-surface-variant);
+}
+
+.pop-directproduct-span-variant {
+  background: var(--pop-color-surface-container);
+  color: var(--pop-color-on-surface);
+  border-color: var(--pop-color-outline);
+}
+
+.pop-directproduct-div-note {
+  background: var(--pop-color-surface-container);
+  border-color: var(--pop-color-primary);
+}
+
+.pop-directproduct-p-note {
+  color: var(--pop-color-on-surface-variant);
+}
+
+.pop-directproduct-div-pricing {
+  background: var(--pop-color-surface-variant);
+  border-color: var(--pop-color-outline);
+}
+
+.pop-directproduct-h5-pricingtitle {
+  color: var(--pop-color-on-surface);
+}
+
+.pop-directproduct-span-label {
+  color: var(--pop-color-on-surface-variant);
+}
+
+.pop-directproduct-span-quantity {
+  background: var(--pop-color-primary-light);
+  color: var(--pop-color-on-primary);
+}
+
+.pop-directproduct-span-unitprice {
+  color: var(--pop-color-on-surface);
+}
+
+.pop-directproduct-span-discount {
+  color: var(--pop-color-success);
+}
+
+.pop-directproduct-div-divider {
+  background: var(--pop-color-outline);
+}
+
+.pop-directproduct-span-total {
+  color: var(--pop-color-on-surface);
+}

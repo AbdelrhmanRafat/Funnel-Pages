@@ -1,0 +1,7 @@
+.zen-form-submit {
+    width: 100%;
+    background-color: var(--zen-color-primary);
+    color: var(--zen-color-on-primary);
+    padding: 1rem;
+    border-radius: var(--zen-section-radius);
+}

@@ -1,0 +1,13 @@
+/* === Option Section Styles === */
+
+.minimal-bundle-options-container-selection-title {
+  color: var(--minimal-color-on-surface);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .select-option-section {
+    width: 100% !important;
+  }
+}

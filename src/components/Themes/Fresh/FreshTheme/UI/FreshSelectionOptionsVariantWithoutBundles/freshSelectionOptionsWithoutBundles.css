@@ -1,0 +1,135 @@
+/* === Base Option Styles === */
+.fresh-selection-options-without-bundles-option-title {
+    color: var(--fresh-color-on-surface);
+}
+
+/* === Quantity Section === */
+.fresh-selection-options-without-bundles-qty-label {
+    color: var(--fresh-color-on-surface);
+}
+
+.fresh-selection-options-without-bundles-qty-btn {
+    background-color: var(--fresh-color-surface);
+    color: var(--fresh-color-on-surface);
+    border: 1px solid var(--fresh-color-outline);
+}
+
+.fresh-selection-options-without-bundles-qty-btn:hover:not(:disabled) {
+    background-color: var(--fresh-color-surface-variant);
+}
+
+.fresh-selection-options-without-bundles-qty-btn:focus {
+    ring-color: var(--fresh-color-primary);
+}
+
+.fresh-selection-options-without-bundles-qty-btn:disabled {
+    background-color: var(--fresh-color-surface-container);
+    color: var(--fresh-color-on-surface-variant);
+}
+
+.fresh-selection-options-without-bundles-qty-input {
+    background-color: var(--fresh-color-surface);
+    color: var(--fresh-color-on-surface);
+    border: 1px solid var(--fresh-color-outline);
+}
+
+.fresh-selection-options-without-bundles-qty-input:focus {
+    border-color: var(--fresh-color-primary);
+    ring-color: var(--fresh-color-primary);
+}
+
+.fresh-selection-options-without-bundles-max-qty-text {
+    color: var(--fresh-color-on-surface-variant);
+}
+
+.fresh-selection-options-without-bundles-max-qty-value {
+    color: var(--fresh-color-secondary);
+}
+
+/* === Generic Option States === */
+.fresh-selection-options-without-bundles-option--selected {
+    opacity: 1;
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 2px var(--fresh-color-primary);
+}
+
+/* Available Options */
+.fresh-selection-options-without-bundles-option-available {
+    opacity: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fresh-selection-options-without-bundles-option-available:hover {
+    transform: scale(1.02);
+}
+
+/* Disabled Options */
+.fresh-selection-options-without-bundles-option-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.fresh-selection-options-without-bundles-option-disabled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 2px,
+        rgba(0, 0, 0, 0.1) 4px
+    );
+    border-radius: inherit;
+    z-index: 1;
+}
+
+/* === Loading/Transition States === */
+.fresh-selection-options-without-bundles-option-transitioning {
+    opacity: 0.7;
+    transform: scale(0.98);
+    transition: all 0.2s ease;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .fresh-selection-options-without-bundles-option-disabled::before {
+        background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 0, 0, 0.15) 1px,
+            rgba(0, 0, 0, 0.15) 2px
+        );
+    }
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .fresh-selection-options-without-bundles-option-disabled {
+        border: 2px dashed currentColor;
+        opacity: 0.5;
+    }
+    
+    .fresh-selection-options-without-bundles-option-disabled::before {
+        display: none;
+    }
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+    .fresh-selection-options-without-bundles-option-available,
+    .fresh-selection-options-without-bundles-option-disabled {
+        transition: opacity 0.2s ease;
+    }
+    
+    .fresh-selection-options-without-bundles-option-available:hover {
+        transform: none;
+    }
+}

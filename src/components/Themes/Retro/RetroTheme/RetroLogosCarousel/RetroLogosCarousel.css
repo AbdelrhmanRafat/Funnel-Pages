@@ -1,0 +1,93 @@
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
+
+/* Section Divider */
+.retro-logocarousel-div-divider {
+    background: linear-gradient(90deg, 
+        var(--retro-color-primary) 0%,
+        var(--retro-color-secondary) 50%,
+        var(--retro-color-primary) 100%
+    );
+}
+
+/* Logo Cards - Clean and minimal */
+.retro-logocarousel-div-card {
+    background: transparent;
+}
+
+/* Skeleton Loading State */
+.retro-logocarousel-div-skeleton {
+    background: linear-gradient(90deg, 
+        var(--retro-color-surface) 25%, 
+        var(--retro-color-surface-variant) 50%, 
+        var(--retro-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: retro-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes retro-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Carousel Navigation Arrows */
+.retro-logocarousel-button-left,
+.retro-logocarousel-button-right {
+    background-color: var(--retro-color-surface);
+    color: var(--retro-color-on-surface);
+    border-color: var(--retro-color-outline-variant);
+}
+
+.retro-logocarousel-button-left:hover,
+.retro-logocarousel-button-right:hover {
+    background-color: var(--retro-color-surface-variant);
+    border-color: var(--retro-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.retro-logocarousel-button-left:disabled,
+.retro-logocarousel-button-right:disabled {
+    background-color: var(--retro-color-surface);
+    border-color: var(--retro-color-outline-variant);
+    color: var(--retro-color-on-surface-variant);
+}
+
+.retro-logocarousel-button-left:focus,
+.retro-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--retro-color-primary-light);
+    border-color: var(--retro-color-primary);
+}
+
+/* Page Indicators */
+.retro-logocarousel-button-indicator {
+    background-color: var(--retro-color-outline);
+}
+
+.retro-logocarousel-button-indicator:hover {
+    background-color: var(--retro-color-primary-light);
+}
+
+.retro-logocarousel-button-indicator.retro-logocarousel-button-active {
+    background-color: var(--retro-color-primary);
+}
+
+.retro-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--retro-color-primary-light);
+}
+
+/* Progress Bar */
+.retro-logocarousel-div-progressbg {
+    background-color: var(--retro-color-outline);
+}
+
+.retro-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--retro-color-primary), 
+        var(--retro-color-primary-light)
+    );
+}
+
+/* Trust Indicator */
+.retro-logocarousel-p-trust {
+    color: var(--retro-color-on-surface-variant);
+}

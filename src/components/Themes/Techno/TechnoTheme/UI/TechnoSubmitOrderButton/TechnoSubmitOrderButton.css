@@ -1,0 +1,7 @@
+.techno-form-submit {
+    width: 100%;
+    background-color: var(--techno-color-primary);
+    color: var(--techno-color-on-primary);
+    padding: 1rem;
+    border-radius: var(--techno-section-radius);
+}

@@ -1,0 +1,58 @@
+---
+// ProductImageSection.astro
+import "./technoImageTextBeside.css"
+import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import TechnoBuyNowButton from "../UI/TechnoBuyNowButton/TechnoBuyNowButton.astro";
+import { FunnelTechnoComponents } from "../../../../../lib/constants/themes";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+const ImageTextData: Item | undefined = data.items?.[0];
+---
+<section 
+  id={FunnelTechnoComponents.TechnoImageTextBeside} 
+  class="techno-section px-4 sm:px-6 lg:px-12 py-12"
+  aria-labelledby="image-text-heading"
+>
+  <!-- Header -->
+  <div class="techno-section-header">
+    {data.icon && <LucideIcon name={data.icon as any} width="48" height="48" />}
+    <h5 id="image-text-heading">{isArabic ? data.title_ar : data.title_en}</h5>
+  </div>
+  
+  <!-- Product Grid -->
+  <article class="techno-image-text-beside grid grid-cols-1 lg:grid-cols-2 gap-6 items-start overflow-hidden">
+    <!-- Image Section -->
+    <figure class="h-64 sm:h-96 overflow-hidden">
+      {ImageTextData?.image ? (
+        <img 
+          src={ImageTextData.image}
+          alt={ImageTextData.label || 'Product image'}
+          class="w-full h-full object-cover techno-image-text-beside-image"
+          loading="lazy"
+        />
+      ) : (
+        <div class="techno-image-placeholder w-full h-full flex items-center justify-center">
+          <span class="text-gray-400">No image available</span>
+        </div>
+      )}
+    </figure>
+    
+    <!-- Text Section -->
+    <div class="techno-image-text-beside-content flex flex-col justify-start items-start w-full gap-2 p-6 sm:p-10 space-y-6 text-right h-full">
+      <h2 class="techno-image-text-beside-title text-3xl font-bold">
+        {ImageTextData?.label || 'Product'}
+      </h2>
+      <p class="techno-image-text-beside-description text-base leading-relaxed">
+        {ImageTextData?.content || 'No description available'}
+      </p>
+      <div class="flex-1"></div>
+      <TechnoBuyNowButton />
+    </div>
+  </article>
+</section>

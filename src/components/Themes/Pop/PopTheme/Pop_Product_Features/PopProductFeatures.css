@@ -1,0 +1,62 @@
+/* === Product Features Section === */
+.pop-feature-card {
+    background-color: var(--pop-color-surface);
+    border: 1px solid var(--pop-color-outline-variant);
+    border-radius: var(--pop-section-radius);
+    transition: all 0.3s ease;
+}
+
+.pop-feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--pop-color-primary);
+    box-shadow: var(--pop-section-shadow);
+}
+
+.pop-feature-icon-container {
+    width: 4rem; /* Keep in CSS for theme consistency */
+    height: 4rem;
+    background-color: var(--pop-color-primary);
+    transition: all 0.3s ease;
+}
+
+.pop-feature-card:hover .pop-feature-icon-container {
+    background-color: var(--pop-color-primary-dark);
+    transform: scale(1.05); /* Subtle scaling */
+}
+
+.pop-feature-icon {
+    color: var(--pop-color-on-primary);
+}
+
+.pop-feature-title {
+    color: var(--pop-color-on-surface);
+    font-weight: 600; /* font-semibold */
+    transition: color 0.3s ease;
+}
+
+.pop-feature-card:hover .pop-feature-title {
+    color: var(--pop-color-primary);
+}
+
+.pop-feature-subtitle {
+    color: var(--pop-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .pop-feature-card,
+    .pop-feature-icon-container {
+        transition: none;
+    }
+    
+    .pop-feature-card:hover,
+    .pop-feature-card:hover .pop-feature-icon-container {
+        transform: none;
+    }
+}
+
+/* Focus states for keyboard navigation */
+.pop-feature-card:focus-within {
+    outline: 2px solid var(--pop-color-primary);
+    outline-offset: 2px;
+}

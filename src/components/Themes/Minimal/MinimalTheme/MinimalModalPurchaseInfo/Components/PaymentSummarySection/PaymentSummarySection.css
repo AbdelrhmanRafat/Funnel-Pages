@@ -1,0 +1,28 @@
+/* === Payment Summary Section Component (Colors & Shadows Only) === */
+
+.minimal-paymentsummary-h3-title {
+  color: var(--minimal-color-on-surface);
+  border-bottom-color: var(--minimal-color-success);
+}
+
+.minimal-paymentsummary-div-table {
+  background: var(--minimal-color-surface);
+  border: 2px solid var(--minimal-color-success);
+  box-shadow: 0 4px 12px -4px rgba(34, 197, 94, 0.2);
+}
+
+.minimal-paymentsummary-div-totalrow {
+  background: linear-gradient(135deg, 
+    var(--minimal-color-success) 0%, 
+    var(--minimal-color-success-dark) 100%
+  );
+  color: var(--minimal-color-on-success);
+}
+
+.minimal-paymentsummary-span-totallabel {
+  color: var(--minimal-color-on-success);
+}
+
+.minimal-paymentsummary-span-totalamount {
+  color: var(--minimal-color-on-success);
+}

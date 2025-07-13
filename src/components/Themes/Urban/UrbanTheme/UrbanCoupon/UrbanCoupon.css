@@ -1,0 +1,128 @@
+/* === Classic Coupon Component === */
+
+/* Icon container for smooth transitions */
+.copy-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-icon,
+.check-icon {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Coupon card styling */
+.urban-coupon-card {
+    background-color: var(--urban-color-surface-variant);
+    border-color: var(--urban-color-primary);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.urban-coupon-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Coupon code text */
+.urban-coupon-code {
+    color: var(--urban-color-primary-dark);
+    user-select: all; /* Allow easy text selection */
+}
+
+/* Copy button styling */
+.urban-coupon-copy {
+    background-color: var(--urban-color-secondary);
+    color: var(--urban-color-on-secondary);
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.urban-coupon-copy:hover {
+    background-color: var(--urban-color-secondary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.urban-coupon-copy:focus {
+    outline: none;
+    border-color: var(--urban-color-primary);
+    box-shadow: 0 0 0 2px var(--urban-color-primary-light);
+}
+
+.urban-coupon-copy:active {
+    transform: translateY(0);
+}
+
+/* Copied state */
+.urban-coupon-copy.copied {
+    background-color: var(--urban-color-success);
+    color: var(--urban-color-on-success);
+    transform: scale(1.02);
+}
+
+.urban-coupon-copy.copied:hover {
+    background-color: var(--urban-color-success);
+    transform: scale(1.02);
+}
+
+/* Screen reader only class */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Loading state (optional enhancement) */
+.urban-coupon-copy[disabled] {
+    opacity: 0.6;
+    transform: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .urban-coupon-card {
+        border-width: 3px;
+        border-style: solid;
+    }
+    
+    .urban-coupon-copy {
+        border-width: 2px;
+        border-style: solid;
+        border-color: var(--urban-color-on-secondary);
+    }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .urban-coupon-card,
+    .urban-coupon-copy {
+        transition: none;
+    }
+    
+    .urban-coupon-card:hover,
+    .urban-coupon-copy:hover,
+    .urban-coupon-copy.copied {
+        transform: none;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .urban-coupon-card {
+        min-width: 100%;
+    }
+    
+    .urban-coupon-copy {
+        width: 100%;
+        justify-content: center;
+    }
+}

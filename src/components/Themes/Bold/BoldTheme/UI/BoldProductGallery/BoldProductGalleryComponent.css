@@ -1,0 +1,44 @@
+/* === Gallery Section Classes === */
+
+.bold-gallery-main {
+    background: linear-gradient(135deg, var(--bold-color-surface-variant) 0%, var(--bold-color-surface-container) 100%);
+    border-radius: var(--bold-section-radius);
+}
+
+.bold-gallery-nav {
+    background-color: var(--bold-color-surface);
+    box-shadow: var(--bold-section-shadow);
+    color: var(--bold-color-on-surface-variant);
+    transition: all 0.3s ease;
+}
+
+.bold-gallery-nav:hover {
+    color: var(--bold-color-primary);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.bold-gallery-counter {
+    background-color: var(--bold-color-primary);
+    backdrop-filter: blur(10px);
+    color: var(--bold-color-on-primary);
+    border-color: var(--bold-color-outline-variant);
+}
+
+.bold-thumbnail-container {
+    scrollbar-width: auto;
+}
+
+.bold-thumbnail {
+    border-radius: var(--bold-section-radius);
+    transition: all 0.3s ease;
+}
+
+.bold-thumbnail:hover {
+    border-color: var(--bold-color-primary-light);
+    transform: scale(1.05);
+}
+
+.bold-thumbnail-active {
+    border-color: var(--bold-color-primary);
+    box-shadow: 0 0 0 2px var(--bold-color-primary-light);
+}

@@ -1,0 +1,48 @@
+/* === Billing Section Component (Colors & Shadows Only) === */
+
+.neon-billingsection-h3-title {
+  color: var(--neon-color-on-surface);
+  border-bottom-color: var(--neon-color-tertiary);
+}
+
+.neon-billingsection-div-icon {
+  background: var(--neon-color-tertiary-light);
+  color: var(--neon-color-on-tertiary);
+}
+
+.neon-billingsection-div-customercard,
+.neon-billingsection-div-ordercard {
+  background: var(--neon-color-surface);
+  border-color: var(--neon-color-outline);
+  box-shadow: var(--neon-section-shadow);
+}
+
+.neon-billingsection-div-customercard:hover,
+.neon-billingsection-div-ordercard:hover {
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+}
+
+.neon-billingsection-span-label {
+  color: var(--neon-color-on-surface-variant);
+}
+
+.neon-billingsection-span-value {
+  color: var(--neon-color-on-surface);
+}
+
+.neon-billingsection-div-notes {
+  background: var(--neon-color-surface-container);
+  border-color: var(--neon-color-outline);
+}
+
+.neon-billingsection-span-notesvalue {
+  color: var(--neon-color-on-surface);
+}
+
+.neon-billingsection-div-empty {
+  background: var(--neon-color-surface-variant);
+}
+
+.neon-billingsection-span-empty {
+  color: var(--neon-color-on-surface-variant);
+}

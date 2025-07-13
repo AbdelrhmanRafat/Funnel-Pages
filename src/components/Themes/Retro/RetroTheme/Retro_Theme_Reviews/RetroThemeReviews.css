@@ -1,0 +1,83 @@
+/* === Classic Reviews Component === */
+.retro-review-card {
+    background-color: var(--retro-color-surface-variant);
+    border-radius: var(--retro-section-radius);
+    border-left-color: var(--retro-color-primary);
+    padding: var(--retro-section-padding);
+    box-shadow: var(--retro-section-shadow);
+    
+    /* Add these enhancements */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+/* Add hover effect */
+.retro-review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--retro-section-shadow-hover, 0 8px 25px rgba(0,0,0,0.1));
+}
+
+/* Add focus-within for accessibility */
+.retro-review-card:focus-within {
+    outline: 2px solid var(--retro-color-primary);
+    outline-offset: 2px;
+}
+
+.retro-review-description {
+    color: var(--retro-color-on-surface);
+    /* Add quotation marks for better visual hierarchy */
+}
+
+.retro-review-description::before {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--retro-color-primary);
+    position: absolute;
+    top: var(--retro-section-padding);
+    left: calc(var(--retro-section-padding) - 0.5rem);
+    line-height: 1;
+}
+
+.retro-review-description::after {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--retro-color-primary);
+}
+
+.retro-review-name {
+    color: var(--retro-color-primary);
+}
+
+.retro-review-author-image {
+    background-color: var(--retro-color-primary);
+    box-shadow: var(--retro-section-shadow);
+    /* Add smooth image loading */
+    overflow: hidden;
+}
+
+.retro-review-author-image img {
+    transition: transform 0.3s ease;
+}
+
+.retro-review-author-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Add responsive improvements */
+@media (max-width: 640px) {
+    .retro-review-card {
+        padding: calc(var(--retro-section-padding) * 0.75);
+    }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .retro-review-card,
+    .retro-review-author-image img {
+        transition: none;
+    }
+    
+    .retro-review-card:hover {
+        transform: none;
+    }
+}

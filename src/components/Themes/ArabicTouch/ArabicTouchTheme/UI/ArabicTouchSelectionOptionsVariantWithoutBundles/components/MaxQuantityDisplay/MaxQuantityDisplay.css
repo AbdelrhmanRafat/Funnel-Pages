@@ -1,0 +1,16 @@
+/* === Max Quantity Display Styles === */
+
+.arabictouch-selection-options-without-bundles-max-qty-display {
+  color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-selection-options-without-bundles-max-qty-value {
+  color: var(--arabictouch-color-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .arabictouch-selection-options-without-bundles-max-qty-display {
+    font-size: 1.5rem;
+  }
+}

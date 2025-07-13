@@ -1,0 +1,48 @@
+/* === Billing Section Component (Colors & Shadows Only) === */
+
+.bold-billingsection-h3-title {
+  color: var(--bold-color-on-surface);
+  border-bottom-color: var(--bold-color-tertiary);
+}
+
+.bold-billingsection-div-icon {
+  background: var(--bold-color-tertiary-light);
+  color: var(--bold-color-on-tertiary);
+}
+
+.bold-billingsection-div-customercard,
+.bold-billingsection-div-ordercard {
+  background: var(--bold-color-surface);
+  border-color: var(--bold-color-outline);
+  box-shadow: var(--bold-section-shadow);
+}
+
+.bold-billingsection-div-customercard:hover,
+.bold-billingsection-div-ordercard:hover {
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+}
+
+.bold-billingsection-span-label {
+  color: var(--bold-color-on-surface-variant);
+}
+
+.bold-billingsection-span-value {
+  color: var(--bold-color-on-surface);
+}
+
+.bold-billingsection-div-notes {
+  background: var(--bold-color-surface-container);
+  border-color: var(--bold-color-outline);
+}
+
+.bold-billingsection-span-notesvalue {
+  color: var(--bold-color-on-surface);
+}
+
+.bold-billingsection-div-empty {
+  background: var(--bold-color-surface-variant);
+}
+
+.bold-billingsection-span-empty {
+  color: var(--bold-color-on-surface-variant);
+}

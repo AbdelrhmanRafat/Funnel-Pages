@@ -1,0 +1,7 @@
+/* === Order Confirmation Notice === */
+.fresh-order-through-whatsapp {
+    background-color: var(--fresh-color-surface);
+    color: var(--fresh-color-on-surface);
+    border-radius: var(--fresh-section-radius);
+    padding: var(--fresh-section-padding);
+}

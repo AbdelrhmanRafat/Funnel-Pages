@@ -1,0 +1,306 @@
+/* === Classic Form Components (Refactored with Custom Variables) === */
+
+/* Main form container */
+.minimal-form-div-container {
+    background-color: var(--minimal-color-surface);
+    border-radius: var(--minimal-section-radius);
+    box-shadow: var(--minimal-section-shadow);
+}
+
+/* Form title styling */
+.minimal-form-h1-title {
+    color: var(--minimal-color-on-surface);
+    font-size: var(--minimal-header-size);
+    font-weight: var(--minimal-header-weight);
+    margin-bottom: var(--minimal-header-margin-bottom);
+}
+
+/* Section headers within form */
+.minimal-form-h2-title {
+    color: var(--minimal-color-on-surface);
+    font-size: var(--minimal-header-center-size);
+    font-weight: var(--minimal-header-center-weight);
+    margin-bottom: var(--minimal-header-center-margin-bottom);
+}
+
+/* Form group container */
+.minimal-form-div-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Base input field styling */
+.minimal-form-input-base {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--minimal-color-outline);
+    border-radius: 12px;
+    color: var(--minimal-color-on-surface);
+    background-color: var(--minimal-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Responsive input sizing */
+.minimal-form-input-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .minimal-form-input-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Textarea specific responsive styling */
+.minimal-form-textarea-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .minimal-form-textarea-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Select base styling */
+.minimal-form-select-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--minimal-color-outline);
+    border-radius: 12px;
+    color: var(--minimal-color-on-surface);
+    background-color: var(--minimal-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Select responsive styling */
+.minimal-form-select-responsive {
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .minimal-form-select-responsive {
+        padding: 1rem;
+    }
+}
+
+/* Floating label styling */
+.minimal-form-label-floating {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--minimal-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--minimal-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Static label styling */
+.minimal-form-label-static {
+    color: var(--minimal-color-on-surface);
+    font-weight: 500;
+}
+
+/* Focus and valid states for input */
+.minimal-form-input-base:focus,
+.minimal-form-input-base:valid {
+    border-color: var(--minimal-color-primary);
+    box-shadow: var(--minimal-section-shadow);
+}
+
+.minimal-form-select-base:focus {
+    border-color: var(--minimal-color-primary);
+    box-shadow: var(--minimal-section-shadow);
+}
+
+/* Floating label animation */
+.minimal-form-input-base:focus ~ .minimal-form-label-floating,
+.minimal-form-input-base:valid ~ .minimal-form-label-floating,
+.minimal-form-textarea-responsive:focus ~ .minimal-form-label-floating,
+.minimal-form-textarea-responsive:valid ~ .minimal-form-label-floating {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--minimal-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.minimal-form-span-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--minimal-color-error);
+    min-height: 1.25rem;
+    margin-top: 0.25rem;
+}
+
+/* Input validation states */
+.minimal-form-input-error {
+    border-color: var(--minimal-color-error) !important;
+}
+
+.minimal-form-input-success {
+    border-color: var(--minimal-color-success) !important;
+}
+
+/* RTL support for floating labels */
+.minimal-form-input-base.text-right ~ .minimal-form-label-floating,
+.minimal-form-textarea-responsive.text-right ~ .minimal-form-label-floating {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+
+.minimal-form-input-base.text-left ~ .minimal-form-label-floating,
+.minimal-form-textarea-responsive.text-left ~ .minimal-form-label-floating {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.minimal-form-input-base.text-right:focus ~ .minimal-form-label-floating,
+.minimal-form-input-base.text-right:valid ~ .minimal-form-label-floating,
+.minimal-form-textarea-responsive.text-right:focus ~ .minimal-form-label-floating,
+.minimal-form-textarea-responsive.text-right:valid ~ .minimal-form-label-floating {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+/* Payment and delivery option containers */
+.minimal-form-div-payment {
+    padding: 0.75rem;
+    border: 1px solid var(--minimal-color-outline);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    background-color: var(--minimal-color-surface);
+}
+
+@media (min-width: 768px) {
+    .minimal-form-div-payment {
+        padding: 1rem;
+    }
+}
+
+/* Hover state for payment options */
+.minimal-form-div-payment:hover {
+    background-color: var(--minimal-color-surface-variant);
+    border-color: var(--minimal-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.minimal-form-div-payment:focus-within {
+    border-color: var(--minimal-color-primary);
+    outline: 2px solid var(--minimal-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.minimal-form-span-payment-label {
+    display: block;
+    color: var(--minimal-color-on-surface);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Payment option descriptions */
+.minimal-form-span-payment-description {
+    display: block;
+    color: var(--minimal-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.minimal-form-input-radio {
+    accent-color: var(--minimal-color-primary);
+    border-color: var(--minimal-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator */
+.minimal-form-div-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--minimal-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: var(--minimal-color-surface);
+}
+
+/* Radio dot inside custom indicator */
+.minimal-form-div-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.minimal-form-input-radio:checked + .minimal-form-div-content .minimal-form-div-radio-indicator {
+    border-color: var(--minimal-color-primary);
+    background-color: var(--minimal-color-primary);
+}
+
+.minimal-form-input-radio:checked + .minimal-form-div-content .minimal-form-div-radio-dot {
+    background-color: var(--minimal-color-surface);
+}
+
+/* Notes section specific styling */
+.minimal-form-div-notes {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+    .minimal-form-div-notes {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Button section styling */
+.minimal-form-div-button-container {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .minimal-form-div-button-container {
+        margin-top: 2rem;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .minimal-form-input-base,
+    .minimal-form-select-base,
+    .minimal-form-div-payment,
+    .minimal-form-div-radio-indicator,
+    .minimal-form-div-radio-dot,
+    .minimal-form-label-floating {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .minimal-form-input-base,
+    .minimal-form-select-base {
+        border-width: 3px;
+    }
+
+    .minimal-form-div-payment {
+        border-width: 2px;
+    }
+    
+    .minimal-form-div-radio-indicator {
+        border-width: 3px;
+    }
+}

@@ -1,0 +1,70 @@
+/* === Classic Product Preview (Refactored with Custom Variables) === */
+
+/* Video container */
+.zen-productpreview-div-video {
+    border-color: var(--zen-color-primary);
+    box-shadow: var(--zen-section-shadow);
+}
+
+/* Video placeholder */
+.zen-productpreview-div-placeholder {
+    background-color: var(--zen-color-surface-variant);
+}
+
+.zen-productpreview-span-notvideo {
+    color: var(--zen-color-on-surface-variant);
+}
+
+/* Video title overlay */
+.zen-productpreview-div-videotitle {
+    color: var(--zen-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.zen-productpreview-p-title {
+    color: var(--zen-color-surface);
+}
+
+/* Features container */
+.zen-productpreview-div-features {
+    background-color: var(--zen-color-surface-container-high);
+    box-shadow: var(--zen-section-shadow);
+}
+
+/* Features header */
+.zen-productpreview-div-header {
+    border-color: var(--zen-color-outline-variant);
+}
+
+.zen-productpreview-h2-title {
+    color: var(--zen-color-on-surface);
+}
+
+/* Views badge */
+.zen-productpreview-div-viewsbadge {
+    background-color: var(--zen-color-surface-variant);
+}
+
+.zen-productpreview-span-views {
+    color: var(--zen-color-on-surface-variant);
+}
+
+/* Feature icon */
+.zen-productpreview-div-featureicon {
+    background-color: var(--zen-color-primary);
+    color: var(--zen-color-on-primary);
+}
+
+/* Feature content */
+.zen-productpreview-div-featuretitle {
+    color: var(--zen-color-on-surface);
+}
+
+.zen-productpreview-div-featuresubtitle {
+    color: var(--zen-color-on-surface-variant);
+}
+
+/* Button container */
+.zen-productpreview-div-buttoncontainer {
+    border-color: var(--zen-color-outline-variant);
+}

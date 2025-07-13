@@ -1,0 +1,33 @@
+/* === Total Section Styles === */
+
+.techno-product-costs-total-section {
+  background-color: var(--techno-color-primary-light);
+  padding: 1rem 1.5rem;
+  border-top: 2px solid var(--techno-color-primary);
+  margin-top: 0.75rem;
+  border-radius: var(--techno-section-radius);
+}
+
+.techno-product-costs-total-label {
+  color: var(--techno-color-on-primary);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.techno-product-costs-total-value {
+  color: var(--techno-color-on-primary);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+  .techno-product-costs-total-section {
+    padding: 0.75rem 1rem;
+  }
+  
+  .techno-product-costs-total-label,
+  .techno-product-costs-total-value {
+    font-size: 1rem;
+  }
+}

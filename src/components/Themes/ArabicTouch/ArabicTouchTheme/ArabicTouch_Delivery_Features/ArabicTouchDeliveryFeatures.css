@@ -1,0 +1,12 @@
+/* === Delivery Features Section Classes === */
+.arabictouch-delivery-feature-icon {
+    color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-delivery-feature-title {
+    color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-delivery-feature-subtitle {
+    color: var(--arabictouch-color-on-surface-variant);
+}

@@ -1,0 +1,51 @@
+/* === Classic Language Switcher === */
+.pop-lang-switcher {
+  color: var(--pop-color-on-surface);
+  background-color: var(--pop-color-surface-variant);
+  border-color: var(--pop-color-outline-variant);
+}
+
+.pop-lang-switcher:hover {
+  background-color: var(--pop-color-primary);
+  color: var(--pop-color-on-primary);
+  border-color: var(--pop-color-primary);
+  transform: scale(1.05);
+  box-shadow: var(--pop-section-shadow);
+}
+
+.pop-lang-switcher:active {
+  transform: scale(0.98);
+}
+
+/* Loading state for transition */
+.pop-lang-switcher.switching {
+  opacity: 0.6;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .pop-lang-switcher {
+    transition: none;
+  }
+  
+  .pop-lang-switcher:hover {
+    transform: none;
+  }
+  
+  .pop-lang-switcher:active {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .pop-lang-switcher {
+    border: 2px solid var(--pop-color-outline);
+  }
+  
+  .pop-lang-switcher:hover {
+    border: 2px solid var(--pop-color-primary);
+  }
+}

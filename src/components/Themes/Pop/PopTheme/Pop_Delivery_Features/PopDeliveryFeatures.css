@@ -1,0 +1,12 @@
+/* === Delivery Features Section Classes === */
+.pop-delivery-feature-icon {
+    color: var(--pop-color-primary);
+}
+
+.pop-delivery-feature-title {
+    color: var(--pop-color-on-surface);
+}
+
+.pop-delivery-feature-subtitle {
+    color: var(--pop-color-on-surface-variant);
+}

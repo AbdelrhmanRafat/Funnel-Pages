@@ -1,0 +1,26 @@
+---
+import "./elegantProductCosts.css";
+import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
+import ElegantProductCostsReact from "./ElegantProductCostsReact.tsx";
+
+const hasBundlesStr: string = Astro.props.hasBundles;
+const hasBundlesBool: boolean = hasBundlesStr === "true";
+
+// Get current language
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+
+// Component configuration from original props
+const showDiscountWhenZero = Astro.props.showDiscountWhenZero ?? false;
+const currencySymbol = Astro.props.currency ?? getTranslation('productFunnel.currency', currentLang);
+
+// Prepare props for the React component
+const reactProps = {
+  hasBundles: hasBundlesBool,
+  showDiscountWhenZero,
+  currencySymbol,
+  currentLang,
+  isLoading: false,
+};
+---
+
+<ElegantProductCostsReact {...reactProps} client:visible />

@@ -1,0 +1,64 @@
+/* RetroFaq.css - Enhanced version */
+/* === Classic FAQ Component === */
+.retro-faq-item {
+    background-color: var(--retro-color-surface);
+    border-radius: var(--retro-section-radius);
+    border: 1px solid var(--retro-color-outline-variant);
+    transition: border-color 0.2s ease;
+}
+
+/* Add focus states for accessibility */
+.retro-faq-item:focus-within {
+    border-color: var(--retro-color-primary);
+    outline: 2px solid var(--retro-color-primary);
+    outline-offset: 2px;
+}
+
+.retro-faq-question {
+    transition: background-color 0.2s ease;
+}
+
+.retro-faq-question:hover {
+    background-color: var(--retro-color-surface-variant);
+}
+
+.retro-faq-question:focus {
+    background-color: var(--retro-color-surface-variant);
+    outline: none; /* Handled by parent */
+}
+
+.retro-faq-question-text {
+    color: var(--retro-color-on-surface);
+}
+
+.retro-faq-icon {
+    color: var(--retro-color-on-surface-variant);
+    transition: transform 0.3s ease, color 0.2s ease;
+}
+
+/* Add open state styling */
+.retro-faq-item[open] .retro-faq-icon {
+    color: var(--retro-color-primary);
+}
+
+.retro-faq-answer {
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.retro-faq-answer.open {
+    padding-bottom: 1.5rem;
+}
+
+.retro-faq-answer-content {
+    color: var(--retro-color-on-surface-variant);
+    line-height: 1.6;
+}
+
+/* Add animation polish */
+@media (prefers-reduced-motion: reduce) {
+    .retro-faq-icon,
+    .retro-faq-answer,
+    .retro-faq-question {
+        transition: none;
+    }
+}

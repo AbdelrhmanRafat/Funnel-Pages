@@ -1,0 +1,64 @@
+/* ElegantFaq.css - Enhanced version */
+/* === Classic FAQ Component === */
+.elegant-faq-item {
+    background-color: var(--elegant-color-surface);
+    border-radius: var(--elegant-section-radius);
+    border: 1px solid var(--elegant-color-outline-variant);
+    transition: border-color 0.2s ease;
+}
+
+/* Add focus states for accessibility */
+.elegant-faq-item:focus-within {
+    border-color: var(--elegant-color-primary);
+    outline: 2px solid var(--elegant-color-primary);
+    outline-offset: 2px;
+}
+
+.elegant-faq-question {
+    transition: background-color 0.2s ease;
+}
+
+.elegant-faq-question:hover {
+    background-color: var(--elegant-color-surface-variant);
+}
+
+.elegant-faq-question:focus {
+    background-color: var(--elegant-color-surface-variant);
+    outline: none; /* Handled by parent */
+}
+
+.elegant-faq-question-text {
+    color: var(--elegant-color-on-surface);
+}
+
+.elegant-faq-icon {
+    color: var(--elegant-color-on-surface-variant);
+    transition: transform 0.3s ease, color 0.2s ease;
+}
+
+/* Add open state styling */
+.elegant-faq-item[open] .elegant-faq-icon {
+    color: var(--elegant-color-primary);
+}
+
+.elegant-faq-answer {
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.elegant-faq-answer.open {
+    padding-bottom: 1.5rem;
+}
+
+.elegant-faq-answer-content {
+    color: var(--elegant-color-on-surface-variant);
+    line-height: 1.6;
+}
+
+/* Add animation polish */
+@media (prefers-reduced-motion: reduce) {
+    .elegant-faq-icon,
+    .elegant-faq-answer,
+    .elegant-faq-question {
+        transition: none;
+    }
+}

@@ -1,0 +1,21 @@
+---
+import "./TechnoButtonWithLink.css";
+import type { BlockData, Item } from '../../../../../lib/api/types';
+import { FunnelTechnoComponents } from "../../../../../lib/constants/themes";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+const link : string | undefined = data.items?.[0].link;
+const title : string | undefined = isArabic ? data.title_ar : data.title_en;
+---
+<section id={FunnelTechnoComponents.TechnoButtonWithLink}>
+  <div class="techno-button-container">
+    <a href={link} class="techno-button-shine" target="_blank">
+      <span>{title}</span>
+    </a>
+  </div>
+</section>

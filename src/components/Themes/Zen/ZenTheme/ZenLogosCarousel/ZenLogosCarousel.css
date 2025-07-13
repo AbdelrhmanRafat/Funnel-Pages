@@ -1,0 +1,93 @@
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
+
+/* Section Divider */
+.zen-logocarousel-div-divider {
+    background: linear-gradient(90deg, 
+        var(--zen-color-primary) 0%,
+        var(--zen-color-secondary) 50%,
+        var(--zen-color-primary) 100%
+    );
+}
+
+/* Logo Cards - Clean and minimal */
+.zen-logocarousel-div-card {
+    background: transparent;
+}
+
+/* Skeleton Loading State */
+.zen-logocarousel-div-skeleton {
+    background: linear-gradient(90deg, 
+        var(--zen-color-surface) 25%, 
+        var(--zen-color-surface-variant) 50%, 
+        var(--zen-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: zen-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes zen-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Carousel Navigation Arrows */
+.zen-logocarousel-button-left,
+.zen-logocarousel-button-right {
+    background-color: var(--zen-color-surface);
+    color: var(--zen-color-on-surface);
+    border-color: var(--zen-color-outline-variant);
+}
+
+.zen-logocarousel-button-left:hover,
+.zen-logocarousel-button-right:hover {
+    background-color: var(--zen-color-surface-variant);
+    border-color: var(--zen-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.zen-logocarousel-button-left:disabled,
+.zen-logocarousel-button-right:disabled {
+    background-color: var(--zen-color-surface);
+    border-color: var(--zen-color-outline-variant);
+    color: var(--zen-color-on-surface-variant);
+}
+
+.zen-logocarousel-button-left:focus,
+.zen-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--zen-color-primary-light);
+    border-color: var(--zen-color-primary);
+}
+
+/* Page Indicators */
+.zen-logocarousel-button-indicator {
+    background-color: var(--zen-color-outline);
+}
+
+.zen-logocarousel-button-indicator:hover {
+    background-color: var(--zen-color-primary-light);
+}
+
+.zen-logocarousel-button-indicator.zen-logocarousel-button-active {
+    background-color: var(--zen-color-primary);
+}
+
+.zen-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--zen-color-primary-light);
+}
+
+/* Progress Bar */
+.zen-logocarousel-div-progressbg {
+    background-color: var(--zen-color-outline);
+}
+
+.zen-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--zen-color-primary), 
+        var(--zen-color-primary-light)
+    );
+}
+
+/* Trust Indicator */
+.zen-logocarousel-p-trust {
+    color: var(--zen-color-on-surface-variant);
+}

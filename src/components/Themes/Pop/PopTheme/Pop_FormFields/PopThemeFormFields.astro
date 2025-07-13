@@ -1,0 +1,26 @@
+---
+import "./PopThemeFormFields.css";
+import { type Language } from "../../../../../lib/utils/i18n/translations";
+import type { BlockData, Product } from "../../../../../lib/api/types";
+import { FunnelPopComponents } from "../../../../../lib/constants/themes";
+import PopThemeFormFieldsReact from "./PopThemeFormFieldsReact.tsx";
+
+// DATA INITIALIZATION & PROCESSING
+const data: BlockData = Astro.props.data;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const isHaveVariant: string = Astro.props.isHaveVariant;
+const product: Product = Astro.props.product;
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+
+const reactProps = {
+  data,
+  purchaseOptions,
+  isHaveVariant,
+  product,
+  currentLang,
+};
+---
+
+<PopThemeFormFieldsReact {...reactProps} client:only="react" />

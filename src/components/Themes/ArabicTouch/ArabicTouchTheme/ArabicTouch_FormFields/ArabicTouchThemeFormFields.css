@@ -1,0 +1,306 @@
+/* === Classic Form Components (Refactored with Custom Variables) === */
+
+/* Main form container */
+.arabictouch-form-div-container {
+    background-color: var(--arabictouch-color-surface);
+    border-radius: var(--arabictouch-section-radius);
+    box-shadow: var(--arabictouch-section-shadow);
+}
+
+/* Form title styling */
+.arabictouch-form-h1-title {
+    color: var(--arabictouch-color-on-surface);
+    font-size: var(--arabictouch-header-size);
+    font-weight: var(--arabictouch-header-weight);
+    margin-bottom: var(--arabictouch-header-margin-bottom);
+}
+
+/* Section headers within form */
+.arabictouch-form-h2-title {
+    color: var(--arabictouch-color-on-surface);
+    font-size: var(--arabictouch-header-center-size);
+    font-weight: var(--arabictouch-header-center-weight);
+    margin-bottom: var(--arabictouch-header-center-margin-bottom);
+}
+
+/* Form group container */
+.arabictouch-form-div-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Base input field styling */
+.arabictouch-form-input-base {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--arabictouch-color-outline);
+    border-radius: 12px;
+    color: var(--arabictouch-color-on-surface);
+    background-color: var(--arabictouch-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Responsive input sizing */
+.arabictouch-form-input-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .arabictouch-form-input-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Textarea specific responsive styling */
+.arabictouch-form-textarea-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .arabictouch-form-textarea-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Select base styling */
+.arabictouch-form-select-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--arabictouch-color-outline);
+    border-radius: 12px;
+    color: var(--arabictouch-color-on-surface);
+    background-color: var(--arabictouch-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Select responsive styling */
+.arabictouch-form-select-responsive {
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .arabictouch-form-select-responsive {
+        padding: 1rem;
+    }
+}
+
+/* Floating label styling */
+.arabictouch-form-label-floating {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--arabictouch-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--arabictouch-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Static label styling */
+.arabictouch-form-label-static {
+    color: var(--arabictouch-color-on-surface);
+    font-weight: 500;
+}
+
+/* Focus and valid states for input */
+.arabictouch-form-input-base:focus,
+.arabictouch-form-input-base:valid {
+    border-color: var(--arabictouch-color-primary);
+    box-shadow: var(--arabictouch-section-shadow);
+}
+
+.arabictouch-form-select-base:focus {
+    border-color: var(--arabictouch-color-primary);
+    box-shadow: var(--arabictouch-section-shadow);
+}
+
+/* Floating label animation */
+.arabictouch-form-input-base:focus ~ .arabictouch-form-label-floating,
+.arabictouch-form-input-base:valid ~ .arabictouch-form-label-floating,
+.arabictouch-form-textarea-responsive:focus ~ .arabictouch-form-label-floating,
+.arabictouch-form-textarea-responsive:valid ~ .arabictouch-form-label-floating {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--arabictouch-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.arabictouch-form-span-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--arabictouch-color-error);
+    min-height: 1.25rem;
+    margin-top: 0.25rem;
+}
+
+/* Input validation states */
+.arabictouch-form-input-error {
+    border-color: var(--arabictouch-color-error) !important;
+}
+
+.arabictouch-form-input-success {
+    border-color: var(--arabictouch-color-success) !important;
+}
+
+/* RTL support for floating labels */
+.arabictouch-form-input-base.text-right ~ .arabictouch-form-label-floating,
+.arabictouch-form-textarea-responsive.text-right ~ .arabictouch-form-label-floating {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+
+.arabictouch-form-input-base.text-left ~ .arabictouch-form-label-floating,
+.arabictouch-form-textarea-responsive.text-left ~ .arabictouch-form-label-floating {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.arabictouch-form-input-base.text-right:focus ~ .arabictouch-form-label-floating,
+.arabictouch-form-input-base.text-right:valid ~ .arabictouch-form-label-floating,
+.arabictouch-form-textarea-responsive.text-right:focus ~ .arabictouch-form-label-floating,
+.arabictouch-form-textarea-responsive.text-right:valid ~ .arabictouch-form-label-floating {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+/* Payment and delivery option containers */
+.arabictouch-form-div-payment {
+    padding: 0.75rem;
+    border: 1px solid var(--arabictouch-color-outline);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    background-color: var(--arabictouch-color-surface);
+}
+
+@media (min-width: 768px) {
+    .arabictouch-form-div-payment {
+        padding: 1rem;
+    }
+}
+
+/* Hover state for payment options */
+.arabictouch-form-div-payment:hover {
+    background-color: var(--arabictouch-color-surface-variant);
+    border-color: var(--arabictouch-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.arabictouch-form-div-payment:focus-within {
+    border-color: var(--arabictouch-color-primary);
+    outline: 2px solid var(--arabictouch-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.arabictouch-form-span-payment-label {
+    display: block;
+    color: var(--arabictouch-color-on-surface);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Payment option descriptions */
+.arabictouch-form-span-payment-description {
+    display: block;
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.arabictouch-form-input-radio {
+    accent-color: var(--arabictouch-color-primary);
+    border-color: var(--arabictouch-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator */
+.arabictouch-form-div-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--arabictouch-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: var(--arabictouch-color-surface);
+}
+
+/* Radio dot inside custom indicator */
+.arabictouch-form-div-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.arabictouch-form-input-radio:checked + .arabictouch-form-div-content .arabictouch-form-div-radio-indicator {
+    border-color: var(--arabictouch-color-primary);
+    background-color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-form-input-radio:checked + .arabictouch-form-div-content .arabictouch-form-div-radio-dot {
+    background-color: var(--arabictouch-color-surface);
+}
+
+/* Notes section specific styling */
+.arabictouch-form-div-notes {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+    .arabictouch-form-div-notes {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Button section styling */
+.arabictouch-form-div-button-container {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .arabictouch-form-div-button-container {
+        margin-top: 2rem;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .arabictouch-form-input-base,
+    .arabictouch-form-select-base,
+    .arabictouch-form-div-payment,
+    .arabictouch-form-div-radio-indicator,
+    .arabictouch-form-div-radio-dot,
+    .arabictouch-form-label-floating {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .arabictouch-form-input-base,
+    .arabictouch-form-select-base {
+        border-width: 3px;
+    }
+
+    .arabictouch-form-div-payment {
+        border-width: 2px;
+    }
+    
+    .arabictouch-form-div-radio-indicator {
+        border-width: 3px;
+    }
+}

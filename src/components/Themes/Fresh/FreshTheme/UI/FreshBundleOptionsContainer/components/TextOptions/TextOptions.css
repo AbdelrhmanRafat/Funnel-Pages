@@ -1,0 +1,41 @@
+/* === Text Options Styles === */
+
+.fresh-bundle-options-container-text-option {
+  background: var(--fresh-color-surface);
+  border-color: var(--fresh-color-outline);
+  color: var(--fresh-color-on-surface);
+  transition: all 0.2s ease;
+}
+
+.fresh-bundle-options-container-text-option:hover:not(.fresh-bundle-options-container-option-disabled) {
+  background: var(--fresh-color-surface-variant);
+  border-color: var(--fresh-color-primary);
+}
+
+.fresh-bundle-options-container-selected-text {
+  background: var(--fresh-color-primary-light);
+  border-color: var(--fresh-color-primary);
+  color: var(--fresh-color-on-primary);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.fresh-bundle-options-container-option-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .fresh-bundle-options-container-text-option {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .fresh-bundle-options-container-text-option {
+    transition: none;
+  }
+}

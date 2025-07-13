@@ -1,0 +1,85 @@
+/* === Direct Product Item Details Component (Colors & Shadows Only) === */
+
+.retro-directproduct-h3-title {
+  color: var(--retro-color-on-surface);
+  border-bottom-color: var(--retro-color-primary);
+}
+
+.retro-directproduct-div-icon {
+  background: var(--retro-color-primary-light);
+  color: var(--retro-color-on-primary);
+}
+
+.retro-directproduct-div-card {
+  background: var(--retro-color-surface);
+  border-color: var(--retro-color-outline);
+  border-left-color: var(--retro-color-primary);
+  box-shadow: var(--retro-section-shadow);
+}
+
+.retro-directproduct-img-product {
+  background: var(--retro-color-surface-variant);
+  border-color: var(--retro-color-outline);
+}
+
+.retro-directproduct-h4-name {
+  color: var(--retro-color-on-surface);
+}
+
+.retro-directproduct-p-sku {
+  color: var(--retro-color-on-surface-variant);
+  background: var(--retro-color-surface-container);
+}
+
+.retro-directproduct-span-variantlabel {
+  color: var(--retro-color-on-surface-variant);
+}
+
+.retro-directproduct-span-variant {
+  background: var(--retro-color-surface-container);
+  color: var(--retro-color-on-surface);
+  border-color: var(--retro-color-outline);
+}
+
+.retro-directproduct-div-note {
+  background: var(--retro-color-surface-container);
+  border-color: var(--retro-color-primary);
+}
+
+.retro-directproduct-p-note {
+  color: var(--retro-color-on-surface-variant);
+}
+
+.retro-directproduct-div-pricing {
+  background: var(--retro-color-surface-variant);
+  border-color: var(--retro-color-outline);
+}
+
+.retro-directproduct-h5-pricingtitle {
+  color: var(--retro-color-on-surface);
+}
+
+.retro-directproduct-span-label {
+  color: var(--retro-color-on-surface-variant);
+}
+
+.retro-directproduct-span-quantity {
+  background: var(--retro-color-primary-light);
+  color: var(--retro-color-on-primary);
+}
+
+.retro-directproduct-span-unitprice {
+  color: var(--retro-color-on-surface);
+}
+
+.retro-directproduct-span-discount {
+  color: var(--retro-color-success);
+}
+
+.retro-directproduct-div-divider {
+  background: var(--retro-color-outline);
+}
+
+.retro-directproduct-span-total {
+  color: var(--retro-color-on-surface);
+}

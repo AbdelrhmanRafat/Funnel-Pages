@@ -1,0 +1,16 @@
+/* === Order Confirmation Notice === */
+.bold-order-confirmation-notice {
+    background-color: var(--bold-color-surface);
+    color: var(--bold-color-on-surface);
+    border-radius: var(--bold-section-radius);
+    box-shadow: var(--bold-section-shadow);
+}
+
+.bold-order-confirmation-title {
+    color: var(--bold-color-on-surface);
+}
+
+.bold-order-confirmation-icon {
+    background-color: var(--bold-color-secondary);
+    color: var(--bold-color-on-secondary);
+}

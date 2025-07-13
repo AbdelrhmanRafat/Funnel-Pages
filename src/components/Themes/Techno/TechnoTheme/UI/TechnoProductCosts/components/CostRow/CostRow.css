@@ -1,0 +1,37 @@
+/* === Cost Row Styles === */
+
+.techno-product-costs-row {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--techno-color-outline-variant);
+  transition: background-color 0.2s ease;
+}
+
+.techno-product-costs-row:hover {
+  background-color: var(--techno-color-surface-variant);
+}
+
+.techno-product-costs-row:last-child {
+  border-bottom: none;
+}
+
+.techno-product-costs-label {
+  color: var(--techno-color-on-surface-variant);
+  font-weight: 500;
+}
+
+.techno-product-costs-value {
+  color: var(--techno-color-on-surface);
+  font-weight: 600;
+}
+
+.techno-product-costs-discount {
+  color: var(--techno-color-success);
+  font-weight: 600;
+}
+
+/* === Focus States for Accessibility === */
+.techno-product-costs-row:focus-within {
+  outline: 2px solid var(--techno-color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

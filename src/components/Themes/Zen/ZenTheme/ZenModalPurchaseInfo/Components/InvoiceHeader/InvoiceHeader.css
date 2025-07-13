@@ -1,0 +1,11 @@
+/* === Invoice Header Component (Colors & Shadows Only) === */
+
+.zen-invoiceheader-div-container {
+  background: linear-gradient(135deg, var(--zen-color-primary) 0%, var(--zen-color-primary-dark) 100%);
+  color: var(--zen-color-on-primary);
+  border-bottom: 3px solid var(--zen-color-primary-dark);
+}
+
+.zen-invoiceheader-h3-title {
+  color: var(--zen-color-on-primary);
+}

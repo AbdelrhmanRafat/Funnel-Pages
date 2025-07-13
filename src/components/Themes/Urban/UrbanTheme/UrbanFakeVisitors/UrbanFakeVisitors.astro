@@ -1,0 +1,32 @@
+---
+import "./UrbanFakeVisitors.css";
+import type { BlockData, Item } from '../../../../../lib/api/types';
+import { FunnelUrbanComponents } from "../../../../../lib/constants/themes";
+
+const data: BlockData = Astro.props.data;
+const visitors: Item[] = data.items ?? [];
+---
+
+<urban-visitors-animation 
+  class="w-full flex justify-start items-start"
+  data-urban-visitors={JSON.stringify(visitors)}
+  data-urban-display-time="3000"
+  data-urban-flash-duration="800"
+>
+  <section id={FunnelUrbanComponents.UrbanVisitors}>
+    <div class="urban-visitors-section flex justify-start items-center gap-4">
+      <!-- Single visitor display area -->
+      <div class="urban-visitor-display">
+        <div class="urban-visitor-image w-8 h-8 rounded-full opacity-0">
+          <img class="w-full rounded-full" src="" alt="Visitor" id="urban-visitor-img"/>
+        </div>
+        <p class="urban-visitor-description opacity-0" id="urban-visitor-desc"></p>
+      </div>
+    </div>
+  </section>
+</urban-visitors-animation>
+
+
+<script>
+  import "./UrbanFakeVisitors";
+</script>

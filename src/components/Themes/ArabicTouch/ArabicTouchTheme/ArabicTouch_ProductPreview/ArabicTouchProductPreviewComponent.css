@@ -1,0 +1,70 @@
+/* === Classic Product Preview (Refactored with Custom Variables) === */
+
+/* Video container */
+.arabictouch-productpreview-div-video {
+    border-color: var(--arabictouch-color-primary);
+    box-shadow: var(--arabictouch-section-shadow);
+}
+
+/* Video placeholder */
+.arabictouch-productpreview-div-placeholder {
+    background-color: var(--arabictouch-color-surface-variant);
+}
+
+.arabictouch-productpreview-span-notvideo {
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+/* Video title overlay */
+.arabictouch-productpreview-div-videotitle {
+    color: var(--arabictouch-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.arabictouch-productpreview-p-title {
+    color: var(--arabictouch-color-surface);
+}
+
+/* Features container */
+.arabictouch-productpreview-div-features {
+    background-color: var(--arabictouch-color-surface-container-high);
+    box-shadow: var(--arabictouch-section-shadow);
+}
+
+/* Features header */
+.arabictouch-productpreview-div-header {
+    border-color: var(--arabictouch-color-outline-variant);
+}
+
+.arabictouch-productpreview-h2-title {
+    color: var(--arabictouch-color-on-surface);
+}
+
+/* Views badge */
+.arabictouch-productpreview-div-viewsbadge {
+    background-color: var(--arabictouch-color-surface-variant);
+}
+
+.arabictouch-productpreview-span-views {
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+/* Feature icon */
+.arabictouch-productpreview-div-featureicon {
+    background-color: var(--arabictouch-color-primary);
+    color: var(--arabictouch-color-on-primary);
+}
+
+/* Feature content */
+.arabictouch-productpreview-div-featuretitle {
+    color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-productpreview-div-featuresubtitle {
+    color: var(--arabictouch-color-on-surface-variant);
+}
+
+/* Button container */
+.arabictouch-productpreview-div-buttoncontainer {
+    border-color: var(--arabictouch-color-outline-variant);
+}

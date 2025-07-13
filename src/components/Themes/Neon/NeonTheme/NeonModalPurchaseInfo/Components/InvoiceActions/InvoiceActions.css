@@ -1,0 +1,50 @@
+/* === Invoice Actions Styles === */
+
+.neon-cancel-button {
+  background: var(--neon-color-background);
+  border: 2px solid var(--neon-color-outline);
+  color: var(--neon-color-on-surface);
+}
+
+.neon-cancel-button:hover:not(:disabled) {
+  background: var(--neon-color-surface-variant);
+  border-color: var(--neon-color-primary);
+  color: var(--neon-color-primary);
+}
+
+.neon-cancel-button:disabled {
+  background: var(--neon-color-surface);
+  border-color: var(--neon-color-outline);
+  color: var(--neon-color-on-surface-variant);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .neon-invoice-actions {
+    flex-direction: column;
+  }
+  
+  .neon-cancel-button {
+    order: 2;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .neon-invoice-actions {
+    display: none;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .neon-cancel-button {
+    transition: none;
+  }
+  
+  .neon-cancel-button:hover {
+    transform: none;
+  }
+}

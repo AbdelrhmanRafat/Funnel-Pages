@@ -1,0 +1,11 @@
+/* === Invoice Header Component (Colors & Shadows Only) === */
+
+.techno-invoiceheader-div-container {
+  background: linear-gradient(135deg, var(--techno-color-primary) 0%, var(--techno-color-primary-dark) 100%);
+  color: var(--techno-color-on-primary);
+  border-bottom: 3px solid var(--techno-color-primary-dark);
+}
+
+.techno-invoiceheader-h3-title {
+  color: var(--techno-color-on-primary);
+}

@@ -1,0 +1,7 @@
+.neon-form-submit {
+    width: 100%;
+    background-color: var(--neon-color-primary);
+    color: var(--neon-color-on-primary);
+    padding: 1rem;
+    border-radius: var(--neon-section-radius);
+}

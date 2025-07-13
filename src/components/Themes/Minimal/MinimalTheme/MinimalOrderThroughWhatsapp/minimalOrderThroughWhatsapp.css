@@ -1,0 +1,7 @@
+/* === Order Confirmation Notice === */
+.minimal-order-through-whatsapp {
+    background-color: var(--minimal-color-surface);
+    color: var(--minimal-color-on-surface);
+    border-radius: var(--minimal-section-radius);
+    padding: var(--minimal-section-padding);
+}

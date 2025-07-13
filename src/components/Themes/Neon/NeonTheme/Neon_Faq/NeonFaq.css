@@ -1,0 +1,64 @@
+/* NeonFaq.css - Enhanced version */
+/* === Classic FAQ Component === */
+.neon-faq-item {
+    background-color: var(--neon-color-surface);
+    border-radius: var(--neon-section-radius);
+    border: 1px solid var(--neon-color-outline-variant);
+    transition: border-color 0.2s ease;
+}
+
+/* Add focus states for accessibility */
+.neon-faq-item:focus-within {
+    border-color: var(--neon-color-primary);
+    outline: 2px solid var(--neon-color-primary);
+    outline-offset: 2px;
+}
+
+.neon-faq-question {
+    transition: background-color 0.2s ease;
+}
+
+.neon-faq-question:hover {
+    background-color: var(--neon-color-surface-variant);
+}
+
+.neon-faq-question:focus {
+    background-color: var(--neon-color-surface-variant);
+    outline: none; /* Handled by parent */
+}
+
+.neon-faq-question-text {
+    color: var(--neon-color-on-surface);
+}
+
+.neon-faq-icon {
+    color: var(--neon-color-on-surface-variant);
+    transition: transform 0.3s ease, color 0.2s ease;
+}
+
+/* Add open state styling */
+.neon-faq-item[open] .neon-faq-icon {
+    color: var(--neon-color-primary);
+}
+
+.neon-faq-answer {
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.neon-faq-answer.open {
+    padding-bottom: 1.5rem;
+}
+
+.neon-faq-answer-content {
+    color: var(--neon-color-on-surface-variant);
+    line-height: 1.6;
+}
+
+/* Add animation polish */
+@media (prefers-reduced-motion: reduce) {
+    .neon-faq-icon,
+    .neon-faq-answer,
+    .neon-faq-question {
+        transition: none;
+    }
+}

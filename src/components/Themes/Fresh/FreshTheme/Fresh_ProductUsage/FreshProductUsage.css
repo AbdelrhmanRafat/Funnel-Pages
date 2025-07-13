@@ -1,0 +1,69 @@
+/* === Classic Product Usage Component === */
+
+/* Main card container */
+.fresh-usage-card {
+    background-color: var(--fresh-color-surface-container);
+    box-shadow: var(--fresh-section-shadow);
+    border-radius: var(--fresh-section-radius);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fresh-usage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Video container */
+.fresh-usage-video {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Video iframe */
+.fresh-usage-iframe {
+    border-radius: var(--fresh-section-radius) var(--fresh-section-radius) 0 0;
+}
+
+/* Video placeholder for missing videos */
+.fresh-usage-video-placeholder {
+    background-color: var(--fresh-color-surface-variant);
+    color: var(--fresh-color-on-surface-variant);
+    border-radius: var(--fresh-section-radius) var(--fresh-section-radius) 0 0;
+}
+
+/* Content area */
+.fresh-usage-content {
+    background-color: var(--fresh-color-surface);
+}
+
+/* Title styling */
+.fresh-usage-title {
+    color: var(--fresh-color-on-surface);
+}
+
+/* Subtitle styling */
+.fresh-usage-subtitle {
+    color: var(--fresh-color-on-surface-variant);
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .fresh-usage-card {
+        transition: none;
+    }
+    
+    .fresh-usage-card:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .fresh-usage-card {
+        border: 2px solid var(--fresh-color-outline);
+    }
+    
+    .fresh-usage-video-placeholder {
+        border: 2px solid var(--fresh-color-outline);
+    }
+}

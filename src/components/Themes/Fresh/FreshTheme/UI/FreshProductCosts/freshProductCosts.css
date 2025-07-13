@@ -1,0 +1,130 @@
+/* === Product Costs Section === */
+.fresh-product-costs-container {
+    background-color: var(--fresh-color-surface);
+    padding: var(--fresh-section-padding);
+    border-radius: var(--fresh-section-radius);
+    overflow: hidden;
+    border: 1px solid var(--fresh-color-outline-variant);
+}
+
+.fresh-product-costs-body {
+    border-bottom: 1px solid var(--fresh-color-outline);
+}
+
+.fresh-product-costs-row {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--fresh-color-outline-variant);
+    transition: background-color 0.2s ease;
+}
+
+.fresh-product-costs-row:hover {
+    background-color: var(--fresh-color-surface-variant);
+}
+
+.fresh-product-costs-row:last-child {
+    border-bottom: none;
+}
+
+.fresh-product-costs-label {
+    color: var(--fresh-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.fresh-product-costs-value {
+    color: var(--fresh-color-on-surface);
+    font-weight: 600;
+}
+
+.fresh-product-costs-discount {
+    color: var(--fresh-color-success);
+    font-weight: 600;
+}
+
+.fresh-product-costs-total-section {
+    background-color: var(--fresh-color-primary-light);
+    padding: 1rem 1.5rem;
+    border-top: 2px solid var(--fresh-color-primary);
+    margin-top: 0.75rem;
+    border-radius: var(--fresh-section-radius);
+}
+
+.fresh-product-costs-total-label {
+    color: var(--fresh-color-on-primary);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.fresh-product-costs-total-value {
+    color: var(--fresh-color-on-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .fresh-product-costs-container {
+        padding: 0.75rem;
+    }
+    
+    .fresh-product-costs-total-section {
+        padding: 0.75rem 1rem;
+    }
+    
+    .fresh-product-costs-total-label,
+    .fresh-product-costs-total-value {
+        font-size: 1rem;
+    }
+}
+
+/* === Loading State === */
+.fresh-product-costs-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.fresh-product-costs-loading .fresh-product-costs-value,
+.fresh-product-costs-loading .fresh-product-costs-discount,
+.fresh-product-costs-loading .fresh-product-costs-total-value {
+    background-color: var(--fresh-color-surface-variant);
+    color: transparent;
+    border-radius: 4px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* === Error State === */
+.fresh-product-costs-error {
+    border-color: var(--fresh-color-error);
+    background-color: var(--fresh-color-error-light);
+}
+
+.fresh-product-costs-error .fresh-product-costs-label,
+.fresh-product-costs-error .fresh-product-costs-value {
+    color: var(--fresh-color-on-error);
+}
+
+/* === Focus States for Accessibility === */
+.fresh-product-costs-row:focus-within {
+    outline: 2px solid var(--fresh-color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .fresh-product-costs-container {
+        border: 2px solid var(--fresh-color-outline);
+    }
+    
+    .fresh-product-costs-total-section {
+        border-top: 3px solid var(--fresh-color-primary);
+    }
+}

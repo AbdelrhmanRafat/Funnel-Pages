@@ -1,0 +1,93 @@
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
+
+/* Section Divider */
+.elegant-logocarousel-div-divider {
+    background: linear-gradient(90deg, 
+        var(--elegant-color-primary) 0%,
+        var(--elegant-color-secondary) 50%,
+        var(--elegant-color-primary) 100%
+    );
+}
+
+/* Logo Cards - Clean and minimal */
+.elegant-logocarousel-div-card {
+    background: transparent;
+}
+
+/* Skeleton Loading State */
+.elegant-logocarousel-div-skeleton {
+    background: linear-gradient(90deg, 
+        var(--elegant-color-surface) 25%, 
+        var(--elegant-color-surface-variant) 50%, 
+        var(--elegant-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: elegant-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes elegant-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Carousel Navigation Arrows */
+.elegant-logocarousel-button-left,
+.elegant-logocarousel-button-right {
+    background-color: var(--elegant-color-surface);
+    color: var(--elegant-color-on-surface);
+    border-color: var(--elegant-color-outline-variant);
+}
+
+.elegant-logocarousel-button-left:hover,
+.elegant-logocarousel-button-right:hover {
+    background-color: var(--elegant-color-surface-variant);
+    border-color: var(--elegant-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.elegant-logocarousel-button-left:disabled,
+.elegant-logocarousel-button-right:disabled {
+    background-color: var(--elegant-color-surface);
+    border-color: var(--elegant-color-outline-variant);
+    color: var(--elegant-color-on-surface-variant);
+}
+
+.elegant-logocarousel-button-left:focus,
+.elegant-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--elegant-color-primary-light);
+    border-color: var(--elegant-color-primary);
+}
+
+/* Page Indicators */
+.elegant-logocarousel-button-indicator {
+    background-color: var(--elegant-color-outline);
+}
+
+.elegant-logocarousel-button-indicator:hover {
+    background-color: var(--elegant-color-primary-light);
+}
+
+.elegant-logocarousel-button-indicator.elegant-logocarousel-button-active {
+    background-color: var(--elegant-color-primary);
+}
+
+.elegant-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--elegant-color-primary-light);
+}
+
+/* Progress Bar */
+.elegant-logocarousel-div-progressbg {
+    background-color: var(--elegant-color-outline);
+}
+
+.elegant-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--elegant-color-primary), 
+        var(--elegant-color-primary-light)
+    );
+}
+
+/* Trust Indicator */
+.elegant-logocarousel-p-trust {
+    color: var(--elegant-color-on-surface-variant);
+}

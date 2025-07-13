@@ -1,0 +1,130 @@
+/* === Product Costs Section === */
+.neon-product-costs-container {
+    background-color: var(--neon-color-surface);
+    padding: var(--neon-section-padding);
+    border-radius: var(--neon-section-radius);
+    overflow: hidden;
+    border: 1px solid var(--neon-color-outline-variant);
+}
+
+.neon-product-costs-body {
+    border-bottom: 1px solid var(--neon-color-outline);
+}
+
+.neon-product-costs-row {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--neon-color-outline-variant);
+    transition: background-color 0.2s ease;
+}
+
+.neon-product-costs-row:hover {
+    background-color: var(--neon-color-surface-variant);
+}
+
+.neon-product-costs-row:last-child {
+    border-bottom: none;
+}
+
+.neon-product-costs-label {
+    color: var(--neon-color-on-surface-variant);
+    font-weight: 500;
+}
+
+.neon-product-costs-value {
+    color: var(--neon-color-on-surface);
+    font-weight: 600;
+}
+
+.neon-product-costs-discount {
+    color: var(--neon-color-success);
+    font-weight: 600;
+}
+
+.neon-product-costs-total-section {
+    background-color: var(--neon-color-primary-light);
+    padding: 1rem 1.5rem;
+    border-top: 2px solid var(--neon-color-primary);
+    margin-top: 0.75rem;
+    border-radius: var(--neon-section-radius);
+}
+
+.neon-product-costs-total-label {
+    color: var(--neon-color-on-primary);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.neon-product-costs-total-value {
+    color: var(--neon-color-on-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .neon-product-costs-container {
+        padding: 0.75rem;
+    }
+    
+    .neon-product-costs-total-section {
+        padding: 0.75rem 1rem;
+    }
+    
+    .neon-product-costs-total-label,
+    .neon-product-costs-total-value {
+        font-size: 1rem;
+    }
+}
+
+/* === Loading State === */
+.neon-product-costs-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.neon-product-costs-loading .neon-product-costs-value,
+.neon-product-costs-loading .neon-product-costs-discount,
+.neon-product-costs-loading .neon-product-costs-total-value {
+    background-color: var(--neon-color-surface-variant);
+    color: transparent;
+    border-radius: 4px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* === Error State === */
+.neon-product-costs-error {
+    border-color: var(--neon-color-error);
+    background-color: var(--neon-color-error-light);
+}
+
+.neon-product-costs-error .neon-product-costs-label,
+.neon-product-costs-error .neon-product-costs-value {
+    color: var(--neon-color-on-error);
+}
+
+/* === Focus States for Accessibility === */
+.neon-product-costs-row:focus-within {
+    outline: 2px solid var(--neon-color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .neon-product-costs-container {
+        border: 2px solid var(--neon-color-outline);
+    }
+    
+    .neon-product-costs-total-section {
+        border-top: 3px solid var(--neon-color-primary);
+    }
+}

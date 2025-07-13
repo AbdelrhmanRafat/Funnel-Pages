@@ -1,0 +1,83 @@
+/* === Classic Reviews Component === */
+.techno-review-card {
+    background-color: var(--techno-color-surface-variant);
+    border-radius: var(--techno-section-radius);
+    border-left-color: var(--techno-color-primary);
+    padding: var(--techno-section-padding);
+    box-shadow: var(--techno-section-shadow);
+    
+    /* Add these enhancements */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+/* Add hover effect */
+.techno-review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--techno-section-shadow-hover, 0 8px 25px rgba(0,0,0,0.1));
+}
+
+/* Add focus-within for accessibility */
+.techno-review-card:focus-within {
+    outline: 2px solid var(--techno-color-primary);
+    outline-offset: 2px;
+}
+
+.techno-review-description {
+    color: var(--techno-color-on-surface);
+    /* Add quotation marks for better visual hierarchy */
+}
+
+.techno-review-description::before {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--techno-color-primary);
+    position: absolute;
+    top: var(--techno-section-padding);
+    left: calc(var(--techno-section-padding) - 0.5rem);
+    line-height: 1;
+}
+
+.techno-review-description::after {
+    content: '"';
+    font-size: 1.5em;
+    color: var(--techno-color-primary);
+}
+
+.techno-review-name {
+    color: var(--techno-color-primary);
+}
+
+.techno-review-author-image {
+    background-color: var(--techno-color-primary);
+    box-shadow: var(--techno-section-shadow);
+    /* Add smooth image loading */
+    overflow: hidden;
+}
+
+.techno-review-author-image img {
+    transition: transform 0.3s ease;
+}
+
+.techno-review-author-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Add responsive improvements */
+@media (max-width: 640px) {
+    .techno-review-card {
+        padding: calc(var(--techno-section-padding) * 0.75);
+    }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .techno-review-card,
+    .techno-review-author-image img {
+        transition: none;
+    }
+    
+    .techno-review-card:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,93 @@
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
+
+/* Section Divider */
+.neon-logocarousel-div-divider {
+    background: linear-gradient(90deg, 
+        var(--neon-color-primary) 0%,
+        var(--neon-color-secondary) 50%,
+        var(--neon-color-primary) 100%
+    );
+}
+
+/* Logo Cards - Clean and minimal */
+.neon-logocarousel-div-card {
+    background: transparent;
+}
+
+/* Skeleton Loading State */
+.neon-logocarousel-div-skeleton {
+    background: linear-gradient(90deg, 
+        var(--neon-color-surface) 25%, 
+        var(--neon-color-surface-variant) 50%, 
+        var(--neon-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: neon-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes neon-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Carousel Navigation Arrows */
+.neon-logocarousel-button-left,
+.neon-logocarousel-button-right {
+    background-color: var(--neon-color-surface);
+    color: var(--neon-color-on-surface);
+    border-color: var(--neon-color-outline-variant);
+}
+
+.neon-logocarousel-button-left:hover,
+.neon-logocarousel-button-right:hover {
+    background-color: var(--neon-color-surface-variant);
+    border-color: var(--neon-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.neon-logocarousel-button-left:disabled,
+.neon-logocarousel-button-right:disabled {
+    background-color: var(--neon-color-surface);
+    border-color: var(--neon-color-outline-variant);
+    color: var(--neon-color-on-surface-variant);
+}
+
+.neon-logocarousel-button-left:focus,
+.neon-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--neon-color-primary-light);
+    border-color: var(--neon-color-primary);
+}
+
+/* Page Indicators */
+.neon-logocarousel-button-indicator {
+    background-color: var(--neon-color-outline);
+}
+
+.neon-logocarousel-button-indicator:hover {
+    background-color: var(--neon-color-primary-light);
+}
+
+.neon-logocarousel-button-indicator.neon-logocarousel-button-active {
+    background-color: var(--neon-color-primary);
+}
+
+.neon-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--neon-color-primary-light);
+}
+
+/* Progress Bar */
+.neon-logocarousel-div-progressbg {
+    background-color: var(--neon-color-outline);
+}
+
+.neon-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--neon-color-primary), 
+        var(--neon-color-primary-light)
+    );
+}
+
+/* Trust Indicator */
+.neon-logocarousel-p-trust {
+    color: var(--neon-color-on-surface-variant);
+}

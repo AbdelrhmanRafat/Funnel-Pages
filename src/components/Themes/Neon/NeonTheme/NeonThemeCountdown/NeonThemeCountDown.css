@@ -1,0 +1,17 @@
+/* This file is intended for CSS styles specific to the NeonThemeCountdown component. */
+/* Currently, it is empty as the component's styling is handled by Tailwind CSS classes in the .astro file. */
+/* However, this file can be used for more complex or component-specific styling if needed in the future. */
+/* === Classic Countdown Component === */
+
+.neon-countdown-block {
+    background-color: var(--neon-color-surface-variant);
+    color: var(--neon-color-primary-dark);
+    border-color: var(--neon-color-secondary);
+    box-shadow: var(--neon-section-shadow);
+    transition: all 0.3s ease;
+}
+
+.neon-countdown-block:hover {
+    box-shadow: var(--neon-section-shadow);
+    transform: scale(1.05);
+}

@@ -1,0 +1,51 @@
+/* === Rates Section Classes === */
+.arabictouch-rates {
+    font-size: 1.5rem;
+    color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-rating-display {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    font-weight: 600;
+}
+
+.arabictouch-rating-star-full {
+    color: var(--arabictouch-color-warning);
+    font-size: 1.25rem;
+}
+
+.arabictouch-rating-star-half {
+    color: var(--arabictouch-color-warning);
+    font-size: 1.25rem;
+}
+
+.arabictouch-rating-star-empty {
+    color: var(--arabictouch-color-outline);
+    font-size: 1.25rem;
+}
+
+.arabictouch-rating-number {
+    color: var(--arabictouch-color-on-surface-variant);
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    font-weight: 500;
+}
+
+.arabictouch-rating-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.arabictouch-rating-label {
+    color: var(--arabictouch-color-on-surface-variant);
+    display: inline-block;
+    margin: 0;
+}
+.arabictouch-rating-star-full {
+    color: var(--arabictouch-color-warning);
+    font-size: 1.25rem;
+  }
+  

@@ -1,0 +1,27 @@
+/* === Classic Footer Component === */
+.arabictouch-footer {
+    border-top-color: var(--arabictouch-color-outline);
+}
+
+.arabictouch-footer-title {
+    color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-footer-link {
+    color: var(--arabictouch-color-on-surface);
+    transition: color 0.2s ease;
+}
+
+.arabictouch-footer-link:hover {
+    color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-footer-social-link {
+    color: var(--arabictouch-color-on-surface);
+    transition: all 0.2s ease;
+}
+
+.arabictouch-footer-social-link:hover {
+    color: var(--arabictouch-color-primary);
+    transform: scale(1.1);
+}

@@ -1,0 +1,12 @@
+/* === Delivery Features Section Classes === */
+.fresh-delivery-feature-icon {
+    color: var(--fresh-color-primary);
+}
+
+.fresh-delivery-feature-title {
+    color: var(--fresh-color-on-surface);
+}
+
+.fresh-delivery-feature-subtitle {
+    color: var(--fresh-color-on-surface-variant);
+}

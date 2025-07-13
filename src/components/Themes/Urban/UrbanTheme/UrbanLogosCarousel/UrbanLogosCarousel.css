@@ -1,0 +1,93 @@
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
+
+/* Section Divider */
+.urban-logocarousel-div-divider {
+    background: linear-gradient(90deg, 
+        var(--urban-color-primary) 0%,
+        var(--urban-color-secondary) 50%,
+        var(--urban-color-primary) 100%
+    );
+}
+
+/* Logo Cards - Clean and minimal */
+.urban-logocarousel-div-card {
+    background: transparent;
+}
+
+/* Skeleton Loading State */
+.urban-logocarousel-div-skeleton {
+    background: linear-gradient(90deg, 
+        var(--urban-color-surface) 25%, 
+        var(--urban-color-surface-variant) 50%, 
+        var(--urban-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: urban-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes urban-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Carousel Navigation Arrows */
+.urban-logocarousel-button-left,
+.urban-logocarousel-button-right {
+    background-color: var(--urban-color-surface);
+    color: var(--urban-color-on-surface);
+    border-color: var(--urban-color-outline-variant);
+}
+
+.urban-logocarousel-button-left:hover,
+.urban-logocarousel-button-right:hover {
+    background-color: var(--urban-color-surface-variant);
+    border-color: var(--urban-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.urban-logocarousel-button-left:disabled,
+.urban-logocarousel-button-right:disabled {
+    background-color: var(--urban-color-surface);
+    border-color: var(--urban-color-outline-variant);
+    color: var(--urban-color-on-surface-variant);
+}
+
+.urban-logocarousel-button-left:focus,
+.urban-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--urban-color-primary-light);
+    border-color: var(--urban-color-primary);
+}
+
+/* Page Indicators */
+.urban-logocarousel-button-indicator {
+    background-color: var(--urban-color-outline);
+}
+
+.urban-logocarousel-button-indicator:hover {
+    background-color: var(--urban-color-primary-light);
+}
+
+.urban-logocarousel-button-indicator.urban-logocarousel-button-active {
+    background-color: var(--urban-color-primary);
+}
+
+.urban-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--urban-color-primary-light);
+}
+
+/* Progress Bar */
+.urban-logocarousel-div-progressbg {
+    background-color: var(--urban-color-outline);
+}
+
+.urban-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--urban-color-primary), 
+        var(--urban-color-primary-light)
+    );
+}
+
+/* Trust Indicator */
+.urban-logocarousel-p-trust {
+    color: var(--urban-color-on-surface-variant);
+}

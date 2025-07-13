@@ -1,0 +1,12 @@
+/* === Delivery Features Section Classes === */
+.zen-delivery-feature-icon {
+    color: var(--zen-color-primary);
+}
+
+.zen-delivery-feature-title {
+    color: var(--zen-color-on-surface);
+}
+
+.zen-delivery-feature-subtitle {
+    color: var(--zen-color-on-surface-variant);
+}

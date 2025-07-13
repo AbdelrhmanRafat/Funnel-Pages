@@ -1,0 +1,11 @@
+/* === Invoice Header Component (Colors & Shadows Only) === */
+
+.urban-invoiceheader-div-container {
+  background: linear-gradient(135deg, var(--urban-color-primary) 0%, var(--urban-color-primary-dark) 100%);
+  color: var(--urban-color-on-primary);
+  border-bottom: 3px solid var(--urban-color-primary-dark);
+}
+
+.urban-invoiceheader-h3-title {
+  color: var(--urban-color-on-primary);
+}

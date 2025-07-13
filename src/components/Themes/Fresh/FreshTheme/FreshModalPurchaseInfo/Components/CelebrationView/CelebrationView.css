@@ -1,0 +1,94 @@
+/* === Celebration View Component (Colors & Shadows Only) === */
+
+/* Celebration Header */
+.fresh-celebration-header {
+  background: linear-gradient(135deg, 
+    var(--fresh-color-success) 0%, 
+    var(--fresh-color-success-dark) 100%
+  );
+  color: var(--fresh-color-on-success);
+}
+
+.fresh-celebration-icon {
+  background: var(--fresh-color-success-light);
+  color: var(--fresh-color-on-success);
+}
+
+/* Success Checkmark Animation */
+.fresh-success-checkmark {
+  border-color: var(--fresh-color-success);
+  background: var(--fresh-color-surface);
+}
+
+.fresh-check-icon {
+  background: var(--fresh-color-success);
+}
+
+.fresh-check-icon::after {
+  background: var(--fresh-color-on-success);
+}
+
+/* Celebration Content */
+.fresh-celebration-main-title {
+  color: var(--fresh-color-on-surface);
+}
+
+.fresh-celebration-subtitle {
+  color: var(--fresh-color-on-surface-variant);
+}
+
+/* Celebration Summary */
+.fresh-celebration-summary {
+  background: var(--fresh-color-surface);
+  border-color: var(--fresh-color-success);
+  box-shadow: var(--fresh-section-shadow);
+}
+
+.fresh-celebration-summary-item {
+  background: var(--fresh-color-surface-variant);
+  border-color: var(--fresh-color-outline);
+}
+
+.fresh-celebration-summary-item:hover {
+  background: var(--fresh-color-surface-container);
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Item Icons */
+.fresh-celebration-item-icon {
+  color: var(--fresh-color-on-primary);
+}
+
+.fresh-icon-order {
+  background: var(--fresh-color-primary-light);
+}
+
+.fresh-icon-delivery {
+  background: var(--fresh-color-secondary-light);
+}
+
+.fresh-icon-contact {
+  background: var(--fresh-color-tertiary-light);
+}
+
+/* Primary Button */
+.fresh-celebration-primary-button {
+  background: linear-gradient(135deg, 
+    var(--fresh-color-primary) 0%, 
+    var(--fresh-color-primary-dark) 100%
+  );
+  color: var(--fresh-color-on-primary);
+  box-shadow: var(--fresh-section-shadow);
+}
+
+.fresh-celebration-primary-button:hover {
+  background: linear-gradient(135deg, 
+    var(--fresh-color-primary-light) 0%, 
+    var(--fresh-color-primary) 100%
+  );
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.25);
+}
+
+.fresh-celebration-primary-button:active {
+  background: var(--fresh-color-primary-dark);
+}

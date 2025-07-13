@@ -1,0 +1,39 @@
+---
+import "./FreshLanguageSwitcher.css";
+
+// Get language from cookie during SSR
+const currentLang = Astro.cookies.get('lang')?.value || 'en';
+const isArabic = currentLang === 'ar';
+
+// Configuration options
+const redirectDelay = 150;
+const cookieMaxAge = 31536000;
+const showTransition = true;
+---
+
+<div class="flex justify-end">
+  <language-switcher
+    data-lang-current={currentLang}
+    data-lang-redirect-delay={redirectDelay}
+    data-lang-cookie-max-age={cookieMaxAge}
+    data-lang-show-transition={showTransition}
+  >
+    <button
+      data-lang-toggle-btn
+      class="fresh-lang-switcher px-3 py-2 text-xs font-medium rounded border transition-all duration-300 hover:scale-105 cursor-pointer"
+      aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+      type="button"
+    >
+      <span class="text-xs font-medium" data-lang-text>
+        {isArabic ? "EN" : "عربي"}
+      </span>
+    </button>
+  </language-switcher>
+</div>
+
+<script>
+  import { initTranslations } from "../../../../../../lib/utils/i18n/client";
+  import "./FreshLanguageSwitcher";
+  
+  initTranslations();
+</script>
