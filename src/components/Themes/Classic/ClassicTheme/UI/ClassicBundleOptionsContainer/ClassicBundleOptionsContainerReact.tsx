@@ -2,9 +2,15 @@ import "./ClassicBundleOptionsContainer.css";
 import React, { useMemo } from 'react';
 import type { Product } from "../../../../../../lib/api/types";
 import type { Language } from "../../../../../../lib/utils/i18n/translations";
-import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
 import { detectColorOption } from "../../../../../../lib/utils/Custom-Options-utils";
 import { useCustomOptionBundleStore, usePanelOption } from "../../../../../../lib/stores/customOptionBundleStore";
+
+// Import components
+import ContainerHeader from './components/ContainerHeader/ContainerHeader';
+import SelectionIndicators from './components/SelectionIndicators/SelectionIndicators';
+import OptionSection from './components/OptionSection/OptionSection';
+import ColorOptions from './components/ColorOptions/ColorOptions';
+import TextOptions from './components/TextOptions/TextOptions';
 
 // Types
 interface OptionValue {
@@ -237,148 +243,79 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
   // Component state
   const isHaveVariant = product.is_have_variant === "true";
   const showSelectionIndicators = true;
-  const translatedSelectOptionsText = getTranslation("dynamicPanel.selectOptionsForProduct", currentLang) || "Select Options for Product";
 
   return (
     <div className="classic-bundle-options-container-panel p-4 border">
       {/* Header with Selection Indicators */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 pb-3">
-        <div className="classic-bundle-options-container-header font-bold text-lg sm:text-xl">
-          <p className="inline">
-            {translatedSelectOptionsText}{" "}
-          </p>
-          <span>{panelIndex}</span>
-        </div>
+        <ContainerHeader 
+          panelIndex={panelIndex}
+          currentLang={currentLang}
+        />
 
-        {showSelectionIndicators && processedData && (
-          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            {processedData.firstOption && (
-              <div className="classic-bundle-options-container-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-                <span>{processedData.firstOption.title}</span>
-                <span>{panelOption?.firstOption || '-'}</span>
-              </div>
-            )}
-            {processedData.secondOption && (
-              <div className="classic-bundle-options-container-selection-indicator flex items-center gap-1 justify-center sm:justify-start py-1 px-3 rounded-full text-xs sm:text-sm">
-                <span>{processedData.secondOption.title}</span>
-                <span>{panelOption?.secondOption || '-'}</span>
-              </div>
-            )}
-          </div>
-        )}
+        <SelectionIndicators
+          showIndicators={showSelectionIndicators && !!processedData}
+          firstOption={processedData?.firstOption || null}
+          secondOption={processedData?.secondOption || null}
+          selectedFirst={panelOption?.firstOption || null}
+          selectedSecond={panelOption?.secondOption || null}
+        />
       </div>
 
       <div className="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6 md:gap-0">
         {/* First Option Rendering */}
         {isHaveVariant && processedData?.firstOption && (
-          <div className="select-option-section md:w-1/2 space-y-2">
-            <p className="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
-              {processedData.firstOption.title}
-            </p>
-
+          <OptionSection 
+            title={processedData.firstOption.title}
+            className="md:w-1/2"
+          >
             {processedData.firstOption.hasColors ? (
-              <div className="flex flex-wrap justify-start content-center gap-2">
-                {processedData.firstOption.values.map((option, index) => (
-                  <div
-                    key={option.value}
-                    className={`classic-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform ${
-                      panelOption?.firstOption === option.value ? 'classic-bundle-options-container-selected-color' : ''
-                    }`}
-                    onClick={() => handleFirstOptionSelect(option.value)}
-                  >
-                    <div
-                      className="classic-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                      style={{ backgroundColor: option.hex || "#ccc" }}
-                    />
-                    <span className="classic-bundle-options-container-color-name text-xs sm:text-sm text-center">
-                      {option.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <ColorOptions
+                options={processedData.firstOption.values}
+                selectedValue={panelOption?.firstOption || null}
+                onSelect={handleFirstOptionSelect}
+              />
             ) : (
-              <div className="md:w-full grid grid-cols-3 gap-2 sm:gap-4 p-1">
-                {processedData.firstOption.values.map((option, index) => (
-                  <div
-                    key={option.value}
-                    className={`classic-bundle-options-container-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center ${
-                      panelOption?.firstOption === option.value ? 'classic-bundle-options-container-selected-size' : ''
-                    }`}
-                    onClick={() => handleFirstOptionSelect(option.value)}
-                  >
-                    {option.value}
-                  </div>
-                ))}
-              </div>
+              <TextOptions
+                options={processedData.firstOption.values}
+                selectedValue={panelOption?.firstOption || null}
+                onSelect={handleFirstOptionSelect}
+              />
             )}
-          </div>
+          </OptionSection>
         )}
 
         {/* Second Option Rendering */}
         {isHaveVariant && processedData?.secondOption && (
-          <div className="md:w-1/2 select-option-section space-y-2">
-            <p className="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
-              {processedData.secondOption.title}
-            </p>
-
+          <OptionSection 
+            title={processedData.secondOption.title}
+            className="md:w-1/2"
+          >
             {processedData.secondOption.hasColors ? (
-              <div className="flex flex-wrap justify-start content-center gap-2">
-                {processedData.secondOption.values.map((option, index) => {
-                  const isDisabled = isSecondOptionDisabled(option.value);
-                  return (
-                    <div
-                      key={option.value}
-                      className={`classic-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 transition-transform ${
-                        isDisabled ? 'classic-bundle-options-container-option-disabled opacity-30 pointer-events-none' : 'cursor-pointer hover:scale-105'
-                      } ${
-                        panelOption?.secondOption === option.value && !isDisabled ? 'classic-bundle-options-container-selected-color' : ''
-                      }`}
-                      onClick={() => !isDisabled && handleSecondOptionSelect(option.value)}
-                    >
-                      <div
-                        className="classic-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
-                        style={{ backgroundColor: option.hex || "#ccc" }}
-                      />
-                      <span className="classic-bundle-options-container-color-name text-xs sm:text-sm text-center">
-                        {option.value}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
+              <ColorOptions
+                options={processedData.secondOption.values}
+                selectedValue={panelOption?.secondOption || null}
+                onSelect={handleSecondOptionSelect}
+                isDisabled={isSecondOptionDisabled}
+              />
             ) : (
-              <div className="w-full grid grid-cols-3 gap-2 p-1">
-                {processedData.secondOption.values.map((option, index) => {
-                  const isDisabled = isSecondOptionDisabled(option.value);
-                  return (
-                    <div
-                      key={option.value}
-                      className={`classic-bundle-options-container-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium text-center ${
-                        isDisabled ? 'classic-bundle-options-container-option-disabled opacity-30 pointer-events-none' : 'cursor-pointer'
-                      } ${
-                        panelOption?.secondOption === option.value && !isDisabled ? 'classic-bundle-options-container-selected-size' : ''
-                      }`}
-                      onClick={() => !isDisabled && handleSecondOptionSelect(option.value)}
-                    >
-                      {option.value}
-                    </div>
-                  );
-                })}
-              </div>
+              <TextOptions
+                options={processedData.secondOption.values}
+                selectedValue={panelOption?.secondOption || null}
+                onSelect={handleSecondOptionSelect}
+                isDisabled={isSecondOptionDisabled}
+              />
             )}
-          </div>
+          </OptionSection>
         )}
 
         {/* Non-variant fallback */}
         {!isHaveVariant && (
-          <div className="select-option-section space-y-2">
-            <p className="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
-              Single Product
-            </p>
+          <OptionSection title="Single Product">
             <div className="py-2 px-4 border rounded-lg bg-gray-50">
               <span className="text-sm">SKU: {product.sku_code}</span>
             </div>
-          </div>
+          </OptionSection>
         )}
       </div>
     </div>
