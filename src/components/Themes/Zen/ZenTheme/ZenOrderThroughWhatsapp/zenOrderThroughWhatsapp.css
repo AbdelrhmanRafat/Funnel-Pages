@@ -1,7 +1,0 @@
-/* === Order Confirmation Notice === */
-.zen-order-through-whatsapp {
-    background-color: var(--zen-color-surface);
-    color: var(--zen-color-on-surface);
-    border-radius: var(--zen-section-radius);
-    padding: var(--zen-section-padding);
-}

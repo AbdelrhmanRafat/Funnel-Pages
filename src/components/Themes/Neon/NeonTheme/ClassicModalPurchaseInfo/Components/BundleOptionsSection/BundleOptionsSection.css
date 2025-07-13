@@ -1,0 +1,55 @@
+/* === Bundle Options Section Styles === */
+
+.classic-bundle-options-section .classic-section-title {
+  color: var(--classic-color-on-surface);
+  border-bottom: 2px solid var(--classic-color-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.classic-bundle-options-section .classic-section-icon {
+  background: var(--classic-color-secondary-light);
+  color: var(--classic-color-on-secondary);
+}
+
+.classic-option-item {
+  background: var(--classic-color-surface);
+  border: 1px solid var(--classic-color-outline);
+  border-left: 3px solid var(--classic-color-secondary);
+  transition: all 0.3s ease;
+}
+
+.classic-option-item:hover {
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.classic-option-header {
+  color: var(--classic-color-secondary);
+}
+
+.classic-option-sku {
+  color: var(--classic-color-on-surface-variant);
+}
+
+.classic-selection-tag {
+  background: var(--classic-color-secondary-light);
+  color: var(--classic-color-on-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .classic-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .classic-option-item {
+    transition: none;
+  }
+  
+  .classic-option-item:hover {
+    transform: none;
+  }
+}

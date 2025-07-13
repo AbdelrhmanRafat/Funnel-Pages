@@ -1,0 +1,135 @@
+/* === Base Option Styles === */
+.classic-selection-options-without-bundles-option-title {
+    color: var(--classic-color-on-surface);
+}
+
+/* === Quantity Section === */
+.classic-selection-options-without-bundles-qty-label {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-selection-options-without-bundles-qty-btn {
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface);
+    border: 1px solid var(--classic-color-outline);
+}
+
+.classic-selection-options-without-bundles-qty-btn:hover:not(:disabled) {
+    background-color: var(--classic-color-surface-variant);
+}
+
+.classic-selection-options-without-bundles-qty-btn:focus {
+    ring-color: var(--classic-color-primary);
+}
+
+.classic-selection-options-without-bundles-qty-btn:disabled {
+    background-color: var(--classic-color-surface-container);
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-selection-options-without-bundles-qty-input {
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface);
+    border: 1px solid var(--classic-color-outline);
+}
+
+.classic-selection-options-without-bundles-qty-input:focus {
+    border-color: var(--classic-color-primary);
+    ring-color: var(--classic-color-primary);
+}
+
+.classic-selection-options-without-bundles-max-qty-text {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-selection-options-without-bundles-max-qty-value {
+    color: var(--classic-color-secondary);
+}
+
+/* === Generic Option States === */
+.classic-selection-options-without-bundles-option--selected {
+    opacity: 1;
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 2px var(--classic-color-primary);
+}
+
+/* Available Options */
+.classic-selection-options-without-bundles-option-available {
+    opacity: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.classic-selection-options-without-bundles-option-available:hover {
+    transform: scale(1.02);
+}
+
+/* Disabled Options */
+.classic-selection-options-without-bundles-option-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.classic-selection-options-without-bundles-option-disabled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 2px,
+        rgba(0, 0, 0, 0.1) 4px
+    );
+    border-radius: inherit;
+    z-index: 1;
+}
+
+/* === Loading/Transition States === */
+.classic-selection-options-without-bundles-option-transitioning {
+    opacity: 0.7;
+    transform: scale(0.98);
+    transition: all 0.2s ease;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+    .classic-selection-options-without-bundles-option-disabled::before {
+        background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 0, 0, 0.15) 1px,
+            rgba(0, 0, 0, 0.15) 2px
+        );
+    }
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+    .classic-selection-options-without-bundles-option-disabled {
+        border: 2px dashed currentColor;
+        opacity: 0.5;
+    }
+    
+    .classic-selection-options-without-bundles-option-disabled::before {
+        display: none;
+    }
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+    .classic-selection-options-without-bundles-option-available,
+    .classic-selection-options-without-bundles-option-disabled {
+        transition: opacity 0.2s ease;
+    }
+    
+    .classic-selection-options-without-bundles-option-available:hover {
+        transform: none;
+    }
+}

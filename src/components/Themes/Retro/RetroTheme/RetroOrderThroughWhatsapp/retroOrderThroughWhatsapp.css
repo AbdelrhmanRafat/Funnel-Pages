@@ -1,7 +1,0 @@
-/* === Order Confirmation Notice === */
-.retro-order-through-whatsapp {
-    background-color: var(--retro-color-surface);
-    color: var(--retro-color-on-surface);
-    border-radius: var(--retro-section-radius);
-    padding: var(--retro-section-padding);
-}

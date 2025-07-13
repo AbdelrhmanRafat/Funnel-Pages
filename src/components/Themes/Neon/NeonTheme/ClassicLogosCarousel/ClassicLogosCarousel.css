@@ -1,0 +1,93 @@
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
+
+/* Section Divider */
+.classic-logocarousel-div-divider {
+    background: linear-gradient(90deg, 
+        var(--classic-color-primary) 0%,
+        var(--classic-color-secondary) 50%,
+        var(--classic-color-primary) 100%
+    );
+}
+
+/* Logo Cards - Clean and minimal */
+.classic-logocarousel-div-card {
+    background: transparent;
+}
+
+/* Skeleton Loading State */
+.classic-logocarousel-div-skeleton {
+    background: linear-gradient(90deg, 
+        var(--classic-color-surface) 25%, 
+        var(--classic-color-surface-variant) 50%, 
+        var(--classic-color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: classic-skeleton-pulse 1.5s infinite;
+}
+
+@keyframes classic-skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Carousel Navigation Arrows */
+.classic-logocarousel-button-left,
+.classic-logocarousel-button-right {
+    background-color: var(--classic-color-surface);
+    color: var(--classic-color-on-surface);
+    border-color: var(--classic-color-outline-variant);
+}
+
+.classic-logocarousel-button-left:hover,
+.classic-logocarousel-button-right:hover {
+    background-color: var(--classic-color-surface-variant);
+    border-color: var(--classic-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.classic-logocarousel-button-left:disabled,
+.classic-logocarousel-button-right:disabled {
+    background-color: var(--classic-color-surface);
+    border-color: var(--classic-color-outline-variant);
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-logocarousel-button-left:focus,
+.classic-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--classic-color-primary-light);
+    border-color: var(--classic-color-primary);
+}
+
+/* Page Indicators */
+.classic-logocarousel-button-indicator {
+    background-color: var(--classic-color-outline);
+}
+
+.classic-logocarousel-button-indicator:hover {
+    background-color: var(--classic-color-primary-light);
+}
+
+.classic-logocarousel-button-indicator.classic-logocarousel-button-active {
+    background-color: var(--classic-color-primary);
+}
+
+.classic-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--classic-color-primary-light);
+}
+
+/* Progress Bar */
+.classic-logocarousel-div-progressbg {
+    background-color: var(--classic-color-outline);
+}
+
+.classic-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--classic-color-primary), 
+        var(--classic-color-primary-light)
+    );
+}
+
+/* Trust Indicator */
+.classic-logocarousel-p-trust {
+    color: var(--classic-color-on-surface-variant);
+}

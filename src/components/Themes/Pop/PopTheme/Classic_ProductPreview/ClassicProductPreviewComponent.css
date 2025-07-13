@@ -1,0 +1,70 @@
+/* === Classic Product Preview (Refactored with Custom Variables) === */
+
+/* Video container */
+.classic-productpreview-div-video {
+    border-color: var(--classic-color-primary);
+    box-shadow: var(--classic-section-shadow);
+}
+
+/* Video placeholder */
+.classic-productpreview-div-placeholder {
+    background-color: var(--classic-color-surface-variant);
+}
+
+.classic-productpreview-span-notvideo {
+    color: var(--classic-color-on-surface-variant);
+}
+
+/* Video title overlay */
+.classic-productpreview-div-videotitle {
+    color: var(--classic-color-surface);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.classic-productpreview-p-title {
+    color: var(--classic-color-surface);
+}
+
+/* Features container */
+.classic-productpreview-div-features {
+    background-color: var(--classic-color-surface-container-high);
+    box-shadow: var(--classic-section-shadow);
+}
+
+/* Features header */
+.classic-productpreview-div-header {
+    border-color: var(--classic-color-outline-variant);
+}
+
+.classic-productpreview-h2-title {
+    color: var(--classic-color-on-surface);
+}
+
+/* Views badge */
+.classic-productpreview-div-viewsbadge {
+    background-color: var(--classic-color-surface-variant);
+}
+
+.classic-productpreview-span-views {
+    color: var(--classic-color-on-surface-variant);
+}
+
+/* Feature icon */
+.classic-productpreview-div-featureicon {
+    background-color: var(--classic-color-primary);
+    color: var(--classic-color-on-primary);
+}
+
+/* Feature content */
+.classic-productpreview-div-featuretitle {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-productpreview-div-featuresubtitle {
+    color: var(--classic-color-on-surface-variant);
+}
+
+/* Button container */
+.classic-productpreview-div-buttoncontainer {
+    border-color: var(--classic-color-outline-variant);
+}

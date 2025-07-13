@@ -1,0 +1,11 @@
+/* === Invoice Header Component (Colors & Shadows Only) === */
+
+.classic-invoiceheader-div-container {
+  background: linear-gradient(135deg, var(--classic-color-primary) 0%, var(--classic-color-primary-dark) 100%);
+  color: var(--classic-color-on-primary);
+  border-bottom: 3px solid var(--classic-color-primary-dark);
+}
+
+.classic-invoiceheader-h3-title {
+  color: var(--classic-color-on-primary);
+}

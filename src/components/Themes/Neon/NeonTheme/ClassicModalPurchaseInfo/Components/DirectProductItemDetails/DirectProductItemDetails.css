@@ -1,0 +1,85 @@
+/* === Direct Product Item Details Component (Colors & Shadows Only) === */
+
+.classic-directproduct-h3-title {
+  color: var(--classic-color-on-surface);
+  border-bottom-color: var(--classic-color-primary);
+}
+
+.classic-directproduct-div-icon {
+  background: var(--classic-color-primary-light);
+  color: var(--classic-color-on-primary);
+}
+
+.classic-directproduct-div-card {
+  background: var(--classic-color-surface);
+  border-color: var(--classic-color-outline);
+  border-left-color: var(--classic-color-primary);
+  box-shadow: var(--classic-section-shadow);
+}
+
+.classic-directproduct-img-product {
+  background: var(--classic-color-surface-variant);
+  border-color: var(--classic-color-outline);
+}
+
+.classic-directproduct-h4-name {
+  color: var(--classic-color-on-surface);
+}
+
+.classic-directproduct-p-sku {
+  color: var(--classic-color-on-surface-variant);
+  background: var(--classic-color-surface-container);
+}
+
+.classic-directproduct-span-variantlabel {
+  color: var(--classic-color-on-surface-variant);
+}
+
+.classic-directproduct-span-variant {
+  background: var(--classic-color-surface-container);
+  color: var(--classic-color-on-surface);
+  border-color: var(--classic-color-outline);
+}
+
+.classic-directproduct-div-note {
+  background: var(--classic-color-surface-container);
+  border-color: var(--classic-color-primary);
+}
+
+.classic-directproduct-p-note {
+  color: var(--classic-color-on-surface-variant);
+}
+
+.classic-directproduct-div-pricing {
+  background: var(--classic-color-surface-variant);
+  border-color: var(--classic-color-outline);
+}
+
+.classic-directproduct-h5-pricingtitle {
+  color: var(--classic-color-on-surface);
+}
+
+.classic-directproduct-span-label {
+  color: var(--classic-color-on-surface-variant);
+}
+
+.classic-directproduct-span-quantity {
+  background: var(--classic-color-primary-light);
+  color: var(--classic-color-on-primary);
+}
+
+.classic-directproduct-span-unitprice {
+  color: var(--classic-color-on-surface);
+}
+
+.classic-directproduct-span-discount {
+  color: var(--classic-color-success);
+}
+
+.classic-directproduct-div-divider {
+  background: var(--classic-color-outline);
+}
+
+.classic-directproduct-span-total {
+  color: var(--classic-color-on-surface);
+}

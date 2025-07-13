@@ -1,0 +1,43 @@
+/* === Product Details Section Classes === */
+.classic-product-details-section {
+    background-color: var(--classic-color-background);
+}
+
+.classic-product-details-container {
+    background: linear-gradient(135deg, var(--classic-color-surface) 0%, var(--classic-color-surface-variant) 100%);
+    border-radius: var(--classic-section-radius);
+}
+
+.classic-product-details-badge-success {
+    background-color: var(--classic-color-success-light);
+    color: var(--classic-color-on-success);
+}
+
+.classic-product-details-badge-error {
+    background-color: var(--classic-color-error-light);
+    color: var(--classic-color-on-error);
+}
+
+.classic-product-details-sku {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-product-details-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-details-price {
+    color: var(--classic-color-primary);
+}
+
+.classic-product-details-price--discount {
+    color: var(--classic-color-on-surface-variant);
+}
+
+.classic-product-details-description-header {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-product-details-text-body {
+    color: var(--classic-color-on-surface-variant);
+}

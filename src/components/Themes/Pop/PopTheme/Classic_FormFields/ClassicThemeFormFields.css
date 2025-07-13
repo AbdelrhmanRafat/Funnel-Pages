@@ -1,0 +1,306 @@
+/* === Classic Form Components (Refactored with Custom Variables) === */
+
+/* Main form container */
+.classic-form-div-container {
+    background-color: var(--classic-color-surface);
+    border-radius: var(--classic-section-radius);
+    box-shadow: var(--classic-section-shadow);
+}
+
+/* Form title styling */
+.classic-form-h1-title {
+    color: var(--classic-color-on-surface);
+    font-size: var(--classic-header-size);
+    font-weight: var(--classic-header-weight);
+    margin-bottom: var(--classic-header-margin-bottom);
+}
+
+/* Section headers within form */
+.classic-form-h2-title {
+    color: var(--classic-color-on-surface);
+    font-size: var(--classic-header-center-size);
+    font-weight: var(--classic-header-center-weight);
+    margin-bottom: var(--classic-header-center-margin-bottom);
+}
+
+/* Form group container */
+.classic-form-div-group {
+    position: relative;
+    width: 100%;
+}
+
+/* Base input field styling */
+.classic-form-input-base {
+    width: 100%;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    border: 2px solid var(--classic-color-outline);
+    border-radius: 12px;
+    color: var(--classic-color-on-surface);
+    background-color: var(--classic-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Responsive input sizing */
+.classic-form-input-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .classic-form-input-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Textarea specific responsive styling */
+.classic-form-textarea-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .classic-form-textarea-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Select base styling */
+.classic-form-select-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--classic-color-outline);
+    border-radius: 12px;
+    color: var(--classic-color-on-surface);
+    background-color: var(--classic-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Select responsive styling */
+.classic-form-select-responsive {
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .classic-form-select-responsive {
+        padding: 1rem;
+    }
+}
+
+/* Floating label styling */
+.classic-form-label-floating {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--classic-color-on-surface-variant);
+    font-size: 1rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: var(--classic-color-surface);
+    padding: 0 0.25rem;
+    transform-origin: left top;
+}
+
+/* Static label styling */
+.classic-form-label-static {
+    color: var(--classic-color-on-surface);
+    font-weight: 500;
+}
+
+/* Focus and valid states for input */
+.classic-form-input-base:focus,
+.classic-form-input-base:valid {
+    border-color: var(--classic-color-primary);
+    box-shadow: var(--classic-section-shadow);
+}
+
+.classic-form-select-base:focus {
+    border-color: var(--classic-color-primary);
+    box-shadow: var(--classic-section-shadow);
+}
+
+/* Floating label animation */
+.classic-form-input-base:focus ~ .classic-form-label-floating,
+.classic-form-input-base:valid ~ .classic-form-label-floating,
+.classic-form-textarea-responsive:focus ~ .classic-form-label-floating,
+.classic-form-textarea-responsive:valid ~ .classic-form-label-floating {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: var(--classic-color-primary);
+    font-weight: 600;
+}
+
+/* Error state styling */
+.classic-form-span-error {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--classic-color-error);
+    min-height: 1.25rem;
+    margin-top: 0.25rem;
+}
+
+/* Input validation states */
+.classic-form-input-error {
+    border-color: var(--classic-color-error) !important;
+}
+
+.classic-form-input-success {
+    border-color: var(--classic-color-success) !important;
+}
+
+/* RTL support for floating labels */
+.classic-form-input-base.text-right ~ .classic-form-label-floating,
+.classic-form-textarea-responsive.text-right ~ .classic-form-label-floating {
+    left: auto;
+    right: 0.75rem;
+    transform-origin: right top;
+}
+
+.classic-form-input-base.text-left ~ .classic-form-label-floating,
+.classic-form-textarea-responsive.text-left ~ .classic-form-label-floating {
+    right: auto;
+    left: 0.75rem;
+    transform-origin: left top;
+}
+
+.classic-form-input-base.text-right:focus ~ .classic-form-label-floating,
+.classic-form-input-base.text-right:valid ~ .classic-form-label-floating,
+.classic-form-textarea-responsive.text-right:focus ~ .classic-form-label-floating,
+.classic-form-textarea-responsive.text-right:valid ~ .classic-form-label-floating {
+    transform: translateY(-1.5rem) scale(0.85);
+}
+
+/* Payment and delivery option containers */
+.classic-form-div-payment {
+    padding: 0.75rem;
+    border: 1px solid var(--classic-color-outline);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    background-color: var(--classic-color-surface);
+}
+
+@media (min-width: 768px) {
+    .classic-form-div-payment {
+        padding: 1rem;
+    }
+}
+
+/* Hover state for payment options */
+.classic-form-div-payment:hover {
+    background-color: var(--classic-color-surface-variant);
+    border-color: var(--classic-color-outline-variant);
+}
+
+/* Focus state for payment options */
+.classic-form-div-payment:focus-within {
+    border-color: var(--classic-color-primary);
+    outline: 2px solid var(--classic-color-primary);
+    outline-offset: 2px;
+}
+
+/* Payment option labels */
+.classic-form-span-payment-label {
+    display: block;
+    color: var(--classic-color-on-surface);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Payment option descriptions */
+.classic-form-span-payment-description {
+    display: block;
+    color: var(--classic-color-on-surface-variant);
+}
+
+/* Radio button styling */
+.classic-form-input-radio {
+    accent-color: var(--classic-color-primary);
+    border-color: var(--classic-color-outline);
+    cursor: pointer;
+}
+
+/* Custom radio indicator */
+.classic-form-div-radio-indicator {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--classic-color-outline);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: var(--classic-color-surface);
+}
+
+/* Radio dot inside custom indicator */
+.classic-form-div-radio-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+}
+
+/* Active state for custom radio indicator */
+.classic-form-input-radio:checked + .classic-form-div-content .classic-form-div-radio-indicator {
+    border-color: var(--classic-color-primary);
+    background-color: var(--classic-color-primary);
+}
+
+.classic-form-input-radio:checked + .classic-form-div-content .classic-form-div-radio-dot {
+    background-color: var(--classic-color-surface);
+}
+
+/* Notes section specific styling */
+.classic-form-div-notes {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+    .classic-form-div-notes {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Button section styling */
+.classic-form-div-button-container {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .classic-form-div-button-container {
+        margin-top: 2rem;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .classic-form-input-base,
+    .classic-form-select-base,
+    .classic-form-div-payment,
+    .classic-form-div-radio-indicator,
+    .classic-form-div-radio-dot,
+    .classic-form-label-floating {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .classic-form-input-base,
+    .classic-form-select-base {
+        border-width: 3px;
+    }
+
+    .classic-form-div-payment {
+        border-width: 2px;
+    }
+    
+    .classic-form-div-radio-indicator {
+        border-width: 3px;
+    }
+}

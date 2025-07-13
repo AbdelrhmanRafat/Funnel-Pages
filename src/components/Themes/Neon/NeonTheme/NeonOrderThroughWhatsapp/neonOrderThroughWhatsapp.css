@@ -1,7 +1,0 @@
-/* === Order Confirmation Notice === */
-.neon-order-through-whatsapp {
-    background-color: var(--neon-color-surface);
-    color: var(--neon-color-on-surface);
-    border-radius: var(--neon-section-radius);
-    padding: var(--neon-section-padding);
-}

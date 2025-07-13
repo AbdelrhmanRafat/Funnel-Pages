@@ -1,0 +1,36 @@
+---
+import "./ClassicThemeFooter.css";
+import type { BlockData, Item } from "../../../../../lib/api/types";
+import { FunnelClassicComponents, FunnelNasaComponents } from "../../../../../lib/constants/themes";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
+
+const data: BlockData = Astro.props.data;
+const items: Item[] = data.items ?? [];
+
+const policies: Item[] = items.filter(item => !item.icon);
+const social_icons: Item[] = items.filter(item => !!item.icon);
+---
+
+<footer id={FunnelClassicComponents.ClassicFooter} class="classic-footer text-center w-full p-14 md:p-24 border-t-2 mx-auto">
+<div class="classic-footer-content flex flex-col justify-center items-center gap-7">
+  <!-- Title -->
+  <h5 class="classic-footer-title text-3xl font-bold">{data.title}</h5>
+  
+  <!-- Links -->
+  <div class="classic-footer-links flex justify-center flex-wrap gap-6 text-sm font-medium mb-6">
+    {(policies || []).map((policy: Item) => (
+      <a href="#" class="classic-footer-link underline">{policy.label}</a>
+    ))}
+  </div>
+
+  <!-- Social Icons -->
+  <div class="classic-footer-social flex justify-center gap-6 text-2xl">
+    {(social_icons || []).map((iconClass: Item, index: number) => (
+      <a href="#" class="classic-footer-social-link" aria-label={`social-${index}`}>
+      {iconClass.icon && <LucideIcon name={iconClass.icon as any} width="32" height="32" />}
+
+      </a>
+    ))}
+  </div>
+</div>
+</footer>

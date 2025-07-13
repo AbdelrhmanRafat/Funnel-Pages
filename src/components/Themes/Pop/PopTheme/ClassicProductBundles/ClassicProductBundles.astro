@@ -1,0 +1,16 @@
+---
+import type { BlockData, Product } from "../../../../../lib/api/types";
+
+const data: BlockData[] = Astro.props.data;
+const product : Product = Astro.props.product;
+
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import ClassicProductCosts from "../UI/ClassicProductCosts/classicProductCosts.astro";
+import ClassicBundleOptions from "../UI/ClassicBundleOptions/ClassicBundleOptions.astro";
+
+---
+
+<div id={FunnelClassicComponents.ClassicProductFunnel} class="w-full flex flex-col gap-2">
+  <ClassicBundleOptions data={data} product={product} />
+  <ClassicProductCosts hasBundles="true" />
+</div>

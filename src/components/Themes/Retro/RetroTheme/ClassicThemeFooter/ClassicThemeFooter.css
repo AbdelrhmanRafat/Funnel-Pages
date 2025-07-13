@@ -1,0 +1,27 @@
+/* === Classic Footer Component === */
+.classic-footer {
+    border-top-color: var(--classic-color-outline);
+}
+
+.classic-footer-title {
+    color: var(--classic-color-on-surface);
+}
+
+.classic-footer-link {
+    color: var(--classic-color-on-surface);
+    transition: color 0.2s ease;
+}
+
+.classic-footer-link:hover {
+    color: var(--classic-color-primary);
+}
+
+.classic-footer-social-link {
+    color: var(--classic-color-on-surface);
+    transition: all 0.2s ease;
+}
+
+.classic-footer-social-link:hover {
+    color: var(--classic-color-primary);
+    transform: scale(1.1);
+}

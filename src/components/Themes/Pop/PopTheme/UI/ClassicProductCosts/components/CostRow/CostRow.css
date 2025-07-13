@@ -1,0 +1,37 @@
+/* === Cost Row Styles === */
+
+.classic-product-costs-row {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--classic-color-outline-variant);
+  transition: background-color 0.2s ease;
+}
+
+.classic-product-costs-row:hover {
+  background-color: var(--classic-color-surface-variant);
+}
+
+.classic-product-costs-row:last-child {
+  border-bottom: none;
+}
+
+.classic-product-costs-label {
+  color: var(--classic-color-on-surface-variant);
+  font-weight: 500;
+}
+
+.classic-product-costs-value {
+  color: var(--classic-color-on-surface);
+  font-weight: 600;
+}
+
+.classic-product-costs-discount {
+  color: var(--classic-color-success);
+  font-weight: 600;
+}
+
+/* === Focus States for Accessibility === */
+.classic-product-costs-row:focus-within {
+  outline: 2px solid var(--classic-color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
