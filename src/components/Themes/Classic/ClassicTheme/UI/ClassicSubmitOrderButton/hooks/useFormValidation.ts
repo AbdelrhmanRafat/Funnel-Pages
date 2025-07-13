@@ -27,6 +27,10 @@ export const useFormValidation = (): UseFormValidationReturn => {
 
   const forceAllTouchedAndValidate = async (currentLang: Language) => {
     setIsValidating(true);
+    
+    // Record start time for minimum delay
+    const startTime = Date.now();
+    const MIN_DELAY_MS = 500;
 
     const fields = ['fullName', 'phone', 'email', 'address', 'city', 'notes'] as const;
 
@@ -48,6 +52,7 @@ export const useFormValidation = (): UseFormValidationReturn => {
       notes: 'form.validation.invalidNotes',
     };
 
+    // Perform validation
     fields.forEach(fieldName => {
       setFieldTouched(fieldName, true);
       const currentValue = useFormStore.getState()[fieldName].value;
@@ -59,7 +64,15 @@ export const useFormValidation = (): UseFormValidationReturn => {
       });
     });
 
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Calculate elapsed time and ensure minimum delay
+    const elapsedTime = Date.now() - startTime;
+    const remainingDelay = Math.max(0, MIN_DELAY_MS - elapsedTime);
+    
+    // Wait for the remaining time to ensure minimum delay
+    if (remainingDelay > 0) {
+      await new Promise(resolve => setTimeout(resolve, remainingDelay));
+    }
+    
     setIsValidating(false);
   };
 
