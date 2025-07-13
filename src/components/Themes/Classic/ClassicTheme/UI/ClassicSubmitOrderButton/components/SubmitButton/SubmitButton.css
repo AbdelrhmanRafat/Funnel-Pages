@@ -1,10 +1,14 @@
-/* === Submit Button Styles === */
+/* === Classic Theme: Submit Button Component === */
 
-.classic-form-submit {
-  background: linear-gradient(135deg, var(--classic-color-primary) 0%, var(--classic-color-primary-dark) 100%);
+/* Base button styling */
+.classic-submit-button-button-base {
+  background: linear-gradient(
+    135deg,
+    var(--classic-color-primary) 0%,
+    var(--classic-color-primary-dark) 100%
+  );
   color: var(--classic-color-on-primary);
   border: 2px solid var(--classic-color-primary);
-  padding: 1rem 2rem;
   border-radius: 0.75rem;
   font-weight: 600;
   font-size: 1rem;
@@ -17,18 +21,25 @@
   gap: 0.5rem;
 }
 
-.classic-form-submit:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--classic-color-primary-dark) 0%, var(--classic-color-primary) 100%);
+/* Hover state */
+.classic-submit-button-button-base:hover:not(:disabled) {
+  background: linear-gradient(
+    135deg,
+    var(--classic-color-primary-dark) 0%,
+    var(--classic-color-primary) 100%
+  );
   transform: translateY(-2px);
   box-shadow: 0 8px 24px -6px rgba(var(--classic-color-primary-rgb, 30, 64, 175), 0.4);
 }
 
-.classic-form-submit:active:not(:disabled) {
+/* Active state */
+.classic-submit-button-button-base:active:not(:disabled) {
   transform: translateY(0);
   box-shadow: 0 4px 12px -2px rgba(var(--classic-color-primary-rgb, 30, 64, 175), 0.3);
 }
 
-.classic-form-submit:disabled {
+/* Disabled state */
+.classic-submit-button-button-base:disabled {
   background: var(--classic-color-surface-variant);
   color: var(--classic-color-on-surface-variant);
   border-color: var(--classic-color-outline);
@@ -37,37 +48,27 @@
   box-shadow: none;
 }
 
-.classic-form-submit.validating {
+/* Validating state */
+.classic-submit-button-button-validating {
   background: var(--classic-color-surface-variant);
   color: var(--classic-color-on-surface-variant);
   cursor: wait;
 }
 
-/* Focus states for accessibility */
-.classic-form-submit:focus {
+/* Focus accessibility */
+.classic-submit-button-button-base:focus {
   outline: 2px solid var(--classic-color-primary);
   outline-offset: 2px;
 }
 
-/* Responsive Design */
-@media (max-width: 640px) {
-  .classic-form-submit {
-    padding: 0.875rem 1.5rem;
-    font-size: 0.875rem;
-  }
-}
-
-/* Accessibility */
+/* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .classic-form-submit {
+  .classic-submit-button-button-base {
     transition: background-color 0.2s ease, color 0.2s ease;
   }
-  
-  .classic-form-submit:hover:not(:disabled) {
-    transform: none;
-  }
-  
-  .classic-form-submit:active:not(:disabled) {
+
+  .classic-submit-button-button-base:hover:not(:disabled),
+  .classic-submit-button-button-base:active:not(:disabled) {
     transform: none;
   }
 }

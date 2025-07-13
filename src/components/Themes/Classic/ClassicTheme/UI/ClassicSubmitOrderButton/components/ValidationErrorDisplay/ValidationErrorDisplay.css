@@ -1,22 +1,22 @@
 /* === Validation Error Display Styles === */
 
-.classic-validation-error-display {
+.classic-validationerror-div-alert {
   background-color: var(--classic-color-error-light);
   color: var(--classic-color-on-error);
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
   border: 1px solid var(--classic-color-error);
-  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: var(--classic-shadow-sm);
+  animation: classic-validationerror-div-alert-slideInDown 0.3s ease-out;
 }
 
-/* Enhanced visibility for errors */
-.classic-validation-error-display {
-  animation: slideInDown 0.3s ease-out;
+/* Accessibility - Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .classic-validationerror-div-alert {
+    animation: none;
+  }
 }
 
-@keyframes slideInDown {
+/* Slide-in animation for error alert */
+@keyframes classic-validationerror-div-alert-slideInDown {
   from {
     opacity: 0;
     transform: translateY(-10px);
@@ -24,12 +24,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .classic-validation-error-display {
-    animation: none;
   }
 }

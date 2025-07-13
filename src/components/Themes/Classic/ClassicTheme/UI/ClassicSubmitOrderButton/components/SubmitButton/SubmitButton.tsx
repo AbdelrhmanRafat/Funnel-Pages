@@ -20,7 +20,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
     <button
       type="button"
       data-submit-order-button
-      className={`classic-form-submit ${isValidating ? 'validating' : ''}`}
+      className={`classic-submit-button-button-base text-sm px-6 py-3 md:text-base md:px-8 md:py-4 ${
+        isValidating ? 'classic-submit-button-button-validating' : ''
+      }`}
       onClick={onClick}
       disabled={disabled}
       aria-busy={isValidating}

@@ -10,13 +10,11 @@ const ValidationErrorDisplay: React.FC<ValidationErrorDisplayProps> = ({
   isVisible,
   errorMessage,
 }) => {
-  if (!isVisible || !errorMessage) {
-    return null;
-  }
+  if (!isVisible || !errorMessage) return null;
 
   return (
     <div
-      className="classic-validation-error-display"
+      className="classic-validationerror-div-alert p-3 rounded-md mb-4 border transition-all"
       role="alert"
       aria-live="assertive"
     >
