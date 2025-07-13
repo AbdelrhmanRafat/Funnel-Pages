@@ -1,78 +1,48 @@
-/* === Billing Section Styles === */
+/* === Billing Section Component (Colors & Shadows Only) === */
 
-.classic-billing-section .classic-section-title {
+.classic-billingsection-h3-title {
   color: var(--classic-color-on-surface);
-  border-bottom: 2px solid var(--classic-color-tertiary);
-  padding-bottom: 0.5rem;
+  border-bottom-color: var(--classic-color-tertiary);
 }
 
-.classic-billing-section .classic-section-icon {
+.classic-billingsection-div-icon {
   background: var(--classic-color-tertiary-light);
   color: var(--classic-color-on-tertiary);
 }
 
-.classic-billing-address,
-.classic-delivery-info {
+.classic-billingsection-div-customercard,
+.classic-billingsection-div-ordercard {
   background: var(--classic-color-surface);
-  border: 1px solid var(--classic-color-outline);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  border-color: var(--classic-color-outline);
+  box-shadow: var(--classic-section-shadow);
 }
 
-.classic-billing-address:hover,
-.classic-delivery-info:hover {
-  box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.15);
+.classic-billingsection-div-customercard:hover,
+.classic-billingsection-div-ordercard:hover {
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
 }
 
-.classic-address-title {
-  color: var(--classic-color-on-surface);
-  border-bottom: 2px solid var(--classic-color-tertiary);
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.classic-field-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--classic-color-outline);
-}
-
-.classic-field-row:last-child {
-  border-bottom: none;
-}
-
-.classic-field-label {
+.classic-billingsection-span-label {
   color: var(--classic-color-on-surface-variant);
-  font-weight: 500;
-  flex: 1;
 }
 
-.classic-field-value {
+.classic-billingsection-span-value {
   color: var(--classic-color-on-surface);
-  font-weight: 700;
-  flex: 1;
-  text-align: right;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .classic-field-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .classic-field-value {
-    text-align: left;
-  }
+.classic-billingsection-div-notes {
+  background: var(--classic-color-surface-container);
+  border-color: var(--classic-color-outline);
 }
 
-/* RTL Support */
-[dir="rtl"] .classic-field-value,
-html[lang="ar"] .classic-field-value {
-  text-align: left;
+.classic-billingsection-span-notesvalue {
+  color: var(--classic-color-on-surface);
+}
+
+.classic-billingsection-div-empty {
+  background: var(--classic-color-surface-variant);
+}
+
+.classic-billingsection-span-empty {
+  color: var(--classic-color-on-surface-variant);
 }
