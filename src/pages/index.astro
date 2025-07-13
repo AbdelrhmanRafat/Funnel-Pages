@@ -1,36 +1,102 @@
 ---
-// This file is the main page that fetches data, determines the theme, and renders the appropriate theme component.
-import "../styles/global.css"
+import "../styles/global.css";
 import Layout from "../layouts/Layout.astro";
 import ClassicComponent from "../components/Themes/Classic/ClassicComponent.astro";
-import { getThemeFromString } from "../lib/utils/ThemeSelect";
-import { FunnelDataType, getFunnelPage } from "../lib/api/funnel";
-import { Theme } from "../lib/constants/themes";
-import type { FunnelRes } from "../lib/api/types";
 
-// Fetches the funnel page data from the API.
-const funnelPage: FunnelRes = await getFunnelPage(FunnelDataType.PRODUCT_WITHOUT_VARIANTS_AND_BUNDLES);
-// Gets the theme name string from the API response.
+import { getFunnelPage } from "../lib/api/funnel";
+import { getThemeFromString } from "../lib/utils/ThemeSelect";
+import type { FunnelRes } from "../lib/api/types";
+import { Theme } from "../lib/constants/themes";
+import TechnoComponent from "../components/Themes/Techno/TechnoComponent.astro";
+import BoldComponent from "../components/Themes/Bold/BoldComponent.astro";
+import ZenComponent from "../components/Themes/Zen/ZenComponent.astro";
+import UrbanComponent from "../components/Themes/Urban/UrbanComponent.astro";
+import RetroComponent from "../components/Themes/Retro/RetroComponent.astro";
+import ProComponent from "../components/Themes/Pro/ProComponent.astro";
+import PopComponent from "../components/Themes/Pop/PopComponent.astro";
+import NeonComponent from "../components/Themes/Neon/NeonComponent.astro";
+import FreshComponent from "../components/Themes/Fresh/FreshComponent.astro";
+import ArabicTouchComponent from "../components/Themes/ArabicTouch/ArabicTouchComponent.astro";
+import MinimalComponent from "../components/Themes/Minimal/MinimalComponent.astro";
+import ElegantComponent from "../components/Themes/Elegant/ElegantComponent.astro";
+
+// === 1. Read query params ===
+const urlParams = Astro.url.searchParams;
+const themeName = urlParams.get("themeName") ?? "classic";
+let page = urlParams.get("page") ?? "WithVariantsWithBundles";
+const blocksParam = urlParams.get("blocks");
+
+//  Normalize page to include themeName prefix if not present ===
+if (!page.startsWith(themeName + "_")) {
+  page = `${themeName}_${page}`;
+}
+
+//  Parse blocks parameter and normalize with theme prefix ===
+const blocks = blocksParam 
+  ? blocksParam.split(',').map(block => {
+      const trimmedBlock = block.trim();
+      // Add theme prefix if not already present
+      return trimmedBlock.startsWith(themeName + "_") 
+        ? trimmedBlock 
+        : `${themeName}_${trimmedBlock}`;
+    })
+  : undefined;
+
+// === 2. Fetch data from API ===
+const funnelPage: FunnelRes = await getFunnelPage(themeName, page, blocks);
+
+// === 3. Prepare required values ===
 const strTheme: string = funnelPage.data.theme;
-// Converts the theme string to a Theme enum value.
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
 const meta = funnelPage.data.product.meta;
 const facebookPixelID = funnelPage.data.facebookPixelId;
 const twitterPixelID = funnelPage.data.twitterPixelId;
 const snapchatPixelID = funnelPage.data.snapchatPixelId;
 const tiktokPixelID = funnelPage.data.tiktokPixelId;
----
-<Layout metadata={meta} strThemeName={strTheme} themeCss={funnelPage.data.themeCss} facebookPixelID={facebookPixelID} twitterPixelID={twitterPixelID} snapchatPixelID={snapchatPixelID} tiktokPixelID={tiktokPixelID}>
-  {
-    (() => {
-      // Selects and renders the appropriate theme component based on the Theme enum value.
-      switch (enumTheme) {
-        case Theme.Classic:
-          return <ClassicComponent funnelPage={funnelPage.data} />;
-        default:
-          return <p>Theme not found</p>;
-      }
-    })()
-  }
-</Layout>
 
+---
+
+<Layout
+  metadata={meta}
+  strThemeName={strTheme}
+  themeCss={funnelPage.data.themeCss}
+  facebookPixelID={facebookPixelID}
+  twitterPixelID={twitterPixelID}
+  snapchatPixelID={snapchatPixelID}
+  tiktokPixelID={tiktokPixelID}
+>
+{
+  (() => {
+    switch (enumTheme) {
+      case Theme.Classic:
+        return <ClassicComponent funnelPage={funnelPage.data} />;
+      case Theme.Techno:
+        return <TechnoComponent funnelPage={funnelPage.data} />;
+      case Theme.Bold:
+        return <BoldComponent funnelPage={funnelPage.data} />;
+      case Theme.Zen:
+        return <ZenComponent funnelPage={funnelPage.data} />;
+      case Theme.Urban:
+        return <UrbanComponent funnelPage={funnelPage.data} />;
+      case Theme.Retro:
+        return <RetroComponent funnelPage={funnelPage.data} />;
+      case Theme.Pro:
+        return <ProComponent funnelPage={funnelPage.data} />;
+      case Theme.Pop:
+        return <PopComponent funnelPage={funnelPage.data} />;
+      case Theme.Neon:
+        return <NeonComponent funnelPage={funnelPage.data} />;
+      case Theme.Fresh:
+        return <FreshComponent funnelPage={funnelPage.data} />;
+      case Theme.ArabicTouch:
+        return <ArabicTouchComponent funnelPage={funnelPage.data} />;
+      case Theme.Minimal:
+        return <MinimalComponent funnelPage={funnelPage.data} />;
+      case Theme.Elegant:
+        return <ElegantComponent funnelPage={funnelPage.data} />;
+      default:
+        return <p>🚫 Theme not supported</p>;
+    }
+  })()
+}
+</Layout>
