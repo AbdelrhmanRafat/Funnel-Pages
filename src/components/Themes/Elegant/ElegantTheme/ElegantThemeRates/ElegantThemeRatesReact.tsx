@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
-import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import { FunnelElegantComponents } from "../../../../../lib/constants/themes";
 import type { BlockData } from '../../../../../lib/api/types';
-import './ClassicThemeRates.css';
+import './ElegantThemeRates.css';
 
-interface ClassicThemeRatesReactProps {
+interface ElegantThemeRatesReactProps {
   ratingData: BlockData;
   currentLang: Language;
 }
@@ -14,11 +14,10 @@ interface Star {
   key: string;
 }
 
-const ClassicThemeRatesReact: React.FC<ClassicThemeRatesReactProps> = ({
+const ElegantThemeRatesReact: React.FC<ElegantThemeRatesReactProps> = ({
   ratingData,
   currentLang,
 }) => {
-  // Generate stars function (converted from Astro)
   const generateStars = (rating: number): Star[] => {
     const stars: Star[] = [];
     const fullStars = Math.floor(rating);
@@ -40,21 +39,17 @@ const ClassicThemeRatesReact: React.FC<ClassicThemeRatesReactProps> = ({
     return stars;
   };
 
-  // Extract rating from ratingData (same logic as Astro)
   const rating = useMemo(() => {
     return Array.isArray(ratingData?.items) && ratingData.items.length > 0
       ? parseFloat(ratingData.items[0].number ?? "0")
       : 0;
   }, [ratingData]);
 
-  // Generate stars array
   const stars = useMemo(() => generateStars(rating), [rating]);
 
-  // Language and direction logic
   const isArabic = currentLang === "ar";
   const displayStars = isArabic ? [...stars].reverse() : stars;
 
-  // Star component for different types
   const StarIcon: React.FC<{ star: Star }> = ({ star }) => {
     const baseProps = {
       xmlns: "http://www.w3.org/2000/svg",
@@ -68,40 +63,40 @@ const ClassicThemeRatesReact: React.FC<ClassicThemeRatesReactProps> = ({
     switch (star.type) {
       case 'full':
         return (
-          <svg className="classic-rating-star-full" {...baseProps}>
+          <svg className="elegant-rating-star-full" {...baseProps}>
             <path d={starPath} fill="currentColor" />
           </svg>
         );
-      
+
       case 'half':
         return (
-          <svg className="classic-rating-star-half" {...baseProps}>
+          <svg className="elegant-rating-star-half" {...baseProps}>
             <defs>
               <linearGradient id="halfGradient">
                 <stop offset="50%" stopColor="currentColor" />
-                <stop offset="50%" stopColor="var(--classic-color-outline)" />
+                <stop offset="50%" stopColor="var(--elegant-color-outline)" />
               </linearGradient>
             </defs>
             <path d={starPath} fill="url(#halfGradient)" />
           </svg>
         );
-      
+
       case 'empty':
         return (
-          <svg className="classic-rating-star-empty" {...baseProps}>
+          <svg className="elegant-rating-star-empty" {...baseProps}>
             <path d={starPath} fill="currentColor" />
           </svg>
         );
-      
+
       default:
         return null;
     }
   };
 
   return (
-    <div id={FunnelClassicComponents.ClassicRates} className="classic-rates">
-      <div 
-        className="classic-rating-display" 
+    <div id={FunnelElegantComponents.ElegantRates} className="elegant-rates">
+      <div
+        className="elegant-rating-display"
         style={{ direction: isArabic ? "rtl" : "ltr" }}
       >
         {displayStars.map((star) => (
@@ -109,10 +104,10 @@ const ClassicThemeRatesReact: React.FC<ClassicThemeRatesReactProps> = ({
             <StarIcon star={star} />
           </span>
         ))}
-        <span className="classic-rating-number">({rating})</span>
+        <span className="elegant-rating-number">({rating})</span>
       </div>
     </div>
   );
 };
 
-export default ClassicThemeRatesReact;
+export default ElegantThemeRatesReact;

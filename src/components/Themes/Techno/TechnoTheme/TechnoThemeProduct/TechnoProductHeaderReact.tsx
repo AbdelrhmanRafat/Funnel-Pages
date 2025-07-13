@@ -2,6 +2,7 @@ import React from 'react';
 import { useProductHeaderState } from './hooks/useProductHeaderState';
 import type { Product, BlockData } from '../../../../../lib/api/types';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
+import TechnoThemeRatesReact from '../TechnoThemeRates/TechnoThemeRatesReact';
 
 interface ClassicProductHeaderReactProps {
   product: Product;
@@ -69,7 +70,7 @@ const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
           {isArabic ? product.name_ar : product.name_en}
         </h2>
         {ratingData && (
-          <TechnoThemeR 
+          <TechnoThemeRatesReact 
             ratingData={ratingData} 
             currentLang={currentLang} 
           />

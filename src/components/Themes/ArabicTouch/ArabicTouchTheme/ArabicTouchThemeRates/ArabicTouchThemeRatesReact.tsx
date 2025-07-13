@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
-import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import { FunnelArabicTouchComponents } from "../../../../../lib/constants/themes";
 import type { BlockData } from '../../../../../lib/api/types';
-import './ClassicThemeRates.css';
+import './ArabicTouchThemeRates.css';
 
-interface ClassicThemeRatesReactProps {
+interface ArabicTouchThemeRatesReactProps {
   ratingData: BlockData;
   currentLang: Language;
 }
@@ -14,7 +14,7 @@ interface Star {
   key: string;
 }
 
-const ClassicThemeRatesReact: React.FC<ClassicThemeRatesReactProps> = ({
+const ArabicTouchThemeRatesReact: React.FC<ArabicTouchThemeRatesReactProps> = ({
   ratingData,
   currentLang,
 }) => {
@@ -68,18 +68,18 @@ const ClassicThemeRatesReact: React.FC<ClassicThemeRatesReactProps> = ({
     switch (star.type) {
       case 'full':
         return (
-          <svg className="classic-rating-star-full" {...baseProps}>
+          <svg className="arabictouch-rating-star-full" {...baseProps}>
             <path d={starPath} fill="currentColor" />
           </svg>
         );
       
       case 'half':
         return (
-          <svg className="classic-rating-star-half" {...baseProps}>
+          <svg className="arabictouch-rating-star-half" {...baseProps}>
             <defs>
               <linearGradient id="halfGradient">
                 <stop offset="50%" stopColor="currentColor" />
-                <stop offset="50%" stopColor="var(--classic-color-outline)" />
+                <stop offset="50%" stopColor="var(--arabictouch-color-outline)" />
               </linearGradient>
             </defs>
             <path d={starPath} fill="url(#halfGradient)" />
@@ -88,7 +88,7 @@ const ClassicThemeRatesReact: React.FC<ClassicThemeRatesReactProps> = ({
       
       case 'empty':
         return (
-          <svg className="classic-rating-star-empty" {...baseProps}>
+          <svg className="arabictouch-rating-star-empty" {...baseProps}>
             <path d={starPath} fill="currentColor" />
           </svg>
         );
@@ -99,9 +99,9 @@ const ClassicThemeRatesReact: React.FC<ClassicThemeRatesReactProps> = ({
   };
 
   return (
-    <div id={FunnelClassicComponents.ClassicRates} className="classic-rates">
+    <div id={FunnelArabicTouchComponents.ArabicTouchRates} className="arabictouch-rates">
       <div 
-        className="classic-rating-display" 
+        className="arabictouch-rating-display" 
         style={{ direction: isArabic ? "rtl" : "ltr" }}
       >
         {displayStars.map((star) => (
@@ -109,10 +109,10 @@ const ClassicThemeRatesReact: React.FC<ClassicThemeRatesReactProps> = ({
             <StarIcon star={star} />
           </span>
         ))}
-        <span className="classic-rating-number">({rating})</span>
+        <span className="arabictouch-rating-number">({rating})</span>
       </div>
     </div>
   );
 };
 
-export default ClassicThemeRatesReact;
+export default ArabicTouchThemeRatesReact;

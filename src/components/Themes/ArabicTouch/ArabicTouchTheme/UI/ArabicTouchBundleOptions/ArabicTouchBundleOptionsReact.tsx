@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import type { PurchaseOption, Product } from "../../../../../../lib/api/types";
 import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
 import { useBundleStore } from "../../../../../../lib/stores/bundleStore";
-import ClassicBundleOptionsContainerReact from "../ClassicBundleOptionsContainer/ClassicBundleOptionsContainerReact.tsx";
 import { useCustomOptionBundleStore } from '../../../../../../lib/stores/customOptionBundleStore.ts';
 
 interface ClassicBundleOptionsReactProps {
