@@ -14,7 +14,7 @@ const OptionSection: React.FC<OptionSectionProps> = ({
 }) => {
   return (
     <div className={`select-option-section space-y-2 ${className}`}>
-      <p className="classic-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
+      <p className="elegant-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
         {title}
       </p>
       {children}

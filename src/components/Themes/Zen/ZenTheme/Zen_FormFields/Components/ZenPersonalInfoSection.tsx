@@ -13,12 +13,12 @@ import {
   isValidAddress,
 } from '../../../../../../lib/utils/validation';
 
-interface ClassicPersonalInfoSectionProps {
+interface ZenPersonalInfoSectionProps {
   cities: string[];
   currentLang: Language;
 }
 
-const ClassicPersonalInfoSection: React.FC<ClassicPersonalInfoSectionProps> = ({
+const ZenPersonalInfoSection: React.FC<ZenPersonalInfoSectionProps> = ({
   cities,
   currentLang,
 }) => {
@@ -86,7 +86,7 @@ const ClassicPersonalInfoSection: React.FC<ClassicPersonalInfoSectionProps> = ({
         <div className='mb-3'>
           {/* PERSONAL INFORMATION SECTION */}
           <h2
-            className="classic-form-h2-title mb-6 text-xl font-semibold md:text-2xl"
+            className="zen-form-h2-title mb-6 text-xl font-semibold md:text-2xl"
             data-translate="form.personalInfo"
           >
             {getTranslation("form.personalInfo", currentLang)}
@@ -94,30 +94,30 @@ const ClassicPersonalInfoSection: React.FC<ClassicPersonalInfoSectionProps> = ({
           
           <div className="space-y-3 md:space-y-4">
             {/* FULL NAME INPUT FIELD */}
-            <div className="classic-form-div-group">
+            <div className="zen-form-div-group">
               <input
                 type="text"
                 id="form-fullName"
                 value={fullNameField.value}
                 onChange={(e) => handleInputChange('fullName', e.target.value)}
                 onBlur={() => handleBlur('fullName')}
-                className={`classic-form-input-base classic-form-input-responsive ${isArabic ? "text-right" : "text-left"} text-sm md:text-base ${
-                  fullNameField.touched && fullNameField.errorMessage ? 'classic-form-input-error' : 
-                  fullNameField.touched && fullNameField.isValid ? 'classic-form-input-success' : ''
+                className={`zen-form-input-base zen-form-input-responsive ${isArabic ? "text-right" : "text-left"} text-sm md:text-base ${
+                  fullNameField.touched && fullNameField.errorMessage ? 'zen-form-input-error' : 
+                  fullNameField.touched && fullNameField.isValid ? 'zen-form-input-success' : ''
                 }`}
                 aria-describedby="form-fullName-error"
                 required
               />
               <label
                 htmlFor="form-fullName"
-                className="classic-form-label-floating"
+                className="zen-form-label-floating"
                 data-translate="form.fullName"
               >
                 {getTranslation("form.fullName", currentLang)}
               </label>
               <span
                 id="form-fullName-error"
-                className="classic-form-span-error text-xs md:text-sm"
+                className="zen-form-span-error text-xs md:text-sm"
                 role="alert"
                 style={{ display: fullNameField.touched && fullNameField.errorMessage ? 'block' : 'none' }}
               >
@@ -126,30 +126,30 @@ const ClassicPersonalInfoSection: React.FC<ClassicPersonalInfoSectionProps> = ({
             </div>
             
             {/* PHONE NUMBER INPUT FIELD */}
-            <div className="classic-form-div-group">
+            <div className="zen-form-div-group">
               <input
                 type="tel"
                 id="form-phone"
                 value={phoneField.value}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
                 onBlur={() => handleBlur('phone')}
-                className={`classic-form-input-base classic-form-input-responsive ${isArabic ? "text-right" : "text-left"} text-sm md:text-base ${
-                  phoneField.touched && phoneField.errorMessage ? 'classic-form-input-error' : 
-                  phoneField.touched && phoneField.isValid ? 'classic-form-input-success' : ''
+                className={`zen-form-input-base zen-form-input-responsive ${isArabic ? "text-right" : "text-left"} text-sm md:text-base ${
+                  phoneField.touched && phoneField.errorMessage ? 'zen-form-input-error' : 
+                  phoneField.touched && phoneField.isValid ? 'zen-form-input-success' : ''
                 }`}
                 aria-describedby="form-phone-error"
                 required
               />
               <label
                 htmlFor="form-phone"
-                className="classic-form-label-floating"
+                className="zen-form-label-floating"
                 data-translate="form.phoneNumber"
               >
                 {getTranslation("form.phoneNumber", currentLang)}
               </label>
               <span
                 id="form-phone-error"
-                className="classic-form-span-error text-xs md:text-sm"
+                className="zen-form-span-error text-xs md:text-sm"
                 role="alert"
                 style={{ display: phoneField.touched && phoneField.errorMessage ? 'block' : 'none' }}
               >
@@ -158,30 +158,30 @@ const ClassicPersonalInfoSection: React.FC<ClassicPersonalInfoSectionProps> = ({
             </div>
             
             {/* EMAIL INPUT FIELD */}
-            <div className="classic-form-div-group">
+            <div className="zen-form-div-group">
               <input
                 type="email"
                 id="form-email"
                 value={emailField.value}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 onBlur={() => handleBlur('email')}
-                className={`classic-form-input-base classic-form-input-responsive ${isArabic ? "text-right" : "text-left"} text-sm md:text-base ${
-                  emailField.touched && emailField.errorMessage ? 'classic-form-input-error' : 
-                  emailField.touched && emailField.isValid ? 'classic-form-input-success' : ''
+                className={`zen-form-input-base zen-form-input-responsive ${isArabic ? "text-right" : "text-left"} text-sm md:text-base ${
+                  emailField.touched && emailField.errorMessage ? 'zen-form-input-error' : 
+                  emailField.touched && emailField.isValid ? 'zen-form-input-success' : ''
                 }`}
                 aria-describedby="form-email-error"
                 required
               />
               <label
                 htmlFor="form-email"
-                className="classic-form-label-floating"
+                className="zen-form-label-floating"
                 data-translate="form.email"
               >
                 {getTranslation("form.email", currentLang)}
               </label>
               <span
                 id="form-email-error"
-                className="classic-form-span-error text-xs md:text-sm"
+                className="zen-form-span-error text-xs md:text-sm"
                 role="alert"
                 style={{ display: emailField.touched && emailField.errorMessage ? 'block' : 'none' }}
               >
@@ -190,29 +190,29 @@ const ClassicPersonalInfoSection: React.FC<ClassicPersonalInfoSectionProps> = ({
             </div>
             
             {/* ADDRESS TEXTAREA FIELD */}
-            <div className="classic-form-div-group">
+            <div className="zen-form-div-group">
               <textarea
                 id="form-address"
                 value={addressField.value}
                 onChange={(e) => handleInputChange('address', e.target.value)}
                 onBlur={() => handleBlur('address')}
-                className={`classic-form-input-base classic-form-textarea-responsive ${isArabic ? "text-right" : "text-left"} min-h-[80px] md:min-h-[100px] resize-y text-sm md:text-base ${
-                  addressField.touched && addressField.errorMessage ? 'classic-form-input-error' : 
-                  addressField.touched && addressField.isValid ? 'classic-form-input-success' : ''
+                className={`zen-form-input-base zen-form-textarea-responsive ${isArabic ? "text-right" : "text-left"} min-h-[80px] md:min-h-[100px] resize-y text-sm md:text-base ${
+                  addressField.touched && addressField.errorMessage ? 'zen-form-input-error' : 
+                  addressField.touched && addressField.isValid ? 'zen-form-input-success' : ''
                 }`}
                 aria-describedby="form-address-error"
                 required
               />
               <label
                 htmlFor="form-address"
-                className="classic-form-label-floating"
+                className="zen-form-label-floating"
                 data-translate="form.address"
               >
                 {getTranslation("form.address", currentLang)}
               </label>
               <span
                 id="form-address-error"
-                className="classic-form-span-error text-xs md:text-sm"
+                className="zen-form-span-error text-xs md:text-sm"
                 role="alert"
                 style={{ display: addressField.touched && addressField.errorMessage ? 'block' : 'none' }}
               >
@@ -221,15 +221,15 @@ const ClassicPersonalInfoSection: React.FC<ClassicPersonalInfoSectionProps> = ({
             </div>
             
             {/* CITY SELECTION DROPDOWN */}
-            <div className="classic-form-div-group">
+            <div className="zen-form-div-group">
               <select 
                 id="form-city"
                 value={cityField.value}
                 onChange={(e) => handleInputChange('city', e.target.value)}
                 onBlur={() => handleBlur('city')}
-                className={`classic-form-select-base classic-form-select-responsive ${isArabic ? "text-right" : "text-left"} text-sm md:text-base ${
-                  cityField.touched && cityField.errorMessage ? 'classic-form-input-error' : 
-                  cityField.touched && cityField.isValid ? 'classic-form-input-success' : ''
+                className={`zen-form-select-base zen-form-select-responsive ${isArabic ? "text-right" : "text-left"} text-sm md:text-base ${
+                  cityField.touched && cityField.errorMessage ? 'zen-form-input-error' : 
+                  cityField.touched && cityField.isValid ? 'zen-form-input-success' : ''
                 }`}
                 aria-describedby="form-city-error"
                 required
@@ -245,7 +245,7 @@ const ClassicPersonalInfoSection: React.FC<ClassicPersonalInfoSectionProps> = ({
               </select>
               <span
                 id="form-city-error"
-                className="classic-form-span-error text-xs md:text-sm"
+                className="zen-form-span-error text-xs md:text-sm"
                 role="alert"
                 style={{ display: cityField.touched && cityField.errorMessage ? 'block' : 'none' }}
               >
@@ -259,4 +259,4 @@ const ClassicPersonalInfoSection: React.FC<ClassicPersonalInfoSectionProps> = ({
   );
 };
 
-export default ClassicPersonalInfoSection;
+export default ZenPersonalInfoSection;

@@ -7,14 +7,14 @@ import { usePricingCalculation } from './hooks/usePricingCalculation';
 
 // Import hooks
 
-interface ClassicProductCostsReactProps {
+interface TechnoProductCostsReactProps {
   hasBundles: boolean;
   showDiscountWhenZero?: boolean;
   currencySymbol: string;
   currentLang: Language;
 }
 
-const ClassicProductCostsReact: React.FC<ClassicProductCostsReactProps> = ({
+const TechnoProductCostsReact: React.FC<TechnoProductCostsReactProps> = ({
   hasBundles,
   showDiscountWhenZero = false,
   currencySymbol,
@@ -27,7 +27,7 @@ const ClassicProductCostsReact: React.FC<ClassicProductCostsReactProps> = ({
   });
 
   return (
-    <div className="classic-product-costs-container">
+    <div className="techno-product-costs-container">
       <CostCalculationDisplay
         calculatedValues={calculatedValues}
         hasBundles={hasBundles}
@@ -39,4 +39,4 @@ const ClassicProductCostsReact: React.FC<ClassicProductCostsReactProps> = ({
   );
 };
 
-export default ClassicProductCostsReact;
+export default TechnoProductCostsReact;

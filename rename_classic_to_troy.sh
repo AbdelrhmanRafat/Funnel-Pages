@@ -1,65 +1,54 @@
-
 #!/bin/bash
 
-# Set the base directory
+# === 1. Set your base path and theme name ===
+THEMES_BASE="/Users/macbook/Desktop/Astro Test/FunelPage Test React/src/components/Themes"
+THEME_NAME="Zen"
+THEME_DIR="$THEMES_BASE/$THEME_NAME/${THEME_NAME}Theme"
+THEME_SHORT="$THEME_NAME"  # In case you want different output name later
 
-# Set the base directory
-#!/bin/bash
+# === 2. Backup ===
+BACKUP_BASE="/Users/macbook/Desktop/Astro/FunelPage/ClassicTo${THEME_SHORT}_backup_$(date +%Y%m%d_%H%M%S)"
+echo "📦 Creating backup at: $BACKUP_BASE"
+cp -r "$THEME_DIR" "$BACKUP_BASE"
 
-# Set the base directory
-BASE_DIR="/Users/macbook/Desktop/Astro Test/FunelPage Test React/src/components/Themes/Zen/ZenTheme"
+# === 3. Replace file contents ===
+echo "🔍 Replacing 'Classic' with '$THEME_SHORT' inside files..."
+find "$THEME_DIR" -type f \( -name "*.astro" -o -name "*.css" -o -name "*.ts" -o -name "*.js" -o -name "*.json" -o -name "*.scss" -o -name "*.html" -o -name "*.tsx" -o -name "*.jsx" \) | while read file; do
+  sed -i '' -E "
+    s/\bclassic\b/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')/g;
+    s/\bClassic\b/${THEME_SHORT}/g;
+    s/\bCLASSIC\b/$(echo "$THEME_SHORT" | tr '[:lower:]' '[:upper:]')/g;
 
-# Step 1: Create a backup of the directory
-BACKUP_DIR="/Users/macbook/Desktop/Astro/FunelPage/ClassicToZen_backup_$(date +%Y%m%d_%H%M%S)"
-echo "📦 Creating backup at $BACKUP_DIR"
-cp -r "$BASE_DIR" "$BACKUP_DIR"
+    s/classic([A-Z])/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')\1/g;
+    s/Classic([A-Z])/${THEME_SHORT}\1/g;
 
-# Step 2: Replace all case and naming style variants in file contents
-echo "📝 Replacing all variants of 'classic' with 'zen' in file contents..."
-find "$BASE_DIR" -type f \( -name "*.astro" -o -name "*.css" -o -name "*.ts" -o -name "*.js" -o -name "*.json" -o -name "*.scss" -o -name "*.html" \) | while read file; do
-  sed -i '' -E '
-    s/\bclassic\b/zen/g;                             # plain lowercase
-    s/\bClassic\b/Zen/g;                             # PascalCase / Capitalized
-    s/\bCLASSIC\b/ZEN/g;                             # UPPERCASE
+    s/classic-/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')-/g;
+    s/classic_/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')_/g;
+    s/CLASSIC_/$(echo "$THEME_SHORT" | tr '[:lower:]' '[:upper:]')_/g;
 
-    s/\bClassic_([A-Z][a-zA-Z0-9_]*)\b/Zen_\1/g;     # PascalCase_With_Underscores
-    s/CLASSIC_([A-Z0-9_]+)/ZEN_\1/g;                 # UPPER_SNAKE_CASE
-
-    s/classic([A-Z])/zen\1/g;                        # camelCase continuation
-    s/Classic([A-Z])/Zen\1/g;                        # PascalCase continuation
-
-    s/classic-/zen-/g;                               # kebab-case
-    s/classic_/zen_/g;                               # snake_case
-    s/CLASSIC_/ZEN_/g;                               # UPPER_SNAKE_CASE
-
-    s/data\.classic\./data.zen./g;                   # dot.case
-  ' "$file"
-  echo "✅ Updated: $file"
+    s/data\.classic\./data.$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')./g;
+  " "$file"
+  echo "✅ Updated content: $file"
 done
 
-# Step 3: Rename files (preserving case variants)
-echo "🗂 Renaming files..."
-find "$BASE_DIR" -type f | while read file; do
+# === 4. Rename files ===
+echo "🗂 Renaming files if needed..."
+find "$THEME_DIR" -type f | while read file; do
   filename=$(basename "$file")
   dirname=$(dirname "$file")
-  new_filename="$filename"
+  new_filename=$(echo "$filename" | sed -E "
+    s/\bclassic\b/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')/g;
+    s/\bClassic\b/${THEME_SHORT}/g;
+    s/\bCLASSIC\b/$(echo "$THEME_SHORT" | tr '[:lower:]' '[:upper:]')/g;
 
-  new_filename=$(echo "$new_filename" | sed -E '
-    s/\bclassic\b/zen/g;
-    s/\bClassic\b/Zen/g;
-    s/\bCLASSIC\b/ZEN/g;
+    s/classic([A-Z])/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')\1/g;
+    s/Classic([A-Z])/${THEME_SHORT}\1/g;
 
-    s/\bClassic_([A-Z][a-zA-Z0-9_]*)\b/Zen_\1/g;
-    s/CLASSIC_([A-Z0-9_]+)/ZEN_\1/g;
-
-    s/classic([A-Z])/zen\1/g;
-    s/Classic([A-Z])/Zen\1/g;
-
-    s/classic-/zen-/g;
-    s/classic_/zen_/g;
-    s/CLASSIC_/ZEN_/g;
-  ')
-
+    s/classic-/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')-/g;
+    s/classic_/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')_/g;
+    s/CLASSIC_/$(echo "$THEME_SHORT" | tr '[:lower:]' '[:upper:]')_/g;
+  ")
+  
   new_file="$dirname/$new_filename"
   if [ "$file" != "$new_file" ]; then
     mv "$file" "$new_file"
@@ -67,30 +56,26 @@ find "$BASE_DIR" -type f | while read file; do
   fi
 done
 
-# Step 4: Rename directories (preserving case variants, from deepest to shallowest)
+# === 5. Rename directories ===
 echo "📁 Renaming directories..."
-find "$BASE_DIR" -depth -type d | sort -r | while read dir; do
-  new_dir="$dir"
-  new_dir=$(echo "$new_dir" | sed -E '
-    s/\bclassic\b/zen/g;
-    s/\bClassic\b/Zen/g;
-    s/\bCLASSIC\b/ZEN/g;
+find "$THEME_DIR" -depth -type d | sort -r | while read dir; do
+  new_dir=$(echo "$dir" | sed -E "
+    s/\bclassic\b/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')/g;
+    s/\bClassic\b/${THEME_SHORT}/g;
+    s/\bCLASSIC\b/$(echo "$THEME_SHORT" | tr '[:lower:]' '[:upper:]')/g;
 
-    s/\bClassic_([A-Z][a-zA-Z0-9_]*)\b/Zen_\1/g;
-    s/CLASSIC_([A-Z0-9_]+)/ZEN_\1/g;
+    s/classic([A-Z])/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')\1/g;
+    s/Classic([A-Z])/${THEME_SHORT}\1/g;
 
-    s/classic([A-Z])/zen\1/g;
-    s/Classic([A-Z])/Zen\1/g;
-
-    s/classic-/zen-/g;
-    s/classic_/zen_/g;
-    s/CLASSIC_/ZEN_/g;
-  ')
+    s/classic-/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')-/g;
+    s/classic_/$(echo "$THEME_SHORT" | tr '[:upper:]' '[:lower:]')_/g;
+    s/CLASSIC_/$(echo "$THEME_SHORT" | tr '[:lower:]' '[:upper:]')_/g;
+  ")
   if [ "$dir" != "$new_dir" ]; then
     mv "$dir" "$new_dir"
     echo "📂 Renamed directory: $dir → $new_dir"
   fi
 done
 
-echo "🚀 All replacements from 'Classic' to 'Zen' are complete!"
-echo "🗂 Backup created at: $BACKUP_DIR"
+echo "🚀 Done! All 'Classic' references changed to '$THEME_SHORT'"
+echo "🗂 Backup saved to: $BACKUP_BASE"

@@ -7,11 +7,11 @@ import {
 } from "../../../../../../lib/stores/formStore";
 import { isValidNotes } from '../../../../../../lib/utils/validation';
 
-interface ClassicNotesSectionProps {
+interface BoldNotesSectionProps {
   currentLang: Language;
 }
 
-const ClassicNotesSection: React.FC<ClassicNotesSectionProps> = ({
+const BoldNotesSection: React.FC<BoldNotesSectionProps> = ({
   currentLang,
 }) => {
   // Form store hooks
@@ -44,30 +44,30 @@ const ClassicNotesSection: React.FC<ClassicNotesSectionProps> = ({
   const isArabic = currentLang === "ar";
 
   return (
-    <div className="classic-form-div-notes">
-      <div className="classic-form-div-group">
+    <div className="bold-form-div-notes">
+      <div className="bold-form-div-group">
         <textarea
           id="form-notes"
           value={notesField.value}
           onChange={(e) => handleInputChange('notes', e.target.value)}
           onBlur={() => handleBlur('notes')}
           placeholder=""
-          className={`classic-form-input-base classic-form-textarea-responsive ${isArabic ? "text-right" : "text-left"} min-h-[100px] md:min-h-[120px] resize-y text-sm md:text-base ${
-            notesField.touched && notesField.errorMessage ? 'classic-form-input-error' : 
-            notesField.touched && notesField.isValid ? 'classic-form-input-success' : ''
+          className={`bold-form-input-base bold-form-textarea-responsive ${isArabic ? "text-right" : "text-left"} min-h-[100px] md:min-h-[120px] resize-y text-sm md:text-base ${
+            notesField.touched && notesField.errorMessage ? 'bold-form-input-error' : 
+            notesField.touched && notesField.isValid ? 'bold-form-input-success' : ''
           }`}
           aria-describedby="form-notes-error"
         />
         <label
           htmlFor="form-notes"
-          className="classic-form-label-floating"
+          className="bold-form-label-floating"
           data-translate="form.notes"
         >
           {getTranslation("form.notes", currentLang)}
         </label>
         <span
           id="form-notes-error"
-          className="classic-form-span-error text-xs md:text-sm"
+          className="bold-form-span-error text-xs md:text-sm"
           role="alert"
           style={{ display: notesField.touched && notesField.errorMessage ? 'block' : 'none' }}
         >
@@ -78,4 +78,4 @@ const ClassicNotesSection: React.FC<ClassicNotesSectionProps> = ({
   );
 };
 
-export default ClassicNotesSection;
+export default BoldNotesSection;

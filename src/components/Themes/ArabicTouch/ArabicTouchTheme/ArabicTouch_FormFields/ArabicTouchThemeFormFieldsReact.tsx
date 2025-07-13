@@ -1,16 +1,16 @@
 import React from 'react';
 import type { BlockData, PaymentOption, DeliveryOption, Product } from "../../../../../lib/api/types";
 import { type Language } from "../../../../../lib/utils/i18n/translations";
-import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import { FunnelArabicTouchComponents } from "../../../../../lib/constants/themes";
 import { useFormValid } from "../../../../../lib/stores/formStore";
-import ClassicSubmitOrderButtonReact from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButtonReact";
-import ClassicPersonalInfoSection from './Components/ClassicPersonalInfoSection';
-import ClassicPaymentOptionsSection from './Components/ClassicPaymentOptionsSection';
-import ClassicDeliveryOptionsSection from './Components/ClassicDeliveryOptionsSection';
-import ClassicNotesSection from './Components/ClassicNotesSection';
+import ArabicTouchSubmitOrderButtonReact from "../UI/ArabicTouchSubmitOrderButton/ArabicTouchSubmitOrderButtonReact";
+import ArabicTouchPersonalInfoSection from './Components/ArabicTouchPersonalInfoSection';
+import ArabicTouchPaymentOptionsSection from './Components/ArabicTouchPaymentOptionsSection';
+import ArabicTouchDeliveryOptionsSection from './Components/ArabicTouchDeliveryOptionsSection';
+import ArabicTouchNotesSection from './Components/ArabicTouchNotesSection';
 
 
-interface ClassicThemeFormFieldsReactProps {
+interface ArabicTouchThemeFormFieldsReactProps {
   data: BlockData;
   purchaseOptions: BlockData;
   isHaveVariant: string;
@@ -18,7 +18,7 @@ interface ClassicThemeFormFieldsReactProps {
   currentLang: Language;
 }
 
-const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = ({
+const ArabicTouchThemeFormFieldsReact: React.FC<ArabicTouchThemeFormFieldsReactProps> = ({
   data,
   purchaseOptions,
   isHaveVariant,
@@ -36,21 +36,21 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
 
   return (
     <section 
-      id={FunnelClassicComponents.ClassicFormFields}
-      className="classic-form w-full p-3"
+      id={FunnelArabicTouchComponents.ArabicTouchFormFields}
+      className="arabictouch-form w-full p-3"
       aria-labelledby="form-heading"
     >
       <div className="mx-auto py-2 flex flex-col justify-center items-center gap-2">
         
         {/* PERSONAL INFORMATION SECTION */}
-        <ClassicPersonalInfoSection 
+        <ArabicTouchPersonalInfoSection 
           cities={cities}
           currentLang={currentLang}
         />
         
         {/* PAYMENT OPTIONS SECTION */}
         {paymentOptions.length > 0 && (
-          <ClassicPaymentOptionsSection 
+          <ArabicTouchPaymentOptionsSection 
             paymentOptions={paymentOptions}
             currentLang={currentLang}
           />
@@ -58,19 +58,19 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
         
         {/* DELIVERY OPTIONS SECTION */}
         {deliveryOptions.length > 0 && (
-          <ClassicDeliveryOptionsSection 
+          <ArabicTouchDeliveryOptionsSection 
             deliveryOptions={deliveryOptions}
             currentLang={currentLang}
           />
         )}
         
         {/* NOTES SECTION */}
-        <ClassicNotesSection 
+        <ArabicTouchNotesSection 
           currentLang={currentLang}
         />
         <div className='w-full'>
         {/* SUBMIT BUTTON SECTION */}
-        <ClassicSubmitOrderButtonReact 
+        <ArabicTouchSubmitOrderButtonReact 
           purchaseOptions={purchaseOptions}
           isHaveVariant={isHaveVariant}
           product={product}
@@ -83,4 +83,4 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
   );
 };
 
-export default ClassicThemeFormFieldsReact;
+export default ArabicTouchThemeFormFieldsReact;

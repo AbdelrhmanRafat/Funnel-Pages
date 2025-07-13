@@ -42,8 +42,8 @@ const CostCalculationDisplay: React.FC<CostCalculationDisplayProps> = ({
   }, [calculatedValues.discount, showDiscountWhenZero]);
 
   return (
-    <div className="classic-product-costs-body">
-      <div className="classic-product-costs-content space-y-3">
+    <div className="bold-product-costs-body">
+      <div className="bold-product-costs-content space-y-3">
         {/* Quantity Row */}
         <CostRow
           label={getTranslation('productFunnel.quantity', currentLang)}

@@ -48,9 +48,9 @@ const DirectProductItemDetails: React.FC<DirectProductItemDetailsProps> = ({
   const variants = [selectedOption.firstOption, selectedOption.secondOption].filter(Boolean);
 
   return (
-    <div className="classic-directproduct-div-container">
+    <div className="retro-directproduct-div-container">
       
-      <div className="classic-directproduct-div-card rounded-lg border border-l-4 p-4 md:p-6">
+      <div className="retro-directproduct-div-card rounded-lg border border-l-4 p-4 md:p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           
           {/* Product Image - 1/3 */}
@@ -59,7 +59,7 @@ const DirectProductItemDetails: React.FC<DirectProductItemDetailsProps> = ({
               <img 
                 src={productImage} 
                 alt={productName}
-                className="classic-directproduct-img-product w-full h-full object-cover rounded-lg border"
+                className="retro-directproduct-img-product w-full h-full object-cover rounded-lg border"
                 loading="lazy"
               />
             </div>
@@ -69,10 +69,10 @@ const DirectProductItemDetails: React.FC<DirectProductItemDetailsProps> = ({
           <div className="md:col-span-1 space-y-3 md:space-y-4">
             {/* Product Name */}
             <div>
-              <h4 className="classic-directproduct-h4-name text-base md:text-lg lg:text-xl font-semibold leading-tight mb-2">
+              <h4 className="retro-directproduct-h4-name text-base md:text-lg lg:text-xl font-semibold leading-tight mb-2">
                 {productName}
               </h4>
-              <p className="classic-directproduct-p-sku text-xs md:text-sm font-mono px-2 py-1 rounded w-fit">
+              <p className="retro-directproduct-p-sku text-xs md:text-sm font-mono px-2 py-1 rounded w-fit">
                 SKU: {sku}
               </p>
             </div>
@@ -80,14 +80,14 @@ const DirectProductItemDetails: React.FC<DirectProductItemDetailsProps> = ({
             {/* Product Variants */}
             {variants.length > 0 && (
               <div>
-                <span className="classic-directproduct-span-variantlabel text-xs md:text-sm font-medium block mb-2">
+                <span className="retro-directproduct-span-variantlabel text-xs md:text-sm font-medium block mb-2">
                   {getTranslation('modal.productOptions', currentLang) || 'Selected Options'}:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {variants.map((variant, idx) => (
                     <span 
                       key={idx} 
-                      className="classic-directproduct-span-variant px-3 py-1 rounded-full text-xs md:text-sm border font-medium"
+                      className="retro-directproduct-span-variant px-3 py-1 rounded-full text-xs md:text-sm border font-medium"
                     >
                       {variant}
                     </span>
@@ -100,27 +100,27 @@ const DirectProductItemDetails: React.FC<DirectProductItemDetailsProps> = ({
           
           {/* Pricing Summary - 1/3 */}
           <div className="md:col-span-1">
-            <div className="classic-directproduct-div-pricing p-4 rounded-lg border space-y-3">
-              <h5 className="classic-directproduct-h5-pricingtitle text-sm md:text-base font-semibold mb-3">
+            <div className="retro-directproduct-div-pricing p-4 rounded-lg border space-y-3">
+              <h5 className="retro-directproduct-h5-pricingtitle text-sm md:text-base font-semibold mb-3">
                 {getTranslation('modal.pricePerItem', currentLang) || 'Pricing Details'}
               </h5>
               
               {/* Quantity */}
               <div className="flex justify-between items-center">
-                <span className="classic-directproduct-span-label text-sm">
+                <span className="retro-directproduct-span-label text-sm">
                   {getTranslation('modal.quantity', currentLang) || 'Quantity'}:
                 </span>
-                <span className="classic-directproduct-span-quantity px-3 py-1 rounded-lg text-sm font-bold">
+                <span className="retro-directproduct-span-quantity px-3 py-1 rounded-lg text-sm font-bold">
                   {quantity}
                 </span>
               </div>
               
               {/* Unit Price */}
               <div className="flex justify-between items-center">
-                <span className="classic-directproduct-span-label text-sm">
+                <span className="retro-directproduct-span-label text-sm">
                   {getTranslation('modal.unitPrice', currentLang) || 'Unit Price'}:
                 </span>
-                <span className="classic-directproduct-span-unitprice text-sm md:text-base font-medium">
+                <span className="retro-directproduct-span-unitprice text-sm md:text-base font-medium">
                   ${unitPrice.toFixed(2)}
                 </span>
               </div>
@@ -128,24 +128,24 @@ const DirectProductItemDetails: React.FC<DirectProductItemDetailsProps> = ({
               {/* Discount (if any) */}
               {discountAmount > 0 && (
                 <div className="flex justify-between items-center">
-                  <span className="classic-directproduct-span-label text-sm">
+                  <span className="retro-directproduct-span-label text-sm">
                     {getTranslation('modal.discount', currentLang) || 'Discount'}:
                   </span>
-                  <span className="classic-directproduct-span-discount text-sm md:text-base font-medium">
+                  <span className="retro-directproduct-span-discount text-sm md:text-base font-medium">
                     -${discountAmount.toFixed(2)}
                   </span>
                 </div>
               )}
               
               {/* Divider */}
-              <div className="classic-directproduct-div-divider h-px my-3"></div>
+              <div className="retro-directproduct-div-divider h-px my-3"></div>
               
               {/* Total */}
               <div className="flex justify-between items-center pt-2">
-                <span className="classic-directproduct-span-label text-base md:text-lg font-semibold">
+                <span className="retro-directproduct-span-label text-base md:text-lg font-semibold">
                   {getTranslation('modal.total', currentLang) || 'Total'}:
                 </span>
-                <span className="classic-directproduct-span-total text-lg md:text-xl lg:text-2xl font-bold">
+                <span className="retro-directproduct-span-total text-lg md:text-xl lg:text-2xl font-bold">
                   ${total.toFixed(2)}
                 </span>
               </div>

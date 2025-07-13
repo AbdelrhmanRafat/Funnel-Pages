@@ -1,16 +1,16 @@
 import React from 'react';
 import type { BlockData, PaymentOption, DeliveryOption, Product } from "../../../../../lib/api/types";
 import { type Language } from "../../../../../lib/utils/i18n/translations";
-import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import { FunnelZenComponents } from "../../../../../lib/constants/themes";
 import { useFormValid } from "../../../../../lib/stores/formStore";
-import ClassicSubmitOrderButtonReact from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButtonReact";
-import ClassicPersonalInfoSection from './Components/ClassicPersonalInfoSection';
-import ClassicPaymentOptionsSection from './Components/ClassicPaymentOptionsSection';
-import ClassicDeliveryOptionsSection from './Components/ClassicDeliveryOptionsSection';
-import ClassicNotesSection from './Components/ClassicNotesSection';
+import ZenSubmitOrderButtonReact from "../UI/ZenSubmitOrderButton/ZenSubmitOrderButtonReact";
+import ZenPersonalInfoSection from './Components/ZenPersonalInfoSection';
+import ZenPaymentOptionsSection from './Components/ZenPaymentOptionsSection';
+import ZenDeliveryOptionsSection from './Components/ZenDeliveryOptionsSection';
+import ZenNotesSection from './Components/ZenNotesSection';
 
 
-interface ClassicThemeFormFieldsReactProps {
+interface ZenThemeFormFieldsReactProps {
   data: BlockData;
   purchaseOptions: BlockData;
   isHaveVariant: string;
@@ -18,7 +18,7 @@ interface ClassicThemeFormFieldsReactProps {
   currentLang: Language;
 }
 
-const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = ({
+const ZenThemeFormFieldsReact: React.FC<ZenThemeFormFieldsReactProps> = ({
   data,
   purchaseOptions,
   isHaveVariant,
@@ -36,21 +36,21 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
 
   return (
     <section 
-      id={FunnelClassicComponents.ClassicFormFields}
-      className="classic-form w-full p-3"
+      id={FunnelZenComponents.ZenFormFields}
+      className="zen-form w-full p-3"
       aria-labelledby="form-heading"
     >
       <div className="mx-auto py-2 flex flex-col justify-center items-center gap-2">
         
         {/* PERSONAL INFORMATION SECTION */}
-        <ClassicPersonalInfoSection 
+        <ZenPersonalInfoSection 
           cities={cities}
           currentLang={currentLang}
         />
         
         {/* PAYMENT OPTIONS SECTION */}
         {paymentOptions.length > 0 && (
-          <ClassicPaymentOptionsSection 
+          <ZenPaymentOptionsSection 
             paymentOptions={paymentOptions}
             currentLang={currentLang}
           />
@@ -58,19 +58,19 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
         
         {/* DELIVERY OPTIONS SECTION */}
         {deliveryOptions.length > 0 && (
-          <ClassicDeliveryOptionsSection 
+          <ZenDeliveryOptionsSection 
             deliveryOptions={deliveryOptions}
             currentLang={currentLang}
           />
         )}
         
         {/* NOTES SECTION */}
-        <ClassicNotesSection 
+        <ZenNotesSection 
           currentLang={currentLang}
         />
         <div className='w-full'>
         {/* SUBMIT BUTTON SECTION */}
-        <ClassicSubmitOrderButtonReact 
+        <ZenSubmitOrderButtonReact 
           purchaseOptions={purchaseOptions}
           isHaveVariant={isHaveVariant}
           product={product}
@@ -83,4 +83,4 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
   );
 };
 
-export default ClassicThemeFormFieldsReact;
+export default ZenThemeFormFieldsReact;

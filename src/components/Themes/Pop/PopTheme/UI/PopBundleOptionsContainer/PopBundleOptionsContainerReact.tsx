@@ -1,4 +1,4 @@
-import "./ClassicBundleOptionsContainer.css";
+import "./PopBundleOptionsContainer.css";
 import React, { useMemo } from 'react';
 import type { Product } from "../../../../../../lib/api/types";
 import type { Language } from "../../../../../../lib/utils/i18n/translations";
@@ -34,13 +34,13 @@ interface ProcessedOptionData {
   associations: { [firstValue: string]: Array<{value: string, sku_id?: number, hex?: string, image?: string}> };
 }
 
-interface ClassicBundleOptionsContainerReactProps {
+interface PopBundleOptionsContainerReactProps {
   panelIndex: number;
   product: Product;
   currentLang: Language;
 }
 
-const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainerReactProps> = ({
+const PopBundleOptionsContainerReact: React.FC<PopBundleOptionsContainerReactProps> = ({
   panelIndex,
   product,
   currentLang,
@@ -198,7 +198,7 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
   const showSelectionIndicators = true;
 
   return (
-    <div className="classic-bundle-options-container-panel p-4 border">
+    <div className="pop-bundle-options-container-panel p-4 border">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 pb-3">
         <ContainerHeader 
           panelIndex={panelIndex}
@@ -271,5 +271,5 @@ const ClassicBundleOptionsContainerReact: React.FC<ClassicBundleOptionsContainer
   );
 };
 
-export default ClassicBundleOptionsContainerReact;
+export default PopBundleOptionsContainerReact;
 export type { ProcessedOptionData, OptionDetail, OptionValue };

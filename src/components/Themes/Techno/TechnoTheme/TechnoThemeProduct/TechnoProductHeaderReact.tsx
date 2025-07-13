@@ -4,7 +4,7 @@ import type { Product, BlockData } from '../../../../../lib/api/types';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
 import TechnoThemeRatesReact from '../TechnoThemeRates/TechnoThemeRatesReact';
 
-interface ClassicProductHeaderReactProps {
+interface TechnoProductHeaderReactProps {
   product: Product;
   purchaseOptions: BlockData | null;
   isHaveVariant: string;
@@ -12,7 +12,7 @@ interface ClassicProductHeaderReactProps {
   ratingData?: BlockData;
 }
 
-const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
+const TechnoProductHeaderReact: React.FC<TechnoProductHeaderReactProps> = ({
   product,
   purchaseOptions,
   isHaveVariant,
@@ -39,8 +39,8 @@ const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
         <span
           className={`${
             product.is_active
-              ? "classic-product-details-badge-success text-xs py-1 px-3 rounded-full font-medium"
-              : "classic-product-details-badge-error text-xs py-1 px-3 rounded-full font-medium"
+              ? "techno-product-details-badge-success text-xs py-1 px-3 rounded-full font-medium"
+              : "techno-product-details-badge-error text-xs py-1 px-3 rounded-full font-medium"
           }`}
           data-translate={
             product.is_active
@@ -55,7 +55,7 @@ const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
         
         {/* SKU Display - Reactive to store changes */}
         {showSku && (
-          <div className="classic-product-details-sku text-sm">
+          <div className="techno-product-details-sku text-sm">
             <span data-translate="product.productCode">
               {getTranslation("product.productCode", currentLang)}
             </span>
@@ -66,7 +66,7 @@ const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
 
       {/* Product Title + Rating Row */}
       <div className="w-full flex justify-start items-center gap-4">
-        <h2 className="classic-product-details-title text-3xl lg:text-4xl font-bold leading-tight">
+        <h2 className="techno-product-details-title text-3xl lg:text-4xl font-bold leading-tight">
           {isArabic ? product.name_ar : product.name_en}
         </h2>
         {ratingData && (
@@ -80,12 +80,12 @@ const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
       {/* Pricing Display - Reactive to store changes */}
       <div className="flex justify-start items-center gap-4">
         {/* Original Price (strikethrough) */}
-        <div className="classic-product-details-price classic-product-details-price--discount flex justify-center line-through items-center gap-2 text-4xl font-bold">
+        <div className="techno-product-details-price techno-product-details-price--discount flex justify-center line-through items-center gap-2 text-4xl font-bold">
           <span data-product-price>{headerState.currentPrice}</span>
         </div>
         
         {/* Discounted Price */}
-        <div className="classic-product-details-price flex justify-center items-center gap-2 text-4xl font-bold">
+        <div className="techno-product-details-price flex justify-center items-center gap-2 text-4xl font-bold">
           <span data-product-price-discount>{headerState.currentPriceAfterDiscount}</span>
           <span data-translate="productFunnel.currency">
             {getTranslation("productFunnel.currency", currentLang)}
@@ -96,4 +96,4 @@ const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
   );
 };
 
-export default ClassicProductHeaderReact;
+export default TechnoProductHeaderReact;

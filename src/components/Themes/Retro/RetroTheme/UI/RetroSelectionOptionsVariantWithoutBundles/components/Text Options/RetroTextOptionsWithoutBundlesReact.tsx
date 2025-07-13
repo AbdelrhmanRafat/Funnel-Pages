@@ -1,11 +1,11 @@
-import "./ClassicTextOptionsWithoutBundles.css";
+import "./RetroTextOptionsWithoutBundles.css";
 import React from 'react';
 
 interface Option {
   value: string;
 }
 
-interface ClassicTextOptionsWithoutBundlesReactProps {
+interface RetroTextOptionsWithoutBundlesReactProps {
   option: Option;
   index: number;
   optionType: 'first' | 'second';
@@ -14,7 +14,7 @@ interface ClassicTextOptionsWithoutBundlesReactProps {
   onClick?: () => void;
 }
 
-const ClassicTextOptionsWithoutBundlesReact: React.FC<ClassicTextOptionsWithoutBundlesReactProps> = ({
+const RetroTextOptionsWithoutBundlesReact: React.FC<RetroTextOptionsWithoutBundlesReactProps> = ({
   option,
   index,
   optionType,
@@ -22,13 +22,13 @@ const ClassicTextOptionsWithoutBundlesReact: React.FC<ClassicTextOptionsWithoutB
   isDisabled = false,
   onClick,
 }) => {
-  const baseClasses = "classic-selection-options-without-bundles-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center transition-all duration-200";
+  const baseClasses = "retro-selection-options-without-bundles-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center transition-all duration-200";
   
   // Apply selection styles
-  const selectedClass = isSelected ? "classic-selection-options-without-bundles-size-option--selected" : "";
+  const selectedClass = isSelected ? "retro-selection-options-without-bundles-size-option--selected" : "";
   
   // Apply disabled styles
-  const disabledClasses = isDisabled ? "classic-selection-options-without-bundles-option-disabled" : "classic-selection-options-without-bundles-option-available";
+  const disabledClasses = isDisabled ? "retro-selection-options-without-bundles-option-disabled" : "retro-selection-options-without-bundles-option-available";
   
   const combinedClasses = `${baseClasses} ${selectedClass} ${disabledClasses}`.trim();
 
@@ -63,4 +63,4 @@ const ClassicTextOptionsWithoutBundlesReact: React.FC<ClassicTextOptionsWithoutB
   );
 };
 
-export default ClassicTextOptionsWithoutBundlesReact;
+export default RetroTextOptionsWithoutBundlesReact;

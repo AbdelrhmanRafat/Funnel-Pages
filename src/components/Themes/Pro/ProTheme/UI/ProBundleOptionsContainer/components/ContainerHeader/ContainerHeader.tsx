@@ -14,7 +14,7 @@ const ContainerHeader: React.FC<ContainerHeaderProps> = ({
   const translatedSelectOptionsText = getTranslation("dynamicPanel.selectOptionsForProduct", currentLang) || "Select Options for Product";
 
   return (
-    <div className="classic-bundle-options-container-header font-bold text-lg sm:text-xl">
+    <div className="pro-bundle-options-container-header font-bold text-lg sm:text-xl">
       <p className="inline">
         {translatedSelectOptionsText}{" "}
       </p>

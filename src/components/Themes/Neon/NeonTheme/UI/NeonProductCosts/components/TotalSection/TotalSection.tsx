@@ -11,12 +11,12 @@ const TotalSection: React.FC<TotalSectionProps> = ({
   value,
 }) => {
   return (
-    <div className="classic-product-costs-total-section">
+    <div className="neon-product-costs-total-section">
       <div className="flex justify-between items-center">
-        <span className="classic-product-costs-total-label">
+        <span className="neon-product-costs-total-label">
           {label}
         </span>
-        <span className="classic-product-costs-total-value">
+        <span className="neon-product-costs-total-value">
           {value}
         </span>
       </div>

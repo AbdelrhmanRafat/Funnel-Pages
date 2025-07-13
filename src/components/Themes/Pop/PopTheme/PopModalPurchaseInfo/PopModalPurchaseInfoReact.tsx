@@ -1,4 +1,4 @@
-import "./ClassicModalPurchaseInfo.css";
+import "./PopModalPurchaseInfo.css";
 import React, { useState, useEffect, useMemo } from 'react';
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 import { useBundleStore } from '../../../../../lib/stores/bundleStore';
@@ -19,7 +19,7 @@ import PaymentSummarySection from './Components/PaymentSummarySection/PaymentSum
 import InvoiceActions from './Components/InvoiceActions/InvoiceActions';
 import CelebrationView from './Components/CelebrationView/CelebrationView';
 
-interface ClassicModalPurchaseInfoReactProps {
+interface PopModalPurchaseInfoReactProps {
   product: Product;
   isArabic: boolean;
   currentLang: Language;
@@ -39,7 +39,7 @@ interface PricingDetails {
   pricePerItem?: number;
 }
 
-const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps> = ({
+const PopModalPurchaseInfoReact: React.FC<PopModalPurchaseInfoReactProps> = ({
   product,
   isArabic,
   currentLang,
@@ -216,14 +216,14 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
     >
       {/* Overlay */}
       <div 
-        className="classic-modal-div-overlay absolute inset-0 z-[1001] transition-opacity duration-300" 
+        className="pop-modal-div-overlay absolute inset-0 z-[1001] transition-opacity duration-300" 
         onClick={handleClose}
         aria-hidden="true"
       />
       
       {/* Invoice Container */}
       <div className="relative container md:w-10/12 lg:w-8/12 xl:w-6/12 max-h-[95vh] overflow-y-auto z-[1002] m-4 transition-all duration-300 transform">
-        <div className="classic-modal-div-invoice rounded-xl">
+        <div className="pop-modal-div-invoice rounded-xl">
           
           {/* Purchase Invoice View */}
           {currentView === 'purchase' && (
@@ -299,4 +299,4 @@ const ClassicModalPurchaseInfoReact: React.FC<ClassicModalPurchaseInfoReactProps
   );
 };
 
-export default ClassicModalPurchaseInfoReact;
+export default PopModalPurchaseInfoReact;

@@ -19,10 +19,10 @@ const MaxQuantityDisplay: React.FC<MaxQuantityDisplayProps> = ({
       {/* Show max quantity when selection is complete for variants */}
       {isHaveVariant && (
         <div
-          className={`classic-selection-options-without-bundles-max-qty-display text-2xl font-bold ${isSelectionComplete ? '' : 'hidden'}`}
+          className={`minimal-selection-options-without-bundles-max-qty-display text-2xl font-bold ${isSelectionComplete ? '' : 'hidden'}`}
         >
           <span className="inline-block ms-1">
-            <span className="classic-selection-options-without-bundles-max-qty-value">
+            <span className="minimal-selection-options-without-bundles-max-qty-value">
               {maxQty}
             </span>
           </span>
@@ -31,9 +31,9 @@ const MaxQuantityDisplay: React.FC<MaxQuantityDisplayProps> = ({
 
       {/* Show max quantity for non-variant products */}
       {!isHaveVariant && (
-        <div className="classic-selection-options-without-bundles-max-qty-display text-2xl font-bold">
+        <div className="minimal-selection-options-without-bundles-max-qty-display text-2xl font-bold">
           <span className="inline-block ms-1">
-            <span className="classic-selection-options-without-bundles-max-qty-value font-medium">
+            <span className="minimal-selection-options-without-bundles-max-qty-value font-medium">
               {qtyNonVariant}
             </span>
           </span>

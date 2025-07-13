@@ -1,16 +1,16 @@
 import React from 'react';
 import type { BlockData, PaymentOption, DeliveryOption, Product } from "../../../../../lib/api/types";
 import { type Language } from "../../../../../lib/utils/i18n/translations";
-import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import { FunnelBoldComponents } from "../../../../../lib/constants/themes";
 import { useFormValid } from "../../../../../lib/stores/formStore";
-import ClassicSubmitOrderButtonReact from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButtonReact";
-import ClassicPersonalInfoSection from './Components/ClassicPersonalInfoSection';
-import ClassicPaymentOptionsSection from './Components/ClassicPaymentOptionsSection';
-import ClassicDeliveryOptionsSection from './Components/ClassicDeliveryOptionsSection';
-import ClassicNotesSection from './Components/ClassicNotesSection';
+import BoldSubmitOrderButtonReact from "../UI/BoldSubmitOrderButton/BoldSubmitOrderButtonReact";
+import BoldPersonalInfoSection from './Components/BoldPersonalInfoSection';
+import BoldPaymentOptionsSection from './Components/BoldPaymentOptionsSection';
+import BoldDeliveryOptionsSection from './Components/BoldDeliveryOptionsSection';
+import BoldNotesSection from './Components/BoldNotesSection';
 
 
-interface ClassicThemeFormFieldsReactProps {
+interface BoldThemeFormFieldsReactProps {
   data: BlockData;
   purchaseOptions: BlockData;
   isHaveVariant: string;
@@ -18,7 +18,7 @@ interface ClassicThemeFormFieldsReactProps {
   currentLang: Language;
 }
 
-const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = ({
+const BoldThemeFormFieldsReact: React.FC<BoldThemeFormFieldsReactProps> = ({
   data,
   purchaseOptions,
   isHaveVariant,
@@ -36,21 +36,21 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
 
   return (
     <section 
-      id={FunnelClassicComponents.ClassicFormFields}
-      className="classic-form w-full p-3"
+      id={FunnelBoldComponents.BoldFormFields}
+      className="bold-form w-full p-3"
       aria-labelledby="form-heading"
     >
       <div className="mx-auto py-2 flex flex-col justify-center items-center gap-2">
         
         {/* PERSONAL INFORMATION SECTION */}
-        <ClassicPersonalInfoSection 
+        <BoldPersonalInfoSection 
           cities={cities}
           currentLang={currentLang}
         />
         
         {/* PAYMENT OPTIONS SECTION */}
         {paymentOptions.length > 0 && (
-          <ClassicPaymentOptionsSection 
+          <BoldPaymentOptionsSection 
             paymentOptions={paymentOptions}
             currentLang={currentLang}
           />
@@ -58,19 +58,19 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
         
         {/* DELIVERY OPTIONS SECTION */}
         {deliveryOptions.length > 0 && (
-          <ClassicDeliveryOptionsSection 
+          <BoldDeliveryOptionsSection 
             deliveryOptions={deliveryOptions}
             currentLang={currentLang}
           />
         )}
         
         {/* NOTES SECTION */}
-        <ClassicNotesSection 
+        <BoldNotesSection 
           currentLang={currentLang}
         />
         <div className='w-full'>
         {/* SUBMIT BUTTON SECTION */}
-        <ClassicSubmitOrderButtonReact 
+        <BoldSubmitOrderButtonReact 
           purchaseOptions={purchaseOptions}
           isHaveVariant={isHaveVariant}
           product={product}
@@ -83,4 +83,4 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
   );
 };
 
-export default ClassicThemeFormFieldsReact;
+export default BoldThemeFormFieldsReact;

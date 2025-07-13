@@ -38,7 +38,7 @@ interface ProcessedOptionDataReact {
   }> };
 }
 
-interface ClassicSelectionOptionsWithoutBundlesReactProps {
+interface ElegantSelectionOptionsWithoutBundlesReactProps {
   isHaveVariant: boolean;
   hasSecondOption: boolean;
   processedOptionData: ProcessedOptionDataReact | null;
@@ -50,7 +50,7 @@ interface ClassicSelectionOptionsWithoutBundlesReactProps {
   currentLang: Language;
 }
 
-const ClassicSelectionOptionsWithoutBundlesReact: React.FC<ClassicSelectionOptionsWithoutBundlesReactProps> = ({
+const ElegantSelectionOptionsWithoutBundlesReact: React.FC<ElegantSelectionOptionsWithoutBundlesReactProps> = ({
   isHaveVariant,
   hasSecondOption,
   processedOptionData,
@@ -191,8 +191,8 @@ const ClassicSelectionOptionsWithoutBundlesReact: React.FC<ClassicSelectionOptio
     true;
 
   return (
-    <div className="classic-selection-options-without-bundles w-full">
-      <section id="classic-selection-options-without-bundles-section">
+    <div className="elegant-selection-options-without-bundles w-full">
+      <section id="elegant-selection-options-without-bundles-section">
         <div className="flex gap-6 flex-col-reverse">
 
           <OptionsContainer
@@ -221,5 +221,5 @@ const ClassicSelectionOptionsWithoutBundlesReact: React.FC<ClassicSelectionOptio
   );
 };
 
-export default ClassicSelectionOptionsWithoutBundlesReact;
+export default ElegantSelectionOptionsWithoutBundlesReact;
 export type { ProcessedOptionDataReact, OptionDetailReact, OptionValueReact };

@@ -1,8 +1,8 @@
-import "./ClassicSubmitOrderButton.css";
+import "./ProSubmitOrderButton.css";
 import React, { useState } from 'react';
 import type { Language } from '../../../../../../lib/utils/i18n/translations';
 import type { BlockData, Product } from '../../../../../../lib/api/types';
-import ClassicModalPurchaseInfoReact from '../../ClassicModalPurchaseInfo/ClassicModalPurchaseInfoReact';
+import ProModalPurchaseInfoReact from '../../ProModalPurchaseInfo/ProModalPurchaseInfoReact';
 
 // Import components
 import ValidationErrorDisplay from './components/ValidationErrorDisplay/ValidationErrorDisplay';
@@ -14,7 +14,7 @@ import { useSubmitOrderLogic } from "./hooks/useSubmitOrderLogic";
 // Import hooks
 
 
-interface ClassicSubmitOrderButtonReactProps {
+interface ProSubmitOrderButtonReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
@@ -22,7 +22,7 @@ interface ClassicSubmitOrderButtonReactProps {
   currentLang?: Language;
 }
 
-const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps> = ({
+const ProSubmitOrderButtonReact: React.FC<ProSubmitOrderButtonReactProps> = ({
   product,
   purchaseOptions,
   isHaveVariant,
@@ -69,7 +69,7 @@ const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps
 
   return (
     <>
-      <div className="classic-form-submit-wrapper">
+      <div className="pro-form-submit-wrapper">
         <ValidationErrorDisplay
           isVisible={showOptionsError}
           errorMessage={optionsError}
@@ -83,7 +83,7 @@ const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps
         />
       </div>
 
-      <ClassicModalPurchaseInfoReact
+      <ProModalPurchaseInfoReact
         isArabic={isArabic}
         currentLang={currentLang}
         hasVariants={hasVariants}
@@ -96,4 +96,4 @@ const ClassicSubmitOrderButtonReact: React.FC<ClassicSubmitOrderButtonReactProps
   );
 };
 
-export default ClassicSubmitOrderButtonReact;
+export default ProSubmitOrderButtonReact;

@@ -149,7 +149,7 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
           {logos.map((logo, index) => (
             <div 
               key={index} 
-              className="classic-logocarousel-div-card w-20 sm:w-24 lg:w-28 h-14 sm:h-16 lg:h-20 flex items-center justify-center p-3"
+              className="urban-logocarousel-div-card w-20 sm:w-24 lg:w-28 h-14 sm:h-16 lg:h-20 flex items-center justify-center p-3"
               style={{ 
                 animationDelay: `${index * 100}ms`,
                 animation: 'fadeInUp 0.6s ease-out forwards'
@@ -177,7 +177,7 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
           {Array.from({ length: itemsPerView }).map((_, index) => (
             <div 
               key={index} 
-              className="classic-logocarousel-div-skeleton w-20 sm:w-24 lg:w-28 h-14 sm:h-16 lg:h-20"
+              className="urban-logocarousel-div-skeleton w-20 sm:w-24 lg:w-28 h-14 sm:h-16 lg:h-20"
               style={{ animationDelay: `${index * 150}ms` }}
             />
           ))}
@@ -198,14 +198,14 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
       onMouseLeave={handleMouseLeave}
     >
       {/* Section Divider */}
-      <div className="classic-logocarousel-div-divider h-1 w-24 mx-auto mb-8 md:mb-12"></div>
+      <div className="urban-logocarousel-div-divider h-1 w-24 mx-auto mb-8 md:mb-12"></div>
 
       <div className="relative">
         {/* Navigation buttons - only show if needed */}
         {logos.length > itemsPerView && (
           <>
             <button 
-              className="classic-logocarousel-button-left absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 w-10 h-10 sm:w-12 sm:h-12 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg z-10 border"
+              className="urban-logocarousel-button-left absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 w-10 h-10 sm:w-12 sm:h-12 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg z-10 border"
               onClick={goToPrev}
               disabled={isRTL ? currentIndex >= maxIndex : currentIndex === 0}
               type="button"
@@ -218,7 +218,7 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
             </button>
 
             <button 
-              className="classic-logocarousel-button-right absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 w-10 h-10 sm:w-12 sm:h-12 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg z-10 border"
+              className="urban-logocarousel-button-right absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 w-10 h-10 sm:w-12 sm:h-12 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg z-10 border"
               onClick={goToNext}
               disabled={isRTL ? currentIndex === 0 : currentIndex >= maxIndex}
               type="button"
@@ -254,7 +254,7 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
                 className="flex-shrink-0 px-3 sm:px-4 lg:px-6 py-4"
                 style={{ width: `${itemWidth}%` }}
               >
-                <div className="classic-logocarousel-div-card w-full h-16 sm:h-20 lg:h-24 flex items-center justify-center p-3 sm:p-4">
+                <div className="urban-logocarousel-div-card w-full h-16 sm:h-20 lg:h-24 flex items-center justify-center p-3 sm:p-4">
                   <img 
                     src={logo.image} 
                     alt={logo.label || `Partner company ${index + 1}`}
@@ -277,8 +277,8 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
                 {Array.from({ length: maxIndex + 1 }).map((_, index) => (
                   <button
                     key={index}
-                    className={`classic-logocarousel-button-indicator w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === currentIndex ? 'classic-logocarousel-button-active w-6' : ''
+                    className={`urban-logocarousel-button-indicator w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentIndex ? 'urban-logocarousel-button-active w-6' : ''
                     }`}
                     onClick={() => navigateToIndex(index)}
                     type="button"
@@ -291,9 +291,9 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
             ) : (
               // Progress bar for larger carousels
               <div className="flex justify-center">
-                <div className="w-32 sm:w-48 h-1 rounded-full overflow-hidden classic-logocarousel-div-progressbg">
+                <div className="w-32 sm:w-48 h-1 rounded-full overflow-hidden urban-logocarousel-div-progressbg">
                   <div 
-                    className="h-full rounded-full transition-all duration-700 ease-out classic-logocarousel-div-progress"
+                    className="h-full rounded-full transition-all duration-700 ease-out urban-logocarousel-div-progress"
                     style={{ width: `${((currentIndex + 1) / (maxIndex + 1)) * 100}%` }}
                   />
                 </div>

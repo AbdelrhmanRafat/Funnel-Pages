@@ -1,16 +1,16 @@
 import React from 'react';
 import type { BlockData, PaymentOption, DeliveryOption, Product } from "../../../../../lib/api/types";
 import { type Language } from "../../../../../lib/utils/i18n/translations";
-import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import { FunnelRetroComponents } from "../../../../../lib/constants/themes";
 import { useFormValid } from "../../../../../lib/stores/formStore";
-import ClassicSubmitOrderButtonReact from "../UI/ClassicSubmitOrderButton/ClassicSubmitOrderButtonReact";
-import ClassicPersonalInfoSection from './Components/ClassicPersonalInfoSection';
-import ClassicPaymentOptionsSection from './Components/ClassicPaymentOptionsSection';
-import ClassicDeliveryOptionsSection from './Components/ClassicDeliveryOptionsSection';
-import ClassicNotesSection from './Components/ClassicNotesSection';
+import RetroSubmitOrderButtonReact from "../UI/RetroSubmitOrderButton/RetroSubmitOrderButtonReact";
+import RetroPersonalInfoSection from './Components/RetroPersonalInfoSection';
+import RetroPaymentOptionsSection from './Components/RetroPaymentOptionsSection';
+import RetroDeliveryOptionsSection from './Components/RetroDeliveryOptionsSection';
+import RetroNotesSection from './Components/RetroNotesSection';
 
 
-interface ClassicThemeFormFieldsReactProps {
+interface RetroThemeFormFieldsReactProps {
   data: BlockData;
   purchaseOptions: BlockData;
   isHaveVariant: string;
@@ -18,7 +18,7 @@ interface ClassicThemeFormFieldsReactProps {
   currentLang: Language;
 }
 
-const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = ({
+const RetroThemeFormFieldsReact: React.FC<RetroThemeFormFieldsReactProps> = ({
   data,
   purchaseOptions,
   isHaveVariant,
@@ -36,21 +36,21 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
 
   return (
     <section 
-      id={FunnelClassicComponents.ClassicFormFields}
-      className="classic-form w-full p-3"
+      id={FunnelRetroComponents.RetroFormFields}
+      className="retro-form w-full p-3"
       aria-labelledby="form-heading"
     >
       <div className="mx-auto py-2 flex flex-col justify-center items-center gap-2">
         
         {/* PERSONAL INFORMATION SECTION */}
-        <ClassicPersonalInfoSection 
+        <RetroPersonalInfoSection 
           cities={cities}
           currentLang={currentLang}
         />
         
         {/* PAYMENT OPTIONS SECTION */}
         {paymentOptions.length > 0 && (
-          <ClassicPaymentOptionsSection 
+          <RetroPaymentOptionsSection 
             paymentOptions={paymentOptions}
             currentLang={currentLang}
           />
@@ -58,19 +58,19 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
         
         {/* DELIVERY OPTIONS SECTION */}
         {deliveryOptions.length > 0 && (
-          <ClassicDeliveryOptionsSection 
+          <RetroDeliveryOptionsSection 
             deliveryOptions={deliveryOptions}
             currentLang={currentLang}
           />
         )}
         
         {/* NOTES SECTION */}
-        <ClassicNotesSection 
+        <RetroNotesSection 
           currentLang={currentLang}
         />
         <div className='w-full'>
         {/* SUBMIT BUTTON SECTION */}
-        <ClassicSubmitOrderButtonReact 
+        <RetroSubmitOrderButtonReact 
           purchaseOptions={purchaseOptions}
           isHaveVariant={isHaveVariant}
           product={product}
@@ -83,4 +83,4 @@ const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = 
   );
 };
 
-export default ClassicThemeFormFieldsReact;
+export default RetroThemeFormFieldsReact;

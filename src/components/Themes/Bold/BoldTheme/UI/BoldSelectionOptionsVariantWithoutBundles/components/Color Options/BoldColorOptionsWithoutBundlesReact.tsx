@@ -1,4 +1,4 @@
-import "./ClassicColorOptionsWithoutBundles.css";
+import "./BoldColorOptionsWithoutBundles.css";
 import React from 'react';
 
 interface Option {
@@ -6,7 +6,7 @@ interface Option {
   hex?: string;
 }
 
-interface ClassicColorOptionsWithoutBundlesReactProps {
+interface BoldColorOptionsWithoutBundlesReactProps {
   option: Option;
   index: number;
   optionType: 'first' | 'second';
@@ -15,7 +15,7 @@ interface ClassicColorOptionsWithoutBundlesReactProps {
   onClick?: () => void;
 }
 
-const ClassicColorOptionsWithoutBundlesReact: React.FC<ClassicColorOptionsWithoutBundlesReactProps> = ({
+const BoldColorOptionsWithoutBundlesReact: React.FC<BoldColorOptionsWithoutBundlesReactProps> = ({
   option,
   index,
   optionType,
@@ -23,13 +23,13 @@ const ClassicColorOptionsWithoutBundlesReact: React.FC<ClassicColorOptionsWithou
   isDisabled = false,
   onClick,
 }) => {
-  const baseClasses = "classic-selection-options-without-bundles-color-option cursor-pointer hover:scale-105 transition-transform";
+  const baseClasses = "bold-selection-options-without-bundles-color-option cursor-pointer hover:scale-105 transition-transform";
   
   // Apply selection styles
-  const selectedClass = isSelected ? "classic-selection-options-without-bundles-color-option--selected" : "";
+  const selectedClass = isSelected ? "bold-selection-options-without-bundles-color-option--selected" : "";
   
   // Apply disabled styles
-  const disabledClasses = isDisabled ? "classic-selection-options-without-bundles-option-disabled" : "classic-selection-options-without-bundles-option-available";
+  const disabledClasses = isDisabled ? "bold-selection-options-without-bundles-option-disabled" : "bold-selection-options-without-bundles-option-available";
   
   const combinedClasses = `${baseClasses} ${selectedClass} ${disabledClasses}`.trim();
 
@@ -61,7 +61,7 @@ const ClassicColorOptionsWithoutBundlesReact: React.FC<ClassicColorOptionsWithou
       title={option.value}
     >
       <div
-        className="classic-selection-options-without-bundles-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+        className="bold-selection-options-without-bundles-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
         style={{ backgroundColor: option.hex || "#ccc" }}
         aria-label={option.value}
       >
@@ -87,4 +87,4 @@ const ClassicColorOptionsWithoutBundlesReact: React.FC<ClassicColorOptionsWithou
   );
 };
 
-export default ClassicColorOptionsWithoutBundlesReact;
+export default BoldColorOptionsWithoutBundlesReact;

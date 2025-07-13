@@ -50,7 +50,7 @@ const QuantitySection: React.FC<QuantitySectionProps> = ({
         <div>
           <div className="flex justify-start items-center gap-1 pb-4">
             <div>
-              <label className="classic-selection-options-without-bundles-qty-label text-2xl font-bold">
+              <label className="techno-selection-options-without-bundles-qty-label text-2xl font-bold">
                 {getTranslation("productFunnel.maxAvailable", currentLang)}
               </label>
             </div>
@@ -63,10 +63,10 @@ const QuantitySection: React.FC<QuantitySectionProps> = ({
             />
           </div>
           
-          <div className="classic-selection-options-without-bundles-qty-controls flex items-center gap-3">
+          <div className="techno-selection-options-without-bundles-qty-controls flex items-center gap-3">
             <button
               type="button"
-              className="classic-selection-options-without-bundles-qty-btn classic-selection-options-without-bundles-qty-decrease w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="techno-selection-options-without-bundles-qty-btn techno-selection-options-without-bundles-qty-decrease w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleDecrease}
               disabled={currentQty <= 1}
             >
@@ -75,7 +75,7 @@ const QuantitySection: React.FC<QuantitySectionProps> = ({
 
             <input
               type="number"
-              className="classic-selection-options-without-bundles-qty-input w-20 h-10 text-center rounded-2xl focus:outline-none focus:ring-2 transition-all duration-200"
+              className="techno-selection-options-without-bundles-qty-input w-20 h-10 text-center rounded-2xl focus:outline-none focus:ring-2 transition-all duration-200"
               value={currentQty}
               min="1"
               max={maxQty}
@@ -84,7 +84,7 @@ const QuantitySection: React.FC<QuantitySectionProps> = ({
 
             <button
               type="button"
-              className="classic-selection-options-without-bundles-qty-btn classic-selection-options-without-bundles-qty-increase w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="techno-selection-options-without-bundles-qty-btn techno-selection-options-without-bundles-qty-increase w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleIncrease}
               disabled={currentQty >= maxQty}
             >

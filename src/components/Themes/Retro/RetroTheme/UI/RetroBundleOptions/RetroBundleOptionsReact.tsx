@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import type { PurchaseOption, Product } from "../../../../../../lib/api/types";
 import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
 import { useBundleStore } from "../../../../../../lib/stores/bundleStore";
-import ClassicBundleOptionsContainerReact from "../ClassicBundleOptionsContainer/ClassicBundleOptionsContainerReact.tsx";
+import RetroBundleOptionsContainerReact from "../RetroBundleOptionsContainer/RetroBundleOptionsContainerReact.tsx";
 import { useCustomOptionBundleStore } from '../../../../../../lib/stores/customOptionBundleStore.ts';
 
-interface ClassicBundleOptionsReactProps {
+interface RetroBundleOptionsReactProps {
   data: PurchaseOption[];
   product: Product;
   name: string;
   currentLang: Language;
 }
 
-const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
+const RetroBundleOptionsReact: React.FC<RetroBundleOptionsReactProps> = ({
   data,
   product,
   name,
@@ -73,17 +73,17 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
   };
 
   return (
-    <div id="classic-bundle-options">
-      <h3 className="classic-bundle-options-title text-2xl py-3">
+    <div id="retro-bundle-options">
+      <h3 className="retro-bundle-options-title text-2xl py-3">
         {getTranslation("quantityOptions.chooseQuantity", currentLang)}
       </h3>
 
       <div className="space-y-3">
         {data.map((item, index) => (
           <div key={index}>
-            <div className="classic-bundle-options-group border border-primary rounded-2xl p-1.5 sm:p-2">
+            <div className="retro-bundle-options-group border border-primary rounded-2xl p-1.5 sm:p-2">
               <label
-                className="classic-bundle-options-label group relative overflow-hidden cursor-pointer block rounded-lg"
+                className="retro-bundle-options-label group relative overflow-hidden cursor-pointer block rounded-lg"
                 htmlFor={`${name}${index + 1}`}
               >
                 <input
@@ -94,19 +94,19 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
                   checked={index === selectedIndex}
                   onChange={() => handleRadioChange(item, index)}
                 />
-                <div className="classic-bundle-options-content p-1.5 sm:p-2">
-                  <div className="classic-bundle-options-header grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                <div className="retro-bundle-options-content p-1.5 sm:p-2">
+                  <div className="retro-bundle-options-header grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                     <div className="sm:col-span-2 space-y-1">
-                      <h3 className="classic-bundle-options-option-title font-bold text-xl leading-tight">
+                      <h3 className="retro-bundle-options-option-title font-bold text-xl leading-tight">
                         {item.title}
                       </h3>
-                      <div className="classic-bundle-options-option-details flex flex-wrap items-center gap-1 sm:gap-2 text-xs">
-                        <div className="classic-bundle-options-unit-badge py-0.5 px-2 rounded-full inline-block">
+                      <div className="retro-bundle-options-option-details flex flex-wrap items-center gap-1 sm:gap-2 text-xs">
+                        <div className="retro-bundle-options-unit-badge py-0.5 px-2 rounded-full inline-block">
                           <span>{item.items === 1 ? "" : item.items}</span>
                           <span> {getTranslation("quantityOptions.itemUnit.singular", currentLang)}</span>
                         </div>
                         <span className="hidden sm:inline text-gray-400">•</span>
-                        <div className="classic-bundle-options-price-info flex items-center gap-1 text-xs">
+                        <div className="retro-bundle-options-price-info flex items-center gap-1 text-xs">
                           <span>{item.price_per_item}</span>
                           <span> {getTranslation("productFunnel.currency", currentLang)}</span>
                           <span> {getTranslation("quantityOptions.pricePerItem", currentLang)}</span>
@@ -116,8 +116,8 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
 
                     <div className="flex flex-col items-start sm:items-end justify-center">
                       <div
-                        className={`classic-bundle-options-final-price text-lg sm:text-xl font-bold leading-tight ${
-                          item.discount > 0 ? "classic-bundle-options-price-discount" : "classic-bundle-options-price-regular"
+                        className={`retro-bundle-options-final-price text-lg sm:text-xl font-bold leading-tight ${
+                          item.discount > 0 ? "retro-bundle-options-price-discount" : "retro-bundle-options-price-regular"
                         }`}
                       >
                         {item.final_total.toLocaleString()}{" "}
@@ -126,13 +126,13 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
 
                       {item.discount > 0 && (
                         <div className="flex flex-col items-start sm:items-end mt-1">
-                          <div className="classic-bundle-options-original-price text-xs line-through text-gray-500">
+                          <div className="retro-bundle-options-original-price text-xs line-through text-gray-500">
                             {item.original_total.toLocaleString()}{" "}
                             {getTranslation("productFunnel.currency", currentLang)}
                           </div>
-                          <div className="classic-bundle-options-discount-badge inline-flex items-center text-xs font-medium py-0.5 px-1.5 rounded-full mt-0.5">
+                          <div className="retro-bundle-options-discount-badge inline-flex items-center text-xs font-medium py-0.5 px-1.5 rounded-full mt-0.5">
                             <svg
-                              className="classic-bundle-options-discount-icon w-2.5 h-2.5"
+                              className="retro-bundle-options-discount-icon w-2.5 h-2.5"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -168,7 +168,7 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
                   className={`flex flex-col gap-1 mt-2 ${index === selectedIndex ? "" : "hidden"}`}
                 >
                   {Array.from({ length: item.items || 0 }).map((_, panelIndex) => (
-                    <ClassicBundleOptionsContainerReact
+                    <RetroBundleOptionsContainerReact
                       key={panelIndex}
                       panelIndex={panelIndex + 1}
                       product={product}
@@ -185,4 +185,4 @@ const ClassicBundleOptionsReact: React.FC<ClassicBundleOptionsReactProps> = ({
   );
 };
 
-export default ClassicBundleOptionsReact;
+export default RetroBundleOptionsReact;

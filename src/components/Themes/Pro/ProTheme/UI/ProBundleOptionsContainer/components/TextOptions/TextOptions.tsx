@@ -31,10 +31,10 @@ const TextOptions: React.FC<TextOptionsProps> = ({
         return (
           <div
             key={option.value}
-            className={`classic-bundle-options-container-text-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium text-center ${
-              disabled ? 'classic-bundle-options-container-option-disabled opacity-30 pointer-events-none' : 'cursor-pointer'
+            className={`pro-bundle-options-container-text-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium text-center ${
+              disabled ? 'pro-bundle-options-container-option-disabled opacity-30 pointer-events-none' : 'cursor-pointer'
             } ${
-              isSelected && !disabled ? 'classic-bundle-options-container-selected-text' : ''
+              isSelected && !disabled ? 'pro-bundle-options-container-selected-text' : ''
             }`}
             onClick={() => !disabled && onSelect(option.value)}
           >

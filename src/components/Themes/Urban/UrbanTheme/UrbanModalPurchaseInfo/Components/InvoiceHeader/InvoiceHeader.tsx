@@ -14,11 +14,11 @@ const InvoiceHeader: React.FC<InvoiceHeaderProps> = ({
   invoiceDate,
 }) => {
   return (
-    <div className="classic-invoiceheader-div-container p-6 md:p-8 rounded-t-xl">
+    <div className="urban-invoiceheader-div-container p-6 md:p-8 rounded-t-xl">
       <div className="text-center">
         <h3
           id="invoice-title"
-          className="classic-invoiceheader-h1-title text-xl md:text-2xl lg:text-3xl font-bold"
+          className="urban-invoiceheader-h1-title text-xl md:text-2xl lg:text-3xl font-bold"
         >
           {getTranslation('modal.purchaseInfo', currentLang)}
         </h3>

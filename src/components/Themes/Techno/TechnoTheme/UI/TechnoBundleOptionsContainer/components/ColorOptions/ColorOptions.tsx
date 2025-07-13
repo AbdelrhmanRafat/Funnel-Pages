@@ -31,18 +31,18 @@ const ColorOptions: React.FC<ColorOptionsProps> = ({
         return (
           <div
             key={option.value}
-            className={`classic-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 transition-transform ${
-              disabled ? 'classic-bundle-options-container-option-disabled opacity-30 pointer-events-none' : 'cursor-pointer hover:scale-105'
+            className={`techno-bundle-options-container-color-option w-24 flex flex-col items-center gap-1 transition-transform ${
+              disabled ? 'techno-bundle-options-container-option-disabled opacity-30 pointer-events-none' : 'cursor-pointer hover:scale-105'
             } ${
-              isSelected && !disabled ? 'classic-bundle-options-container-selected-color' : ''
+              isSelected && !disabled ? 'techno-bundle-options-container-selected-color' : ''
             }`}
             onClick={() => !disabled && onSelect(option.value)}
           >
             <div
-              className="classic-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
+              className="techno-bundle-options-container-color-swatch w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2"
               style={{ backgroundColor: option.hex || "#ccc" }}
             />
-            <span className="classic-bundle-options-container-color-name text-xs sm:text-sm text-center">
+            <span className="techno-bundle-options-container-color-name text-xs sm:text-sm text-center">
               {option.value}
             </span>
           </div>

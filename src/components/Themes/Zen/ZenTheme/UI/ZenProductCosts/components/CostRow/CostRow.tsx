@@ -19,11 +19,11 @@ const CostRow: React.FC<CostRowProps> = ({
   }
 
   return (
-    <div className="classic-product-costs-row flex justify-between items-center">
-      <span className="classic-product-costs-label">
+    <div className="zen-product-costs-row flex justify-between items-center">
+      <span className="zen-product-costs-label">
         {label}
       </span>
-      <span className={`classic-product-costs-value ${isDiscount ? 'classic-product-costs-discount' : ''}`}>
+      <span className={`zen-product-costs-value ${isDiscount ? 'zen-product-costs-discount' : ''}`}>
         {isDiscount && !value.startsWith('-') ? '- ' : ''}{value}
       </span>
     </div>

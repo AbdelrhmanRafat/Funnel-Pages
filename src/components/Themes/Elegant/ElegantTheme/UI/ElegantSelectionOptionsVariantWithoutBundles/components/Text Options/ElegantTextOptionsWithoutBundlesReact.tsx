@@ -1,11 +1,11 @@
-import "./ClassicTextOptionsWithoutBundles.css";
+import "./ElegantTextOptionsWithoutBundles.css";
 import React from 'react';
 
 interface Option {
   value: string;
 }
 
-interface ClassicTextOptionsWithoutBundlesReactProps {
+interface ElegantTextOptionsWithoutBundlesReactProps {
   option: Option;
   index: number;
   optionType: 'first' | 'second';
@@ -14,7 +14,7 @@ interface ClassicTextOptionsWithoutBundlesReactProps {
   onClick?: () => void;
 }
 
-const ClassicTextOptionsWithoutBundlesReact: React.FC<ClassicTextOptionsWithoutBundlesReactProps> = ({
+const ElegantTextOptionsWithoutBundlesReact: React.FC<ElegantTextOptionsWithoutBundlesReactProps> = ({
   option,
   index,
   optionType,
@@ -22,13 +22,13 @@ const ClassicTextOptionsWithoutBundlesReact: React.FC<ClassicTextOptionsWithoutB
   isDisabled = false,
   onClick,
 }) => {
-  const baseClasses = "classic-selection-options-without-bundles-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center transition-all duration-200";
+  const baseClasses = "elegant-selection-options-without-bundles-size-option py-2 px-3 sm:py-2.5 sm:px-5 border rounded-lg sm:rounded-xl cursor-pointer text-xs sm:text-sm font-medium text-center transition-all duration-200";
   
   // Apply selection styles
-  const selectedClass = isSelected ? "classic-selection-options-without-bundles-size-option--selected" : "";
+  const selectedClass = isSelected ? "elegant-selection-options-without-bundles-size-option--selected" : "";
   
   // Apply disabled styles
-  const disabledClasses = isDisabled ? "classic-selection-options-without-bundles-option-disabled" : "classic-selection-options-without-bundles-option-available";
+  const disabledClasses = isDisabled ? "elegant-selection-options-without-bundles-option-disabled" : "elegant-selection-options-without-bundles-option-available";
   
   const combinedClasses = `${baseClasses} ${selectedClass} ${disabledClasses}`.trim();
 
@@ -63,4 +63,4 @@ const ClassicTextOptionsWithoutBundlesReact: React.FC<ClassicTextOptionsWithoutB
   );
 };
 
-export default ClassicTextOptionsWithoutBundlesReact;
+export default ElegantTextOptionsWithoutBundlesReact;

@@ -14,7 +14,7 @@ const ValidationErrorDisplay: React.FC<ValidationErrorDisplayProps> = ({
 
   return (
     <div
-      className="classic-validationerror-div-alert p-3 rounded-md mb-4 border transition-all"
+      className="urban-validationerror-div-alert p-3 rounded-md mb-4 border transition-all"
       role="alert"
       aria-live="assertive"
     >

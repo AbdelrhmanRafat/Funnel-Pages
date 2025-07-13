@@ -1,6 +1,6 @@
 import React from 'react';
-import ClassicColorOptionsWithoutBundlesReact from "../Color Options/ClassicColorOptionsWithoutBundlesReact";
-import ClassicTextOptionsWithoutBundlesReact from "../Text Options/ClassicTextOptionsWithoutBundlesReact";
+import ZenColorOptionsWithoutBundlesReact from "../Color Options/ZenColorOptionsWithoutBundlesReact";
+import ZenTextOptionsWithoutBundlesReact from "../Text Options/ZenTextOptionsWithoutBundlesReact";
 import './OptionGroup.css';
 
 interface OptionValueReact {
@@ -36,13 +36,13 @@ const OptionGroup: React.FC<OptionGroupProps> = ({
   isDisabled,
 }) => {
   return (
-    <div className="classic-selection-options-without-bundles-option-group">
+    <div className="zen-selection-options-without-bundles-option-group">
       {optionData.hasColors ? (
-        <div className="classic-selection-options-without-bundles-color-grid flex flex-wrap gap-3">
+        <div className="zen-selection-options-without-bundles-color-grid flex flex-wrap gap-3">
           {optionData.values.map((option, index) => {
             const disabled = isDisabled ? isDisabled(option.value) : false;
             return (
-              <ClassicColorOptionsWithoutBundlesReact
+              <ZenColorOptionsWithoutBundlesReact
                 key={option.value}
                 option={option}
                 index={index}
@@ -55,13 +55,13 @@ const OptionGroup: React.FC<OptionGroupProps> = ({
           })}
         </div>
       ) : (
-        <div className={`classic-selection-options-without-bundles-text-grid ${
+        <div className={`zen-selection-options-without-bundles-text-grid ${
           optionType === 'first' ? 'grid grid-cols-2 sm:grid-cols-3 gap-3' : 'flex flex-wrap justify-start content-start gap-3'
         }`}>
           {optionData.values.map((option, index) => {
             const disabled = isDisabled ? isDisabled(option.value) : false;
             return (
-              <ClassicTextOptionsWithoutBundlesReact
+              <ZenTextOptionsWithoutBundlesReact
                 key={option.value}
                 option={option}
                 index={index}

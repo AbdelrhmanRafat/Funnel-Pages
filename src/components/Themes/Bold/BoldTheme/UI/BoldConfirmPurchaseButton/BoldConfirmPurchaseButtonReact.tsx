@@ -1,5 +1,5 @@
-// ClassicConfirmPurchaseButtonReact.tsx
-import "./ClassicConfirmPurchaseButton.css";
+// BoldConfirmPurchaseButtonReact.tsx
+import "./BoldConfirmPurchaseButton.css";
 import React, { useState } from 'react';
 
 // Loader Icon Component
@@ -20,7 +20,7 @@ const LoaderIcon = ({ width = "16", height = "16", className = "" }) => (
   </svg>
 );
 
-interface ClassicConfirmPurchaseButtonReactProps {
+interface BoldConfirmPurchaseButtonReactProps {
   isArabic: boolean;
   onClick?: () => Promise<void> | void;
   confirmTextOverride?: string;
@@ -28,7 +28,7 @@ interface ClassicConfirmPurchaseButtonReactProps {
   disabled : boolean;
 }
 
-const ClassicConfirmPurchaseButtonReact: React.FC<ClassicConfirmPurchaseButtonReactProps> = ({
+const BoldConfirmPurchaseButtonReact: React.FC<BoldConfirmPurchaseButtonReactProps> = ({
   disabled,
   isArabic,
   onClick,
@@ -57,7 +57,7 @@ const ClassicConfirmPurchaseButtonReact: React.FC<ClassicConfirmPurchaseButtonRe
   return (
     <button
       type="button"
-      className={`classic-modal-confirm ${isLoading ? 'loading' : ''}`}
+      className={`bold-modal-confirm ${isLoading ? 'loading' : ''}`}
       onClick={handleClick}
       disabled={isLoading}
       aria-busy={isLoading}
@@ -86,4 +86,4 @@ const ClassicConfirmPurchaseButtonReact: React.FC<ClassicConfirmPurchaseButtonRe
   );
 };
 
-export default ClassicConfirmPurchaseButtonReact;
+export default BoldConfirmPurchaseButtonReact;

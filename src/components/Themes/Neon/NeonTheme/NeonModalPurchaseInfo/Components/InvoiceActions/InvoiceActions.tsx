@@ -1,7 +1,7 @@
 import React from 'react';
 import { getTranslation, type Language } from "../../../../../../../lib/utils/i18n/translations";
 import './InvoiceActions.css';
-import ClassicConfirmPurchaseButtonReact from '../../../UI/ClassicConfirmPurchaseButton/ClassicConfirmPurchaseButtonReact';
+import NeonConfirmPurchaseButtonReact from '../../../UI/NeonConfirmPurchaseButton/NeonConfirmPurchaseButtonReact';
 
 interface InvoiceActionsProps {
   isProcessing: boolean;
@@ -19,15 +19,15 @@ const InvoiceActions: React.FC<InvoiceActionsProps> = ({
   currentLang,
 }) => {
   return (
-    <div className="classic-invoice-actions flex flex-col sm:flex-row gap-4 pt-6">
-      <ClassicConfirmPurchaseButtonReact 
+    <div className="neon-invoice-actions flex flex-col sm:flex-row gap-4 pt-6">
+      <NeonConfirmPurchaseButtonReact 
         isArabic={isArabic}
         onClick={onConfirm}
         disabled={isProcessing}
       />
       <button
         type="button"
-        className="classic-cancel-button flex-1 px-6 py-4 rounded-xl font-semibold border-2 transition-all duration-300 hover:transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        className="neon-cancel-button flex-1 px-6 py-4 rounded-xl font-semibold border-2 transition-all duration-300 hover:transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         onClick={onCancel}
         disabled={isProcessing}
       >

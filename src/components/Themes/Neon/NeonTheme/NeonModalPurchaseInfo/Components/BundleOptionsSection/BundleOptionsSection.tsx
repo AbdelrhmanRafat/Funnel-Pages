@@ -23,25 +23,25 @@ const BundleOptionsSection: React.FC<BundleOptionsSectionProps> = ({
   }
 
   return (
-    <div className="classic-bundle-options-section">
-      <div className="classic-options-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="neon-bundle-options-section">
+      <div className="neon-options-grid grid grid-cols-1 md:grid-cols-2 gap-4">
         {customOptions.map((option, index) => (
-          <div key={index} className="classic-option-item rounded-lg p-4">
-            <div className="classic-option-header text-sm font-bold mb-3 flex items-center justify-between">
+          <div key={index} className="neon-option-item rounded-lg p-4">
+            <div className="neon-option-header text-sm font-bold mb-3 flex items-center justify-between">
               <span>{getTranslation('modal.item', currentLang)} {option.bundleIndex}</span>
-              <span className="classic-option-sku text-xs font-mono opacity-75">
+              <span className="neon-option-sku text-xs font-mono opacity-75">
                 SKU: {getDisplaySKU(option, `ITEM-${option.bundleIndex}`)}
               </span>
             </div>
-            <div className="classic-option-details space-y-2">
-              <div className="classic-option-selection">
-                <span className="classic-selection-tag px-3 py-1 rounded-full text-xs font-medium">
+            <div className="neon-option-details space-y-2">
+              <div className="neon-option-selection">
+                <span className="neon-selection-tag px-3 py-1 rounded-full text-xs font-medium">
                   {option.firstOption}
                 </span>
               </div>
               {option.secondOption && (
-                <div className="classic-option-selection">
-                  <span className="classic-selection-tag px-3 py-1 rounded-full text-xs font-medium">
+                <div className="neon-option-selection">
+                  <span className="neon-selection-tag px-3 py-1 rounded-full text-xs font-medium">
                     {option.secondOption}
                   </span>
                 </div>
