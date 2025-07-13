@@ -1,0 +1,62 @@
+/* === Payment Summary Section Styles === */
+
+.classic-payment-summary .classic-section-title {
+  color: var(--classic-color-on-surface);
+  border-bottom: 2px solid var(--classic-color-success);
+  padding-bottom: 0.5rem;
+}
+
+.classic-summary-table {
+  background: var(--classic-color-surface);
+  border: 2px solid var(--classic-color-success);
+  box-shadow: 0 4px 12px -4px rgba(34, 197, 94, 0.2);
+}
+
+.classic-subtotal-row,
+.classic-discount-row,
+.classic-shipping-row,
+.classic-bundle-info-row {
+  color: var(--classic-color-on-surface);
+}
+
+.classic-discount-amount {
+  color: var(--classic-color-success);
+}
+
+.classic-divider {
+  height: 2px;
+  background: linear-gradient(to right, 
+    transparent 0%, 
+    var(--classic-color-outline) 20%, 
+    var(--classic-color-outline) 80%, 
+    transparent 100%
+  );
+}
+
+.classic-total-row {
+  background: linear-gradient(135deg, 
+    var(--classic-color-success) 0%, 
+    var(--classic-color-success-dark) 100%
+  );
+  color: var(--classic-color-on-success);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.classic-total-amount {
+  color: var(--classic-color-on-success);
+}
+
+/* Print Styles */
+@media print {
+  .classic-total-row {
+    background: none !important;
+    color: var(--classic-color-on-surface) !important;
+    border: 2px solid var(--classic-color-outline);
+  }
+  
+  .classic-total-amount {
+    color: var(--classic-color-on-surface) !important;
+  }
+}

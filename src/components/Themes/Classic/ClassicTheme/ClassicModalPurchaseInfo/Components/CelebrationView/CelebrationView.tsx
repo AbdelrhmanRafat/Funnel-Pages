@@ -1,4 +1,4 @@
-import { getTranslation, type Language } from "../../../../../lib/utils/i18n/translations";
+import { getTranslation, type Language } from "../../../../../../../lib/utils/i18n/translations";
 
 const CelebrationView: React.FC<{
   currentLang: Language;

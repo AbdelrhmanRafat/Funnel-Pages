@@ -1,0 +1,50 @@
+/* === Product Details Section Styles === */
+
+.classic-product-details-section .classic-section-title {
+  color: var(--classic-color-on-surface);
+  border-bottom: 2px solid var(--classic-color-primary);
+  padding-bottom: 0.5rem;
+}
+
+.classic-product-details-section .classic-section-icon {
+  background: var(--classic-color-primary-light);
+  color: var(--classic-color-on-primary);
+}
+
+.classic-product-info-card {
+  background: var(--classic-color-surface);
+  border: 1px solid var(--classic-color-outline);
+  border-left: 4px solid var(--classic-color-primary);
+}
+
+.classic-product-name {
+  color: var(--classic-color-on-surface);
+}
+
+.classic-product-sku {
+  color: var(--classic-color-on-surface-variant);
+}
+
+.classic-product-status {
+  color: var(--classic-color-on-surface-variant);
+}
+
+.classic-status-active {
+  background: var(--classic-color-success-light);
+  color: var(--classic-color-on-success);
+}
+
+.classic-status-inactive {
+  background: var(--classic-color-error-light);
+  color: var(--classic-color-on-error);
+}
+
+.classic-type-bundle {
+  background: var(--classic-color-secondary-light);
+  color: var(--classic-color-on-secondary);
+}
+
+.classic-type-direct {
+  background: var(--classic-color-tertiary-light);
+  color: var(--classic-color-on-tertiary);
+}
