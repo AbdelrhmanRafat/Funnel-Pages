@@ -1,4 +1,4 @@
-// NeonGalleryComponent.ts - Web Component for Gallery
+// Enhanced NeonGalleryComponent.ts - Streamlined for Tailwind
 
 interface GalleryElements {
     mainImage: HTMLImageElement | null;
@@ -7,6 +7,19 @@ interface GalleryElements {
     nextBtn: HTMLButtonElement | null;
     currentIndexElement: HTMLElement | null;
     totalImagesElement: HTMLElement | null;
+    progressFill: HTMLElement | null;
+    thumbnailsContainer: HTMLElement | null;
+    imageLoader: HTMLElement | null;
+    zoomTrigger: HTMLElement | null;
+    modal: HTMLElement | null;
+    modalImage: HTMLImageElement | null;
+    modalClose: HTMLButtonElement | null;
+}
+
+interface GalleryImage {
+    src: string;
+    alt: string;
+    loaded: boolean;
 }
 
 class NeonGallery extends HTMLElement {
@@ -17,13 +30,21 @@ class NeonGallery extends HTMLElement {
         prevBtn: null,
         nextBtn: null,
         currentIndexElement: null,
-        totalImagesElement: null
+        totalImagesElement: null,
+        progressFill: null,
+        thumbnailsContainer: null,
+        imageLoader: null,
+        zoomTrigger: null,
+        modal: null,
+        modalImage: null,
+        modalClose: null
     };
-    private images: Array<{ src: string; alt: string }> = [];
+    private images: GalleryImage[] = [];
     private autoPlayInterval: number | null = null;
     private autoPlayEnabled: boolean = false;
     private autoPlayDelay: number = 5000;
     private enableTouch: boolean = true;
+    private isImageLoading: boolean = false;
 
     constructor() {
         super();
@@ -35,8 +56,7 @@ class NeonGallery extends HTMLElement {
         this.extractImagesData();
         this.setupEventListeners();
         this.updateDisplay();
-        
-       
+        this.preloadImages();
         
         if (this.enableTouch) {
             this.setupTouchNavigation();
@@ -45,6 +65,24 @@ class NeonGallery extends HTMLElement {
         if (this.autoPlayEnabled) {
             this.startAutoPlay();
         }
+    }
+
+    private openImageModal(): void {
+        if (!this.elements.modal || !this.elements.modalImage) return;
+
+        const currentImage = this.images[this.currentIndex];
+        this.elements.modalImage.src = currentImage.src;
+        this.elements.modalImage.alt = currentImage.alt;
+        
+        this.elements.modal.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    private closeImageModal(): void {
+        if (!this.elements.modal) return;
+
+        this.elements.modal.classList.remove('show');
+        document.body.style.overflow = ''; // Restore scrolling
     }
 
     disconnectedCallback() {
@@ -64,7 +102,14 @@ class NeonGallery extends HTMLElement {
             prevBtn: this.querySelector('[data-gallery-prev-btn]') as HTMLButtonElement,
             nextBtn: this.querySelector('[data-gallery-next-btn]') as HTMLButtonElement,
             currentIndexElement: this.querySelector('[data-gallery-current-index]') as HTMLElement,
-            totalImagesElement: this.querySelector('[data-gallery-total-images]') as HTMLElement
+            totalImagesElement: this.querySelector('[data-gallery-total-images]') as HTMLElement,
+            progressFill: this.querySelector('.neon-progress-fill') as HTMLElement,
+            thumbnailsContainer: this.querySelector('[data-thumbnails-container]') as HTMLElement,
+            imageLoader: this.querySelector('.neon-loader') as HTMLElement,
+            zoomTrigger: this.querySelector('[data-zoom-trigger]') as HTMLElement,
+            modal: this.querySelector('[data-image-modal]') as HTMLElement,
+            modalImage: this.querySelector('[data-modal-image]') as HTMLImageElement,
+            modalClose: this.querySelector('[data-modal-close]') as HTMLButtonElement
         };
 
         if (!this.elements.mainImage || !this.elements.thumbnails?.length) {
@@ -78,7 +123,8 @@ class NeonGallery extends HTMLElement {
         
         this.images = Array.from(this.elements.thumbnails).map((thumbnail, index) => ({
             src: thumbnail.src,
-            alt: thumbnail.alt || `Image ${index + 1}`
+            alt: thumbnail.alt || `Image ${index + 1}`,
+            loaded: false
         }));
     }
 
@@ -95,42 +141,26 @@ class NeonGallery extends HTMLElement {
         // Main image click for next image
         this.elements.mainImage?.addEventListener('click', () => this.nextImage());
 
-        // Pause autoplay on hover
-        this.addEventListener('mouseenter', () => this.pauseAutoPlay());
-        this.addEventListener('mouseleave', () => this.resumeAutoPlay());
-    }
+        // Zoom functionality
+        this.elements.zoomTrigger?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.openImageModal();
+        });
 
-    private setupKeyboardNavigation(): void {
-        document.addEventListener('keydown', (event) => {
-            if (!this.isGalleryVisible()) return;
-
-            switch (event.key) {
-                case 'ArrowLeft':
-                    event.preventDefault();
-                    this.previousImage();
-                    break;
-                case 'ArrowRight':
-                    event.preventDefault();
-                    this.nextImage();
-                    break;
-                case 'Home':
-                    event.preventDefault();
-                    this.goToImage(0);
-                    break;
-                case 'End':
-                    event.preventDefault();
-                    this.goToImage(this.images.length - 1);
-                    break;
-                case ' ': // Spacebar
-                    event.preventDefault();
-                    this.toggleAutoPlay();
-                    break;
-                case 'Escape':
-                    event.preventDefault();
-                    this.stopAutoPlay();
-                    break;
+        this.elements.modalClose?.addEventListener('click', () => this.closeImageModal());
+        this.elements.modal?.addEventListener('click', (e) => {
+            if (e.target === this.elements.modal) {
+                this.closeImageModal();
             }
         });
+
+        // Auto-play controls
+        this.addEventListener('mouseenter', () => this.pauseAutoPlay());
+        this.addEventListener('mouseleave', () => this.resumeAutoPlay());
+
+        // Image loading events
+        this.elements.mainImage?.addEventListener('load', () => this.onImageLoaded());
+        this.elements.mainImage?.addEventListener('error', () => this.onImageError());
     }
 
     private setupTouchNavigation(): void {
@@ -138,30 +168,43 @@ class NeonGallery extends HTMLElement {
 
         let startX: number = 0;
         let startY: number = 0;
+        let startTime: number = 0;
         const threshold: number = 50;
+        const maxTime: number = 300;
 
-        this.elements.mainImage.addEventListener('touchstart', (event) => {
-            startX = event.touches[0].clientX;
-            startY = event.touches[0].clientY;
-        }, { passive: true });
+        const touchStartHandler = (event: TouchEvent) => {
+            const touch = event.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+            startTime = Date.now();
+        };
 
-        this.elements.mainImage.addEventListener('touchend', (event) => {
+        const touchEndHandler = (event: TouchEvent) => {
             if (!event.changedTouches.length) return;
 
-            const endX = event.changedTouches[0].clientX;
-            const endY = event.changedTouches[0].clientY;
+            const touch = event.changedTouches[0];
+            const endX = touch.clientX;
+            const endY = touch.clientY;
+            const endTime = Date.now();
+            
             const deltaX = endX - startX;
             const deltaY = endY - startY;
+            const deltaTime = endTime - startTime;
 
-            // Check if it's a horizontal swipe
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
-                if (deltaX > 0) {
-                    this.previousImage();
-                } else {
-                    this.nextImage();
-                }
+            // Check if it's a valid swipe
+            if (deltaTime > maxTime) return;
+            if (Math.abs(deltaX) < threshold) return;
+            if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+            if (deltaX > 0) {
+                this.previousImage();
+            } else {
+                this.nextImage();
             }
-        }, { passive: true });
+        };
+
+        this.elements.mainImage.addEventListener('touchstart', touchStartHandler, { passive: true });
+        this.elements.mainImage.addEventListener('touchend', touchEndHandler, { passive: true });
     }
 
     private isGalleryVisible(): boolean {
@@ -169,20 +212,58 @@ class NeonGallery extends HTMLElement {
         return rect.top < window.innerHeight && rect.bottom > 0;
     }
 
+    private preloadImages(): void {
+        // Preload the next few images for better performance
+        const preloadCount = Math.min(3, this.images.length);
+        for (let i = 0; i < preloadCount; i++) {
+            const img = new Image();
+            img.src = this.images[i].src;
+            img.onload = () => {
+                this.images[i].loaded = true;
+            };
+        }
+    }
+
+    private showImageLoader(): void {
+        if (this.elements.imageLoader) {
+            this.elements.imageLoader.classList.add('loading');
+        }
+        this.isImageLoading = true;
+    }
+
+    private hideImageLoader(): void {
+        if (this.elements.imageLoader) {
+            this.elements.imageLoader.classList.remove('loading');
+        }
+        this.isImageLoading = false;
+    }
+
+    private onImageLoaded(): void {
+        this.hideImageLoader();
+        this.images[this.currentIndex].loaded = true;
+    }
+
+    private onImageError(): void {
+        this.hideImageLoader();
+        console.error(`Failed to load image: ${this.images[this.currentIndex].src}`);
+    }
+
     public nextImage(): void {
+        if (this.isImageLoading) return;
         this.currentIndex = (this.currentIndex + 1) % this.images.length;
         this.updateDisplay();
         this.resetAutoPlay();
     }
 
     public previousImage(): void {
+        if (this.isImageLoading) return;
         this.currentIndex = this.currentIndex === 0 ? this.images.length - 1 : this.currentIndex - 1;
         this.updateDisplay();
         this.resetAutoPlay();
     }
 
     public goToImage(index: number): void {
-        if (index >= 0 && index < this.images.length) {
+        if (index >= 0 && index < this.images.length && !this.isImageLoading) {
             this.currentIndex = index;
             this.updateDisplay();
             this.resetAutoPlay();
@@ -194,6 +275,9 @@ class NeonGallery extends HTMLElement {
 
         const currentImage = this.images[this.currentIndex];
 
+        // Show loader for new image
+        this.showImageLoader();
+
         // Update main image with fade effect
         this.fadeImage(() => {
             this.elements.mainImage!.src = currentImage.src;
@@ -202,21 +286,22 @@ class NeonGallery extends HTMLElement {
 
         // Update thumbnails
         this.updateThumbnails();
-
-        // Update counter
+        
+        // Update counter and progress
         this.updateCounter();
+        this.updateProgress();
     }
 
     private fadeImage(callback: () => void): void {
         if (!this.elements.mainImage) return;
 
-        this.elements.mainImage.style.opacity = '0.5';
-        this.elements.mainImage.style.transition = 'opacity 0.3s ease';
+        this.elements.mainImage.style.opacity = '0.7';
+        this.elements.mainImage.style.transition = 'opacity 0.2s ease';
 
         setTimeout(() => {
             callback();
             this.elements.mainImage!.style.opacity = '1';
-        }, 150);
+        }, 100);
     }
 
     private updateThumbnails(): void {
@@ -234,6 +319,13 @@ class NeonGallery extends HTMLElement {
         }
         if (this.elements.totalImagesElement) {
             this.elements.totalImagesElement.textContent = this.images.length.toString();
+        }
+    }
+
+    private updateProgress(): void {
+        if (this.elements.progressFill) {
+            const progressPercentage = ((this.currentIndex + 1) / this.images.length) * 100;
+            this.elements.progressFill.style.width = `${progressPercentage}%`;
         }
     }
 
@@ -292,7 +384,7 @@ class NeonGallery extends HTMLElement {
         return this.images.length;
     }
 
-    public getCurrentImage(): { src: string; alt: string } | null {
+    public getCurrentImage(): GalleryImage | null {
         return this.images[this.currentIndex] || null;
     }
 }
