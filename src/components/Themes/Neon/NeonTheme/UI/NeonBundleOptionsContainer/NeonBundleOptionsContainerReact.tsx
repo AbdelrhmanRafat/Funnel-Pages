@@ -198,27 +198,32 @@ const NeonBundleOptionsContainerReact: React.FC<NeonBundleOptionsContainerReactP
   const showSelectionIndicators = true;
 
   return (
-    <div className="neon-bundle-options-container-panel p-4 border">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 pb-3">
+    <>
+    <div className="neon-bundle-options-container-panel flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 border-2 rounded-lg">
+      
+      {/* Header section - flex layout */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
         <ContainerHeader 
           panelIndex={panelIndex}
           currentLang={currentLang}
+          className="flex-shrink-0"
         />
-
         <SelectionIndicators
           showIndicators={showSelectionIndicators && !!processedData}
           firstOption={processedData?.firstOption || null}
           secondOption={processedData?.secondOption || null}
           selectedFirst={panelOption?.firstOption || null}
           selectedSecond={panelOption?.secondOption || null}
+          className="flex-shrink-0"
         />
       </div>
 
-      <div className="py-2 md:py-1 flex flex-col justify-center md:justify-between items-start md:items-start md:flex-row gap-6 md:gap-0">
+      {/* Options section - flex layout with responsive columns */}
+      <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
         {isHaveVariant && processedData?.firstOption && (
-          <OptionSection 
+          <OptionSection
             title={processedData.firstOption.title}
-            className="md:w-1/2"
+            className="flex-1 lg:flex-[0.4]"
           >
             {processedData.firstOption.hasColors ? (
               <ColorOptions
@@ -237,9 +242,9 @@ const NeonBundleOptionsContainerReact: React.FC<NeonBundleOptionsContainerReactP
         )}
 
         {isHaveVariant && processedData?.secondOption && (
-          <OptionSection 
+          <OptionSection
             title={processedData.secondOption.title}
-            className="md:w-1/2"
+            className="flex-1 lg:flex-[0.6]"
           >
             {processedData.secondOption.hasColors ? (
               <ColorOptions
@@ -260,14 +265,15 @@ const NeonBundleOptionsContainerReact: React.FC<NeonBundleOptionsContainerReactP
         )}
 
         {!isHaveVariant && (
-          <OptionSection title="Single Product">
-            <div className="py-2 px-4 border rounded-lg bg-gray-50">
-              <span className="text-sm">SKU: {product.sku_code}</span>
+          <OptionSection title="Single Product" className="flex-1">
+            <div className="neon-bundle-options-single-product flex items-center gap-3 py-4 px-6 border-2 rounded-lg">
+              <span className="text-sm sm:text-base font-medium">SKU: {product.sku_code}</span>
             </div>
           </OptionSection>
         )}
       </div>
     </div>
+    </>
   );
 };
 

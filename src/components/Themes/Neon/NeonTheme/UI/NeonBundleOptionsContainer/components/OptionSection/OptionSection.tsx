@@ -13,11 +13,13 @@ const OptionSection: React.FC<OptionSectionProps> = ({
   children,
 }) => {
   return (
-    <div className={`select-option-section space-y-2 ${className}`}>
-      <p className="neon-bundle-options-container-selection-title text-base sm:text-lg font-semibold">
+    <div className={`neon-bundle-options-section flex flex-col gap-3 sm:gap-4 ${className}`}>
+      <h3 className="neon-bundle-options-section-title text-base sm:text-lg font-semibold">
         {title}
-      </p>
-      {children}
+      </h3>
+      <div className="flex flex-col gap-4">
+        {children}
+      </div>
     </div>
   );
 };

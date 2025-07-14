@@ -1,15 +1,46 @@
-/* === Selection Indicators Styles === */
+/* === Selection Indicators Enhanced Styles === */
 
-.neon-bundle-options-container-selection-indicator {
-  background: var(--neon-color-surface-variant);
-  color: var(--neon-color-on-surface);
-  border: 1px solid var(--neon-color-outline);
+.neon-bundle-options-selection-indicator {
+    background-color: var(--neon-color-surface-variant);
+    border-color: var(--neon-color-outline);
 }
 
-/* Responsive Design */
-@media (max-width: 640px) {
-  .neon-bundle-options-container-selection-indicator {
-    justify-content: center;
-    width: 100%;
-  }
+.neon-bundle-options-selection-indicator:hover .neon-selection-indicator-glow {
+    background-color: var(--neon-color-primary);
+    opacity: 0.1;
+}
+
+.neon-selection-indicator-label {
+    color: var(--neon-color-on-surface-variant);
+}
+
+.neon-selection-indicator-value {
+    color: var(--neon-color-on-surface);
+}
+
+.neon-bundle-options-selection-indicator.has-selection .neon-selection-indicator-value {
+    color: var(--neon-color-primary);
+}
+
+.neon-selection-indicator-dot {
+    background-color: var(--neon-color-outline-variant);
+    border-color: var(--neon-color-surface-variant);
+}
+
+.neon-bundle-options-selection-indicator.has-selection .neon-selection-indicator-dot {
+    background-color: var(--neon-color-success);
+    border-color: var(--neon-color-surface);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .neon-bundle-options-selection-indicator,
+    .neon-selection-indicator-glow,
+    .neon-selection-indicator-dot {
+        transition: none;
+    }
+    
+    .neon-bundle-options-selection-indicator:hover {
+        transform: none;
+    }
 }

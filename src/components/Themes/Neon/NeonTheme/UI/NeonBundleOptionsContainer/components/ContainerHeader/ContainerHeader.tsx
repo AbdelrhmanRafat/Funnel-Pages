@@ -5,20 +5,24 @@ import { getTranslation, type Language } from '../../../../../../../../lib/utils
 interface ContainerHeaderProps {
   panelIndex: number;
   currentLang: Language;
+  className?: string;
 }
 
 const ContainerHeader: React.FC<ContainerHeaderProps> = ({
   panelIndex,
   currentLang,
+  className = "",
 }) => {
   const translatedSelectOptionsText = getTranslation("dynamicPanel.selectOptionsForProduct", currentLang) || "Select Options for Product";
 
   return (
-    <div className="neon-bundle-options-container-header font-bold text-lg sm:text-xl">
-      <p className="inline">
-        {translatedSelectOptionsText}{" "}
+    <div className={`neon-bundle-options-container-header flex items-center gap-2 font-bold text-lg sm:text-xl ${className}`}>
+      <p className="neon-bundle-options-header-text">
+        {translatedSelectOptionsText}
       </p>
-      <span>{panelIndex}</span>
+      <span className="neon-bundle-options-header-index flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full text-sm sm:text-base font-black">
+        {panelIndex}
+      </span>
     </div>
   );
 };

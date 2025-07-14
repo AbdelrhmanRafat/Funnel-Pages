@@ -1,12 +1,10 @@
-/* === Container Header Styles === */
+/* === Container Header Enhanced Styles === */
 
-.neon-bundle-options-container-header {
-  color: var(--neon-color-on-surface);
+.neon-bundle-options-header-text {
+    color: var(--neon-color-on-surface);
 }
 
-/* Responsive Design */
-@media (max-width: 640px) {
-  .neon-bundle-options-container-header {
-    font-size: 1rem;
-  }
+.neon-bundle-options-header-index {
+    background-color: var(--neon-color-primary);
+    color: var(--neon-color-on-primary);
 }
