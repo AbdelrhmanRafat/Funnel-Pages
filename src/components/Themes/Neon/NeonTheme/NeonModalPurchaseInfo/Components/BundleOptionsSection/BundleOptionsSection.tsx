@@ -21,7 +21,6 @@ const BundleOptionsSection: React.FC<BundleOptionsSectionProps> = ({
   if (!hasVariants || !hasBundles || customOptions.length === 0) {
     return null;
   }
-
   return (
     <div className="neon-bundle-options-section">
       <div className="neon-options-grid grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -33,19 +32,31 @@ const BundleOptionsSection: React.FC<BundleOptionsSectionProps> = ({
                 SKU: {getDisplaySKU(option, `ITEM-${option.bundleIndex}`)}
               </span>
             </div>
-            <div className="neon-option-details space-y-2">
-              <div className="neon-option-selection">
-                <span className="neon-selection-tag px-3 py-1 rounded-full text-xs font-medium">
-                  {option.firstOption}
-                </span>
-              </div>
-              {option.secondOption && (
+
+            {/* ✅ صورة + اختيارات في خط أفقي */}
+            <div className="flex items-center justify-between gap-4">
+              {option.image && (
+                <img
+                  src={option.image}
+                  alt={`Option ${option.bundleIndex}`}
+                  className="w-24 h-24 rounded object-cover"
+                />
+              )}
+
+              <div className="flex flex-col gap-2 items-center justify-center">
                 <div className="neon-option-selection">
-                  <span className="neon-selection-tag px-3 py-1 rounded-full text-xs font-medium">
-                    {option.secondOption}
+                  <span className="neon-selection-tag px-2 md:px-1 py-1 rounded-full text-xs font-medium">
+                    {option.firstOption}
                   </span>
                 </div>
-              )}
+                {option.secondOption && (
+                  <div className="neon-option-selection">
+                    <span className="neon-selection-tag px-2 md:px-1 py-1 rounded-full text-xs font-medium">
+                      {option.secondOption}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ))}

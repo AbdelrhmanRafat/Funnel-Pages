@@ -45,15 +45,13 @@ const QuantitySection: React.FC<QuantitySectionProps> = ({
   };
 
   return (
-    <div className="flex-1 lg:max-w-xs">
-      <div className="space-y-4">
-        <div>
-          <div className="flex justify-start items-center gap-1 pb-4">
-            <div>
-              <label className="neon-selection-options-without-bundles-qty-label text-2xl font-bold">
-                {getTranslation("productFunnel.maxAvailable", currentLang)}
-              </label>
-            </div>
+      <div className="flex justify-start items-start flex-col gap-4 sm:gap-6">
+        {/* Header Section */}
+        <div className="flex flex-col gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <label className="neon-quantity-section-label text-lg sm:text-xl font-bold">
+              {getTranslation("productFunnel.maxAvailable", currentLang)}
+            </label>
             
             <MaxQuantityDisplay
               maxQty={maxQty}
@@ -62,38 +60,66 @@ const QuantitySection: React.FC<QuantitySectionProps> = ({
               isSelectionComplete={isSelectionComplete}
             />
           </div>
-          
-          <div className="neon-selection-options-without-bundles-qty-controls flex items-center gap-3">
-            <button
-              type="button"
-              className="neon-selection-options-without-bundles-qty-btn neon-selection-options-without-bundles-qty-decrease w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={handleDecrease}
-              disabled={currentQty <= 1}
-            >
-              <span className="text-lg font-medium select-none">−</span>
-            </button>
+        </div>
 
+        {/* Quantity Controls */}
+        <div className="neon-quantity-controls flex items-center justify-center gap-3 sm:gap-4">
+          
+          {/* Decrease Button */}
+          <button
+            type="button"
+            className="neon-quantity-btn neon-quantity-decrease group relative overflow-hidden w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-xl border-2 transition-all duration-300 ease-out hover:scale-105 focus:outline-none disabled:opacity-30 disabled:pointer-events-none"
+            onClick={handleDecrease}
+            disabled={currentQty <= 1}
+          >
+            {/* Button background overlay */}
+            <div className="neon-quantity-btn-bg absolute inset-0 opacity-0 transition-all duration-300 ease-out" />
+            
+            {/* Button indicator */}
+            <div className="neon-quantity-btn-indicator absolute inset-x-0 bottom-0 h-1 transform scale-x-0 transition-all duration-400 ease-out" />
+            
+            <span className="relative z-10 text-lg sm:text-xl font-bold transition-colors duration-300">−</span>
+            
+            {/* Active state glow */}
+            <div className="neon-quantity-btn-glow absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 ease-out pointer-events-none" />
+          </button>
+
+          {/* Quantity Input */}
+          <div className="relative">
             <input
               type="number"
-              className="neon-selection-options-without-bundles-qty-input w-20 h-10 text-center rounded-2xl focus:outline-none focus:ring-2 transition-all duration-200"
+              className="neon-quantity-input w-20 sm:w-24 h-12 sm:h-14 text-center text-lg sm:text-xl font-bold rounded-xl border-2 transition-all duration-300 ease-out focus:outline-none focus:scale-105"
               value={currentQty}
               min="1"
               max={maxQty}
               onChange={handleInputChange}
             />
-
-            <button
-              type="button"
-              className="neon-selection-options-without-bundles-qty-btn neon-selection-options-without-bundles-qty-increase w-10 h-10 flex items-center justify-center rounded-2xl transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={handleIncrease}
-              disabled={currentQty >= maxQty}
-            >
-              <span className="text-lg font-medium select-none">+</span>
-            </button>
+            
+            {/* Input glow effect */}
+            <div className="neon-quantity-input-glow absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 pointer-events-none" />
           </div>
+
+          {/* Increase Button */}
+          <button
+            type="button"
+            className="neon-quantity-btn neon-quantity-increase group relative overflow-hidden w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-xl border-2 transition-all duration-300 ease-out hover:scale-105 focus:outline-none disabled:opacity-30 disabled:pointer-events-none"
+            onClick={handleIncrease}
+            disabled={currentQty >= maxQty}
+          >
+            {/* Button background overlay */}
+            <div className="neon-quantity-btn-bg absolute inset-0 opacity-0 transition-all duration-300 ease-out" />
+            
+            {/* Button indicator */}
+            <div className="neon-quantity-btn-indicator absolute inset-x-0 bottom-0 h-1 transform scale-x-0 transition-all duration-400 ease-out" />
+            
+            <span className="relative z-10 text-lg sm:text-xl font-bold transition-colors duration-300">+</span>
+            
+            {/* Active state glow */}
+            <div className="neon-quantity-btn-glow absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 ease-out pointer-events-none" />
+          </button>
+
         </div>
       </div>
-    </div>
   );
 };
 

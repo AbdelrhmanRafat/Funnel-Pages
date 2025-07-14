@@ -1,77 +1,78 @@
-/* === Size/Text Options Base === */
-.neon-selection-options-without-bundles-size-option {
+/* === Text Options Enhanced Smooth Styles === */
+
+.neon-selection-options-without-bundles-text-option {
     background-color: var(--neon-color-surface);
-    color: var(--neon-color-on-surface-variant);
-    border: 1px solid var(--neon-color-outline);
-    cursor: pointer;
-    transition: all 0.2s ease;
+    border-color: var(--neon-color-outline);
+    color: var(--neon-color-on-surface);
+    transform-origin: center;
 }
 
-.neon-selection-options-without-bundles-size-option:hover {
-    background-color: var(--neon-color-secondary);
-    color: var(--neon-color-on-secondary);
-    border-color: var(--neon-color-secondary);
-    transform: translateY(-2px);
-    box-shadow: var(--neon-section-shadow);
-}
-
-/* === Size/Text Options Selected State === */
-.neon-selection-options-without-bundles-size-option--selected {
-    background-color: var(--neon-color-secondary);
-    color: var(--neon-color-on-secondary);
-    border-color: var(--neon-color-secondary-dark);
-    transform: translateY(-4px);
-    box-shadow: var(--neon-section-shadow);
-}
-
-.neon-selection-options-without-bundles-size-option--selected:hover {
-    background-color: var(--neon-color-secondary);
-    color: var(--neon-color-on-secondary);
-    border-color: var(--neon-color-secondary-dark);
-    transform: translateY(-4px);
-    box-shadow: var(--neon-section-shadow);
-}
-
-/* === Disabled Size Options === */
-.neon-selection-options-without-bundles-size-option.neon-selection-options-without-bundles-option-disabled {
+.neon-selection-options-without-bundles-text-option:hover:not(.selected):not(.neon-selection-options-without-bundles-option-disabled) .neon-selection-options-without-bundles-text-bg {
     background-color: var(--neon-color-surface-variant);
-    color: var(--neon-color-on-surface-variant);
-    border-color: var(--neon-color-outline-variant);
-    box-shadow: none;
+    opacity: 1;
 }
 
-.neon-selection-options-without-bundles-size-option.neon-selection-options-without-bundles-option-disabled:hover {
-    background-color: var(--neon-color-surface-variant);
-    color: var(--neon-color-on-surface-variant);
-    transform: none;
+.neon-selection-options-without-bundles-text-option:hover:not(.selected):not(.neon-selection-options-without-bundles-option-disabled) {
+    border-color: var(--neon-color-primary);
 }
 
-/* === Enhanced Hover States === */
-.neon-selection-options-without-bundles-size-option.neon-selection-options-without-bundles-option-available:hover:not(.neon-selection-options-without-bundles-size-option--selected) {
-    background-color: var(--neon-color-secondary-light);
-    color: var(--neon-color-on-secondary);
-    border-color: var(--neon-color-secondary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.neon-selection-options-without-bundles-text-option.selected {
+    background-color: var(--neon-color-primary-light);
+    border-color: var(--neon-color-primary);
+    color: var(--neon-color-on-primary);
 }
 
-/* === Focus States for Accessibility === */
-.neon-selection-options-without-bundles-size-option:focus {
+.neon-selection-options-without-bundles-text-option.selected .neon-selection-options-without-bundles-text-bg {
+    background-color: var(--neon-color-primary);
+    opacity: 0.1;
+}
+
+.neon-selection-options-without-bundles-text-option.selected .neon-selection-options-without-bundles-text-indicator {
+    background-color: var(--neon-color-primary);
+    transform: scaleX(1);
+}
+
+.neon-selection-options-without-bundles-text-option.selected .neon-selection-options-without-bundles-text-check {
+    background-color: var(--neon-color-success);
+    color: var(--neon-color-on-success);
+    opacity: 1;
+    scale: 1;
+}
+
+.neon-selection-options-without-bundles-text-option.selected .neon-selection-options-without-bundles-text-glow {
+    background-color: var(--neon-color-primary);
+    opacity: 0.1;
+}
+
+.neon-selection-options-without-bundles-option-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* Smooth active state */
+.neon-selection-options-without-bundles-text-option:active:not(.neon-selection-options-without-bundles-option-disabled) {
+    transform: scale(0.98);
+}
+
+/* Enhanced focus state for accessibility */
+.neon-selection-options-without-bundles-text-option:focus-visible {
     outline: 2px solid var(--neon-color-primary);
     outline-offset: 2px;
 }
 
-.neon-selection-options-without-bundles-size-option.neon-selection-options-without-bundles-option-disabled:focus {
-    outline: 2px solid var(--neon-color-outline-variant);
-    outline-offset: 2px;
-}
-
-/* === Reduced Motion === */
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-    .neon-selection-options-without-bundles-size-option {
-        transition: opacity 0.2s ease;
+    .neon-selection-options-without-bundles-text-option,
+    .neon-selection-options-without-bundles-text-bg,
+    .neon-selection-options-without-bundles-text-indicator,
+    .neon-selection-options-without-bundles-text-check,
+    .neon-selection-options-without-bundles-text-glow {
+        transition: none;
     }
     
-    .neon-selection-options-without-bundles-size-option:hover {
+    .neon-selection-options-without-bundles-text-option:hover,
+    .neon-selection-options-without-bundles-text-option:active {
         transform: none;
     }
 }

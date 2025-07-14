@@ -1,42 +1,103 @@
-/* === Quantity Section Styles === */
+/* === Quantity Section Enhanced Styles === */
 
-.neon-selection-options-without-bundles-qty-label {
-  color: var(--neon-color-on-surface);
+.neon-quantity-section-label {
+    color: var(--neon-color-on-surface);
 }
 
-.neon-selection-options-without-bundles-qty-btn {
-  background-color: var(--neon-color-surface);
-  color: var(--neon-color-on-surface);
-  border: 1px solid var(--neon-color-outline);
+/* === Quantity Buttons === */
+.neon-quantity-btn {
+    background-color: var(--neon-color-surface);
+    border-color: var(--neon-color-outline);
+    color: var(--neon-color-on-surface);
+    transform-origin: center;
 }
 
-.neon-selection-options-without-bundles-qty-btn:hover:not(:disabled) {
-  background-color: var(--neon-color-surface-variant);
+.neon-quantity-btn:hover:not(:disabled) .neon-quantity-btn-bg {
+    background-color: var(--neon-color-surface-variant);
+    opacity: 1;
 }
 
-.neon-selection-options-without-bundles-qty-btn:focus {
-  ring-color: var(--neon-color-primary);
+.neon-quantity-btn:hover:not(:disabled) {
+    border-color: var(--neon-color-primary);
 }
 
-.neon-selection-options-without-bundles-qty-btn:disabled {
-  background-color: var(--neon-color-surface-container);
-  color: var(--neon-color-on-surface-variant);
+.neon-quantity-btn:active:not(:disabled) {
+    transform: scale(0.95);
 }
 
-.neon-selection-options-without-bundles-qty-input {
-  background-color: var(--neon-color-surface);
-  color: var(--neon-color-on-surface);
-  border: 1px solid var(--neon-color-outline);
+.neon-quantity-btn:active:not(:disabled) .neon-quantity-btn-indicator {
+    background-color: var(--neon-color-primary);
+    transform: scaleX(1);
 }
 
-.neon-selection-options-without-bundles-qty-input:focus {
-  border-color: var(--neon-color-primary);
-  ring-color: var(--neon-color-primary);
+.neon-quantity-btn:active:not(:disabled) .neon-quantity-btn-glow {
+    background-color: var(--neon-color-primary);
+    opacity: 0.1;
 }
 
-/* Responsive Design */
-@media (max-width: 640px) {
-  .neon-selection-options-without-bundles-qty-label {
-    font-size: 1.5rem;
-  }
+.neon-quantity-btn:disabled {
+    background-color: var(--neon-color-surface-container);
+    border-color: var(--neon-color-outline-variant);
+    color: var(--neon-color-on-surface-variant);
+}
+
+/* === Quantity Input === */
+.neon-quantity-input {
+    background-color: var(--neon-color-surface);
+    border-color: var(--neon-color-outline);
+    color: var(--neon-color-on-surface);
+    transform-origin: center;
+}
+
+.neon-quantity-input:hover {
+    border-color: var(--neon-color-primary);
+}
+
+.neon-quantity-input:focus {
+    border-color: var(--neon-color-primary);
+}
+
+.neon-quantity-input:focus .neon-quantity-input-glow {
+    background-color: var(--neon-color-primary);
+    opacity: 0.1;
+}
+
+/* Remove default number input arrows */
+.neon-quantity-input::-webkit-outer-spin-button,
+.neon-quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.neon-quantity-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* === Enhanced Focus States === */
+.neon-quantity-btn:focus-visible {
+    outline: 2px solid var(--neon-color-primary);
+    outline-offset: 2px;
+}
+
+.neon-quantity-input:focus-visible {
+    outline: 2px solid var(--neon-color-primary);
+    outline-offset: 2px;
+}
+
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+    .neon-quantity-btn,
+    .neon-quantity-input,
+    .neon-quantity-btn-bg,
+    .neon-quantity-btn-indicator,
+    .neon-quantity-btn-glow,
+    .neon-quantity-input-glow {
+        transition: none;
+    }
+    
+    .neon-quantity-btn:hover,
+    .neon-quantity-btn:active,
+    .neon-quantity-input:focus {
+        transform: none;
+    }
 }

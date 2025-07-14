@@ -193,7 +193,7 @@ const NeonSelectionOptionsWithoutBundlesReact: React.FC<NeonSelectionOptionsWith
   return (
     <div className="neon-selection-options-without-bundles w-full">
       <section id="neon-selection-options-without-bundles-section">
-        <div className="flex gap-6 flex-col-reverse">
+        <div className="flex gap-6 flex-col">
 
           <OptionsContainer
             isHaveVariant={isHaveVariant}
