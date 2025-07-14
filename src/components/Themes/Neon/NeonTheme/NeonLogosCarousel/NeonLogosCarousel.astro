@@ -14,7 +14,7 @@ const logos: Item[] = data.items ?? [];
 ---
 
 <section 
-    id={FunnelNeonComponents.neonLogosCarousel} 
+    id={FunnelNeonComponents.NeonLogosCarousel} 
     class="neon-section"
     aria-labelledby="logos-heading"
     data-component="logos-carousel-section"
@@ -28,5 +28,5 @@ const logos: Item[] = data.items ?? [];
     </div>
 
     <!-- React Carousel Component -->
-    <LogosCarousel logos={logos} client:only="react" />
+    <LogosCarousel logos={logos} client:load />
 </section>

@@ -197,8 +197,7 @@ const LogosCarousel: React.FC<LogosCarouselProps> = ({ logos }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Section Divider */}
-      <div className="pop-logocarousel-div-divider h-1 w-24 mx-auto mb-8 md:mb-12"></div>
+
 
       <div className="relative">
         {/* Navigation buttons - only show if needed */}

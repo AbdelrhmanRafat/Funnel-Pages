@@ -23,7 +23,7 @@ const ColorOptions: React.FC<ColorOptionsProps> = ({
   isDisabled,
 }) => {
   return (
-    <div className="flex flex-wrap justify-start content-center gap-2">
+    <div className="flex flex-wrap justify-start content-center gap-1 md:gap-2">
       {options.map((option, index) => {
         const disabled = isDisabled ? isDisabled(option.value) : false;
         const isSelected = selectedValue === option.value;
