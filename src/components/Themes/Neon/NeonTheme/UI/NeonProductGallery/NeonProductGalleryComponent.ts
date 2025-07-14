@@ -45,6 +45,7 @@ class NeonGallery extends HTMLElement {
     private autoPlayDelay: number = 5000;
     private enableTouch: boolean = true;
     private isImageLoading: boolean = false;
+    private stickyClasses = ['lg:sticky', 'lg:top-4', 'lg:self-start'];
 
     constructor() {
         super();
@@ -76,6 +77,8 @@ class NeonGallery extends HTMLElement {
         
         this.elements.modal.classList.add('show');
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        // Remove sticky classes from the gallery
+        this.removeStickyClasses();
     }
 
     private closeImageModal(): void {
@@ -83,6 +86,16 @@ class NeonGallery extends HTMLElement {
 
         this.elements.modal.classList.remove('show');
         document.body.style.overflow = ''; // Restore scrolling
+        // Add sticky classes back to the gallery
+        this.addStickyClasses();
+    }
+
+    private removeStickyClasses(): void {
+        this.stickyClasses.forEach(cls => this.classList.remove(cls));
+    }
+
+    private addStickyClasses(): void {
+        this.stickyClasses.forEach(cls => this.classList.add(cls));
     }
 
     disconnectedCallback() {

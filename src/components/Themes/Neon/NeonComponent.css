@@ -9,28 +9,43 @@
     padding: var(--neon-section-padding);
     border-radius: var(--neon-section-radius);
     box-shadow: var(--neon-section-shadow);
-}
-
-.neon-section-header {
+    border: 1px solid var(--neon-color-outline-variant);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .neon-section-header {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: start;
     gap: var(--neon-header-gap);
     margin-bottom: var(--neon-header-margin-bottom);
     font-size: var(--neon-header-size);
     font-weight: var(--neon-header-weight);
     color: var(--neon-color-on-surface);
-}
-.neon-middle-title {
+    border-bottom: 1px solid var(--neon-color-outline-variant);
+    padding-bottom: 0.5rem;
+  }
+  
+  .neon-middle-title {
     text-align: center;
     font-size: var(--neon-header-center-size);
-    font-weight: var( --neon-header-center-wight);
-    color: var(--neon-color-on-surface);
+    font-weight: var(--neon-header-center-weight);
+    color: var(--neon-color-primary);
     margin-bottom: var(--neon-header-center-margin-bottom);
-}
-.neon-divider {
-    background: linear-gradient(to right, var(--neon-color-tertiary), var(--neon-color-secondary));
-}
+    text-shadow: 0 0 10px var(--neon-color-primary-light);
+  }
+  
+  .neon-divider {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(
+      to right,
+      var(--neon-color-tertiary),
+      var(--neon-color-secondary)
+    );
+    margin: 2rem auto;
+    width: 60%;
+  }  
 
 
 /* === Scroll to Top Button === */
