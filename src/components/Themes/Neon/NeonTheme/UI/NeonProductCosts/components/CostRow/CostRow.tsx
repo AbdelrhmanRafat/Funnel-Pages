@@ -19,11 +19,11 @@ const CostRow: React.FC<CostRowProps> = ({
   }
 
   return (
-    <div className="neon-product-costs-row flex justify-between items-center">
-      <span className="neon-product-costs-label">
+    <div className="neon-product-costs-row flex justify-between items-center py-2 border-b transition-colors last:border-b-0">
+      <span className="neon-product-costs-label text-sm sm:text-base font-medium">
         {label}
       </span>
-      <span className={`neon-product-costs-value ${isDiscount ? 'neon-product-costs-discount' : ''}`}>
+      <span className={`neon-product-costs-value text-sm sm:text-base font-semibold ${isDiscount ? 'neon-product-costs-discount' : ''}`}>
         {isDiscount && !value.startsWith('-') ? '- ' : ''}{value}
       </span>
     </div>

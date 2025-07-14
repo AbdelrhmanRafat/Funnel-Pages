@@ -42,8 +42,8 @@ const CostCalculationDisplay: React.FC<CostCalculationDisplayProps> = ({
   }, [calculatedValues.discount, showDiscountWhenZero]);
 
   return (
-    <div className="neon-product-costs-body">
-      <div className="neon-product-costs-content space-y-3">
+    <div className="neon-product-costs-body flex flex-col gap-3 sm:gap-4">
+      <div className="neon-product-costs-content flex flex-col gap-2 sm:gap-3 pb-3 sm:pb-4 border-b">
         {/* Quantity Row */}
         <CostRow
           label={getTranslation('productFunnel.quantity', currentLang)}

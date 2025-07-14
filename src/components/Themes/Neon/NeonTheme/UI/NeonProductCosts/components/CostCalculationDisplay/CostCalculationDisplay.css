@@ -1,6 +1,6 @@
 /* === Cost Calculation Display Styles === */
 
-.neon-product-costs-body {
-  border-bottom: 1px solid var(--neon-color-outline);
-}
 
+.neon-product-costs-content {
+  border-color: var(--neon-color-outline);
+}

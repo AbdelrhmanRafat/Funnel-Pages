@@ -2,32 +2,10 @@
 
 .neon-product-costs-total-section {
   background-color: var(--neon-color-primary-light);
-  padding: 1rem 1.5rem;
-  border-top: 2px solid var(--neon-color-primary);
-  margin-top: 0.75rem;
-  border-radius: var(--neon-section-radius);
+  border-color: var(--neon-color-primary);
 }
 
-.neon-product-costs-total-label {
-  color: var(--neon-color-on-primary);
-  font-weight: 700;
-  font-size: 1.125rem;
-}
-
+.neon-product-costs-total-label,
 .neon-product-costs-total-value {
   color: var(--neon-color-on-primary);
-  font-weight: 700;
-  font-size: 1.25rem;
-}
-
-/* === Responsive Design === */
-@media (max-width: 640px) {
-  .neon-product-costs-total-section {
-    padding: 0.75rem 1rem;
-  }
-  
-  .neon-product-costs-total-label,
-  .neon-product-costs-total-value {
-    font-size: 1rem;
-  }
 }

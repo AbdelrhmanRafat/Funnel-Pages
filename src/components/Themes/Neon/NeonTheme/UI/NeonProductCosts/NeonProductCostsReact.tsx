@@ -27,7 +27,7 @@ const NeonProductCostsReact: React.FC<NeonProductCostsReactProps> = ({
   });
 
   return (
-    <div className="neon-product-costs-container">
+    <div className="neon-product-costs-container flex flex-col gap-3 sm:gap-4 p-3 sm:p-6 border rounded-lg overflow-hidden">
       <CostCalculationDisplay
         calculatedValues={calculatedValues}
         hasBundles={hasBundles}

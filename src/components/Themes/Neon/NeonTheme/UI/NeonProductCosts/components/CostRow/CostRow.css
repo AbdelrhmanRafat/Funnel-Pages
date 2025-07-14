@@ -1,32 +1,23 @@
 /* === Cost Row Styles === */
 
 .neon-product-costs-row {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--neon-color-outline-variant);
-  transition: background-color 0.2s ease;
+  border-color: var(--neon-color-outline-variant);
 }
 
 .neon-product-costs-row:hover {
   background-color: var(--neon-color-surface-variant);
 }
 
-.neon-product-costs-row:last-child {
-  border-bottom: none;
-}
-
 .neon-product-costs-label {
   color: var(--neon-color-on-surface-variant);
-  font-weight: 500;
 }
 
 .neon-product-costs-value {
   color: var(--neon-color-on-surface);
-  font-weight: 600;
 }
 
 .neon-product-costs-discount {
   color: var(--neon-color-success);
-  font-weight: 600;
 }
 
 /* === Focus States for Accessibility === */
