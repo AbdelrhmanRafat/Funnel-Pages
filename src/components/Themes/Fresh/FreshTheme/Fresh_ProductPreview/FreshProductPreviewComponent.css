@@ -1,87 +1,70 @@
-/* === Classic Product Preview === */
+/* === Classic Product Preview (Refactored with Custom Variables) === */
 
-/* Video container with responsive height */
-.fresh-product-preview-video-container {
+/* Video container */
+.fresh-productpreview-div-video {
     border-color: var(--fresh-color-primary);
-    border-radius: var(--fresh-section-radius);
     box-shadow: var(--fresh-section-shadow);
-    /* Responsive height */
-    height: 300px;
 }
 
-@media (min-width: 768px) {
-    .fresh-product-preview-video-container {
-        height: 400px;
-    }
+/* Video placeholder */
+.fresh-productpreview-div-placeholder {
+    background-color: var(--fresh-color-surface-variant);
 }
 
-@media (min-width: 1024px) {
-    .fresh-product-preview-video-container {
-        height: 100%;
-        min-height: 450px;
-    }
+.fresh-productpreview-span-notvideo {
+    color: var(--fresh-color-on-surface-variant);
 }
 
 /* Video title overlay */
-.fresh-product-preview-video-title {
+.fresh-productpreview-div-videotitle {
     color: var(--fresh-color-surface);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
+.fresh-productpreview-p-title {
+    color: var(--fresh-color-surface);
+}
+
 /* Features container */
-.fresh-product-preview-features-container {
+.fresh-productpreview-div-features {
     background-color: var(--fresh-color-surface-container-high);
-    border-radius: var(--fresh-section-radius);
-    padding: 2rem;
     box-shadow: var(--fresh-section-shadow);
 }
 
 /* Features header */
-.fresh-product-preview-features-header {
+.fresh-productpreview-div-header {
     border-color: var(--fresh-color-outline-variant);
 }
 
-.fresh-product-preview-features-title {
+.fresh-productpreview-h2-title {
     color: var(--fresh-color-on-surface);
 }
 
 /* Views badge */
-.fresh-product-preview-views-badge {
+.fresh-productpreview-div-viewsbadge {
     background-color: var(--fresh-color-surface-variant);
-    color: var(--fresh-color-on-surface-variant);
-    border-radius: 1rem;
 }
 
-/* Feature items */
-.fresh-product-preview-feature-icon {
+.fresh-productpreview-span-views {
+    color: var(--fresh-color-on-surface-variant);
+}
+
+/* Feature icon */
+.fresh-productpreview-div-featureicon {
     background-color: var(--fresh-color-primary);
     color: var(--fresh-color-on-primary);
-    width: 2.5rem;
-    height: 2.5rem;
 }
 
-.fresh-product-preview-feature-title {
+/* Feature content */
+.fresh-productpreview-div-featuretitle {
     color: var(--fresh-color-on-surface);
 }
 
-.fresh-product-preview-feature-subtitle {
+.fresh-productpreview-div-featuresubtitle {
     color: var(--fresh-color-on-surface-variant);
 }
 
-/* === Accessibility === */
-@media (prefers-reduced-motion: reduce) {
-    .fresh-product-preview-video-container {
-        transition: none;
-    }
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-    .fresh-product-preview-features-container {
-        border: 2px solid var(--fresh-color-outline);
-    }
-    
-    .fresh-product-preview-video-container {
-        border-width: 3px;
-    }
+/* Button container */
+.fresh-productpreview-div-buttoncontainer {
+    border-color: var(--fresh-color-outline-variant);
 }

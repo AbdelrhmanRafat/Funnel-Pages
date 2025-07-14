@@ -1,0 +1,37 @@
+/* === Cost Row Styles === */
+
+.zen-product-costs-row {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--zen-color-outline-variant);
+  transition: background-color 0.2s ease;
+}
+
+.zen-product-costs-row:hover {
+  background-color: var(--zen-color-surface-variant);
+}
+
+.zen-product-costs-row:last-child {
+  border-bottom: none;
+}
+
+.zen-product-costs-label {
+  color: var(--zen-color-on-surface-variant);
+  font-weight: 500;
+}
+
+.zen-product-costs-value {
+  color: var(--zen-color-on-surface);
+  font-weight: 600;
+}
+
+.zen-product-costs-discount {
+  color: var(--zen-color-success);
+  font-weight: 600;
+}
+
+/* === Focus States for Accessibility === */
+.zen-product-costs-row:focus-within {
+  outline: 2px solid var(--zen-color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

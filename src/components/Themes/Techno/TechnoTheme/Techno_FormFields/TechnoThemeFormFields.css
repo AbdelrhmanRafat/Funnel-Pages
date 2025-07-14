@@ -1,29 +1,36 @@
-/* === Classic Form Components === */
+/* === Classic Form Components (Refactored with Custom Variables) === */
 
 /* Main form container */
-.techno-form {
+.techno-form-div-container {
     background-color: var(--techno-color-surface);
     border-radius: var(--techno-section-radius);
+    box-shadow: var(--techno-section-shadow);
 }
 
 /* Form title styling */
-.techno-form-title {
+.techno-form-h1-title {
     color: var(--techno-color-on-surface);
+    font-size: var(--techno-header-size);
+    font-weight: var(--techno-header-weight);
+    margin-bottom: var(--techno-header-margin-bottom);
 }
 
 /* Section headers within form */
-.techno-form-section-title {
+.techno-form-h2-title {
     color: var(--techno-color-on-surface);
+    font-size: var(--techno-header-center-size);
+    font-weight: var(--techno-header-center-weight);
+    margin-bottom: var(--techno-header-center-margin-bottom);
 }
 
-/* Improved Input Group */
-.techno-form-group {
+/* Form group container */
+.techno-form-div-group {
     position: relative;
     width: 100%;
 }
 
-/* Input field styling */
-.techno-form-input {
+/* Base input field styling */
+.techno-form-input-base {
     width: 100%;
     padding: 1rem 0.75rem 0.75rem 0.75rem;
     border: 2px solid var(--techno-color-outline);
@@ -36,8 +43,56 @@
     box-sizing: border-box;
 }
 
+/* Responsive input sizing */
+.techno-form-input-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .techno-form-input-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Textarea specific responsive styling */
+.techno-form-textarea-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .techno-form-textarea-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Select base styling */
+.techno-form-select-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--techno-color-outline);
+    border-radius: 12px;
+    color: var(--techno-color-on-surface);
+    background-color: var(--techno-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Select responsive styling */
+.techno-form-select-responsive {
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .techno-form-select-responsive {
+        padding: 1rem;
+    }
+}
+
 /* Floating label styling */
-.techno-form-label {
+.techno-form-label-floating {
     position: absolute;
     left: 0.75rem;
     top: 1rem;
@@ -51,108 +106,136 @@
     transform-origin: left top;
 }
 
+/* Static label styling */
+.techno-form-label-static {
+    color: var(--techno-color-on-surface);
+    font-weight: 500;
+}
+
 /* Focus and valid states for input */
-.techno-form-input:focus,
-.techno-form-input:valid {
+.techno-form-input-base:focus,
+.techno-form-input-base:valid {
+    border-color: var(--techno-color-primary);
+    box-shadow: var(--techno-section-shadow);
+}
+
+.techno-form-select-base:focus {
     border-color: var(--techno-color-primary);
     box-shadow: var(--techno-section-shadow);
 }
 
 /* Floating label animation */
-.techno-form-input:focus~.techno-form-label,
-.techno-form-input:valid~.techno-form-label {
+.techno-form-input-base:focus ~ .techno-form-label-floating,
+.techno-form-input-base:valid ~ .techno-form-label-floating,
+.techno-form-textarea-responsive:focus ~ .techno-form-label-floating,
+.techno-form-textarea-responsive:valid ~ .techno-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
     color: var(--techno-color-primary);
     font-weight: 600;
 }
 
 /* Error state styling */
-.techno-form-error {
+.techno-form-span-error {
     display: block;
     font-size: 0.875rem;
     color: var(--techno-color-error);
     min-height: 1.25rem;
+    margin-top: 0.25rem;
 }
 
+/* Input validation states */
+.techno-form-input-error {
+    border-color: var(--techno-color-error) !important;
+}
 
+.techno-form-input-success {
+    border-color: var(--techno-color-success) !important;
+}
 
-.techno-form-input.text-right~.techno-form-label {
+/* RTL support for floating labels */
+.techno-form-input-base.text-right ~ .techno-form-label-floating,
+.techno-form-textarea-responsive.text-right ~ .techno-form-label-floating {
     left: auto;
     right: 0.75rem;
     transform-origin: right top;
 }
-.techno-form-input.text-left~.techno-form-label {
+
+.techno-form-input-base.text-left ~ .techno-form-label-floating,
+.techno-form-textarea-responsive.text-left ~ .techno-form-label-floating {
     right: auto;
     left: 0.75rem;
     transform-origin: left top;
 }
 
-.techno-form-input.text-left:focus~.techno-form-label,
-.techno-form-input.text-left:valid~.techno-form-label {
+.techno-form-input-base.text-right:focus ~ .techno-form-label-floating,
+.techno-form-input-base.text-right:valid ~ .techno-form-label-floating,
+.techno-form-textarea-responsive.text-right:focus ~ .techno-form-label-floating,
+.techno-form-textarea-responsive.text-right:valid ~ .techno-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
 }
-.techno-form-input.text-left:focus~.techno-form-label,
-.techno-form-input.text-left:valid~.techno-form-label {
-    transform: translateY(-1.5rem) scale(0.85);
-}
-
-
 
 /* Payment and delivery option containers */
-.techno-form-payment-option {
+.techno-form-div-payment {
     padding: 0.75rem;
-    /* Tailwind: p-3 */
     border: 1px solid var(--techno-color-outline);
     border-radius: 0.5rem;
-    /* Tailwind: rounded-lg */
     cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    background-color: var(--techno-color-surface);
+}
+
+@media (min-width: 768px) {
+    .techno-form-div-payment {
+        padding: 1rem;
+    }
 }
 
 /* Hover state for payment options */
-.techno-form-payment-option:hover {
+.techno-form-div-payment:hover {
     background-color: var(--techno-color-surface-variant);
     border-color: var(--techno-color-outline-variant);
 }
 
 /* Focus state for payment options */
-.techno-form-payment-option:focus-within {
+.techno-form-div-payment:focus-within {
     border-color: var(--techno-color-primary);
     outline: 2px solid var(--techno-color-primary);
     outline-offset: 2px;
 }
 
 /* Payment option labels */
-.techno-form-payment-option-label {
+.techno-form-span-payment-label {
     display: block;
     color: var(--techno-color-on-surface);
     cursor: pointer;
+    font-weight: 500;
 }
 
 /* Payment option descriptions */
-.techno-form-payment-option-description {
+.techno-form-span-payment-description {
     display: block;
     color: var(--techno-color-on-surface-variant);
 }
 
 /* Radio button styling */
-.techno-form-radio {
+.techno-form-input-radio {
     accent-color: var(--techno-color-primary);
     border-color: var(--techno-color-outline);
     cursor: pointer;
 }
 
-/* Custom radio indicator (if used) */
-.techno-form-radio-indicator {
+/* Custom radio indicator */
+.techno-form-div-radio-indicator {
     width: 1.25rem;
     height: 1.25rem;
     border: 2px solid var(--techno-color-outline);
     border-radius: 50%;
     transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: var(--techno-color-surface);
 }
 
 /* Radio dot inside custom indicator */
-.techno-form-radio-dot {
+.techno-form-div-radio-dot {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
@@ -161,50 +244,63 @@
 }
 
 /* Active state for custom radio indicator */
-.techno-form-payment-option input[type="radio"]:checked+.techno-form-payment-option-content .techno-form-radio-indicator {
+.techno-form-input-radio:checked + .techno-form-div-content .techno-form-div-radio-indicator {
     border-color: var(--techno-color-primary);
     background-color: var(--techno-color-primary);
 }
 
-.techno-form-payment-option input[type="radio"]:checked+.techno-form-payment-option-content .techno-form-radio-dot {
+.techno-form-input-radio:checked + .techno-form-div-content .techno-form-div-radio-dot {
     background-color: var(--techno-color-surface);
 }
 
-/* Validation state classes */
-.techno-border-error {
-    border-color: var(--techno-color-error) !important;
+/* Notes section specific styling */
+.techno-form-div-notes {
+    width: 100%;
+    margin-top: 1rem;
 }
 
-.techno-text-error {
-    color: var(--techno-color-error) !important;
+@media (min-width: 768px) {
+    .techno-form-div-notes {
+        margin-top: 1.5rem;
+    }
 }
 
-.techno-border-success {
-    border-color: var(--techno-color-success) !important;
+/* Button section styling */
+.techno-form-div-button-container {
+    width: 100%;
+    margin-top: 1.5rem;
 }
 
-.techno-text-success {
-    color: var(--techno-color-success) !important;
+@media (min-width: 768px) {
+    .techno-form-div-button-container {
+        margin-top: 2rem;
+    }
 }
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-
-    .techno-form-input,
-    .techno-form-payment-option,
-    .techno-form-radio-indicator,
-    .techno-form-radio-dot {
+    .techno-form-input-base,
+    .techno-form-select-base,
+    .techno-form-div-payment,
+    .techno-form-div-radio-indicator,
+    .techno-form-div-radio-dot,
+    .techno-form-label-floating {
         transition: none;
     }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-    .techno-form-input {
-        border-width: 2px;
+    .techno-form-input-base,
+    .techno-form-select-base {
+        border-width: 3px;
     }
 
-    .techno-form-payment-option {
+    .techno-form-div-payment {
         border-width: 2px;
+    }
+    
+    .techno-form-div-radio-indicator {
+        border-width: 3px;
     }
 }

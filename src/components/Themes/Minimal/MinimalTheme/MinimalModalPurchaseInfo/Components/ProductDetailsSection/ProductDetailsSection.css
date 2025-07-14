@@ -1,0 +1,31 @@
+/* === Product Details Section Component (Colors & Shadows Only) === */
+
+.minimal-productdetails-h2-title {
+  color: var(--minimal-color-on-surface);
+  border-bottom-color: var(--minimal-color-primary);
+}
+
+.minimal-productdetails-div-icon {
+  background: var(--minimal-color-primary-light);
+  color: var(--minimal-color-on-primary);
+}
+
+.minimal-productdetails-div-card {
+  background: var(--minimal-color-surface);
+  border-color: var(--minimal-color-outline);
+  border-left-color: var(--minimal-color-primary);
+  box-shadow: var(--minimal-section-shadow);
+}
+
+.minimal-productdetails-img-product {
+  background: var(--minimal-color-surface-variant);
+  border: 1px solid var(--minimal-color-outline);
+}
+
+.minimal-productdetails-h3-name {
+  color: var(--minimal-color-on-surface);
+}
+
+.minimal-productdetails-p-description {
+  color: var(--minimal-color-on-surface-variant);
+}

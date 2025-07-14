@@ -1,0 +1,31 @@
+/* === Product Details Section Component (Colors & Shadows Only) === */
+
+.zen-productdetails-h2-title {
+  color: var(--zen-color-on-surface);
+  border-bottom-color: var(--zen-color-primary);
+}
+
+.zen-productdetails-div-icon {
+  background: var(--zen-color-primary-light);
+  color: var(--zen-color-on-primary);
+}
+
+.zen-productdetails-div-card {
+  background: var(--zen-color-surface);
+  border-color: var(--zen-color-outline);
+  border-left-color: var(--zen-color-primary);
+  box-shadow: var(--zen-section-shadow);
+}
+
+.zen-productdetails-img-product {
+  background: var(--zen-color-surface-variant);
+  border: 1px solid var(--zen-color-outline);
+}
+
+.zen-productdetails-h3-name {
+  color: var(--zen-color-on-surface);
+}
+
+.zen-productdetails-p-description {
+  color: var(--zen-color-on-surface-variant);
+}

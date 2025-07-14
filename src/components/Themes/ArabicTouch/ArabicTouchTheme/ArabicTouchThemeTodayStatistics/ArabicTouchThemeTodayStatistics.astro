@@ -1,5 +1,5 @@
 ---
-// This component displays the number of orders placed "today" for the ArabicTouch theme.
+// This component displays the number of orders placed "today" for the Classic theme.
 // It features an animated counter that counts up to the provided order number.
 // Props:
 // - data: An object of type BlockData, expected to contain `counters` array.
@@ -7,56 +7,61 @@ import "./ArabicTouchThemeTodayStatistics.css";
 import type { BlockData, Item } from "../../../../../lib/api/types";
 import { FunnelArabicTouchComponents } from "../../../../../lib/constants/themes";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
-import LucideIcon from "../../../../Shared/LucideIcon.astro";
 
 const data: BlockData = Astro.props.data;
 const counters: Item[] = data.items ?? [];
 
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value ||
+  "en") as Language;
 const isArabic = currentLang === "ar";
-
-// Default icons for statistics if not provided
-const defaultIcons = ['ShoppingCart', 'Users', 'Eye', 'TrendingUp', 'Activity', 'Target'];
 ---
 
 <arabictouch-statistics-counter>
   <section
-    id={FunnelArabicTouchComponents.ArabicTouchTodayStatistics}
+    id={FunnelArabicTouchComponents.arabictouchTodayStatistics}
     class="arabictouch-section"
   >
-    <div class="arabictouch-statistics-header flex flex-col justify-center items-center gap-3 mb-8">
-      <h3 class="arabictouch-statistics-title text-2xl md:text-3xl font-bold text-center">
+    <div
+      class="arabictouch-middle-title flex flex-col justify-center items-center gap-3"
+    >
+      <h3>
         {isArabic ? data.title_ar : data.title_en}
       </h3>
-      <div class="arabictouch-statistics-divider w-24 h-1 mx-auto rounded-full"></div>
+      <div class="w-24 h-1 arabictouch-divider mx-auto rounded-full"></div>
     </div>
 
-    <!-- Statistics Grid - Variation 2: Card-Based Design -->
-    <div class="arabictouch-statistics-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 py-8">
-      {
-        counters.map((counter, index) => (
-          <div class="arabictouch-statistics-card rounded-2xl p-6 md:p-8 text-center transition-all duration-300 hover:shadow-lg">
-            <!-- Icon -->
-            <div class="arabictouch-statistics-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-              {counter.icon ? 
-                <LucideIcon name={counter.icon as any} width="24" height="24" class="arabictouch-statistics-icon-symbol" /> :
-                <LucideIcon name={defaultIcons[index % defaultIcons.length] as any} width="24" height="24" class="arabictouch-statistics-icon-symbol" />
-              }
+    <div class="arabictouch-statistics-minimal-container py-12">
+      <div
+        class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 lg:gap-20"
+      >
+        {
+          counters.map((counter, index) => (
+            <div class="arabictouch-counter-minimal-item flex-1 max-w-xs text-center relative">
+              {/* Large animated number */}
+              <div class="arabictouch-theme-today-order-count p-0 flex justify-center items-center gap-4 text-6xl md:text-7xl lg:text-8xl font-black leading-none">
+                <span>+</span>
+                <h5 class="arabictouch-order-counter" data-target={counter.number}>
+                  0
+                </h5>
+              </div>
+
+              {/* Green label text */}
+              <div class="arabictouch-counter-minimal-label text-2xl font-bold mt-4 leading-relaxed">
+                {counter.label}
+              </div>
+
+              {/* Divider line – only if not the last item */}
+              {index !== counters.length - 1 && (
+                <div
+                  class={`arabictouch-divider hidden md:block absolute top-1/2 -translate-y-1/2 h-20 w-[3px] rounded-full 
+      ${isArabic ? "left-[-2.5rem]" : "right-[-2.5rem]"}`}
+                />
+              )}
             </div>
-            
-            <!-- Animated Number -->
-            <div class="arabictouch-order-counter text-4xl md:text-5xl font-black mb-3" data-target={counter.number}>
-              +0
-            </div>
-            
-            <!-- Label -->
-            <div class="arabictouch-statistics-label text-lg md:text-xl font-bold">
-              {counter.label}
-            </div>
-          </div>
-        ))
-      }
+          ))
+        }
+      </div>
     </div>
   </section>
 </arabictouch-statistics-counter>

@@ -1,87 +1,70 @@
-/* === Classic Product Preview === */
+/* === Classic Product Preview (Refactored with Custom Variables) === */
 
-/* Video container with responsive height */
-.minimal-product-preview-video-container {
+/* Video container */
+.minimal-productpreview-div-video {
     border-color: var(--minimal-color-primary);
-    border-radius: var(--minimal-section-radius);
     box-shadow: var(--minimal-section-shadow);
-    /* Responsive height */
-    height: 300px;
 }
 
-@media (min-width: 768px) {
-    .minimal-product-preview-video-container {
-        height: 400px;
-    }
+/* Video placeholder */
+.minimal-productpreview-div-placeholder {
+    background-color: var(--minimal-color-surface-variant);
 }
 
-@media (min-width: 1024px) {
-    .minimal-product-preview-video-container {
-        height: 100%;
-        min-height: 450px;
-    }
+.minimal-productpreview-span-notvideo {
+    color: var(--minimal-color-on-surface-variant);
 }
 
 /* Video title overlay */
-.minimal-product-preview-video-title {
+.minimal-productpreview-div-videotitle {
     color: var(--minimal-color-surface);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
+.minimal-productpreview-p-title {
+    color: var(--minimal-color-surface);
+}
+
 /* Features container */
-.minimal-product-preview-features-container {
+.minimal-productpreview-div-features {
     background-color: var(--minimal-color-surface-container-high);
-    border-radius: var(--minimal-section-radius);
-    padding: 2rem;
     box-shadow: var(--minimal-section-shadow);
 }
 
 /* Features header */
-.minimal-product-preview-features-header {
+.minimal-productpreview-div-header {
     border-color: var(--minimal-color-outline-variant);
 }
 
-.minimal-product-preview-features-title {
+.minimal-productpreview-h2-title {
     color: var(--minimal-color-on-surface);
 }
 
 /* Views badge */
-.minimal-product-preview-views-badge {
+.minimal-productpreview-div-viewsbadge {
     background-color: var(--minimal-color-surface-variant);
-    color: var(--minimal-color-on-surface-variant);
-    border-radius: 1rem;
 }
 
-/* Feature items */
-.minimal-product-preview-feature-icon {
+.minimal-productpreview-span-views {
+    color: var(--minimal-color-on-surface-variant);
+}
+
+/* Feature icon */
+.minimal-productpreview-div-featureicon {
     background-color: var(--minimal-color-primary);
     color: var(--minimal-color-on-primary);
-    width: 2.5rem;
-    height: 2.5rem;
 }
 
-.minimal-product-preview-feature-title {
+/* Feature content */
+.minimal-productpreview-div-featuretitle {
     color: var(--minimal-color-on-surface);
 }
 
-.minimal-product-preview-feature-subtitle {
+.minimal-productpreview-div-featuresubtitle {
     color: var(--minimal-color-on-surface-variant);
 }
 
-/* === Accessibility === */
-@media (prefers-reduced-motion: reduce) {
-    .minimal-product-preview-video-container {
-        transition: none;
-    }
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-    .minimal-product-preview-features-container {
-        border: 2px solid var(--minimal-color-outline);
-    }
-    
-    .minimal-product-preview-video-container {
-        border-width: 3px;
-    }
+/* Button container */
+.minimal-productpreview-div-buttoncontainer {
+    border-color: var(--minimal-color-outline-variant);
 }

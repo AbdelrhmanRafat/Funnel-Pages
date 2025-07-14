@@ -1,0 +1,48 @@
+/* === Billing Section Component (Colors & Shadows Only) === */
+
+.fresh-billingsection-h3-title {
+  color: var(--fresh-color-on-surface);
+  border-bottom-color: var(--fresh-color-tertiary);
+}
+
+.fresh-billingsection-div-icon {
+  background: var(--fresh-color-tertiary-light);
+  color: var(--fresh-color-on-tertiary);
+}
+
+.fresh-billingsection-div-customercard,
+.fresh-billingsection-div-ordercard {
+  background: var(--fresh-color-surface);
+  border-color: var(--fresh-color-outline);
+  box-shadow: var(--fresh-section-shadow);
+}
+
+.fresh-billingsection-div-customercard:hover,
+.fresh-billingsection-div-ordercard:hover {
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+}
+
+.fresh-billingsection-span-label {
+  color: var(--fresh-color-on-surface-variant);
+}
+
+.fresh-billingsection-span-value {
+  color: var(--fresh-color-on-surface);
+}
+
+.fresh-billingsection-div-notes {
+  background: var(--fresh-color-surface-container);
+  border-color: var(--fresh-color-outline);
+}
+
+.fresh-billingsection-span-notesvalue {
+  color: var(--fresh-color-on-surface);
+}
+
+.fresh-billingsection-div-empty {
+  background: var(--fresh-color-surface-variant);
+}
+
+.fresh-billingsection-span-empty {
+  color: var(--fresh-color-on-surface-variant);
+}

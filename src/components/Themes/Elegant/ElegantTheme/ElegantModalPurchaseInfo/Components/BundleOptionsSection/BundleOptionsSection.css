@@ -1,0 +1,55 @@
+/* === Bundle Options Section Styles === */
+
+.elegant-bundle-options-section .elegant-section-title {
+  color: var(--elegant-color-on-surface);
+  border-bottom: 2px solid var(--elegant-color-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.elegant-bundle-options-section .elegant-section-icon {
+  background: var(--elegant-color-secondary-light);
+  color: var(--elegant-color-on-secondary);
+}
+
+.elegant-option-item {
+  background: var(--elegant-color-surface);
+  border: 1px solid var(--elegant-color-outline);
+  border-left: 3px solid var(--elegant-color-secondary);
+  transition: all 0.3s ease;
+}
+
+.elegant-option-item:hover {
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.elegant-option-header {
+  color: var(--elegant-color-secondary);
+}
+
+.elegant-option-sku {
+  color: var(--elegant-color-on-surface-variant);
+}
+
+.elegant-selection-tag {
+  background: var(--elegant-color-secondary-light);
+  color: var(--elegant-color-on-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .elegant-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .elegant-option-item {
+    transition: none;
+  }
+  
+  .elegant-option-item:hover {
+    transform: none;
+  }
+}

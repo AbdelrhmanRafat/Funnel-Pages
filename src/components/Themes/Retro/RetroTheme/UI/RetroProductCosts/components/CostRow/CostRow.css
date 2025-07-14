@@ -1,0 +1,37 @@
+/* === Cost Row Styles === */
+
+.retro-product-costs-row {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--retro-color-outline-variant);
+  transition: background-color 0.2s ease;
+}
+
+.retro-product-costs-row:hover {
+  background-color: var(--retro-color-surface-variant);
+}
+
+.retro-product-costs-row:last-child {
+  border-bottom: none;
+}
+
+.retro-product-costs-label {
+  color: var(--retro-color-on-surface-variant);
+  font-weight: 500;
+}
+
+.retro-product-costs-value {
+  color: var(--retro-color-on-surface);
+  font-weight: 600;
+}
+
+.retro-product-costs-discount {
+  color: var(--retro-color-success);
+  font-weight: 600;
+}
+
+/* === Focus States for Accessibility === */
+.retro-product-costs-row:focus-within {
+  outline: 2px solid var(--retro-color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

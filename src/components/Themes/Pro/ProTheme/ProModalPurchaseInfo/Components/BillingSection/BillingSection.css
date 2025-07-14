@@ -1,0 +1,48 @@
+/* === Billing Section Component (Colors & Shadows Only) === */
+
+.pro-billingsection-h3-title {
+  color: var(--pro-color-on-surface);
+  border-bottom-color: var(--pro-color-tertiary);
+}
+
+.pro-billingsection-div-icon {
+  background: var(--pro-color-tertiary-light);
+  color: var(--pro-color-on-tertiary);
+}
+
+.pro-billingsection-div-customercard,
+.pro-billingsection-div-ordercard {
+  background: var(--pro-color-surface);
+  border-color: var(--pro-color-outline);
+  box-shadow: var(--pro-section-shadow);
+}
+
+.pro-billingsection-div-customercard:hover,
+.pro-billingsection-div-ordercard:hover {
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+}
+
+.pro-billingsection-span-label {
+  color: var(--pro-color-on-surface-variant);
+}
+
+.pro-billingsection-span-value {
+  color: var(--pro-color-on-surface);
+}
+
+.pro-billingsection-div-notes {
+  background: var(--pro-color-surface-container);
+  border-color: var(--pro-color-outline);
+}
+
+.pro-billingsection-span-notesvalue {
+  color: var(--pro-color-on-surface);
+}
+
+.pro-billingsection-div-empty {
+  background: var(--pro-color-surface-variant);
+}
+
+.pro-billingsection-span-empty {
+  color: var(--pro-color-on-surface-variant);
+}

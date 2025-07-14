@@ -1,29 +1,36 @@
-/* === Classic Form Components === */
+/* === Classic Form Components (Refactored with Custom Variables) === */
 
 /* Main form container */
-.bold-form {
+.bold-form-div-container {
     background-color: var(--bold-color-surface);
     border-radius: var(--bold-section-radius);
+    box-shadow: var(--bold-section-shadow);
 }
 
 /* Form title styling */
-.bold-form-title {
+.bold-form-h1-title {
     color: var(--bold-color-on-surface);
+    font-size: var(--bold-header-size);
+    font-weight: var(--bold-header-weight);
+    margin-bottom: var(--bold-header-margin-bottom);
 }
 
 /* Section headers within form */
-.bold-form-section-title {
+.bold-form-h2-title {
     color: var(--bold-color-on-surface);
+    font-size: var(--bold-header-center-size);
+    font-weight: var(--bold-header-center-weight);
+    margin-bottom: var(--bold-header-center-margin-bottom);
 }
 
-/* Improved Input Group */
-.bold-form-group {
+/* Form group container */
+.bold-form-div-group {
     position: relative;
     width: 100%;
 }
 
-/* Input field styling */
-.bold-form-input {
+/* Base input field styling */
+.bold-form-input-base {
     width: 100%;
     padding: 1rem 0.75rem 0.75rem 0.75rem;
     border: 2px solid var(--bold-color-outline);
@@ -36,8 +43,56 @@
     box-sizing: border-box;
 }
 
+/* Responsive input sizing */
+.bold-form-input-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .bold-form-input-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Textarea specific responsive styling */
+.bold-form-textarea-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .bold-form-textarea-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Select base styling */
+.bold-form-select-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--bold-color-outline);
+    border-radius: 12px;
+    color: var(--bold-color-on-surface);
+    background-color: var(--bold-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Select responsive styling */
+.bold-form-select-responsive {
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .bold-form-select-responsive {
+        padding: 1rem;
+    }
+}
+
 /* Floating label styling */
-.bold-form-label {
+.bold-form-label-floating {
     position: absolute;
     left: 0.75rem;
     top: 1rem;
@@ -51,108 +106,136 @@
     transform-origin: left top;
 }
 
+/* Static label styling */
+.bold-form-label-static {
+    color: var(--bold-color-on-surface);
+    font-weight: 500;
+}
+
 /* Focus and valid states for input */
-.bold-form-input:focus,
-.bold-form-input:valid {
+.bold-form-input-base:focus,
+.bold-form-input-base:valid {
+    border-color: var(--bold-color-primary);
+    box-shadow: var(--bold-section-shadow);
+}
+
+.bold-form-select-base:focus {
     border-color: var(--bold-color-primary);
     box-shadow: var(--bold-section-shadow);
 }
 
 /* Floating label animation */
-.bold-form-input:focus~.bold-form-label,
-.bold-form-input:valid~.bold-form-label {
+.bold-form-input-base:focus ~ .bold-form-label-floating,
+.bold-form-input-base:valid ~ .bold-form-label-floating,
+.bold-form-textarea-responsive:focus ~ .bold-form-label-floating,
+.bold-form-textarea-responsive:valid ~ .bold-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
     color: var(--bold-color-primary);
     font-weight: 600;
 }
 
 /* Error state styling */
-.bold-form-error {
+.bold-form-span-error {
     display: block;
     font-size: 0.875rem;
     color: var(--bold-color-error);
     min-height: 1.25rem;
+    margin-top: 0.25rem;
 }
 
+/* Input validation states */
+.bold-form-input-error {
+    border-color: var(--bold-color-error) !important;
+}
 
+.bold-form-input-success {
+    border-color: var(--bold-color-success) !important;
+}
 
-.bold-form-input.text-right~.bold-form-label {
+/* RTL support for floating labels */
+.bold-form-input-base.text-right ~ .bold-form-label-floating,
+.bold-form-textarea-responsive.text-right ~ .bold-form-label-floating {
     left: auto;
     right: 0.75rem;
     transform-origin: right top;
 }
-.bold-form-input.text-left~.bold-form-label {
+
+.bold-form-input-base.text-left ~ .bold-form-label-floating,
+.bold-form-textarea-responsive.text-left ~ .bold-form-label-floating {
     right: auto;
     left: 0.75rem;
     transform-origin: left top;
 }
 
-.bold-form-input.text-left:focus~.bold-form-label,
-.bold-form-input.text-left:valid~.bold-form-label {
+.bold-form-input-base.text-right:focus ~ .bold-form-label-floating,
+.bold-form-input-base.text-right:valid ~ .bold-form-label-floating,
+.bold-form-textarea-responsive.text-right:focus ~ .bold-form-label-floating,
+.bold-form-textarea-responsive.text-right:valid ~ .bold-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
 }
-.bold-form-input.text-left:focus~.bold-form-label,
-.bold-form-input.text-left:valid~.bold-form-label {
-    transform: translateY(-1.5rem) scale(0.85);
-}
-
-
 
 /* Payment and delivery option containers */
-.bold-form-payment-option {
+.bold-form-div-payment {
     padding: 0.75rem;
-    /* Tailwind: p-3 */
     border: 1px solid var(--bold-color-outline);
     border-radius: 0.5rem;
-    /* Tailwind: rounded-lg */
     cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    background-color: var(--bold-color-surface);
+}
+
+@media (min-width: 768px) {
+    .bold-form-div-payment {
+        padding: 1rem;
+    }
 }
 
 /* Hover state for payment options */
-.bold-form-payment-option:hover {
+.bold-form-div-payment:hover {
     background-color: var(--bold-color-surface-variant);
     border-color: var(--bold-color-outline-variant);
 }
 
 /* Focus state for payment options */
-.bold-form-payment-option:focus-within {
+.bold-form-div-payment:focus-within {
     border-color: var(--bold-color-primary);
     outline: 2px solid var(--bold-color-primary);
     outline-offset: 2px;
 }
 
 /* Payment option labels */
-.bold-form-payment-option-label {
+.bold-form-span-payment-label {
     display: block;
     color: var(--bold-color-on-surface);
     cursor: pointer;
+    font-weight: 500;
 }
 
 /* Payment option descriptions */
-.bold-form-payment-option-description {
+.bold-form-span-payment-description {
     display: block;
     color: var(--bold-color-on-surface-variant);
 }
 
 /* Radio button styling */
-.bold-form-radio {
+.bold-form-input-radio {
     accent-color: var(--bold-color-primary);
     border-color: var(--bold-color-outline);
     cursor: pointer;
 }
 
-/* Custom radio indicator (if used) */
-.bold-form-radio-indicator {
+/* Custom radio indicator */
+.bold-form-div-radio-indicator {
     width: 1.25rem;
     height: 1.25rem;
     border: 2px solid var(--bold-color-outline);
     border-radius: 50%;
     transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: var(--bold-color-surface);
 }
 
 /* Radio dot inside custom indicator */
-.bold-form-radio-dot {
+.bold-form-div-radio-dot {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
@@ -161,50 +244,63 @@
 }
 
 /* Active state for custom radio indicator */
-.bold-form-payment-option input[type="radio"]:checked+.bold-form-payment-option-content .bold-form-radio-indicator {
+.bold-form-input-radio:checked + .bold-form-div-content .bold-form-div-radio-indicator {
     border-color: var(--bold-color-primary);
     background-color: var(--bold-color-primary);
 }
 
-.bold-form-payment-option input[type="radio"]:checked+.bold-form-payment-option-content .bold-form-radio-dot {
+.bold-form-input-radio:checked + .bold-form-div-content .bold-form-div-radio-dot {
     background-color: var(--bold-color-surface);
 }
 
-/* Validation state classes */
-.bold-border-error {
-    border-color: var(--bold-color-error) !important;
+/* Notes section specific styling */
+.bold-form-div-notes {
+    width: 100%;
+    margin-top: 1rem;
 }
 
-.bold-text-error {
-    color: var(--bold-color-error) !important;
+@media (min-width: 768px) {
+    .bold-form-div-notes {
+        margin-top: 1.5rem;
+    }
 }
 
-.bold-border-success {
-    border-color: var(--bold-color-success) !important;
+/* Button section styling */
+.bold-form-div-button-container {
+    width: 100%;
+    margin-top: 1.5rem;
 }
 
-.bold-text-success {
-    color: var(--bold-color-success) !important;
+@media (min-width: 768px) {
+    .bold-form-div-button-container {
+        margin-top: 2rem;
+    }
 }
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-
-    .bold-form-input,
-    .bold-form-payment-option,
-    .bold-form-radio-indicator,
-    .bold-form-radio-dot {
+    .bold-form-input-base,
+    .bold-form-select-base,
+    .bold-form-div-payment,
+    .bold-form-div-radio-indicator,
+    .bold-form-div-radio-dot,
+    .bold-form-label-floating {
         transition: none;
     }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-    .bold-form-input {
-        border-width: 2px;
+    .bold-form-input-base,
+    .bold-form-select-base {
+        border-width: 3px;
     }
 
-    .bold-form-payment-option {
+    .bold-form-div-payment {
         border-width: 2px;
+    }
+    
+    .bold-form-div-radio-indicator {
+        border-width: 3px;
     }
 }

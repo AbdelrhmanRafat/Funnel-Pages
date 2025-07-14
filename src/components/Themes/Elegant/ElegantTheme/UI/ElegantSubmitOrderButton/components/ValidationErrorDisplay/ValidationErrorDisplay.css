@@ -1,0 +1,28 @@
+/* === Validation Error Display Styles === */
+
+.elegant-validationerror-div-alert {
+  background-color: var(--elegant-color-error-light);
+  color: var(--elegant-color-on-error);
+  border: 1px solid var(--elegant-color-error);
+  box-shadow: var(--elegant-shadow-sm);
+  animation: elegant-validationerror-div-alert-slideInDown 0.3s ease-out;
+}
+
+/* Accessibility - Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .elegant-validationerror-div-alert {
+    animation: none;
+  }
+}
+
+/* Slide-in animation for error alert */
+@keyframes elegant-validationerror-div-alert-slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,50 @@
+/* === Invoice Actions Styles === */
+
+.arabictouch-cancel-button {
+  background: var(--arabictouch-color-background);
+  border: 2px solid var(--arabictouch-color-outline);
+  color: var(--arabictouch-color-on-surface);
+}
+
+.arabictouch-cancel-button:hover:not(:disabled) {
+  background: var(--arabictouch-color-surface-variant);
+  border-color: var(--arabictouch-color-primary);
+  color: var(--arabictouch-color-primary);
+}
+
+.arabictouch-cancel-button:disabled {
+  background: var(--arabictouch-color-surface);
+  border-color: var(--arabictouch-color-outline);
+  color: var(--arabictouch-color-on-surface-variant);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .arabictouch-invoice-actions {
+    flex-direction: column;
+  }
+  
+  .arabictouch-cancel-button {
+    order: 2;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .arabictouch-invoice-actions {
+    display: none;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .arabictouch-cancel-button {
+    transition: none;
+  }
+  
+  .arabictouch-cancel-button:hover {
+    transform: none;
+  }
+}

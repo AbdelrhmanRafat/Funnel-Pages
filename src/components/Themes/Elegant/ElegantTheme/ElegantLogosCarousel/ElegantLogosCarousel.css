@@ -1,7 +1,7 @@
-/* === Classic Logos Carousel Component - Clean & Simple === */
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
 
 /* Section Divider */
-.elegant-logos-carousel-divider {
+.elegant-logocarousel-div-divider {
     background: linear-gradient(90deg, 
         var(--elegant-color-primary) 0%,
         var(--elegant-color-secondary) 50%,
@@ -10,72 +10,12 @@
 }
 
 /* Logo Cards - Clean and minimal */
-.elegant-logo-card {
-    /* No background, borders, or hover effects - just clean space for logos */
+.elegant-logocarousel-div-card {
     background: transparent;
-    transition: none;
 }
 
-/* Carousel Navigation Arrows - Clean design */
-.elegant-carousel-left,
-.elegant-carousel-right {
-    background-color: var(--elegant-color-surface);
-    color: var(--elegant-color-on-surface);
-    border: 1px solid var(--elegant-color-outline-variant);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.elegant-carousel-left:hover,
-.elegant-carousel-right:hover {
-    background-color: var(--elegant-color-surface-variant);
-    border-color: var(--elegant-color-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.elegant-carousel-left:disabled,
-.elegant-carousel-right:disabled {
-    opacity: 0.3;
-    background-color: var(--elegant-color-surface);
-    border-color: var(--elegant-color-outline-variant);
-}
-
-.elegant-carousel-left:active,
-.elegant-carousel-right:active {
-    transform: scale(0.95);
-}
-
-/* Page Indicators - Simple dots */
-.elegant-page-indicator {
-    background-color: var(--elegant-color-outline);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.elegant-page-indicator:hover {
-    background-color: var(--elegant-color-primary-light);
-}
-
-.elegant-page-indicator.active {
-    background-color: var(--elegant-color-primary);
-}
-
-/* Focus states for accessibility */
-.elegant-carousel-left:focus,
-.elegant-carousel-right:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--elegant-color-primary-light);
-    border-color: var(--elegant-color-primary);
-}
-
-.elegant-page-indicator:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--elegant-color-primary-light);
-}
-
-/* Loading state - Simple skeleton */
-.elegant-logo-card.animate-pulse {
+/* Skeleton Loading State */
+.elegant-logocarousel-div-skeleton {
     background: linear-gradient(90deg, 
         var(--elegant-color-surface) 25%, 
         var(--elegant-color-surface-variant) 50%, 
@@ -90,118 +30,64 @@
     100% { background-position: -200% 0; }
 }
 
-/* Trust indicator styling */
-.elegant-trust-indicator {
+/* Carousel Navigation Arrows */
+.elegant-logocarousel-button-left,
+.elegant-logocarousel-button-right {
+    background-color: var(--elegant-color-surface);
+    color: var(--elegant-color-on-surface);
+    border-color: var(--elegant-color-outline-variant);
+}
+
+.elegant-logocarousel-button-left:hover,
+.elegant-logocarousel-button-right:hover {
+    background-color: var(--elegant-color-surface-variant);
+    border-color: var(--elegant-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.elegant-logocarousel-button-left:disabled,
+.elegant-logocarousel-button-right:disabled {
+    background-color: var(--elegant-color-surface);
+    border-color: var(--elegant-color-outline-variant);
     color: var(--elegant-color-on-surface-variant);
-    font-weight: 500;
-    opacity: 0.8;
 }
 
-/* Responsive Design - Mobile-first approach */
-@media (max-width: 640px) {
-    .elegant-carousel-left,
-    .elegant-carousel-right {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .elegant-logo-card {
-        min-height: 56px;
-        padding: 0.75rem;
-    }
-    
-    .elegant-page-indicator {
-        width: 6px;
-        height: 6px;
-    }
-    
-    .elegant-page-indicator.active {
-        width: 20px;
-    }
+.elegant-logocarousel-button-left:focus,
+.elegant-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--elegant-color-primary-light);
+    border-color: var(--elegant-color-primary);
 }
 
-@media (max-width: 480px) {
-    .elegant-logo-card {
-        min-height: 48px;
-        padding: 0.5rem;
-    }
-    
-    .elegant-carousel-left,
-    .elegant-carousel-right {
-        width: 36px;
-        height: 36px;
-    }
+/* Page Indicators */
+.elegant-logocarousel-button-indicator {
+    background-color: var(--elegant-color-outline);
 }
 
-/* Large screens - Enhanced spacing */
-@media (min-width: 1024px) {
-    .elegant-logo-card {
-        min-height: 80px;
-        padding: 1.25rem;
-    }
-    
-    .elegant-carousel-left,
-    .elegant-carousel-right {
-        width: 48px;
-        height: 48px;
-    }
+.elegant-logocarousel-button-indicator:hover {
+    background-color: var(--elegant-color-primary-light);
 }
 
-/* Motion preferences - Respect user settings */
-@media (prefers-reduced-motion: reduce) {
-    .elegant-carousel-left,
-    .elegant-carousel-right,
-    .elegant-page-indicator {
-        transition: none;
-        animation: none;
-    }
-    
-    .elegant-carousel-left:active,
-    .elegant-carousel-right:active {
-        transform: none;
-    }
+.elegant-logocarousel-button-indicator.elegant-logocarousel-button-active {
+    background-color: var(--elegant-color-primary);
 }
 
-/* High contrast mode - Better accessibility */
-@media (prefers-contrast: high) {
-    .elegant-carousel-left,
-    .elegant-carousel-right {
-        border-width: 2px;
-        border-color: var(--elegant-color-on-surface);
-    }
-    
-    .elegant-page-indicator {
-        border: 2px solid var(--elegant-color-on-surface);
-    }
-    
-    .elegant-page-indicator.active {
-        background: var(--elegant-color-on-surface);
-        border-color: var(--elegant-color-primary);
-    }
+.elegant-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--elegant-color-primary-light);
 }
 
-/* RTL Support - Ensure proper visual direction */
-[dir="rtl"] .elegant-carousel-left {
-    /* In RTL, the left button should visually point right */
-    transform: scaleX(-1);
+/* Progress Bar */
+.elegant-logocarousel-div-progressbg {
+    background-color: var(--elegant-color-outline);
 }
 
-[dir="rtl"] .elegant-carousel-right {
-    /* In RTL, the right button should visually point left */
-    transform: scaleX(-1);
+.elegant-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--elegant-color-primary), 
+        var(--elegant-color-primary-light)
+    );
 }
 
-/* Dark mode support (if applicable) */
-@media (prefers-color-scheme: dark) {
-    .elegant-carousel-left,
-    .elegant-carousel-right {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: var(--elegant-color-on-surface);
-    }
-    
-    .elegant-carousel-left:hover,
-    .elegant-carousel-right:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
+/* Trust Indicator */
+.elegant-logocarousel-p-trust {
+    color: var(--elegant-color-on-surface-variant);
 }

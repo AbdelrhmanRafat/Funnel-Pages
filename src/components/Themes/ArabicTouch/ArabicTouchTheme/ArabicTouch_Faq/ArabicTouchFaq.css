@@ -1,55 +1,64 @@
-/* === ArabicTouch FAQ Modern Card Layout (Static) === */
-/* Following naming convention: arabictouch-faq-[function] */
-
-/* === Card Layout === */
-.arabictouch-faq-cardModern {
+/* ArabicTouchFaq.css - Enhanced version */
+/* === Classic FAQ Component === */
+.arabictouch-faq-item {
     background-color: var(--arabictouch-color-surface);
-    border-color: var(--arabictouch-color-outline-variant);
+    border-radius: var(--arabictouch-section-radius);
+    border: 1px solid var(--arabictouch-color-outline-variant);
+    transition: border-color 0.2s ease;
 }
 
-.arabictouch-faq-cardModern:hover {
+/* Add focus states for accessibility */
+.arabictouch-faq-item:focus-within {
     border-color: var(--arabictouch-color-primary);
-    box-shadow: var(--arabictouch-section-shadow);
+    outline: 2px solid var(--arabictouch-color-primary);
+    outline-offset: 2px;
 }
 
-.arabictouch-faq-cardModern:focus {
-    border-color: var(--arabictouch-color-primary);
+.arabictouch-faq-question {
+    transition: background-color 0.2s ease;
 }
 
-/* === Card Icon === */
-.arabictouch-faq-cardIcon {
-    background-color: var(--arabictouch-color-primary);
+.arabictouch-faq-question:hover {
+    background-color: var(--arabictouch-color-surface-variant);
 }
 
-.arabictouch-faq-cardIconColor {
-    color: var(--arabictouch-color-on-primary);
+.arabictouch-faq-question:focus {
+    background-color: var(--arabictouch-color-surface-variant);
+    outline: none; /* Handled by parent */
 }
 
-/* === Card Text Elements === */
-.arabictouch-faq-cardLabel {
-    color: var(--arabictouch-color-on-surface-variant);
-}
-
-.arabictouch-faq-cardTitle {
+.arabictouch-faq-question-text {
     color: var(--arabictouch-color-on-surface);
 }
 
-.arabictouch-faq-cardContent {
+.arabictouch-faq-icon {
     color: var(--arabictouch-color-on-surface-variant);
+    transition: transform 0.3s ease, color 0.2s ease;
 }
 
-/* === Animation States === */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Add open state styling */
+.arabictouch-faq-item[open] .arabictouch-faq-icon {
+    color: var(--arabictouch-color-primary);
 }
 
-.arabictouch-faq-cardModern {
-    animation: fadeIn 0.3s ease-out;
+.arabictouch-faq-answer {
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.arabictouch-faq-answer.open {
+    padding-bottom: 1.5rem;
+}
+
+.arabictouch-faq-answer-content {
+    color: var(--arabictouch-color-on-surface-variant);
+    line-height: 1.6;
+}
+
+/* Add animation polish */
+@media (prefers-reduced-motion: reduce) {
+    .arabictouch-faq-icon,
+    .arabictouch-faq-answer,
+    .arabictouch-faq-question {
+        transition: none;
+    }
 }

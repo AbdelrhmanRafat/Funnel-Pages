@@ -1,0 +1,6 @@
+/* Responsive Design */
+@media (max-width: 640px) {
+  .bold-selection-options-without-bundles-text-grid.grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

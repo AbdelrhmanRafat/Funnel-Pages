@@ -1,0 +1,85 @@
+/* === Direct Product Item Details Component (Colors & Shadows Only) === */
+
+.zen-directproduct-h3-title {
+  color: var(--zen-color-on-surface);
+  border-bottom-color: var(--zen-color-primary);
+}
+
+.zen-directproduct-div-icon {
+  background: var(--zen-color-primary-light);
+  color: var(--zen-color-on-primary);
+}
+
+.zen-directproduct-div-card {
+  background: var(--zen-color-surface);
+  border-color: var(--zen-color-outline);
+  border-left-color: var(--zen-color-primary);
+  box-shadow: var(--zen-section-shadow);
+}
+
+.zen-directproduct-img-product {
+  background: var(--zen-color-surface-variant);
+  border-color: var(--zen-color-outline);
+}
+
+.zen-directproduct-h4-name {
+  color: var(--zen-color-on-surface);
+}
+
+.zen-directproduct-p-sku {
+  color: var(--zen-color-on-surface-variant);
+  background: var(--zen-color-surface-container);
+}
+
+.zen-directproduct-span-variantlabel {
+  color: var(--zen-color-on-surface-variant);
+}
+
+.zen-directproduct-span-variant {
+  background: var(--zen-color-surface-container);
+  color: var(--zen-color-on-surface);
+  border-color: var(--zen-color-outline);
+}
+
+.zen-directproduct-div-note {
+  background: var(--zen-color-surface-container);
+  border-color: var(--zen-color-primary);
+}
+
+.zen-directproduct-p-note {
+  color: var(--zen-color-on-surface-variant);
+}
+
+.zen-directproduct-div-pricing {
+  background: var(--zen-color-surface-variant);
+  border-color: var(--zen-color-outline);
+}
+
+.zen-directproduct-h5-pricingtitle {
+  color: var(--zen-color-on-surface);
+}
+
+.zen-directproduct-span-label {
+  color: var(--zen-color-on-surface-variant);
+}
+
+.zen-directproduct-span-quantity {
+  background: var(--zen-color-primary-light);
+  color: var(--zen-color-on-primary);
+}
+
+.zen-directproduct-span-unitprice {
+  color: var(--zen-color-on-surface);
+}
+
+.zen-directproduct-span-discount {
+  color: var(--zen-color-success);
+}
+
+.zen-directproduct-div-divider {
+  background: var(--zen-color-outline);
+}
+
+.zen-directproduct-span-total {
+  color: var(--zen-color-on-surface);
+}

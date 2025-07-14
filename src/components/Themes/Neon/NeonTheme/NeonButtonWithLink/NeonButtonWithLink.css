@@ -1,139 +1,72 @@
-/* === Classic Button With Shine Effect === */
-.neon-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
+.neon-button-jelly-main {
+  background: var(--neon-color-primary);
+  color: var(--neon-color-on-primary);
+  border: 2px solid var(--neon-color-primary-dark);
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
 }
 
-.neon-button-shine {
-    position: relative;
-    margin: 0;
-    padding: 1.25rem 2.5rem;
-    outline: none;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    text-transform: uppercase;
-    background-color: var(--neon-color-surface);
-    border: 1px solid var(--neon-color-primary);
-    border-radius: 0.75rem;
-    color: var(--neon-color-primary);
-    font-weight: 600;
-    font-family: inherit;
-    font-size: 1.875rem;
-    z-index: 0;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
-    min-width: 200px;
+.neon-button-jelly-main:hover {
+  background: var(--neon-color-primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--neon-color-primary);
 }
 
-.neon-button-shine span {
-    color: var(--neon-color-primary-dark);
-    font-size: 1.875rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    z-index: 20;
-    position: relative;
+.neon-button-jelly-main:active {
+  transform: translateY(0);
 }
 
-.neon-button-shine:hover {
-    animation: neon-rotate 0.7s ease-in-out both;
-    border-color: var(--neon-color-primary-dark);
-    box-shadow: 0 8px 25px -8px var(--neon-color-primary);
+/* === Text with Jelly Effect === */
+.neon-button-jelly-text {
+  color: var(--neon-color-on-primary);
+  font-weight: 600;
+  display: inline-block;
 }
 
-.neon-button-shine:hover span {
-    animation: neon-storm 0.7s ease-in-out both;
-    animation-delay: 0.06s;
+/* === Repetitive Jelly Animation (triggers when section enters viewport) === */
+/* Duration = total of animation time + pause time */
+.neon-button-jelly-text {
+  animation: jelly-with-pause 2.6s ease-in-out infinite;
 }
 
-/* Shine effect */
-.neon-button-shine:after {
-    background: var(--neon-color-primary-light);
-    content: "";
-    height: 155px;
-    left: -75px;
-    opacity: 0.4;
-    position: absolute;
-    top: -50px;
-    transform: rotate(35deg);
-    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
-    width: 50px;
-    z-index: -10;
+/* 0.6s حركة، 2s ثابت */
+@keyframes jelly-with-pause {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.25, 0.75);
+  }
+  20% {
+    transform: scale(0.75, 1.25);
+  }
+  30% {
+    transform: scale(1.15, 0.85);
+  }
+  50% {
+    transform: scale(0.95, 1.05);
+  }
+  60% {
+    transform: scale(1.05, 0.95);
+  }
+  70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1); /* Pause هنا */
+  }
 }
 
-.neon-button-shine:hover:after {
-    left: 120%;
-    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-/* Animations */
-@keyframes neon-rotate {
-    0% {
-        transform: rotate(0deg) translate3d(0, 0, 0);
-    }
-    25% {
-        transform: rotate(3deg) translate3d(0, 0, 0);
-    }
-    50% {
-        transform: rotate(-3deg) translate3d(0, 0, 0);
-    }
-    75% {
-        transform: rotate(1deg) translate3d(0, 0, 0);
-    }
-    100% {
-        transform: rotate(0deg) translate3d(0, 0, 0);
-    }
-}
-
-@keyframes neon-storm {
-    0% {
-        transform: translate3d(0, 0, 0) translateZ(0);
-    }
-    25% {
-        transform: translate3d(4px, 0, 0) translateZ(0);
-    }
-    50% {
-        transform: translate3d(-3px, 0, 0) translateZ(0);
-    }
-    75% {
-        transform: translate3d(2px, 0, 0) translateZ(0);
-    }
-    100% {
-        transform: translate3d(0, 0, 0) translateZ(0);
-    }
-}
-
-/* Focus state for accessibility */
-.neon-button-shine:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--neon-color-primary-light);
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .neon-button-shine {
-        font-size: 1.5rem;
-        padding: 1rem 2rem;
-        min-width: 160px;
-    }
-    
-    .neon-button-shine span {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .neon-button-shine {
-        font-size: 1.25rem;
-        padding: 0.875rem 1.5rem;
-        min-width: 140px;
-    }
-    
-    .neon-button-shine span {
-        font-size: 1.25rem;
-    }
+/* === Accessibility === */
+@media (prefers-reduced-motion: reduce) {
+  .neon-button-jelly-animate .neon-button-jelly-text {
+    animation: none;
+  }
+  
+  .neon-button-jelly-main:hover {
+    transform: none;
+  }
 }

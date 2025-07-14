@@ -1,0 +1,15 @@
+/* === Selection Indicators Styles === */
+
+.classic-bundle-options-container-selection-indicator {
+  background: var(--classic-color-surface-variant);
+  color: var(--classic-color-on-surface);
+  border: 1px solid var(--classic-color-outline);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .classic-bundle-options-container-selection-indicator {
+    justify-content: center;
+    width: 100%;
+  }
+}

@@ -1,29 +1,36 @@
-/* === Classic Form Components === */
+/* === Classic Form Components (Refactored with Custom Variables) === */
 
 /* Main form container */
-.elegant-form {
+.elegant-form-div-container {
     background-color: var(--elegant-color-surface);
     border-radius: var(--elegant-section-radius);
+    box-shadow: var(--elegant-section-shadow);
 }
 
 /* Form title styling */
-.elegant-form-title {
+.elegant-form-h1-title {
     color: var(--elegant-color-on-surface);
+    font-size: var(--elegant-header-size);
+    font-weight: var(--elegant-header-weight);
+    margin-bottom: var(--elegant-header-margin-bottom);
 }
 
 /* Section headers within form */
-.elegant-form-section-title {
+.elegant-form-h2-title {
     color: var(--elegant-color-on-surface);
+    font-size: var(--elegant-header-center-size);
+    font-weight: var(--elegant-header-center-weight);
+    margin-bottom: var(--elegant-header-center-margin-bottom);
 }
 
-/* Improved Input Group */
-.elegant-form-group {
+/* Form group container */
+.elegant-form-div-group {
     position: relative;
     width: 100%;
 }
 
-/* Input field styling */
-.elegant-form-input {
+/* Base input field styling */
+.elegant-form-input-base {
     width: 100%;
     padding: 1rem 0.75rem 0.75rem 0.75rem;
     border: 2px solid var(--elegant-color-outline);
@@ -36,8 +43,56 @@
     box-sizing: border-box;
 }
 
+/* Responsive input sizing */
+.elegant-form-input-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .elegant-form-input-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Textarea specific responsive styling */
+.elegant-form-textarea-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .elegant-form-textarea-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Select base styling */
+.elegant-form-select-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--elegant-color-outline);
+    border-radius: 12px;
+    color: var(--elegant-color-on-surface);
+    background-color: var(--elegant-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Select responsive styling */
+.elegant-form-select-responsive {
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .elegant-form-select-responsive {
+        padding: 1rem;
+    }
+}
+
 /* Floating label styling */
-.elegant-form-label {
+.elegant-form-label-floating {
     position: absolute;
     left: 0.75rem;
     top: 1rem;
@@ -51,108 +106,136 @@
     transform-origin: left top;
 }
 
+/* Static label styling */
+.elegant-form-label-static {
+    color: var(--elegant-color-on-surface);
+    font-weight: 500;
+}
+
 /* Focus and valid states for input */
-.elegant-form-input:focus,
-.elegant-form-input:valid {
+.elegant-form-input-base:focus,
+.elegant-form-input-base:valid {
+    border-color: var(--elegant-color-primary);
+    box-shadow: var(--elegant-section-shadow);
+}
+
+.elegant-form-select-base:focus {
     border-color: var(--elegant-color-primary);
     box-shadow: var(--elegant-section-shadow);
 }
 
 /* Floating label animation */
-.elegant-form-input:focus~.elegant-form-label,
-.elegant-form-input:valid~.elegant-form-label {
+.elegant-form-input-base:focus ~ .elegant-form-label-floating,
+.elegant-form-input-base:valid ~ .elegant-form-label-floating,
+.elegant-form-textarea-responsive:focus ~ .elegant-form-label-floating,
+.elegant-form-textarea-responsive:valid ~ .elegant-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
     color: var(--elegant-color-primary);
     font-weight: 600;
 }
 
 /* Error state styling */
-.elegant-form-error {
+.elegant-form-span-error {
     display: block;
     font-size: 0.875rem;
     color: var(--elegant-color-error);
     min-height: 1.25rem;
+    margin-top: 0.25rem;
 }
 
+/* Input validation states */
+.elegant-form-input-error {
+    border-color: var(--elegant-color-error) !important;
+}
 
+.elegant-form-input-success {
+    border-color: var(--elegant-color-success) !important;
+}
 
-.elegant-form-input.text-right~.elegant-form-label {
+/* RTL support for floating labels */
+.elegant-form-input-base.text-right ~ .elegant-form-label-floating,
+.elegant-form-textarea-responsive.text-right ~ .elegant-form-label-floating {
     left: auto;
     right: 0.75rem;
     transform-origin: right top;
 }
-.elegant-form-input.text-left~.elegant-form-label {
+
+.elegant-form-input-base.text-left ~ .elegant-form-label-floating,
+.elegant-form-textarea-responsive.text-left ~ .elegant-form-label-floating {
     right: auto;
     left: 0.75rem;
     transform-origin: left top;
 }
 
-.elegant-form-input.text-left:focus~.elegant-form-label,
-.elegant-form-input.text-left:valid~.elegant-form-label {
+.elegant-form-input-base.text-right:focus ~ .elegant-form-label-floating,
+.elegant-form-input-base.text-right:valid ~ .elegant-form-label-floating,
+.elegant-form-textarea-responsive.text-right:focus ~ .elegant-form-label-floating,
+.elegant-form-textarea-responsive.text-right:valid ~ .elegant-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
 }
-.elegant-form-input.text-left:focus~.elegant-form-label,
-.elegant-form-input.text-left:valid~.elegant-form-label {
-    transform: translateY(-1.5rem) scale(0.85);
-}
-
-
 
 /* Payment and delivery option containers */
-.elegant-form-payment-option {
+.elegant-form-div-payment {
     padding: 0.75rem;
-    /* Tailwind: p-3 */
     border: 1px solid var(--elegant-color-outline);
     border-radius: 0.5rem;
-    /* Tailwind: rounded-lg */
     cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    background-color: var(--elegant-color-surface);
+}
+
+@media (min-width: 768px) {
+    .elegant-form-div-payment {
+        padding: 1rem;
+    }
 }
 
 /* Hover state for payment options */
-.elegant-form-payment-option:hover {
+.elegant-form-div-payment:hover {
     background-color: var(--elegant-color-surface-variant);
     border-color: var(--elegant-color-outline-variant);
 }
 
 /* Focus state for payment options */
-.elegant-form-payment-option:focus-within {
+.elegant-form-div-payment:focus-within {
     border-color: var(--elegant-color-primary);
     outline: 2px solid var(--elegant-color-primary);
     outline-offset: 2px;
 }
 
 /* Payment option labels */
-.elegant-form-payment-option-label {
+.elegant-form-span-payment-label {
     display: block;
     color: var(--elegant-color-on-surface);
     cursor: pointer;
+    font-weight: 500;
 }
 
 /* Payment option descriptions */
-.elegant-form-payment-option-description {
+.elegant-form-span-payment-description {
     display: block;
     color: var(--elegant-color-on-surface-variant);
 }
 
 /* Radio button styling */
-.elegant-form-radio {
+.elegant-form-input-radio {
     accent-color: var(--elegant-color-primary);
     border-color: var(--elegant-color-outline);
     cursor: pointer;
 }
 
-/* Custom radio indicator (if used) */
-.elegant-form-radio-indicator {
+/* Custom radio indicator */
+.elegant-form-div-radio-indicator {
     width: 1.25rem;
     height: 1.25rem;
     border: 2px solid var(--elegant-color-outline);
     border-radius: 50%;
     transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: var(--elegant-color-surface);
 }
 
 /* Radio dot inside custom indicator */
-.elegant-form-radio-dot {
+.elegant-form-div-radio-dot {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
@@ -161,50 +244,63 @@
 }
 
 /* Active state for custom radio indicator */
-.elegant-form-payment-option input[type="radio"]:checked+.elegant-form-payment-option-content .elegant-form-radio-indicator {
+.elegant-form-input-radio:checked + .elegant-form-div-content .elegant-form-div-radio-indicator {
     border-color: var(--elegant-color-primary);
     background-color: var(--elegant-color-primary);
 }
 
-.elegant-form-payment-option input[type="radio"]:checked+.elegant-form-payment-option-content .elegant-form-radio-dot {
+.elegant-form-input-radio:checked + .elegant-form-div-content .elegant-form-div-radio-dot {
     background-color: var(--elegant-color-surface);
 }
 
-/* Validation state classes */
-.elegant-border-error {
-    border-color: var(--elegant-color-error) !important;
+/* Notes section specific styling */
+.elegant-form-div-notes {
+    width: 100%;
+    margin-top: 1rem;
 }
 
-.elegant-text-error {
-    color: var(--elegant-color-error) !important;
+@media (min-width: 768px) {
+    .elegant-form-div-notes {
+        margin-top: 1.5rem;
+    }
 }
 
-.elegant-border-success {
-    border-color: var(--elegant-color-success) !important;
+/* Button section styling */
+.elegant-form-div-button-container {
+    width: 100%;
+    margin-top: 1.5rem;
 }
 
-.elegant-text-success {
-    color: var(--elegant-color-success) !important;
+@media (min-width: 768px) {
+    .elegant-form-div-button-container {
+        margin-top: 2rem;
+    }
 }
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-
-    .elegant-form-input,
-    .elegant-form-payment-option,
-    .elegant-form-radio-indicator,
-    .elegant-form-radio-dot {
+    .elegant-form-input-base,
+    .elegant-form-select-base,
+    .elegant-form-div-payment,
+    .elegant-form-div-radio-indicator,
+    .elegant-form-div-radio-dot,
+    .elegant-form-label-floating {
         transition: none;
     }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-    .elegant-form-input {
-        border-width: 2px;
+    .elegant-form-input-base,
+    .elegant-form-select-base {
+        border-width: 3px;
     }
 
-    .elegant-form-payment-option {
+    .elegant-form-div-payment {
         border-width: 2px;
+    }
+    
+    .elegant-form-div-radio-indicator {
+        border-width: 3px;
     }
 }

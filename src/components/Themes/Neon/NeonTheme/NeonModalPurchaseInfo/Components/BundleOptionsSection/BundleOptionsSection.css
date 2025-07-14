@@ -1,0 +1,55 @@
+/* === Bundle Options Section Styles === */
+
+.neon-bundle-options-section .neon-section-title {
+  color: var(--neon-color-on-surface);
+  border-bottom: 2px solid var(--neon-color-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.neon-bundle-options-section .neon-section-icon {
+  background: var(--neon-color-secondary-light);
+  color: var(--neon-color-on-secondary);
+}
+
+.neon-option-item {
+  background: var(--neon-color-surface);
+  border: 1px solid var(--neon-color-outline);
+  border-left: 3px solid var(--neon-color-secondary);
+  transition: all 0.3s ease;
+}
+
+.neon-option-item:hover {
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.neon-option-header {
+  color: var(--neon-color-secondary);
+}
+
+.neon-option-sku {
+  color: var(--neon-color-on-surface-variant);
+}
+
+.neon-selection-tag {
+  background: var(--neon-color-secondary-light);
+  color: var(--neon-color-on-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .neon-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .neon-option-item {
+    transition: none;
+  }
+  
+  .neon-option-item:hover {
+    transform: none;
+  }
+}

@@ -1,7 +1,7 @@
-/* === Classic Logos Carousel Component - Clean & Simple === */
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
 
 /* Section Divider */
-.fresh-logos-carousel-divider {
+.fresh-logocarousel-div-divider {
     background: linear-gradient(90deg, 
         var(--fresh-color-primary) 0%,
         var(--fresh-color-secondary) 50%,
@@ -10,72 +10,12 @@
 }
 
 /* Logo Cards - Clean and minimal */
-.fresh-logo-card {
-    /* No background, borders, or hover effects - just clean space for logos */
+.fresh-logocarousel-div-card {
     background: transparent;
-    transition: none;
 }
 
-/* Carousel Navigation Arrows - Clean design */
-.fresh-carousel-left,
-.fresh-carousel-right {
-    background-color: var(--fresh-color-surface);
-    color: var(--fresh-color-on-surface);
-    border: 1px solid var(--fresh-color-outline-variant);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.fresh-carousel-left:hover,
-.fresh-carousel-right:hover {
-    background-color: var(--fresh-color-surface-variant);
-    border-color: var(--fresh-color-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.fresh-carousel-left:disabled,
-.fresh-carousel-right:disabled {
-    opacity: 0.3;
-    background-color: var(--fresh-color-surface);
-    border-color: var(--fresh-color-outline-variant);
-}
-
-.fresh-carousel-left:active,
-.fresh-carousel-right:active {
-    transform: scale(0.95);
-}
-
-/* Page Indicators - Simple dots */
-.fresh-page-indicator {
-    background-color: var(--fresh-color-outline);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.fresh-page-indicator:hover {
-    background-color: var(--fresh-color-primary-light);
-}
-
-.fresh-page-indicator.active {
-    background-color: var(--fresh-color-primary);
-}
-
-/* Focus states for accessibility */
-.fresh-carousel-left:focus,
-.fresh-carousel-right:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--fresh-color-primary-light);
-    border-color: var(--fresh-color-primary);
-}
-
-.fresh-page-indicator:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--fresh-color-primary-light);
-}
-
-/* Loading state - Simple skeleton */
-.fresh-logo-card.animate-pulse {
+/* Skeleton Loading State */
+.fresh-logocarousel-div-skeleton {
     background: linear-gradient(90deg, 
         var(--fresh-color-surface) 25%, 
         var(--fresh-color-surface-variant) 50%, 
@@ -90,118 +30,64 @@
     100% { background-position: -200% 0; }
 }
 
-/* Trust indicator styling */
-.fresh-trust-indicator {
+/* Carousel Navigation Arrows */
+.fresh-logocarousel-button-left,
+.fresh-logocarousel-button-right {
+    background-color: var(--fresh-color-surface);
+    color: var(--fresh-color-on-surface);
+    border-color: var(--fresh-color-outline-variant);
+}
+
+.fresh-logocarousel-button-left:hover,
+.fresh-logocarousel-button-right:hover {
+    background-color: var(--fresh-color-surface-variant);
+    border-color: var(--fresh-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fresh-logocarousel-button-left:disabled,
+.fresh-logocarousel-button-right:disabled {
+    background-color: var(--fresh-color-surface);
+    border-color: var(--fresh-color-outline-variant);
     color: var(--fresh-color-on-surface-variant);
-    font-weight: 500;
-    opacity: 0.8;
 }
 
-/* Responsive Design - Mobile-first approach */
-@media (max-width: 640px) {
-    .fresh-carousel-left,
-    .fresh-carousel-right {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .fresh-logo-card {
-        min-height: 56px;
-        padding: 0.75rem;
-    }
-    
-    .fresh-page-indicator {
-        width: 6px;
-        height: 6px;
-    }
-    
-    .fresh-page-indicator.active {
-        width: 20px;
-    }
+.fresh-logocarousel-button-left:focus,
+.fresh-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--fresh-color-primary-light);
+    border-color: var(--fresh-color-primary);
 }
 
-@media (max-width: 480px) {
-    .fresh-logo-card {
-        min-height: 48px;
-        padding: 0.5rem;
-    }
-    
-    .fresh-carousel-left,
-    .fresh-carousel-right {
-        width: 36px;
-        height: 36px;
-    }
+/* Page Indicators */
+.fresh-logocarousel-button-indicator {
+    background-color: var(--fresh-color-outline);
 }
 
-/* Large screens - Enhanced spacing */
-@media (min-width: 1024px) {
-    .fresh-logo-card {
-        min-height: 80px;
-        padding: 1.25rem;
-    }
-    
-    .fresh-carousel-left,
-    .fresh-carousel-right {
-        width: 48px;
-        height: 48px;
-    }
+.fresh-logocarousel-button-indicator:hover {
+    background-color: var(--fresh-color-primary-light);
 }
 
-/* Motion preferences - Respect user settings */
-@media (prefers-reduced-motion: reduce) {
-    .fresh-carousel-left,
-    .fresh-carousel-right,
-    .fresh-page-indicator {
-        transition: none;
-        animation: none;
-    }
-    
-    .fresh-carousel-left:active,
-    .fresh-carousel-right:active {
-        transform: none;
-    }
+.fresh-logocarousel-button-indicator.fresh-logocarousel-button-active {
+    background-color: var(--fresh-color-primary);
 }
 
-/* High contrast mode - Better accessibility */
-@media (prefers-contrast: high) {
-    .fresh-carousel-left,
-    .fresh-carousel-right {
-        border-width: 2px;
-        border-color: var(--fresh-color-on-surface);
-    }
-    
-    .fresh-page-indicator {
-        border: 2px solid var(--fresh-color-on-surface);
-    }
-    
-    .fresh-page-indicator.active {
-        background: var(--fresh-color-on-surface);
-        border-color: var(--fresh-color-primary);
-    }
+.fresh-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--fresh-color-primary-light);
 }
 
-/* RTL Support - Ensure proper visual direction */
-[dir="rtl"] .fresh-carousel-left {
-    /* In RTL, the left button should visually point right */
-    transform: scaleX(-1);
+/* Progress Bar */
+.fresh-logocarousel-div-progressbg {
+    background-color: var(--fresh-color-outline);
 }
 
-[dir="rtl"] .fresh-carousel-right {
-    /* In RTL, the right button should visually point left */
-    transform: scaleX(-1);
+.fresh-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--fresh-color-primary), 
+        var(--fresh-color-primary-light)
+    );
 }
 
-/* Dark mode support (if applicable) */
-@media (prefers-color-scheme: dark) {
-    .fresh-carousel-left,
-    .fresh-carousel-right {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: var(--fresh-color-on-surface);
-    }
-    
-    .fresh-carousel-left:hover,
-    .fresh-carousel-right:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
+/* Trust Indicator */
+.fresh-logocarousel-p-trust {
+    color: var(--fresh-color-on-surface-variant);
 }

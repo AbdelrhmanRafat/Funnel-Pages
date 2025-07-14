@@ -1,0 +1,28 @@
+/* === Validation Error Display Styles === */
+
+.minimal-validationerror-div-alert {
+  background-color: var(--minimal-color-error-light);
+  color: var(--minimal-color-on-error);
+  border: 1px solid var(--minimal-color-error);
+  box-shadow: var(--minimal-shadow-sm);
+  animation: minimal-validationerror-div-alert-slideInDown 0.3s ease-out;
+}
+
+/* Accessibility - Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .minimal-validationerror-div-alert {
+    animation: none;
+  }
+}
+
+/* Slide-in animation for error alert */
+@keyframes minimal-validationerror-div-alert-slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

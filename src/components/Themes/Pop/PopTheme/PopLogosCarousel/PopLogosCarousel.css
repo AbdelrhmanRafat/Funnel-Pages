@@ -1,7 +1,7 @@
-/* === Classic Logos Carousel Component - Clean & Simple === */
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
 
 /* Section Divider */
-.pop-logos-carousel-divider {
+.pop-logocarousel-div-divider {
     background: linear-gradient(90deg, 
         var(--pop-color-primary) 0%,
         var(--pop-color-secondary) 50%,
@@ -10,72 +10,12 @@
 }
 
 /* Logo Cards - Clean and minimal */
-.pop-logo-card {
-    /* No background, borders, or hover effects - just clean space for logos */
+.pop-logocarousel-div-card {
     background: transparent;
-    transition: none;
 }
 
-/* Carousel Navigation Arrows - Clean design */
-.pop-carousel-left,
-.pop-carousel-right {
-    background-color: var(--pop-color-surface);
-    color: var(--pop-color-on-surface);
-    border: 1px solid var(--pop-color-outline-variant);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.pop-carousel-left:hover,
-.pop-carousel-right:hover {
-    background-color: var(--pop-color-surface-variant);
-    border-color: var(--pop-color-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.pop-carousel-left:disabled,
-.pop-carousel-right:disabled {
-    opacity: 0.3;
-    background-color: var(--pop-color-surface);
-    border-color: var(--pop-color-outline-variant);
-}
-
-.pop-carousel-left:active,
-.pop-carousel-right:active {
-    transform: scale(0.95);
-}
-
-/* Page Indicators - Simple dots */
-.pop-page-indicator {
-    background-color: var(--pop-color-outline);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.pop-page-indicator:hover {
-    background-color: var(--pop-color-primary-light);
-}
-
-.pop-page-indicator.active {
-    background-color: var(--pop-color-primary);
-}
-
-/* Focus states for accessibility */
-.pop-carousel-left:focus,
-.pop-carousel-right:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--pop-color-primary-light);
-    border-color: var(--pop-color-primary);
-}
-
-.pop-page-indicator:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--pop-color-primary-light);
-}
-
-/* Loading state - Simple skeleton */
-.pop-logo-card.animate-pulse {
+/* Skeleton Loading State */
+.pop-logocarousel-div-skeleton {
     background: linear-gradient(90deg, 
         var(--pop-color-surface) 25%, 
         var(--pop-color-surface-variant) 50%, 
@@ -90,118 +30,64 @@
     100% { background-position: -200% 0; }
 }
 
-/* Trust indicator styling */
-.pop-trust-indicator {
+/* Carousel Navigation Arrows */
+.pop-logocarousel-button-left,
+.pop-logocarousel-button-right {
+    background-color: var(--pop-color-surface);
+    color: var(--pop-color-on-surface);
+    border-color: var(--pop-color-outline-variant);
+}
+
+.pop-logocarousel-button-left:hover,
+.pop-logocarousel-button-right:hover {
+    background-color: var(--pop-color-surface-variant);
+    border-color: var(--pop-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pop-logocarousel-button-left:disabled,
+.pop-logocarousel-button-right:disabled {
+    background-color: var(--pop-color-surface);
+    border-color: var(--pop-color-outline-variant);
     color: var(--pop-color-on-surface-variant);
-    font-weight: 500;
-    opacity: 0.8;
 }
 
-/* Responsive Design - Mobile-first approach */
-@media (max-width: 640px) {
-    .pop-carousel-left,
-    .pop-carousel-right {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .pop-logo-card {
-        min-height: 56px;
-        padding: 0.75rem;
-    }
-    
-    .pop-page-indicator {
-        width: 6px;
-        height: 6px;
-    }
-    
-    .pop-page-indicator.active {
-        width: 20px;
-    }
+.pop-logocarousel-button-left:focus,
+.pop-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--pop-color-primary-light);
+    border-color: var(--pop-color-primary);
 }
 
-@media (max-width: 480px) {
-    .pop-logo-card {
-        min-height: 48px;
-        padding: 0.5rem;
-    }
-    
-    .pop-carousel-left,
-    .pop-carousel-right {
-        width: 36px;
-        height: 36px;
-    }
+/* Page Indicators */
+.pop-logocarousel-button-indicator {
+    background-color: var(--pop-color-outline);
 }
 
-/* Large screens - Enhanced spacing */
-@media (min-width: 1024px) {
-    .pop-logo-card {
-        min-height: 80px;
-        padding: 1.25rem;
-    }
-    
-    .pop-carousel-left,
-    .pop-carousel-right {
-        width: 48px;
-        height: 48px;
-    }
+.pop-logocarousel-button-indicator:hover {
+    background-color: var(--pop-color-primary-light);
 }
 
-/* Motion preferences - Respect user settings */
-@media (prefers-reduced-motion: reduce) {
-    .pop-carousel-left,
-    .pop-carousel-right,
-    .pop-page-indicator {
-        transition: none;
-        animation: none;
-    }
-    
-    .pop-carousel-left:active,
-    .pop-carousel-right:active {
-        transform: none;
-    }
+.pop-logocarousel-button-indicator.pop-logocarousel-button-active {
+    background-color: var(--pop-color-primary);
 }
 
-/* High contrast mode - Better accessibility */
-@media (prefers-contrast: high) {
-    .pop-carousel-left,
-    .pop-carousel-right {
-        border-width: 2px;
-        border-color: var(--pop-color-on-surface);
-    }
-    
-    .pop-page-indicator {
-        border: 2px solid var(--pop-color-on-surface);
-    }
-    
-    .pop-page-indicator.active {
-        background: var(--pop-color-on-surface);
-        border-color: var(--pop-color-primary);
-    }
+.pop-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--pop-color-primary-light);
 }
 
-/* RTL Support - Ensure proper visual direction */
-[dir="rtl"] .pop-carousel-left {
-    /* In RTL, the left button should visually point right */
-    transform: scaleX(-1);
+/* Progress Bar */
+.pop-logocarousel-div-progressbg {
+    background-color: var(--pop-color-outline);
 }
 
-[dir="rtl"] .pop-carousel-right {
-    /* In RTL, the right button should visually point left */
-    transform: scaleX(-1);
+.pop-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--pop-color-primary), 
+        var(--pop-color-primary-light)
+    );
 }
 
-/* Dark mode support (if applicable) */
-@media (prefers-color-scheme: dark) {
-    .pop-carousel-left,
-    .pop-carousel-right {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: var(--pop-color-on-surface);
-    }
-    
-    .pop-carousel-left:hover,
-    .pop-carousel-right:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
+/* Trust Indicator */
+.pop-logocarousel-p-trust {
+    color: var(--pop-color-on-surface-variant);
 }

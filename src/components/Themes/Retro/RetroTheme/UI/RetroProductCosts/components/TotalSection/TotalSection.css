@@ -1,0 +1,33 @@
+/* === Total Section Styles === */
+
+.retro-product-costs-total-section {
+  background-color: var(--retro-color-primary-light);
+  padding: 1rem 1.5rem;
+  border-top: 2px solid var(--retro-color-primary);
+  margin-top: 0.75rem;
+  border-radius: var(--retro-section-radius);
+}
+
+.retro-product-costs-total-label {
+  color: var(--retro-color-on-primary);
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.retro-product-costs-total-value {
+  color: var(--retro-color-on-primary);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* === Responsive Design === */
+@media (max-width: 640px) {
+  .retro-product-costs-total-section {
+    padding: 0.75rem 1rem;
+  }
+  
+  .retro-product-costs-total-label,
+  .retro-product-costs-total-value {
+    font-size: 1rem;
+  }
+}

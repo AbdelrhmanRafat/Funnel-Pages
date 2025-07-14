@@ -1,5 +1,5 @@
 ---
-// This component displays a countdown timer for the ArabicTouch theme using Variation 6 (Minimal Inline Style).
+// This component displays a countdown timer for the Classic theme.
 // It takes hours, minutes, and seconds from the API data and renders a visual timer.
 // Props:
 // - data: An object of type BlockData, containing the countdown timer values (hours, minutes, seconds).
@@ -15,7 +15,6 @@ const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;
 const items: Item[] = data.items ?? [];
-
 function getValue(name: string): number {
   const item = items.find(i => i.name?.toLocaleLowerCase() === name);
   return parseInt(item?.number || '0') || 0;
@@ -28,46 +27,40 @@ const seconds = getValue("seconds");
 const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 ---
 
-<!-- ArabicTouch Theme Countdown Timer - Variation 6: Minimal Inline Style -->
+<!-- Elegant Countdown Timer with proper spacing for fixed header -->
 <section id={FunnelArabicTouchComponents.ArabicTouchCountdown} class="arabictouch-section">
-  <div class="arabictouch-countdown-container mx-auto px-6 text-center">
-    <div class="arabictouch-middle-title mb-8">
-      <h2 class="text-2xl md:text-3xl font-bold" data-translate="countdown.offerEndsIn">
-        {isArabic ? data.title_ar : data.title_en}
-      </h2>
+  <div class="arabictouch-countdown-container px-6 text-center">
+    <div class="arabictouch-middle-title">
+    <h2 data-translate="countdown.offerEndsIn">
+     {isArabic ? data.title_ar : data.title_en}
+    </h2>
     </div>
-    
+             
     <countdown-timer
-      class="arabictouch-countdown-display my-7 flex justify-center items-center"
+      class="arabictouch-countdown-display flex justify-center gap-4 sm:gap-8 items-center my-7"
       data-total-seconds={totalSeconds}
     >
-      <div class="arabictouch-countdown-inline inline-flex items-center gap-4 sm:gap-6 rounded-full px-6 sm:px-8 py-4 sm:py-6 transition-all duration-300 hover:scale-105">
-        <!-- Hours -->
-        <div class="arabictouch-countdown-item flex items-baseline gap-2">
-          <span class="arabictouch-countdown-number text-2xl sm:text-3xl font-bold font-mono" data-countdown-hours>--</span>
-          <span class="arabictouch-countdown-label text-xs sm:text-sm" data-translate="countdown.hours">
-            {getTranslation('countdown.hours')}
-          </span>
+      {/* Hours display block */}
+      <div class="arabictouch-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
+        <div class="arabictouch-countdown-number text-4xl font-extrabold" data-countdown-hours>--</div>
+        <div class="arabictouch-countdown-label text-sm font-serif" data-translate="countdown.hours">
+          {getTranslation('countdown.hours')}
         </div>
-        
-        <div class="arabictouch-countdown-separator w-1 h-6 sm:h-8 rounded-full"></div>
-        
-        <!-- Minutes -->
-        <div class="arabictouch-countdown-item flex items-baseline gap-2">
-          <span class="arabictouch-countdown-number text-2xl sm:text-3xl font-bold font-mono" data-countdown-minutes>--</span>
-          <span class="arabictouch-countdown-label text-xs sm:text-sm" data-translate="countdown.minutes">
-            {getTranslation('countdown.minutes')}
-          </span>
+      </div>
+                   
+      {/* Minutes display block */}
+      <div class="arabictouch-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
+        <div class="arabictouch-countdown-number text-4xl font-extrabold" data-countdown-minutes>--</div>
+        <div class="arabictouch-countdown-label text-sm font-serif" data-translate="countdown.minutes">
+          {getTranslation('countdown.minutes')}
         </div>
-        
-        <div class="arabictouch-countdown-separator w-1 h-6 sm:h-8 rounded-full"></div>
-        
-        <!-- Seconds -->
-        <div class="arabictouch-countdown-item flex items-baseline gap-2">
-          <span class="arabictouch-countdown-number text-2xl sm:text-3xl font-bold font-mono" data-countdown-seconds>--</span>
-          <span class="arabictouch-countdown-label text-xs sm:text-sm" data-translate="countdown.seconds">
-            {getTranslation('countdown.seconds')}
-          </span>
+      </div>
+                   
+      {/* Seconds display block */}
+      <div class="arabictouch-countdown-block rounded-2xl p-5 min-w-20 border-2 flex flex-col justify-center items-center">
+        <div class="arabictouch-countdown-number text-4xl font-extrabold" data-countdown-seconds>--</div>
+        <div class="arabictouch-countdown-label text-sm font-serif" data-translate="countdown.seconds">
+          {getTranslation('countdown.seconds')}
         </div>
       </div>
     </countdown-timer>
@@ -75,5 +68,5 @@ const totalSeconds = hours * 3600 + minutes * 60 + seconds;
 </section>
 
 <script>
-  import "./ArabicTouchThemeCountDown"
+       import "./ArabicTouchThemeCountDown"
 </script>

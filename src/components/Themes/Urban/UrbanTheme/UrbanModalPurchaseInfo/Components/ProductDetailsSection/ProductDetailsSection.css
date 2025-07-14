@@ -1,0 +1,31 @@
+/* === Product Details Section Component (Colors & Shadows Only) === */
+
+.urban-productdetails-h2-title {
+  color: var(--urban-color-on-surface);
+  border-bottom-color: var(--urban-color-primary);
+}
+
+.urban-productdetails-div-icon {
+  background: var(--urban-color-primary-light);
+  color: var(--urban-color-on-primary);
+}
+
+.urban-productdetails-div-card {
+  background: var(--urban-color-surface);
+  border-color: var(--urban-color-outline);
+  border-left-color: var(--urban-color-primary);
+  box-shadow: var(--urban-section-shadow);
+}
+
+.urban-productdetails-img-product {
+  background: var(--urban-color-surface-variant);
+  border: 1px solid var(--urban-color-outline);
+}
+
+.urban-productdetails-h3-name {
+  color: var(--urban-color-on-surface);
+}
+
+.urban-productdetails-p-description {
+  color: var(--urban-color-on-surface-variant);
+}

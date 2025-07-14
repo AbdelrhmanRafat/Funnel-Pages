@@ -1,0 +1,31 @@
+/* === Product Details Section Component (Colors & Shadows Only) === */
+
+.techno-productdetails-h2-title {
+  color: var(--techno-color-on-surface);
+  border-bottom-color: var(--techno-color-primary);
+}
+
+.techno-productdetails-div-icon {
+  background: var(--techno-color-primary-light);
+  color: var(--techno-color-on-primary);
+}
+
+.techno-productdetails-div-card {
+  background: var(--techno-color-surface);
+  border-color: var(--techno-color-outline);
+  border-left-color: var(--techno-color-primary);
+  box-shadow: var(--techno-section-shadow);
+}
+
+.techno-productdetails-img-product {
+  background: var(--techno-color-surface-variant);
+  border: 1px solid var(--techno-color-outline);
+}
+
+.techno-productdetails-h3-name {
+  color: var(--techno-color-on-surface);
+}
+
+.techno-productdetails-p-description {
+  color: var(--techno-color-on-surface-variant);
+}

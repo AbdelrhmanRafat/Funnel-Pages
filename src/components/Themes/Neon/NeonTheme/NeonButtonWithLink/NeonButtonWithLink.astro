@@ -13,9 +13,17 @@ const link : string | undefined = data.items?.[0].link;
 const title : string | undefined = isArabic ? data.title_ar : data.title_en;
 ---
 <section id={FunnelNeonComponents.NeonButtonWithLink}>
-  <div class="neon-button-container">
-    <a href={link} class="neon-button-shine" target="_blank">
-      <span>{title}</span>
+  <div class="flex justify-center items-center py-4">
+    <a 
+      href={link} 
+      class="inline-flex items-center justify-center w-7/12 px-6 py-3 md:px-8 md:py-5 cursor-pointer rounded-lg neon-button-jelly-main" 
+      target="_blank"
+    >
+      <span class="neon-button-jelly-text text-xl md:text-2xl font-bold">{title}</span>
     </a>
   </div>
 </section>
+
+<script>
+  import "./NeonButtonWithLink";
+</script>

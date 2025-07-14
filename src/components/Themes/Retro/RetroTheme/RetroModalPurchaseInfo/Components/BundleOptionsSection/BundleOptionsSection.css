@@ -1,0 +1,55 @@
+/* === Bundle Options Section Styles === */
+
+.retro-bundle-options-section .retro-section-title {
+  color: var(--retro-color-on-surface);
+  border-bottom: 2px solid var(--retro-color-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.retro-bundle-options-section .retro-section-icon {
+  background: var(--retro-color-secondary-light);
+  color: var(--retro-color-on-secondary);
+}
+
+.retro-option-item {
+  background: var(--retro-color-surface);
+  border: 1px solid var(--retro-color-outline);
+  border-left: 3px solid var(--retro-color-secondary);
+  transition: all 0.3s ease;
+}
+
+.retro-option-item:hover {
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.retro-option-header {
+  color: var(--retro-color-secondary);
+}
+
+.retro-option-sku {
+  color: var(--retro-color-on-surface-variant);
+}
+
+.retro-selection-tag {
+  background: var(--retro-color-secondary-light);
+  color: var(--retro-color-on-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .retro-options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .retro-option-item {
+    transition: none;
+  }
+  
+  .retro-option-item:hover {
+    transform: none;
+  }
+}

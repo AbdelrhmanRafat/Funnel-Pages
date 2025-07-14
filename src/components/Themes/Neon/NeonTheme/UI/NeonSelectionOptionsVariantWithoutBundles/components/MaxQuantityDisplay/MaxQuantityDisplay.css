@@ -1,0 +1,16 @@
+/* === Max Quantity Display Styles === */
+
+.neon-selection-options-without-bundles-max-qty-display {
+  color: var(--neon-color-on-surface);
+}
+
+.neon-selection-options-without-bundles-max-qty-value {
+  color: var(--neon-color-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .neon-selection-options-without-bundles-max-qty-display {
+    font-size: 1.5rem;
+  }
+}

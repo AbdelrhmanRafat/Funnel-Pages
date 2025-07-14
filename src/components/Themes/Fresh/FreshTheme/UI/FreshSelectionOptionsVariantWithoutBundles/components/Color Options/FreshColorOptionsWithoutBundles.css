@@ -1,0 +1,92 @@
+/* === Color Options Base === */
+.fresh-selection-options-without-bundles-color-option {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.fresh-selection-options-without-bundles-color-option:hover {
+    transform: scale(1.05);
+}
+
+.fresh-selection-options-without-bundles-color-swatch {
+    background-color: var(--fresh-color-surface);
+    border: 2px solid var(--fresh-color-outline-variant);
+    box-shadow: var(--fresh-section-shadow);
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.fresh-selection-options-without-bundles-color-name {
+    color: var(--fresh-color-on-surface-variant);
+}
+
+/* === Color Options Selected State === */
+.fresh-selection-options-without-bundles-color-option--selected {
+    transform: scale(1.1);
+}
+
+.fresh-selection-options-without-bundles-color-option--selected .fresh-selection-options-without-bundles-color-swatch {
+    border: 3px solid var(--fresh-color-primary);
+    box-shadow: 0 0 0 2px var(--fresh-color-surface),
+                0 0 0 4px var(--fresh-color-primary),
+                0 6px 16px rgba(0, 150, 136, 0.25);
+}
+
+.fresh-selection-options-without-bundles-color-option--selected .fresh-selection-options-without-bundles-color-name {
+    color: var(--fresh-color-secondary);
+}
+
+.fresh-selection-options-without-bundles-color-option--selected:hover {
+    transform: scale(1.1);
+}
+
+/* === Disabled Color Options === */
+.fresh-selection-options-without-bundles-color-option.fresh-selection-options-without-bundles-option-disabled {
+    filter: grayscale(70%) brightness(0.8);
+}
+
+.fresh-selection-options-without-bundles-color-option.fresh-selection-options-without-bundles-option-disabled:hover {
+    transform: none;
+    filter: grayscale(70%) brightness(0.8);
+}
+
+.fresh-selection-options-without-bundles-color-option.fresh-selection-options-without-bundles-option-disabled .fresh-selection-options-without-bundles-color-swatch {
+    border-color: var(--fresh-color-outline-variant);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.fresh-selection-options-without-bundles-color-option.fresh-selection-options-without-bundles-option-disabled .fresh-selection-options-without-bundles-color-name {
+    color: var(--fresh-color-on-surface-variant);
+    text-decoration: line-through;
+}
+
+/* === Enhanced Hover States === */
+.fresh-selection-options-without-bundles-color-option.fresh-selection-options-without-bundles-option-available:hover:not(.fresh-selection-options-without-bundles-color-option--selected) {
+    transform: scale(1.08);
+}
+
+.fresh-selection-options-without-bundles-color-option.fresh-selection-options-without-bundles-option-available:hover:not(.fresh-selection-options-without-bundles-color-option--selected) .fresh-selection-options-without-bundles-color-swatch {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* === Focus States for Accessibility === */
+.fresh-selection-options-without-bundles-color-option:focus {
+    outline: 2px solid var(--fresh-color-primary);
+    outline-offset: 2px;
+}
+
+.fresh-selection-options-without-bundles-color-option.fresh-selection-options-without-bundles-option-disabled:focus {
+    outline: 2px solid var(--fresh-color-outline-variant);
+    outline-offset: 2px;
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+    .fresh-selection-options-without-bundles-color-option {
+        transition: opacity 0.2s ease;
+    }
+    
+    .fresh-selection-options-without-bundles-color-option:hover {
+        transform: none;
+    }
+}

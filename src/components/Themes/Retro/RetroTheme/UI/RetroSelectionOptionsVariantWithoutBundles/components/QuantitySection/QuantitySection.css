@@ -1,0 +1,42 @@
+/* === Quantity Section Styles === */
+
+.retro-selection-options-without-bundles-qty-label {
+  color: var(--retro-color-on-surface);
+}
+
+.retro-selection-options-without-bundles-qty-btn {
+  background-color: var(--retro-color-surface);
+  color: var(--retro-color-on-surface);
+  border: 1px solid var(--retro-color-outline);
+}
+
+.retro-selection-options-without-bundles-qty-btn:hover:not(:disabled) {
+  background-color: var(--retro-color-surface-variant);
+}
+
+.retro-selection-options-without-bundles-qty-btn:focus {
+  ring-color: var(--retro-color-primary);
+}
+
+.retro-selection-options-without-bundles-qty-btn:disabled {
+  background-color: var(--retro-color-surface-container);
+  color: var(--retro-color-on-surface-variant);
+}
+
+.retro-selection-options-without-bundles-qty-input {
+  background-color: var(--retro-color-surface);
+  color: var(--retro-color-on-surface);
+  border: 1px solid var(--retro-color-outline);
+}
+
+.retro-selection-options-without-bundles-qty-input:focus {
+  border-color: var(--retro-color-primary);
+  ring-color: var(--retro-color-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .retro-selection-options-without-bundles-qty-label {
+    font-size: 1.5rem;
+  }
+}

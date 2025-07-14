@@ -1,0 +1,41 @@
+/* === Text Options Styles === */
+
+.retro-bundle-options-container-text-option {
+  background: var(--retro-color-surface);
+  border-color: var(--retro-color-outline);
+  color: var(--retro-color-on-surface);
+  transition: all 0.2s ease;
+}
+
+.retro-bundle-options-container-text-option:hover:not(.retro-bundle-options-container-option-disabled) {
+  background: var(--retro-color-surface-variant);
+  border-color: var(--retro-color-primary);
+}
+
+.retro-bundle-options-container-selected-text {
+  background: var(--retro-color-primary-light);
+  border-color: var(--retro-color-primary);
+  color: var(--retro-color-on-primary);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.retro-bundle-options-container-option-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .retro-bundle-options-container-text-option {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .retro-bundle-options-container-text-option {
+    transition: none;
+  }
+}

@@ -1,110 +1,12 @@
-/* This file contains minimal CSS styles for ArabicTouch Delivery Features - Variation 2 (Card-Based Layout) */
-/* Following the improved design strategy: Tailwind-first with custom colors only */
-
-/* === ArabicTouch Delivery Features Component === */
-/* Only color-related styles using custom color schema */
-
-/* Card-Based Layout */
-.arabictouch-delivery-card {
-  background-color: var(--arabictouch-color-surface-variant);
-  box-shadow: var(--arabictouch-section-shadow);
-  /* Layout, spacing, and transitions handled by Tailwind */
+/* === Delivery Features Section Classes === */
+.arabictouch-delivery-feature-icon {
+    color: var(--arabictouch-color-primary);
 }
 
-.arabictouch-delivery-card:hover {
-  box-shadow: var(--arabictouch-section-shadow-hover, var(--arabictouch-section-shadow));
-  /* Transform and other effects handled by Tailwind */
+.arabictouch-delivery-feature-title {
+    color: var(--arabictouch-color-on-surface);
 }
 
-/* Feature Icons */
-.arabictouch-delivery-icon {
-  background-color: var(--arabictouch-color-primary);
-  /* Layout handled by Tailwind classes */
-}
-
-.arabictouch-delivery-icon-symbol {
-  color: var(--arabictouch-color-on-primary);
-  /* Typography handled by Tailwind classes */
-}
-
-.arabictouch-delivery-title {
-  color: var(--arabictouch-color-on-surface);
-  /* Typography handled by Tailwind classes */
-}
-
-.arabictouch-delivery-subtitle {
-  color: var(--arabictouch-color-on-surface-variant);
-  /* Typography handled by Tailwind classes */
-}
-
-/* Enhanced hover effects for Arabic theme */
-.arabictouch-delivery-card:hover .arabictouch-delivery-title {
-  color: var(--arabictouch-color-primary);
-}
-
-.arabictouch-delivery-card:hover .arabictouch-delivery-icon {
-  box-shadow: 0 4px 15px rgba(var(--arabictouch-color-primary-rgb, 0, 0, 0), 0.3);
-  transform: scale(1.05);
-}
-
-/* Arabic calligraphy-inspired subtle animation */
-@keyframes arabictouch-delivery-flow {
-  0%, 100% { 
-    transform: translateY(0px);
-  }
-  50% { 
-    transform: translateY(-2px);
-  }
-}
-
-.arabictouch-delivery-urgent .arabictouch-delivery-card {
-  animation: arabictouch-delivery-flow 3s ease-in-out infinite;
-}
-
-/* RTL Support */
-[dir="rtl"] .arabictouch-delivery-urgent .arabictouch-delivery-card {
-  animation: arabictouch-delivery-flow-rtl 3s ease-in-out infinite;
-}
-
-@keyframes arabictouch-delivery-flow-rtl {
-  0%, 100% { 
-    transform: translateY(0px) rotateY(0deg);
-  }
-  50% { 
-    transform: translateY(-2px) rotateY(1deg);
-  }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .arabictouch-delivery-card,
-  .arabictouch-delivery-icon {
-    transition: none;
-    animation: none;
-  }
-  
-  .arabictouch-delivery-card:hover .arabictouch-delivery-icon {
-    transform: none;
-  }
-}
-
-/* Focus states for keyboard navigation */
-.arabictouch-delivery-card:focus-within {
-  outline: 2px solid var(--arabictouch-color-primary);
-  outline-offset: 2px;
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-  .arabictouch-delivery-card {
-    border: 2px solid var(--arabictouch-color-outline-variant);
-  }
-  
-  .arabictouch-delivery-icon {
-    border: 2px solid var(--arabictouch-color-on-surface);
-  }
-  
-  .arabictouch-delivery-title {
-    font-weight: 700;
-  }
+.arabictouch-delivery-feature-subtitle {
+    color: var(--arabictouch-color-on-surface-variant);
 }

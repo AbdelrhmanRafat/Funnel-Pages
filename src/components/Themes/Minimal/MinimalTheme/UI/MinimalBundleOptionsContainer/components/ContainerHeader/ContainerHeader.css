@@ -1,0 +1,12 @@
+/* === Container Header Styles === */
+
+.minimal-bundle-options-container-header {
+  color: var(--minimal-color-on-surface);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .minimal-bundle-options-container-header {
+    font-size: 1rem;
+  }
+}

@@ -1,29 +1,36 @@
-/* === Classic Form Components === */
+/* === Classic Form Components (Refactored with Custom Variables) === */
 
 /* Main form container */
-.urban-form {
+.urban-form-div-container {
     background-color: var(--urban-color-surface);
     border-radius: var(--urban-section-radius);
+    box-shadow: var(--urban-section-shadow);
 }
 
 /* Form title styling */
-.urban-form-title {
+.urban-form-h1-title {
     color: var(--urban-color-on-surface);
+    font-size: var(--urban-header-size);
+    font-weight: var(--urban-header-weight);
+    margin-bottom: var(--urban-header-margin-bottom);
 }
 
 /* Section headers within form */
-.urban-form-section-title {
+.urban-form-h2-title {
     color: var(--urban-color-on-surface);
+    font-size: var(--urban-header-center-size);
+    font-weight: var(--urban-header-center-weight);
+    margin-bottom: var(--urban-header-center-margin-bottom);
 }
 
-/* Improved Input Group */
-.urban-form-group {
+/* Form group container */
+.urban-form-div-group {
     position: relative;
     width: 100%;
 }
 
-/* Input field styling */
-.urban-form-input {
+/* Base input field styling */
+.urban-form-input-base {
     width: 100%;
     padding: 1rem 0.75rem 0.75rem 0.75rem;
     border: 2px solid var(--urban-color-outline);
@@ -36,8 +43,56 @@
     box-sizing: border-box;
 }
 
+/* Responsive input sizing */
+.urban-form-input-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .urban-form-input-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Textarea specific responsive styling */
+.urban-form-textarea-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .urban-form-textarea-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Select base styling */
+.urban-form-select-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--urban-color-outline);
+    border-radius: 12px;
+    color: var(--urban-color-on-surface);
+    background-color: var(--urban-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Select responsive styling */
+.urban-form-select-responsive {
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .urban-form-select-responsive {
+        padding: 1rem;
+    }
+}
+
 /* Floating label styling */
-.urban-form-label {
+.urban-form-label-floating {
     position: absolute;
     left: 0.75rem;
     top: 1rem;
@@ -51,108 +106,136 @@
     transform-origin: left top;
 }
 
+/* Static label styling */
+.urban-form-label-static {
+    color: var(--urban-color-on-surface);
+    font-weight: 500;
+}
+
 /* Focus and valid states for input */
-.urban-form-input:focus,
-.urban-form-input:valid {
+.urban-form-input-base:focus,
+.urban-form-input-base:valid {
+    border-color: var(--urban-color-primary);
+    box-shadow: var(--urban-section-shadow);
+}
+
+.urban-form-select-base:focus {
     border-color: var(--urban-color-primary);
     box-shadow: var(--urban-section-shadow);
 }
 
 /* Floating label animation */
-.urban-form-input:focus~.urban-form-label,
-.urban-form-input:valid~.urban-form-label {
+.urban-form-input-base:focus ~ .urban-form-label-floating,
+.urban-form-input-base:valid ~ .urban-form-label-floating,
+.urban-form-textarea-responsive:focus ~ .urban-form-label-floating,
+.urban-form-textarea-responsive:valid ~ .urban-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
     color: var(--urban-color-primary);
     font-weight: 600;
 }
 
 /* Error state styling */
-.urban-form-error {
+.urban-form-span-error {
     display: block;
     font-size: 0.875rem;
     color: var(--urban-color-error);
     min-height: 1.25rem;
+    margin-top: 0.25rem;
 }
 
+/* Input validation states */
+.urban-form-input-error {
+    border-color: var(--urban-color-error) !important;
+}
 
+.urban-form-input-success {
+    border-color: var(--urban-color-success) !important;
+}
 
-.urban-form-input.text-right~.urban-form-label {
+/* RTL support for floating labels */
+.urban-form-input-base.text-right ~ .urban-form-label-floating,
+.urban-form-textarea-responsive.text-right ~ .urban-form-label-floating {
     left: auto;
     right: 0.75rem;
     transform-origin: right top;
 }
-.urban-form-input.text-left~.urban-form-label {
+
+.urban-form-input-base.text-left ~ .urban-form-label-floating,
+.urban-form-textarea-responsive.text-left ~ .urban-form-label-floating {
     right: auto;
     left: 0.75rem;
     transform-origin: left top;
 }
 
-.urban-form-input.text-left:focus~.urban-form-label,
-.urban-form-input.text-left:valid~.urban-form-label {
+.urban-form-input-base.text-right:focus ~ .urban-form-label-floating,
+.urban-form-input-base.text-right:valid ~ .urban-form-label-floating,
+.urban-form-textarea-responsive.text-right:focus ~ .urban-form-label-floating,
+.urban-form-textarea-responsive.text-right:valid ~ .urban-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
 }
-.urban-form-input.text-left:focus~.urban-form-label,
-.urban-form-input.text-left:valid~.urban-form-label {
-    transform: translateY(-1.5rem) scale(0.85);
-}
-
-
 
 /* Payment and delivery option containers */
-.urban-form-payment-option {
+.urban-form-div-payment {
     padding: 0.75rem;
-    /* Tailwind: p-3 */
     border: 1px solid var(--urban-color-outline);
     border-radius: 0.5rem;
-    /* Tailwind: rounded-lg */
     cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    background-color: var(--urban-color-surface);
+}
+
+@media (min-width: 768px) {
+    .urban-form-div-payment {
+        padding: 1rem;
+    }
 }
 
 /* Hover state for payment options */
-.urban-form-payment-option:hover {
+.urban-form-div-payment:hover {
     background-color: var(--urban-color-surface-variant);
     border-color: var(--urban-color-outline-variant);
 }
 
 /* Focus state for payment options */
-.urban-form-payment-option:focus-within {
+.urban-form-div-payment:focus-within {
     border-color: var(--urban-color-primary);
     outline: 2px solid var(--urban-color-primary);
     outline-offset: 2px;
 }
 
 /* Payment option labels */
-.urban-form-payment-option-label {
+.urban-form-span-payment-label {
     display: block;
     color: var(--urban-color-on-surface);
     cursor: pointer;
+    font-weight: 500;
 }
 
 /* Payment option descriptions */
-.urban-form-payment-option-description {
+.urban-form-span-payment-description {
     display: block;
     color: var(--urban-color-on-surface-variant);
 }
 
 /* Radio button styling */
-.urban-form-radio {
+.urban-form-input-radio {
     accent-color: var(--urban-color-primary);
     border-color: var(--urban-color-outline);
     cursor: pointer;
 }
 
-/* Custom radio indicator (if used) */
-.urban-form-radio-indicator {
+/* Custom radio indicator */
+.urban-form-div-radio-indicator {
     width: 1.25rem;
     height: 1.25rem;
     border: 2px solid var(--urban-color-outline);
     border-radius: 50%;
     transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: var(--urban-color-surface);
 }
 
 /* Radio dot inside custom indicator */
-.urban-form-radio-dot {
+.urban-form-div-radio-dot {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
@@ -161,50 +244,63 @@
 }
 
 /* Active state for custom radio indicator */
-.urban-form-payment-option input[type="radio"]:checked+.urban-form-payment-option-content .urban-form-radio-indicator {
+.urban-form-input-radio:checked + .urban-form-div-content .urban-form-div-radio-indicator {
     border-color: var(--urban-color-primary);
     background-color: var(--urban-color-primary);
 }
 
-.urban-form-payment-option input[type="radio"]:checked+.urban-form-payment-option-content .urban-form-radio-dot {
+.urban-form-input-radio:checked + .urban-form-div-content .urban-form-div-radio-dot {
     background-color: var(--urban-color-surface);
 }
 
-/* Validation state classes */
-.urban-border-error {
-    border-color: var(--urban-color-error) !important;
+/* Notes section specific styling */
+.urban-form-div-notes {
+    width: 100%;
+    margin-top: 1rem;
 }
 
-.urban-text-error {
-    color: var(--urban-color-error) !important;
+@media (min-width: 768px) {
+    .urban-form-div-notes {
+        margin-top: 1.5rem;
+    }
 }
 
-.urban-border-success {
-    border-color: var(--urban-color-success) !important;
+/* Button section styling */
+.urban-form-div-button-container {
+    width: 100%;
+    margin-top: 1.5rem;
 }
 
-.urban-text-success {
-    color: var(--urban-color-success) !important;
+@media (min-width: 768px) {
+    .urban-form-div-button-container {
+        margin-top: 2rem;
+    }
 }
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-
-    .urban-form-input,
-    .urban-form-payment-option,
-    .urban-form-radio-indicator,
-    .urban-form-radio-dot {
+    .urban-form-input-base,
+    .urban-form-select-base,
+    .urban-form-div-payment,
+    .urban-form-div-radio-indicator,
+    .urban-form-div-radio-dot,
+    .urban-form-label-floating {
         transition: none;
     }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-    .urban-form-input {
-        border-width: 2px;
+    .urban-form-input-base,
+    .urban-form-select-base {
+        border-width: 3px;
     }
 
-    .urban-form-payment-option {
+    .urban-form-div-payment {
         border-width: 2px;
+    }
+    
+    .urban-form-div-radio-indicator {
+        border-width: 3px;
     }
 }

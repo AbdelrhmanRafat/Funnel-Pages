@@ -1,0 +1,47 @@
+/* === Color Options Styles === */
+
+.zen-bundle-options-container-color-option {
+  transition: transform 0.2s ease;
+}
+
+.zen-bundle-options-container-color-option:hover:not(.zen-bundle-options-container-option-disabled) {
+  transform: scale(1.05);
+}
+
+.zen-bundle-options-container-color-swatch {
+  border-color: var(--zen-color-outline);
+  transition: all 0.2s ease;
+}
+
+.zen-bundle-options-container-selected-color .zen-bundle-options-container-color-swatch {
+  border-color: var(--zen-color-primary);
+  border-width: 3px;
+  box-shadow: 0 0 0 2px var(--zen-color-primary-light);
+}
+
+.zen-bundle-options-container-color-name {
+  color: var(--zen-color-on-surface);
+  text-align: center;
+  word-break: break-word;
+}
+
+.zen-bundle-options-container-selected-color .zen-bundle-options-container-color-name {
+  color: var(--zen-color-primary);
+  font-weight: 600;
+}
+
+.zen-bundle-options-container-option-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .zen-bundle-options-container-color-option {
+    transition: none;
+  }
+  
+  .zen-bundle-options-container-color-option:hover {
+    transform: none;
+  }
+}

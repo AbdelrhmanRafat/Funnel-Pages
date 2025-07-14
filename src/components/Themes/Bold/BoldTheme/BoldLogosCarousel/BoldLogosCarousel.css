@@ -1,7 +1,7 @@
-/* === Classic Logos Carousel Component - Clean & Simple === */
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
 
 /* Section Divider */
-.bold-logos-carousel-divider {
+.bold-logocarousel-div-divider {
     background: linear-gradient(90deg, 
         var(--bold-color-primary) 0%,
         var(--bold-color-secondary) 50%,
@@ -10,72 +10,12 @@
 }
 
 /* Logo Cards - Clean and minimal */
-.bold-logo-card {
-    /* No background, borders, or hover effects - just clean space for logos */
+.bold-logocarousel-div-card {
     background: transparent;
-    transition: none;
 }
 
-/* Carousel Navigation Arrows - Clean design */
-.bold-carousel-left,
-.bold-carousel-right {
-    background-color: var(--bold-color-surface);
-    color: var(--bold-color-on-surface);
-    border: 1px solid var(--bold-color-outline-variant);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.bold-carousel-left:hover,
-.bold-carousel-right:hover {
-    background-color: var(--bold-color-surface-variant);
-    border-color: var(--bold-color-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.bold-carousel-left:disabled,
-.bold-carousel-right:disabled {
-    opacity: 0.3;
-    background-color: var(--bold-color-surface);
-    border-color: var(--bold-color-outline-variant);
-}
-
-.bold-carousel-left:active,
-.bold-carousel-right:active {
-    transform: scale(0.95);
-}
-
-/* Page Indicators - Simple dots */
-.bold-page-indicator {
-    background-color: var(--bold-color-outline);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.bold-page-indicator:hover {
-    background-color: var(--bold-color-primary-light);
-}
-
-.bold-page-indicator.active {
-    background-color: var(--bold-color-primary);
-}
-
-/* Focus states for accessibility */
-.bold-carousel-left:focus,
-.bold-carousel-right:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--bold-color-primary-light);
-    border-color: var(--bold-color-primary);
-}
-
-.bold-page-indicator:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--bold-color-primary-light);
-}
-
-/* Loading state - Simple skeleton */
-.bold-logo-card.animate-pulse {
+/* Skeleton Loading State */
+.bold-logocarousel-div-skeleton {
     background: linear-gradient(90deg, 
         var(--bold-color-surface) 25%, 
         var(--bold-color-surface-variant) 50%, 
@@ -90,118 +30,64 @@
     100% { background-position: -200% 0; }
 }
 
-/* Trust indicator styling */
-.bold-trust-indicator {
+/* Carousel Navigation Arrows */
+.bold-logocarousel-button-left,
+.bold-logocarousel-button-right {
+    background-color: var(--bold-color-surface);
+    color: var(--bold-color-on-surface);
+    border-color: var(--bold-color-outline-variant);
+}
+
+.bold-logocarousel-button-left:hover,
+.bold-logocarousel-button-right:hover {
+    background-color: var(--bold-color-surface-variant);
+    border-color: var(--bold-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bold-logocarousel-button-left:disabled,
+.bold-logocarousel-button-right:disabled {
+    background-color: var(--bold-color-surface);
+    border-color: var(--bold-color-outline-variant);
     color: var(--bold-color-on-surface-variant);
-    font-weight: 500;
-    opacity: 0.8;
 }
 
-/* Responsive Design - Mobile-first approach */
-@media (max-width: 640px) {
-    .bold-carousel-left,
-    .bold-carousel-right {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .bold-logo-card {
-        min-height: 56px;
-        padding: 0.75rem;
-    }
-    
-    .bold-page-indicator {
-        width: 6px;
-        height: 6px;
-    }
-    
-    .bold-page-indicator.active {
-        width: 20px;
-    }
+.bold-logocarousel-button-left:focus,
+.bold-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--bold-color-primary-light);
+    border-color: var(--bold-color-primary);
 }
 
-@media (max-width: 480px) {
-    .bold-logo-card {
-        min-height: 48px;
-        padding: 0.5rem;
-    }
-    
-    .bold-carousel-left,
-    .bold-carousel-right {
-        width: 36px;
-        height: 36px;
-    }
+/* Page Indicators */
+.bold-logocarousel-button-indicator {
+    background-color: var(--bold-color-outline);
 }
 
-/* Large screens - Enhanced spacing */
-@media (min-width: 1024px) {
-    .bold-logo-card {
-        min-height: 80px;
-        padding: 1.25rem;
-    }
-    
-    .bold-carousel-left,
-    .bold-carousel-right {
-        width: 48px;
-        height: 48px;
-    }
+.bold-logocarousel-button-indicator:hover {
+    background-color: var(--bold-color-primary-light);
 }
 
-/* Motion preferences - Respect user settings */
-@media (prefers-reduced-motion: reduce) {
-    .bold-carousel-left,
-    .bold-carousel-right,
-    .bold-page-indicator {
-        transition: none;
-        animation: none;
-    }
-    
-    .bold-carousel-left:active,
-    .bold-carousel-right:active {
-        transform: none;
-    }
+.bold-logocarousel-button-indicator.bold-logocarousel-button-active {
+    background-color: var(--bold-color-primary);
 }
 
-/* High contrast mode - Better accessibility */
-@media (prefers-contrast: high) {
-    .bold-carousel-left,
-    .bold-carousel-right {
-        border-width: 2px;
-        border-color: var(--bold-color-on-surface);
-    }
-    
-    .bold-page-indicator {
-        border: 2px solid var(--bold-color-on-surface);
-    }
-    
-    .bold-page-indicator.active {
-        background: var(--bold-color-on-surface);
-        border-color: var(--bold-color-primary);
-    }
+.bold-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--bold-color-primary-light);
 }
 
-/* RTL Support - Ensure proper visual direction */
-[dir="rtl"] .bold-carousel-left {
-    /* In RTL, the left button should visually point right */
-    transform: scaleX(-1);
+/* Progress Bar */
+.bold-logocarousel-div-progressbg {
+    background-color: var(--bold-color-outline);
 }
 
-[dir="rtl"] .bold-carousel-right {
-    /* In RTL, the right button should visually point left */
-    transform: scaleX(-1);
+.bold-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--bold-color-primary), 
+        var(--bold-color-primary-light)
+    );
 }
 
-/* Dark mode support (if applicable) */
-@media (prefers-color-scheme: dark) {
-    .bold-carousel-left,
-    .bold-carousel-right {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: var(--bold-color-on-surface);
-    }
-    
-    .bold-carousel-left:hover,
-    .bold-carousel-right:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
+/* Trust Indicator */
+.bold-logocarousel-p-trust {
+    color: var(--bold-color-on-surface-variant);
 }

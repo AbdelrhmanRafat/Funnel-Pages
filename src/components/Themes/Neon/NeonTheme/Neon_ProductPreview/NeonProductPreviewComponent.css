@@ -1,59 +1,70 @@
-/* === Neon Product Preview Colors === */
+/* === Classic Product Preview (Refactored with Custom Variables) === */
 
 /* Video container */
-.neon-product-preview-video-container {
+.neon-productpreview-div-video {
     border-color: var(--neon-color-primary);
     box-shadow: var(--neon-section-shadow);
 }
 
+/* Video placeholder */
+.neon-productpreview-div-placeholder {
+    background-color: var(--neon-color-surface-variant);
+}
+
+.neon-productpreview-span-notvideo {
+    color: var(--neon-color-on-surface-variant);
+}
+
 /* Video title overlay */
-.neon-product-preview-video-title {
+.neon-productpreview-div-videotitle {
     color: var(--neon-color-surface);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
+.neon-productpreview-p-title {
+    color: var(--neon-color-surface);
+}
+
 /* Features container */
-.neon-product-preview-features-container {
-    background-color: var(--neon-color-surface-variant);
+.neon-productpreview-div-features {
+    background-color: var(--neon-color-surface-container-high);
     box-shadow: var(--neon-section-shadow);
 }
 
 /* Features header */
-.neon-product-preview-features-header {
+.neon-productpreview-div-header {
     border-color: var(--neon-color-outline-variant);
 }
 
-.neon-product-preview-features-title {
+.neon-productpreview-h2-title {
     color: var(--neon-color-on-surface);
 }
 
 /* Views badge */
-.neon-product-preview-views-badge {
-    background-color: var(--neon-color-primary);
-    color: var(--neon-color-on-primary);
+.neon-productpreview-div-viewsbadge {
+    background-color: var(--neon-color-surface-variant);
 }
 
-/* Feature items */
-.neon-product-preview-feature-icon {
-    background-color: var(--neon-color-primary);
-    color: var(--neon-color-on-primary);
-}
-
-.neon-product-preview-feature-title {
-    color: var(--neon-color-on-surface);
-}
-
-.neon-product-preview-feature-subtitle {
+.neon-productpreview-span-views {
     color: var(--neon-color-on-surface-variant);
 }
 
-/* High contrast mode */
-@media (prefers-contrast: high) {
-    .neon-product-preview-features-container {
-        border: 2px solid var(--neon-color-outline);
-    }
-    
-    .neon-product-preview-video-container {
-        border-width: 3px;
-    }
+/* Feature icon */
+.neon-productpreview-div-featureicon {
+    background-color: var(--neon-color-primary);
+    color: var(--neon-color-on-primary);
+}
+
+/* Feature content */
+.neon-productpreview-div-featuretitle {
+    color: var(--neon-color-on-surface);
+}
+
+.neon-productpreview-div-featuresubtitle {
+    color: var(--neon-color-on-surface-variant);
+}
+
+/* Button container */
+.neon-productpreview-div-buttoncontainer {
+    border-color: var(--neon-color-outline-variant);
 }

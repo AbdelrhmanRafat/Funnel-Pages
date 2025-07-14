@@ -1,87 +1,70 @@
-/* === Classic Product Preview === */
+/* === Classic Product Preview (Refactored with Custom Variables) === */
 
-/* Video container with responsive height */
-.bold-product-preview-video-container {
+/* Video container */
+.bold-productpreview-div-video {
     border-color: var(--bold-color-primary);
-    border-radius: var(--bold-section-radius);
     box-shadow: var(--bold-section-shadow);
-    /* Responsive height */
-    height: 300px;
 }
 
-@media (min-width: 768px) {
-    .bold-product-preview-video-container {
-        height: 400px;
-    }
+/* Video placeholder */
+.bold-productpreview-div-placeholder {
+    background-color: var(--bold-color-surface-variant);
 }
 
-@media (min-width: 1024px) {
-    .bold-product-preview-video-container {
-        height: 100%;
-        min-height: 450px;
-    }
+.bold-productpreview-span-notvideo {
+    color: var(--bold-color-on-surface-variant);
 }
 
 /* Video title overlay */
-.bold-product-preview-video-title {
+.bold-productpreview-div-videotitle {
     color: var(--bold-color-surface);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
+.bold-productpreview-p-title {
+    color: var(--bold-color-surface);
+}
+
 /* Features container */
-.bold-product-preview-features-container {
+.bold-productpreview-div-features {
     background-color: var(--bold-color-surface-container-high);
-    border-radius: var(--bold-section-radius);
-    padding: 2rem;
     box-shadow: var(--bold-section-shadow);
 }
 
 /* Features header */
-.bold-product-preview-features-header {
+.bold-productpreview-div-header {
     border-color: var(--bold-color-outline-variant);
 }
 
-.bold-product-preview-features-title {
+.bold-productpreview-h2-title {
     color: var(--bold-color-on-surface);
 }
 
 /* Views badge */
-.bold-product-preview-views-badge {
+.bold-productpreview-div-viewsbadge {
     background-color: var(--bold-color-surface-variant);
-    color: var(--bold-color-on-surface-variant);
-    border-radius: 1rem;
 }
 
-/* Feature items */
-.bold-product-preview-feature-icon {
+.bold-productpreview-span-views {
+    color: var(--bold-color-on-surface-variant);
+}
+
+/* Feature icon */
+.bold-productpreview-div-featureicon {
     background-color: var(--bold-color-primary);
     color: var(--bold-color-on-primary);
-    width: 2.5rem;
-    height: 2.5rem;
 }
 
-.bold-product-preview-feature-title {
+/* Feature content */
+.bold-productpreview-div-featuretitle {
     color: var(--bold-color-on-surface);
 }
 
-.bold-product-preview-feature-subtitle {
+.bold-productpreview-div-featuresubtitle {
     color: var(--bold-color-on-surface-variant);
 }
 
-/* === Accessibility === */
-@media (prefers-reduced-motion: reduce) {
-    .bold-product-preview-video-container {
-        transition: none;
-    }
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-    .bold-product-preview-features-container {
-        border: 2px solid var(--bold-color-outline);
-    }
-    
-    .bold-product-preview-video-container {
-        border-width: 3px;
-    }
+/* Button container */
+.bold-productpreview-div-buttoncontainer {
+    border-color: var(--bold-color-outline-variant);
 }

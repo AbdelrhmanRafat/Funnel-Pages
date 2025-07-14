@@ -1,7 +1,7 @@
-/* === Classic Logos Carousel Component - Clean & Simple === */
+/* === Classic Logos Carousel Component (Colors & Shadows Only) === */
 
 /* Section Divider */
-.zen-logos-carousel-divider {
+.zen-logocarousel-div-divider {
     background: linear-gradient(90deg, 
         var(--zen-color-primary) 0%,
         var(--zen-color-secondary) 50%,
@@ -10,72 +10,12 @@
 }
 
 /* Logo Cards - Clean and minimal */
-.zen-logo-card {
-    /* No background, borders, or hover effects - just clean space for logos */
+.zen-logocarousel-div-card {
     background: transparent;
-    transition: none;
 }
 
-/* Carousel Navigation Arrows - Clean design */
-.zen-carousel-left,
-.zen-carousel-right {
-    background-color: var(--zen-color-surface);
-    color: var(--zen-color-on-surface);
-    border: 1px solid var(--zen-color-outline-variant);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.zen-carousel-left:hover,
-.zen-carousel-right:hover {
-    background-color: var(--zen-color-surface-variant);
-    border-color: var(--zen-color-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.zen-carousel-left:disabled,
-.zen-carousel-right:disabled {
-    opacity: 0.3;
-    background-color: var(--zen-color-surface);
-    border-color: var(--zen-color-outline-variant);
-}
-
-.zen-carousel-left:active,
-.zen-carousel-right:active {
-    transform: scale(0.95);
-}
-
-/* Page Indicators - Simple dots */
-.zen-page-indicator {
-    background-color: var(--zen-color-outline);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.zen-page-indicator:hover {
-    background-color: var(--zen-color-primary-light);
-}
-
-.zen-page-indicator.active {
-    background-color: var(--zen-color-primary);
-}
-
-/* Focus states for accessibility */
-.zen-carousel-left:focus,
-.zen-carousel-right:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--zen-color-primary-light);
-    border-color: var(--zen-color-primary);
-}
-
-.zen-page-indicator:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--zen-color-primary-light);
-}
-
-/* Loading state - Simple skeleton */
-.zen-logo-card.animate-pulse {
+/* Skeleton Loading State */
+.zen-logocarousel-div-skeleton {
     background: linear-gradient(90deg, 
         var(--zen-color-surface) 25%, 
         var(--zen-color-surface-variant) 50%, 
@@ -90,118 +30,64 @@
     100% { background-position: -200% 0; }
 }
 
-/* Trust indicator styling */
-.zen-trust-indicator {
+/* Carousel Navigation Arrows */
+.zen-logocarousel-button-left,
+.zen-logocarousel-button-right {
+    background-color: var(--zen-color-surface);
+    color: var(--zen-color-on-surface);
+    border-color: var(--zen-color-outline-variant);
+}
+
+.zen-logocarousel-button-left:hover,
+.zen-logocarousel-button-right:hover {
+    background-color: var(--zen-color-surface-variant);
+    border-color: var(--zen-color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.zen-logocarousel-button-left:disabled,
+.zen-logocarousel-button-right:disabled {
+    background-color: var(--zen-color-surface);
+    border-color: var(--zen-color-outline-variant);
     color: var(--zen-color-on-surface-variant);
-    font-weight: 500;
-    opacity: 0.8;
 }
 
-/* Responsive Design - Mobile-first approach */
-@media (max-width: 640px) {
-    .zen-carousel-left,
-    .zen-carousel-right {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .zen-logo-card {
-        min-height: 56px;
-        padding: 0.75rem;
-    }
-    
-    .zen-page-indicator {
-        width: 6px;
-        height: 6px;
-    }
-    
-    .zen-page-indicator.active {
-        width: 20px;
-    }
+.zen-logocarousel-button-left:focus,
+.zen-logocarousel-button-right:focus {
+    box-shadow: 0 0 0 2px var(--zen-color-primary-light);
+    border-color: var(--zen-color-primary);
 }
 
-@media (max-width: 480px) {
-    .zen-logo-card {
-        min-height: 48px;
-        padding: 0.5rem;
-    }
-    
-    .zen-carousel-left,
-    .zen-carousel-right {
-        width: 36px;
-        height: 36px;
-    }
+/* Page Indicators */
+.zen-logocarousel-button-indicator {
+    background-color: var(--zen-color-outline);
 }
 
-/* Large screens - Enhanced spacing */
-@media (min-width: 1024px) {
-    .zen-logo-card {
-        min-height: 80px;
-        padding: 1.25rem;
-    }
-    
-    .zen-carousel-left,
-    .zen-carousel-right {
-        width: 48px;
-        height: 48px;
-    }
+.zen-logocarousel-button-indicator:hover {
+    background-color: var(--zen-color-primary-light);
 }
 
-/* Motion preferences - Respect user settings */
-@media (prefers-reduced-motion: reduce) {
-    .zen-carousel-left,
-    .zen-carousel-right,
-    .zen-page-indicator {
-        transition: none;
-        animation: none;
-    }
-    
-    .zen-carousel-left:active,
-    .zen-carousel-right:active {
-        transform: none;
-    }
+.zen-logocarousel-button-indicator.zen-logocarousel-button-active {
+    background-color: var(--zen-color-primary);
 }
 
-/* High contrast mode - Better accessibility */
-@media (prefers-contrast: high) {
-    .zen-carousel-left,
-    .zen-carousel-right {
-        border-width: 2px;
-        border-color: var(--zen-color-on-surface);
-    }
-    
-    .zen-page-indicator {
-        border: 2px solid var(--zen-color-on-surface);
-    }
-    
-    .zen-page-indicator.active {
-        background: var(--zen-color-on-surface);
-        border-color: var(--zen-color-primary);
-    }
+.zen-logocarousel-button-indicator:focus {
+    box-shadow: 0 0 0 2px var(--zen-color-primary-light);
 }
 
-/* RTL Support - Ensure proper visual direction */
-[dir="rtl"] .zen-carousel-left {
-    /* In RTL, the left button should visually point right */
-    transform: scaleX(-1);
+/* Progress Bar */
+.zen-logocarousel-div-progressbg {
+    background-color: var(--zen-color-outline);
 }
 
-[dir="rtl"] .zen-carousel-right {
-    /* In RTL, the right button should visually point left */
-    transform: scaleX(-1);
+.zen-logocarousel-div-progress {
+    background: linear-gradient(to right, 
+        var(--zen-color-primary), 
+        var(--zen-color-primary-light)
+    );
 }
 
-/* Dark mode support (if applicable) */
-@media (prefers-color-scheme: dark) {
-    .zen-carousel-left,
-    .zen-carousel-right {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: var(--zen-color-on-surface);
-    }
-    
-    .zen-carousel-left:hover,
-    .zen-carousel-right:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
+/* Trust Indicator */
+.zen-logocarousel-p-trust {
+    color: var(--zen-color-on-surface-variant);
 }

@@ -1,0 +1,94 @@
+/* === Celebration View Component (Colors & Shadows Only) === */
+
+/* Celebration Header */
+.techno-celebration-header {
+  background: linear-gradient(135deg, 
+    var(--techno-color-success) 0%, 
+    var(--techno-color-success-dark) 100%
+  );
+  color: var(--techno-color-on-success);
+}
+
+.techno-celebration-icon {
+  background: var(--techno-color-success-light);
+  color: var(--techno-color-on-success);
+}
+
+/* Success Checkmark Animation */
+.techno-success-checkmark {
+  border-color: var(--techno-color-success);
+  background: var(--techno-color-surface);
+}
+
+.techno-check-icon {
+  background: var(--techno-color-success);
+}
+
+.techno-check-icon::after {
+  background: var(--techno-color-on-success);
+}
+
+/* Celebration Content */
+.techno-celebration-main-title {
+  color: var(--techno-color-on-surface);
+}
+
+.techno-celebration-subtitle {
+  color: var(--techno-color-on-surface-variant);
+}
+
+/* Celebration Summary */
+.techno-celebration-summary {
+  background: var(--techno-color-surface);
+  border-color: var(--techno-color-success);
+  box-shadow: var(--techno-section-shadow);
+}
+
+.techno-celebration-summary-item {
+  background: var(--techno-color-surface-variant);
+  border-color: var(--techno-color-outline);
+}
+
+.techno-celebration-summary-item:hover {
+  background: var(--techno-color-surface-container);
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Item Icons */
+.techno-celebration-item-icon {
+  color: var(--techno-color-on-primary);
+}
+
+.techno-icon-order {
+  background: var(--techno-color-primary-light);
+}
+
+.techno-icon-delivery {
+  background: var(--techno-color-secondary-light);
+}
+
+.techno-icon-contact {
+  background: var(--techno-color-tertiary-light);
+}
+
+/* Primary Button */
+.techno-celebration-primary-button {
+  background: linear-gradient(135deg, 
+    var(--techno-color-primary) 0%, 
+    var(--techno-color-primary-dark) 100%
+  );
+  color: var(--techno-color-on-primary);
+  box-shadow: var(--techno-section-shadow);
+}
+
+.techno-celebration-primary-button:hover {
+  background: linear-gradient(135deg, 
+    var(--techno-color-primary-light) 0%, 
+    var(--techno-color-primary) 100%
+  );
+  box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.25);
+}
+
+.techno-celebration-primary-button:active {
+  background: var(--techno-color-primary-dark);
+}

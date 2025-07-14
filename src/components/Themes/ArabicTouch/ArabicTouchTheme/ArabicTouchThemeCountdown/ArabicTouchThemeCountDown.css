@@ -1,111 +1,17 @@
-/* This file contains minimal CSS styles specific to the ArabicTouchThemeCountdown component. */
-/* Following the improved design strategy: Tailwind-first with custom colors only */
+/* This file is intended for CSS styles specific to the ArabicTouchThemeCountdown component. */
+/* Currently, it is empty as the component's styling is handled by Tailwind CSS classes in the .astro file. */
+/* However, this file can be used for more complex or component-specific styling if needed in the future. */
+/* === Classic Countdown Component === */
 
-/* === ArabicTouch Countdown Component === */
-/* Only color-related styles using custom color schema */
-
-
-/* Variation 1: Block Style (kept for reference) */
 .arabictouch-countdown-block {
-  background-color: var(--arabictouch-color-surface-variant);
-  color: var(--arabictouch-color-primary-dark);
-  border-color: var(--arabictouch-color-secondary);
-  box-shadow: var(--arabictouch-section-shadow);
-  /* Layout, spacing, and transitions handled by Tailwind */
+    background-color: var(--arabictouch-color-surface-variant);
+    color: var(--arabictouch-color-primary-dark);
+    border-color: var(--arabictouch-color-secondary);
+    box-shadow: var(--arabictouch-section-shadow);
+    transition: all 0.3s ease;
 }
 
 .arabictouch-countdown-block:hover {
-  box-shadow: var(--arabictouch-section-shadow-hover, var(--arabictouch-section-shadow));
-  /* Transform handled by Tailwind hover:scale-105 */
-}
-
-/* Variation 6: Minimal Inline Style */
-.arabictouch-countdown-inline {
-  background-color: var(--arabictouch-color-surface-variant);
-  box-shadow: var(--arabictouch-section-shadow);
-  /* Layout, spacing, and transitions handled by Tailwind */
-}
-
-.arabictouch-countdown-inline:hover {
-  box-shadow: 
-    var(--arabictouch-section-shadow-hover, var(--arabictouch-section-shadow)),
-    0 10px 35px rgba(0, 0, 0, 0.1);
-  /* Transform handled by Tailwind hover:scale-105 */
-}
-
-.arabictouch-countdown-number {
-  color: var(--arabictouch-color-primary);
-  /* Typography handled by Tailwind classes */
-}
-
-.arabictouch-countdown-label {
-  color: var(--arabictouch-color-on-surface-variant);
-  /* Typography handled by Tailwind classes */
-}
-
-.arabictouch-countdown-separator {
-  background-color: var(--arabictouch-color-outline);
-  /* Layout handled by Tailwind classes */
-}
-
-.arabictouch-middle-title h2 {
-  color: var(--arabictouch-color-on-surface);
-  /* Typography handled by Tailwind classes */
-}
-
-/* Enhanced hover effects for Arabic touch theme */
-.arabictouch-countdown-inline:hover .arabictouch-countdown-number {
-  color: var(--arabictouch-color-primary-light, var(--arabictouch-color-primary));
-}
-
-/* Arabic calligraphy-inspired subtle animation */
-.arabictouch-countdown-inline:hover {
-  background: linear-gradient(
-    45deg, 
-    var(--arabictouch-color-surface-variant), 
-    var(--arabictouch-color-surface-variant-light, var(--arabictouch-color-surface-variant))
-  );
-}
-
-/* Smooth flowing animation for Arabic aesthetic */
-@keyframes arabictouch-flow {
-  0%, 100% { 
-    transform: translateY(0px);
-    opacity: 1;
-  }
-  50% { 
-    transform: translateY(-2px);
-    opacity: 0.95;
-  }
-}
-
-.arabictouch-countdown-urgent .arabictouch-countdown-inline {
-  animation: arabictouch-flow 3s ease-in-out infinite;
-}
-
-/* RTL support for Arabic text direction */
-[dir="rtl"] .arabictouch-countdown-item {
-  flex-direction: row-reverse;
-}
-
-/* Enhanced separator for Arabic theme with geometric patterns feel */
-.arabictouch-countdown-separator {
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--arabictouch-color-outline),
-    var(--arabictouch-color-outline),
-    transparent
-  );
-}
-
-/* Subtle geometric pattern effect on hover */
-.arabictouch-countdown-inline:hover .arabictouch-countdown-separator {
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--arabictouch-color-primary),
-    var(--arabictouch-color-primary),
-    transparent
-  );
+    box-shadow: var(--arabictouch-section-shadow);
+    transform: scale(1.05);
 }

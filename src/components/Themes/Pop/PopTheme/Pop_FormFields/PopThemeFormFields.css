@@ -1,29 +1,36 @@
-/* === Classic Form Components === */
+/* === Classic Form Components (Refactored with Custom Variables) === */
 
 /* Main form container */
-.pop-form {
+.pop-form-div-container {
     background-color: var(--pop-color-surface);
     border-radius: var(--pop-section-radius);
+    box-shadow: var(--pop-section-shadow);
 }
 
 /* Form title styling */
-.pop-form-title {
+.pop-form-h1-title {
     color: var(--pop-color-on-surface);
+    font-size: var(--pop-header-size);
+    font-weight: var(--pop-header-weight);
+    margin-bottom: var(--pop-header-margin-bottom);
 }
 
 /* Section headers within form */
-.pop-form-section-title {
+.pop-form-h2-title {
     color: var(--pop-color-on-surface);
+    font-size: var(--pop-header-center-size);
+    font-weight: var(--pop-header-center-weight);
+    margin-bottom: var(--pop-header-center-margin-bottom);
 }
 
-/* Improved Input Group */
-.pop-form-group {
+/* Form group container */
+.pop-form-div-group {
     position: relative;
     width: 100%;
 }
 
-/* Input field styling */
-.pop-form-input {
+/* Base input field styling */
+.pop-form-input-base {
     width: 100%;
     padding: 1rem 0.75rem 0.75rem 0.75rem;
     border: 2px solid var(--pop-color-outline);
@@ -36,8 +43,56 @@
     box-sizing: border-box;
 }
 
+/* Responsive input sizing */
+.pop-form-input-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .pop-form-input-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Textarea specific responsive styling */
+.pop-form-textarea-responsive {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .pop-form-textarea-responsive {
+        padding: 1.25rem 1rem 1rem 1rem;
+    }
+}
+
+/* Select base styling */
+.pop-form-select-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--pop-color-outline);
+    border-radius: 12px;
+    color: var(--pop-color-on-surface);
+    background-color: var(--pop-color-surface);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Select responsive styling */
+.pop-form-select-responsive {
+    padding: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .pop-form-select-responsive {
+        padding: 1rem;
+    }
+}
+
 /* Floating label styling */
-.pop-form-label {
+.pop-form-label-floating {
     position: absolute;
     left: 0.75rem;
     top: 1rem;
@@ -51,108 +106,136 @@
     transform-origin: left top;
 }
 
+/* Static label styling */
+.pop-form-label-static {
+    color: var(--pop-color-on-surface);
+    font-weight: 500;
+}
+
 /* Focus and valid states for input */
-.pop-form-input:focus,
-.pop-form-input:valid {
+.pop-form-input-base:focus,
+.pop-form-input-base:valid {
+    border-color: var(--pop-color-primary);
+    box-shadow: var(--pop-section-shadow);
+}
+
+.pop-form-select-base:focus {
     border-color: var(--pop-color-primary);
     box-shadow: var(--pop-section-shadow);
 }
 
 /* Floating label animation */
-.pop-form-input:focus~.pop-form-label,
-.pop-form-input:valid~.pop-form-label {
+.pop-form-input-base:focus ~ .pop-form-label-floating,
+.pop-form-input-base:valid ~ .pop-form-label-floating,
+.pop-form-textarea-responsive:focus ~ .pop-form-label-floating,
+.pop-form-textarea-responsive:valid ~ .pop-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
     color: var(--pop-color-primary);
     font-weight: 600;
 }
 
 /* Error state styling */
-.pop-form-error {
+.pop-form-span-error {
     display: block;
     font-size: 0.875rem;
     color: var(--pop-color-error);
     min-height: 1.25rem;
+    margin-top: 0.25rem;
 }
 
+/* Input validation states */
+.pop-form-input-error {
+    border-color: var(--pop-color-error) !important;
+}
 
+.pop-form-input-success {
+    border-color: var(--pop-color-success) !important;
+}
 
-.pop-form-input.text-right~.pop-form-label {
+/* RTL support for floating labels */
+.pop-form-input-base.text-right ~ .pop-form-label-floating,
+.pop-form-textarea-responsive.text-right ~ .pop-form-label-floating {
     left: auto;
     right: 0.75rem;
     transform-origin: right top;
 }
-.pop-form-input.text-left~.pop-form-label {
+
+.pop-form-input-base.text-left ~ .pop-form-label-floating,
+.pop-form-textarea-responsive.text-left ~ .pop-form-label-floating {
     right: auto;
     left: 0.75rem;
     transform-origin: left top;
 }
 
-.pop-form-input.text-left:focus~.pop-form-label,
-.pop-form-input.text-left:valid~.pop-form-label {
+.pop-form-input-base.text-right:focus ~ .pop-form-label-floating,
+.pop-form-input-base.text-right:valid ~ .pop-form-label-floating,
+.pop-form-textarea-responsive.text-right:focus ~ .pop-form-label-floating,
+.pop-form-textarea-responsive.text-right:valid ~ .pop-form-label-floating {
     transform: translateY(-1.5rem) scale(0.85);
 }
-.pop-form-input.text-left:focus~.pop-form-label,
-.pop-form-input.text-left:valid~.pop-form-label {
-    transform: translateY(-1.5rem) scale(0.85);
-}
-
-
 
 /* Payment and delivery option containers */
-.pop-form-payment-option {
+.pop-form-div-payment {
     padding: 0.75rem;
-    /* Tailwind: p-3 */
     border: 1px solid var(--pop-color-outline);
     border-radius: 0.5rem;
-    /* Tailwind: rounded-lg */
     cursor: pointer;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    background-color: var(--pop-color-surface);
+}
+
+@media (min-width: 768px) {
+    .pop-form-div-payment {
+        padding: 1rem;
+    }
 }
 
 /* Hover state for payment options */
-.pop-form-payment-option:hover {
+.pop-form-div-payment:hover {
     background-color: var(--pop-color-surface-variant);
     border-color: var(--pop-color-outline-variant);
 }
 
 /* Focus state for payment options */
-.pop-form-payment-option:focus-within {
+.pop-form-div-payment:focus-within {
     border-color: var(--pop-color-primary);
     outline: 2px solid var(--pop-color-primary);
     outline-offset: 2px;
 }
 
 /* Payment option labels */
-.pop-form-payment-option-label {
+.pop-form-span-payment-label {
     display: block;
     color: var(--pop-color-on-surface);
     cursor: pointer;
+    font-weight: 500;
 }
 
 /* Payment option descriptions */
-.pop-form-payment-option-description {
+.pop-form-span-payment-description {
     display: block;
     color: var(--pop-color-on-surface-variant);
 }
 
 /* Radio button styling */
-.pop-form-radio {
+.pop-form-input-radio {
     accent-color: var(--pop-color-primary);
     border-color: var(--pop-color-outline);
     cursor: pointer;
 }
 
-/* Custom radio indicator (if used) */
-.pop-form-radio-indicator {
+/* Custom radio indicator */
+.pop-form-div-radio-indicator {
     width: 1.25rem;
     height: 1.25rem;
     border: 2px solid var(--pop-color-outline);
     border-radius: 50%;
     transition: border-color 0.2s ease, background-color 0.2s ease;
+    background-color: var(--pop-color-surface);
 }
 
 /* Radio dot inside custom indicator */
-.pop-form-radio-dot {
+.pop-form-div-radio-dot {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
@@ -161,50 +244,63 @@
 }
 
 /* Active state for custom radio indicator */
-.pop-form-payment-option input[type="radio"]:checked+.pop-form-payment-option-content .pop-form-radio-indicator {
+.pop-form-input-radio:checked + .pop-form-div-content .pop-form-div-radio-indicator {
     border-color: var(--pop-color-primary);
     background-color: var(--pop-color-primary);
 }
 
-.pop-form-payment-option input[type="radio"]:checked+.pop-form-payment-option-content .pop-form-radio-dot {
+.pop-form-input-radio:checked + .pop-form-div-content .pop-form-div-radio-dot {
     background-color: var(--pop-color-surface);
 }
 
-/* Validation state classes */
-.pop-border-error {
-    border-color: var(--pop-color-error) !important;
+/* Notes section specific styling */
+.pop-form-div-notes {
+    width: 100%;
+    margin-top: 1rem;
 }
 
-.pop-text-error {
-    color: var(--pop-color-error) !important;
+@media (min-width: 768px) {
+    .pop-form-div-notes {
+        margin-top: 1.5rem;
+    }
 }
 
-.pop-border-success {
-    border-color: var(--pop-color-success) !important;
+/* Button section styling */
+.pop-form-div-button-container {
+    width: 100%;
+    margin-top: 1.5rem;
 }
 
-.pop-text-success {
-    color: var(--pop-color-success) !important;
+@media (min-width: 768px) {
+    .pop-form-div-button-container {
+        margin-top: 2rem;
+    }
 }
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-
-    .pop-form-input,
-    .pop-form-payment-option,
-    .pop-form-radio-indicator,
-    .pop-form-radio-dot {
+    .pop-form-input-base,
+    .pop-form-select-base,
+    .pop-form-div-payment,
+    .pop-form-div-radio-indicator,
+    .pop-form-div-radio-dot,
+    .pop-form-label-floating {
         transition: none;
     }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-    .pop-form-input {
-        border-width: 2px;
+    .pop-form-input-base,
+    .pop-form-select-base {
+        border-width: 3px;
     }
 
-    .pop-form-payment-option {
+    .pop-form-div-payment {
         border-width: 2px;
+    }
+    
+    .pop-form-div-radio-indicator {
+        border-width: 3px;
     }
 }

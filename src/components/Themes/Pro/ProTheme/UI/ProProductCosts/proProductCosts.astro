@@ -1,92 +1,26 @@
 ---
 import "./proProductCosts.css";
-import { getTranslation } from "../../../../../../lib/utils/i18n/translations";
+import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/translations";
+import ProProductCostsReact from "./ProProductCostsReact.tsx";
 
-const hasBundles : string = Astro.props.hasBundles;
-// Component configuration - no longer dependent on external data
-const autoUpdate = Astro.props.autoUpdate ?? true;
+const hasBundlesStr: string = Astro.props.hasBundles;
+const hasBundlesBool: boolean = hasBundlesStr === "true";
+
+// Get current language
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+
+// Component configuration from original props
 const showDiscountWhenZero = Astro.props.showDiscountWhenZero ?? false;
-const currency = Astro.props.currency ?? getTranslation('productFunnel.currency');
+const currencySymbol = Astro.props.currency ?? getTranslation('productFunnel.currency', currentLang);
+
+// Prepare props for the React component
+const reactProps = {
+  hasBundles: hasBundlesBool,
+  showDiscountWhenZero,
+  currencySymbol,
+  currentLang,
+  isLoading: false,
+};
 ---
 
-<pro-product-funnel
-  data-funnel-auto-update={autoUpdate.toString()}
-  data-funnel-show-discount-when-zero={showDiscountWhenZero.toString()}
-  data-funnel-currency={currency}
-  data-funnel-has-bundles={hasBundles}
->
-  <div class="pro-product-costs-container">
-    <div class="pro-product-costs-body">
-      <div class="pro-product-costs-content space-y-3">
-        <div class="pro-product-costs-row flex justify-between items-center">
-          <span class="pro-product-costs-label" data-translate="productFunnel.quantity">
-            {getTranslation('productFunnel.quantity')}
-          </span>
-          <div>
-            <span class="pro-product-costs-value" data-funnel-price-quantity>0</span>
-            <span data-translate="productFunnel.piece">
-              {getTranslation('productFunnel.piece')}
-            </span>
-          </div>
-        </div>
-        
-        <div class="pro-product-costs-row flex justify-between items-center">
-          <span class="pro-product-costs-label" data-translate="productFunnel.unitPrice">
-            {getTranslation('productFunnel.unitPrice')}
-          </span>
-          <span class="pro-product-costs-value" data-funnel-price-unit>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-        
-        <div class="pro-product-costs-row flex justify-between items-center">
-          <span class="pro-product-costs-label" data-translate="productFunnel.subtotal">
-            {getTranslation('productFunnel.subtotal')}
-          </span>
-          <span class="pro-product-costs-value" data-funnel-price-subtotal>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-        { hasBundles === "true" && 
-        <div class="pro-product-costs-row flex justify-between items-center">
-          <span class="pro-product-costs-label" data-translate="productFunnel.shippingCost">
-            {getTranslation('productFunnel.shippingCost')}
-          </span>
-          <span class="pro-product-costs-value" data-funnel-price-shipping>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-        }
-        <div
-          class:list={[
-            "pro-product-costs-row flex justify-between items-center",
-            { "hidden": !showDiscountWhenZero }
-          ]}
-          data-funnel-discount-container
-        >
-          <span class="pro-product-costs-label" data-translate="productFunnel.discount">
-            {getTranslation('productFunnel.discount')}
-          </span>
-          <span class="pro-product-costs-discount" data-funnel-price-discount>
-            - 0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-      </div>
-      
-      <div class="pro-product-costs-total-section">
-        <div class="flex justify-between items-center">
-          <span class="pro-product-costs-total-label" data-translate="productFunnel.total">
-            {getTranslation('productFunnel.total')}
-          </span>
-          <span class="pro-product-costs-total-value" data-funnel-price-total>
-            0 {getTranslation('productFunnel.currency')}
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</pro-product-funnel>
-
-<script>
-  import "./proProductCosts";
-</script>
+<ProProductCostsReact {...reactProps} client:visible />

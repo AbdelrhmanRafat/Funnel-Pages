@@ -1,0 +1,16 @@
+/* === Max Quantity Display Styles === */
+
+.retro-selection-options-without-bundles-max-qty-display {
+  color: var(--retro-color-on-surface);
+}
+
+.retro-selection-options-without-bundles-max-qty-value {
+  color: var(--retro-color-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .retro-selection-options-without-bundles-max-qty-display {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,28 @@
+/* === Payment Summary Section Component (Colors & Shadows Only) === */
+
+.elegant-paymentsummary-h3-title {
+  color: var(--elegant-color-on-surface);
+  border-bottom-color: var(--elegant-color-success);
+}
+
+.elegant-paymentsummary-div-table {
+  background: var(--elegant-color-surface);
+  border: 2px solid var(--elegant-color-success);
+  box-shadow: 0 4px 12px -4px rgba(34, 197, 94, 0.2);
+}
+
+.elegant-paymentsummary-div-totalrow {
+  background: linear-gradient(135deg, 
+    var(--elegant-color-success) 0%, 
+    var(--elegant-color-success-dark) 100%
+  );
+  color: var(--elegant-color-on-success);
+}
+
+.elegant-paymentsummary-span-totallabel {
+  color: var(--elegant-color-on-success);
+}
+
+.elegant-paymentsummary-span-totalamount {
+  color: var(--elegant-color-on-success);
+}

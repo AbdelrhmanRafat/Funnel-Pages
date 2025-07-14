@@ -1,87 +1,70 @@
-/* === Classic Product Preview === */
+/* === Classic Product Preview (Refactored with Custom Variables) === */
 
-/* Video container with responsive height */
-.pop-product-preview-video-container {
+/* Video container */
+.pop-productpreview-div-video {
     border-color: var(--pop-color-primary);
-    border-radius: var(--pop-section-radius);
     box-shadow: var(--pop-section-shadow);
-    /* Responsive height */
-    height: 300px;
 }
 
-@media (min-width: 768px) {
-    .pop-product-preview-video-container {
-        height: 400px;
-    }
+/* Video placeholder */
+.pop-productpreview-div-placeholder {
+    background-color: var(--pop-color-surface-variant);
 }
 
-@media (min-width: 1024px) {
-    .pop-product-preview-video-container {
-        height: 100%;
-        min-height: 450px;
-    }
+.pop-productpreview-span-notvideo {
+    color: var(--pop-color-on-surface-variant);
 }
 
 /* Video title overlay */
-.pop-product-preview-video-title {
+.pop-productpreview-div-videotitle {
     color: var(--pop-color-surface);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
+.pop-productpreview-p-title {
+    color: var(--pop-color-surface);
+}
+
 /* Features container */
-.pop-product-preview-features-container {
+.pop-productpreview-div-features {
     background-color: var(--pop-color-surface-container-high);
-    border-radius: var(--pop-section-radius);
-    padding: 2rem;
     box-shadow: var(--pop-section-shadow);
 }
 
 /* Features header */
-.pop-product-preview-features-header {
+.pop-productpreview-div-header {
     border-color: var(--pop-color-outline-variant);
 }
 
-.pop-product-preview-features-title {
+.pop-productpreview-h2-title {
     color: var(--pop-color-on-surface);
 }
 
 /* Views badge */
-.pop-product-preview-views-badge {
+.pop-productpreview-div-viewsbadge {
     background-color: var(--pop-color-surface-variant);
-    color: var(--pop-color-on-surface-variant);
-    border-radius: 1rem;
 }
 
-/* Feature items */
-.pop-product-preview-feature-icon {
+.pop-productpreview-span-views {
+    color: var(--pop-color-on-surface-variant);
+}
+
+/* Feature icon */
+.pop-productpreview-div-featureicon {
     background-color: var(--pop-color-primary);
     color: var(--pop-color-on-primary);
-    width: 2.5rem;
-    height: 2.5rem;
 }
 
-.pop-product-preview-feature-title {
+/* Feature content */
+.pop-productpreview-div-featuretitle {
     color: var(--pop-color-on-surface);
 }
 
-.pop-product-preview-feature-subtitle {
+.pop-productpreview-div-featuresubtitle {
     color: var(--pop-color-on-surface-variant);
 }
 
-/* === Accessibility === */
-@media (prefers-reduced-motion: reduce) {
-    .pop-product-preview-video-container {
-        transition: none;
-    }
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-    .pop-product-preview-features-container {
-        border: 2px solid var(--pop-color-outline);
-    }
-    
-    .pop-product-preview-video-container {
-        border-width: 3px;
-    }
+/* Button container */
+.pop-productpreview-div-buttoncontainer {
+    border-color: var(--pop-color-outline-variant);
 }

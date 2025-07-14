@@ -16,32 +16,27 @@ const deliveryFeatures: Item[] = data.items ?? [];
 <section id={FunnelArabicTouchComponents.ArabicTouchDeliveryFeatures} class="arabictouch-section">
   <!-- Header -->
   <div class="arabictouch-section-header">
-    {data.icon && <LucideIcon name={data.icon as any} width="48" height="48" />}
-    <h5>{isArabic ? data.title_ar : data.title_en}</h5>
+    {data.icon && <LucideIcon name={data.icon as any} width="48" height="48"  />} 
+     <h5>{isArabic ? data.title_ar : data.title_en}</h5>
   </div>
-  
-  <!-- Delivery Features Grid - Variation 2: Card-Based Layout with Backgrounds -->
+  <!-- Delivery Features Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     {
       deliveryFeatures.map((feature) => (
-        <div class="arabictouch-delivery-card rounded-2xl p-6 flex flex-col justify-center items-center gap-4 transition-all duration-300 hover:shadow-lg">
+        <div class="flex flex-col justify-center items-center gap-2 p-4">
           <!-- Feature Icon -->
-          <div class="arabictouch-delivery-icon w-16 h-16 rounded-full flex items-center justify-center">
-            {feature.icon ? 
-              <LucideIcon name={feature.icon as any} width="32" height="32" class="arabictouch-delivery-icon-symbol" /> :
-              <LucideIcon name={data.icon as any} width="32" height="32" class="arabictouch-delivery-icon-symbol" />
-            }
+          <div>
+            {data.icon && <LucideIcon name={data.icon as any} width="43" height="43" class="text-2xl arabictouch-delivery-feature-icon" />} 
           </div>
-          
           <!-- Feature Content -->
-          <h3 class="arabictouch-delivery-title font-semibold text-lg leading-tight text-center">
+          <h3 class="arabictouch-delivery-feature-title font-semibold text-lg leading-tight">
             {feature.label}
           </h3>
-          <p class="arabictouch-delivery-subtitle text-sm leading-relaxed text-center">
+          <p class="arabictouch-delivery-feature-subtitle text-sm leading-relaxed">
             {feature.content}
           </p>
         </div>
       ))
     }
   </div>
-</section>
+</section> 

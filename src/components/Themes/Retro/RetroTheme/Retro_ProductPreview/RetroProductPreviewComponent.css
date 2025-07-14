@@ -1,87 +1,70 @@
-/* === Classic Product Preview === */
+/* === Classic Product Preview (Refactored with Custom Variables) === */
 
-/* Video container with responsive height */
-.retro-product-preview-video-container {
+/* Video container */
+.retro-productpreview-div-video {
     border-color: var(--retro-color-primary);
-    border-radius: var(--retro-section-radius);
     box-shadow: var(--retro-section-shadow);
-    /* Responsive height */
-    height: 300px;
 }
 
-@media (min-width: 768px) {
-    .retro-product-preview-video-container {
-        height: 400px;
-    }
+/* Video placeholder */
+.retro-productpreview-div-placeholder {
+    background-color: var(--retro-color-surface-variant);
 }
 
-@media (min-width: 1024px) {
-    .retro-product-preview-video-container {
-        height: 100%;
-        min-height: 450px;
-    }
+.retro-productpreview-span-notvideo {
+    color: var(--retro-color-on-surface-variant);
 }
 
 /* Video title overlay */
-.retro-product-preview-video-title {
+.retro-productpreview-div-videotitle {
     color: var(--retro-color-surface);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
+.retro-productpreview-p-title {
+    color: var(--retro-color-surface);
+}
+
 /* Features container */
-.retro-product-preview-features-container {
+.retro-productpreview-div-features {
     background-color: var(--retro-color-surface-container-high);
-    border-radius: var(--retro-section-radius);
-    padding: 2rem;
     box-shadow: var(--retro-section-shadow);
 }
 
 /* Features header */
-.retro-product-preview-features-header {
+.retro-productpreview-div-header {
     border-color: var(--retro-color-outline-variant);
 }
 
-.retro-product-preview-features-title {
+.retro-productpreview-h2-title {
     color: var(--retro-color-on-surface);
 }
 
 /* Views badge */
-.retro-product-preview-views-badge {
+.retro-productpreview-div-viewsbadge {
     background-color: var(--retro-color-surface-variant);
-    color: var(--retro-color-on-surface-variant);
-    border-radius: 1rem;
 }
 
-/* Feature items */
-.retro-product-preview-feature-icon {
+.retro-productpreview-span-views {
+    color: var(--retro-color-on-surface-variant);
+}
+
+/* Feature icon */
+.retro-productpreview-div-featureicon {
     background-color: var(--retro-color-primary);
     color: var(--retro-color-on-primary);
-    width: 2.5rem;
-    height: 2.5rem;
 }
 
-.retro-product-preview-feature-title {
+/* Feature content */
+.retro-productpreview-div-featuretitle {
     color: var(--retro-color-on-surface);
 }
 
-.retro-product-preview-feature-subtitle {
+.retro-productpreview-div-featuresubtitle {
     color: var(--retro-color-on-surface-variant);
 }
 
-/* === Accessibility === */
-@media (prefers-reduced-motion: reduce) {
-    .retro-product-preview-video-container {
-        transition: none;
-    }
-}
-
-/* High contrast mode */
-@media (prefers-contrast: high) {
-    .retro-product-preview-features-container {
-        border: 2px solid var(--retro-color-outline);
-    }
-    
-    .retro-product-preview-video-container {
-        border-width: 3px;
-    }
+/* Button container */
+.retro-productpreview-div-buttoncontainer {
+    border-color: var(--retro-color-outline-variant);
 }
