@@ -81,10 +81,7 @@
   /* Typography handled by Tailwind classes */
 }
 
-.neon-middle-title h2 {
-  color: var(--neon-color-on-surface);
-  /* Typography handled by Tailwind classes */
-}
+
 
 /* Separator styling */
 .neon-separator {

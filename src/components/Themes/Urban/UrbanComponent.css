@@ -75,3 +75,13 @@
     padding: 8px;
   }
 }
+@media (max-width: 640px) {
+  .urban-section-header {
+    font-size: calc(var(--urban-header-size) * 0.8);
+  }
+}
+@media (max-width: 640px) {
+  .urban-middle-title {
+    font-size: calc(var(--urban-header-center-size) * 0.8);
+  }
+}

@@ -1,7 +1,7 @@
 ---
 import "./NeonThemeFooter.css";
 import type { BlockData, Item } from "../../../../../lib/api/types";
-import { FunnelNeonComponents, FunnelNasaComponents } from "../../../../../lib/constants/themes";
+import { FunnelNeonComponents } from "../../../../../lib/constants/themes";
 import LucideIcon from "../../../../Shared/LucideIcon.astro";
 
 const data: BlockData = Astro.props.data;
@@ -10,27 +10,39 @@ const items: Item[] = data.items ?? [];
 const policies: Item[] = items.filter(item => !item.icon);
 const social_icons: Item[] = items.filter(item => !!item.icon);
 ---
+<footer id={FunnelNeonComponents.NeonFooter} class="neon-footer w-full py-8 md:py-12 border-t-2">
+  <div class="neon-footer-content flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4">
+    
+        <!-- Company Info Section -->
+    <div class="flex flex-col items-center md:items-end gap-4">
+      <div class="flex items-center gap-2">
+        <LucideIcon name={data.icon as any} width="24" height="24" />
+        <h5 class="neon-footer-title text-xl font-bold">{data.title_ar}</h5>
+      </div>
+      <div class="text-center md:text-right">
+        <p class="text-sm opacity-80">{data.title_en}</p>
+        <p class="text-xs opacity-60">{data.description}</p>
+      </div>
+    </div>
 
-<footer id={FunnelNeonComponents.NeonFooter} class="neon-footer text-center w-full p-14 md:p-24 border-t-2 mx-auto">
-<div class="neon-footer-content flex flex-col justify-center items-center gap-7">
-  <!-- Title -->
-  <h5 class="neon-footer-title text-3xl font-bold">{data.title}</h5>
-  
-  <!-- Links -->
-  <div class="neon-footer-links flex justify-center flex-wrap gap-6 text-sm font-medium mb-6">
-    {(policies || []).map((policy: Item) => (
-      <a href="#" class="neon-footer-link underline">{policy.label}</a>
-    ))}
+    <!-- Social Media Section -->
+    <div class="flex flex-col items-center md:items-start gap-4">
+      <div class="neon-footer-social flex gap-4">
+        {social_icons.filter(item => item.icon && !item.label).map((item, index) => (
+          <a href={item.link || "#"} class="neon-footer-social-link p-2 rounded-full transition-all duration-200 hover:scale-110" aria-label={`social-${index}`}>
+            <LucideIcon name={item.icon as any} width="24" height="24" />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Quick Links Section -->
+    <div class="flex flex-col items-center gap-4">
+      <div class="neon-footer-links flex flex-col items-center gap-2 text-sm">
+        {policies.filter(item => item.label).map((item) => (
+          <a href="#" class="neon-footer-link transition-colors duration-200 hover:underline">{item.label}</a>
+        ))}
+      </div>
+    </div>
   </div>
-
-  <!-- Social Icons -->
-  <div class="neon-footer-social flex justify-center gap-6 text-2xl">
-    {(social_icons || []).map((iconClass: Item, index: number) => (
-      <a href="#" class="neon-footer-social-link" aria-label={`social-${index}`}>
-      {iconClass.icon && <LucideIcon name={iconClass.icon as any} width="32" height="32" />}
-
-      </a>
-    ))}
-  </div>
-</div>
 </footer>

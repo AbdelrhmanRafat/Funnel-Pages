@@ -22,19 +22,24 @@
     font-size: var(--neon-header-size);
     font-weight: var(--neon-header-weight);
     color: var(--neon-color-on-surface);
+    text-shadow: 0 0 10px var(--neon-color-primary-light);
     border-bottom: 1px solid var(--neon-color-outline-variant);
     padding-bottom: 0.5rem;
   }
   
   .neon-middle-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    gap : 12px;
     font-size: var(--neon-header-center-size);
     font-weight: var(--neon-header-center-weight);
-    color: var(--neon-color-primary);
+    color: var(--neon-color-on-surface);
     margin-bottom: var(--neon-header-center-margin-bottom);
     text-shadow: 0 0 10px var(--neon-color-primary-light);
   }
-  
   .neon-divider {
     height: 4px;
     border-radius: 2px;
@@ -43,8 +48,7 @@
       var(--neon-color-tertiary),
       var(--neon-color-secondary)
     );
-    margin: 2rem auto;
-    width: 60%;
+    width: 30%;
   }  
 
 
@@ -88,5 +92,15 @@
 @media (max-width: 640px) {
   .neon-section {
     padding: 8px;
+  }
+}
+@media (max-width: 640px) {
+  .neon-section-header {
+    font-size: calc(var(--neon-header-size) * 0.8);
+  }
+}
+@media (max-width: 640px) {
+  .neon-middle-title {
+    font-size: calc(var(--neon-header-center-size) * 0.8);
   }
 }

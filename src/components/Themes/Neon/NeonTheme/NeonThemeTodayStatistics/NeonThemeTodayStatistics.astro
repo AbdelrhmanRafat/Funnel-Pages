@@ -27,11 +27,11 @@ const getProgressPercentage = (value: number): number => {
 <neon-statistics-counter>
   
 <section id={FunnelNeonComponents.NeonTodayStatistics} class="neon-section">
-  <div class="neon-statistics-header flex flex-col justify-center items-center gap-3 mb-8">
-    <h3 class="neon-statistics-title text-2xl md:text-3xl font-bold text-center">
+  <div class="neon-middle-title">
+    <h3>
       {isArabic ? data.title_ar : data.title_en}
     </h3>
-    <div class="neon-statistics-divider w-24 h-1 mx-auto rounded-full"></div>
+    <div class="neon-divider mx-auto rounded-full"></div>
   </div>
 
   <!-- Statistics List - Variation 3: Horizontal Progress Style -->

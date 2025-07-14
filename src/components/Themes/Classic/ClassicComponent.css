@@ -75,3 +75,13 @@
     padding: 8px;
   }
 }
+@media (max-width: 640px) {
+  .classic-section-header {
+    font-size: calc(var(--classic-header-size) * 0.8);
+  }
+}
+@media (max-width: 640px) {
+  .classic-middle-title {
+    font-size: calc(var(--classic-header-center-size) * 0.8);
+  }
+}
