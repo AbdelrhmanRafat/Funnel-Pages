@@ -1,0 +1,80 @@
+:root {
+
+  /* ===================================================================== */
+  /* === URBAN THEME (Modern Grays & Orange) === */
+  /* ===================================================================== */
+  
+  
+    /* === Color System === */
+  --urban-color-primary: #2d3748;
+  --urban-color-primary-light: #4a5568;
+  --urban-color-primary-dark: #1a202c;
+  --urban-color-on-primary: #ffffff;
+
+  --urban-color-secondary: #ed8936;
+  --urban-color-secondary-light: #f6ad55;
+  --urban-color-secondary-dark: #c05621;
+  --urban-color-on-secondary: #ffffff;
+
+  --urban-color-tertiary: #718096;
+  --urban-color-tertiary-light: #a0aec0;
+  --urban-color-tertiary-dark: #4a5568;
+  --urban-color-on-tertiary: #ffffff;
+
+  --urban-color-error: #e53e3e;
+  --urban-color-error-light: #fc8181;
+  --urban-color-error-dark: #c53030;
+  --urban-color-on-error: #ffffff;
+
+  --urban-color-success: #38a169;
+  --urban-color-success-light: #68d391;
+  --urban-color-success-dark: #2f855a;
+  --urban-color-on-success: #ffffff;
+
+  --urban-color-warning: #d69e2e;
+  --urban-color-warning-light: #f6e05e;
+  --urban-color-warning-dark: #b7791f;
+  --urban-color-on-warning: #000000;
+
+  --urban-color-info: #3182ce;
+  --urban-color-info-light: #63b3ed;
+  --urban-color-info-dark: #2c5282;
+  --urban-color-on-info: #ffffff;
+
+  /* === Surface Colors === */
+  --urban-color-surface: #f7fafc;
+  --urban-color-surface-variant: #edf2f7;
+  --urban-color-surface-container: #e2e8f0;
+  --urban-color-surface-container-high: #cbd5e0;
+  --urban-color-on-surface: #1a202c;
+  --urban-color-on-surface-variant: #4a5568;
+
+  /* === Background === */
+  --urban-color-background: #ffffff;
+  --urban-color-on-background: #1a202c;
+
+  /* === Outline Colors === */
+  --urban-color-outline: #cbd5e0;
+  --urban-color-outline-variant: #e2e8f0;
+  --urban-color-outline-focus: var(--urban-color-primary);
+
+  /* === Background Pattern === */
+  --urban-background-image: url('/assets/backgrounds/urban-concrete-pattern.svg');
+  
+  /* Section Variables */
+  --urban-section-radius: 0.5rem;
+  --urban-section-padding: 1.5rem;
+  --urban-section-shadow: 0 10px 25px rgba(45, 55, 72, 0.15);
+  
+  /* Header Section Variables */
+  --urban-header-size: 2rem;
+  --urban-header-gap: 1rem;
+  --urban-header-margin-bottom: 2rem;
+  --urban-header-weight: 600;
+
+  /* Header Section Center variables */
+  --urban-header-center-size: 2rem; 
+  --urban-header-center-weight: 700; 
+  --urban-header-center-margin-bottom: 2rem; 
+
+} 

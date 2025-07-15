@@ -39,7 +39,7 @@ const funnelPage: Data = Astro.props.funnelPage;
 const retroComponentNames: [FunnelRetroComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
-      const component = getRetroThemeComponent(block.name);
+      const component = getRetroThemeComponent(block.key);
       return component ? [component, block.data] : undefined;
     })
     .filter(

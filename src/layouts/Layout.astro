@@ -3,7 +3,6 @@ import type { Meta } from "../lib/api/types";
 
 const metadata: Meta = Astro.props.metadata;
 const strThemeName: string = Astro.props.strThemeName;
-const themeCss: string = Astro.props.themeCss;
 const facebookPixelID = Astro.props.facebookPixelID;
 const twitterPixelID = Astro.props.twitterPixelID;
 const snapchatPixelID = Astro.props.snapchatPixelID;
@@ -20,28 +19,6 @@ const tiktokPixelID = Astro.props.tiktokPixelID;
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<link rel="icon" type="image/svg+xml+png" href={metadata.image} />
 		<meta name="generator" content={Astro.generator} />
-
-		<!-- SOLUTION 2: Hide body initially -->
-		<style>
-			body {
-				opacity: 0;
-				transition: opacity 0.3s ease-in-out;
-			}
-			body.loaded {
-				opacity: 1;
-			}
-		</style>
-
-		<!-- Preload the dynamic CSS -->
-		<link
-			rel="preload"
-			href={`${themeCss}?v=${Date.now()}`}
-			as="style"
-			onload="
-this.onload=null;this.rel='stylesheet'"
-		/>
-
-
 		<!-- SEO Meta Tags -->
 		<title>{metadata.title}</title>
 		<meta name="description" content={metadata.description} />
@@ -56,6 +33,12 @@ this.onload=null;this.rel='stylesheet'"
 			sizes="180x180"
 			href="/apple-touch-icon.png"
 		/>
+        <!-- stylesheet -->
+		<link
+			rel="stylesheet"
+			href={`Theme-Styling/${strThemeName.toLowerCase()}.css`}
+		/>
+	
 		<!-- Open Graph / Facebook Meta Tags -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://www.yourdomain.com/page-url" />
@@ -78,7 +61,7 @@ this.onload=null;this.rel='stylesheet'"
 		<slot />
 	</body>
 </html>
-
+<!-- 
 <script is:inline define:vars={{ themeCss }}>
 	const link = document.createElement("link");
 	link.rel = "stylesheet";
@@ -90,7 +73,7 @@ this.onload=null;this.rel='stylesheet'"
 	};
 
 	document.head.appendChild(link);
-</script>
+</script> -->
 
 <script type="module" is:inline define:vars={{
   facebookPixelID,

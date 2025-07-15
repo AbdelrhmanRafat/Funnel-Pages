@@ -1,0 +1,78 @@
+:root {
+     /* ===================================================================== */
+  /* === ELEGANT THEME (Luxury Brown & Gold) === */
+  /* ===================================================================== */
+  
+  /* === Color System === */
+  --elegant-color-primary: #8b5a3c;
+  --elegant-color-primary-light: #a0714f;
+  --elegant-color-primary-dark: #6d4528;
+  --elegant-color-on-primary: #ffffff;
+
+  --elegant-color-secondary: #d4af37;
+  --elegant-color-secondary-light: #dcc15d;
+  --elegant-color-secondary-dark: #b8941f;
+  --elegant-color-on-secondary: #000000;
+
+  --elegant-color-tertiary: #2c1810;
+  --elegant-color-tertiary-light: #4a2c1a;
+  --elegant-color-tertiary-dark: #1a0f0a;
+  --elegant-color-on-tertiary: #ffffff;
+
+  --elegant-color-error: #c62828;
+  --elegant-color-error-light: #ef5350;
+  --elegant-color-error-dark: #b71c1c;
+  --elegant-color-on-error: #ffffff;
+
+  --elegant-color-success: #2e7d32;
+  --elegant-color-success-light: #66bb6a;
+  --elegant-color-success-dark: #1b5e20;
+  --elegant-color-on-success: #ffffff;
+
+  --elegant-color-warning: #ed6c02;
+  --elegant-color-warning-light: #ff9800;
+  --elegant-color-warning-dark: #e65100;
+  --elegant-color-on-warning: #ffffff;
+
+  --elegant-color-info: #0288d1;
+  --elegant-color-info-light: #03a9f4;
+  --elegant-color-info-dark: #01579b;
+  --elegant-color-on-info: #ffffff;
+
+  /* === Surface Colors === */
+  --elegant-color-surface: #faf7f4;
+  --elegant-color-surface-variant: #f5f0ea;
+  --elegant-color-surface-container: #ede5dc;
+  --elegant-color-surface-container-high: #e0d4c8;
+  --elegant-color-on-surface: #2c1810;
+  --elegant-color-on-surface-variant: #5d4e42;
+
+  /* === Background === */
+  --elegant-color-background: #ffffff;
+  --elegant-color-on-background: #2c1810;
+
+  /* === Outline Colors === */
+  --elegant-color-outline: #d4af37;
+  --elegant-color-outline-variant: #e0d4c8;
+  --elegant-color-outline-focus: var(--elegant-color-primary);
+
+  /* === Background Pattern === */
+  --elegant-background-image: url('/assets/backgrounds/elegant-damask-pattern.svg');
+  
+  /* Section Variables */
+  --elegant-section-radius: 0.75rem;
+  --elegant-section-padding: 2rem;
+  --elegant-section-shadow: 0 8px 32px rgba(44, 24, 16, 0.15);
+  
+  /* Header Section Variables */
+  --elegant-header-size: 2.25rem;
+  --elegant-header-gap: 1.25rem;
+  --elegant-header-margin-bottom: 2.5rem;
+  --elegant-header-weight: 400;
+
+  /* Header Section Center variables */
+  --elegant-header-center-size: 2.25rem; 
+  --elegant-header-center-weight: 500; 
+  --elegant-header-center-margin-bottom: 2.5rem; 
+
+} 

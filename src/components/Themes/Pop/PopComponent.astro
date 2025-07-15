@@ -39,7 +39,7 @@ const funnelPage: Data = Astro.props.funnelPage;
 const popComponentNames: [FunnelPopComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
-      const component = getPopThemeComponent(block.name);
+      const component = getPopThemeComponent(block.key);
       return component ? [component, block.data] : undefined;
     })
     .filter(

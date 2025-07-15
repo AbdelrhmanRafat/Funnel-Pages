@@ -1,0 +1,79 @@
+:root {
+
+  /* ===================================================================== */
+  /* === ARABIC TOUCH THEME (Gold & Earth Tones) === */
+  /* ===================================================================== */
+  
+  /* === Color System === */
+  --arabictouch-color-primary: #d4af37;
+  --arabictouch-color-primary-light: #dcc15d;
+  --arabictouch-color-primary-dark: #b8941f;
+  --arabictouch-color-on-primary: #000000;
+
+  --arabictouch-color-secondary: #8b4513;
+  --arabictouch-color-secondary-light: #a0522d;
+  --arabictouch-color-secondary-dark: #654321;
+  --arabictouch-color-on-secondary: #ffffff;
+
+  --arabictouch-color-tertiary: #2f4f4f;
+  --arabictouch-color-tertiary-light: #708090;
+  --arabictouch-color-tertiary-dark: #2e4538;
+  --arabictouch-color-on-tertiary: #ffffff;
+
+  --arabictouch-color-error: #dc143c;
+  --arabictouch-color-error-light: #ff6b6b;
+  --arabictouch-color-error-dark: #b22222;
+  --arabictouch-color-on-error: #ffffff;
+
+  --arabictouch-color-success: #228b22;
+  --arabictouch-color-success-light: #32cd32;
+  --arabictouch-color-success-dark: #006400;
+  --arabictouch-color-on-success: #ffffff;
+
+  --arabictouch-color-warning: #daa520;
+  --arabictouch-color-warning-light: #ffb347;
+  --arabictouch-color-warning-dark: #b8860b;
+  --arabictouch-color-on-warning: #000000;
+
+  --arabictouch-color-info: #4682b4;
+  --arabictouch-color-info-light: #87ceeb;
+  --arabictouch-color-info-dark: #483d8b;
+  --arabictouch-color-on-info: #ffffff;
+
+  /* === Surface Colors === */
+  --arabictouch-color-surface: #faf8f5;
+  --arabictouch-color-surface-variant: #f5f1e8;
+  --arabictouch-color-surface-container: #ede5d3;
+  --arabictouch-color-surface-container-high: #e0d4b8;
+  --arabictouch-color-on-surface: #2f2f2f;
+  --arabictouch-color-on-surface-variant: #5d4e2f;
+
+  /* === Background === */
+  --arabictouch-color-background: #ffffff;
+  --arabictouch-color-on-background: #2f2f2f;
+
+  /* === Outline Colors === */
+  --arabictouch-color-outline: #d4af37;
+  --arabictouch-color-outline-variant: #e0d4b8;
+  --arabictouch-color-outline-focus: var(--arabictouch-color-primary);
+
+  /* === Background Pattern === */
+  --arabictouch-background-image: url('/assets/backgrounds/arabic-geometric-pattern.svg');
+  
+  /* Section Variables */
+  --arabictouch-section-radius: 0.75rem;
+  --arabictouch-section-padding: 2rem;
+  --arabictouch-section-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+  
+  /* Header Section Variables */
+  --arabictouch-header-size: 2rem;
+  --arabictouch-header-gap: 1.25rem;
+  --arabictouch-header-margin-bottom: 2.25rem;
+  --arabictouch-header-weight: 500;
+
+  /* Header Section Center variables */
+  --arabictouch-header-center-size: 2rem; 
+  --arabictouch-header-center-weight: 600; 
+  --arabictouch-header-center-margin-bottom: 2.25rem; 
+
+} 

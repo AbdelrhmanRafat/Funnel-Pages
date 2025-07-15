@@ -39,7 +39,7 @@ const funnelPage: Data = Astro.props.funnelPage;
 const UrbanComponentNames: [FunnelUrbanComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
-      const component = getUrbanThemeComponent(block.name);
+      const component = getUrbanThemeComponent(block.key);
       return component ? [component, block.data] : undefined;
     })
     .filter(

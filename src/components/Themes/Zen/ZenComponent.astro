@@ -39,7 +39,7 @@ const funnelPage: Data = Astro.props.funnelPage;
 const ZenComponentNames: [FunnelZenComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
-      const component = getZenThemeComponent(block.name);
+      const component = getZenThemeComponent(block.key);
       return component ? [component, block.data] : undefined;
     })
     .filter(

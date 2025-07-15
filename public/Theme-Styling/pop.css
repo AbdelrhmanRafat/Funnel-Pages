@@ -1,0 +1,78 @@
+:root {
+   /* ===================================================================== */
+  /* === POP THEME (Vibrant Pink & Cyan) === */
+  /* ===================================================================== */
+  
+  /* === Color System === */
+  --pop-color-primary: #e91e63;
+  --pop-color-primary-light: #f06292;
+  --pop-color-primary-dark: #c2185b;
+  --pop-color-on-primary: #ffffff;
+
+  --pop-color-secondary: #00bcd4;
+  --pop-color-secondary-light: #4dd0e1;
+  --pop-color-secondary-dark: #0097a7;
+  --pop-color-on-secondary: #ffffff;
+
+  --pop-color-tertiary: #9c27b0;
+  --pop-color-tertiary-light: #ba68c8;
+  --pop-color-tertiary-dark: #7b1fa2;
+  --pop-color-on-tertiary: #ffffff;
+
+  --pop-color-error: #f44336;
+  --pop-color-error-light: #ef5350;
+  --pop-color-error-dark: #d32f2f;
+  --pop-color-on-error: #ffffff;
+
+  --pop-color-success: #4caf50;
+  --pop-color-success-light: #81c784;
+  --pop-color-success-dark: #388e3c;
+  --pop-color-on-success: #ffffff;
+
+  --pop-color-warning: #ff9800;
+  --pop-color-warning-light: #ffb74d;
+  --pop-color-warning-dark: #f57c00;
+  --pop-color-on-warning: #000000;
+
+  --pop-color-info: #2196f3;
+  --pop-color-info-light: #64b5f6;
+  --pop-color-info-dark: #1976d2;
+  --pop-color-on-info: #ffffff;
+
+  /* === Surface Colors === */
+  --pop-color-surface: #fef7ff;
+  --pop-color-surface-variant: #fce4ec;
+  --pop-color-surface-container: #f8bbd9;
+  --pop-color-surface-container-high: #f48fb1;
+  --pop-color-on-surface: #1a0e13;
+  --pop-color-on-surface-variant: #4a2c2a;
+
+  /* === Background === */
+  --pop-color-background: #ffffff;
+  --pop-color-on-background: #1a0e13;
+
+  /* === Outline Colors === */
+  --pop-color-outline: #e91e63;
+  --pop-color-outline-variant: #f48fb1;
+  --pop-color-outline-focus: var(--pop-color-primary);
+
+  /* === Background Pattern === */
+  --pop-background-image: url('/assets/backgrounds/pop-bubbles-pattern.svg');
+  
+  /* Section Variables */
+  --pop-section-radius: 1.5rem;
+  --pop-section-padding: 1.75rem;
+  --pop-section-shadow: 0 12px 24px rgba(233, 30, 99, 0.2);
+  
+  /* Header Section Variables */
+  --pop-header-size: 2.25rem;
+  --pop-header-gap: 1.25rem;
+  --pop-header-margin-bottom: 2rem;
+  --pop-header-weight: 600;
+
+  /* Header Section Center variables */
+  --pop-header-center-size: 2.25rem; 
+  --pop-header-center-weight: 700; 
+  --pop-header-center-margin-bottom: 2rem; 
+  
+} 

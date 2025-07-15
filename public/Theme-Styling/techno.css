@@ -1,0 +1,76 @@
+:root {/* ===================================================================== */
+    /* === TECHNO THEME (Cyberpunk) === */
+    /* ===================================================================== */
+    
+    /* === Color System === */
+    --techno-color-primary: #00d4ff;
+    --techno-color-primary-light: #33ddff;
+    --techno-color-primary-dark: #0099cc;
+    --techno-color-on-primary: #000000;
+  
+    --techno-color-secondary: #ff0080;
+    --techno-color-secondary-light: #ff3399;
+    --techno-color-secondary-dark: #cc0066;
+    --techno-color-on-secondary: #ffffff;
+  
+    --techno-color-tertiary: #8b5cf6;
+    --techno-color-tertiary-light: #a78bfa;
+    --techno-color-tertiary-dark: #7c3aed;
+    --techno-color-on-tertiary: #ffffff;
+  
+    --techno-color-error: #ff1744;
+    --techno-color-error-light: #ff5983;
+    --techno-color-error-dark: #d50000;
+    --techno-color-on-error: #ffffff;
+  
+    --techno-color-success: #00e676;
+    --techno-color-success-light: #66ffa6;
+    --techno-color-success-dark: #00c853;
+    --techno-color-on-success: #000000;
+  
+    --techno-color-warning: #ffab00;
+    --techno-color-warning-light: #ffcc02;
+    --techno-color-warning-dark: #ff8f00;
+    --techno-color-on-warning: #000000;
+  
+    --techno-color-info: #00e5ff;
+    --techno-color-info-light: #62efff;
+    --techno-color-info-dark: #00b2cc;
+    --techno-color-on-info: #000000;
+  
+    /* === Surface Colors === */
+    --techno-color-surface: #0a0a0a;
+    --techno-color-surface-variant: #1a1a1a;
+    --techno-color-surface-container: #2a2a2a;
+    --techno-color-surface-container-high: #3a3a3a;
+    --techno-color-on-surface: #ffffff;
+    --techno-color-on-surface-variant: #cccccc;
+  
+    /* === Background === */
+    --techno-color-background: #000000;
+    --techno-color-on-background: #ffffff;
+  
+    /* === Outline Colors === */
+    --techno-color-outline: #00d4ff;
+    --techno-color-outline-variant: #333333;
+    --techno-color-outline-focus: var(--techno-color-primary);
+  
+    /* === Background Pattern === */
+    --techno-background-image: url('/assets/backgrounds/circuit-pattern.svg');
+    
+    /* Section Variables */
+    --techno-section-radius: 0.5rem;
+    --techno-section-padding: 1.5rem;
+    --techno-section-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+    
+    /* Header Section Variables */
+    --techno-header-size: 2rem;
+    --techno-header-gap: 1rem;
+    --techno-header-margin-bottom: 2rem;
+    --techno-header-weight: 700;
+  
+    /* Header Section Center variables */
+    --techno-header-center-size: 2rem; 
+    --techno-header-center-weight: 800; 
+    --techno-header-center-margin-bottom: 2rem; 
+  } 

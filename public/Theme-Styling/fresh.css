@@ -1,0 +1,78 @@
+:root {
+
+  /* ===================================================================== */
+  /* === FRESH THEME (Bright Green & Blue) === */
+  /* ===================================================================== */
+  
+  /* === Color System === */
+  --fresh-color-primary: #00c851;
+  --fresh-color-primary-light: #00ff41;
+  --fresh-color-primary-dark: #007e33;
+  --fresh-color-on-primary: #ffffff;
+
+  --fresh-color-secondary: #33b5e5;
+  --fresh-color-secondary-light: #40c4ff;
+  --fresh-color-secondary-dark: #0091ea;
+  --fresh-color-on-secondary: #ffffff;
+
+  --fresh-color-tertiary: #ff4444;
+  --fresh-color-tertiary-light: #ff6659;
+  --fresh-color-tertiary-dark: #cc0000;
+  --fresh-color-on-tertiary: #ffffff;
+
+  --fresh-color-error: #ff1744;
+  --fresh-color-error-light: #ff5983;
+  --fresh-color-error-dark: #d50000;
+  --fresh-color-on-error: #ffffff;
+
+  --fresh-color-success: #00c851;
+  --fresh-color-success-light: #00ff41;
+  --fresh-color-success-dark: #007e33;
+  --fresh-color-on-success: #ffffff;
+
+  --fresh-color-warning: #ffbb33;
+  --fresh-color-warning-light: #ffcc02;
+  --fresh-color-warning-dark: #ff8800;
+  --fresh-color-on-warning: #000000;
+
+  --fresh-color-info: #33b5e5;
+  --fresh-color-info-light: #40c4ff;
+  --fresh-color-info-dark: #0091ea;
+  --fresh-color-on-info: #ffffff;
+
+  /* === Surface Colors === */
+  --fresh-color-surface: #f1f8e9;
+  --fresh-color-surface-variant: #e8f5e8;
+  --fresh-color-surface-container: #dcedc8;
+  --fresh-color-surface-container-high: #c8e6c8;
+  --fresh-color-on-surface: #1b5e20;
+  --fresh-color-on-surface-variant: #2e7d32;
+
+  /* === Background === */
+  --fresh-color-background: #ffffff;
+  --fresh-color-on-background: #1b5e20;
+
+  /* === Outline Colors === */
+  --fresh-color-outline: #00c851;
+  --fresh-color-outline-variant: #c8e6c8;
+  --fresh-color-outline-focus: var(--fresh-color-primary);
+
+  /* === Background Pattern === */
+  --fresh-background-image: url('/assets/backgrounds/fresh-leaves-pattern.svg');
+  
+  /* Section Variables */
+  --fresh-section-radius: 1.25rem;
+  --fresh-section-padding: 1.75rem;
+  --fresh-section-shadow: 0 8px 25px rgba(0, 200, 81, 0.2);
+  
+  /* Header Section Variables */
+  --fresh-header-size: 2rem;
+  --fresh-header-gap: 1.25rem;
+  --fresh-header-margin-bottom: 2rem;
+  --fresh-header-weight: 600;
+
+  /* Header Section Center variables */
+  --fresh-header-center-size: 2rem; 
+  --fresh-header-center-weight: 700; 
+  --fresh-header-center-margin-bottom: 2rem;
+} 

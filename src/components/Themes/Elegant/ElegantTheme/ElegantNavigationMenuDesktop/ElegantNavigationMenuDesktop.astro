@@ -12,11 +12,11 @@ const funnelPage: Data = Astro.props.funnelPage;
 const availableAnchors = funnelPage?.blocks
   ?.map((block) => {
     // Check if block exists and has required properties
-    if (!block || !block.name || !block.data) {
+    if (!block || !block.key || !block.data) {
       return null;
     }
 
-    const component = getElegantThemeComponent(block.name);
+    const component = getElegantThemeComponent(block.key);
     
     // Check if component exists and has title from API
     if (component) {

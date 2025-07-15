@@ -1,0 +1,78 @@
+:root {
+      /* ===================================================================== */
+  /* === RETRO THEME (Vintage Orange & Brown) === */
+  /* ===================================================================== */
+  
+  /* === Color System === */
+  --retro-color-primary: #ff6b35;
+  --retro-color-primary-light: #ff8a65;
+  --retro-color-primary-dark: #e55100;
+  --retro-color-on-primary: #ffffff;
+
+  --retro-color-secondary: #f7931e;
+  --retro-color-secondary-light: #ffab40;
+  --retro-color-secondary-dark: #ef6c00;
+  --retro-color-on-secondary: #000000;
+
+  --retro-color-tertiary: #795548;
+  --retro-color-tertiary-light: #a1887f;
+  --retro-color-tertiary-dark: #5d4037;
+  --retro-color-on-tertiary: #ffffff;
+
+  --retro-color-error: #d32f2f;
+  --retro-color-error-light: #f44336;
+  --retro-color-error-dark: #c62828;
+  --retro-color-on-error: #ffffff;
+
+  --retro-color-success: #689f38;
+  --retro-color-success-light: #8bc34a;
+  --retro-color-success-dark: #558b2f;
+  --retro-color-on-success: #ffffff;
+
+  --retro-color-warning: #ffa000;
+  --retro-color-warning-light: #ffc107;
+  --retro-color-warning-dark: #ff8f00;
+  --retro-color-on-warning: #000000;
+
+  --retro-color-info: #1976d2;
+  --retro-color-info-light: #2196f3;
+  --retro-color-info-dark: #1565c0;
+  --retro-color-on-info: #ffffff;
+
+  /* === Surface Colors === */
+  --retro-color-surface: #fff3e0;
+  --retro-color-surface-variant: #ffe0b2;
+  --retro-color-surface-container: #ffcc80;
+  --retro-color-surface-container-high: #ffb74d;
+  --retro-color-on-surface: #3e2723;
+  --retro-color-on-surface-variant: #5d4037;
+
+  /* === Background === */
+  --retro-color-background: #fefefe;
+  --retro-color-on-background: #3e2723;
+
+  /* === Outline Colors === */
+  --retro-color-outline: #ff6b35;
+  --retro-color-outline-variant: #ffb74d;
+  --retro-color-outline-focus: var(--retro-color-primary);
+
+  /* === Background Pattern === */
+  --retro-background-image: url('/assets/backgrounds/retro-sunburst-pattern.svg');
+  
+  /* Section Variables */
+  --retro-section-radius: 1rem;
+  --retro-section-padding: 1.75rem;
+  --retro-section-shadow: 0 8px 24px rgba(255, 107, 53, 0.25);
+  
+  /* Header Section Variables */
+  --retro-header-size: 2.25rem;
+  --retro-header-gap: 1.25rem;
+  --retro-header-margin-bottom: 2.25rem;
+  --retro-header-weight: 700;
+
+  /* Header Section Center variables */
+  --retro-header-center-size: 2.25rem; 
+  --retro-header-center-weight: 800; 
+  --retro-header-center-margin-bottom: 2.25rem; 
+
+} 

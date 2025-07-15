@@ -1,0 +1,78 @@
+:root {
+    /* ===================================================================== */
+  /* === ZEN THEME (Natural Greens) === */
+  /* ===================================================================== */
+  
+  /* === Color System === */
+  --zen-color-primary: #8fbc8f;
+  --zen-color-primary-light: #a8d4a8;
+  --zen-color-primary-dark: #729472;
+  --zen-color-on-primary: #ffffff;
+
+  --zen-color-secondary: #daa520;
+  --zen-color-secondary-light: #e6c547;
+  --zen-color-secondary-dark: #b8860b;
+  --zen-color-on-secondary: #000000;
+
+  --zen-color-tertiary: #708090;
+  --zen-color-tertiary-light: #9aabb3;
+  --zen-color-tertiary-dark: #4f5f6f;
+  --zen-color-on-tertiary: #ffffff;
+
+  --zen-color-error: #cd5c5c;
+  --zen-color-error-light: #f08080;
+  --zen-color-error-dark: #a0404a;
+  --zen-color-on-error: #ffffff;
+
+  --zen-color-success: #90ee90;
+  --zen-color-success-light: #b3f0b3;
+  --zen-color-success-dark: #70cc70;
+  --zen-color-on-success: #000000;
+
+  --zen-color-warning: #f0e68c;
+  --zen-color-warning-light: #f5f0a3;
+  --zen-color-warning-dark: #d4c970;
+  --zen-color-on-warning: #000000;
+
+  --zen-color-info: #87ceeb;
+  --zen-color-info-light: #a8daef;
+  --zen-color-info-dark: #6cb5d6;
+  --zen-color-on-info: #000000;
+
+  /* === Surface Colors === */
+  --zen-color-surface: #f8f8ff;
+  --zen-color-surface-variant: #f0f8f0;
+  --zen-color-surface-container: #e8f0e8;
+  --zen-color-surface-container-high: #d8e8d8;
+  --zen-color-on-surface: #2f4f4f;
+  --zen-color-on-surface-variant: #556b55;
+
+  /* === Background === */
+  --zen-color-background: #ffffff;
+  --zen-color-on-background: #2f4f4f;
+
+  /* === Outline Colors === */
+  --zen-color-outline: #8fbc8f;
+  --zen-color-outline-variant: #d8e8d8;
+  --zen-color-outline-focus: var(--zen-color-primary);
+
+  /* === Background Pattern === */
+  --zen-background-image: url('/assets/backgrounds/zen-bamboo-pattern.svg');
+  
+  /* Section Variables */
+  --zen-section-radius: 1rem;
+  --zen-section-padding: 2rem;
+  --zen-section-shadow: 0 4px 20px rgba(143, 188, 143, 0.2);
+  
+  /* Header Section Variables */
+  --zen-header-size: 1.875rem;
+  --zen-header-gap: 1.5rem;
+  --zen-header-margin-bottom: 2.5rem;
+  --zen-header-weight: 300;
+
+  /* Header Section Center variables */
+  --zen-header-center-size: 1.875rem; 
+  --zen-header-center-weight: 400; 
+  --zen-header-center-margin-bottom: 2.5rem; 
+
+} 

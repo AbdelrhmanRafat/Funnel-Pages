@@ -39,7 +39,7 @@ const funnelPage: Data = Astro.props.funnelPage;
 const neonComponentNames: [FunnelNeonComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
-      const component = getNeonThemeComponent(block.name);
+      const component = getNeonThemeComponent(block.key);
       return component ? [component, block.data] : undefined;
     })
     .filter(

@@ -1,0 +1,78 @@
+:root {
+    /* ===================================================================== */
+  /* === MINIMAL THEME (Clean Monochrome) === */
+  /* ===================================================================== */
+  
+  /* === Color System === */
+  --minimal-color-primary: #000000;
+  --minimal-color-primary-light: #333333;
+  --minimal-color-primary-dark: #000000;
+  --minimal-color-on-primary: #ffffff;
+
+  --minimal-color-secondary: #666666;
+  --minimal-color-secondary-light: #888888;
+  --minimal-color-secondary-dark: #444444;
+  --minimal-color-on-secondary: #ffffff;
+
+  --minimal-color-tertiary: #999999;
+  --minimal-color-tertiary-light: #bbbbbb;
+  --minimal-color-tertiary-dark: #777777;
+  --minimal-color-on-tertiary: #ffffff;
+
+  --minimal-color-error: #d32f2f;
+  --minimal-color-error-light: #e57373;
+  --minimal-color-error-dark: #c62828;
+  --minimal-color-on-error: #ffffff;
+
+  --minimal-color-success: #388e3c;
+  --minimal-color-success-light: #81c784;
+  --minimal-color-success-dark: #2e7d32;
+  --minimal-color-on-success: #ffffff;
+
+  --minimal-color-warning: #f57c00;
+  --minimal-color-warning-light: #ffb74d;
+  --minimal-color-warning-dark: #ef6c00;
+  --minimal-color-on-warning: #ffffff;
+
+  --minimal-color-info: #1976d2;
+  --minimal-color-info-light: #64b5f6;
+  --minimal-color-info-dark: #1565c0;
+  --minimal-color-on-info: #ffffff;
+
+  /* === Surface Colors === */
+  --minimal-color-surface: #fafafa;
+  --minimal-color-surface-variant: #f5f5f5;
+  --minimal-color-surface-container: #eeeeee;
+  --minimal-color-surface-container-high: #e0e0e0;
+  --minimal-color-on-surface: #212121;
+  --minimal-color-on-surface-variant: #757575;
+
+  /* === Background === */
+  --minimal-color-background: #ffffff;
+  --minimal-color-on-background: #212121;
+
+  /* === Outline Colors === */
+  --minimal-color-outline: #e0e0e0;
+  --minimal-color-outline-variant: #f5f5f5;
+  --minimal-color-outline-focus: var(--minimal-color-primary);
+
+  /* === Background Pattern === */
+  --minimal-background-image: none;
+  
+  /* Section Variables */
+  --minimal-section-radius: 0.25rem;
+  --minimal-section-padding: 2rem;
+  --minimal-section-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+  /* Header Section Variables */
+  --minimal-header-size: 1.75rem;
+  --minimal-header-gap: 1rem;
+  --minimal-header-margin-bottom: 2rem;
+  --minimal-header-weight: 300;
+
+  /* Header Section Center variables */
+  --minimal-header-center-size: 1.75rem; 
+  --minimal-header-center-weight: 400; 
+  --minimal-header-center-margin-bottom: 2rem; 
+
+} 

@@ -1,0 +1,78 @@
+:root {
+    /* ===================================================================== */
+  /* === NEON THEME (Electric Colors) === */
+  /* ===================================================================== */
+  
+  /* === Color System === */
+  --neon-color-primary: #39ff14;
+  --neon-color-primary-light: #66ff44;
+  --neon-color-primary-dark: #2bcc10;
+  --neon-color-on-primary: #000000;
+
+  --neon-color-secondary: #ff073a;
+  --neon-color-secondary-light: #ff3d5c;
+  --neon-color-secondary-dark: #cc052e;
+  --neon-color-on-secondary: #ffffff;
+
+  --neon-color-tertiary: #ff00ff;
+  --neon-color-tertiary-light: #ff33ff;
+  --neon-color-tertiary-dark: #cc00cc;
+  --neon-color-on-tertiary: #ffffff;
+
+  --neon-color-error: #ff073a;
+  --neon-color-error-light: #ff3d5c;
+  --neon-color-error-dark: #cc052e;
+  --neon-color-on-error: #ffffff;
+
+  --neon-color-success: #39ff14;
+  --neon-color-success-light: #66ff44;
+  --neon-color-success-dark: #2bcc10;
+  --neon-color-on-success: #000000;
+
+  --neon-color-warning: #ffff00;
+  --neon-color-warning-light: #ffff66;
+  --neon-color-warning-dark: #cccc00;
+  --neon-color-on-warning: #000000;
+
+  --neon-color-info: #00ffff;
+  --neon-color-info-light: #66ffff;
+  --neon-color-info-dark: #00cccc;
+  --neon-color-on-info: #000000;
+
+  /* === Surface Colors === */
+  --neon-color-surface: #0a0a0a;
+  --neon-color-surface-variant: #1a1a1a;
+  --neon-color-surface-container: #2a2a2a;
+  --neon-color-surface-container-high: #3a3a3a;
+  --neon-color-on-surface: #ffffff;
+  --neon-color-on-surface-variant: #cccccc;
+
+  /* === Background === */
+  --neon-color-background: #000000;
+  --neon-color-on-background: #ffffff;
+
+  /* === Outline Colors === */
+  --neon-color-outline: #39ff14;
+  --neon-color-outline-variant: #333333;
+  --neon-color-outline-focus: var(--neon-color-primary);
+
+  /* === Background Pattern === */
+  --neon-background-image: url('/assets/backgrounds/neon-grid-pattern.svg');
+  
+  /* Section Variables */
+  --neon-section-radius: 0.5rem;
+  --neon-section-padding: 1.5rem;
+  --neon-section-shadow: 0 0 40px rgba(57, 255, 20, 0.4);
+  
+  /* Header Section Variables */
+  --neon-header-size: 2rem;
+  --neon-header-gap: 1rem;
+  --neon-header-margin-bottom: 2rem;
+  --neon-header-weight: 700;
+
+  /* Header Section Center variables */
+  --neon-header-center-size: 2rem; 
+  --neon-header-center-weight: 800; 
+  --neon-header-center-margin-bottom: 2rem; 
+
+} 

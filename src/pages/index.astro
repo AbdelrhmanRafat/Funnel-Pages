@@ -20,33 +20,46 @@ import ArabicTouchComponent from "../components/Themes/ArabicTouch/ArabicTouchCo
 import MinimalComponent from "../components/Themes/Minimal/MinimalComponent.astro";
 import ElegantComponent from "../components/Themes/Elegant/ElegantComponent.astro";
 
-// === 1. Read query params ===
+// === 1. Get the ID from path and validate it's a number ===
 const urlParams = Astro.url.searchParams;
-const themeName = urlParams.get("themeName") ?? "classic";
-let page = urlParams.get("page") ?? "WithVariantsWithBundles";
-const blocksParam = urlParams.get("blocks");
+let themeID = urlParams.get("themeID");
 
-//  Normalize page to include themeName prefix if not present ===
-if (!page.startsWith(themeName + "_")) {
-  page = `${themeName}_${page}`;
+// Default to "1" if no themeID is provided (initial page load)
+if (!themeID) {
+  themeID = "1";
 }
 
-//  Parse blocks parameter and normalize with theme prefix ===
-const blocks = blocksParam 
-  ? blocksParam.split(',').map(block => {
-      const trimmedBlock = block.trim();
-      // Add theme prefix if not already present
-      return trimmedBlock.startsWith(themeName + "_") 
-        ? trimmedBlock 
-        : `${themeName}_${trimmedBlock}`;
-    })
-  : undefined;
+// Check if themeID contains only numbers
+const isValidNumber = /^\d+$/.test(themeID);
 
-// === 2. Fetch data from API ===
-const funnelPage: FunnelRes = await getFunnelPage(themeName, page, blocks);
+if (!isValidNumber) {
+  return Astro.redirect("/Page404");
+}
+
+const id = parseInt(themeID);
+
+// Additional validation to ensure it's a positive integer
+if (isNaN(id) || id <= 0) {
+  return Astro.redirect("/Page404");
+}
+
+let funnelPage: FunnelRes | null = null;
+let hasError = false;
+
+try {
+  funnelPage = await getFunnelPage(id);
+} catch (err) {
+  console.error("Error fetching funnel page:", err);
+  hasError = true;
+}
+
+// === 2. Handle if data is not found or invalid ===
+if (hasError || !funnelPage || !funnelPage.data || !funnelPage.data.funnel_theme) {
+  return Astro.redirect("/Page404");
+}
 
 // === 3. Prepare required values ===
-const strTheme: string = funnelPage.data.theme;
+const strTheme: string = funnelPage.data.funnel_theme.key;
 const enumTheme: Theme | undefined = getThemeFromString(strTheme);
 const meta = funnelPage.data.product.meta;
 const facebookPixelID = funnelPage.data.facebookPixelId;
@@ -54,8 +67,12 @@ const twitterPixelID = funnelPage.data.twitterPixelId;
 const snapchatPixelID = funnelPage.data.snapchatPixelId;
 const tiktokPixelID = funnelPage.data.tiktokPixelId;
 
----
+// === 4. Handle unsupported themes ===
+if (!enumTheme) {
+  return Astro.redirect("/Page404");
+}
 
+---
 <Layout
   metadata={meta}
   strThemeName={strTheme}

@@ -1,0 +1,77 @@
+:root {
+    /* ===================================================================== */
+  /* === BOLD THEME (High Contrast) === */
+  /* ===================================================================== */
+  
+  /* === Color System === */
+  --bold-color-primary: #ff3333;
+  --bold-color-primary-light: #ff6666;
+  --bold-color-primary-dark: #cc0000;
+  --bold-color-on-primary: #ffffff;
+
+  --bold-color-secondary: #ffcc00;
+  --bold-color-secondary-light: #ffdd33;
+  --bold-color-secondary-dark: #cc9900;
+  --bold-color-on-secondary: #000000;
+
+  --bold-color-tertiary: #333333;
+  --bold-color-tertiary-light: #666666;
+  --bold-color-tertiary-dark: #111111;
+  --bold-color-on-tertiary: #ffffff;
+
+  --bold-color-error: #ff1744;
+  --bold-color-error-light: #ff5983;
+  --bold-color-error-dark: #d50000;
+  --bold-color-on-error: #ffffff;
+
+  --bold-color-success: #00e676;
+  --bold-color-success-light: #66ffa6;
+  --bold-color-success-dark: #00c853;
+  --bold-color-on-success: #000000;
+
+  --bold-color-warning: #ff9100;
+  --bold-color-warning-light: #ffb74d;
+  --bold-color-warning-dark: #ff6f00;
+  --bold-color-on-warning: #000000;
+
+  --bold-color-info: #2979ff;
+  --bold-color-info-light: #82b1ff;
+  --bold-color-info-dark: #2962ff;
+  --bold-color-on-info: #ffffff;
+
+  /* === Surface Colors === */
+  --bold-color-surface: #f8f8f8;
+  --bold-color-surface-variant: #f0f0f0;
+  --bold-color-surface-container: #e8e8e8;
+  --bold-color-surface-container-high: #d8d8d8;
+  --bold-color-on-surface: #000000;
+  --bold-color-on-surface-variant: #333333;
+
+  /* === Background === */
+  --bold-color-background: #ffffff;
+  --bold-color-on-background: #000000;
+
+  /* === Outline Colors === */
+  --bold-color-outline: #333333;
+  --bold-color-outline-variant: #666666;
+  --bold-color-outline-focus: var(--bold-color-primary);
+
+  /* === Background Pattern === */
+  --bold-background-image: url('/assets/backgrounds/bold-geometric-pattern.svg');
+  
+  /* Section Variables */
+  --bold-section-radius: 0.5rem;
+  --bold-section-padding: 1.5rem;
+  --bold-section-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  
+  /* Header Section Variables */
+  --bold-header-size: 2.5rem;
+  --bold-header-gap: 1rem;
+  --bold-header-margin-bottom: 2rem;
+  --bold-header-weight: 900;
+
+  /* Header Section Center variables */
+  --bold-header-center-size: 2.5rem; 
+  --bold-header-center-weight: 900; 
+  --bold-header-center-margin-bottom: 2rem;
+} 

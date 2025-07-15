@@ -15,10 +15,13 @@ const gallerySet = new Set<string>();
 gallerySet.add(mainImage);
 
 // Add images from skus
+if(skus !== undefined)
+{
 for (const subImage of skus) {
   if (subImage.image && !subImage.image.includes('null')) {
     gallerySet.add(subImage.image);
   }
+}
 }
 
 // Add images from attachments

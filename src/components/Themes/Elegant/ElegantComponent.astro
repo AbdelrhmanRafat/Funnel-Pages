@@ -39,7 +39,7 @@ const funnelPage: Data = Astro.props.funnelPage;
 const elegantComponentNames: [FunnelElegantComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
-      const component = getElegantThemeComponent(block.name);
+      const component = getElegantThemeComponent(block.key);
       return component ? [component, block.data] : undefined;
     })
     .filter(

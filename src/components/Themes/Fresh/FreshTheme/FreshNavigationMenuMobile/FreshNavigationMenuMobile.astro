@@ -14,11 +14,11 @@ const title: string = Astro.props.title;
 const availableAnchors = funnelPage?.blocks
   ?.map((block) => {
     // Check if block exists and has required properties
-    if (!block || !block.name || !block.data) {
+    if (!block || !block.key || !block.data) {
       return null;
     }
 
-    const component = getFreshThemeComponent(block.name);
+    const component = getFreshThemeComponent(block.key);
     
     // Check if component exists and has title from API
     if (component) {

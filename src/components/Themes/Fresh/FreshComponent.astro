@@ -39,7 +39,7 @@ const funnelPage: Data = Astro.props.funnelPage;
 const freshComponentNames: [FunnelFreshComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
-      const component = getFreshThemeComponent(block.name);
+      const component = getFreshThemeComponent(block.key);
       return component ? [component, block.data] : undefined;
     })
     .filter(

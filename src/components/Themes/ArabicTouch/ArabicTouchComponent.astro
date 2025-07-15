@@ -40,7 +40,7 @@ const funnelPage: Data = Astro.props.funnelPage;
 const arabicTouchComponentNames: [FunnelArabicTouchComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
-      const component = getArabicTouchThemeComponent(block.name);
+      const component = getArabicTouchThemeComponent(block.key);
       return component ? [component, block.data] : undefined;
     })
     .filter(
