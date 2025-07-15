@@ -5,6 +5,7 @@ import { useProductStore } from "../../../../../../lib/stores/customOptionsNonBu
 // Import components
 import OptionsContainer from './components/OptionsContainer/OptionsContainer';
 import QuantitySection from './components/QuantitySection/QuantitySection';
+import { detectLanguage } from '../../../../../../lib/utils/i18n/client.ts';
 
 // Types for processedOptionData
 interface OptionValueReact {
@@ -47,7 +48,6 @@ interface ArabicTouchSelectionOptionsWithoutBundlesReactProps {
   basePrice: number | null;
   basePriceAfterDiscount: number | null;
   baseImage: string | null;
-  currentLang: Language;
 }
 
 const ArabicTouchSelectionOptionsWithoutBundlesReact: React.FC<ArabicTouchSelectionOptionsWithoutBundlesReactProps> = ({
@@ -59,7 +59,6 @@ const ArabicTouchSelectionOptionsWithoutBundlesReact: React.FC<ArabicTouchSelect
   basePrice,
   basePriceAfterDiscount,
   baseImage,
-  currentLang,
 }) => {
 
   // Zustand store hooks
@@ -180,10 +179,12 @@ const ArabicTouchSelectionOptionsWithoutBundlesReact: React.FC<ArabicTouchSelect
     
     return !availableForFirst.some(assoc => assoc.value === secondOptValue);
   };
-
+   
   // Component state
   const maxQty = getMaxQuantity();
   const currentQty = selectedOption.qty;
+  // Language 
+  const currentLang : Language = detectLanguage();
   const isSelectionComplete = isHaveVariant ? 
     (hasSecondOption ? 
       Boolean(selectedOption.firstOption && selectedOption.secondOption) :

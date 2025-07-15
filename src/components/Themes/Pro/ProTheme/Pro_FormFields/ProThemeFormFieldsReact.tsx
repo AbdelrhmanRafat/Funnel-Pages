@@ -8,6 +8,7 @@ import ProPersonalInfoSection from './Components/ProPersonalInfoSection';
 import ProPaymentOptionsSection from './Components/ProPaymentOptionsSection';
 import ProDeliveryOptionsSection from './Components/ProDeliveryOptionsSection';
 import ProNotesSection from './Components/ProNotesSection';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 
 interface ProThemeFormFieldsReactProps {
@@ -15,7 +16,6 @@ interface ProThemeFormFieldsReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
-  currentLang: Language;
 }
 
 const ProThemeFormFieldsReact: React.FC<ProThemeFormFieldsReactProps> = ({
@@ -23,8 +23,8 @@ const ProThemeFormFieldsReact: React.FC<ProThemeFormFieldsReactProps> = ({
   purchaseOptions,
   isHaveVariant,
   product,
-  currentLang,
 }) => {
+  const currentLang : Language = detectLanguage();
   // Extract form data
   const formInputs = data.FormInputs;
   const cities: string[] = formInputs?.cities ?? [];

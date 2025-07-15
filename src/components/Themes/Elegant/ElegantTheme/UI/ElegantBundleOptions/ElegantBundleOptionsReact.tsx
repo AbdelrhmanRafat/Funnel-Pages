@@ -4,20 +4,20 @@ import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/
 import { useBundleStore } from "../../../../../../lib/stores/bundleStore";
 import ElegantBundleOptionsContainerReact from "../ElegantBundleOptionsContainer/ElegantBundleOptionsContainerReact.tsx";
 import { useCustomOptionBundleStore } from '../../../../../../lib/stores/customOptionBundleStore.ts';
+import { detectLanguage } from '../../../../../../lib/utils/i18n/client';
 
 interface ElegantBundleOptionsReactProps {
   data: PurchaseOption[];
   product: Product;
   name: string;
-  currentLang: Language;
 }
 
 const ElegantBundleOptionsReact: React.FC<ElegantBundleOptionsReactProps> = ({
   data,
   product,
   name,
-  currentLang,
 }) => {
+  const currentLang: Language = detectLanguage();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const isHaveVariant = product.is_have_variant === "true";
   

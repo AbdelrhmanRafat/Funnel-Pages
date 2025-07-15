@@ -5,6 +5,7 @@ import { useProductStore } from "../../../../../../lib/stores/customOptionsNonBu
 // Import components
 import OptionsContainer from './components/OptionsContainer/OptionsContainer';
 import QuantitySection from './components/QuantitySection/QuantitySection';
+import { detectLanguage } from '../../../../../../lib/utils/i18n/client.ts';
 
 // Types for processedOptionData
 interface OptionValueReact {
@@ -47,7 +48,6 @@ interface BoldSelectionOptionsWithoutBundlesReactProps {
   basePrice: number | null;
   basePriceAfterDiscount: number | null;
   baseImage: string | null;
-  currentLang: Language;
 }
 
 const BoldSelectionOptionsWithoutBundlesReact: React.FC<BoldSelectionOptionsWithoutBundlesReactProps> = ({
@@ -59,7 +59,6 @@ const BoldSelectionOptionsWithoutBundlesReact: React.FC<BoldSelectionOptionsWith
   basePrice,
   basePriceAfterDiscount,
   baseImage,
-  currentLang,
 }) => {
 
   // Zustand store hooks
@@ -96,7 +95,8 @@ const BoldSelectionOptionsWithoutBundlesReact: React.FC<BoldSelectionOptionsWith
       });
     }
   }, [isHaveVariant, hasSecondOption, skuNoVariant, basePrice, basePriceAfterDiscount, baseImage, qtyNonVariant]);
-
+  
+  const currentLang : Language = detectLanguage();
   // Handle first option selection
   const handleFirstOptionSelect = (value: string) => {
     setFirstOptionLabel(value);

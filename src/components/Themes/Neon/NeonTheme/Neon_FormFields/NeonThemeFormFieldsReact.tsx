@@ -8,6 +8,7 @@ import NeonPersonalInfoSection from './Components/NeonPersonalInfoSection';
 import NeonPaymentOptionsSection from './Components/NeonPaymentOptionsSection';
 import NeonDeliveryOptionsSection from './Components/NeonDeliveryOptionsSection';
 import NeonNotesSection from './Components/NeonNotesSection';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 
 interface NeonThemeFormFieldsReactProps {
@@ -15,7 +16,6 @@ interface NeonThemeFormFieldsReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
-  currentLang: Language;
 }
 
 const NeonThemeFormFieldsReact: React.FC<NeonThemeFormFieldsReactProps> = ({
@@ -23,8 +23,8 @@ const NeonThemeFormFieldsReact: React.FC<NeonThemeFormFieldsReactProps> = ({
   purchaseOptions,
   isHaveVariant,
   product,
-  currentLang,
 }) => {
+  const currentLang : Language = detectLanguage();
   // Extract form data
   const formInputs = data.FormInputs;
   const cities: string[] = formInputs?.cities ?? [];

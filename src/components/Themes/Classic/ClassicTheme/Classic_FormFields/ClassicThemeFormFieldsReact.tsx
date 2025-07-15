@@ -8,6 +8,7 @@ import ClassicPersonalInfoSection from './Components/ClassicPersonalInfoSection'
 import ClassicPaymentOptionsSection from './Components/ClassicPaymentOptionsSection';
 import ClassicDeliveryOptionsSection from './Components/ClassicDeliveryOptionsSection';
 import ClassicNotesSection from './Components/ClassicNotesSection';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 
 interface ClassicThemeFormFieldsReactProps {
@@ -15,22 +16,20 @@ interface ClassicThemeFormFieldsReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
-  currentLang: Language;
 }
 
 const ClassicThemeFormFieldsReact: React.FC<ClassicThemeFormFieldsReactProps> = ({
   data,
   purchaseOptions,
   isHaveVariant,
-  product,
-  currentLang,
+  product
 }) => {
   // Extract form data
   const formInputs = data.FormInputs;
   const cities: string[] = formInputs?.cities ?? [];
   const paymentOptions: PaymentOption[] = formInputs?.PaymentOptions ?? [];
   const deliveryOptions: DeliveryOption[] = formInputs?.DeliveryOptions ?? [];
-
+  const currentLang : Language = detectLanguage();
   // Form validation hook
   const isFormValid = useFormValid();
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { type Language } from "../../../../../../lib/utils/i18n/translations";
 import { useProductStore } from "../../../../../../lib/stores/customOptionsNonBundleStore.ts";
+import { detectLanguage } from '../../../../../../lib/utils/i18n/client';
 
 // Import components
 import OptionsContainer from './components/OptionsContainer/OptionsContainer';
@@ -47,7 +48,6 @@ interface ClassicSelectionOptionsWithoutBundlesReactProps {
   basePrice: number | null;
   basePriceAfterDiscount: number | null;
   baseImage: string | null;
-  currentLang: Language;
 }
 
 const ClassicSelectionOptionsWithoutBundlesReact: React.FC<ClassicSelectionOptionsWithoutBundlesReactProps> = ({
@@ -59,8 +59,8 @@ const ClassicSelectionOptionsWithoutBundlesReact: React.FC<ClassicSelectionOptio
   basePrice,
   basePriceAfterDiscount,
   baseImage,
-  currentLang,
 }) => {
+  const currentLang: Language = detectLanguage();
 
   // Zustand store hooks
   const {

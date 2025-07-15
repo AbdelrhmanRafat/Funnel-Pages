@@ -8,6 +8,7 @@ import ZenPersonalInfoSection from './Components/ZenPersonalInfoSection';
 import ZenPaymentOptionsSection from './Components/ZenPaymentOptionsSection';
 import ZenDeliveryOptionsSection from './Components/ZenDeliveryOptionsSection';
 import ZenNotesSection from './Components/ZenNotesSection';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 
 interface ZenThemeFormFieldsReactProps {
@@ -15,7 +16,6 @@ interface ZenThemeFormFieldsReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
-  currentLang: Language;
 }
 
 const ZenThemeFormFieldsReact: React.FC<ZenThemeFormFieldsReactProps> = ({
@@ -23,8 +23,8 @@ const ZenThemeFormFieldsReact: React.FC<ZenThemeFormFieldsReactProps> = ({
   purchaseOptions,
   isHaveVariant,
   product,
-  currentLang,
 }) => {
+  const currentLang : Language = detectLanguage();
   // Extract form data
   const formInputs = data.FormInputs;
   const cities: string[] = formInputs?.cities ?? [];

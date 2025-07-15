@@ -8,6 +8,7 @@ import MinimalPersonalInfoSection from './Components/MinimalPersonalInfoSection'
 import MinimalPaymentOptionsSection from './Components/MinimalPaymentOptionsSection';
 import MinimalDeliveryOptionsSection from './Components/MinimalDeliveryOptionsSection';
 import MinimalNotesSection from './Components/MinimalNotesSection';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 
 interface MinimalThemeFormFieldsReactProps {
@@ -15,7 +16,6 @@ interface MinimalThemeFormFieldsReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
-  currentLang: Language;
 }
 
 const MinimalThemeFormFieldsReact: React.FC<MinimalThemeFormFieldsReactProps> = ({
@@ -23,8 +23,8 @@ const MinimalThemeFormFieldsReact: React.FC<MinimalThemeFormFieldsReactProps> = 
   purchaseOptions,
   isHaveVariant,
   product,
-  currentLang,
 }) => {
+  const currentLang : Language = detectLanguage();
   // Extract form data
   const formInputs = data.FormInputs;
   const cities: string[] = formInputs?.cities ?? [];

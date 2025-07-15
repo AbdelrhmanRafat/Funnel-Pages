@@ -3,12 +3,12 @@ import { useProductHeaderState } from './hooks/useProductHeaderState';
 import type { Product, BlockData } from '../../../../../lib/api/types';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
 import ClassicThemeRatesReact from '../ClassicThemeRates/ClassicThemeRatesReact';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 interface ClassicProductHeaderReactProps {
   product: Product;
   purchaseOptions: BlockData | null;
   isHaveVariant: string;
-  currentLang: Language;
   ratingData?: BlockData;
 }
 
@@ -16,7 +16,6 @@ const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
   product,
   purchaseOptions,
   isHaveVariant,
-  currentLang,
   ratingData,
 }) => {
   // Get reactive state from custom hook (replaces entire Observer pattern)
@@ -26,6 +25,7 @@ const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
     isHaveVariant,
   });
 
+  const currentLang: Language = detectLanguage();
   const isArabic = currentLang === 'ar';
   
   // Replaces conditional SKU display logic from original Astro component
@@ -72,7 +72,7 @@ const ClassicProductHeaderReact: React.FC<ClassicProductHeaderReactProps> = ({
         {ratingData && (
           <ClassicThemeRatesReact 
             ratingData={ratingData} 
-            currentLang={currentLang} 
+            currentLang={currentLang}
           />
         )}
       </div>

@@ -4,27 +4,25 @@ import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/
 import { useBundleStore } from "../../../../../../lib/stores/bundleStore";
 import BoldBundleOptionsContainerReact from "../BoldBundleOptionsContainer/BoldBundleOptionsContainerReact.tsx";
 import { useCustomOptionBundleStore } from '../../../../../../lib/stores/customOptionBundleStore.ts';
+import { detectLanguage } from '../../../../../../lib/utils/i18n/client.ts';
 
 interface BoldBundleOptionsReactProps {
   data: PurchaseOption[];
   product: Product;
   name: string;
-  currentLang: Language;
 }
 
 const BoldBundleOptionsReact: React.FC<BoldBundleOptionsReactProps> = ({
   data,
   product,
   name,
-  currentLang,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const isHaveVariant = product.is_have_variant === "true";
-  
   // Zustand stores
   const { setQuantity, setSelectedOffer } = useBundleStore();
   const { initializeBundle, updatePanelOption } = useCustomOptionBundleStore();
-
+  const currentLang : Language = detectLanguage();
   // Calculate numberOfOptions once for this product
   const numberOfOptions = product.custom_options ? Object.keys(product.custom_options).length : 0;
 

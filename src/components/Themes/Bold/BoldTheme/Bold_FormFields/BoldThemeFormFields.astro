@@ -11,15 +11,11 @@ const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const isHaveVariant: string = Astro.props.isHaveVariant;
 const product: Product = Astro.props.product;
 
-// Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
-
 const reactProps = {
   data,
   purchaseOptions,
   isHaveVariant,
-  product,
-  currentLang,
+  product
 };
 ---
 

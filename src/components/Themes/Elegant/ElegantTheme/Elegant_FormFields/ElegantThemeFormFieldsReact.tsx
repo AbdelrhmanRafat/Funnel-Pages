@@ -8,6 +8,7 @@ import ElegantPersonalInfoSection from './Components/ElegantPersonalInfoSection'
 import ElegantPaymentOptionsSection from './Components/ElegantPaymentOptionsSection';
 import ElegantDeliveryOptionsSection from './Components/ElegantDeliveryOptionsSection';
 import ElegantNotesSection from './Components/ElegantNotesSection';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 
 interface ElegantThemeFormFieldsReactProps {
@@ -15,7 +16,6 @@ interface ElegantThemeFormFieldsReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
-  currentLang: Language;
 }
 
 const ElegantThemeFormFieldsReact: React.FC<ElegantThemeFormFieldsReactProps> = ({
@@ -23,8 +23,8 @@ const ElegantThemeFormFieldsReact: React.FC<ElegantThemeFormFieldsReactProps> = 
   purchaseOptions,
   isHaveVariant,
   product,
-  currentLang,
 }) => {
+  const currentLang: Language = detectLanguage();
   // Extract form data
   const formInputs = data.FormInputs;
   const cities: string[] = formInputs?.cities ?? [];

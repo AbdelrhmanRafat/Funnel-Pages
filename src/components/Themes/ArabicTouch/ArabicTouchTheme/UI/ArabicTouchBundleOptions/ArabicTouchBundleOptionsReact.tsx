@@ -4,23 +4,22 @@ import { getTranslation, type Language } from "../../../../../../lib/utils/i18n/
 import { useBundleStore } from "../../../../../../lib/stores/bundleStore";
 import { useCustomOptionBundleStore } from '../../../../../../lib/stores/customOptionBundleStore.ts';
 import ArabicTouchBundleOptionsContainerReact from '../ArabicTouchBundleOptionsContainer/ArabicTouchBundleOptionsContainerReact';
+import { detectLanguage } from '../../../../../../lib/utils/i18n/client.ts';
 
 interface ArabicTouchBundleOptionsReactProps {
   data: PurchaseOption[];
   product: Product;
   name: string;
-  currentLang: Language;
 }
 
 const ArabicTouchBundleOptionsReact: React.FC<ArabicTouchBundleOptionsReactProps> = ({
   data,
   product,
   name,
-  currentLang,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const isHaveVariant = product.is_have_variant === "true";
-  
+  const currentLang : Language = detectLanguage();
   // Zustand stores
   const { setQuantity, setSelectedOffer } = useBundleStore();
   const { initializeBundle, updatePanelOption } = useCustomOptionBundleStore();

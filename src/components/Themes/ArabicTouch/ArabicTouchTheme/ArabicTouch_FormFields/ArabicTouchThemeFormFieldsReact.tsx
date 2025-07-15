@@ -8,6 +8,7 @@ import ArabicTouchPersonalInfoSection from './Components/ArabicTouchPersonalInfo
 import ArabicTouchPaymentOptionsSection from './Components/ArabicTouchPaymentOptionsSection';
 import ArabicTouchDeliveryOptionsSection from './Components/ArabicTouchDeliveryOptionsSection';
 import ArabicTouchNotesSection from './Components/ArabicTouchNotesSection';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 
 interface ArabicTouchThemeFormFieldsReactProps {
@@ -15,7 +16,6 @@ interface ArabicTouchThemeFormFieldsReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
-  currentLang: Language;
 }
 
 const ArabicTouchThemeFormFieldsReact: React.FC<ArabicTouchThemeFormFieldsReactProps> = ({
@@ -23,14 +23,13 @@ const ArabicTouchThemeFormFieldsReact: React.FC<ArabicTouchThemeFormFieldsReactP
   purchaseOptions,
   isHaveVariant,
   product,
-  currentLang,
 }) => {
   // Extract form data
   const formInputs = data.FormInputs;
   const cities: string[] = formInputs?.cities ?? [];
   const paymentOptions: PaymentOption[] = formInputs?.PaymentOptions ?? [];
   const deliveryOptions: DeliveryOption[] = formInputs?.DeliveryOptions ?? [];
-
+  const currentLang : Language = detectLanguage();
   // Form validation hook
   const isFormValid = useFormValid();
 

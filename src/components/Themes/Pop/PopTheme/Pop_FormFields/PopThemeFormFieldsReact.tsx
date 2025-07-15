@@ -8,6 +8,7 @@ import PopPersonalInfoSection from './Components/PopPersonalInfoSection';
 import PopPaymentOptionsSection from './Components/PopPaymentOptionsSection';
 import PopDeliveryOptionsSection from './Components/PopDeliveryOptionsSection';
 import PopNotesSection from './Components/PopNotesSection';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 
 interface PopThemeFormFieldsReactProps {
@@ -15,7 +16,6 @@ interface PopThemeFormFieldsReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
-  currentLang: Language;
 }
 
 const PopThemeFormFieldsReact: React.FC<PopThemeFormFieldsReactProps> = ({
@@ -23,8 +23,8 @@ const PopThemeFormFieldsReact: React.FC<PopThemeFormFieldsReactProps> = ({
   purchaseOptions,
   isHaveVariant,
   product,
-  currentLang,
 }) => {
+  const currentLang : Language = detectLanguage();
   // Extract form data
   const formInputs = data.FormInputs;
   const cities: string[] = formInputs?.cities ?? [];

@@ -8,6 +8,7 @@ import BoldPersonalInfoSection from './Components/BoldPersonalInfoSection';
 import BoldPaymentOptionsSection from './Components/BoldPaymentOptionsSection';
 import BoldDeliveryOptionsSection from './Components/BoldDeliveryOptionsSection';
 import BoldNotesSection from './Components/BoldNotesSection';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 
 interface BoldThemeFormFieldsReactProps {
@@ -15,7 +16,6 @@ interface BoldThemeFormFieldsReactProps {
   purchaseOptions: BlockData;
   isHaveVariant: string;
   product: Product;
-  currentLang: Language;
 }
 
 const BoldThemeFormFieldsReact: React.FC<BoldThemeFormFieldsReactProps> = ({
@@ -23,14 +23,13 @@ const BoldThemeFormFieldsReact: React.FC<BoldThemeFormFieldsReactProps> = ({
   purchaseOptions,
   isHaveVariant,
   product,
-  currentLang,
 }) => {
   // Extract form data
   const formInputs = data.FormInputs;
   const cities: string[] = formInputs?.cities ?? [];
   const paymentOptions: PaymentOption[] = formInputs?.PaymentOptions ?? [];
   const deliveryOptions: DeliveryOption[] = formInputs?.DeliveryOptions ?? [];
-
+  const currentLang : Language = detectLanguage();
   // Form validation hook
   const isFormValid = useFormValid();
 

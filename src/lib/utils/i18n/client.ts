@@ -1,4 +1,4 @@
-import { translations } from "./translations";
+import { translations, type Language } from "./translations";
 
 function getCookie(name: string): string {
   const value = `; ${document.cookie}`;
@@ -38,6 +38,23 @@ export function updateTranslations(lang: 'en' | 'ar') {
       element.textContent = translation;
     }
   });
+}
+
+export function detectLanguage(): Language {
+  // Check if running on the server (SSR)
+  if (typeof document === 'undefined') {
+    // Fallback language when document is not available (SSR mode)
+    return 'en';
+  }
+
+  // Try to read the 'lang' cookie from the browser
+  const langCookie = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('lang='))
+    ?.split('=')[1];
+
+  // Return the found language or fallback to 'en'
+  return (langCookie || 'en') as Language;
 }
 
 function getTranslation(key: string, lang: 'en' | 'ar'): string {

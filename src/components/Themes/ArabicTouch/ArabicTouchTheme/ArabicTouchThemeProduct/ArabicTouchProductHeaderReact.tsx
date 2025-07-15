@@ -3,12 +3,12 @@ import { useProductHeaderState } from './hooks/useProductHeaderState';
 import type { Product, BlockData } from '../../../../../lib/api/types';
 import { getTranslation, type Language } from '../../../../../lib/utils/i18n/translations';
 import ArabicTouchThemeRatesReact from '../ArabicTouchThemeRates/ArabicTouchThemeRatesReact';
+import { detectLanguage } from '../../../../../lib/utils/i18n/client';
 
 interface ArabicTouchProductHeaderReactProps {
   product: Product;
   purchaseOptions: BlockData | null;
   isHaveVariant: string;
-  currentLang: Language;
   ratingData?: BlockData;
 }
 
@@ -16,7 +16,6 @@ const ArabicTouchProductHeaderReact: React.FC<ArabicTouchProductHeaderReactProps
   product,
   purchaseOptions,
   isHaveVariant,
-  currentLang,
   ratingData,
 }) => {
   // Get reactive state from custom hook (replaces entire Observer pattern)
@@ -25,7 +24,7 @@ const ArabicTouchProductHeaderReact: React.FC<ArabicTouchProductHeaderReactProps
     purchaseOptions,
     isHaveVariant,
   });
-
+  const currentLang : Language = detectLanguage();
   const isArabic = currentLang === 'ar';
   
   // Replaces conditional SKU display logic from original Astro component
