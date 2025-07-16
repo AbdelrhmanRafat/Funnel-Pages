@@ -14,7 +14,7 @@ const headers = {
 };
 
 export async function getFunnelPage(id: number): Promise<FunnelRes> {
-  const res = await fetch(`${baseUrl}1`, {
+  const res = await fetch(`${baseUrl}${id}`, {
     headers: headers,
   });
   return res.json();

@@ -22,19 +22,8 @@ import ElegantComponent from "../components/Themes/Elegant/ElegantComponent.astr
 
 // === 1. Get the ID from path and validate it's a number ===
 const urlParams = Astro.url.searchParams;
-let themeID = urlParams.get("themeID");
+let themeID = urlParams.get("themeid") ?? "4";
 
-// Default to "1" if no themeID is provided (initial page load)
-if (!themeID) {
-  themeID = "1";
-}
-
-// Check if themeID contains only numbers
-const isValidNumber = /^\d+$/.test(themeID);
-
-if (!isValidNumber) {
-  return Astro.redirect("/Page404");
-}
 
 const id = parseInt(themeID);
 

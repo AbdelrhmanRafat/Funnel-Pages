@@ -7,6 +7,7 @@ const facebookPixelID = Astro.props.facebookPixelID;
 const twitterPixelID = Astro.props.twitterPixelID;
 const snapchatPixelID = Astro.props.snapchatPixelID;
 const tiktokPixelID = Astro.props.tiktokPixelID;
+const cssPath = `/Theme-Styling/${strThemeName.toLowerCase()}.css`;
 ---
 
 <!doctype html>
@@ -18,6 +19,8 @@ const tiktokPixelID = Astro.props.tiktokPixelID;
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<link rel="icon" type="image/svg+xml+png" href={metadata.image} />
 		<meta name="generator" content={Astro.generator} />
+		<!-- Style sheet -->
+		<link rel="stylesheet" href={cssPath} />
 		<!-- SEO Meta Tags -->
 		<title>{metadata.title}</title>
 		<meta name="description" content={metadata.description} />
@@ -86,19 +89,6 @@ import("/SocialMediaTracking/init-tracking.js").then(({ initTracking }) => {
 			tiktokPixelID,
 		});
 	});
-</script>
-
-<script is:inline define:vars={{ strThemeName }}>
-	const link = document.createElement("link");
-	link.rel = "stylesheet";
-	link.href = `Theme-Styling/${strThemeName.toLowerCase()}.css?v=${Date.now()}`;
-
-	// Show body when CSS is loaded (اختياري)
-	link.onload = function () {
-		document.body.classList.add("loaded");
-	};
-
-	document.head.appendChild(link);
 </script>
 
 <script is:inline src="/Lang-Redirect/lang-redirect.js"></script>
