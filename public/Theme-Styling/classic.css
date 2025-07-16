@@ -1,5 +1,61 @@
-/* === Complete Theme Design Tokens === */
+/* === Local Crimson Text Font Declarations === */
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Crimson_Text/CrimsonText-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Crimson_Text/CrimsonText-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/Crimson_Text/CrimsonText-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/Crimson_Text/CrimsonText-SemiBoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Crimson_Text/CrimsonText-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Crimson_Text/CrimsonText-BoldItalic.ttf') format('truetype');
+}
+
 :root {
+  /* ===================================================================== */
+  /* === CLASSIC THEME (Deep Ocean Blue) === */
+  /* ===================================================================== */
+  
+  /* === Typography === */
+  --classic-font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
+  
+  /* === Color System === */
   --classic-color-primary: #1e40af;
   --classic-color-primary-light: #3b82f6;
   --classic-color-primary-dark: #1e3a8a;
@@ -69,5 +125,12 @@
   /* Header Section Center variables */
   --classic-header-center-size: 1.875rem; 
   --classic-header-center-weight: 700; 
-  --classic-header-center-margin-bottom: 1.75rem;  
+  --classic-header-center-margin-bottom: 1.75rem;
+}
+
+/* === Body Font Application === */
+body {
+  font-family: var(--classic-font-family);
+  background-color: var(--classic-color-background);
+  color: var(--classic-color-on-background);
 }

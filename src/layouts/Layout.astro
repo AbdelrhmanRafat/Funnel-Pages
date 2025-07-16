@@ -7,7 +7,6 @@ const facebookPixelID = Astro.props.facebookPixelID;
 const twitterPixelID = Astro.props.twitterPixelID;
 const snapchatPixelID = Astro.props.snapchatPixelID;
 const tiktokPixelID = Astro.props.tiktokPixelID;
-
 ---
 
 <!doctype html>
@@ -33,12 +32,6 @@ const tiktokPixelID = Astro.props.tiktokPixelID;
 			sizes="180x180"
 			href="/apple-touch-icon.png"
 		/>
-        <!-- stylesheet -->
-		<link
-			rel="stylesheet"
-			href={`Theme-Styling/${strThemeName.toLowerCase()}.css`}
-		/>
-	
 		<!-- Open Graph / Facebook Meta Tags -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="https://www.yourdomain.com/page-url" />
@@ -75,18 +68,37 @@ const tiktokPixelID = Astro.props.tiktokPixelID;
 	document.head.appendChild(link);
 </script> -->
 
-<script type="module" is:inline define:vars={{
-  facebookPixelID,
-  twitterPixelID,
-  snapchatPixelID,
-  tiktokPixelID
-}}>
-  import("/SocialMediaTracking/init-tracking.js").then(({ initTracking }) => {
-    initTracking({
-      facebookPixelID,
-      twitterPixelID,
-      snapchatPixelID,
-      tiktokPixelID
-    });
-  });
+<script
+	type="module"
+	is:inline
+	define:vars={{
+		facebookPixelID,
+		twitterPixelID,
+		snapchatPixelID,
+		tiktokPixelID,
+	}}
+>
+import("/SocialMediaTracking/init-tracking.js").then(({ initTracking }) => {
+		initTracking({
+			facebookPixelID,
+			twitterPixelID,
+			snapchatPixelID,
+			tiktokPixelID,
+		});
+	});
 </script>
+
+<script is:inline define:vars={{ strThemeName }}>
+	const link = document.createElement("link");
+	link.rel = "stylesheet";
+	link.href = `Theme-Styling/${strThemeName.toLowerCase()}.css?v=${Date.now()}`;
+
+	// Show body when CSS is loaded (اختياري)
+	link.onload = function () {
+		document.body.classList.add("loaded");
+	};
+
+	document.head.appendChild(link);
+</script>
+
+<script is:inline src="/Lang-Redirect/lang-redirect.js"></script>

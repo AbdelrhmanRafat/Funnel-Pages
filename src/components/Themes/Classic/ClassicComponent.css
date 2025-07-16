@@ -2,6 +2,7 @@
 .classic-main-color {
     background-color: var(--classic-color-surface);
     color: var(--classic-color-on-surface);
+    font-family: var(--classic-font-family);
 }
 
 .classic-section {
@@ -9,6 +10,7 @@
     padding: var(--classic-section-padding);
     border-radius: var(--classic-section-radius);
     box-shadow: var(--classic-section-shadow);
+    font-family: var(--classic-font-family);
 }
 
 .classic-section-header {
@@ -20,18 +22,25 @@
     font-size: var(--classic-header-size);
     font-weight: var(--classic-header-weight);
     color: var(--classic-color-on-surface);
+    font-family: var(--classic-font-family);
 }
+
 .classic-middle-title {
     text-align: center;
     font-size: var(--classic-header-center-size);
-    font-weight: var( --classic-header-center-wight);
+    font-weight: var(--classic-header-center-weight);
     color: var(--classic-color-on-surface);
     margin-bottom: var(--classic-header-center-margin-bottom);
-}
-.classic-divider {
-    background: linear-gradient(to right, var(--classic-color-tertiary), var(--classic-color-secondary));
+    font-family: var(--classic-font-family);
 }
 
+.classic-divider {
+    background: linear-gradient(to right, var(--classic-color-tertiary), var(--classic-color-secondary));
+    height: 2px;
+    border: none;
+    border-radius: 1px;
+    margin: 1rem 0;
+}
 
 /* === Scroll to Top Button === */
 .classic-scrollToTopBtn {
@@ -46,11 +55,16 @@
     align-items: center;
     justify-content: center;
     font-size: 1.25rem; /* text-xl */
+    font-family: var(--classic-font-family);
     box-shadow: var(--classic-section-shadow);
     transition: all 0.3s ease;
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
 }
 
 .classic-scrollToTopBtn.show {
@@ -69,19 +83,25 @@
     transform: translateY(0) scale(0.95);
 }
 
-/* Remove padding on small screens (mobile) */
+/* === Responsive Design === */
 @media (max-width: 640px) {
   .classic-section {
-    padding: 8px;
+    padding: 0.75rem;
   }
-}
-@media (max-width: 640px) {
+  
   .classic-section-header {
     font-size: calc(var(--classic-header-size) * 0.8);
   }
-}
-@media (max-width: 640px) {
+  
   .classic-middle-title {
     font-size: calc(var(--classic-header-center-size) * 0.8);
+  }
+  
+  .classic-scrollToTopBtn {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1rem;
+    bottom: 1rem;
+    right: 1rem;
   }
 }

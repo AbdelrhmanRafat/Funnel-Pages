@@ -44,24 +44,24 @@
 }
 
 /* Hamburger lines */
-.hamburger-line {
+.techno-hamburger-line {
   background-color: var(--techno-color-on-surface);
 }
 
-.techno-menu-button:hover .hamburger-line {
+.techno-menu-button:hover .techno-hamburger-line {
   background-color: var(--techno-color-on-primary);
 }
 
 /* Hamburger Animation when Active */
-.techno-menu-button.active .hamburger-line:nth-child(1) {
+.techno-menu-button.active .techno-hamburger-line:nth-child(1) {
   transform: translateY(6px) rotate(45deg);
 }
 
-.techno-menu-button.active .hamburger-line:nth-child(2) {
+.techno-menu-button.active .techno-hamburger-line:nth-child(2) {
   opacity: 0;
 }
 
-.techno-menu-button.active .hamburger-line:nth-child(3) {
+.techno-menu-button.active .techno-hamburger-line:nth-child(3) {
   transform: translateY(-6px) rotate(-45deg);
 }
 
@@ -205,7 +205,7 @@ body.menu-open {
   .techno-menu-overlay,
   .techno-menu-content,
   .techno-menu-button,
-  .hamburger-line,
+  .techno-hamburger-line,
   .techno-header {
     transition: none;
   }

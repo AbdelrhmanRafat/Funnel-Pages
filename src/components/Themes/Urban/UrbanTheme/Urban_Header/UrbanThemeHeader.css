@@ -44,24 +44,24 @@
 }
 
 /* Hamburger lines */
-.hamburger-line {
+.urban-hamburger-line {
   background-color: var(--urban-color-on-surface);
 }
 
-.urban-menu-button:hover .hamburger-line {
+.urban-menu-button:hover .urban-hamburger-line {
   background-color: var(--urban-color-on-primary);
 }
 
 /* Hamburger Animation when Active */
-.urban-menu-button.active .hamburger-line:nth-child(1) {
+.urban-menu-button.active .urban-hamburger-line:nth-child(1) {
   transform: translateY(6px) rotate(45deg);
 }
 
-.urban-menu-button.active .hamburger-line:nth-child(2) {
+.urban-menu-button.active .urban-hamburger-line:nth-child(2) {
   opacity: 0;
 }
 
-.urban-menu-button.active .hamburger-line:nth-child(3) {
+.urban-menu-button.active .urban-hamburger-line:nth-child(3) {
   transform: translateY(-6px) rotate(-45deg);
 }
 
@@ -205,7 +205,7 @@ body.menu-open {
   .urban-menu-overlay,
   .urban-menu-content,
   .urban-menu-button,
-  .hamburger-line,
+  .urban-hamburger-line,
   .urban-header {
     transition: none;
   }
