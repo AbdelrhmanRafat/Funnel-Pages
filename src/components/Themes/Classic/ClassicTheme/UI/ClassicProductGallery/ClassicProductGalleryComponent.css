@@ -1,213 +1,44 @@
-/* === Classic Soul Gallery - Generic Styles Using Root Variables === */
+/* === Gallery Section Classes === */
 
-/* Main Gallery Container - Warm vintage background */
 .classic-gallery-main {
-    background: linear-gradient(135deg, 
-        var(--classic-color-surface-variant) 0%, 
-        var(--classic-color-surface-container) 50%,
-        var(--classic-color-surface-container-high) 100%);
-    border: 1px solid var(--classic-color-outline-variant);
+    background: linear-gradient(135deg, var(--classic-color-surface-variant) 0%, var(--classic-color-surface-container) 100%);
+    border-radius: var(--classic-section-radius);
 }
 
-/* Navigation Buttons - Vintage Brass Style */
 .classic-gallery-nav {
-    background: linear-gradient(145deg, 
-        var(--classic-color-secondary-light), 
-        var(--classic-color-secondary));
-    color: var(--classic-color-on-secondary);
-    border: 1px solid var(--classic-color-secondary-dark);
-    box-shadow: 
-        0 2px 8px color-mix(in srgb, var(--classic-color-primary) 20%, transparent),
-        inset 0 1px 0 color-mix(in srgb, var(--classic-color-surface) 20%, transparent);
+    background-color: var(--classic-color-surface);
+    box-shadow: var(--classic-section-shadow);
+    color: var(--classic-color-on-surface-variant);
+    transition: all 0.3s ease;
 }
 
 .classic-gallery-nav:hover {
-    background: linear-gradient(145deg, 
-        var(--classic-color-secondary), 
-        var(--classic-color-secondary-dark));
-    box-shadow: 
-        0 4px 12px color-mix(in srgb, var(--classic-color-primary) 30%, transparent),
-        inset 0 1px 0 color-mix(in srgb, var(--classic-color-surface) 30%, transparent);
+    color: var(--classic-color-primary);
+    transform: translateY(-50%) scale(1.05);
 }
 
-.classic-gallery-nav:active {
-    background: linear-gradient(145deg, 
-        var(--classic-color-secondary-dark), 
-        var(--classic-color-secondary));
-    box-shadow: 
-        0 2px 4px color-mix(in srgb, var(--classic-color-primary) 40%, transparent),
-        inset 0 2px 4px color-mix(in srgb, var(--classic-color-on-surface) 20%, transparent);
-}
-
-.classic-gallery-nav:focus {
-    --tw-ring-color: var(--classic-color-primary);
-}
-
-/* Counter - Vintage Album Label */
 .classic-gallery-counter {
-    background: linear-gradient(145deg, 
-        var(--classic-color-primary), 
-        var(--classic-color-primary-dark));
+    background-color: var(--classic-color-primary);
+    backdrop-filter: blur(10px);
     color: var(--classic-color-on-primary);
-    border: 2px solid var(--classic-color-secondary);
-    font-family: var(--classic-font-family);
-    letter-spacing: 0.5px;
-    text-shadow: 0 1px 2px color-mix(in srgb, var(--classic-color-on-surface) 20%, transparent);
-}
-
-/* Thumbnail Container - Warm wooden background */
-.classic-thumbnail-container {
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        var(--classic-color-surface-variant) 20%, 
-        var(--classic-color-surface-variant) 80%, 
-        transparent 100%);
-    scrollbar-color: var(--classic-color-secondary) var(--classic-color-surface-container);
-}
-
-/* Thumbnails - Vintage Polaroid Style */
-.classic-thumbnail {
     border-color: var(--classic-color-outline-variant);
-    background: var(--classic-color-surface);
-    box-shadow: 
-        0 2px 8px color-mix(in srgb, var(--classic-color-on-surface) 15%, transparent),
-        0 1px 3px color-mix(in srgb, var(--classic-color-primary) 10%, transparent);
-    filter: sepia(5%) contrast(95%) brightness(98%);
+}
+
+.classic-thumbnail-container {
+    scrollbar-width: auto;
+}
+
+.classic-thumbnail {
+    border-radius: var(--classic-section-radius);
+    transition: all 0.3s ease;
 }
 
 .classic-thumbnail:hover {
-    border-color: var(--classic-color-secondary-light);
-    box-shadow: 
-        0 4px 12px color-mix(in srgb, var(--classic-color-primary) 25%, transparent),
-        0 2px 6px color-mix(in srgb, var(--classic-color-secondary) 20%, transparent);
-    filter: sepia(0%) contrast(100%) brightness(102%);
+    border-color: var(--classic-color-primary-light);
+    transform: scale(1.05);
 }
 
 .classic-thumbnail-active {
     border-color: var(--classic-color-primary);
-    background: var(--classic-color-surface);
-    box-shadow: 
-        0 0 0 2px var(--classic-color-secondary),
-        0 4px 16px color-mix(in srgb, var(--classic-color-primary) 30%, transparent),
-        0 2px 8px color-mix(in srgb, var(--classic-color-secondary) 20%, transparent);
-    filter: sepia(0%) contrast(105%) brightness(105%);
-}
-
-/* Main Image - Warm transitions */
-.classic-main-image {
-    background: var(--classic-color-surface-container);
-    border: 1px solid var(--classic-color-outline-variant);
-}
-
-/* Fullscreen Modal - Dark overlay */
-.classic-fullscreen-modal {
-    background: color-mix(in srgb, var(--classic-color-on-surface) 95%, transparent);
-}
-
-/* Fullscreen Navigation - Dark theme */
-.classic-fullscreen-nav {
-    background: color-mix(in srgb, var(--classic-color-on-surface) 80%, transparent);
-    color: var(--classic-color-surface);
-    border-color: var(--classic-color-outline-variant);
-}
-
-.classic-fullscreen-nav:hover {
-    background: color-mix(in srgb, var(--classic-color-on-surface) 90%, transparent);
-    color: var(--classic-color-surface-variant);
-}
-
-/* Fullscreen Close Button */
-.classic-fullscreen-close {
-    background: color-mix(in srgb, var(--classic-color-on-surface) 80%, transparent);
-    color: var(--classic-color-surface);
-    border-color: var(--classic-color-outline-variant);
-}
-
-.classic-fullscreen-close:hover {
-    background: color-mix(in srgb, var(--classic-color-on-surface) 90%, transparent);
-    color: var(--classic-color-surface-variant);
-}
-
-/* Fullscreen Counter */
-.classic-fullscreen-counter {
-    background: color-mix(in srgb, var(--classic-color-on-surface) 80%, transparent);
-    color: var(--classic-color-surface);
-    border-color: var(--classic-color-outline-variant);
-    font-family: var(--classic-font-family);
-    letter-spacing: 0.5px;
-}
-
-/* Fullscreen Image */
-.classic-fullscreen-image {
-    background: var(--classic-color-surface-container);
-}
-
-/* Custom Scrollbar for Mobile */
-.classic-thumbnail-container::-webkit-scrollbar {
-    height: 6px;
-}
-
-.classic-thumbnail-container::-webkit-scrollbar-track {
-    background: var(--classic-color-surface-container);
-    border-radius: 3px;
-}
-
-.classic-thumbnail-container::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, 
-        var(--classic-color-secondary-light), 
-        var(--classic-color-secondary));
-    border-radius: 3px;
-}
-
-.classic-thumbnail-container::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(90deg, 
-        var(--classic-color-secondary), 
-        var(--classic-color-secondary-dark));
-}
-
-/* Loading state for images */
-.classic-main-image[src=""],
-.classic-thumbnail[src=""] {
-    background: linear-gradient(45deg, 
-        var(--classic-color-surface-variant) 25%, 
-        var(--classic-color-surface-container) 50%, 
-        var(--classic-color-surface-variant) 75%);
-    background-size: 20px 20px;
-    animation: loading-shimmer 1.5s infinite;
-}
-
-@keyframes loading-shimmer {
-    0% { background-position: 0 0; }
-    100% { background-position: 40px 40px; }
-}
-
-/* Focus states for accessibility */
-.classic-thumbnail:focus {
-    outline: 2px solid var(--classic-color-primary);
-    outline-offset: 2px;
-}
-
-.classic-gallery-nav:focus {
-    --tw-ring-color: var(--classic-color-primary);
-}
-
-.classic-fullscreen-nav:focus,
-.classic-fullscreen-close:focus {
-    --tw-ring-color: var(--classic-color-surface);
-}
-
-/* Enhance mobile touch feedback */
-@media (max-width: 768px) {
-    .classic-gallery-nav:active {
-        transform: translateY(-50%) scale(0.9);
-    }
-    
-    .classic-thumbnail:active {
-        transform: scale(0.9);
-    }
-    
-    .classic-fullscreen-nav:active,
-    .classic-fullscreen-close:active {
-        transform: scale(0.9);
-    }
+    box-shadow: 0 0 0 2px var(--classic-color-primary-light);
 }

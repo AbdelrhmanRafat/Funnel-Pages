@@ -1,12 +1,6 @@
 ---
 import "./ClassicProductGalleryComponent.css";
-import type {
-    Attachment,
-    BlockData,
-    Image,
-    Product,
-    Sku,
-} from "../../../../../../lib/api/types";
+import type { Attachment, BlockData, Image, Product, Sku } from "../../../../../../lib/api/types";
 
 const product: Product = Astro.props.product;
 
@@ -21,19 +15,20 @@ const gallerySet = new Set<string>();
 gallerySet.add(mainImage);
 
 // Add images from skus
-if (skus !== undefined) {
-    for (const subImage of skus) {
-        if (subImage.image && !subImage.image.includes("null")) {
-            gallerySet.add(subImage.image);
-        }
-    }
+if(skus !== undefined)
+{
+for (const subImage of skus) {
+  if (subImage.image && !subImage.image.includes('null')) {
+    gallerySet.add(subImage.image);
+  }
+}
 }
 
 // Add images from attachments
 for (const subImage of attachments) {
-    if (subImage.path && !subImage.path.includes("null")) {
-        gallerySet.add(subImage.path);
-    }
+  if (subImage.path && !subImage.path.includes('null')) {
+    gallerySet.add(subImage.path);
+  }
 }
 
 // Convert back to array if needed
@@ -41,224 +36,93 @@ const gallery: string[] = Array.from(gallerySet);
 
 // Gallery options
 const autoPlay = false;
-const autoPlayDelay = 5000;
-const enableTouch = true;
+const autoPlayDelay =  5000;
+const enableKeyboard =  true;
+const enableTouch =  true;
 ---
 
-<!-- Classic Soul Gallery Section -->
-<classic-gallery
+<!-- Gallery Section - Enhanced -->
+<classic-gallery 
     class="lg:w-1/2 lg:sticky lg:top-0 lg:self-start"
     data-gallery-auto-play={autoPlay}
     data-gallery-auto-play-delay={autoPlayDelay}
+    data-gallery-enable-keyboard={enableKeyboard}
     data-gallery-enable-touch={enableTouch}
 >
-    <div class="flex flex-col gap-4 md:gap-6 lg:gap-8">
+    <div class="flex flex-col gap-6">
         <!-- Main Image Display -->
         <div class="relative">
-            <div
-                class="classic-gallery-main relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg md:shadow-xl p-2 md:p-4 lg:p-6"
-            >
+            <div class="classic-gallery-main relative overflow-hidden">
                 <img
                     data-gallery-main-image
                     src={gallery[0]}
-                    class="classic-main-image w-full h-64 md:h-80 lg:h-96 object-cover rounded-lg md:rounded-xl transition-opacity duration-300 cursor-pointer"
+                    class="classic-main-image w-full object-fill"
                     alt={product.name}
-                    data-gallery-open-fullscreen
                 />
-
-                <!-- Navigation Buttons - Touch Optimized -->
+                
+                <!-- Navigation Buttons -->
                 <button
                     data-gallery-prev-btn
-                    type="button"
-                    class="classic-gallery-nav absolute top-1/2 -translate-y-1/2 left-3 md:left-4 lg:left-6
-                           w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16
-                           rounded-full shadow-md hover:shadow-lg
-                           flex items-center justify-center border-none cursor-pointer
-                           transform hover:scale-105 active:scale-95
-                           transition-all duration-300 ease-out
-                           focus:outline-none focus:ring-2 focus:ring-offset-2
-                           touch-manipulation select-none"
-                    aria-label="Previous image"
+                    class="classic-gallery-nav classic-gallery-nav-left absolute top-1/2 -translate-y-1/2 left-4 w-12 h-12 rounded-full flex items-center justify-center border-none cursor-pointer"
                 >
                     <svg
-                        class="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 pointer-events-none"
+                        class="w-6 h-6"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                        stroke-width="2.5"
                     >
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
+                            stroke-width="2"
                             d="M15 19l-7-7 7-7"></path>
                     </svg>
                 </button>
-
+                
                 <button
                     data-gallery-next-btn
-                    type="button"
-                    class="classic-gallery-nav absolute top-1/2 -translate-y-1/2 right-3 md:right-4 lg:right-6
-                           w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16
-                           rounded-full shadow-md hover:shadow-lg
-                           flex items-center justify-center border-none cursor-pointer
-                           transform hover:scale-105 active:scale-95
-                           transition-all duration-300 ease-out
-                           focus:outline-none focus:ring-2 focus:ring-offset-2
-                           touch-manipulation select-none"
-                    aria-label="Next image"
+                    class="classic-gallery-nav classic-gallery-nav-right absolute top-1/2 -translate-y-1/2 right-4 w-12 h-12 rounded-full flex items-center justify-center border-none cursor-pointer"
                 >
                     <svg
-                        class="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 pointer-events-none"
+                        class="w-6 h-6"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                        stroke-width="2.5"
                     >
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
+                            stroke-width="2"
                             d="M9 5l7 7-7 7"></path>
                     </svg>
                 </button>
-
-                <!-- Image Counter - Vintage Album Label Style -->
-                <div
-                    class="classic-gallery-counter absolute bottom-3 md:bottom-4 lg:bottom-6 left-1/2 -translate-x-1/2
-                           py-2 px-4 md:py-3 md:px-6 lg:py-3 lg:px-8
-                           rounded-full text-xs md:text-sm lg:text-base font-semibold
-                           border shadow-md backdrop-blur-sm
-                           transition-all duration-300"
-                >
-                    <span data-gallery-current-index>1</span> / <span
-                        data-gallery-total-images>{gallery.length}</span
-                    >
+                
+                <!-- Image Counter -->
+                <div class="classic-gallery-counter absolute bottom-4 left-1/2 -translate-x-1/2 py-2 px-4 rounded-full text-sm font-medium border">
+                    <span data-gallery-current-index>1</span> / <span data-gallery-total-images>{gallery.length}</span>
                 </div>
             </div>
         </div>
-
-        <!-- Thumbnail Gallery - Mobile Horizontal Scroll -->
-        <div
-            class="classic-thumbnail-container max-h-48 md:max-h-64 lg:max-h-80
-                   overflow-x-auto md:overflow-visible
-                   pb-2 md:pb-0
-                   scrollbar-thin scrollbar-thumb-rounded-full"
-        >
-            <div
-                class="inline-flex md:flex md:flex-wrap md:justify-start
-                       gap-2 md:gap-3 lg:gap-4
-                       px-1 md:px-0"
-            >
+        
+        <!-- Thumbnail Gallery -->
+        <div class="classic-thumbnail-container max-h-96 overflow-x-auto whitespace-nowrap pb-2">
+            <div class="inline-flex md:flex-row md:justify-start md:items-start md:flex-wrap gap-3">
                 {
-                    gallery.map((image, index) => (
-                        <img
-                            src={image}
-                            class={`classic-thumbnail flex-shrink-0 
-                                   w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 
-                                   object-cover rounded-lg md:rounded-xl 
-                                   cursor-pointer border-2 
-                                   transition-all duration-300 ease-out
-                                   hover:scale-105 md:hover:scale-110 
-                                   active:scale-95
-                                   ${index === 0 ? "classic-thumbnail-active" : ""}`}
-                            data-gallery-thumbnail
-                            data-gallery-index={index}
-                            alt={`${product.name} - View ${index + 1}`}
-                        />
-                    ))
+                  gallery.map((image, index) => (
+                    <img
+                        src={image}
+                        class={`classic-thumbnail w-20 h-20 lg:w-24 lg:h-24 object-cover rounded-xl cursor-pointer border-2 border-transparent ${index === 0 ? 'classic-thumbnail-active' : ''}`}
+                        data-gallery-thumbnail
+                        data-gallery-index={index}
+                        alt={product.name}
+                    />
+                  ))
                 }
             </div>
         </div>
     </div>
-
-    <!-- Fullscreen Modal -->
-   <!-- Fullscreen Modal -->
-<div 
-    data-gallery-fullscreen-modal 
-    class="classic-fullscreen-modal fixed inset-0 z-50 backdrop-blur-sm 
-           flex items-center justify-center p-4 
-           opacity-0 invisible pointer-events-none
-           transition-all duration-300 ease-out"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Fullscreen image viewer"
->
-    <!-- Container to keep everything centered and padded -->
-    <div class="container mx-auto relative max-w-screen-xl">
-
-        <!-- Close Button -->
-        <button 
-            data-gallery-close-fullscreen
-            type="button"
-            class="classic-fullscreen-close absolute top-4 right-4 z-60
-                   w-12 h-12 md:w-14 md:h-14 
-                   rounded-full border-2
-                   flex items-center justify-center
-                   transition-all duration-300 ease-out
-                   hover:scale-110 active:scale-95
-                   focus:outline-none focus:ring-2 focus:ring-offset-2"
-            aria-label="Close fullscreen view"
-        >
-            <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-
-        <!-- Fullscreen Image -->
-        <img 
-            data-gallery-fullscreen-image
-            src=""
-            alt=""
-            class="classic-fullscreen-image max-w-full max-h-[80vh] mx-auto object-contain rounded-lg shadow-2xl
-                   transition-all duration-300 ease-out"
-        />
-
-        <!-- Fullscreen Navigation -->
-        <button
-            data-gallery-fullscreen-prev
-            type="button"
-            class="classic-fullscreen-nav absolute top-1/2 -translate-y-1/2 left-4 md:left-8
-                   w-14 h-14 md:w-16 md:h-16 
-                   rounded-full border-2
-                   flex items-center justify-center
-                   transition-all duration-300 ease-out
-                   hover:scale-110 active:scale-95
-                   focus:outline-none focus:ring-2 focus:ring-offset-2"
-            aria-label="Previous image in fullscreen"
-        >
-            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
-
-        <button
-            data-gallery-fullscreen-next
-            type="button"
-            class="classic-fullscreen-nav absolute top-1/2 -translate-y-1/2 right-4 md:right-8
-                   w-14 h-14 md:w-16 md:h-16 
-                   rounded-full border-2
-                   flex items-center justify-center
-                   transition-all duration-300 ease-out
-                   hover:scale-110 active:scale-95
-                   focus:outline-none focus:ring-2 focus:ring-offset-2"
-            aria-label="Next image in fullscreen"
-        >
-            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-        </button>
-
-        <!-- Fullscreen Counter -->
-        <div class="classic-fullscreen-counter absolute bottom-6 left-1/2 -translate-x-1/2
-                   py-3 px-6 rounded-full border
-                   text-sm md:text-base font-medium
-                   backdrop-blur-sm">
-            <span data-gallery-fullscreen-current>1</span> / <span data-gallery-fullscreen-total>{gallery.length}</span>
-        </div>
-
-    </div>
-</div>
 </classic-gallery>
 
 <script>
-    import "./ClassicProductGalleryComponent";
+    import "./ClassicProductGalleryComponent"
 </script>

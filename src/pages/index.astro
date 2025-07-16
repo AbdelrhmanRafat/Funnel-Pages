@@ -22,7 +22,7 @@ import ElegantComponent from "../components/Themes/Elegant/ElegantComponent.astr
 
 // === 1. Get the ID from path and validate it's a number ===
 const urlParams = Astro.url.searchParams;
-let themeID = urlParams.get("themeid") ?? "4";
+let themeID = urlParams.get("f") ?? "4";
 
 
 const id = parseInt(themeID);
