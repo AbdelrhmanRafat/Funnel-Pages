@@ -139,7 +139,6 @@ const orderThroughWhatsappData =
   isOrderThroughWhatsappDataFound.isComponentFound
     ? isOrderThroughWhatsappDataFound.componentData
     : undefined;
-
 ---
 
 <main class="classic-main-color">
@@ -155,20 +154,24 @@ const orderThroughWhatsappData =
         ) : null;
       }
       
-      if (componentName === FunnelClassicComponents.ClassicProductFunnel) {
-        return (
-          <ClassicThemeProduct
-            formFieldsData={formFieldsData}
-            ratingData={ratingData}
-            fakeVisitorsData={fakeVisitorsData}
-            orderConfirmationNoticeData={orderConfirmationNoticeData}
-            orderThroughWhatsappData={orderThroughWhatsappData}
-            product={funnelPage.product}
-            cuponData={cuponData}
-            purchaseOptions={purchaseOptions}
-          />
-        );
-      }
+      if (
+  componentName === FunnelClassicComponents.ClassicProductFunnel &&
+  funnelPage.product &&
+  Object.keys(funnelPage.product).length > 0
+) {
+  return (
+    <ClassicThemeProduct
+      formFieldsData={formFieldsData}
+      ratingData={ratingData}
+      fakeVisitorsData={fakeVisitorsData}
+      orderConfirmationNoticeData={orderConfirmationNoticeData}
+      orderThroughWhatsappData={orderThroughWhatsappData}
+      product={funnelPage.product}
+      cuponData={cuponData}
+      purchaseOptions={purchaseOptions}
+    />
+  );
+}
       if (componentName === FunnelClassicComponents.ClassicCountdown) {
         const countdownData = isComponentFound(
           FunnelClassicComponents.ClassicCountdown,

@@ -25,10 +25,12 @@ for (const subImage of skus) {
 }
 
 // Add images from attachments
+if(attachments !== undefined){
 for (const subImage of attachments) {
   if (subImage.path && !subImage.path.includes('null')) {
     gallerySet.add(subImage.path);
   }
+}
 }
 
 // Convert back to array if needed

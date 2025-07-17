@@ -5,7 +5,7 @@ import ClassicComponent from "../components/Themes/Classic/ClassicComponent.astr
 
 import { getFunnelPage } from "../lib/api/funnel";
 import { getThemeFromString } from "../lib/utils/ThemeSelect";
-import type { FunnelRes } from "../lib/api/types";
+import type { FunnelRes, Product } from "../lib/api/types";
 import { Theme } from "../lib/constants/themes";
 import TechnoComponent from "../components/Themes/Techno/TechnoComponent.astro";
 import BoldComponent from "../components/Themes/Bold/BoldComponent.astro";
@@ -23,6 +23,7 @@ import ElegantComponent from "../components/Themes/Elegant/ElegantComponent.astr
 // === 1. Get the ID from path and validate it's a number ===
 const urlParams = Astro.url.searchParams;
 let themeID = urlParams.get("f") ?? "4";
+const blockKeyParam = urlParams.get("blockKey");
 
 
 const id = parseInt(themeID);
@@ -61,6 +62,21 @@ if (!enumTheme) {
   return Astro.redirect("/Page404");
 }
 
+// === 5. Filter blocks by key if blockKeyParam is provided ===
+// === 5. Filter blocks by key if blockKeyParam is provided ===
+if (blockKeyParam && funnelPage.data.blocks?.length) {
+  funnelPage.data.blocks = funnelPage.data.blocks.filter(
+    (block) => block.key === blockKeyParam
+  );
+
+  // 👇 Make product null if blockKey is passed
+  funnelPage.data.product = {} as Product;
+
+  // 👇 Optional: redirect if no block matches
+  if (funnelPage.data.blocks.length === 0) {
+    return Astro.redirect("/Page404");
+  }
+}
 ---
 <Layout
   metadata={meta}
