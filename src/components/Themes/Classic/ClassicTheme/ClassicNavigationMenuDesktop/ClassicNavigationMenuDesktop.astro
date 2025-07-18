@@ -8,7 +8,7 @@ import LucideIcon from "../../../../Shared/LucideIcon.astro";
 
 const funnelPage: Data = Astro.props.funnelPage;
 
-// Generate anchors from available components with comprehensive null checking
+// Generate anchors from available components in JSON order with comprehensive null checking
 const availableAnchors = funnelPage?.blocks
   ?.map((block) => {
     // Check if block exists and has required properties
@@ -30,50 +30,34 @@ const availableAnchors = funnelPage?.blocks
   ?.filter((anchor): anchor is NonNullable<typeof anchor> => anchor !== null) || [];
 
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
 const isArabic = currentLang === "ar";
 
-// Order anchors based on render order
-const RENDER_ORDER = [
-  FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
-  FunnelClassicComponents.ClassicProductFeatures,
-  FunnelClassicComponents.ClassicProductPreview,
-  FunnelClassicComponents.ClassicProductUsage,
-  FunnelClassicComponents.classicTodayStatistics,
-  FunnelClassicComponents.ClassicGallery,
-  FunnelClassicComponents.Classic_Before_After,
-  FunnelClassicComponents.ClassicReviews,
-  FunnelClassicComponents.ClassicTextBar,
-  FunnelClassicComponents.ClassicImageTextOverLay,
-  FunnelClassicComponents.ClassicImageTextBeside,
-  FunnelClassicComponents.ClassicFaq,
-  FunnelClassicComponents.ClassicDeliveryFeatures,
-  FunnelClassicComponents.ClassicCountdown,
-  FunnelClassicComponents.ClassicFooter,
-];
-
-
- // Safe filtering with additional null checks
-const orderedAnchors = RENDER_ORDER
-  .map(component => {
-    const foundAnchor = availableAnchors.find(anchor => 
-      anchor && anchor.component === component
-    );
-    return foundAnchor || null;
-  })
-  .filter((anchor): anchor is NonNullable<typeof anchor> => {
-    // Ensure anchor exists and has required properties
-    return (
-      anchor !== null &&
-      !!anchor.component &&
-      !!anchor.componentData &&
-      // Check for language-specific titles instead of generic 'title'
-      (
-        (!!anchor.componentData.title_en && anchor.componentData.title_en.trim() !== '') ||
-        (!!anchor.componentData.title_ar && anchor.componentData.title_ar.trim() !== '')
-      )
-    );
-  });
+// Filter anchors to only include those with valid titles, preserving JSON order
+// Exclude Header, Footer, and product-internal components from navigation menu
+const orderedAnchors = availableAnchors.filter((anchor) => {
+  // Ensure anchor exists and has required properties
+  return (
+    anchor !== null &&
+    !!anchor.component &&
+    !!anchor.componentData &&
+    // Exclude Header and Footer components from navigation
+    anchor.component !== FunnelClassicComponents.ClassicHeader &&
+    anchor.component !== FunnelClassicComponents.ClassicFooter &&
+    anchor.component !== FunnelClassicComponents.ClassicRates &&
+    anchor.component !== FunnelClassicComponents.ClassicCoupon &&
+    anchor.component !== FunnelClassicComponents.ClassicFormFields &&
+    anchor.component !== FunnelClassicComponents.ClassicOrderConfirmationNotice &&
+    anchor.component !== FunnelClassicComponents.ClassicOrderThroughWhatsapp &&
+    anchor.component !== FunnelClassicComponents.ClassicProductFunnel &&
+    anchor.component !== FunnelClassicComponents.ClassicVisitors &&
+    // Check for language-specific titles instead of generic 'title'
+    (
+      (!!anchor.componentData.title_en && anchor.componentData.title_en.trim() !== '') ||
+      (!!anchor.componentData.title_ar && anchor.componentData.title_ar.trim() !== '')
+    )
+  );
+});
 ---
 
 <!-- Enhanced Desktop Navigation with Optimized Overflow -->

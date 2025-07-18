@@ -7,7 +7,7 @@ const hasBundlesStr: string = Astro.props.hasBundles;
 const hasBundlesBool: boolean = hasBundlesStr === "true";
 
 // Get current language
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
 
 // Component configuration from original props
 const showDiscountWhenZero = Astro.props.showDiscountWhenZero ?? false;

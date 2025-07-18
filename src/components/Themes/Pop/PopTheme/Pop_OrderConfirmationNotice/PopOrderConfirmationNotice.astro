@@ -8,7 +8,7 @@ import LucideIcon from "../../../../Shared/LucideIcon.astro";
 const data: BlockData = Astro.props.data;
 const confirmationNotices: Item[] = data.items ?? [];
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
 const isArabic = currentLang === "ar";
 const title = isArabic ? data.title_ar : data.title_en;
 ---

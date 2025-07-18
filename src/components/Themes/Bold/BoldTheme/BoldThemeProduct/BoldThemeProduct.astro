@@ -43,7 +43,7 @@ const orderConfirmationNoticeData: BlockData =
 const isHaveVariant = product.is_have_variant;
 // Get initial language from cookie during SSR
 const currentLang: Language = (Astro.cookies.get("lang")?.value ||
-  "en") as Language;
+  "ar") as Language;
 const isArabic = currentLang === "ar";
 
 // Helper function to check if component data is available

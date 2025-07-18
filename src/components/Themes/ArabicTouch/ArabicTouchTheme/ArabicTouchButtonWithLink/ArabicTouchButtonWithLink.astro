@@ -5,7 +5,7 @@ import { FunnelArabicTouchComponents } from "../../../../../lib/constants/themes
 import type { Language } from "../../../../../lib/utils/i18n/translations";
 
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
 const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;

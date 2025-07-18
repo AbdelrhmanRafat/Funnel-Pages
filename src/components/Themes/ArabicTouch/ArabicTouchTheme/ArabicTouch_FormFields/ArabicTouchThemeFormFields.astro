@@ -12,7 +12,7 @@ const isHaveVariant: string = Astro.props.isHaveVariant;
 const product: Product = Astro.props.product;
 
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
 
 const reactProps = {
   data,

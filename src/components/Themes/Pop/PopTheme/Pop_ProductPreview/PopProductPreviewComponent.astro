@@ -11,7 +11,7 @@ import type { Item } from "../../../../../lib/api/types";
 import LucideIcon from "../../../../Shared/LucideIcon.astro";
 
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
 const isArabic = currentLang === "ar";
 
 const data: BlockData = Astro.props.data;

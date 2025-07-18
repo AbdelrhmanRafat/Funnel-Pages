@@ -28,21 +28,19 @@ const orderConfirmationNoticeData: BlockData = Astro.props.orderConfirmationNoti
 // Get the JSON order from parent component - this should be passed as a prop
 const componentJsonOrder: string[] = Astro.props.componentJsonOrder || [];
 
-// Define the valid component keys type using the actual enum values
+// Define the valid component keys type using the actual enum values (excluding Visitors as it's fixed at top)
 type ComponentKey = 
   | typeof FunnelClassicComponents.ClassicCoupon
   | typeof FunnelClassicComponents.ClassicFormFields
   | typeof FunnelClassicComponents.ClassicOrderConfirmationNotice
-  | typeof FunnelClassicComponents.ClassicOrderThroughWhatsapp
-  | typeof FunnelClassicComponents.ClassicVisitors;
+  | typeof FunnelClassicComponents.ClassicOrderThroughWhatsapp;
 
-// Map component keys to their data and types using actual enum values
+// Map component keys to their data and types using actual enum values (excluding Visitors)
 const componentDataMap: Record<ComponentKey, { type: ClassicProductInfoComponents; data: BlockData }> = {
   [FunnelClassicComponents.ClassicCoupon]: { type: ClassicProductInfoComponents.coupon, data: cuponData },
   [FunnelClassicComponents.ClassicFormFields]: { type: ClassicProductInfoComponents.FormFields, data: formFieldsData },
   [FunnelClassicComponents.ClassicOrderConfirmationNotice]: { type: ClassicProductInfoComponents.OrderConfirmation, data: orderConfirmationNoticeData },
   [FunnelClassicComponents.ClassicOrderThroughWhatsapp]: { type: ClassicProductInfoComponents.OrderThroghWhatsapp, data: orderThroughWhatsappData },
-  [FunnelClassicComponents.ClassicVisitors]: { type: ClassicProductInfoComponents.Visitores, data: fakeVisitorsData },
 };
 
 // Create dynamic components array based on JSON order
@@ -60,7 +58,7 @@ const dynamicComponents = componentJsonOrder
 // Extracts color and size options from the product data
 const isHaveVariant = product.is_have_variant;
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
 const isArabic = currentLang === "ar";
 
 ---
@@ -77,6 +75,11 @@ const isArabic = currentLang === "ar";
     >
       
       <!-- Fixed Order Components - Always render in this order if present -->
+      
+      <!-- Visitors Component - Fixed position at top -->
+      {fakeVisitorsData && (
+        <ClassicFakeVisitors data={fakeVisitorsData} />
+      )}
       
       <!-- Product Header Component - Always first -->
       {product && (
@@ -171,9 +174,9 @@ const isArabic = currentLang === "ar";
             );
           }
 
-          // Visitors Component
+          // Visitors Component - Skip as it's already rendered at the top in fixed position
           if (componentType === ClassicProductInfoComponents.Visitores) {
-            return <ClassicFakeVisitors data={componentData} />;
+            return null; // Already rendered at the top in fixed position
           }
 
           return null;

@@ -30,7 +30,7 @@ const availableAnchors = funnelPage?.blocks
   ?.filter((anchor): anchor is NonNullable<typeof anchor> => anchor !== null) || [];
 
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
 const isArabic = currentLang === "ar";
 
 // Order anchors based on render order
