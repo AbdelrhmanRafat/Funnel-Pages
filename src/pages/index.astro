@@ -63,19 +63,10 @@ if (!enumTheme) {
 }
 
 // === 5. Filter blocks by key if blockKeyParam is provided ===
-// === 5. Filter blocks by key if blockKeyParam is provided ===
 if (blockKeyParam && funnelPage.data.blocks?.length) {
   funnelPage.data.blocks = funnelPage.data.blocks.filter(
     (block) => block.key === blockKeyParam
   );
-
-  // 👇 Make product null if blockKey is passed
-  funnelPage.data.product = {} as Product;
-
-  // 👇 Optional: redirect if no block matches
-  if (funnelPage.data.blocks.length === 0) {
-    return Astro.redirect("/Page404");
-  }
 }
 ---
 <Layout

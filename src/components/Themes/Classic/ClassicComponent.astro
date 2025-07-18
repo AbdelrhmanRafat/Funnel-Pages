@@ -10,7 +10,7 @@ import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountdown/ClassicT
 import ClassicFaq from "./ClassicTheme/Classic_Faq/ClassicFaq.astro";
 import ClassicProductPreviewComponent from "./ClassicTheme/Classic_ProductPreview/ClassicProductPreviewComponent.astro";
 import { getClassicThemeComponent } from "../../../lib/utils/ThemeSelect";
-import type { BlockData, Data } from "../../../lib/api/types";
+import type { BlockData, Data, Product } from "../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../lib/constants/themes";
 import ClassicThemeFooter from "./ClassicTheme/ClassicThemeFooter/ClassicThemeFooter.astro";
 import ClassicThemeReviews from "./ClassicTheme/Classic_Theme_Reviews/ClassicThemeReviews.astro";
@@ -139,6 +139,22 @@ const orderThroughWhatsappData =
   isOrderThroughWhatsappDataFound.isComponentFound
     ? isOrderThroughWhatsappDataFound.componentData
     : undefined;
+
+
+// Final fallback: if all product-related components are not found, set product to empty object
+const isAnyProductComponentAvailable =
+  productFunnelData.isComponentFound ||
+  isFormFieldsDataFound.isComponentFound ||
+  isCuponDataFound.isComponentFound ||
+  isFakeVisitorsDataFound.isComponentFound ||
+  isRatingFound.isComponentFound ||
+  isOrderConfirmationNoticeFound.isComponentFound ||
+  isOrderThroughWhatsappDataFound.isComponentFound;
+
+if (!isAnyProductComponentAvailable) {
+  funnelPage.product = {} as Product;
+}
+
 ---
 
 <main class="classic-main-color">

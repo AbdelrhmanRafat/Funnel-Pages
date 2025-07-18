@@ -91,7 +91,7 @@ export function getClassicThemeComponent(name: string): FunnelClassicComponents 
       return FunnelClassicComponents.ClassicCoupon;
     case "classic_reviews":
       return FunnelClassicComponents.ClassicReviews;
-    case "classic_text_bar":
+    case "classic_text-bar":
       return FunnelClassicComponents.ClassicTextBar;
     case "classic_image_text_overlay":
       return FunnelClassicComponents.ClassicImageTextOverLay;
@@ -147,7 +147,7 @@ export function getTechnoThemeComponent(name: string): FunnelTechnoComponents | 
       return FunnelTechnoComponents.TechnoCoupon;
     case "techno_reviews":
       return FunnelTechnoComponents.TechnoReviews;
-    case "techno_text_bar":
+    case "techno_text-bar":
       return FunnelTechnoComponents.TechnoTextBar;
     case "techno_image_text_overlay":
       return FunnelTechnoComponents.TechnoImageTextOverLay;
@@ -203,7 +203,7 @@ export function getMinimalThemeComponent(name: string): FunnelMinimalComponents 
       return FunnelMinimalComponents.MinimalCoupon;
     case "minimal_reviews":
       return FunnelMinimalComponents.MinimalReviews;
-    case "minimal_text_bar":
+    case "minimal_text-bar":
       return FunnelMinimalComponents.MinimalTextBar;
     case "minimal_image_text_overlay":
       return FunnelMinimalComponents.MinimalImageTextOverLay;
@@ -259,7 +259,7 @@ export function getElegantThemeComponent(name: string): FunnelElegantComponents 
       return FunnelElegantComponents.ElegantCoupon;
     case "elegant_reviews":
       return FunnelElegantComponents.ElegantReviews;
-    case "elegant_text_bar":
+    case "elegant_text-bar":
       return FunnelElegantComponents.ElegantTextBar;
     case "elegant_image_text_overlay":
       return FunnelElegantComponents.ElegantImageTextOverLay;
@@ -315,7 +315,7 @@ export function getBoldThemeComponent(name: string): FunnelBoldComponents | unde
       return FunnelBoldComponents.BoldCoupon;
     case "bold_reviews":
       return FunnelBoldComponents.BoldReviews;
-    case "bold_text_bar":
+    case "bold_text-bar":
       return FunnelBoldComponents.BoldTextBar;
     case "bold_image_text_overlay":
       return FunnelBoldComponents.BoldImageTextOverLay;
@@ -371,7 +371,7 @@ export function getPopThemeComponent(name: string): FunnelPopComponents | undefi
       return FunnelPopComponents.PopCoupon;
     case "pop_reviews":
       return FunnelPopComponents.PopReviews;
-    case "pop_text_bar":
+    case "pop_text-bar":
       return FunnelPopComponents.PopTextBar;
     case "pop_image_text_overlay":
       return FunnelPopComponents.PopImageTextOverLay;
@@ -427,7 +427,7 @@ export function getArabicTouchThemeComponent(name: string): FunnelArabicTouchCom
       return FunnelArabicTouchComponents.ArabicTouchCoupon;
     case "arabic_touch_reviews":
       return FunnelArabicTouchComponents.ArabicTouchReviews;
-    case "arabic_touch_text_bar":
+    case "arabic_touch_text-bar":
       return FunnelArabicTouchComponents.ArabicTouchTextBar;
     case "arabic_touch_image_text_overlay":
       return FunnelArabicTouchComponents.ArabicTouchImageTextOverLay;
@@ -483,7 +483,7 @@ export function getNeonThemeComponent(name: string): FunnelNeonComponents | unde
       return FunnelNeonComponents.NeonCoupon;
     case "neon_reviews":
       return FunnelNeonComponents.NeonReviews;
-    case "neon_text_bar":
+    case "neon_text-bar":
       return FunnelNeonComponents.NeonTextBar;
     case "neon_image_text_overlay":
       return FunnelNeonComponents.NeonImageTextOverLay;
@@ -539,7 +539,7 @@ export function getZenThemeComponent(name: string): FunnelZenComponents | undefi
       return FunnelZenComponents.ZenCoupon;
     case "zen_reviews":
       return FunnelZenComponents.ZenReviews;
-    case "zen_text_bar":
+    case "zen_text-bar":
       return FunnelZenComponents.ZenTextBar;
     case "zen_image_text_overlay":
       return FunnelZenComponents.ZenImageTextOverLay;
@@ -595,7 +595,7 @@ export function getUrbanThemeComponent(name: string): FunnelUrbanComponents | un
       return FunnelUrbanComponents.UrbanCoupon;
     case "urban_reviews":
       return FunnelUrbanComponents.UrbanReviews;
-    case "urban_text_bar":
+    case "urban_text-bar":
       return FunnelUrbanComponents.UrbanTextBar;
     case "urban_image_text_overlay":
       return FunnelUrbanComponents.UrbanImageTextOverLay;
@@ -651,7 +651,7 @@ export function getRetroThemeComponent(name: string): FunnelRetroComponents | un
       return FunnelRetroComponents.RetroCoupon;
     case "retro_reviews":
       return FunnelRetroComponents.RetroReviews;
-    case "retro_text_bar":
+    case "retro_text-bar":
       return FunnelRetroComponents.RetroTextBar;
     case "retro_image_text_overlay":
       return FunnelRetroComponents.RetroImageTextOverLay;
@@ -707,7 +707,7 @@ export function getProThemeComponent(name: string): FunnelProComponents | undefi
       return FunnelProComponents.ProCoupon;
     case "pro_reviews":
       return FunnelProComponents.ProReviews;
-    case "pro_text_bar":
+    case "pro_text-bar":
       return FunnelProComponents.ProTextBar;
     case "pro_image_text_overlay":
       return FunnelProComponents.ProImageTextOverLay;
@@ -763,7 +763,7 @@ export function getFreshThemeComponent(name: string): FunnelFreshComponents | un
       return FunnelFreshComponents.FreshCoupon;
     case "fresh_reviews":
       return FunnelFreshComponents.FreshReviews;
-    case "fresh_text_bar":
+    case "fresh_text-bar":
       return FunnelFreshComponents.FreshTextBar;
     case "fresh_image_text_overlay":
       return FunnelFreshComponents.FreshImageTextOverLay;
