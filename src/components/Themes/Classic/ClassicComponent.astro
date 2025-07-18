@@ -1,6 +1,8 @@
 ---
 // This component is the main entry point for the Classic theme.
 // It orchestrates the rendering of various sub-components based on the data received from the API.
+// Header renders first, Footer renders last, Product renders second, and all other components
+// render in the exact order they appear in the JSON response.
 // Props:
 // - funnelPage: An object of type Data, containing all the information for the funnel page.
 import "./ClassicComponent.css";
@@ -27,15 +29,10 @@ import ClassicLogosCarousel from "./ClassicTheme/ClassicLogosCarousel/ClassicLog
 import ClassicButtonWithLink from "./ClassicTheme/ClassicButtonWithLink/ClassicButtonWithLink.astro";
 import LucideIcon from "../../Shared/LucideIcon.astro";
 
-
-interface ComponentCheckResult {
-  isComponentFound: boolean;
-  componentData: BlockData | undefined;
-}
-
 const funnelPage: Data = Astro.props.funnelPage;
 
 // Maps the block names from the API response to their corresponding Classic theme components and data.
+// This preserves the original order from the JSON file.
 const classicComponentNames: [FunnelClassicComponents, BlockData][] =
   funnelPage.blocks
     .map((block) => {
@@ -47,290 +44,159 @@ const classicComponentNames: [FunnelClassicComponents, BlockData][] =
         tuple !== undefined,
     );
 
-// Checks if a specific component is present in the API response and returns its data if found.
-function isComponentFound(
+// Helper function to find component data by name
+function getComponentData(
   componentName: FunnelClassicComponents,
-): ComponentCheckResult {
+): BlockData | undefined {
   const found = classicComponentNames.find(([comp]) => comp === componentName);
-  return {
-    isComponentFound: !!found,
-    componentData: found?.[1],
-  };
+  return found?.[1];
 }
 
-// Define render order - just change this array to reorder components!
-const RENDER_ORDER = [
-  FunnelClassicComponents.ClassicHeader,
-  FunnelClassicComponents.ClassicProductFunnel, // Always render (required)
-  FunnelClassicComponents.ClassicProductFeatures,
-  FunnelClassicComponents.ClassicProductPreview,
-  FunnelClassicComponents.ClassicProductUsage,
-  FunnelClassicComponents.classicLogosCarousel,
-  FunnelClassicComponents.ClassicButtonWithLink,
-  FunnelClassicComponents.classicTodayStatistics,
-  FunnelClassicComponents.ClassicGallery,
-  FunnelClassicComponents.Classic_Before_After,
-  FunnelClassicComponents.ClassicReviews,
-  FunnelClassicComponents.ClassicTextBar,
-  FunnelClassicComponents.ClassicImageTextOverLay,
-  FunnelClassicComponents.ClassicImageTextBeside,
-  FunnelClassicComponents.ClassicFaq,
-  FunnelClassicComponents.ClassicDeliveryFeatures,
-  FunnelClassicComponents.ClassicCountdown,
-  FunnelClassicComponents.ClassicFooter,
-];
+// Filter out Header, Product, and Footer components for separate handling
+const otherComponents = classicComponentNames.filter(
+  ([componentName]) =>
+    componentName !== FunnelClassicComponents.ClassicHeader &&
+    componentName !== FunnelClassicComponents.ClassicProductFunnel &&
+    componentName !== FunnelClassicComponents.ClassicFooter,
+);
 
-// Extracts purchase options and other data
-const productFunnelData = isComponentFound(
+// Extract specific component data
+const headerData = getComponentData(FunnelClassicComponents.ClassicHeader);
+const productFunnelData = getComponentData(
   FunnelClassicComponents.ClassicProductFunnel,
 );
+const footerData = getComponentData(FunnelClassicComponents.ClassicFooter);
 
-const isFormFieldsDataFound = isComponentFound(
+// Extract product-related data for special handling
+const formFieldsData = getComponentData(
   FunnelClassicComponents.ClassicFormFields,
 );
-
-
-const isCuponDataFound = isComponentFound(
-  FunnelClassicComponents.ClassicCoupon,
-);
-
-const isFakeVisitorsDataFound = isComponentFound(
+const cuponData = getComponentData(FunnelClassicComponents.ClassicCoupon);
+const fakeVisitorsData = getComponentData(
   FunnelClassicComponents.ClassicVisitors,
 );
-
-const isOrderThroughWhatsappDataFound = isComponentFound(
+const ratingData = getComponentData(FunnelClassicComponents.ClassicRates);
+const orderConfirmationNoticeData = getComponentData(
+  FunnelClassicComponents.ClassicOrderConfirmationNotice,
+);
+const orderThroughWhatsappData = getComponentData(
   FunnelClassicComponents.ClassicOrderThroughWhatsapp,
 );
 
-
-const isOrderConfirmationNoticeFound = isComponentFound(
-  FunnelClassicComponents.ClassicOrderConfirmationNotice,
-);
-const isRatingFound = isComponentFound(FunnelClassicComponents.ClassicRates);
-
-const purchaseOptions = productFunnelData.isComponentFound
-  ? productFunnelData.componentData?.purchase_options
-  : undefined;
-
-
-const formFieldsData = isFormFieldsDataFound.isComponentFound
-  ? isFormFieldsDataFound.componentData
-  : undefined;
-
-  const cuponData = isCuponDataFound.isComponentFound
-  ? isCuponDataFound.componentData
-  : undefined;
-
-  const fakeVisitorsData = isFakeVisitorsDataFound.isComponentFound
-  ? isFakeVisitorsDataFound.componentData
-  : undefined;
-  
-
-const ratingData = isRatingFound.isComponentFound
-  ? isRatingFound.componentData
-  : undefined;
-
-const orderConfirmationNoticeData =
-  isOrderConfirmationNoticeFound.isComponentFound
-    ? isOrderConfirmationNoticeFound.componentData
-    : undefined;
-
-const orderThroughWhatsappData =
-  isOrderThroughWhatsappDataFound.isComponentFound
-    ? isOrderThroughWhatsappDataFound.componentData
-    : undefined;
-
+const purchaseOptions = productFunnelData?.purchase_options;
 
 // Final fallback: if all product-related components are not found, set product to empty object
 const isAnyProductComponentAvailable =
-  productFunnelData.isComponentFound ||
-  isFormFieldsDataFound.isComponentFound ||
-  isCuponDataFound.isComponentFound ||
-  isFakeVisitorsDataFound.isComponentFound ||
-  isRatingFound.isComponentFound ||
-  isOrderConfirmationNoticeFound.isComponentFound ||
-  isOrderThroughWhatsappDataFound.isComponentFound;
+  productFunnelData ||
+  formFieldsData ||
+  cuponData ||
+  fakeVisitorsData ||
+  ratingData ||
+  orderConfirmationNoticeData ||
+  orderThroughWhatsappData;
 
 if (!isAnyProductComponentAvailable) {
   funnelPage.product = {} as Product;
 }
+const componentJsonOrder = funnelPage.blocks.map(block => block.key);
 
 ---
 
 <main class="classic-main-color">
   <section class="lg:container w-11/12 mx-auto flex flex-col gap-7">
-  {
-    RENDER_ORDER.map((componentName) => {
-      if (componentName === FunnelClassicComponents.ClassicHeader) {
-        const headerData = isComponentFound(
-          FunnelClassicComponents.ClassicHeader,
-        );
-        return headerData.isComponentFound ? (
-          <ClassicThemeHeader data={headerData.componentData} funnelPage={funnelPage} />
-        ) : null;
-      }
-      
-      if (
-  componentName === FunnelClassicComponents.ClassicProductFunnel &&
-  funnelPage.product &&
-  Object.keys(funnelPage.product).length > 0
-) {
-  return (
-    <ClassicThemeProduct
-      formFieldsData={formFieldsData}
-      ratingData={ratingData}
-      fakeVisitorsData={fakeVisitorsData}
-      orderConfirmationNoticeData={orderConfirmationNoticeData}
-      orderThroughWhatsappData={orderThroughWhatsappData}
-      product={funnelPage.product}
-      cuponData={cuponData}
-      purchaseOptions={purchaseOptions}
-    />
-  );
-}
-      if (componentName === FunnelClassicComponents.ClassicCountdown) {
-        const countdownData = isComponentFound(
-          FunnelClassicComponents.ClassicCountdown,
-        );
-        return countdownData.isComponentFound ? (
-          <ClassicThemeCountDown data={countdownData.componentData} />
-        ) : null;
-      }
-      
-      
-      if (componentName === FunnelClassicComponents.ClassicFaq) {
-        const faqData = isComponentFound(FunnelClassicComponents.ClassicFaq);
-        return faqData.isComponentFound ? (
-          <ClassicFaq data={faqData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.classicLogosCarousel) {
-        const logoscarouselData = isComponentFound(FunnelClassicComponents.classicLogosCarousel);
-        return logoscarouselData.isComponentFound ? (
-          <ClassicLogosCarousel data={logoscarouselData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicProductPreview) {
-        const productPreviewData = isComponentFound(
-          FunnelClassicComponents.ClassicProductPreview,
-        );
-        return productPreviewData.isComponentFound ? (
-          <ClassicProductPreviewComponent
-            data={productPreviewData.componentData}
-          />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicButtonWithLink) {
-        const buttonWithLinkData = isComponentFound(
-          FunnelClassicComponents.ClassicButtonWithLink,
-        );
-        return buttonWithLinkData.isComponentFound ? (
-          <ClassicButtonWithLink
-            data={buttonWithLinkData.componentData}
-          />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicGallery) {
-        const galleryData = isComponentFound(
-          FunnelClassicComponents.ClassicGallery,
-        );
-        return galleryData.isComponentFound ? (
-          <ClassicGridImages
-            data={galleryData.componentData}
-          />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.classicTodayStatistics) {
-        const todayOrdersData = isComponentFound(
-          FunnelClassicComponents.classicTodayStatistics,
-        );
-        return todayOrdersData.isComponentFound ? (
-          <ClassicThemeTodayStatistics
-            data={todayOrdersData.componentData}
-          />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicDeliveryFeatures) {
-        const deliveryFeaturesData = isComponentFound(
-          FunnelClassicComponents.ClassicDeliveryFeatures,
-        );
-        return deliveryFeaturesData.isComponentFound ? (
-          <ClassicDeliveryFeatures data={deliveryFeaturesData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicProductFeatures) {
-        const ProductFeaturesData = isComponentFound(
-          FunnelClassicComponents.ClassicProductFeatures,
-        );
-        return ProductFeaturesData.isComponentFound ? (
-          <ClassicProductFeatures data={ProductFeaturesData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicReviews) {
-        const ReviewsData = isComponentFound(
-          FunnelClassicComponents.ClassicReviews,
-        );
-        return ReviewsData.isComponentFound ? (
-          <ClassicThemeReviews data={ReviewsData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicTextBar) {
-        const TextBarData = isComponentFound(
-          FunnelClassicComponents.ClassicTextBar,
-        );
-        return TextBarData.isComponentFound ? (
-          <ClassicThemeTextBar data={TextBarData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicImageTextOverLay) {
-        const ImageTextData = isComponentFound(
-          FunnelClassicComponents.ClassicImageTextOverLay,
-        );
-        return ImageTextData.isComponentFound ? (
-          <ClassicImageTextOverlay data={ImageTextData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicImageTextBeside) {
-        const ImageTextData = isComponentFound(
-          FunnelClassicComponents.ClassicImageTextBeside,
-        );
-        return ImageTextData.isComponentFound ? (
-          <ClassicImageTextBeside data={ImageTextData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicProductUsage) {
-        const productUsageData = isComponentFound(
-          FunnelClassicComponents.ClassicProductUsage,
-        );
-        return productUsageData.isComponentFound ? (
-          <ClassicProductUsage data={productUsageData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.Classic_Before_After) {
-        const BeforeAfterData = isComponentFound(
-          FunnelClassicComponents.Classic_Before_After,
-        );
-        return BeforeAfterData.isComponentFound ? (
-          <ClassicBeforeAfter data={BeforeAfterData.componentData} />
-        ) : null;
-      }
-      if (componentName === FunnelClassicComponents.ClassicFooter) {
-        const footerData = isComponentFound(
-          FunnelClassicComponents.ClassicFooter,
-        );
-        return footerData.isComponentFound ? (
-          <ClassicThemeFooter data={footerData.componentData} />
-        ) : null;
-      }
-      return null;
-    })
-  }
-  <button id="scrollToTopBtn" class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 classic-scrollToTopBtn">
-   <LucideIcon name="MoveUp" width="32" height="32" />
+    <!-- Header - Always renders first if present -->
+    {
+      headerData && (
+        <ClassicThemeHeader data={headerData} funnelPage={funnelPage} />
+      )
+    }
 
-  </button>
+    <!-- Product - Always renders second if present -->
+    {
+      funnelPage.product && Object.keys(funnelPage.product).length > 0 && (
+        <ClassicThemeProduct
+          formFieldsData={formFieldsData}
+          ratingData={ratingData}
+          fakeVisitorsData={fakeVisitorsData}
+          orderConfirmationNoticeData={orderConfirmationNoticeData}
+          orderThroughWhatsappData={orderThroughWhatsappData}
+          product={funnelPage.product}
+          cuponData={cuponData}
+          purchaseOptions={purchaseOptions}
+          componentJsonOrder={componentJsonOrder}
+          Add
+          this
+          line
+        />
+      )
+    }
+
+    <!-- Other components - Render in JSON order -->
+    {
+      otherComponents.map(([componentName, componentData]) => {
+        switch (componentName) {
+          case FunnelClassicComponents.ClassicCountdown:
+            return <ClassicThemeCountDown data={componentData} />;
+
+          case FunnelClassicComponents.ClassicFaq:
+            return <ClassicFaq data={componentData} />;
+
+          case FunnelClassicComponents.classicLogosCarousel:
+            return <ClassicLogosCarousel data={componentData} />;
+
+          case FunnelClassicComponents.ClassicProductPreview:
+            return <ClassicProductPreviewComponent data={componentData} />;
+
+          case FunnelClassicComponents.ClassicButtonWithLink:
+            return <ClassicButtonWithLink data={componentData} />;
+
+          case FunnelClassicComponents.ClassicGallery:
+            return <ClassicGridImages data={componentData} />;
+
+          case FunnelClassicComponents.classicTodayStatistics:
+            return <ClassicThemeTodayStatistics data={componentData} />;
+
+          case FunnelClassicComponents.ClassicDeliveryFeatures:
+            return <ClassicDeliveryFeatures data={componentData} />;
+
+          case FunnelClassicComponents.ClassicProductFeatures:
+            return <ClassicProductFeatures data={componentData} />;
+
+          case FunnelClassicComponents.ClassicReviews:
+            return <ClassicThemeReviews data={componentData} />;
+
+          case FunnelClassicComponents.ClassicTextBar:
+            return <ClassicThemeTextBar data={componentData} />;
+
+          case FunnelClassicComponents.ClassicImageTextOverLay:
+            return <ClassicImageTextOverlay data={componentData} />;
+
+          case FunnelClassicComponents.ClassicImageTextBeside:
+            return <ClassicImageTextBeside data={componentData} />;
+
+          case FunnelClassicComponents.ClassicProductUsage:
+            return <ClassicProductUsage data={componentData} />;
+
+          case FunnelClassicComponents.Classic_Before_After:
+            return <ClassicBeforeAfter data={componentData} />;
+
+          default:
+            return null;
+        }
+      })
+    }
+
+    <!-- Footer - Always renders last if present -->
+    {footerData && <ClassicThemeFooter data={footerData} />}
+
+    <button
+      id="scrollToTopBtn"
+      class="fixed bottom-3 right-3 z-[50] md:bottom-5 md:right-5 classic-scrollToTopBtn"
+    >
+      <LucideIcon name="MoveUp" width="32" height="32" />
+    </button>
   </section>
 </main>
 <script>
-  import "./ClassicTheme.config"
+  import "./ClassicTheme.config";
 </script>

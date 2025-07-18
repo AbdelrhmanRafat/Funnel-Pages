@@ -3,7 +3,7 @@ import "./ClassicThemeProduct.css";
 import type { BlockData, Product } from "../../../../../lib/api/types";
 import { getTranslation } from "../../../../../lib/utils/i18n/translations";
 import type { Language } from "../../../../../lib/utils/i18n/translations";
-import { ClassicProductInfoComponents } from "../../../../../lib/constants/themes";
+import { ClassicProductInfoComponents, FunnelClassicComponents } from "../../../../../lib/constants/themes";
 import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
 import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
 import ClassicSelectionOptionsWithoutBundles from "../UI/ClassicSelectionOptionsVariantWithoutBundles/classicSelectionOptionsWithoutBundles.astro";
@@ -15,95 +15,54 @@ import ClassicCoupon from "../ClassicCoupon/ClassicCoupon.astro";
 import ClassicProductBundles from "../ClassicProductBundles/ClassicProductBundles.astro";
 import ClassicProductHeaderReact from "./ClassicProductHeaderReact";
 
-// Define render order for product info section - reorder as needed!
-const PRODUCT_INFO_RENDER_ORDER = [
-  ClassicProductInfoComponents.Visitores,
-  ClassicProductInfoComponents.ProductHeader,
-  ClassicProductInfoComponents.ProductDescription,
-  ClassicProductInfoComponents.PurchaseOptions,
-  ClassicProductInfoComponents.coupon,
-  ClassicProductInfoComponents.FormFields,
-  ClassicProductInfoComponents.OrderConfirmation,
-  ClassicProductInfoComponents.OrderThroghWhatsapp,
-];
-
 // Retrieves product and purchaseOptions from Astro's props.
 const product: Product = Astro.props.product;
 const purchaseOptions: BlockData = Astro.props.purchaseOptions;
 const formFieldsData: BlockData = Astro.props.formFieldsData;
 const ratingData: BlockData = Astro.props.ratingData;
-const orderThroughWhatsappData: BlockData =
-  Astro.props.orderThroughWhatsappData;
+const orderThroughWhatsappData: BlockData = Astro.props.orderThroughWhatsappData;
 const fakeVisitorsData: BlockData = Astro.props.fakeVisitorsData;
 const cuponData: BlockData = Astro.props.cuponData;
-const orderConfirmationNoticeData: BlockData =
-  Astro.props.orderConfirmationNoticeData;
+const orderConfirmationNoticeData: BlockData = Astro.props.orderConfirmationNoticeData;
+
+// Get the JSON order from parent component - this should be passed as a prop
+const componentJsonOrder: string[] = Astro.props.componentJsonOrder || [];
+
+// Define the valid component keys type using the actual enum values
+type ComponentKey = 
+  | typeof FunnelClassicComponents.ClassicCoupon
+  | typeof FunnelClassicComponents.ClassicFormFields
+  | typeof FunnelClassicComponents.ClassicOrderConfirmationNotice
+  | typeof FunnelClassicComponents.ClassicOrderThroughWhatsapp
+  | typeof FunnelClassicComponents.ClassicVisitors;
+
+// Map component keys to their data and types using actual enum values
+const componentDataMap: Record<ComponentKey, { type: ClassicProductInfoComponents; data: BlockData }> = {
+  [FunnelClassicComponents.ClassicCoupon]: { type: ClassicProductInfoComponents.coupon, data: cuponData },
+  [FunnelClassicComponents.ClassicFormFields]: { type: ClassicProductInfoComponents.FormFields, data: formFieldsData },
+  [FunnelClassicComponents.ClassicOrderConfirmationNotice]: { type: ClassicProductInfoComponents.OrderConfirmation, data: orderConfirmationNoticeData },
+  [FunnelClassicComponents.ClassicOrderThroughWhatsapp]: { type: ClassicProductInfoComponents.OrderThroghWhatsapp, data: orderThroughWhatsappData },
+  [FunnelClassicComponents.ClassicVisitors]: { type: ClassicProductInfoComponents.Visitores, data: fakeVisitorsData },
+};
+
+// Create dynamic components array based on JSON order
+const dynamicComponents = componentJsonOrder
+  .map(componentKey => {
+    // Type guard to ensure componentKey is a valid key
+    if (componentKey in componentDataMap) {
+      const componentInfo = componentDataMap[componentKey as ComponentKey];
+      return componentInfo && componentInfo.data ? componentInfo : null;
+    }
+    return null;
+  })
+  .filter(component => component !== null);
 
 // Extracts color and size options from the product data
 const isHaveVariant = product.is_have_variant;
 // Get initial language from cookie during SSR
-const currentLang: Language = (Astro.cookies.get("lang")?.value ||
-  "en") as Language;
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "en") as Language;
 const isArabic = currentLang === "ar";
 
-// Helper function to check if component data is available
-interface ComponentCheckResult {
-  isComponentFound: boolean;
-  componentData: any;
-}
-
-function isComponentDataAvailable(
-  componentType: ClassicProductInfoComponents,
-): ComponentCheckResult {
-  switch (componentType) {
-    case ClassicProductInfoComponents.ProductHeader:
-      return {
-        isComponentFound: !!product,
-        componentData: product,
-      };
-    case ClassicProductInfoComponents.ProductDescription:
-      return {
-        isComponentFound:
-          !!product && (!!product.description_ar || !!product.description_en),
-        componentData: product,
-      };
-    case ClassicProductInfoComponents.PurchaseOptions:
-      return {
-        isComponentFound: !!purchaseOptions,
-        componentData: purchaseOptions,
-      };
-    case ClassicProductInfoComponents.FormFields:
-      return {
-        isComponentFound: !!formFieldsData,
-        componentData: formFieldsData,
-      };
-    case ClassicProductInfoComponents.OrderConfirmation:
-      return {
-        isComponentFound: !!orderConfirmationNoticeData,
-        componentData: orderConfirmationNoticeData,
-      };
-    case ClassicProductInfoComponents.OrderThroghWhatsapp:
-      return {
-        isComponentFound: !!orderThroughWhatsappData,
-        componentData: orderThroughWhatsappData,
-      };
-    case ClassicProductInfoComponents.coupon:
-      return {
-        isComponentFound: !!cuponData,
-        componentData: cuponData,
-      };
-    case ClassicProductInfoComponents.Visitores:
-      return {
-        isComponentFound: !!fakeVisitorsData,
-        componentData: fakeVisitorsData,
-      };
-    default:
-      return {
-        isComponentFound: false,
-        componentData: null,
-      };
-  }
-}
 ---
 
 <section id="classic-product-details" class="classic-product-details-section">
@@ -112,82 +71,74 @@ function isComponentDataAvailable(
     <!-- Gallery Section -->
     {(<ClassicProductGalleryComponent product={product} />)}
 
-    <!-- Product Info Section with Array-Based Rendering -->
+    <!-- Product Info Section with Mixed Rendering -->
     <div
       class="lg:w-1/2 classic-product-details-container flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl"
     >
-      {
-        PRODUCT_INFO_RENDER_ORDER.map((componentType) => {
-          const componentCheck = isComponentDataAvailable(componentType);
-
-          if (!componentCheck.isComponentFound) {
-            return null;
-          }
-
-          // Product Header Component with Observer Web Component
-          if (componentType === ClassicProductInfoComponents.ProductHeader) {
-            return (
-              <div class="w-full">
-                <ClassicProductHeaderReact
+      
+      <!-- Fixed Order Components - Always render in this order if present -->
+      
+      <!-- Product Header Component - Always first -->
+      {product && (
+        <div class="w-full">
+          <ClassicProductHeaderReact
+            product={product}
+            purchaseOptions={purchaseOptions}
+            isHaveVariant={isHaveVariant}
+            ratingData={ratingData}
+            client:visible
+          />
+        </div>
+      )}
+      
+      <!-- Product Description Component - Always second -->
+      {product && (product.description_ar || product.description_en) && (
+        <>
+          <div class="w-full">
+            <h3
+              class="classic-product-details-description-header text-2xl font-bold pb-3"
+              data-translate="product.description"
+            >
+              {getTranslation("product.description", currentLang)}
+            </h3>
+            <p
+              class="classic-product-details-text-body leading-relaxed"
+              set:html={
+                isArabic ? product.description_ar : product.description_en
+              }
+            />
+          </div>
+          {!purchaseOptions && (
+            <>
+              <div class="w-full py-3">
+                <ClassicSelectionOptionsWithoutBundles
                   product={product}
-                  purchaseOptions={purchaseOptions}
-                  isHaveVariant={isHaveVariant}
-                  ratingData={ratingData}
-                  client:visible
                 />
               </div>
-            );
-          }
-
-          // Product Description Component
-          if (
-            componentType === ClassicProductInfoComponents.ProductDescription
-          ) {
-            return (
-              <>
-                <div class="w-full">
-                  <h3
-                    class="classic-product-details-description-header text-2xl font-bold pb-3"
-                    data-translate="product.description"
-                  >
-                    {getTranslation("product.description", currentLang)}
-                  </h3>
-                  <p
-                    class="classic-product-details-text-body leading-relaxed"
-                    set:html={
-                      isArabic ? product.description_ar : product.description_en
-                    }
-                  />
-                </div>
-                {!purchaseOptions && (
-                  <>
-                    <div class="w-full py-3">
-                      <ClassicSelectionOptionsWithoutBundles
-                        product={product}
-                      />
-                    </div>
-                    <div class="w-full">
-                      <ClassicProductCosts hasBundles="false" />
-                    </div>
-                  </>
-                )}
-              </>
-            );
-          }
-
-          // Purchase Options Component
-          if (componentType === ClassicProductInfoComponents.PurchaseOptions) {
-            return (
-              <ClassicProductBundles
-                product={product}
-                data={componentCheck.componentData}
-              />
-            );
-          }
+              <div class="w-full">
+                <ClassicProductCosts hasBundles="false" />
+              </div>
+            </>
+          )}
+        </>
+      )}
+      
+      <!-- Purchase Options Component - Always third -->
+      {purchaseOptions && (
+        <ClassicProductBundles
+          product={product}
+          data={purchaseOptions}
+        />
+      )}
+      
+      <!-- Dynamic Components - Render in JSON order -->
+      {
+        dynamicComponents.map((component) => {
+          const { type: componentType, data: componentData } = component;
 
           // Coupon Component
           if (componentType === ClassicProductInfoComponents.coupon) {
-            return <ClassicCoupon data={componentCheck.componentData} />;
+            return <ClassicCoupon data={componentData} />;
           }
 
           // Form Fields Component
@@ -195,7 +146,7 @@ function isComponentDataAvailable(
             return (
               <ClassicThemeFormFields
                 product={product}
-                data={componentCheck.componentData}
+                data={componentData}
                 purchaseOptions={purchaseOptions}
                 isHaveVariant={isHaveVariant}
               />
@@ -203,35 +154,32 @@ function isComponentDataAvailable(
           }
 
           // Order Confirmation Component
-          if (
-            componentType === ClassicProductInfoComponents.OrderConfirmation
-          ) {
+          if (componentType === ClassicProductInfoComponents.OrderConfirmation) {
             return (
               <ClassicOrderConfirmationNotice
-                data={componentCheck.componentData}
+                data={componentData}
+              />
+            );
+          }
+
+          // Order Through WhatsApp Component
+          if (componentType === ClassicProductInfoComponents.OrderThroghWhatsapp) {
+            return (
+              <ClassicOrderThroughWhatsapp
+                data={componentData}
               />
             );
           }
 
           // Visitors Component
           if (componentType === ClassicProductInfoComponents.Visitores) {
-            return <ClassicFakeVisitors data={componentCheck.componentData} />;
-          }
-
-          // Order Through WhatsApp Component
-          if (
-            componentType === ClassicProductInfoComponents.OrderThroghWhatsapp
-          ) {
-            return (
-              <ClassicOrderThroughWhatsapp
-                data={componentCheck.componentData}
-              />
-            );
+            return <ClassicFakeVisitors data={componentData} />;
           }
 
           return null;
         })
       }
+      
     </div>
   </div>
 </section>
