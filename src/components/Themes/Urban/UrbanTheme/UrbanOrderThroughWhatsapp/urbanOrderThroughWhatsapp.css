@@ -1,7 +1,0 @@
-/* === Order Confirmation Notice === */
-.urban-order-through-whatsapp {
-    background-color: var(--urban-color-surface);
-    color: var(--urban-color-on-surface);
-    border-radius: var(--urban-section-radius);
-    padding: var(--urban-section-padding);
-}

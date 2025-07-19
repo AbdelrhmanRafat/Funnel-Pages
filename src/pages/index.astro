@@ -7,18 +7,6 @@ import { getFunnelPage } from "../lib/api/funnel";
 import { getThemeFromString } from "../lib/utils/ThemeSelect";
 import type { FunnelRes, Product } from "../lib/api/types";
 import { Theme } from "../lib/constants/themes";
-import TechnoComponent from "../components/Themes/Techno/TechnoComponent.astro";
-import BoldComponent from "../components/Themes/Bold/BoldComponent.astro";
-import ZenComponent from "../components/Themes/Zen/ZenComponent.astro";
-import UrbanComponent from "../components/Themes/Urban/UrbanComponent.astro";
-import RetroComponent from "../components/Themes/Retro/RetroComponent.astro";
-import ProComponent from "../components/Themes/Pro/ProComponent.astro";
-import PopComponent from "../components/Themes/Pop/PopComponent.astro";
-import NeonComponent from "../components/Themes/Neon/NeonComponent.astro";
-import FreshComponent from "../components/Themes/Fresh/FreshComponent.astro";
-import ArabicTouchComponent from "../components/Themes/ArabicTouch/ArabicTouchComponent.astro";
-import MinimalComponent from "../components/Themes/Minimal/MinimalComponent.astro";
-import ElegantComponent from "../components/Themes/Elegant/ElegantComponent.astro";
 
 // === 1. Get the ID from path and validate it's a number ===
 const urlParams = Astro.url.searchParams;
@@ -83,30 +71,6 @@ if (blockKeyParam && funnelPage.data.blocks?.length) {
     switch (enumTheme) {
       case Theme.Classic:
         return <ClassicComponent funnelPage={funnelPage.data} />;
-      case Theme.Techno:
-        return <TechnoComponent funnelPage={funnelPage.data} />;
-      case Theme.Bold:
-        return <BoldComponent funnelPage={funnelPage.data} />;
-      case Theme.Zen:
-        return <ZenComponent funnelPage={funnelPage.data} />;
-      case Theme.Urban:
-        return <UrbanComponent funnelPage={funnelPage.data} />;
-      case Theme.Retro:
-        return <RetroComponent funnelPage={funnelPage.data} />;
-      case Theme.Pro:
-        return <ProComponent funnelPage={funnelPage.data} />;
-      case Theme.Pop:
-        return <PopComponent funnelPage={funnelPage.data} />;
-      case Theme.Neon:
-        return <NeonComponent funnelPage={funnelPage.data} />;
-      case Theme.Fresh:
-        return <FreshComponent funnelPage={funnelPage.data} />;
-      case Theme.ArabicTouch:
-        return <ArabicTouchComponent funnelPage={funnelPage.data} />;
-      case Theme.Minimal:
-        return <MinimalComponent funnelPage={funnelPage.data} />;
-      case Theme.Elegant:
-        return <ElegantComponent funnelPage={funnelPage.data} />;
       default:
         return <p>🚫 Theme not supported</p>;
     }

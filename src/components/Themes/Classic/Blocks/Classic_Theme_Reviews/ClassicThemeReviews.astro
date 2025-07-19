@@ -1,0 +1,66 @@
+---
+import "./ClassicThemeReviews.css";
+import type { BlockData, Item } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import ClassicBuyNowButton from "../../ClassicTheme/UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+const reviews: Item[] = data.items ?? [];
+---
+<section 
+  id={FunnelClassicComponents.ClassicReviews} 
+  class="classic-section"
+  aria-labelledby="reviews-heading"
+>
+  <h2 id="reviews-heading" class="classic-section-header">
+    {isArabic ? data.title_ar : data.title_en}
+  </h2>
+  
+  <div 
+    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8"
+    role="list"
+    aria-label="Customer reviews"
+  >
+    {reviews.map((review, index) => (
+      <article 
+        class="classic-review-card flex flex-col border-l-4"
+        role="listitem"
+        aria-labelledby={`review-author-${index}`}
+      >
+        <blockquote class="classic-review-description text-sm sm:text-base leading-relaxed mb-4 italic">
+          {review.content}
+        </blockquote>
+        
+        <div class="flex-1"></div>
+        
+        <footer class="classic-review-author flex flex-col gap-1">
+          <div class="flex justify-start items-center gap-2 sm:gap-3">
+            <div class="classic-review-author-image w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center">
+              <img
+                src={review.image}
+                alt=""
+                class="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <span 
+              id={`review-author-${index}`}
+              class="classic-review-name font-semibold text-sm sm:text-base"
+            >
+              {review.label}
+            </span>
+          </div>
+        </footer>
+      </article>
+    ))}
+  </div>
+  
+  <div class="classic-reviews-action flex justify-center mt-6 sm:mt-8">
+    <ClassicBuyNowButton />
+  </div>
+</section>

@@ -130,7 +130,7 @@
 
 /* === Body Font Application === */
 body {
-  font-family: var(--classic-font-family);
+  /* font-family: var(--classic-font-family); */
   background-color: var(--classic-color-background);
   color: var(--classic-color-on-background);
 }

@@ -6,27 +6,27 @@
 // Props:
 // - funnelPage: An object of type Data, containing all the information for the funnel page.
 import "./ClassicComponent.css";
-import ClassicThemeHeader from "./ClassicTheme/Classic_Header/ClassicThemeHeader.astro";
-import ClassicThemeProduct from "./ClassicTheme/ClassicThemeProduct/ClassicThemeProduct.astro";
-import ClassicThemeCountDown from "./ClassicTheme/ClassicThemeCountdown/ClassicThemeCountDown.astro";
-import ClassicFaq from "./ClassicTheme/Classic_Faq/ClassicFaq.astro";
-import ClassicProductPreviewComponent from "./ClassicTheme/Classic_ProductPreview/ClassicProductPreviewComponent.astro";
+import ClassicThemeHeader from "./Blocks/Classic_Header/ClassicThemeHeader.astro";
+import ClassicThemeProduct from "./Blocks/ClassicThemeProduct/ClassicThemeProduct.astro";
+import ClassicThemeCountDown from "./Blocks/ClassicThemeCountdown/ClassicThemeCountDown.astro";
+import ClassicFaq from "./Blocks/Classic_Faq/ClassicFaq.astro";
+import ClassicProductPreviewComponent from "./Blocks/Classic_ProductPreview/ClassicProductPreviewComponent.astro";
 import { getClassicThemeComponent } from "../../../lib/utils/ThemeSelect";
 import type { BlockData, Data, Product } from "../../../lib/api/types";
 import { FunnelClassicComponents } from "../../../lib/constants/themes";
-import ClassicThemeFooter from "./ClassicTheme/ClassicThemeFooter/ClassicThemeFooter.astro";
-import ClassicThemeReviews from "./ClassicTheme/Classic_Theme_Reviews/ClassicThemeReviews.astro";
-import ClassicProductUsage from "./ClassicTheme/Classic_ProductUsage/ClassicProductUsage.astro";
-import ClassicDeliveryFeatures from "./ClassicTheme/Classic_Delivery_Features/ClassicDeliveryFeatures.astro";
-import ClassicProductFeatures from "./ClassicTheme/Classic_Product_Features/ClassicProductFeatures.astro";
-import ClassicThemeTextBar from "./ClassicTheme/Classic_Text_Bar/classicThemeTextBar.astro";
-import ClassicBeforeAfter from "./ClassicTheme/ClassicBefore&AfterImage/classicBefore&After.astro";
-import ClassicImageTextOverlay from "./ClassicTheme/Classic_Image_Text_Overlay/classicImageTextOverlay.astro";
-import ClassicImageTextBeside from "./ClassicTheme/Classic_Image_Text_Beside/classicImageTextBeside.astro";
-import ClassicThemeTodayStatistics from "./ClassicTheme/ClassicThemeTodayStatistics/ClassicThemeTodayStatistics.astro";
-import ClassicGridImages from "./ClassicTheme/ClassicGridImagesComponent/classicGridImages.astro";
-import ClassicLogosCarousel from "./ClassicTheme/ClassicLogosCarousel/ClassicLogosCarousel.astro";
-import ClassicButtonWithLink from "./ClassicTheme/ClassicButtonWithLink/ClassicButtonWithLink.astro";
+import ClassicThemeFooter from "./Blocks/ClassicThemeFooter/ClassicThemeFooter.astro";
+import ClassicThemeReviews from "./Blocks/Classic_Theme_Reviews/ClassicThemeReviews.astro";
+import ClassicProductUsage from "./Blocks/Classic_ProductUsage/ClassicProductUsage.astro";
+import ClassicDeliveryFeatures from "./Blocks/Classic_Delivery_Features/ClassicDeliveryFeatures.astro";
+import ClassicProductFeatures from "./Blocks/Classic_Product_Features/ClassicProductFeatures.astro";
+import ClassicThemeTextBar from "./Blocks/Classic_Text_Bar/classicThemeTextBar.astro";
+import ClassicBeforeAfter from "./Blocks/ClassicBefore&AfterImage/classicBefore&After.astro";
+import ClassicImageTextOverlay from "./Blocks/Classic_Image_Text_Overlay/classicImageTextOverlay.astro";
+import ClassicImageTextBeside from "./Blocks/Classic_Image_Text_Beside/classicImageTextBeside.astro";
+import ClassicThemeTodayStatistics from "./Blocks/ClassicThemeTodayStatistics/ClassicThemeTodayStatistics.astro";
+import ClassicGridImages from "./Blocks/ClassicGridImagesComponent/classicGridImages.astro";
+import ClassicLogosCarousel from "./Blocks/ClassicLogosCarousel/ClassicLogosCarousel.astro";
+import ClassicButtonWithLink from "./Blocks/ClassicButtonWithLink/ClassicButtonWithLink.astro";
 import LucideIcon from "../../Shared/LucideIcon.astro";
 
 const funnelPage: Data = Astro.props.funnelPage;

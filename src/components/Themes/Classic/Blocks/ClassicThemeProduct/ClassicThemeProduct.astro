@@ -1,0 +1,192 @@
+---
+import "./ClassicThemeProduct.css";
+import type { BlockData, Product } from "../../../../../lib/api/types";
+import { getTranslation } from "../../../../../lib/utils/i18n/translations";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { ClassicProductInfoComponents, FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import ClassicThemeFormFields from "../Classic_FormFields/ClassicThemeFormFields.astro";
+import ClassicOrderConfirmationNotice from "../Classic_OrderConfirmationNotice/ClassicOrderConfirmationNotice.astro";
+import ClassicOrderThroughWhatsapp from "../ClassicOrderThroughWhatsapp/classicOrderThroughWhatsapp.astro";
+import ClassicFakeVisitors from "../ClassicFakeVisitors/ClassicFakeVisitors.astro";
+import ClassicCoupon from "../ClassicCoupon/ClassicCoupon.astro";
+import ClassicProductHeaderReact from "./ClassicProductHeaderReact";
+import ClassicProductGalleryComponent from "../../ClassicTheme/ClassicThemeProductInteraction/ClassicProductGallery/ClassicProductGalleryComponent.astro";
+import ClassicSelectionOptionsWithoutBundles from "../../ClassicTheme/ClassicThemeProductInteraction/ClassicSelectionOptionsVariantWithoutBundles/classicSelectionOptionsWithoutBundles.astro";
+import ClassicProductCosts from "../../ClassicTheme/ClassicThemeProductInteraction/ClassicProductCosts/classicProductCosts.astro";
+import ClassicProductBundles from "../../ClassicTheme/ClassicProductBundles/ClassicProductBundles.astro";
+
+// Retrieves product and purchaseOptions from Astro's props.
+const product: Product = Astro.props.product;
+const purchaseOptions: BlockData = Astro.props.purchaseOptions;
+const formFieldsData: BlockData = Astro.props.formFieldsData;
+const ratingData: BlockData = Astro.props.ratingData;
+const orderThroughWhatsappData: BlockData = Astro.props.orderThroughWhatsappData;
+const fakeVisitorsData: BlockData = Astro.props.fakeVisitorsData;
+const cuponData: BlockData = Astro.props.cuponData;
+const orderConfirmationNoticeData: BlockData = Astro.props.orderConfirmationNoticeData;
+
+// Get the JSON order from parent component - this should be passed as a prop
+const componentJsonOrder: string[] = Astro.props.componentJsonOrder || [];
+
+// Define the valid component keys type using the actual enum values (excluding Visitors as it's fixed at top)
+type ComponentKey = 
+  | typeof FunnelClassicComponents.ClassicCoupon
+  | typeof FunnelClassicComponents.ClassicFormFields
+  | typeof FunnelClassicComponents.ClassicOrderConfirmationNotice
+  | typeof FunnelClassicComponents.ClassicOrderThroughWhatsapp;
+
+// Map component keys to their data and types using actual enum values (excluding Visitors)
+const componentDataMap: Record<ComponentKey, { type: ClassicProductInfoComponents; data: BlockData }> = {
+  [FunnelClassicComponents.ClassicCoupon]: { type: ClassicProductInfoComponents.coupon, data: cuponData },
+  [FunnelClassicComponents.ClassicFormFields]: { type: ClassicProductInfoComponents.FormFields, data: formFieldsData },
+  [FunnelClassicComponents.ClassicOrderConfirmationNotice]: { type: ClassicProductInfoComponents.OrderConfirmation, data: orderConfirmationNoticeData },
+  [FunnelClassicComponents.ClassicOrderThroughWhatsapp]: { type: ClassicProductInfoComponents.OrderThroghWhatsapp, data: orderThroughWhatsappData },
+};
+
+// Create dynamic components array based on JSON order
+const dynamicComponents = componentJsonOrder
+  .map(componentKey => {
+    // Type guard to ensure componentKey is a valid key
+    if (componentKey in componentDataMap) {
+      const componentInfo = componentDataMap[componentKey as ComponentKey];
+      return componentInfo && componentInfo.data ? componentInfo : null;
+    }
+    return null;
+  })
+  .filter(component => component !== null);
+
+// Extracts color and size options from the product data
+const isHaveVariant = product.is_have_variant;
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
+const isArabic = currentLang === "ar";
+
+---
+
+<section id="classic-product-details" class="classic-product-details-section">
+  <div class="flex flex-col lg:flex-row gap-5">
+    
+    <!-- Gallery Section -->
+    {(<ClassicProductGalleryComponent product={product} />)}
+
+    <!-- Product Info Section with Mixed Rendering -->
+    <div
+      class="lg:w-1/2 classic-product-details-container flex flex-col gap-3 justify-center items-center md:px-8 md:py-3 rounded-xl"
+    >
+      
+      <!-- Fixed Order Components - Always render in this order if present -->
+      
+      <!-- Visitors Component - Fixed position at top -->
+      {fakeVisitorsData && (
+        <ClassicFakeVisitors data={fakeVisitorsData} />
+      )}
+      
+      <!-- Product Header Component - Always first -->
+      {product && (
+        <div class="w-full">
+          <ClassicProductHeaderReact
+            product={product}
+            purchaseOptions={purchaseOptions}
+            isHaveVariant={isHaveVariant}
+            ratingData={ratingData}
+            client:visible
+          />
+        </div>
+      )}
+      
+      <!-- Product Description Component - Always second -->
+      {product && (product.description_ar || product.description_en) && (
+        <>
+          <div class="w-full">
+            <h3
+              class="classic-product-details-description-header text-2xl font-bold pb-3"
+              data-translate="product.description"
+            >
+              {getTranslation("product.description", currentLang)}
+            </h3>
+            <p
+              class="classic-product-details-text-body leading-relaxed"
+              set:html={
+                isArabic ? product.description_ar : product.description_en
+              }
+            />
+          </div>
+          {!purchaseOptions && (
+            <>
+              <div class="w-full py-3">
+                <ClassicSelectionOptionsWithoutBundles
+                  product={product}
+                />
+              </div>
+              <div class="w-full">
+                <ClassicProductCosts hasBundles="false" />
+              </div>
+            </>
+          )}
+        </>
+      )}
+      
+      <!-- Purchase Options Component - Always third -->
+      {purchaseOptions && (
+        <ClassicProductBundles
+          product={product}
+          data={purchaseOptions}
+        />
+      )}
+      
+      <!-- Dynamic Components - Render in JSON order -->
+      {
+        dynamicComponents.map((component) => {
+          const { type: componentType, data: componentData } = component;
+
+          // Coupon Component
+          if (componentType === ClassicProductInfoComponents.coupon) {
+            return <ClassicCoupon data={componentData} />;
+          }
+
+          // Form Fields Component
+          if (componentType === ClassicProductInfoComponents.FormFields) {
+            return (
+              <ClassicThemeFormFields
+                product={product}
+                data={componentData}
+                purchaseOptions={purchaseOptions}
+                isHaveVariant={isHaveVariant}
+              />
+            );
+          }
+
+          // Order Confirmation Component
+          if (componentType === ClassicProductInfoComponents.OrderConfirmation) {
+            return (
+              <ClassicOrderConfirmationNotice
+                data={componentData}
+              />
+            );
+          }
+
+          // Order Through WhatsApp Component
+          if (componentType === ClassicProductInfoComponents.OrderThroghWhatsapp) {
+            return (
+              <ClassicOrderThroughWhatsapp
+                data={componentData}
+              />
+            );
+          }
+
+          // Visitors Component - Skip as it's already rendered at the top in fixed position
+          if (componentType === ClassicProductInfoComponents.Visitores) {
+            return null; // Already rendered at the top in fixed position
+          }
+
+          return null;
+        })
+      }
+      
+    </div>
+  </div>
+</section>
+
+<script>
+  import "./ClassicThemeProduct";
+</script>

@@ -1,7 +1,0 @@
-.bold-form-submit {
-    width: 100%;
-    background-color: var(--bold-color-primary);
-    color: var(--bold-color-on-primary);
-    padding: 1rem;
-    border-radius: var(--bold-section-radius);
-}

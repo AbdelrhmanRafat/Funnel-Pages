@@ -1,7 +1,0 @@
-.pop-form-submit {
-    width: 100%;
-    background-color: var(--pop-color-primary);
-    color: var(--pop-color-on-primary);
-    padding: 1rem;
-    border-radius: var(--pop-section-radius);
-}

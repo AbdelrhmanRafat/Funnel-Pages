@@ -1,7 +1,7 @@
 import React from 'react';
 import { getTranslation, type Language } from "../../../../../../../lib/utils/i18n/translations";
 import './InvoiceActions.css';
-import ClassicConfirmPurchaseButtonReact from '../../../UI/ClassicConfirmPurchaseButton/ClassicConfirmPurchaseButtonReact';
+import ClassicConfirmPurchaseButtonReact from '../../../ClassicThemeProductInteraction/ClassicConfirmPurchaseButton/ClassicConfirmPurchaseButtonReact';
 
 interface InvoiceActionsProps {
   isProcessing: boolean;

@@ -1,0 +1,109 @@
+---
+// This component renders a preview of the product for the Classic theme.
+// Props:
+// - data: An object of type BlockData, containing product preview information.
+import "./ClassicProductPreviewComponent.css"
+import type { BlockData, VideoInfoItem } from "../../../../../lib/api/types";
+import type { Language } from "../../../../../lib/utils/i18n/translations";
+import { FunnelClassicComponents } from "../../../../../lib/constants/themes";
+import type { Item } from "../../../../../lib/api/types";
+import LucideIcon from "../../../../Shared/LucideIcon.astro";
+import ClassicBuyNowButton from "../../ClassicTheme/UI/ClassicBuyNowButton/ClassicBuyNowButton.astro";
+
+// Get initial language from cookie during SSR
+const currentLang: Language = (Astro.cookies.get("lang")?.value || "ar") as Language;
+const isArabic = currentLang === "ar";
+
+const data: BlockData = Astro.props.data;
+const productPreview: VideoInfoItem | undefined = data.videoInfo?.[0];
+const items: Item[] = data.items ?? [];
+---
+
+<section 
+  id={FunnelClassicComponents.ClassicProductPreview} 
+  class="classic-section"
+>
+  <!-- Header -->
+  <div class="classic-section-header">
+    {data.icon && <LucideIcon name={data.icon as any} width="48" height="48" />}
+    <h5>{isArabic ? data.title_ar : data.title_en}</h5>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch">
+    <!-- Video Section (3/5 width on desktop) -->
+    <div class="w-full lg:w-3/5 order-2 lg:order-1">
+      <div class="classic-productpreview-div-video relative overflow-hidden h-[300px] md:h-[400px] lg:h-full lg:min-h-[450px] border-4 rounded-2xl">
+        {productPreview?.videoLink ? (
+          <iframe
+            class="w-full h-full rounded-[inherit]"
+            src={productPreview.videoLink}
+            title={productPreview.videoTitle || "Product video"}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          >
+          </iframe>
+        ) : (
+          <div class="w-full h-full flex items-center justify-center classic-productpreview-div-placeholder rounded-[inherit]">
+            <span class="classic-productpreview-span-notvideo">Video not available</span>
+          </div>
+        )}
+        
+        {productPreview?.videoTitle && (
+          <div class="classic-productpreview-div-videotitle absolute bottom-4 right-4 text-xl sm:text-2xl lg:text-3xl font-bold z-10">
+            <p class="classic-productpreview-p-title">{productPreview.videoTitle}</p>
+          </div>
+        )}
+      </div>
+    </div>
+    
+    <!-- Features Section (2/5 width on desktop) -->
+    <div class="w-full lg:w-2/5 order-1 lg:order-2">
+      <div class="classic-productpreview-div-features h-full flex flex-col p-6 md:p-8 lg:p-10 rounded-2xl">
+        <!-- Features Header -->
+        {productPreview?.title && (
+          <div class="classic-productpreview-div-header pb-4 mb-6 border-b">
+            <div class="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center sm:gap-4">
+              <h2 class="classic-productpreview-h2-title text-xl sm:text-2xl md:text-3xl font-bold">
+                {productPreview.title}
+              </h2>
+              {productPreview?.viewsText && (
+                <div class="classic-productpreview-div-viewsbadge w-fit flex-shrink-0 py-2 px-4 md:py-3 md:px-6 text-sm md:text-base flex items-center gap-2 rounded-2xl">
+                  {productPreview.viewsIcon && (
+                  <LucideIcon name={productPreview.viewsIcon as any} width="32" height="32" /> 
+                  )}
+                  <span class="classic-productpreview-span-views truncate">{productPreview.viewsText}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        
+        <!-- Feature List -->
+        <div class="flex-1 space-y-6 md:space-y-8">
+          {items.map((feature) => (
+            <div class="classic-productpreview-div-featureitem flex items-start gap-4 md:gap-6">
+              <div class="classic-productpreview-div-featureicon rounded-full flex-shrink-0 flex items-center justify-center w-10 h-10 md:w-12 md:h-12">
+                {feature.icon && <LucideIcon name={feature.icon as any} width="32" height="32" />}
+              </div>
+              <div class="classic-productpreview-div-featurecontent flex-1 min-w-0 text-right">
+                <div class="classic-productpreview-div-featuretitle font-semibold text-base md:text-lg leading-snug">
+                  {feature.label}
+                </div>
+                <div class="classic-productpreview-div-featuresubtitle text-sm md:text-base leading-relaxed mt-2">
+                  {feature.content}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <!-- Buy Now Button -->
+        <div class="classic-productpreview-div-buttoncontainer mt-6 pt-6 md:mt-8 md:pt-8 border-t">
+          <ClassicBuyNowButton />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
