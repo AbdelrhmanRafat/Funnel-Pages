@@ -1,0 +1,58 @@
+{
+"classic_button_with_link": {
+    "key": "classic_button_with_link",
+    "name": "Button With Link",
+    "formFields": [
+      {
+        "label": "Title (Arabic)",
+        "type": "text-input",
+        "value": "title_ar",
+        "required": true,
+        "minLength": 3,
+        "maxLength": 50
+      },
+      {
+        "label": "Title (English)",
+        "type": "text-input",
+        "value": "title_en",
+        "required": true,
+        "minLength": 3,
+        "maxLength": 50
+      },
+      {
+        "label": "Icon",
+        "type": "icon-selector",
+        "value": "icon"
+      },
+      {
+        "label": "Description",
+        "type": "textarea",
+        "value": "description",
+        "maxLength": 300
+      },
+      {
+        "label": "Link Items",
+        "type": "array-manager",
+        "value": "items",
+        "required": true,
+        "minItems": 1,
+        "maxItems": 5,
+        "arrayFields": [
+          {
+            "label": "Link Label",
+            "type": "text-input",
+            "value": "label",
+            "required": true,
+            "maxLength": 50
+          },
+          {
+            "label": "Link URL",
+            "type": "url-input",
+            "value": "link",
+            "required": true
+          }
+        ]
+      }
+    ]
+  }
+}
